@@ -154,14 +154,14 @@ namespace PokemonGo.RocketAPI.Console
             ColoredConsoleWrite(ConsoleColor.DarkGray, "Latitude: " + ClientSettings.DefaultLatitude);
             ColoredConsoleWrite(ConsoleColor.DarkGray, "Longitude: " + ClientSettings.DefaultLongitude);
             ColoredConsoleWrite(ConsoleColor.Yellow, "----------------------------");
-            ColoredConsoleWrite(ConsoleColor.DarkGray, "Random Profile Data");
+            ColoredConsoleWrite(ConsoleColor.DarkGray, "Random Profile Data\n");
             ColoredConsoleWrite(ConsoleColor.DarkGray, profile.ToString());
 
 
 
             try
             {
-                ColoredConsoleWrite(ConsoleColor.Cyan, "Farming Started");
+                ColoredConsoleWrite(ConsoleColor.Cyan, "\nFarming Started");
                 ColoredConsoleWrite(ConsoleColor.Yellow, "----------------------------");
                 if (ClientSettings.TransferType == "leaveStrongest")
                     await TransferAllButStrongestUnwantedPokemon(client);
