@@ -1,4 +1,4 @@
-﻿#region
+#region
 
 using System;
 using System.Linq;
@@ -19,7 +19,7 @@ namespace PokemonGo.RocketAPI
     public class Client
     {
         private readonly HttpClient _httpClient;
-        private readonly ISettings _settings;
+        private ISettings _settings;
         private string _accessToken;
         private string _apiUrl;
         private AuthType _authType = AuthType.Google;
@@ -27,6 +27,7 @@ namespace PokemonGo.RocketAPI
         private double _currentLat;
         private double _currentLng;
         private Request.Types.UnknownAuth _unknownAuth;
+        static string accestoken = string.Empty;
 
         public Client(ISettings settings)
         {
@@ -77,15 +78,21 @@ namespace PokemonGo.RocketAPI
 
         public async Task DoGoogleLogin()
         {
-            if (_settings.GoogleRefreshToken == string.Empty)
+            if (_settings.GoogleRefreshToken == string.Empty && accestoken == string.Empty)
             {
                 var tokenResponse = await GoogleLogin.GetAccessToken();
                 _accessToken = tokenResponse.id_token;
+                _settings.GoogleRefreshToken = tokenResponse.access_token;
                 Console.WriteLine($"Put RefreshToken in settings for direct login: {tokenResponse.access_token}");
+                accestoken = tokenResponse.access_token;
             }
             else
             {
-                var tokenResponse = await GoogleLogin.GetAccessToken(_settings.GoogleRefreshToken);
+                PokemonGo.RocketAPI.Login.GoogleLogin.TokenResponseModel tokenResponse;
+                if (_settings.GoogleRefreshToken != string.Empty)
+                    tokenResponse = await GoogleLogin.GetAccessToken(_settings.GoogleRefreshToken);
+                else
+                    tokenResponse = await GoogleLogin.GetAccessToken(accestoken);
                 _accessToken = tokenResponse.id_token;
                 _authType = AuthType.Google;
             }
