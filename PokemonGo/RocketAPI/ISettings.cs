@@ -1,6 +1,7 @@
 #region
 
 using PokemonGo.RocketAPI.Enums;
+using System.Collections.Generic;
 
 #endregion
 
@@ -19,5 +20,7 @@ namespace PokemonGo.RocketAPI
         bool EvolveAllGivenPokemons { get; }
         string TransferType { get; }
         int TransferCPThreshold { get; }
+        ICollection<KeyValuePair<AllEnum.ItemId, int>> ItemRecycleFilter { get; set; }
+        int RecycleItemsInterval { get; }
     }
 }

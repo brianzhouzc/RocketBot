@@ -4,6 +4,9 @@ using System.Configuration;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using PokemonGo.RocketAPI.Enums;
+using System.Collections.Generic;
+using AllEnum;
+using System;
 
 #endregion
 
@@ -36,6 +39,31 @@ namespace PokemonGo.RocketAPI.Console
 
         public int LevelTimeInterval => GetSetting() != string.Empty ? System.Convert.ToInt16(GetSetting()) : 600;
 
+        ICollection<KeyValuePair<ItemId, int>> ISettings.ItemRecycleFilter
+        {
+            get
+            {
+                //Type and amount to keep
+                return new[]
+                {
+                    new KeyValuePair<ItemId, int>(ItemId.ItemPokeBall, 20),
+                    new KeyValuePair<ItemId, int>(ItemId.ItemGreatBall, 50),
+                    new KeyValuePair<ItemId, int>(ItemId.ItemUltraBall, 100),
+                    new KeyValuePair<ItemId, int>(ItemId.ItemMasterBall, 200),
+                    new KeyValuePair<ItemId, int>(ItemId.ItemRevive, 20),
+                    new KeyValuePair<ItemId, int>(ItemId.ItemPotion, 0),
+                    new KeyValuePair<ItemId, int>(ItemId.ItemSuperPotion, 0),
+                    new KeyValuePair<ItemId, int>(ItemId.ItemHyperPotion, 50)
+                };
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public int RecycleItemsInterval => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 60;
 
         public string GoogleRefreshToken
         {
