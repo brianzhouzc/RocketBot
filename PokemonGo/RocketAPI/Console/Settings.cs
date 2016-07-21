@@ -1,4 +1,4 @@
-﻿#region
+#region
 
 using System.Configuration;
 using System.Globalization;
@@ -31,6 +31,10 @@ namespace PokemonGo.RocketAPI.Console
         //Default Amsterdam Central Station if another location is not specified
 
         // LEAVE EVERYTHING ALONE
+
+        public string LevelOutput => GetSetting() != string.Empty ? GetSetting() : "time";
+
+        public int LevelTimeInterval => GetSetting() != string.Empty ? System.Convert.ToInt16(GetSetting()) : 600;
 
 
         public string GoogleRefreshToken
