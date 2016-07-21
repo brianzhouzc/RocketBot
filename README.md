@@ -11,7 +11,8 @@ A Pokemon Go bot in C#
 * Farm all pokemons in neighbourhood
 * Evolve pokemons
 * Transfer pokemons
-* Auto Updates
+* Auto recycle not needed items
+* Output level and needed XP for levelup
 
 ## Getting Started
 
