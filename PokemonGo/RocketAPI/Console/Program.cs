@@ -158,6 +158,7 @@ namespace PokemonGo.RocketAPI.Console
             ColoredConsoleWrite(ConsoleColor.DarkGray, "Name: " + profile.Profile.Username);
             ColoredConsoleWrite(ConsoleColor.DarkGray, "Team: " + profile.Profile.Team);
             ColoredConsoleWrite(ConsoleColor.DarkGray, "Stardust: " + profile.Profile.Currency.ToArray()[1].Amount);
+            await PrintLevelStartUp(client);
 
 
             try
@@ -465,7 +466,7 @@ namespace PokemonGo.RocketAPI.Console
 
             ColoredConsoleWrite(ConsoleColor.Gray, $"[{DateTime.Now.ToString("HH:mm:ss")}] Finished grinding all the meat");
         }
-        
+
         public static async Task PrintLevel(Client client)
         {
             var inventory = await client.GetInventory();
@@ -483,6 +484,15 @@ namespace PokemonGo.RocketAPI.Console
 
             await Task.Delay(ClientSettings.LevelTimeInterval * 1000);
             PrintLevel(client);
+        }
+
+        public static async Task PrintLevelStartUp(Client client)
+        {
+            var inventory = await client.GetInventory();
+            var stats = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PlayerStats).ToArray();
+            foreach (var v in stats)
+                if (v != null)
+                    ColoredConsoleWrite(ConsoleColor.DarkGray, "Level: " + v.Level + " (" + v.Experience + "/" + v.NextLevelXp + ")");
         }
     }
 }
