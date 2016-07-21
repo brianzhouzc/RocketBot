@@ -1,4 +1,4 @@
-﻿#region
+#region
 
 using System;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace PokemonGo.RocketAPI.Console
         
 
         public static void CheckVersion()
-        {
+        { 
             try
             {
                 var match =
@@ -157,8 +157,6 @@ namespace PokemonGo.RocketAPI.Console
             ColoredConsoleWrite(ConsoleColor.DarkGray, "Random Profile Data\n");
             ColoredConsoleWrite(ConsoleColor.DarkGray, profile.ToString());
 
-
-
             try
             {
                 ColoredConsoleWrite(ConsoleColor.Cyan, "\nFarming Started");
@@ -177,6 +175,7 @@ namespace PokemonGo.RocketAPI.Console
                     await EvolveAllGivenPokemons(client, pokemons);
 
                 await Task.Delay(5000);
+                PrintLevel(client);
                 await ExecuteFarmingPokestopsAndPokemons(client);
                 ColoredConsoleWrite(ConsoleColor.Red, $"[{DateTime.Now.ToString("HH:mm:ss")}] Unexpected stop? Restarting in 20 seconds.");
                 await Task.Delay(20000);
@@ -459,6 +458,18 @@ namespace PokemonGo.RocketAPI.Console
             }
 
             ColoredConsoleWrite(ConsoleColor.Gray, $"[{DateTime.Now.ToString("HH:mm:ss")}] Finished grinding all the meat");
+        }
+
+
+        public static async Task PrintLevel(Client client)
+        {
+            var inventory = await client.GetInventory();
+            var stats = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PlayerStats).ToArray();
+            foreach (var v in stats)
+                if (v != null)
+                    ColoredConsoleWrite(ConsoleColor.Yellow, $"[{DateTime.Now.ToString("HH:mm:ss")}] Current Level: " + v.Level);
+            await Task.Delay(60000);
+            PrintLevel(client);
         }
     }
 }
