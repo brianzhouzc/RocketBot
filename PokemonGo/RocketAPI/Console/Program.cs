@@ -105,7 +105,7 @@ namespace PokemonGo.RocketAPI.Console
 
                     if (evolvePokemonOutProto.Result == 1)
                     {
-                        ColoredConsoleWrite(ConsoleColor.White, 
+                        ColoredConsoleWrite(ConsoleColor.Cyan, 
                             $"[{DateTime.Now.ToString("HH:mm:ss")}] Evolved {pokemon.PokemonId} successfully for {evolvePokemonOutProto.ExpAwarded}xp");
 
                         countOfEvolvedUnits++;
@@ -123,7 +123,7 @@ namespace PokemonGo.RocketAPI.Console
                     }
                 } while (evolvePokemonOutProto.Result == 1);
                 if (countOfEvolvedUnits > 0)
-                    ColoredConsoleWrite(ConsoleColor.White, 
+                    ColoredConsoleWrite(ConsoleColor.Cyan, 
                         $"[{DateTime.Now.ToString("HH:mm:ss")}] Evolved {countOfEvolvedUnits} pieces of {pokemon.PokemonId} for {xpCount}xp");
 
                 await Task.Delay(3000);
@@ -205,13 +205,14 @@ namespace PokemonGo.RocketAPI.Console
             {
                 var update = await client.UpdatePlayerLocation(pokemon.Latitude, pokemon.Longitude);
                 var encounterPokemonResponse = await client.EncounterPokemon(pokemon.EncounterId, pokemon.SpawnpointId);
+                var pokemonCP = encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp;
                 CatchPokemonResponse caughtPokemonResponse;
                 do
                 {
                     caughtPokemonResponse =
                         await
                             client.CatchPokemon(pokemon.EncounterId, pokemon.SpawnpointId, pokemon.Latitude,
-                                pokemon.Longitude, MiscEnums.Item.ITEM_POKE_BALL);
+                                pokemon.Longitude, MiscEnums.Item.ITEM_POKE_BALL, pokemonCP);
                     ; //note: reverted from settings because this should not be part of settings but part of logic
                 } while (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed);
                 ColoredConsoleWrite(ConsoleColor.Green, caughtPokemonResponse.Status ==

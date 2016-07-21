@@ -50,12 +50,12 @@ namespace PokemonGo.RocketAPI
         }
 
         public async Task<CatchPokemonResponse> CatchPokemon(ulong encounterId, string spawnPointGuid, double pokemonLat,
-            double pokemonLng, MiscEnums.Item pokeball)
+            double pokemonLng, MiscEnums.Item pokeball, int? pokemonCP)
         {
             var customRequest = new Request.Types.CatchPokemonRequest
             {
                 EncounterId = encounterId,
-                Pokeball = (int) GetBestBall().Result,
+                Pokeball = (int) GetBestBall(pokemonCP).Result,
                 SpawnPointGuid = spawnPointGuid,
                 HitPokemon = 1,
                 NormalizedReticleSize = Utils.FloatAsUlong(1.950),
@@ -137,7 +137,7 @@ namespace PokemonGo.RocketAPI
                         releasePokemonRequest);
         }
 
-        private async Task<MiscEnums.Item> GetBestBall()
+        private async Task<MiscEnums.Item> GetBestBall(int? pokemonCP)
         {
             var inventory = await GetInventory();
 
@@ -159,16 +159,56 @@ namespace PokemonGo.RocketAPI
             var masterBallsCount = ballCollection.Where(p => p.ItemId == MiscEnums.Item.ITEM_MASTER_BALL).
                 DefaultIfEmpty(new {ItemId = MiscEnums.Item.ITEM_MASTER_BALL, Amount = 0}).FirstOrDefault().Amount;
 
-            if (masterBallsCount > 0)
+            // Use better balls for high CP pokemon
+            if (masterBallsCount > 0 && pokemonCP >= 1000)
+            {
+                ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Master Ball is being used");
                 return MiscEnums.Item.ITEM_MASTER_BALL;
+            }
 
-            if (ultraBallsCount > 0)
+            if (ultraBallsCount > 0 && pokemonCP >= 600)
+            {
+                ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Ultra Ball is being used");
                 return MiscEnums.Item.ITEM_ULTRA_BALL;
+            }
 
-            if (greatBallsCount > 0)
+            if (greatBallsCount > 0 && pokemonCP >= 350)
+            {
+                ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Great Ball is being used");
                 return MiscEnums.Item.ITEM_GREAT_BALL;
+            }
+
+            // If low CP pokemon, but no more pokeballs; only use better balls if pokemon are of semi-worthy quality
+            if (pokeBallsCount > 0)
+            {
+                ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Poke Ball is being used");
+                return MiscEnums.Item.ITEM_POKE_BALL;
+            }
+            else if ((greatBallsCount < 40 && pokemonCP >= 200) || greatBallsCount >= 40)
+                {
+                    ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Great Ball is being used");
+                return MiscEnums.Item.ITEM_GREAT_BALL;
+            }
+            else if (ultraBallsCount > 0 && pokemonCP >= 500)
+                { 
+                ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Ultra Ball is being used");
+                return MiscEnums.Item.ITEM_ULTRA_BALL;
+            }
+            else if (masterBallsCount > 0 && pokemonCP >= 700)
+            {
+                ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Master Ball is being used");
+                return MiscEnums.Item.ITEM_MASTER_BALL;
+            }
 
             return MiscEnums.Item.ITEM_POKE_BALL;
+        }
+
+        public static void ColoredConsoleWrite(ConsoleColor color, string text)
+        {
+            ConsoleColor originalColor = System.Console.ForegroundColor;
+            System.Console.ForegroundColor = color;
+            System.Console.WriteLine(text);
+            System.Console.ForegroundColor = originalColor;
         }
 
         public async Task<FortDetailsResponse> GetFort(string fortId, double fortLat, double fortLng)
