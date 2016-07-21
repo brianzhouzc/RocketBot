@@ -207,6 +207,7 @@ namespace PokemonGo.RocketAPI.Console
                 var encounterPokemonResponse = await client.EncounterPokemon(pokemon.EncounterId, pokemon.SpawnpointId);
                 var pokemonCP = encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp;
                 CatchPokemonResponse caughtPokemonResponse;
+                
                 do
                 {
                     caughtPokemonResponse =
@@ -215,10 +216,11 @@ namespace PokemonGo.RocketAPI.Console
                                 pokemon.Longitude, MiscEnums.Item.ITEM_POKE_BALL, pokemonCP);
                     ; //note: reverted from settings because this should not be part of settings but part of logic
                 } while (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed);
-                ColoredConsoleWrite(ConsoleColor.Green, caughtPokemonResponse.Status ==
-                                         CatchPokemonResponse.Types.CatchStatus.CatchSuccess
-                    ? $"[{DateTime.Now.ToString("HH:mm:ss")}] We caught a {pokemon.PokemonId} with {encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp} CP"
-                    : $"[{DateTime.Now.ToString("HH:mm:ss")}] {pokemon.PokemonId} with {encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp} CP got away..");
+
+                if (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchSuccess)
+                    ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] We caught a {pokemon.PokemonId} with {encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp} CP");
+                else
+                    ColoredConsoleWrite(ConsoleColor.Red, $"[{DateTime.Now.ToString("HH:mm:ss")}] {pokemon.PokemonId} with {encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp} CP got away..");
 
 
                 if (ClientSettings.TransferType == "leaveStrongest")
@@ -281,7 +283,7 @@ namespace PokemonGo.RocketAPI.Console
                 try
                 {
                     //ColoredConsoleWrite(ConsoleColor.White, "Coded by Ferox - edited by NecronomiconCoding");
-                    CheckVersion();
+                    //CheckVersion();
                     Execute();
                 }
                 catch (PtcOfflineException)
