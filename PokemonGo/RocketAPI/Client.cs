@@ -80,23 +80,18 @@ namespace PokemonGo.RocketAPI
 
         public async Task DoGoogleLogin()
         {
-            if (_settings.GoogleRefreshToken == string.Empty && accestoken == string.Empty)
+            _authType = AuthType.Google;
+            if (_settings.GoogleRefreshToken != string.Empty)
+            {
+                var tokenResponse = await GoogleLogin.GetAccessToken(_settings.GoogleRefreshToken);
+                _accessToken = tokenResponse.id_token;
+            }
+
+            if (_accessToken == null)
             {
                 var tokenResponse = await GoogleLogin.GetAccessToken();
                 _accessToken = tokenResponse.id_token;
                 _settings.GoogleRefreshToken = tokenResponse.access_token;
-                Console.WriteLine($"Put RefreshToken in settings for direct login: {tokenResponse.access_token}");
-                accestoken = tokenResponse.access_token;
-            }
-            else
-            {
-                PokemonGo.RocketAPI.Login.GoogleLogin.TokenResponseModel tokenResponse;
-                if (_settings.GoogleRefreshToken != string.Empty)
-                    tokenResponse = await GoogleLogin.GetAccessToken(_settings.GoogleRefreshToken);
-                else
-                    tokenResponse = await GoogleLogin.GetAccessToken(accestoken);
-                _accessToken = tokenResponse.id_token;
-                _authType = AuthType.Google;
             }
         }
 
