@@ -154,8 +154,11 @@ namespace PokemonGo.RocketAPI.Console
             ColoredConsoleWrite(ConsoleColor.DarkGray, "Latitude: " + ClientSettings.DefaultLatitude);
             ColoredConsoleWrite(ConsoleColor.DarkGray, "Longitude: " + ClientSettings.DefaultLongitude);
             ColoredConsoleWrite(ConsoleColor.Yellow, "----------------------------");
-            ColoredConsoleWrite(ConsoleColor.DarkGray, "Random Profile Data\n");
-            ColoredConsoleWrite(ConsoleColor.DarkGray, profile.ToString());
+            ColoredConsoleWrite(ConsoleColor.DarkGray, "Your Account:\n");
+            ColoredConsoleWrite(ConsoleColor.DarkGray, "Name: " + profile.Profile.Username);
+            ColoredConsoleWrite(ConsoleColor.DarkGray, "Team: " + profile.Profile.Team);
+            ColoredConsoleWrite(ConsoleColor.DarkGray, "Stardust: " + profile.Profile.Currency.ToArray()[1].Amount);
+
 
             try
             {
@@ -472,7 +475,7 @@ namespace PokemonGo.RocketAPI.Console
                         if (Currentlevel != v.Level)
                         {
                             Currentlevel = v.Level;
-                            ColoredConsoleWrite(ConsoleColor.Magenta, $"[{DateTime.Now.ToString("HH:mm:ss")}] Levelup! Current Level: " + v.Level + ". XP needed for next Level:" + (v.NextLevelXp - v.Experience));
+                            ColoredConsoleWrite(ConsoleColor.Magenta, $"[{DateTime.Now.ToString("HH:mm:ss")}] Levelup! Current Level: " + v.Level + ". XP needed for next Level: " + (v.NextLevelXp - v.Experience));
                         }
 
                 await Task.Delay(ClientSettings.LevelTimeInterval * 1000);
