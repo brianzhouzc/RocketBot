@@ -3085,6 +3085,167 @@ namespace PokemonGo.RocketAPI.GeneratedCode
             }
         }
 
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public sealed partial class RecycleInventoryItem : pb::IMessage<RecycleInventoryItem>
+        {
+            private static readonly pb::MessageParser<RecycleInventoryItem> _parser = new pb::MessageParser<RecycleInventoryItem>(() => new RecycleInventoryItem());
+            public static pb::MessageParser<RecycleInventoryItem> Parser { get { return _parser; } }
+
+            public static pbr::MessageDescriptor Descriptor
+            {
+                get { return global::PokemonGo.RocketAPI.GeneratedCode.PayloadsReflection.Descriptor.MessageTypes[10]; }
+            }
+
+            pbr::MessageDescriptor pb::IMessage.Descriptor
+            {
+                get { return Descriptor; }
+            }
+
+            public RecycleInventoryItem()
+            {
+                OnConstruction();
+            }
+
+            partial void OnConstruction();
+
+            public RecycleInventoryItem(RecycleInventoryItem other) : this()
+            {
+                itemId_ = other.itemId_;
+                count_ = other.count_;
+            }
+
+            public RecycleInventoryItem Clone()
+            {
+                return new RecycleInventoryItem(this);
+            }
+
+            /// <summary>Field number for the "item_id" field.</summary>
+            public const int ItemIdFieldNumber = 1;
+            private global::AllEnum.ItemId itemId_ = 0;
+            public global::AllEnum.ItemId ItemId
+            {
+                get { return itemId_; }
+                set
+                {
+                    itemId_ = value;
+                }
+            }
+
+            /// <summary>Field number for the "count" field.</summary>
+            public const int CountFieldNumber = 2;
+            private int count_;
+            public int Count
+            {
+                get { return count_; }
+                set
+                {
+                    count_ = value;
+                }
+            }
+
+            public override bool Equals(object other)
+            {
+                return Equals(other as RecycleInventoryItem);
+            }
+
+            public bool Equals(RecycleInventoryItem other)
+            {
+                if (ReferenceEquals(other, null))
+                {
+                    return false;
+                }
+                if (ReferenceEquals(other, this))
+                {
+                    return true;
+                }
+                if (ItemId != other.ItemId) return false;
+                if (Count != other.Count) return false;
+                return true;
+            }
+
+            public override int GetHashCode()
+            {
+                int hash = 1;
+                if (ItemId != 0) hash ^= ItemId.GetHashCode();
+                if (Count != 0) hash ^= Count.GetHashCode();
+                return hash;
+            }
+
+            public override string ToString()
+            {
+                return pb::JsonFormatter.ToDiagnosticString(this);
+            }
+
+            public void WriteTo(pb::CodedOutputStream output)
+            {
+                if (ItemId != 0)
+                {
+                    output.WriteRawTag(8);
+                    output.WriteEnum((int)ItemId);
+                }
+                if (Count != 0)
+                {
+                    output.WriteRawTag(16);
+                    output.WriteInt32(Count);
+                }
+            }
+
+            public int CalculateSize()
+            {
+                int size = 0;
+                if (ItemId != 0)
+                {
+                    size += 1 + pb::CodedOutputStream.ComputeEnumSize((int)ItemId);
+                }
+                if (Count != 0)
+                {
+                    size += 1 + pb::CodedOutputStream.ComputeInt32Size(Count);
+                }
+                return size;
+            }
+
+            public void MergeFrom(RecycleInventoryItem other)
+            {
+                if (other == null)
+                {
+                    return;
+                }
+                if (other.ItemId != 0)
+                {
+                    ItemId = other.ItemId;
+                }
+                if (other.Count != 0)
+                {
+                    Count = other.Count;
+                }
+            }
+
+            public void MergeFrom(pb::CodedInputStream input)
+            {
+                uint tag;
+                while ((tag = input.ReadTag()) != 0)
+                {
+                    switch (tag)
+                    {
+                        default:
+                            input.SkipLastField();
+                            break;
+                        case 8:
+                            {
+                                itemId_ = (global::AllEnum.ItemId)input.ReadEnum();
+                                break;
+                            }
+                        case 16:
+                            {
+                                Count = input.ReadInt32();
+                                break;
+                            }
+                    }
+                }
+            }
+
+        }
+
         public int CalculateSize()
         {
             var size = 0;

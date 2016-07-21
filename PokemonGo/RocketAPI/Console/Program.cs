@@ -1,4 +1,4 @@
-﻿#region
+#region
 
 using System;
 using System.Collections.Generic;
@@ -26,10 +26,10 @@ namespace PokemonGo.RocketAPI.Console
     internal class Program
     {
         private static readonly ISettings ClientSettings = new Settings();
-        
+        static int Currentlevel = -1;
 
         public static void CheckVersion()
-        {
+        { 
             try
             {
                 var match =
@@ -55,7 +55,7 @@ namespace PokemonGo.RocketAPI.Console
 
                 ColoredConsoleWrite(ConsoleColor.White, "There is a new Version available: " + gitVersion + " downloading.. ");
                 Thread.Sleep(1000);
-                Process.Start("https://github.com/NecronomiconCoding/Pokemon-Go-Rocket-API");
+                Process.Start("");
             }
             catch (Exception)
             {
@@ -68,7 +68,7 @@ namespace PokemonGo.RocketAPI.Console
             using (var wC = new WebClient())
                 return
                     wC.DownloadString(
-                        "https://raw.githubusercontent.com/NecronomiconCoding/Pokemon-Go-Rocket-API/master/PokemonGo/RocketAPI/Console/Properties/AssemblyInfo.cs");
+                        "");
         }
 
         public static void ColoredConsoleWrite(ConsoleColor color, string text)
@@ -154,9 +154,10 @@ namespace PokemonGo.RocketAPI.Console
             ColoredConsoleWrite(ConsoleColor.DarkGray, "Latitude: " + ClientSettings.DefaultLatitude);
             ColoredConsoleWrite(ConsoleColor.DarkGray, "Longitude: " + ClientSettings.DefaultLongitude);
             ColoredConsoleWrite(ConsoleColor.Yellow, "----------------------------");
-            ColoredConsoleWrite(ConsoleColor.DarkGray, "Random Profile Data\n");
-            ColoredConsoleWrite(ConsoleColor.DarkGray, profile.ToString());
-
+            ColoredConsoleWrite(ConsoleColor.DarkGray, "Your Account:\n");
+            ColoredConsoleWrite(ConsoleColor.DarkGray, "Name: " + profile.Profile.Username);
+            ColoredConsoleWrite(ConsoleColor.DarkGray, "Team: " + profile.Profile.Team);
+            ColoredConsoleWrite(ConsoleColor.DarkGray, "Stardust: " + profile.Profile.Currency.ToArray()[1].Amount);
 
 
             try
@@ -176,7 +177,10 @@ namespace PokemonGo.RocketAPI.Console
                 if (ClientSettings.EvolveAllGivenPokemons)
                     await EvolveAllGivenPokemons(client, pokemons);
 
+                client.RecycleItems(client);
+
                 await Task.Delay(5000);
+                PrintLevel(client);
                 await ExecuteFarmingPokestopsAndPokemons(client);
                 ColoredConsoleWrite(ConsoleColor.Red, $"[{DateTime.Now.ToString("HH:mm:ss")}] Unexpected stop? Restarting in 20 seconds.");
                 await Task.Delay(20000);
@@ -186,6 +190,7 @@ namespace PokemonGo.RocketAPI.Console
             catch (UriFormatException ufe) { ColoredConsoleWrite(ConsoleColor.White, "System URI Format Exception - Restarting"); Execute(); }
             catch (ArgumentOutOfRangeException aore) { ColoredConsoleWrite(ConsoleColor.White, "ArgumentOutOfRangeException - Restarting"); Execute(); }
             catch (NullReferenceException nre) { ColoredConsoleWrite(ConsoleColor.White, "Null Refference - Restarting"); Execute(); }
+            catch (ArgumentNullException ane) { ColoredConsoleWrite(ConsoleColor.White, "Argument Null Refference - Restarting"); Execute(); }
             //await ExecuteCatchAllNearbyPokemons(client);
         }
 
@@ -297,7 +302,7 @@ namespace PokemonGo.RocketAPI.Console
             });
             System.Console.ReadLine();
         }
-
+        
         private static async Task TransferAllButStrongestUnwantedPokemon(Client client)
         {
             //ColoredConsoleWrite(ConsoleColor.White, $"[{DateTime.Now.ToString("HH:mm:ss")}] Firing up the meat grinder");
@@ -459,6 +464,25 @@ namespace PokemonGo.RocketAPI.Console
             }
 
             ColoredConsoleWrite(ConsoleColor.Gray, $"[{DateTime.Now.ToString("HH:mm:ss")}] Finished grinding all the meat");
+        }
+        
+        public static async Task PrintLevel(Client client)
+        {
+            var inventory = await client.GetInventory();
+            var stats = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PlayerStats).ToArray();
+            foreach (var v in stats)
+                if (v != null)
+                    if (ClientSettings.LevelOutput == "time")
+                        ColoredConsoleWrite(ConsoleColor.Yellow, $"[{DateTime.Now.ToString("HH:mm:ss")}] Current Level: " + v.Level + " (" + v.Experience + "/" + v.NextLevelXp + ")");
+                    else if (ClientSettings.LevelOutput == "levelup")
+                        if (Currentlevel != v.Level)
+                        {
+                            Currentlevel = v.Level;
+                            ColoredConsoleWrite(ConsoleColor.Magenta, $"[{DateTime.Now.ToString("HH:mm:ss")}] Current Level: " + v.Level + ". XP needed for next Level: " + (v.NextLevelXp - v.Experience));
+                        }
+
+            await Task.Delay(ClientSettings.LevelTimeInterval * 1000);
+            PrintLevel(client);
         }
     }
 }

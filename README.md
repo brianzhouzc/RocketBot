@@ -1,5 +1,5 @@
 # Pokemon-Go-Rocket-API
-![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/img.png)
+![alt tag](https://github.com/Sen66/Pokemon-Go-Rocket-API/blob/master/img.jpg)
 
 A Pokemon Go bot in C#
 
@@ -11,7 +11,8 @@ A Pokemon Go bot in C#
 * Farm all pokemons in neighbourhood
 * Evolve pokemons
 * Transfer pokemons
-* Auto Updates
+* Auto recycle not needed items
+* Output level and needed XP for levelup
 
 ## Getting Started
 
