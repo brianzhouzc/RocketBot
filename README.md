@@ -1,9 +1,5 @@
 # Pokemon-Go-Rocket-API
-<<<<<<< HEAD
 ![alt tag](https://github.com/Sen66/Pokemon-Go-Rocket-API/blob/master/screenshot.jpg)
-=======
-![alt tag](https://github.com/Sen66/Pokemon-Go-Rocket-API/blob/master/img.jpg)
->>>>>>> origin/master
 
 A Pokemon Go bot in C#
 
