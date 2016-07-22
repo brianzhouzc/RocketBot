@@ -474,12 +474,16 @@ namespace PokemonGo.RocketAPI.Console
             foreach (var v in stats)
                 if (v != null)
                     if (ClientSettings.LevelOutput == "time")
+                        {
                         ColoredConsoleWrite(ConsoleColor.Yellow, $"[{DateTime.Now.ToString("HH:mm:ss")}] Current Level: " + v.Level + " (" + v.Experience + "/" + v.NextLevelXp + ")");
+                        System.Console.Title = ($"[{DateTime.Now.ToString("HH:mm:ss")}] Current Level: " + v.Level + " (" + v.Experience + "/" + v.NextLevelXp + ")");
+                        }
                     else if (ClientSettings.LevelOutput == "levelup")
                         if (Currentlevel != v.Level)
                         {
                             Currentlevel = v.Level;
                             ColoredConsoleWrite(ConsoleColor.Magenta, $"[{DateTime.Now.ToString("HH:mm:ss")}] Current Level: " + v.Level + ". XP needed for next Level: " + (v.NextLevelXp - v.Experience));
+                            System.Console.Title = ($"[{DateTime.Now.ToString("HH:mm:ss")}] Current Level: " + v.Level + " (" + v.Experience + "/" + v.NextLevelXp + ")");
                         }
 
             await Task.Delay(ClientSettings.LevelTimeInterval * 1000);
