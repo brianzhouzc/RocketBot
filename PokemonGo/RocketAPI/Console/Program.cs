@@ -30,7 +30,7 @@ namespace PokemonGo.RocketAPI.Console
         static int Currentlevel = -1;
 
         public static void CheckVersion()
-        {
+        { 
             try
             {
                 var match =
@@ -134,7 +134,6 @@ namespace PokemonGo.RocketAPI.Console
         private static async void Execute()
         {
             var client = new Client(ClientSettings);
-
             try
             {
                 if (ClientSettings.AuthType == AuthType.Ptc)
@@ -213,7 +212,6 @@ namespace PokemonGo.RocketAPI.Console
                 var encounterPokemonResponse = await client.EncounterPokemon(pokemon.EncounterId, pokemon.SpawnpointId);
                 var pokemonCP = encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp;
                 CatchPokemonResponse caughtPokemonResponse;
-
                 do
                 {
                     caughtPokemonResponse =
@@ -238,7 +236,6 @@ namespace PokemonGo.RocketAPI.Console
                 }
                 else
                     ColoredConsoleWrite(ConsoleColor.Red, $"[{DateTime.Now.ToString("HH:mm:ss")}] {pokemonName} with {encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp} CP got away..");
-
 
                 if (ClientSettings.TransferType == "leaveStrongest")
                     await TransferAllButStrongestUnwantedPokemon(client);
@@ -308,7 +305,7 @@ namespace PokemonGo.RocketAPI.Console
             });
             System.Console.ReadLine();
         }
-
+        
         private static async Task TransferAllButStrongestUnwantedPokemon(Client client)
         {
             //ColoredConsoleWrite(ConsoleColor.White, $"[{DateTime.Now.ToString("HH:mm:ss")}] Firing up the meat grinder");
@@ -367,10 +364,22 @@ namespace PokemonGo.RocketAPI.Console
             //ColoredConsoleWrite(ConsoleColor.White, $"[{DateTime.Now.ToString("HH:mm:ss")}] Finished grinding all the meat");
         }
 
-        private static async Task TransferAllGivenPokemons(Client client, IEnumerable<PokemonData> unwantedPokemons)
+        public static float Perfect(PokemonData poke)
+        {
+            return ((float)(poke.IndividualAttack + poke.IndividualDefense + poke.IndividualStamina) / (3.0f * 15.0f)) * 100.0f;
+        }
+
+        private static async Task TransferAllGivenPokemons(Client client, IEnumerable<PokemonData> unwantedPokemons, float keepPerfectPokemonLimit = 80.0f)
         {
             foreach (var pokemon in unwantedPokemons)
             {
+                if (Perfect(pokemon) >= keepPerfectPokemonLimit) continue;
+                ColoredConsoleWrite(ConsoleColor.White, $"[{DateTime.Now.ToString("HH:mm:ss")}] Pokemon {pokemon.PokemonId} with {pokemon.Cp} CP has IV percent less than {keepPerfectPokemonLimit}%");
+                if (pokemon.Favorite > 0)
+                {
+                    ColoredConsoleWrite(ConsoleColor.White, $"[{DateTime.Now.ToString("HH:mm:ss")}] Pokemon {pokemon.PokemonId} with {pokemon.Cp} CP is favorited, skipping transfer");
+                    continue;
+                }
                 var transferPokemonResponse = await client.TransferPokemon(pokemon.Id);
 
                 /*
