@@ -791,7 +791,7 @@ namespace AllEnum
         [pbr::OriginalName("BULBASAUR")] Bulbasaur = 1,
         [pbr::OriginalName("IVYSAUR")] Ivysaur = 2,
         [pbr::OriginalName("VENUSAUR")] Venusaur = 3,
-        [pbr::OriginalName("CHARMANDER")] CHARMANDER = 4,
+        [pbr::OriginalName("CHARMANDER")] Charmander = 4,
         [pbr::OriginalName("CHARMELEON")] Charmeleon = 5,
         [pbr::OriginalName("CHARIZARD")] Charizard = 6,
         [pbr::OriginalName("SQUIRTLE")] Squirtle = 7,

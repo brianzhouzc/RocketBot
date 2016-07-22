@@ -444,7 +444,7 @@ namespace PokemonGo.RocketAPI
             return await _httpClient.PostProtoPayload<Request, Response.Types.Unknown6>($"https://{_apiUrl}/rpc", releasePokemonRequest);
         }
 
-        public static async Task<IEnumerable<Item>> GetItems(Client client)
+        public async Task<IEnumerable<Item>> GetItems(Client client)
         {
             var inventory = await client.GetInventory();
             return inventory.InventoryDelta.InventoryItems
