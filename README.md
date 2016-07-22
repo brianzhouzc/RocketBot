@@ -25,5 +25,5 @@ The most popular option is probably the duplicate type that removes all duplicat
 * none - disables transferring
 * cp - transfers all pokemon below the CP threshold in the app.config, EXCEPT for those types specified in program.cs in TransferAllWeakPokemon
 * leaveStrongest - transfers all but the highest CP pokemon of each type SPECIFIED IN program.cs in TransferAllButStrongestUnwantedPokemon (those that aren't specified are untouched)
-* duplicate - same as above but for all pokemon (no need to specify type)
+* duplicate - same as above but for all pokemon (no need to specify type), (will not transfer favorited pokemon)
 * all - transfers all pokemon
