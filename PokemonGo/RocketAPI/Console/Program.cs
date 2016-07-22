@@ -28,6 +28,7 @@ namespace PokemonGo.RocketAPI.Console
     {
         private static readonly ISettings ClientSettings = new Settings();
         static int Currentlevel = -1;
+        static Random r = new Random();
 
         public static void CheckVersion()
         {
@@ -218,7 +219,7 @@ namespace PokemonGo.RocketAPI.Console
                 {
                     caughtPokemonResponse =
                         await
-                            client.CatchPokemon(pokemon.EncounterId, pokemon.SpawnpointId, pokemon.Latitude,
+                            client.CatchPokemon(pokemon.PokemonId.ToString(), pokemon.EncounterId, pokemon.SpawnpointId, pokemon.Latitude,
                                 pokemon.Longitude, MiscEnums.Item.ITEM_POKE_BALL, pokemonCP);
                     ; //note: reverted from settings because this should not be part of settings but part of logic
                 } while (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed);
@@ -239,7 +240,7 @@ namespace PokemonGo.RocketAPI.Console
                 else
                     ColoredConsoleWrite(ConsoleColor.Red, $"[{DateTime.Now.ToString("HH:mm:ss")}] {pokemonName} with {encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp} CP got away..");
 
-
+                await Task.Delay(3000 + r.Next(0, 3000));
                 if (ClientSettings.TransferType == "leaveStrongest")
                     await TransferAllButStrongestUnwantedPokemon(client);
                 else if (ClientSettings.TransferType == "all")
@@ -249,7 +250,7 @@ namespace PokemonGo.RocketAPI.Console
                 else if (ClientSettings.TransferType == "cp")
                     await TransferAllWeakPokemon(client, ClientSettings.TransferCPThreshold);
 
-                await Task.Delay(3000);
+                await Task.Delay(r.Next(0, 10000) + 15000);
             }
         }
 
@@ -268,7 +269,7 @@ namespace PokemonGo.RocketAPI.Console
                 ColoredConsoleWrite(ConsoleColor.Cyan,
                     $"[{DateTime.Now.ToString("HH:mm:ss")}] PokeStop XP: {fortSearch.ExperienceAwarded}, Gems: {fortSearch.GemsAwarded}, Eggs: {fortSearch.PokemonDataEgg} Items: {GetFriendlyItemsString(fortSearch.ItemsAwarded)}");
 
-                await Task.Delay(15000);
+                await Task.Delay(r.Next(0, 10000) + 15000);
                 await ExecuteCatchAllNearbyPokemons(client);
             }
         }
