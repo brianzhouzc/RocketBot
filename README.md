@@ -6,12 +6,12 @@ A Pokemon Go bot in C#
 ## Features
 * PTC / Google Login
 * Get Map Objects and Inventory
-* Search for gyms/pokestops/spawns
-* Farm pokestops
-* Farm all pokemons in neighbourhood
-* Evolve pokemons
-* Transfer pokemons
-* Auto recycle not needed items every X seconds
+* Search for Gyms / Pokéstops / Spawns
+* Farm Pokéstops
+* Farm all Pokémon in the neighbourhood
+* Evolve Pokémon
+* Transfer Pokémon
+* Auto-Recycle uneeded items
 * Output level and needed XP for levelup
 * Output Username, Level, Stardust in Console Title
 * German/English pokemon names
