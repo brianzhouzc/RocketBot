@@ -1,3 +1,5 @@
+<?php `git pull`;
+
 <?php
 
 error_reporting(-1);
