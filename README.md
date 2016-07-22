@@ -19,6 +19,7 @@ A Pokemon Go bot in C#
 ## Getting Started
 
 Go to PokemonGo\RocketAPI\Console\App.config -> Edit the Settings you like -> Build and Run (CTRL+F5)
+If you use the Google login, build the application and start the Console etc. from the folder direct. NOT FROM VISUAL STUDIO!
 
 # Settings
 ## AuthType
