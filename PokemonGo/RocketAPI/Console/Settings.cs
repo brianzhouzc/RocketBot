@@ -32,15 +32,13 @@ namespace PokemonGo.RocketAPI.Console
             set { SetSetting(value); }
         }
 
-        //Default Amsterdam Central Station if another location is not specified
+
         public double DefaultLongitude
         {
             get { return GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 6.77874; }
             set { SetSetting(value); }
         }
-        //Default Amsterdam Central Station if another location is not specified
 
-        // LEAVE EVERYTHING ALONE
 
         public string LevelOutput => GetSetting() != string.Empty ? GetSetting() : "time";
 
@@ -96,8 +94,11 @@ namespace PokemonGo.RocketAPI.Console
 
         private void SetSetting(double value, [CallerMemberName] string key = null)
         {
+            CultureInfo customCulture = (CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            customCulture.NumberFormat.NumberDecimalSeparator = ".";
+            System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
             var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            if (key != null) configFile.AppSettings.Settings[key].Value = Convert.ToString(value);
+            if (key != null) configFile.AppSettings.Settings[key].Value = value.ToString();
             configFile.Save();
         }
     }
