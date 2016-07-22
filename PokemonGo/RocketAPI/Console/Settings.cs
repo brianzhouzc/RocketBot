@@ -65,6 +65,11 @@ namespace PokemonGo.RocketAPI.Console
         }
 
         public int RecycleItemsInterval => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 60;
+<<<<<<< HEAD
+
+        public string Language => GetSetting() != string.Empty ? GetSetting() : "english";
+=======
+>>>>>>> origin/master
 
         public string GoogleRefreshToken
         {
