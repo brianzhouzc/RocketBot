@@ -418,7 +418,6 @@ namespace PokemonGo.RocketAPI
 
         public async Task RecycleItems(Client client)
         {
-            Console.WriteLine("recycling");
             var items = await GetItemsToRecycle(_settings, client);
 
             foreach (var item in items)

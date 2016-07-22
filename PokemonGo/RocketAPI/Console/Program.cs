@@ -186,12 +186,12 @@ namespace PokemonGo.RocketAPI.Console
                 await Task.Delay(10000);
                 Execute();
             }
-            catch (TaskCanceledException tce) { ColoredConsoleWrite(ConsoleColor.White, "Task Canceled Exception - Restarting"); Execute(); }
-            catch (UriFormatException ufe) { ColoredConsoleWrite(ConsoleColor.White, "System URI Format Exception - Restarting"); Execute(); }
-            catch (ArgumentOutOfRangeException aore) { ColoredConsoleWrite(ConsoleColor.White, "ArgumentOutOfRangeException - Restarting"); Execute(); }
-            catch (ArgumentNullException ane) { ColoredConsoleWrite(ConsoleColor.White, "Argument Null Refference - Restarting"); Execute(); }
-            //catch (NullReferenceException nre) { ColoredConsoleWrite(ConsoleColor.White, "Null Refference - Restarting"); Execute(); }
-            //await ExecuteCatchAllNearbyPokemons(client);
+            catch (TaskCanceledException) { ColoredConsoleWrite(ConsoleColor.White, "Task Canceled Exception - Restarting"); Execute(); }
+            catch (UriFormatException) { ColoredConsoleWrite(ConsoleColor.White, "System URI Format Exception - Restarting"); Execute(); }
+            catch (ArgumentOutOfRangeException) { ColoredConsoleWrite(ConsoleColor.White, "ArgumentOutOfRangeException - Restarting"); Execute(); }
+            catch (ArgumentNullException) { ColoredConsoleWrite(ConsoleColor.White, "Argument Null Refference - Restarting"); Execute(); }
+            catch (NullReferenceException) { ColoredConsoleWrite(ConsoleColor.White, "Null Refference - Restarting"); Execute(); }
+            catch (Exception ex) { ColoredConsoleWrite(ConsoleColor.White, ex.ToString()); Execute(); }
         }
 
         private static async Task ExecuteCatchAllNearbyPokemons(Client client)
@@ -459,8 +459,8 @@ namespace PokemonGo.RocketAPI.Console
         {
             //ColoredConsoleWrite(ConsoleColor.White, $"[{DateTime.Now.ToString("HH:mm:ss")}] Firing up the meat grinder");
 
-            var doNotTransfer = new[] //these will not be transferred even when below the CP threshold
-            {
+            PokemonId[] doNotTransfer = new[] //these will not be transferred even when below the CP threshold
+            { // DO NOT EMPTY THIS ARRAY
                 //PokemonId.Pidgey,
                 //PokemonId.Rattata,
                 //PokemonId.Weedle,
@@ -490,9 +490,12 @@ namespace PokemonGo.RocketAPI.Console
 
             //foreach (var unwantedPokemonType in unwantedPokemonTypes)
             {
-                var pokemonToDiscard = pokemons.Where(p => !doNotTransfer.Contains(p.PokemonId) && p.Cp < cpThreshold)
-                                                   .OrderByDescending(p => p.Cp)
-                                                   .ToList();
+                List<PokemonData> pokemonToDiscard;
+                if (doNotTransfer.Count() != 0)
+                    pokemonToDiscard = pokemons.Where(p => !doNotTransfer.Contains(p.PokemonId) && p.Cp < cpThreshold).OrderByDescending(p => p.Cp).ToList();
+                else
+                    pokemonToDiscard = pokemons.Where(p => p.Cp < cpThreshold).OrderByDescending(p => p.Cp).ToList();
+
 
                 //var unwantedPokemon = pokemonOfDesiredType.Skip(1) // keep the strongest one for potential battle-evolving
                 //                                          .ToList();
@@ -537,7 +540,7 @@ namespace PokemonGo.RocketAPI.Console
                 if (v != null)
                 {
                     int XpDiff = GetXpDiff(client, v.Level);
-                    System.Console.Title = string.Format(Username + " | Level {0:0} - ({1:0} / {2:0}) | Stardust {3:0}", v.Level, (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount);
+                    System.Console.Title = string.Format(Username + " | Level: {0:0} - ({1:0} / {2:0}) | Stardust: {3:0}", v.Level, (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount);
                 }
             await Task.Delay(1000);
             ConsoleLevelTitle(Username, client);
