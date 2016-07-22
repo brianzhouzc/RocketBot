@@ -375,35 +375,34 @@ namespace PokemonGo.RocketAPI.Console
             {
                 if (Perfect(pokemon) >= keepPerfectPokemonLimit) continue;
                 ColoredConsoleWrite(ConsoleColor.White, $"[{DateTime.Now.ToString("HH:mm:ss")}] Pokemon {pokemon.PokemonId} with {pokemon.Cp} CP has IV percent less than {keepPerfectPokemonLimit}%");
-                if (pokemon.Favorite > 0)
+
+                if (pokemon.Favorite == 0)
                 {
-                    ColoredConsoleWrite(ConsoleColor.White, $"[{DateTime.Now.ToString("HH:mm:ss")}] Pokemon {pokemon.PokemonId} with {pokemon.Cp} CP is favorited, skipping transfer");
-                    continue;
+                    var transferPokemonResponse = await client.TransferPokemon(pokemon.Id);
+
+                    /*
+                    ReleasePokemonOutProto.Status {
+                        UNSET = 0;
+                        SUCCESS = 1;
+                        POKEMON_DEPLOYED = 2;
+                        FAILED = 3;
+                        ERROR_POKEMON_IS_EGG = 4;
+                    }*/
+
+                    if (transferPokemonResponse.Status == 1)
+                    {
+                        ColoredConsoleWrite(ConsoleColor.Magenta, $"[{DateTime.Now.ToString("HH:mm:ss")}] Transferred {pokemon.PokemonId} with {pokemon.Cp} CP");
+                    }
+                    else
+                    {
+                        var status = transferPokemonResponse.Status;
+
+                        ColoredConsoleWrite(ConsoleColor.Red, $"[{DateTime.Now.ToString("HH:mm:ss")}] Somehow failed to transfer {pokemon.PokemonId} with {pokemon.Cp} CP. " +
+                                                 $"ReleasePokemonOutProto.Status was {status}");
+                    }
+
+                    await Task.Delay(3000);
                 }
-                var transferPokemonResponse = await client.TransferPokemon(pokemon.Id);
-
-                /*
-                ReleasePokemonOutProto.Status {
-	                UNSET = 0;
-	                SUCCESS = 1;
-	                POKEMON_DEPLOYED = 2;
-	                FAILED = 3;
-	                ERROR_POKEMON_IS_EGG = 4;
-                }*/
-
-                if (transferPokemonResponse.Status == 1)
-                {
-                    ColoredConsoleWrite(ConsoleColor.Magenta, $"[{DateTime.Now.ToString("HH:mm:ss")}] Transferred {pokemon.PokemonId} with {pokemon.Cp} CP");
-                }
-                else
-                {
-                    var status = transferPokemonResponse.Status;
-
-                    ColoredConsoleWrite(ConsoleColor.Red, $"[{DateTime.Now.ToString("HH:mm:ss")}] Somehow failed to transfer {pokemon.PokemonId} with {pokemon.Cp} CP. " +
-                                             $"ReleasePokemonOutProto.Status was {status}");
-                }
-
-                await Task.Delay(3000);
             }
         }
 
@@ -425,9 +424,13 @@ namespace PokemonGo.RocketAPI.Console
                 for (var j = 0; j < dupes.ElementAt(i).Count() - 1; j++)
                 {
                     var dubpokemon = dupes.ElementAt(i).ElementAt(j).value;
-                    var transfer = await client.TransferPokemon(dubpokemon.Id);
-                    ColoredConsoleWrite(ConsoleColor.DarkGreen,
-                        $"[{DateTime.Now.ToString("HH:mm:ss")}] Transferred {dubpokemon.PokemonId} with {dubpokemon.Cp} CP (Highest is {dupes.ElementAt(i).Last().value.Cp})");
+                    if (dubpokemon.Favorite == 0)
+                    {
+                        var transfer = await client.TransferPokemon(dubpokemon.Id);
+                        ColoredConsoleWrite(ConsoleColor.DarkGreen,
+                            $"[{DateTime.Now.ToString("HH:mm:ss")}] Transferred {dubpokemon.PokemonId} with {dubpokemon.Cp} CP (Highest is {dupes.ElementAt(i).Last().value.Cp})");
+
+                    }
                 }
             }
         }
@@ -507,11 +510,12 @@ namespace PokemonGo.RocketAPI.Console
         {
             var inventory = await client.GetInventory();
             var stats = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PlayerStats).ToArray();
+            var profile = await client.GetProfile();
             foreach (var v in stats)
                 if (v != null)
                 {
                     int XpDiff = GetXpDiff(client, v.Level);
-                    System.Console.Title = string.Format(Username + " | Level {0:0} - ({1:0} / {2:0})", v.Level, (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff));
+                    System.Console.Title = string.Format(Username + " | Level {0:0} - ({1:0} / {2:0}) | Stardust {3:0}", v.Level, (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount);
                 }
             await Task.Delay(1000);
             ConsoleLevelTitle(Username, client);
