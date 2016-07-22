@@ -263,7 +263,7 @@ namespace PokemonGo.RocketAPI.Console
                 var fortSearch = await client.SearchFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
 
                 ColoredConsoleWrite(ConsoleColor.Cyan,
-                    $"[{DateTime.Now.ToString("HH:mm:ss")}] PokeStop XP: {fortSearch.ExperienceAwarded}, Gems: {fortSearch.GemsAwarded}, Eggs: {fortSearch.PokemonDataEgg} Items: {GetFriendlyItemsString(fortSearch.ItemsAwarded)}");
+                    $"[{DateTime.Now.ToString("HH:mm:ss")}] PokeStop '{fortInfo.Name.Substring(0, Math.Min(fortInfo.Name.Length, 16))}', XP: {fortSearch.ExperienceAwarded}, Gems: {fortSearch.GemsAwarded}, Eggs: {fortSearch.PokemonDataEgg} Items: {GetFriendlyItemsString(fortSearch.ItemsAwarded)}");
 
                 await Task.Delay(15000);
                 await ExecuteCatchAllNearbyPokemons(client);
