@@ -23,5 +23,7 @@ namespace PokemonGo.RocketAPI
         ICollection<KeyValuePair<AllEnum.ItemId, int>> ItemRecycleFilter { get; }
         int RecycleItemsInterval { get; }
         string Language { get; }
+        string RazzBerryMode { get; }
+        int RazzBerrySetting { get; }
     }
 }

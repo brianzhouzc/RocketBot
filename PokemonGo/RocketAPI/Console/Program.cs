@@ -30,7 +30,7 @@ namespace PokemonGo.RocketAPI.Console
         static int Currentlevel = -1;
 
         public static void CheckVersion()
-        { 
+        {
             try
             {
                 var match =
@@ -151,17 +151,17 @@ namespace PokemonGo.RocketAPI.Console
                         .Where(p => p != null && p?.PokemonId > 0);
 
                 ColoredConsoleWrite(ConsoleColor.Yellow, "----------------------------");
-                ColoredConsoleWrite(ConsoleColor.Cyan, "Account: " + ClientSettings.PtcUsername);
-                ColoredConsoleWrite(ConsoleColor.Cyan, "Password: " + ClientSettings.PtcPassword + "\n");
+                if (ClientSettings.AuthType == AuthType.Ptc)
+                {
+                    ColoredConsoleWrite(ConsoleColor.Cyan, "Account: " + ClientSettings.PtcUsername);
+                    ColoredConsoleWrite(ConsoleColor.Cyan, "Password: " + ClientSettings.PtcPassword);
+                }
                 ColoredConsoleWrite(ConsoleColor.DarkGray, "Latitude: " + ClientSettings.DefaultLatitude);
                 ColoredConsoleWrite(ConsoleColor.DarkGray, "Longitude: " + ClientSettings.DefaultLongitude);
-                ColoredConsoleWrite(ConsoleColor.Yellow, "----------------------------");
-                ColoredConsoleWrite(ConsoleColor.DarkGray, "Your Account:\n");
+                ColoredConsoleWrite(ConsoleColor.DarkGray, "Your Account:");
                 ColoredConsoleWrite(ConsoleColor.DarkGray, "Name: " + profile.Profile.Username);
                 ColoredConsoleWrite(ConsoleColor.DarkGray, "Team: " + profile.Profile.Team);
                 ColoredConsoleWrite(ConsoleColor.DarkGray, "Stardust: " + profile.Profile.Currency.ToArray()[1].Amount);
-
-                ColoredConsoleWrite(ConsoleColor.Cyan, "\nFarming Started");
                 ColoredConsoleWrite(ConsoleColor.Yellow, "----------------------------");
                 if (ClientSettings.TransferType == "leaveStrongest")
                     await TransferAllButStrongestUnwantedPokemon(client);
@@ -189,8 +189,8 @@ namespace PokemonGo.RocketAPI.Console
             catch (TaskCanceledException tce) { ColoredConsoleWrite(ConsoleColor.White, "Task Canceled Exception - Restarting"); Execute(); }
             catch (UriFormatException ufe) { ColoredConsoleWrite(ConsoleColor.White, "System URI Format Exception - Restarting"); Execute(); }
             catch (ArgumentOutOfRangeException aore) { ColoredConsoleWrite(ConsoleColor.White, "ArgumentOutOfRangeException - Restarting"); Execute(); }
-      //      catch (ArgumentNullException ane) { ColoredConsoleWrite(ConsoleColor.White, "Argument Null Refference - Restarting"); Execute(); }
-            catch (NullReferenceException nre) { ColoredConsoleWrite(ConsoleColor.White, "Null Refference - Restarting"); Execute(); }
+            catch (ArgumentNullException ane) { ColoredConsoleWrite(ConsoleColor.White, "Argument Null Refference - Restarting"); Execute(); }
+            //catch (NullReferenceException nre) { ColoredConsoleWrite(ConsoleColor.White, "Null Refference - Restarting"); Execute(); }
             //await ExecuteCatchAllNearbyPokemons(client);
         }
 
@@ -214,11 +214,13 @@ namespace PokemonGo.RocketAPI.Console
                 CatchPokemonResponse caughtPokemonResponse;
                 do
                 {
-                    caughtPokemonResponse =
-                        await
-                            client.CatchPokemon(pokemon.EncounterId, pokemon.SpawnpointId, pokemon.Latitude,
-                                pokemon.Longitude, MiscEnums.Item.ITEM_POKE_BALL, pokemonCP);
-                    ; //note: reverted from settings because this should not be part of settings but part of logic
+                    if (ClientSettings.RazzBerryMode == "probability")
+                        if (encounterPokemonResponse?.CaptureProbability.CaptureProbability_.First() < ClientSettings.RazzBerrySetting / 100)
+                            await client.UseRazzBerry(client, pokemon.EncounterId, pokemon.SpawnpointId);
+                    else if (ClientSettings.RazzBerryMode == "cp")
+                        if (encounterPokemonResponse?.WildPokemon.PokemonData.Cp > ClientSettings.RazzBerrySetting)
+                            await client.UseRazzBerry(client, pokemon.EncounterId, pokemon.SpawnpointId);
+                    caughtPokemonResponse = await client.CatchPokemon(pokemon.EncounterId, pokemon.SpawnpointId, pokemon.Latitude, pokemon.Longitude, MiscEnums.Item.ITEM_POKE_BALL, pokemonCP);; //note: reverted from settings because this should not be part of settings but part of logic
                 } while (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed);
                 string pokemonName;
                 if (ClientSettings.Language == "german")
@@ -262,8 +264,19 @@ namespace PokemonGo.RocketAPI.Console
                 var fortInfo = await client.GetFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
                 var fortSearch = await client.SearchFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
 
-                ColoredConsoleWrite(ConsoleColor.Cyan,
-                    $"[{DateTime.Now.ToString("HH:mm:ss")}] PokeStop XP: {fortSearch.ExperienceAwarded}, Gems: {fortSearch.GemsAwarded}, Eggs: {fortSearch.PokemonDataEgg} Items: {GetFriendlyItemsString(fortSearch.ItemsAwarded)}");
+                StringWriter PokeStopOutput = new StringWriter();
+                PokeStopOutput.Write($"[{DateTime.Now.ToString("HH:mm:ss")}] ");
+                if (fortInfo.Name != string.Empty)
+                    PokeStopOutput.Write("PokeStop: " + fortInfo.Name);
+                if (fortSearch.ExperienceAwarded != 0)
+                    PokeStopOutput.Write($", XP: {fortSearch.ExperienceAwarded}");
+                if (fortSearch.GemsAwarded != 0)
+                    PokeStopOutput.Write($", Gems: {fortSearch.GemsAwarded}");
+                if (fortSearch.PokemonDataEgg != null)
+                    PokeStopOutput.Write($"Eggs: {fortSearch.PokemonDataEgg} ");
+                if (GetFriendlyItemsString(fortSearch.ItemsAwarded) != string.Empty)
+                    PokeStopOutput.Write($", Items: {GetFriendlyItemsString(fortSearch.ItemsAwarded)} ");
+                ColoredConsoleWrite(ConsoleColor.Cyan, PokeStopOutput.ToString());
 
                 await Task.Delay(15000);
                 await ExecuteCatchAllNearbyPokemons(client);
@@ -277,10 +290,9 @@ namespace PokemonGo.RocketAPI.Console
             if (!enumerable.Any())
                 return string.Empty;
 
-            return
-                enumerable.GroupBy(i => i.ItemId)
-                    .Select(kvp => new { ItemName = kvp.Key.ToString(), Amount = kvp.Sum(x => x.ItemCount) })
-                    .Select(y => $"{y.Amount} x {y.ItemName}")
+            return enumerable.GroupBy(i => i.ItemId)
+                    .Select(kvp => new { ItemName = kvp.Key.ToString().Substring(4), Amount = kvp.Sum(x => x.ItemCount) })
+                    .Select(y => $"{y.Amount}x {y.ItemName}")
                     .Aggregate((a, b) => $"{a}, {b}");
         }
 
@@ -305,7 +317,7 @@ namespace PokemonGo.RocketAPI.Console
             });
             System.Console.ReadLine();
         }
-        
+
         private static async Task TransferAllButStrongestUnwantedPokemon(Client client)
         {
             //ColoredConsoleWrite(ConsoleColor.White, $"[{DateTime.Now.ToString("HH:mm:ss")}] Firing up the meat grinder");

@@ -423,7 +423,7 @@ namespace PokemonGo.RocketAPI
             foreach (var item in items)
             {
                 var transfer = await RecycleItem((AllEnum.ItemId)item.Item_, item.Count);
-                ColoredConsoleWrite(ConsoleColor.DarkCyan, $"[{DateTime.Now.ToString("HH:mm:ss")}] Recycled {item.Count}x {(AllEnum.ItemId)item.Item_}");
+                ColoredConsoleWrite(ConsoleColor.DarkCyan, $"[{DateTime.Now.ToString("HH:mm:ss")}] Recycled {item.Count}x {((AllEnum.ItemId)item.Item_).ToString().Substring(4)}");
                 await Task.Delay(500);
             }
             await Task.Delay(_settings.RecycleItemsInterval * 1000);
@@ -453,6 +453,37 @@ namespace PokemonGo.RocketAPI
             return inventory.InventoryDelta.InventoryItems
                 .Select(i => i.InventoryItemData?.Item)
                 .Where(p => p != null);
+        }
+
+        public async Task<UseItemCaptureRequest> UseCaptureItem(ulong encounterId, AllEnum.ItemId itemId, string spawnPointGuid)
+        {
+            var customRequest = new UseItemCaptureRequest
+            {
+                EncounterId = encounterId,
+                ItemId = itemId,
+                SpawnPointGuid = spawnPointGuid
+            };
+
+            var useItemRequest = RequestBuilder.GetRequest(_unknownAuth, _currentLat, _currentLng, 30,
+                new Request.Types.Requests()
+                {
+                    Type = (int)RequestType.USE_ITEM_CAPTURE,
+                    Message = customRequest.ToByteString()
+                });
+            return await _httpClient.PostProtoPayload<Request, UseItemCaptureRequest>($"https://{_apiUrl}/rpc", useItemRequest);
+        }
+
+        public async Task UseRazzBerry(Client client, ulong encounterId, string spawnPointGuid)
+        {
+            IEnumerable<Item> myItems = await GetItems(client);
+            IEnumerable<Item> RazzBerries = myItems.Where(i => (ItemId)i.Item_ == ItemId.ItemRazzBerry);
+            Item RazzBerry = RazzBerries.FirstOrDefault();
+            if (RazzBerry != null)
+            {
+                UseItemCaptureRequest useRazzBerry = await client.UseCaptureItem(encounterId, AllEnum.ItemId.ItemRazzBerry, spawnPointGuid);
+                ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Used Rasperry. Remaining: {RazzBerry.Count}");
+                await Task.Delay(2000);
+            }
         }
     }
 }
