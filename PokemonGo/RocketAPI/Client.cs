@@ -13,6 +13,8 @@ using PokemonGo.RocketAPI.Helpers;
 using PokemonGo.RocketAPI.Login;
 using AllEnum;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 
 #endregion
 
@@ -30,6 +32,8 @@ namespace PokemonGo.RocketAPI
         private double _currentLng;
         private Request.Types.UnknownAuth _unknownAuth;
         static string accestoken = string.Empty;
+
+        List<string> importantPokemon = new List<string>();
 
         public Client(ISettings settings)
         {
@@ -50,15 +54,28 @@ namespace PokemonGo.RocketAPI
             _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "*/*");
             _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type",
                 "application/x-www-form-urlencoded");
+
+            importantPokemon.Add("Bulbasaur");
+            importantPokemon.Add("Ivysaur");
+            importantPokemon.Add("Venusaur");
+            importantPokemon.Add("Charmander");
+            importantPokemon.Add("Charmeleon");
+            importantPokemon.Add("Charizard");
+            importantPokemon.Add("Squirtle");
+            importantPokemon.Add("Wartortle");
+            importantPokemon.Add("Blastoise");
+            importantPokemon.Add("Vulpix");
+            importantPokemon.Add("Eevee");
+            importantPokemon.Add("Dratini");
         }
 
-        public async Task<CatchPokemonResponse> CatchPokemon(ulong encounterId, string spawnPointGuid, double pokemonLat,
+        public async Task<CatchPokemonResponse> CatchPokemon(string pokemonId, ulong encounterId, string spawnPointGuid, double pokemonLat,
             double pokemonLng, MiscEnums.Item pokeball, int? pokemonCP)
         {
             var customRequest = new Request.Types.CatchPokemonRequest
             {
                 EncounterId = encounterId,
-                Pokeball = (int) GetBestBall(pokemonCP).Result,
+                Pokeball = (int)GetBestBall(pokemonId, pokemonCP).Result,
                 SpawnPointGuid = spawnPointGuid,
                 HitPokemon = 1,
                 NormalizedReticleSize = Utils.FloatAsUlong(1.950),
@@ -145,7 +162,7 @@ namespace PokemonGo.RocketAPI
                         releasePokemonRequest);
         }
 
-        private async Task<MiscEnums.Item> GetBestBall(int? pokemonCP)
+        private async Task<MiscEnums.Item> GetBestBall(string pokemonId, int? pokemonCP)
         {
             var inventory = await GetInventory();
 
@@ -167,20 +184,25 @@ namespace PokemonGo.RocketAPI
             var masterBallsCount = ballCollection.Where(p => p.ItemId == MiscEnums.Item.ITEM_MASTER_BALL).
                 DefaultIfEmpty(new {ItemId = MiscEnums.Item.ITEM_MASTER_BALL, Amount = 0}).FirstOrDefault().Amount;
 
-            // Use better balls for high CP pokemon
-            if (masterBallsCount > 0 && pokemonCP >= 1000)
+            if (importantPokemon.Contains(pokemonId))
+            {
+                ColoredConsoleWrite(ConsoleColor.Red, $"[{DateTime.Now.ToString("HH:mm:ss")}] THIS IS AN IMPORTANT POKEMON!!!!!!!");
+            }
+
+                // Use better balls for high CP pokemon
+                if (masterBallsCount > 0 && pokemonCP >= 1000 || importantPokemon.Contains(pokemonId))
             {
                 ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Master Ball is being used");
                 return MiscEnums.Item.ITEM_MASTER_BALL;
             }
 
-            if (ultraBallsCount > 0 && pokemonCP >= 600)
+            if (ultraBallsCount > 0 && pokemonCP >= 600 || importantPokemon.Contains(pokemonId))
             {
                 ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Ultra Ball is being used");
                 return MiscEnums.Item.ITEM_ULTRA_BALL;
             }
 
-            if (greatBallsCount > 0 && pokemonCP >= 350)
+            if (greatBallsCount > 0 && pokemonCP >= 350 || importantPokemon.Contains(pokemonId))
             {
                 ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Great Ball is being used");
                 return MiscEnums.Item.ITEM_GREAT_BALL;
@@ -343,9 +365,16 @@ namespace PokemonGo.RocketAPI
         {
             _currentLat = lat;
             _currentLng = lng;
+            string time = DateTime.Now.ToString("h:mm:ss tt");
+            File.AppendAllText("log.txt", time + " - new lat,long: " + ToGBString(lat) + " , " + ToGBString(lng) + Environment.NewLine);
         }
 
-        public async Task SetServer()
+        private string ToGBString(double value)
+        {
+                return value.ToString(CultureInfo.GetCultureInfo("en-GB"));
+        }
+
+    public async Task SetServer()
         {
             var serverRequest = RequestBuilder.GetInitialRequest(_accessToken, _authType, _currentLat, _currentLng, 10,
                 RequestType.GET_PLAYER, RequestType.GET_HATCHED_OBJECTS, RequestType.GET_INVENTORY,
