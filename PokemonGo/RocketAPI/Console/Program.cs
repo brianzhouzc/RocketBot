@@ -26,7 +26,7 @@ namespace PokemonGo.RocketAPI.Console
 {
     internal class Program
     {
-        private static readonly ISettings ClientSettings = new Settings();
+        private static ISettings ClientSettings = new Settings();
         static int Currentlevel = -1;
 
         public static void CheckVersion()
@@ -189,7 +189,7 @@ namespace PokemonGo.RocketAPI.Console
             catch (TaskCanceledException tce) { ColoredConsoleWrite(ConsoleColor.White, "Task Canceled Exception - Restarting"); Execute(); }
             catch (UriFormatException ufe) { ColoredConsoleWrite(ConsoleColor.White, "System URI Format Exception - Restarting"); Execute(); }
             catch (ArgumentOutOfRangeException aore) { ColoredConsoleWrite(ConsoleColor.White, "ArgumentOutOfRangeException - Restarting"); Execute(); }
-            catch (ArgumentNullException ane) { ColoredConsoleWrite(ConsoleColor.White, "Argument Null Refference - Restarting"); Execute(); }
+      //      catch (ArgumentNullException ane) { ColoredConsoleWrite(ConsoleColor.White, "Argument Null Refference - Restarting"); Execute(); }
             catch (NullReferenceException nre) { ColoredConsoleWrite(ConsoleColor.White, "Null Refference - Restarting"); Execute(); }
             //await ExecuteCatchAllNearbyPokemons(client);
         }
@@ -501,8 +501,10 @@ namespace PokemonGo.RocketAPI.Console
                             ColoredConsoleWrite(ConsoleColor.Magenta, $"[{DateTime.Now.ToString("HH:mm:ss")}] Current Level: " + v.Level + ". XP needed for next Level: " + (v.NextLevelXp - v.Experience));
                         }
                 }
-
-            await Task.Delay(ClientSettings.LevelTimeInterval * 1000);
+            if (ClientSettings.LevelOutput == "levelup")
+                await Task.Delay(1000);
+            else
+                await Task.Delay(ClientSettings.LevelTimeInterval * 1000);
             PrintLevel(client);
         }
 

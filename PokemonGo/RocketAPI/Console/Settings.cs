@@ -57,11 +57,6 @@ namespace PokemonGo.RocketAPI.Console
                     new KeyValuePair<ItemId, int>(ItemId.ItemHyperPotion, 50)
                 };
             }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
         }
 
         public int RecycleItemsInterval => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 60;
