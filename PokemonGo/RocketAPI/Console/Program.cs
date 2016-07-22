@@ -158,7 +158,6 @@ namespace PokemonGo.RocketAPI.Console
             ColoredConsoleWrite(ConsoleColor.DarkGray, "Name: " + profile.Profile.Username);
             ColoredConsoleWrite(ConsoleColor.DarkGray, "Team: " + profile.Profile.Team);
             ColoredConsoleWrite(ConsoleColor.DarkGray, "Stardust: " + profile.Profile.Currency.ToArray()[1].Amount);
-            await PrintLevelStartUp(client);
 
 
             try
@@ -168,7 +167,10 @@ namespace PokemonGo.RocketAPI.Console
                 if (ClientSettings.TransferType == "leaveStrongest")
                     await TransferAllButStrongestUnwantedPokemon(client);
                 else if (ClientSettings.TransferType == "all")
+                {
+                    ColoredConsoleWrite(ConsoleColor.Cyan, "All");
                     await TransferAllGivenPokemons(client, pokemons);
+                }
                 else if (ClientSettings.TransferType == "duplicate")
                     await TransferDuplicatePokemon(client);
                 else if (ClientSettings.TransferType == "cp")
@@ -362,10 +364,19 @@ namespace PokemonGo.RocketAPI.Console
             //ColoredConsoleWrite(ConsoleColor.White, $"[{DateTime.Now.ToString("HH:mm:ss")}] Finished grinding all the meat");
         }
 
-        private static async Task TransferAllGivenPokemons(Client client, IEnumerable<PokemonData> unwantedPokemons)
+    public static float Perfect(PokemonData poke)
+        {
+                ColoredConsoleWrite(ConsoleColor.Cyan, "Checking IVs");
+                return ((float)(poke.IndividualAttack + poke.IndividualDefense + poke.IndividualStamina) / (3.0f * 15.0f)) * 100.0f;
+        }
+
+    private static async Task TransferAllGivenPokemons(Client client, IEnumerable<PokemonData> unwantedPokemons, float keepPerfectPokemonLimit = 80.0f)
         {
             foreach (var pokemon in unwantedPokemons)
             {
+                if (Perfect(pokemon) >= keepPerfectPokemonLimit) continue;
+                if (pokemon.Favorite > 0) continue;
+                ColoredConsoleWrite(ConsoleColor.Cyan, "Attempt Transfer");
                 var transferPokemonResponse = await client.TransferPokemon(pokemon.Id);
 
                 /*
@@ -441,8 +452,8 @@ namespace PokemonGo.RocketAPI.Console
                 //PokemonId.Goldeen,
                 //PokemonId.Staryu,
                 PokemonId.Magikarp,
-                PokemonId.Eevee//,
-                //PokemonId.Dratini
+                PokemonId.Eevee,
+                PokemonId.Dratini
             };
 
             var inventory = await client.GetInventory();
@@ -466,7 +477,7 @@ namespace PokemonGo.RocketAPI.Console
 
             ColoredConsoleWrite(ConsoleColor.Gray, $"[{DateTime.Now.ToString("HH:mm:ss")}] Finished grinding all the meat");
         }
-
+        
         public static async Task PrintLevel(Client client)
         {
             var inventory = await client.GetInventory();
@@ -484,15 +495,6 @@ namespace PokemonGo.RocketAPI.Console
 
             await Task.Delay(ClientSettings.LevelTimeInterval * 1000);
             PrintLevel(client);
-        }
-
-        public static async Task PrintLevelStartUp(Client client)
-        {
-            var inventory = await client.GetInventory();
-            var stats = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PlayerStats).ToArray();
-            foreach (var v in stats)
-                if (v != null)
-                    ColoredConsoleWrite(ConsoleColor.DarkGray, "Level: " + v.Level + " (" + v.Experience + "/" + v.NextLevelXp + ")");
         }
     }
 }

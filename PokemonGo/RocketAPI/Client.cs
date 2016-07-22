@@ -380,9 +380,9 @@ namespace PokemonGo.RocketAPI
                         releasePokemonRequest);
         }
 
-        public async Task<PlayerUpdateResponse> UpdatePlayerLocation(double lat, double lng)
+        private async Task<PlayerUpdateResponse> DoWalk()
         {
-            SetCoordinates(lat, lng);
+            Console.WriteLine($"Do walk to lat: {_currentLat} lng: {_currentLng}");
             var customRequest = new Request.Types.PlayerUpdateProto
             {
                 Lat = Utils.FloatAsUlong(_currentLat),
@@ -392,12 +392,57 @@ namespace PokemonGo.RocketAPI
             var updateRequest = RequestBuilder.GetRequest(_unknownAuth, _currentLat, _currentLng, 10,
                 new Request.Types.Requests
                 {
-                    Type = (int) RequestType.PLAYER_UPDATE,
+                    Type = (int)RequestType.PLAYER_UPDATE,
                     Message = customRequest.ToByteString()
                 });
             var updateResponse =
-                await
-                    _httpClient.PostProtoPayload<Request, PlayerUpdateResponse>($"https://{_apiUrl}/rpc", updateRequest);
+                await _httpClient.PostProtoPayload<Request, PlayerUpdateResponse>($"https://{_apiUrl}/rpc", updateRequest);
+
+            return updateResponse;
+        }
+
+        public async Task<PlayerUpdateResponse> UpdatePlayerLocation(double lat, double lng)
+        {
+            PlayerUpdateResponse updateResponse = null;
+
+            if (_currentLat >= lat)
+            {
+                while (_currentLat > lat)
+                {
+                    SetCoordinates(_currentLat -= 0.000095, _currentLng);
+                    updateResponse = await DoWalk();
+                    await Task.Delay(100);
+                }
+            }
+            else
+            {
+                while (_currentLat < lat)
+                {
+                    SetCoordinates(_currentLat += 0.000095, _currentLng);
+                    updateResponse = await DoWalk();
+                    await Task.Delay(100);
+                }
+            }
+
+            if (_currentLng >= lng)
+            {
+                while (_currentLng > lng)
+                {
+                    SetCoordinates(_currentLat, _currentLng -= 0.000095);
+                    updateResponse = await DoWalk();
+                    await Task.Delay(100);
+                }
+            }
+            else
+            {
+                while (_currentLng < lng)
+                {
+                    SetCoordinates(_currentLat, _currentLng += 0.000095);
+                    updateResponse = await DoWalk();
+                    await Task.Delay(100);
+                }
+            }
+
             return updateResponse;
         }
 
