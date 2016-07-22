@@ -27,7 +27,15 @@ namespace PokemonGo.RocketAPI.Console
     internal class Program
     {
         private static ISettings ClientSettings = new Settings();
-        static int Currentlevel = -1;
+        private static int Currentlevel = -1;
+        private static int TotalExperience = 0;
+        private static int TotalPokemon = 0;
+        private static DateTime TimeStarted = DateTime.Now;
+
+        public static double GetRuntime()
+        {
+            return ((DateTime.Now - TimeStarted).TotalSeconds) / 3600;
+        }
 
         public static void CheckVersion()
         {
@@ -222,6 +230,7 @@ namespace PokemonGo.RocketAPI.Console
                             await client.UseRazzBerry(client, pokemon.EncounterId, pokemon.SpawnpointId);
                     caughtPokemonResponse = await client.CatchPokemon(pokemon.EncounterId, pokemon.SpawnpointId, pokemon.Latitude, pokemon.Longitude, MiscEnums.Item.ITEM_POKE_BALL, pokemonCP); ; //note: reverted from settings because this should not be part of settings but part of logic
                 } while (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed || caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchEscape);
+
                 string pokemonName;
                 if (ClientSettings.Language == "german")
                 {
@@ -235,6 +244,9 @@ namespace PokemonGo.RocketAPI.Console
                 if (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchSuccess)
                 {
                     ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] We caught a {pokemonName} with {encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp} CP");
+                    foreach (int xp in caughtPokemonResponse.Scores.Xp)
+                        TotalExperience += xp;
+                    TotalPokemon += 1;
                 }
                 else
                     ColoredConsoleWrite(ConsoleColor.Red, $"[{DateTime.Now.ToString("HH:mm:ss")}] {pokemonName} with {encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp} CP got away..");
@@ -278,14 +290,8 @@ namespace PokemonGo.RocketAPI.Console
                     PokeStopOutput.Write($", Items: {GetFriendlyItemsString(fortSearch.ItemsAwarded)} ");
                 ColoredConsoleWrite(ConsoleColor.Cyan, PokeStopOutput.ToString());
 
-                /*ColoredConsoleWrite(ConsoleColor.Cyan, 
-                    $"[{DateTime.Now.ToString("HH:mm:ss")}] "+
-                    "PokeStop: " + fortInfo.Name +
-                    $", XP: {fortSearch.ExperienceAwarded}" +
-                    $", Gems: {fortSearch.GemsAwarded}" +
-                    $", Eggs: {fortSearch.PokemonDataEgg}" +
-                    $", Items: {GetFriendlyItemsString(fortSearch.ItemsAwarded)} ");*/
-
+                if (fortSearch.ExperienceAwarded != 0)
+                    TotalExperience += (fortSearch.ExperienceAwarded);
                 await Task.Delay(15000);
                 await ExecuteCatchAllNearbyPokemons(client);
             }
@@ -540,7 +546,7 @@ namespace PokemonGo.RocketAPI.Console
                 if (v != null)
                 {
                     int XpDiff = GetXpDiff(client, v.Level);
-                    System.Console.Title = string.Format(Username + " | Level: {0:0} - ({1:0} / {2:0}) | Stardust: {3:0}", v.Level, (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount);
+                    System.Console.Title = string.Format(Username + " | Level: {0:0} - ({1:0} / {2:0}) | Stardust: {3:0}", v.Level, (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount) + " | XP/Hour: " + Math.Round(TotalExperience / GetRuntime()) + " | Pokemon/Hour: " + Math.Round(TotalPokemon / GetRuntime());
                 }
             await Task.Delay(1000);
             ConsoleLevelTitle(Username, client);

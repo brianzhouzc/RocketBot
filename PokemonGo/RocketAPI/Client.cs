@@ -95,9 +95,9 @@ namespace PokemonGo.RocketAPI
             else
             {
                 if (_settings.GoogleRefreshToken != null)
-                    tokenResponse = await GoogleLogin.GetAccessToken(AccessToken);
-                else
                     tokenResponse = await GoogleLogin.GetAccessToken(_settings.GoogleRefreshToken);
+                else
+                    tokenResponse = await GoogleLogin.GetAccessToken(AccessToken);
                 _accessToken = tokenResponse.id_token;
             }
         }
