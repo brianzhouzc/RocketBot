@@ -104,8 +104,13 @@ namespace PokemonGo.RocketAPI
 
         public async Task DoPtcLogin(string username, string password)
         {
-            _accessToken = await PtcLogin.GetAccessToken(username, password);
-            _authType = AuthType.Ptc;
+            try
+            {
+                _accessToken = await PtcLogin.GetAccessToken(username, password);
+                _authType = AuthType.Ptc;
+            }
+            catch (Newtonsoft.Json.JsonReaderException) { ColoredConsoleWrite(ConsoleColor.White, "Json Reader Exception - Server down? - Restarting"); DoPtcLogin(username, password); }
+            catch (Exception ex) { ColoredConsoleWrite(ConsoleColor.White, ex.ToString() + "Exception - Please report - Restarting"); DoPtcLogin(username, password); }
         }
 
         public async Task<EncounterResponse> EncounterPokemon(ulong encounterId, string spawnPointGuid)
