@@ -15,6 +15,7 @@ A Pokemon Go bot in C#
 * Output level and needed XP for levelup
 * Output Username, Level, Stardust in Console Title
 * German/English pokemon names
+* Automatic use of Razzberries
 
 ## Getting Started
 
@@ -52,6 +53,13 @@ If you use the Google login, build the application and start the Console etc. fr
 ## Language
 * *english* Outputs caught pokemons in english name.
 * *german*  Outputs caught pokemons in german name.
+
+## RazzBerryMode
+* *cp* - Use RazzBerry when Pokemon is over specific CP.
+* *probability* - Use RazzBerry when Pokemon catch chance is under a specific percentage.
+
+## RazzBerrySetting
+* *value* CP: Use RazzBerry when Pokemon is over this value | Probability Mode: Use Razzberry when % of catching is under this value
 
 ## TransferType
 * *none* - disables transferring
