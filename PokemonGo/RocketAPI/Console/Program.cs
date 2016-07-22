@@ -30,7 +30,7 @@ namespace PokemonGo.RocketAPI.Console
         static int Currentlevel = -1;
 
         public static void CheckVersion()
-        { 
+        {
             try
             {
                 var match =
@@ -135,36 +135,6 @@ namespace PokemonGo.RocketAPI.Console
         {
             var client = new Client(ClientSettings);
 
-<<<<<<< HEAD
-=======
-            if (ClientSettings.AuthType == AuthType.Ptc)
-                await client.DoPtcLogin(ClientSettings.PtcUsername, ClientSettings.PtcPassword);
-            else if (ClientSettings.AuthType == AuthType.Google)
-                await client.DoGoogleLogin();
-
-            await client.SetServer();
-            var profile = await client.GetProfile();
-            var settings = await client.GetSettings();
-            var mapObjects = await client.GetMapObjects();
-            var inventory = await client.GetInventory();
-            var pokemons =
-                inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon)
-                    .Where(p => p != null && p?.PokemonId > 0);
-
-            ColoredConsoleWrite(ConsoleColor.Yellow, "----------------------------");
-            ColoredConsoleWrite(ConsoleColor.Cyan, "Account: " + ClientSettings.PtcUsername);
-            ColoredConsoleWrite(ConsoleColor.Cyan, "Password: " + ClientSettings.PtcPassword + "\n");
-            ColoredConsoleWrite(ConsoleColor.DarkGray, "Latitude: " + ClientSettings.DefaultLatitude);
-            ColoredConsoleWrite(ConsoleColor.DarkGray, "Longitude: " + ClientSettings.DefaultLongitude);
-            ColoredConsoleWrite(ConsoleColor.Yellow, "----------------------------");
-            ColoredConsoleWrite(ConsoleColor.DarkGray, "Your Account:\n");
-            ColoredConsoleWrite(ConsoleColor.DarkGray, "Name: " + profile.Profile.Username);
-            ColoredConsoleWrite(ConsoleColor.DarkGray, "Team: " + profile.Profile.Team);
-            ColoredConsoleWrite(ConsoleColor.DarkGray, "Stardust: " + profile.Profile.Currency.ToArray()[1].Amount);
-            await PrintLevelStartUp(client);
-
-
->>>>>>> origin/master
             try
             {
                 if (ClientSettings.AuthType == AuthType.Ptc)
@@ -211,10 +181,7 @@ namespace PokemonGo.RocketAPI.Console
 
                 await Task.Delay(5000);
                 PrintLevel(client);
-<<<<<<< HEAD
                 ConsoleLevelTitle(profile.Profile.Username, client);
-=======
->>>>>>> origin/master
                 await ExecuteFarmingPokestopsAndPokemons(client);
                 ColoredConsoleWrite(ConsoleColor.Red, $"[{DateTime.Now.ToString("HH:mm:ss")}] No nearby usefull locations found. Please wait 10 seconds.");
                 await Task.Delay(10000);
@@ -225,7 +192,6 @@ namespace PokemonGo.RocketAPI.Console
             catch (ArgumentOutOfRangeException aore) { ColoredConsoleWrite(ConsoleColor.White, "ArgumentOutOfRangeException - Restarting"); Execute(); }
             catch (ArgumentNullException ane) { ColoredConsoleWrite(ConsoleColor.White, "Argument Null Refference - Restarting"); Execute(); }
             catch (NullReferenceException nre) { ColoredConsoleWrite(ConsoleColor.White, "Null Refference - Restarting"); Execute(); }
-            catch (ArgumentNullException ane) { ColoredConsoleWrite(ConsoleColor.White, "Argument Null Refference - Restarting"); Execute(); }
             //await ExecuteCatchAllNearbyPokemons(client);
         }
 
@@ -247,11 +213,7 @@ namespace PokemonGo.RocketAPI.Console
                 var encounterPokemonResponse = await client.EncounterPokemon(pokemon.EncounterId, pokemon.SpawnpointId);
                 var pokemonCP = encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp;
                 CatchPokemonResponse caughtPokemonResponse;
-<<<<<<< HEAD
 
-=======
-                
->>>>>>> origin/master
                 do
                 {
                     caughtPokemonResponse =
@@ -260,7 +222,6 @@ namespace PokemonGo.RocketAPI.Console
                                 pokemon.Longitude, MiscEnums.Item.ITEM_POKE_BALL, pokemonCP);
                     ; //note: reverted from settings because this should not be part of settings but part of logic
                 } while (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed);
-<<<<<<< HEAD
                 string pokemonName;
                 if (ClientSettings.Language == "german")
                 {
@@ -277,13 +238,6 @@ namespace PokemonGo.RocketAPI.Console
                 }
                 else
                     ColoredConsoleWrite(ConsoleColor.Red, $"[{DateTime.Now.ToString("HH:mm:ss")}] {pokemonName} with {encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp} CP got away..");
-=======
-
-                if (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchSuccess)
-                    ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] We caught a {pokemon.PokemonId} with {encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp} CP");
-                else
-                    ColoredConsoleWrite(ConsoleColor.Red, $"[{DateTime.Now.ToString("HH:mm:ss")}] {pokemon.PokemonId} with {encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp} CP got away..");
->>>>>>> origin/master
 
 
                 if (ClientSettings.TransferType == "leaveStrongest")
@@ -354,7 +308,7 @@ namespace PokemonGo.RocketAPI.Console
             });
             System.Console.ReadLine();
         }
-        
+
         private static async Task TransferAllButStrongestUnwantedPokemon(Client client)
         {
             //ColoredConsoleWrite(ConsoleColor.White, $"[{DateTime.Now.ToString("HH:mm:ss")}] Firing up the meat grinder");
@@ -524,41 +478,28 @@ namespace PokemonGo.RocketAPI.Console
             var stats = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PlayerStats).ToArray();
             foreach (var v in stats)
                 if (v != null)
-<<<<<<< HEAD
                 {
                     int XpDiff = GetXpDiff(client, v.Level);
                     if (ClientSettings.LevelOutput == "time")
                         ColoredConsoleWrite(ConsoleColor.Yellow, $"[{DateTime.Now.ToString("HH:mm:ss")}] Current Level: " + v.Level + " (" + (v.Experience - XpDiff) + "/" + (v.NextLevelXp - XpDiff) + ")");
-=======
-                    if (ClientSettings.LevelOutput == "time")
-                        ColoredConsoleWrite(ConsoleColor.Yellow, $"[{DateTime.Now.ToString("HH:mm:ss")}] Current Level: " + v.Level + " (" + v.Experience + "/" + v.NextLevelXp + ")");
->>>>>>> origin/master
                     else if (ClientSettings.LevelOutput == "levelup")
                         if (Currentlevel != v.Level)
                         {
                             Currentlevel = v.Level;
                             ColoredConsoleWrite(ConsoleColor.Magenta, $"[{DateTime.Now.ToString("HH:mm:ss")}] Current Level: " + v.Level + ". XP needed for next Level: " + (v.NextLevelXp - v.Experience));
                         }
-<<<<<<< HEAD
                 }
-=======
->>>>>>> origin/master
 
             await Task.Delay(ClientSettings.LevelTimeInterval * 1000);
             PrintLevel(client);
         }
 
-<<<<<<< HEAD
         public static async Task ConsoleLevelTitle(string Username, Client client)
-=======
-        public static async Task PrintLevelStartUp(Client client)
->>>>>>> origin/master
         {
             var inventory = await client.GetInventory();
             var stats = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PlayerStats).ToArray();
             foreach (var v in stats)
                 if (v != null)
-<<<<<<< HEAD
                 {
                     int XpDiff = GetXpDiff(client, v.Level);
                     System.Console.Title = string.Format(Username + " | Level {0:0} - ({1:0} / {2:0})", v.Level, (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff));
@@ -653,9 +594,6 @@ namespace PokemonGo.RocketAPI.Console
                     return 1000000;
             }
             return 0;
-=======
-                    ColoredConsoleWrite(ConsoleColor.DarkGray, "Level: " + v.Level + " (" + v.Experience + "/" + v.NextLevelXp + ")");
->>>>>>> origin/master
         }
     }
 }

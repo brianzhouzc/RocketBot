@@ -50,7 +50,6 @@ namespace PokemonGo.RocketAPI.Console
                     new KeyValuePair<ItemId, int>(ItemId.ItemGreatBall, 50),
                     new KeyValuePair<ItemId, int>(ItemId.ItemUltraBall, 100),
                     new KeyValuePair<ItemId, int>(ItemId.ItemMasterBall, 200),
-                    new KeyValuePair<ItemId, int>(ItemId.ItemRazzBerry, 20),
                     new KeyValuePair<ItemId, int>(ItemId.ItemRevive, 20),
                     new KeyValuePair<ItemId, int>(ItemId.ItemPotion, 0),
                     new KeyValuePair<ItemId, int>(ItemId.ItemSuperPotion, 0),
@@ -65,11 +64,8 @@ namespace PokemonGo.RocketAPI.Console
         }
 
         public int RecycleItemsInterval => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 60;
-<<<<<<< HEAD
 
         public string Language => GetSetting() != string.Empty ? GetSetting() : "english";
-=======
->>>>>>> origin/master
 
         public string GoogleRefreshToken
         {
