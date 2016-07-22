@@ -175,8 +175,8 @@ namespace PokemonGo.RocketAPI.Console
                     ColoredConsoleWrite(ConsoleColor.DarkGray, $"[{DateTime.Now.ToString("HH:mm:ss")}] Transfering pokemon disabled");
                 if (ClientSettings.EvolveAllGivenPokemons)
                     await EvolveAllGivenPokemons(client, pokemons);
-
-                client.RecycleItems(client);
+                if (ClientSettings.Recycler)
+                    client.RecycleItems(client);
 
                 await Task.Delay(5000);
                 PrintLevel(client);
@@ -263,7 +263,6 @@ namespace PokemonGo.RocketAPI.Console
                 var update = await client.UpdatePlayerLocation(pokeStop.Latitude, pokeStop.Longitude);
                 var fortInfo = await client.GetFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
                 var fortSearch = await client.SearchFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
-
                 StringWriter PokeStopOutput = new StringWriter();
                 PokeStopOutput.Write($"[{DateTime.Now.ToString("HH:mm:ss")}] ");
                 if (fortInfo.Name != string.Empty)
@@ -273,7 +272,7 @@ namespace PokemonGo.RocketAPI.Console
                 if (fortSearch.GemsAwarded != 0)
                     PokeStopOutput.Write($", Gems: {fortSearch.GemsAwarded}");
                 if (fortSearch.PokemonDataEgg != null)
-                    PokeStopOutput.Write($"Eggs: {fortSearch.PokemonDataEgg} ");
+                    PokeStopOutput.Write($", Eggs: {fortSearch.PokemonDataEgg}");
                 if (GetFriendlyItemsString(fortSearch.ItemsAwarded) != string.Empty)
                     PokeStopOutput.Write($", Items: {GetFriendlyItemsString(fortSearch.ItemsAwarded)} ");
                 ColoredConsoleWrite(ConsoleColor.Cyan, PokeStopOutput.ToString());
