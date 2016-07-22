@@ -26,11 +26,18 @@ namespace PokemonGo.RocketAPI.Console
         public string PtcUsername => GetSetting() != string.Empty ? GetSetting() : "username";
         public string PtcPassword => GetSetting() != string.Empty ? GetSetting() : "password";
 
-        public double DefaultLatitude => GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 51.22640;
+        public double DefaultLatitude
+        {
+            get { return GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 51.22640; }
+            set { SetSetting(value); }
+        }
 
         //Default Amsterdam Central Station if another location is not specified
-        public double DefaultLongitude => GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 6.77874;
-
+        public double DefaultLongitude
+        {
+            get { return GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 6.77874; }
+            set { SetSetting(value); }
+        }
         //Default Amsterdam Central Station if another location is not specified
 
         // LEAVE EVERYTHING ALONE
@@ -84,6 +91,13 @@ namespace PokemonGo.RocketAPI.Console
         {
             var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             if (key != null) configFile.AppSettings.Settings[key].Value = value;
+            configFile.Save();
+        }
+
+        private void SetSetting(double value, [CallerMemberName] string key = null)
+        {
+            var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            if (key != null) configFile.AppSettings.Settings[key].Value = Convert.ToString(value);
             configFile.Save();
         }
     }

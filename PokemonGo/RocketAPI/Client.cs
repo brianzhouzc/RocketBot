@@ -346,6 +346,8 @@ namespace PokemonGo.RocketAPI
         {
             _currentLat = lat;
             _currentLng = lng;
+            _settings.DefaultLatitude = lat;
+            _settings.DefaultLongitude = lng;
         }
 
         public async Task SetServer()
