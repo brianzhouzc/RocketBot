@@ -25,6 +25,6 @@ namespace PokemonGo.RocketAPI
         int RecycleItemsInterval { get; }
         string Language { get; }
         string RazzBerryMode { get; }
-        int RazzBerrySetting { get; }
+        double RazzBerrySetting { get; }
     }
 }

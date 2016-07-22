@@ -67,7 +67,7 @@ namespace PokemonGo.RocketAPI.Console
 
         public string RazzBerryMode => GetSetting() != string.Empty ? GetSetting() : "cp";
 
-        public int RazzBerrySetting => GetSetting() != string.Empty ? System.Convert.ToInt16(GetSetting()) : 40;
+        public double RazzBerrySetting => GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 500;
 
         public string GoogleRefreshToken
         {
