@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Google.Protobuf;
 using PokemonGo.RocketAPI.GeneratedCode;
+using System;
 
 #endregion
 
@@ -31,7 +32,7 @@ namespace PokemonGo.RocketAPI.Extensions
             string url, TRequest request) where TRequest : IMessage<TRequest>
             where TResponsePayload : IMessage<TResponsePayload>, new()
         {
-            //Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss")} requesting {typeof(TResponsePayload).Name}");
+            //      ColoredConsoleWrite(ConsoleColor.Red, ($"[DEBUG] [{DateTime.Now.ToString("HH:mm:ss")}] requesting {typeof(TResponsePayload).Name}"));
             var response = await PostProto(client, url, request);
 
             //Decode payload
@@ -42,5 +43,13 @@ namespace PokemonGo.RocketAPI.Extensions
 
             return parsedPayload;
         }
+        public static void ColoredConsoleWrite(ConsoleColor color, string text)
+        {
+            ConsoleColor originalColor = System.Console.ForegroundColor;
+            System.Console.ForegroundColor = color;
+            System.Console.WriteLine(text);
+            System.Console.ForegroundColor = originalColor;
+        }
+
     }
 }

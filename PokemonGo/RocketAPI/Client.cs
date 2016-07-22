@@ -469,7 +469,7 @@ namespace PokemonGo.RocketAPI
                 await Task.Delay(500);
             }
             await Task.Delay(_settings.RecycleItemsInterval * 1000);
-            RecycleItems(client);
+            await RecycleItems(client);
         }
 
         public async Task<Response.Types.Unknown6> RecycleItem(AllEnum.ItemId itemId, int amount)
@@ -489,7 +489,7 @@ namespace PokemonGo.RocketAPI
             return await _httpClient.PostProtoPayload<Request, Response.Types.Unknown6>($"https://{_apiUrl}/rpc", releasePokemonRequest);
         }
 
-        public static async Task<IEnumerable<Item>> GetItems(Client client)
+        public async Task<IEnumerable<Item>> GetItems(Client client)
         {
             var inventory = await client.GetInventory();
             return inventory.InventoryDelta.InventoryItems
