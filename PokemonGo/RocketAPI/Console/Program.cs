@@ -218,7 +218,7 @@ namespace PokemonGo.RocketAPI.Console
                         if (pokemonCP > ClientSettings.RazzBerrySetting)
                             await client.UseRazzBerry(client, pokemon.EncounterId, pokemon.SpawnpointId);
                     if (ClientSettings.RazzBerryMode == "probability")
-                        if (encounterPokemonResponse?.CaptureProbability.CaptureProbability_.First() < ClientSettings.RazzBerrySetting)
+                        if (encounterPokemonResponse?.CaptureProbability.CaptureProbability_.First() < ClientSettings.RazzBerrySetting / 100)
                             await client.UseRazzBerry(client, pokemon.EncounterId, pokemon.SpawnpointId);
                     caughtPokemonResponse = await client.CatchPokemon(pokemon.EncounterId, pokemon.SpawnpointId, pokemon.Latitude, pokemon.Longitude, MiscEnums.Item.ITEM_POKE_BALL, pokemonCP); ; //note: reverted from settings because this should not be part of settings but part of logic
                 } while (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed || caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchEscape);
