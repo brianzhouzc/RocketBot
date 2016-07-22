@@ -263,6 +263,7 @@ namespace PokemonGo.RocketAPI.Console
                 var update = await client.UpdatePlayerLocation(pokeStop.Latitude, pokeStop.Longitude);
                 var fortInfo = await client.GetFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
                 var fortSearch = await client.SearchFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
+
                 StringWriter PokeStopOutput = new StringWriter();
                 PokeStopOutput.Write($"[{DateTime.Now.ToString("HH:mm:ss")}] ");
                 if (fortInfo.Name != string.Empty)
@@ -276,6 +277,14 @@ namespace PokemonGo.RocketAPI.Console
                 if (GetFriendlyItemsString(fortSearch.ItemsAwarded) != string.Empty)
                     PokeStopOutput.Write($", Items: {GetFriendlyItemsString(fortSearch.ItemsAwarded)} ");
                 ColoredConsoleWrite(ConsoleColor.Cyan, PokeStopOutput.ToString());
+
+                /*ColoredConsoleWrite(ConsoleColor.Cyan, 
+                    $"[{DateTime.Now.ToString("HH:mm:ss")}] "+
+                    "PokeStop: " + fortInfo.Name +
+                    $", XP: {fortSearch.ExperienceAwarded}" +
+                    $", Gems: {fortSearch.GemsAwarded}" +
+                    $", Eggs: {fortSearch.PokemonDataEgg}" +
+                    $", Items: {GetFriendlyItemsString(fortSearch.ItemsAwarded)} ");*/
 
                 await Task.Delay(15000);
                 await ExecuteCatchAllNearbyPokemons(client);
