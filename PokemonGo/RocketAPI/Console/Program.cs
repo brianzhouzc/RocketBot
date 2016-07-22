@@ -214,14 +214,14 @@ namespace PokemonGo.RocketAPI.Console
                 CatchPokemonResponse caughtPokemonResponse;
                 do
                 {
+                    if (ClientSettings.RazzBerryMode == "cp")
+                        if (pokemonCP > ClientSettings.RazzBerrySetting)
+                            await client.UseRazzBerry(client, pokemon.EncounterId, pokemon.SpawnpointId);
                     if (ClientSettings.RazzBerryMode == "probability")
-                        if (encounterPokemonResponse?.CaptureProbability.CaptureProbability_.First() < ClientSettings.RazzBerrySetting / 100)
+                        if (encounterPokemonResponse?.CaptureProbability.CaptureProbability_.First() < ClientSettings.RazzBerrySetting)
                             await client.UseRazzBerry(client, pokemon.EncounterId, pokemon.SpawnpointId);
-                    else if (ClientSettings.RazzBerryMode == "cp")
-                        if (encounterPokemonResponse?.WildPokemon.PokemonData.Cp > ClientSettings.RazzBerrySetting)
-                            await client.UseRazzBerry(client, pokemon.EncounterId, pokemon.SpawnpointId);
-                    caughtPokemonResponse = await client.CatchPokemon(pokemon.EncounterId, pokemon.SpawnpointId, pokemon.Latitude, pokemon.Longitude, MiscEnums.Item.ITEM_POKE_BALL, pokemonCP);; //note: reverted from settings because this should not be part of settings but part of logic
-                } while (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed);
+                    caughtPokemonResponse = await client.CatchPokemon(pokemon.EncounterId, pokemon.SpawnpointId, pokemon.Latitude, pokemon.Longitude, MiscEnums.Item.ITEM_POKE_BALL, pokemonCP); ; //note: reverted from settings because this should not be part of settings but part of logic
+                } while (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed || caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchEscape);
                 string pokemonName;
                 if (ClientSettings.Language == "german")
                 {
