@@ -42,6 +42,9 @@ namespace PokemonGo.RocketAPI.Login
                             new KeyValuePair<string, string>("password", password)
                         }));
 
+                if (loginResp.Headers.Location == null)
+                    throw new System.NullReferenceException(nameof(loginResp.Headers.Location));
+
                 var ticketId = HttpUtility.ParseQueryString(loginResp.Headers.Location.Query)["ticket"];
                 if (ticketId == null)
                     throw new PtcOfflineException();

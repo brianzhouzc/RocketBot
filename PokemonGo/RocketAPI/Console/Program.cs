@@ -176,21 +176,22 @@ namespace PokemonGo.RocketAPI.Console
                 if (ClientSettings.EvolveAllGivenPokemons)
                     await EvolveAllGivenPokemons(client, pokemons);
 
-                client.RecycleItems(client);
+                await client.RecycleItems(client);
 
                 await Task.Delay(5000);
-                PrintLevel(client);
-                ConsoleLevelTitle(profile.Profile.Username, client);
+                await PrintLevel(client);
+                await ConsoleLevelTitle(profile.Profile.Username, client);
                 await ExecuteFarmingPokestopsAndPokemons(client);
                 ColoredConsoleWrite(ConsoleColor.Red, $"[{DateTime.Now.ToString("HH:mm:ss")}] No nearby usefull locations found. Please wait 10 seconds.");
                 await Task.Delay(10000);
+
                 Execute();
             }
-            catch (TaskCanceledException tce) { ColoredConsoleWrite(ConsoleColor.White, "Task Canceled Exception - Restarting"); Execute(); }
-            catch (UriFormatException ufe) { ColoredConsoleWrite(ConsoleColor.White, "System URI Format Exception - Restarting"); Execute(); }
-            catch (ArgumentOutOfRangeException aore) { ColoredConsoleWrite(ConsoleColor.White, "ArgumentOutOfRangeException - Restarting"); Execute(); }
-            catch (ArgumentNullException ane) { ColoredConsoleWrite(ConsoleColor.White, "Argument Null Refference - Restarting"); Execute(); }
-            catch (NullReferenceException nre) { ColoredConsoleWrite(ConsoleColor.White, "Null Refference - Restarting"); Execute(); }
+            catch (TaskCanceledException) { ColoredConsoleWrite(ConsoleColor.White, "Task Canceled Exception - Restarting"); Execute(); }
+            catch (UriFormatException) { ColoredConsoleWrite(ConsoleColor.White, "System URI Format Exception - Restarting"); Execute(); }
+            catch (ArgumentOutOfRangeException) { ColoredConsoleWrite(ConsoleColor.White, "ArgumentOutOfRangeException - Restarting"); Execute(); }
+            catch (ArgumentNullException) { ColoredConsoleWrite(ConsoleColor.White, "Argument Null Refference - Restarting"); Execute(); }
+            catch (NullReferenceException) { ColoredConsoleWrite(ConsoleColor.White, "Null Refference - Restarting"); Execute(); }
             //await ExecuteCatchAllNearbyPokemons(client);
         }
 
@@ -450,7 +451,7 @@ namespace PokemonGo.RocketAPI.Console
                 //PokemonId.NidoranFemale,
                 //PokemonId.Paras,
                 //PokemonId.Venonat,
-                //PokemonId.Psyduck,
+                PokemonId.Psyduck,
                 //PokemonId.Poliwag,
                 //PokemonId.Slowpoke,
                 //PokemonId.Drowzee,
@@ -503,7 +504,7 @@ namespace PokemonGo.RocketAPI.Console
                 }
 
             await Task.Delay(ClientSettings.LevelTimeInterval * 1000);
-            PrintLevel(client);
+            await PrintLevel(client);
         }
 
         public static async Task ConsoleLevelTitle(string Username, Client client)
@@ -518,7 +519,7 @@ namespace PokemonGo.RocketAPI.Console
                     System.Console.Title = string.Format(Username + " | Level {0:0} - ({1:0} / {2:0}) | Stardust {3:0}", v.Level, (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount);
                 }
             await Task.Delay(1000);
-            ConsoleLevelTitle(Username, client);
+            await ConsoleLevelTitle(Username, client);
         }
 
         public static int GetXpDiff(Client client, int Level)
