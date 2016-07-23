@@ -1,5 +1,10 @@
 # Pokemon-Go-Rocket-API
+
+Console
 ![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/screenshot.png)
+
+Window
+![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/screenshot_window.png)
 
 A Pokemon Go bot in C#
 
