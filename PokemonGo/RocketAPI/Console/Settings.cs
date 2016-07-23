@@ -21,6 +21,7 @@ namespace PokemonGo.RocketAPI.Console
         public int TransferCPThreshold => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 0;
         public bool EvolveAllGivenPokemons => GetSetting() != string.Empty ? System.Convert.ToBoolean(GetSetting(), CultureInfo.InvariantCulture) : false;
 
+        public bool TransferFromList => Convert.ToBoolean(GetSetting() != string.Empty ? GetSetting() : "false");
 
         public AuthType AuthType => (GetSetting() != string.Empty ? GetSetting() : "Ptc") == "Ptc" ? AuthType.Ptc : AuthType.Google;
         public string PtcUsername => GetSetting() != string.Empty ? GetSetting() : "username";
