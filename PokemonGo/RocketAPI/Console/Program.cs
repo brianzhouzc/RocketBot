@@ -158,6 +158,8 @@ namespace PokemonGo.RocketAPI.Console
                     inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon)
                         .Where(p => p != null && p?.PokemonId > 0);
 
+                ConsoleLevelTitle(profile.Profile.Username, client);
+
                 ColoredConsoleWrite(ConsoleColor.Yellow, "----------------------------");
                 if (ClientSettings.AuthType == AuthType.Ptc)
                 {
@@ -187,7 +189,6 @@ namespace PokemonGo.RocketAPI.Console
 
                 await Task.Delay(5000);
                 PrintLevel(client);
-                ConsoleLevelTitle(profile.Profile.Username, client);
                 await ExecuteFarmingPokestopsAndPokemons(client);
                 ColoredConsoleWrite(ConsoleColor.Red, $"No nearby usefull locations found. Please wait 10 seconds.");
                 await Task.Delay(10000);
