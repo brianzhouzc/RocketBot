@@ -488,7 +488,7 @@ namespace PokemonGo.RocketAPI
             if (RazzBerry != null)
             {
                 UseItemCaptureRequest useRazzBerry = await client.UseCaptureItem(encounterId, AllEnum.ItemId.ItemRazzBerry, spawnPointGuid);
-                ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Used Rasperry. Remaining: {RazzBerry.Count}");
+                ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Using a Razz Berry, we have {RazzBerry.Count} left");
                 await Task.Delay(2000);
             }
         }
