@@ -144,10 +144,17 @@ namespace PokemonGo.RocketAPI.Console
             var client = new Client(ClientSettings);
             try
             {
-                if (ClientSettings.AuthType == AuthType.Ptc)
-                    await client.DoPtcLogin(ClientSettings.PtcUsername, ClientSettings.PtcPassword);
-                else if (ClientSettings.AuthType == AuthType.Google)
-                    await client.DoGoogleLogin();
+                // I believe a switch is more efficient and easier to read in this case.
+                // Could also be eaiser to add more options if there are any in the future.
+                switch (ClientSettings.AuthType)
+                {
+                    case AuthType.Ptc:
+                        await client.DoPtcLogin(ClientSettings.PtcUsername, ClientSettings.PtcPassword);
+                        break;
+                    case AuthType.Google:
+                        await client.DoGoogleLogin();
+                        break;
+                }
 
                 await client.SetServer();
                 var profile = await client.GetProfile();
@@ -161,27 +168,45 @@ namespace PokemonGo.RocketAPI.Console
                 ConsoleLevelTitle(profile.Profile.Username, client);
 
                 ColoredConsoleWrite(ConsoleColor.Yellow, "----------------------------");
+
                 if (ClientSettings.AuthType == AuthType.Ptc)
                 {
                     ColoredConsoleWrite(ConsoleColor.Cyan, "Account: " + ClientSettings.PtcUsername);
                     ColoredConsoleWrite(ConsoleColor.Cyan, "Password: " + ClientSettings.PtcPassword + "\n");
                 }
+
+                // Write the players ingame details
                 ColoredConsoleWrite(ConsoleColor.DarkGray, "Name: " + profile.Profile.Username);
                 ColoredConsoleWrite(ConsoleColor.DarkGray, "Team: " + profile.Profile.Team);
-                ColoredConsoleWrite(ConsoleColor.DarkGray, "Stardust: " + profile.Profile.Currency.ToArray()[1].Amount + "\n");
-                ColoredConsoleWrite(ConsoleColor.DarkGray, "Latitude: " + ClientSettings.DefaultLatitude);
+                ColoredConsoleWrite(ConsoleColor.DarkGray, "Stardust: " + profile.Profile.Currency.ToArray()[1].Amount);
+                if(profile.Profile.Currency.ToArray()[0].Amount > 0) // If player has any pokecoins it will show how many they have.
+                    ColoredConsoleWrite(ConsoleColor.DarkGray, "Pokecoins: " + profile.Profile.Currency.ToArray()[0].Amount);
+                ColoredConsoleWrite(ConsoleColor.DarkGray, "\nLatitude: " + ClientSettings.DefaultLatitude);
                 ColoredConsoleWrite(ConsoleColor.DarkGray, "Longitude: " + ClientSettings.DefaultLongitude);
+                ColoredConsoleWrite(ConsoleColor.DarkGray, "Country: " + CallAPI("country"));
+                ColoredConsoleWrite(ConsoleColor.DarkGray, "Place: " + CallAPI("place"));
+
                 ColoredConsoleWrite(ConsoleColor.Yellow, "----------------------------");
-                if (ClientSettings.TransferType == "leaveStrongest")
-                    await TransferAllButStrongestUnwantedPokemon(client);
-                else if (ClientSettings.TransferType == "all")
-                    await TransferAllGivenPokemons(client, pokemons);
-                else if (ClientSettings.TransferType == "duplicate")
-                    await TransferDuplicatePokemon(client);
-                else if (ClientSettings.TransferType == "cp")
-                    await TransferAllWeakPokemon(client, ClientSettings.TransferCPThreshold);
-                else
-                    ColoredConsoleWrite(ConsoleColor.DarkGray, $"Transfering pokemon disabled");
+
+                // I believe a switch is more efficient and easier to read.
+                switch (ClientSettings.TransferType)
+                {
+                    case "leaveStrongest":
+                        await TransferAllButStrongestUnwantedPokemon(client);
+                        break;
+                    case "all":
+                        await TransferAllGivenPokemons(client, pokemons);
+                        break;
+                    case "duplicate":
+                        await TransferDuplicatePokemon(client);
+                        break;
+                    case "cp":
+                        await TransferAllWeakPokemon(client, ClientSettings.TransferCPThreshold);
+                        break;
+                    default:
+                        ColoredConsoleWrite(ConsoleColor.DarkGray, $"[{DateTime.Now.ToString("HH:mm:ss")}] Transfering pokemon disabled");
+                        break;
+                }
                 if (ClientSettings.EvolveAllGivenPokemons)
                     await EvolveAllGivenPokemons(client, pokemons);
                 if (ClientSettings.Recycler)
@@ -201,6 +226,39 @@ namespace PokemonGo.RocketAPI.Console
             catch (ArgumentNullException) { ColoredConsoleWrite(ConsoleColor.White, "Argument Null Refference - Restarting"); Execute(); }
             catch (NullReferenceException) { ColoredConsoleWrite(ConsoleColor.White, "Null Refference - Restarting"); Execute(); }
             catch (Exception ex) { ColoredConsoleWrite(ConsoleColor.White, ex.ToString()); Execute(); }
+        }
+        
+                private static string CallAPI(string elem)
+        {
+            using (XmlReader reader = XmlReader.Create(@"http://api.geonames.org/findNearestAddress?lat=37.451&lng=-122.18&username=demo"))
+            {
+                while (reader.Read())
+                {
+                    if (reader.IsStartElement())
+                    {
+                        switch (elem)
+                        {
+                            case "country":
+                                if (reader.Name == "countryCode")
+                                {
+                                    return reader.ReadString();
+                                }
+                                break;
+
+                            case "place":
+                                if (reader.Name == "placename")
+                                {
+                                    return reader.ReadString();
+                                }
+                                break;
+                            default:
+                                return "Error";
+                                break;
+                        }
+                    }
+                }
+            }
+            return "Error";
         }
 
         private static async Task ExecuteCatchAllNearbyPokemons(Client client)
