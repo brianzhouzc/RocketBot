@@ -109,7 +109,7 @@ namespace PokemonGo.RocketAPI.Window
                 Invoke(new Action<Color, string>(ColoredConsoleWrite), color, text);
                 return;
             }
-            string textToAppend = DateTime.Now.ToString(CultureInfo.InvariantCulture) + " - " + text + "\r\n";
+            string textToAppend = "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\r\n";
             logTextBox.SelectionColor = color;
             logTextBox.AppendText(textToAppend);
             File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + @"\Logs.txt", "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\n");
