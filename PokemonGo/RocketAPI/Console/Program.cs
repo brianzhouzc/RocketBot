@@ -57,15 +57,15 @@ namespace PokemonGo.RocketAPI.Console
                             match.Groups[4]));
                 if (gitVersion <= Assembly.GetExecutingAssembly().GetName().Version)
                 {
-                    ColoredConsoleWrite(ConsoleColor.Green, "Awesome! You have already got the newest version! " + Assembly.GetExecutingAssembly().GetName().Version);
+                    ColoredConsoleWrite(ConsoleColor.Yellow, "Awesome! You have already got the newest version! " + Assembly.GetExecutingAssembly().GetName().Version);
                     return;
                 }
 
-                ColoredConsoleWrite(ConsoleColor.Red, "There is a new Version available: " + gitVersion);
+                ColoredConsoleWrite(ConsoleColor.White, "There is a new Version available: " + gitVersion);
             }
             catch (Exception)
             {
-                ColoredConsoleWrite(ConsoleColor.Red, "Unable to check for updates now...");
+                ColoredConsoleWrite(ConsoleColor.White, "Unable to check for updates now...");
             }
         }
 
@@ -170,6 +170,8 @@ namespace PokemonGo.RocketAPI.Console
                 ColoredConsoleWrite(ConsoleColor.Yellow, "----------------------------");
                 if (ClientSettings.TransferType == "leaveStrongest")
                     await TransferAllButStrongestUnwantedPokemon(client);
+                else if (ClientSettings.TransferFromList)
+                    await TransferFromList(client);
                 else if (ClientSettings.TransferType == "all")
                     await TransferAllGivenPokemons(client, pokemons);
                 else if (ClientSettings.TransferType == "duplicate")
@@ -189,7 +191,6 @@ namespace PokemonGo.RocketAPI.Console
                 await ExecuteFarmingPokestopsAndPokemons(client);
                 ColoredConsoleWrite(ConsoleColor.Red, $"[{DateTime.Now.ToString("HH:mm:ss")}] No nearby usefull locations found. Please wait 10 seconds.");
                 await Task.Delay(10000);
-                CheckVersion();
                 Execute();
             }
             catch (TaskCanceledException) { ColoredConsoleWrite(ConsoleColor.White, "Task Canceled Exception - Restarting"); Execute(); }
@@ -242,6 +243,14 @@ namespace PokemonGo.RocketAPI.Console
                 if (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchSuccess)
                 {
                     ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] We caught a {pokemonName} with {encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp} CP");
+                    string strPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+
+                    using (StreamWriter sw = new StreamWriter(strPath + @"\pokemon.txt", true))
+                    {
+                        sw.WriteLine($"{pokemonName} // {encounterPokemonResponse?.WildPokemon?.PokemonData.Cp} CP");
+                        sw.Close();
+                    }
+
                     foreach (int xp in caughtPokemonResponse.Scores.Xp)
                         TotalExperience += xp;
                     TotalPokemon += 1;
@@ -310,6 +319,8 @@ namespace PokemonGo.RocketAPI.Console
 
         private static void Main(string[] args)
         {
+            System.Console.WindowWidth = 100;
+            System.Console.WindowHeight = 30;
             Task.Run(() =>
             {
                 try
@@ -529,6 +540,30 @@ namespace PokemonGo.RocketAPI.Console
             }
 
             ColoredConsoleWrite(ConsoleColor.Gray, $"[{DateTime.Now.ToString("HH:mm:ss")}] Finished grinding all the meat");
+        }
+
+        private static async Task TransferFromList(Client client)
+        {
+            //ColoredConsoleWrite(ConsoleColor.White, $"[{DateTime.Now.ToString("HH:mm:ss")}] Firing up the meat grinder");
+
+            ColoredConsoleWrite(ConsoleColor.White, $"[{DateTime.Now.ToString("HH:mm:ss")}] Transferring All Pokemon from Given List");
+
+            PokemonId[] pokemonToTransfer = new[] // These pokemon will be transferred!
+            {
+                PokemonId.Pidgey,
+                PokemonId.Rattata,
+                PokemonId.Weedle,
+                PokemonId.Zubat,
+                // ... etc
+            };
+
+            var inventory = await client.GetInventory();
+            var pokemons = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon).Where(p => p != null && p?.PokemonId > 0).ToArray();
+
+            var pokemonToDiscard = pokemons.Where(p => pokemonToTransfer.Contains(p.PokemonId)).ToList();
+            await TransferAllGivenPokemons(client, pokemonToDiscard);
+
+            ColoredConsoleWrite(ConsoleColor.White, $"[{DateTime.Now.ToString("HH:mm:ss")}] All Pokemon from Given List Have Been Transferred");
         }
 
         public static async Task PrintLevel(Client client)

@@ -15,6 +15,7 @@ namespace PokemonGo.RocketAPI
         string LevelOutput { get; }
         int LevelTimeInterval { get; }
         string GoogleRefreshToken { get; set; }
+        bool EvolveAllGivenPokemons { get; }
         string PtcPassword { get; }
         string PtcUsername { get; }
         bool EvolveAllGivenPokemons { get; }
