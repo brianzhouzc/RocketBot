@@ -82,6 +82,7 @@ namespace PokemonGo.RocketAPI.Console
             ConsoleColor originalColor = System.Console.ForegroundColor;
             System.Console.ForegroundColor = color;
             System.Console.WriteLine(text);
+            File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + @"\Logs.txt", text + "\n");
             System.Console.ForegroundColor = originalColor;
         }
 
