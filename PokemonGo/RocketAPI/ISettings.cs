@@ -10,7 +10,7 @@ namespace PokemonGo.RocketAPI
 {
     public interface ISettings
     {
-        AuthType AuthType { get; set; }
+        AuthType AuthType { get; }
         double DefaultLatitude { get; set; }
         double DefaultLongitude { get; set; }
         string LevelOutput { get; }
@@ -27,7 +27,5 @@ namespace PokemonGo.RocketAPI
         string Language { get; }
         string RazzBerryMode { get; }
         double RazzBerrySetting { get; }
-        void SetSetting(double value, [CallerMemberName] string key = null);
-        void SetSetting(string value, [CallerMemberName] string key = null);
     }
 }
