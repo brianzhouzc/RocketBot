@@ -398,7 +398,10 @@ namespace PokemonGo.RocketAPI.Console
         {
             foreach (var pokemon in unwantedPokemons)
             {
-                if (Perfect(pokemon) >= keepPerfectPokemonLimit) continue;
+                if (Perfect(pokemon) >= keepPerfectPokemonLimit) {
+                    ColoredConsoleWrite(ConsoleColor.White, $"[{DateTime.Now.ToString("HH:mm:ss")}] Pokemon {pokemon.PokemonId} with {pokemon.Cp} CP has IV percent above {keepPerfectPokemonLimit}%");
+                    continue;
+                } 
                 ColoredConsoleWrite(ConsoleColor.White, $"[{DateTime.Now.ToString("HH:mm:ss")}] Pokemon {pokemon.PokemonId} with {pokemon.Cp} CP has IV percent less than {keepPerfectPokemonLimit}%");
 
                 if (pokemon.Favorite == 0)
