@@ -115,6 +115,17 @@ namespace PokemonGo.RocketAPI.Window
             File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + @"\Logs.txt", "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\n");
         }
 
+        public void SetStatusText(string text)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action<string>(SetStatusText), text);
+                return;
+            }
+
+            statusLabel.Text = text;
+        }
+
         private async Task EvolveAllGivenPokemons(Client client, IEnumerable<PokemonData> pokemonToEvolve)
         {
             foreach (var pokemon in pokemonToEvolve)
@@ -632,7 +643,7 @@ namespace PokemonGo.RocketAPI.Window
             return (DateTime.Now - InitSessionDateTime).ToString(@"dd\.hh\:mm\:ss");
         }
 
-        public static async Task ConsoleLevelTitle(string Username, Client client)
+        public async Task ConsoleLevelTitle(string Username, Client client)
         {
             var inventory = await client.GetInventory();
             var stats = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PlayerStats).ToArray();
@@ -641,7 +652,7 @@ namespace PokemonGo.RocketAPI.Window
                 if (v != null)
                 {
                     int XpDiff = GetXpDiff(client, v.Level);
-                    System.Console.Title = string.Format(Username + " | Level: {0:0} - ({2:0} / {3:0}) | Runtime {1} | Stardust: {4:0}", v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount) + " | XP/Hour: " + Math.Round(TotalExperience / GetRuntime()) + " | Pokemon/Hour: " + Math.Round(TotalPokemon / GetRuntime());
+                    SetStatusText(string.Format(Username + " | Level: {0:0} - ({2:0} / {3:0}) | Runtime {1} | Stardust: {4:0}", v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount) + " | XP/Hour: " + Math.Round(TotalExperience / GetRuntime()) + " | Pokemon/Hour: " + Math.Round(TotalPokemon / GetRuntime()));
                 }
             await Task.Delay(1000);
             ConsoleLevelTitle(Username, client);
