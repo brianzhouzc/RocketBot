@@ -241,6 +241,15 @@ namespace PokemonGo.RocketAPI.Console
                 if (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchSuccess)
                 {
                     ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] We caught a {pokemonName} with {encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp} CP");
+                    
+                    string strPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+
+                    using (StreamWriter sw = new StreamWriter(strPath + @"\pokemon.txt", true))
+                    {
+                        sw.WriteLine($"{pokemonName} // {encounterPokemonResponse?.WildPokemon?.PokemonData.Cp} CP");
+                        sw.Close();
+                    }
+                    
                     foreach (int xp in caughtPokemonResponse.Scores.Xp)
                         TotalExperience += xp;
                     TotalPokemon += 1;
