@@ -31,6 +31,7 @@ namespace PokemonGo.RocketAPI.Console
         private static int TotalExperience = 0;
         private static int TotalPokemon = 0;
         private static DateTime TimeStarted = DateTime.Now;
+        public static DateTime InitSessionDateTime = DateTime.Now;
 
         public static double GetRuntime()
         {
@@ -556,6 +557,12 @@ namespace PokemonGo.RocketAPI.Console
             PrintLevel(client);
         }
 
+        // Pulled from NecronomiconCoding
+        public static string _getSessionRuntimeInTimeFormat()
+        {
+            return (DateTime.Now - InitSessionDateTime).ToString(@"dd\.hh\:mm\:ss");
+        }
+
         public static async Task ConsoleLevelTitle(string Username, Client client)
         {
             var inventory = await client.GetInventory();
@@ -565,7 +572,7 @@ namespace PokemonGo.RocketAPI.Console
                 if (v != null)
                 {
                     int XpDiff = GetXpDiff(client, v.Level);
-                    System.Console.Title = string.Format(Username + " | Level: {0:0} - ({1:0} / {2:0}) | Stardust: {3:0}", v.Level, (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount) + " | XP/Hour: " + Math.Round(TotalExperience / GetRuntime()) + " | Pokemon/Hour: " + Math.Round(TotalPokemon / GetRuntime());
+                    System.Console.Title = string.Format(Username + " | Level: {0:0} - ({2:0} / {3:0}) | Runtime {1} | Stardust: {4:0}", v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount) + " | XP/Hour: " + Math.Round(TotalExperience / GetRuntime()) + " | Pokemon/Hour: " + Math.Round(TotalPokemon / GetRuntime());
                 }
             await Task.Delay(1000);
             ConsoleLevelTitle(Username, client);
