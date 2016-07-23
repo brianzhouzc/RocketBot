@@ -26,18 +26,25 @@ namespace PokemonGo.RocketAPI.Console
         public string PtcUsername => GetSetting() != string.Empty ? GetSetting() : "username";
         public string PtcPassword => GetSetting() != string.Empty ? GetSetting() : "password";
 
-        public double DefaultLatitude => GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 51.22640;
+        public double DefaultLatitude
+        {
+            get { return GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 51.22640; }
+            set { SetSetting(value); }
+        }
 
-        //Default Amsterdam Central Station if another location is not specified
-        public double DefaultLongitude => GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 6.77874;
 
-        //Default Amsterdam Central Station if another location is not specified
+        public double DefaultLongitude
+        {
+            get { return GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 6.77874; }
+            set { SetSetting(value); }
+        }
 
-        // LEAVE EVERYTHING ALONE
 
         public string LevelOutput => GetSetting() != string.Empty ? GetSetting() : "time";
 
         public int LevelTimeInterval => GetSetting() != string.Empty ? System.Convert.ToInt16(GetSetting()) : 600;
+
+        public bool Recycler => GetSetting() != string.Empty ? System.Convert.ToBoolean(GetSetting(), CultureInfo.InvariantCulture) : false;
 
         ICollection<KeyValuePair<ItemId, int>> ISettings.ItemRecycleFilter
         {
@@ -57,14 +64,15 @@ namespace PokemonGo.RocketAPI.Console
                     new KeyValuePair<ItemId, int>(ItemId.ItemHyperPotion, 50)
                 };
             }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
         }
 
         public int RecycleItemsInterval => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 60;
+
+        public string Language => GetSetting() != string.Empty ? GetSetting() : "english";
+
+        public string RazzBerryMode => GetSetting() != string.Empty ? GetSetting() : "cp";
+
+        public double RazzBerrySetting => GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 500;
 
         public string GoogleRefreshToken
         {
@@ -81,6 +89,16 @@ namespace PokemonGo.RocketAPI.Console
         {
             var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             if (key != null) configFile.AppSettings.Settings[key].Value = value;
+            configFile.Save();
+        }
+
+        private void SetSetting(double value, [CallerMemberName] string key = null)
+        {
+            CultureInfo customCulture = (CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            customCulture.NumberFormat.NumberDecimalSeparator = ".";
+            System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
+            var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            if (key != null) configFile.AppSettings.Settings[key].Value = value.ToString();
             configFile.Save();
         }
     }
