@@ -188,6 +188,7 @@ namespace PokemonGo.RocketAPI.Console
                 await ExecuteFarmingPokestopsAndPokemons(client);
                 ColoredConsoleWrite(ConsoleColor.Red, $"[{DateTime.Now.ToString("HH:mm:ss")}] No nearby usefull locations found. Please wait 10 seconds.");
                 await Task.Delay(10000);
+                CheckVersion();
                 Execute();
             }
             catch (TaskCanceledException) { ColoredConsoleWrite(ConsoleColor.White, "Task Canceled Exception - Restarting"); Execute(); }
