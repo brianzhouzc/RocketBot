@@ -17,6 +17,7 @@ A Pokemon Go bot in C#
 * German/English pokemon names
 * Automatic use of Razzberries
 * Automatic Update checker
+* Logs everything into Logs.txt
 
 ## Getting Started
 
