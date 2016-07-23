@@ -15,3 +15,20 @@ Z:\Pokeman Bots\Necros Bot\Pokemon-Go-Rocket-API\PokemonGo\RocketAPI\bin\Debug\S
 Z:\Pokeman Bots\Necros Bot\Pokemon-Go-Rocket-API\PokemonGo\RocketAPI\obj\Debug\PokemonGo.RocketAPI.csprojResolveAssemblyReference.cache
 Z:\Pokeman Bots\Necros Bot\Pokemon-Go-Rocket-API\PokemonGo\RocketAPI\obj\Debug\Pokemon Go Rocket API.dll
 Z:\Pokeman Bots\Necros Bot\Pokemon-Go-Rocket-API\PokemonGo\RocketAPI\obj\Debug\Pokemon Go Rocket API.pdb
+C:\Users\Bailey\Source\Repos\Pokemon-Go-Rocket-API4\PokemonGo\RocketAPI\bin\Debug\Pokemon Go Rocket API.dll.config
+C:\Users\Bailey\Source\Repos\Pokemon-Go-Rocket-API4\PokemonGo\RocketAPI\bin\Debug\Pokemon Go Rocket API.dll
+C:\Users\Bailey\Source\Repos\Pokemon-Go-Rocket-API4\PokemonGo\RocketAPI\bin\Debug\Pokemon Go Rocket API.pdb
+C:\Users\Bailey\Source\Repos\Pokemon-Go-Rocket-API4\PokemonGo\RocketAPI\bin\Debug\C5.dll
+C:\Users\Bailey\Source\Repos\Pokemon-Go-Rocket-API4\PokemonGo\RocketAPI\bin\Debug\Google.Protobuf.dll
+C:\Users\Bailey\Source\Repos\Pokemon-Go-Rocket-API4\PokemonGo\RocketAPI\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Bailey\Source\Repos\Pokemon-Go-Rocket-API4\PokemonGo\RocketAPI\bin\Debug\S2Geometry.dll
+C:\Users\Bailey\Source\Repos\Pokemon-Go-Rocket-API4\PokemonGo\RocketAPI\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\Bailey\Source\Repos\Pokemon-Go-Rocket-API4\PokemonGo\RocketAPI\bin\Debug\System.VarintBitConverter.dll
+C:\Users\Bailey\Source\Repos\Pokemon-Go-Rocket-API4\PokemonGo\RocketAPI\bin\Debug\C5.xml
+C:\Users\Bailey\Source\Repos\Pokemon-Go-Rocket-API4\PokemonGo\RocketAPI\bin\Debug\Google.Protobuf.xml
+C:\Users\Bailey\Source\Repos\Pokemon-Go-Rocket-API4\PokemonGo\RocketAPI\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Bailey\Source\Repos\Pokemon-Go-Rocket-API4\PokemonGo\RocketAPI\bin\Debug\S2Geometry.xml
+C:\Users\Bailey\Source\Repos\Pokemon-Go-Rocket-API4\PokemonGo\RocketAPI\bin\Debug\System.Net.Http.Formatting.xml
+C:\Users\Bailey\Source\Repos\Pokemon-Go-Rocket-API4\PokemonGo\RocketAPI\obj\Debug\PokemonGo.RocketAPI.csprojResolveAssemblyReference.cache
+C:\Users\Bailey\Source\Repos\Pokemon-Go-Rocket-API4\PokemonGo\RocketAPI\obj\Debug\Pokemon Go Rocket API.dll
+C:\Users\Bailey\Source\Repos\Pokemon-Go-Rocket-API4\PokemonGo\RocketAPI\obj\Debug\Pokemon Go Rocket API.pdb

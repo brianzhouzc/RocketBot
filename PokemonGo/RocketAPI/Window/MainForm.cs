@@ -205,7 +205,7 @@ namespace PokemonGo.RocketAPI.Window
                 try
                 {
                     ColoredConsoleWrite(Color.DarkGray, "Country: " + CallAPI("country", ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude));
-                    ColoredConsoleWrite(Color.DarkGray, "Place: " + CallAPI("place", ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude));
+                    ColoredConsoleWrite(Color.DarkGray, "Area: " + CallAPI("place", ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude));
                 }
                 catch (Exception)
                 {
@@ -765,9 +765,15 @@ namespace PokemonGo.RocketAPI.Window
             });
         }
 
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void showAllToolStripMenuItem3_Click(object sender, EventArgs e)
         {
+            var pForm = new PokemonForm();
+            pForm.Show();
+        }
 
+        private void statsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // todo: add player stats later
         }
     }
 }
