@@ -236,7 +236,7 @@ namespace PokemonGo.RocketAPI.Console
 
         private static string CallAPI(string elem, double lat, double lon)
         {
-            using (XmlReader reader = XmlReader.Create(@"http://api.geonames.org/findNearby?lat" + lat + "&lng=" + lon + "&username=demo"))
+            using (XmlReader reader = XmlReader.Create(@"http://api.geonames.org/findNearby?lat=" + lat + "&lng=" + lon + "&username=demo"))
             {
                 while (reader.Read())
                 {
