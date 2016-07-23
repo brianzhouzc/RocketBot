@@ -35,6 +35,12 @@
             this.todoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pokemonToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.showAllToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.showAllToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.statsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -71,13 +77,13 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.todoToolStripMenuItem,
-            this.startBotToolStripMenuItem});
+            this.startBotToolStripMenuItem,
+            this.pokemonToolStripMenuItem2});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(905, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // todoToolStripMenuItem
             // 
@@ -90,7 +96,7 @@
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
@@ -100,6 +106,47 @@
             this.startBotToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.startBotToolStripMenuItem.Text = "Start bot";
             this.startBotToolStripMenuItem.Click += new System.EventHandler(this.startBotToolStripMenuItem_Click);
+            // 
+            // pokemonToolStripMenuItem2
+            // 
+            this.pokemonToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showAllToolStripMenuItem2,
+            this.statsToolStripMenuItem});
+            this.pokemonToolStripMenuItem2.Name = "pokemonToolStripMenuItem2";
+            this.pokemonToolStripMenuItem2.Size = new System.Drawing.Size(51, 20);
+            this.pokemonToolStripMenuItem2.Text = "Player";
+            // 
+            // showAllToolStripMenuItem2
+            // 
+            this.showAllToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showAllToolStripMenuItem3});
+            this.showAllToolStripMenuItem2.Name = "showAllToolStripMenuItem2";
+            this.showAllToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.showAllToolStripMenuItem2.Text = "Pokemon";
+            // 
+            // showAllToolStripMenuItem3
+            // 
+            this.showAllToolStripMenuItem3.Name = "showAllToolStripMenuItem3";
+            this.showAllToolStripMenuItem3.Size = new System.Drawing.Size(101, 22);
+            this.showAllToolStripMenuItem3.Text = "Mine";
+            this.showAllToolStripMenuItem3.Click += new System.EventHandler(this.showAllToolStripMenuItem3_Click);
+            // 
+            // statsToolStripMenuItem
+            // 
+            this.statsToolStripMenuItem.Name = "statsToolStripMenuItem";
+            this.statsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.statsToolStripMenuItem.Text = "Stats";
+            this.statsToolStripMenuItem.Click += new System.EventHandler(this.statsToolStripMenuItem_Click);
+            // 
+            // showAllToolStripMenuItem
+            // 
+            this.showAllToolStripMenuItem.Name = "showAllToolStripMenuItem";
+            this.showAllToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
+            // 
+            // showAllToolStripMenuItem1
+            // 
+            this.showAllToolStripMenuItem1.Name = "showAllToolStripMenuItem1";
+            this.showAllToolStripMenuItem1.Size = new System.Drawing.Size(32, 19);
             // 
             // MainForm
             // 
@@ -131,6 +178,12 @@
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem startBotToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem pokemonToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem statsToolStripMenuItem;
     }
 }
 
