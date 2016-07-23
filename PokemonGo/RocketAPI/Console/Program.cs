@@ -183,8 +183,8 @@ namespace PokemonGo.RocketAPI.Console
                     ColoredConsoleWrite(ConsoleColor.DarkGray, "Pokecoins: " + profile.Profile.Currency.ToArray()[0].Amount);
                 ColoredConsoleWrite(ConsoleColor.DarkGray, "\nLatitude: " + ClientSettings.DefaultLatitude);
                 ColoredConsoleWrite(ConsoleColor.DarkGray, "Longitude: " + ClientSettings.DefaultLongitude);
-                ColoredConsoleWrite(ConsoleColor.DarkGray, "Country: " + CallAPI("country"));
-                ColoredConsoleWrite(ConsoleColor.DarkGray, "Place: " + CallAPI("place"));
+                ColoredConsoleWrite(ConsoleColor.DarkGray, "Country: " + CallAPI("country", ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude));
+                ColoredConsoleWrite(ConsoleColor.DarkGray, "Place: " + CallAPI("place", ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude));
 
                 ColoredConsoleWrite(ConsoleColor.Yellow, "----------------------------");
 
@@ -228,9 +228,9 @@ namespace PokemonGo.RocketAPI.Console
             catch (Exception ex) { ColoredConsoleWrite(ConsoleColor.White, ex.ToString()); Execute(); }
         }
         
-                private static string CallAPI(string elem)
+	private static string CallAPI(string elem, double lat, double lon)
         {
-            using (XmlReader reader = XmlReader.Create(@"http://api.geonames.org/findNearestAddress?lat=37.451&lng=-122.18&username=demo"))
+            using (XmlReader reader = XmlReader.Create(@"http://api.geonames.org/findNearestAddress?lat=" + lat + "&lng=" + lon + "&username=demo"))
             {
                 while (reader.Read())
                 {
