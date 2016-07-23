@@ -188,7 +188,7 @@ namespace PokemonGo.RocketAPI.Console
                 }
                 catch (Exception)
                 {
-                    ColoredConsoleWrite(ConsoleColor.DarkGray, "Unable to get Country/Place");
+                    ColoredConsoleWrite(ConsoleColor.DarkGray,  "Unable to get Country/Place");
                 }
 
                 ColoredConsoleWrite(ConsoleColor.Yellow, "----------------------------");
@@ -226,12 +226,12 @@ namespace PokemonGo.RocketAPI.Console
                 CheckVersion();
                 Execute();
             }
-            catch (TaskCanceledException) { ColoredConsoleWrite(ConsoleColor.White, "Task Canceled Exception - Restarting"); Execute(); }
-            catch (UriFormatException) { ColoredConsoleWrite(ConsoleColor.White, "System URI Format Exception - Restarting"); Execute(); }
-            catch (ArgumentOutOfRangeException) { ColoredConsoleWrite(ConsoleColor.White, "ArgumentOutOfRangeException - Restarting"); Execute(); }
-            catch (ArgumentNullException) { ColoredConsoleWrite(ConsoleColor.White, "Argument Null Refference - Restarting"); Execute(); }
-            catch (NullReferenceException) { ColoredConsoleWrite(ConsoleColor.White, "Null Refference - Restarting"); Execute(); }
-            catch (Exception ex) { ColoredConsoleWrite(ConsoleColor.White, ex.ToString()); Execute(); }
+            catch (TaskCanceledException) { ColoredConsoleWrite(ConsoleColor.Red, "Task Canceled Exception - Restarting"); Execute(); }
+            catch (UriFormatException) { ColoredConsoleWrite(ConsoleColor.Red, "System URI Format Exception - Restarting"); Execute(); }
+            catch (ArgumentOutOfRangeException) { ColoredConsoleWrite(ConsoleColor.Red, "ArgumentOutOfRangeException - Restarting"); Execute(); }
+            catch (ArgumentNullException) { ColoredConsoleWrite(ConsoleColor.Red, "Argument Null Refference - Restarting"); Execute(); }
+            catch (NullReferenceException) { ColoredConsoleWrite(ConsoleColor.Red, "Null Refference - Restarting"); Execute(); }
+            catch (Exception ex) { ColoredConsoleWrite(ConsoleColor.Red, ex.ToString()); Execute(); }
         }
 
         private static string CallAPI(string elem, double lat, double lon)
