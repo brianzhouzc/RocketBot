@@ -1,5 +1,5 @@
 # Pokemon-Go-Rocket-API
-![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/screenshot.jpg)
+![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/sen66_screen.jpg)
 
 A Pokemon Go bot in C#
 
