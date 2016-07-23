@@ -185,41 +185,41 @@ namespace PokemonGo.RocketAPI
             // Use better balls for high CP pokemon
             if (masterBallsCount > 0 && pokemonCP >= 1000)
             {
-                ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Master Ball is being used");
+                ColoredConsoleWrite(ConsoleColor.Green, $"Master Ball is being used");
                 return MiscEnums.Item.ITEM_MASTER_BALL;
             }
 
             if (ultraBallsCount > 0 && pokemonCP >= 600)
             {
-                ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Ultra Ball is being used");
+                ColoredConsoleWrite(ConsoleColor.Green, $"Ultra Ball is being used");
                 return MiscEnums.Item.ITEM_ULTRA_BALL;
             }
 
             if (greatBallsCount > 0 && pokemonCP >= 350)
             {
-                ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Great Ball is being used");
+                ColoredConsoleWrite(ConsoleColor.Green, $"Great Ball is being used");
                 return MiscEnums.Item.ITEM_GREAT_BALL;
             }
 
             // If low CP pokemon, but no more pokeballs; only use better balls if pokemon are of semi-worthy quality
             if (pokeBallsCount > 0)
             {
-                ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Poke Ball is being used");
+                ColoredConsoleWrite(ConsoleColor.Green, $"Poke Ball is being used");
                 return MiscEnums.Item.ITEM_POKE_BALL;
             }
             else if ((greatBallsCount < 40 && pokemonCP >= 200) || greatBallsCount >= 40)
             {
-                ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Great Ball is being used");
+                ColoredConsoleWrite(ConsoleColor.Green, $"Great Ball is being used");
                 return MiscEnums.Item.ITEM_GREAT_BALL;
             }
             else if (ultraBallsCount > 0 && pokemonCP >= 500)
             {
-                ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Ultra Ball is being used");
+                ColoredConsoleWrite(ConsoleColor.Green, $"Ultra Ball is being used");
                 return MiscEnums.Item.ITEM_ULTRA_BALL;
             }
             else if (masterBallsCount > 0 && pokemonCP >= 700)
             {
-                ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Master Ball is being used");
+                ColoredConsoleWrite(ConsoleColor.Green, $"Master Ball is being used");
                 return MiscEnums.Item.ITEM_MASTER_BALL;
             }
 
@@ -230,8 +230,8 @@ namespace PokemonGo.RocketAPI
         {
             ConsoleColor originalColor = System.Console.ForegroundColor;
             System.Console.ForegroundColor = color;
-            System.Console.WriteLine(text);
-            File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + @"\Logs.txt", text + "\n");
+            System.Console.WriteLine("[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text);
+            File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + @"\Logs.txt", "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\n");
             System.Console.ForegroundColor = originalColor;
         }
 
@@ -438,7 +438,7 @@ namespace PokemonGo.RocketAPI
             foreach (var item in items)
             {
                 var transfer = await RecycleItem((AllEnum.ItemId)item.Item_, item.Count);
-                ColoredConsoleWrite(ConsoleColor.DarkCyan, $"[{DateTime.Now.ToString("HH:mm:ss")}] Recycled {item.Count}x {((AllEnum.ItemId)item.Item_).ToString().Substring(4)}");
+                ColoredConsoleWrite(ConsoleColor.DarkCyan, $"Recycled {item.Count}x {((AllEnum.ItemId)item.Item_).ToString().Substring(4)}");
                 await Task.Delay(500);
             }
             await Task.Delay(_settings.RecycleItemsInterval * 1000);
@@ -496,7 +496,7 @@ namespace PokemonGo.RocketAPI
             if (RazzBerry != null)
             {
                 UseItemCaptureRequest useRazzBerry = await client.UseCaptureItem(encounterId, AllEnum.ItemId.ItemRazzBerry, spawnPointGuid);
-                ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Using a Razz Berry, we have {RazzBerry.Count} left");
+                ColoredConsoleWrite(ConsoleColor.Green, $"Using a Razz Berry, we have {RazzBerry.Count} left");
                 await Task.Delay(2000);
             }
         }
