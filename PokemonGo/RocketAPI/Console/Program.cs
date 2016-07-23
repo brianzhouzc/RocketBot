@@ -62,6 +62,7 @@ namespace PokemonGo.RocketAPI.Console
                 }
 
                 ColoredConsoleWrite(ConsoleColor.Red, "There is a new Version available: " + gitVersion);
+                ColoredConsoleWrite(ConsoleColor.Red, "You can find it at https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API");
             }
             catch (Exception)
             {
