@@ -26,30 +26,15 @@ namespace PokemonGo.RocketAPI.Window
         public MainForm()
         {
             InitializeComponent();
+            ClientSettings = Settings.Instance;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Task.Run(() =>
-            {
-                try
-                {
-                    //ColoredConsoleWrite(ConsoleColor.White, "Coded by Ferox - edited by NecronomiconCoding");
-                    CheckVersion();
-                    Execute();
-                }
-                catch (PtcOfflineException)
-                {
-                    ColoredConsoleWrite(Color.Red, "PTC Servers are probably down OR your credentials are wrong. Try google");
-                }
-                catch (Exception ex)
-                {
-                    ColoredConsoleWrite(Color.Red, $"Unhandled exception: {ex}");
-                }
-            });
+           
         }
 
-        private static ISettings ClientSettings = new Settings();
+        public static ISettings ClientSettings;
         private static int Currentlevel = -1;
         private static int TotalExperience = 0;
         private static int TotalPokemon = 0;
@@ -109,7 +94,7 @@ namespace PokemonGo.RocketAPI.Window
                 Invoke(new Action<Color, string>(ColoredConsoleWrite), color, text);
                 return;
             }
-            string textToAppend = "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\r\n";
+            string textToAppend = DateTime.Now.ToString(CultureInfo.InvariantCulture) + " - " + text + "\r\n";
             logTextBox.SelectionColor = color;
             logTextBox.AppendText(textToAppend);
             File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + @"\Logs.txt", "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\n");
@@ -750,6 +735,34 @@ namespace PokemonGo.RocketAPI.Window
         {
             logTextBox.SelectionStart = logTextBox.Text.Length;
             logTextBox.ScrollToCaret();
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SettingsForm settingsForm = new SettingsForm();
+            settingsForm.Show();
+        }
+
+        private void startBotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            startBotToolStripMenuItem.Enabled = false;
+            Task.Run(() =>
+            {
+                try
+                {
+                    //ColoredConsoleWrite(ConsoleColor.White, "Coded by Ferox - edited by NecronomiconCoding");
+                    CheckVersion();
+                    Execute();
+                }
+                catch (PtcOfflineException)
+                {
+                    ColoredConsoleWrite(Color.Red, "PTC Servers are probably down OR your credentials are wrong. Try google");
+                }
+                catch (Exception ex)
+                {
+                    ColoredConsoleWrite(Color.Red, $"Unhandled exception: {ex}");
+                }
+            });
         }
     }
 }

@@ -183,8 +183,8 @@ namespace PokemonGo.RocketAPI.Console
                 ColoredConsoleWrite(ConsoleColor.DarkGray, "Longitude: " + ClientSettings.DefaultLongitude);
                 try
                 {
-                    ColoredConsoleWrite(ConsoleColor.DarkGray, "Area: " + CallAPI("place", ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude));
                     ColoredConsoleWrite(ConsoleColor.DarkGray, "Country: " + CallAPI("country", ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude));
+                    ColoredConsoleWrite(ConsoleColor.DarkGray, "Place: " + CallAPI("place", ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude));
                 }
                 catch (Exception)
                 {
@@ -236,7 +236,7 @@ namespace PokemonGo.RocketAPI.Console
 
         private static string CallAPI(string elem, double lat, double lon)
         {
-            using (XmlReader reader = XmlReader.Create(@"http://api.geonames.org/findNearby?lat=" + lat + "&lng=" + lon + "&username=demo"))
+            using (XmlReader reader = XmlReader.Create(@"http://api.geonames.org/findNearby?lat" + lat + "&lng=" + lon + "&username=demo"))
             {
                 while (reader.Read())
                 {

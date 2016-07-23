@@ -2,6 +2,7 @@
 
 using PokemonGo.RocketAPI.Enums;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 #endregion
 
