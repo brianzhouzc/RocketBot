@@ -1,9 +1,26 @@
-﻿#region
+#region
 
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using PokemonGo.RocketAPI.Helpers;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Reflection;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using System.Xml;
+using AllEnum;
+using PokemonGo.RocketAPI.Enums;
+using PokemonGo.RocketAPI.Exceptions;
+using PokemonGo.RocketAPI.Extensions;
+using PokemonGo.RocketAPI.GeneratedCode;
 
 #endregion
 
@@ -16,9 +33,17 @@ namespace PokemonGo.RocketAPI.Login
         private const string ClientId = "848232511240-73ri3t7plvk96pj4f85uj8otdat2alem.apps.googleusercontent.com";
         private const string ClientSecret = "NCjF1TLi2CcY6t5mt0ZveuL7";
 
+        static void LogText(string text)
+        {
+            string textToAppend = "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\r\n";
+            File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + @"\Logs.txt", "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\n");
+        }
+
         internal static async Task<TokenResponseModel> GetAccessToken(DeviceCodeModel deviceCodeResponse)
         {
             Console.WriteLine("Please visit " + deviceCodeResponse.verification_url + " and enter " +
+                              deviceCodeResponse.user_code);
+            LogText("Please visit " + deviceCodeResponse.verification_url + " and enter " +
                               deviceCodeResponse.user_code);
 
             //Poll until user submitted code..
