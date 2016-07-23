@@ -57,15 +57,15 @@ namespace PokemonGo.RocketAPI.Console
                             match.Groups[4]));
                 if (gitVersion <= Assembly.GetExecutingAssembly().GetName().Version)
                 {
-                    ColoredConsoleWrite(ConsoleColor.Yellow, "Awesome! You have already got the newest version! " + Assembly.GetExecutingAssembly().GetName().Version);
+                    ColoredConsoleWrite(ConsoleColor.Green, "Awesome! You have already got the newest version! " + Assembly.GetExecutingAssembly().GetName().Version);
                     return;
                 }
 
-                ColoredConsoleWrite(ConsoleColor.White, "There is a new Version available: " + gitVersion);
+                ColoredConsoleWrite(ConsoleColor.Red, "There is a new Version available: " + gitVersion);
             }
             catch (Exception)
             {
-                ColoredConsoleWrite(ConsoleColor.White, "Unable to check for updates now...");
+                ColoredConsoleWrite(ConsoleColor.Red, "Unable to check for updates now...");
             }
         }
 
