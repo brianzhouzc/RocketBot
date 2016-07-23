@@ -188,7 +188,7 @@ namespace PokemonGo.RocketAPI.Console
                 }
                 catch (Exception)
                 {
-                    ColoredConsoleWrite(ConsoleColor.DarkGray "Unable to get Country/Place");
+                    ColoredConsoleWrite(ConsoleColor.DarkGray, "Unable to get Country/Place");
                 }
 
                 ColoredConsoleWrite(ConsoleColor.Yellow, "----------------------------");
