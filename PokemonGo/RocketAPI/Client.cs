@@ -13,6 +13,13 @@ using PokemonGo.RocketAPI.Helpers;
 using PokemonGo.RocketAPI.Login;
 using AllEnum;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Reflection;
+using System.Text.RegularExpressions;
+using System.Threading;
+using PokemonGo.RocketAPI.Exceptions;
+using System.Text;
+using System.IO;
 
 #endregion
 
@@ -224,6 +231,7 @@ namespace PokemonGo.RocketAPI
             ConsoleColor originalColor = System.Console.ForegroundColor;
             System.Console.ForegroundColor = color;
             System.Console.WriteLine(text);
+            File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + @"\Logs.txt", text + "\n");
             System.Console.ForegroundColor = originalColor;
         }
 
