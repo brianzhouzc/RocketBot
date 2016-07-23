@@ -9,11 +9,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("PokemonGoRocketAPI.Console")]
+[assembly: AssemblyTitle("Pokemon Go Rocket API")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("PokemonGoRocketAPI.Console")]
+[assembly: AssemblyProduct("Pokemon Go Rocket API")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -26,7 +26,7 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 
-[assembly: Guid("1fea147e-f704-497b-a538-00b053b5f672")]
+[assembly: Guid("05d2da44-1b8e-4cf7-94ed-4d52451cd095")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -39,5 +39,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("1.2.2.2")]
-[assembly: AssemblyFileVersion("1.2.2.2")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
