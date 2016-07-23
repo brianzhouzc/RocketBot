@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonGo.RocketAPI", "PokemonGo\RocketAPI\PokemonGo.RocketAPI.csproj", "{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonGo.RocketAPI.Console", "PokemonGo\RocketAPI\Console\PokemonGo.RocketAPI.Console.csproj", "{1FEA147E-F704-497B-A538-00B053B5F672}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonGo.RocketAPI.Window", "PokemonGo\RocketAPI\Window\PokemonGo.RocketAPI.Window.csproj", "{C85B9D78-9CA3-4830-84CD-6B69090B987F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{1FEA147E-F704-497B-A538-00B053B5F672}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FEA147E-F704-497B-A538-00B053B5F672}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FEA147E-F704-497B-A538-00B053B5F672}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C85B9D78-9CA3-4830-84CD-6B69090B987F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C85B9D78-9CA3-4830-84CD-6B69090B987F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C85B9D78-9CA3-4830-84CD-6B69090B987F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C85B9D78-9CA3-4830-84CD-6B69090B987F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
