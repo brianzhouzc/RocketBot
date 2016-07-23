@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using AllEnum;
+using System.Xml;
 using PokemonGo.RocketAPI.Enums;
 using PokemonGo.RocketAPI.Exceptions;
 using PokemonGo.RocketAPI.Extensions;
@@ -19,6 +20,7 @@ using System.Text;
 using Google.Protobuf;
 using PokemonGo.RocketAPI.Helpers;
 using System.IO;
+
 
 #endregion
 
@@ -144,10 +146,15 @@ namespace PokemonGo.RocketAPI.Console
             var client = new Client(ClientSettings);
             try
             {
-                if (ClientSettings.AuthType == AuthType.Ptc)
-                    await client.DoPtcLogin(ClientSettings.PtcUsername, ClientSettings.PtcPassword);
-                else if (ClientSettings.AuthType == AuthType.Google)
-                    await client.DoGoogleLogin();
+                switch (ClientSettings.AuthType)
+                {
+                    case AuthType.Ptc:
+                        await client.DoPtcLogin(ClientSettings.PtcUsername, ClientSettings.PtcPassword);
+                        break;
+                    case AuthType.Google:
+                        await client.DoGoogleLogin();
+                        break;
+                }
 
                 await client.SetServer();
                 var profile = await client.GetProfile();
@@ -160,6 +167,7 @@ namespace PokemonGo.RocketAPI.Console
 
                 ConsoleLevelTitle(profile.Profile.Username, client);
 
+                // Write the players ingame details
                 ColoredConsoleWrite(ConsoleColor.Yellow, "----------------------------");
                 if (ClientSettings.AuthType == AuthType.Ptc)
                 {
@@ -168,20 +176,36 @@ namespace PokemonGo.RocketAPI.Console
                 }
                 ColoredConsoleWrite(ConsoleColor.DarkGray, "Name: " + profile.Profile.Username);
                 ColoredConsoleWrite(ConsoleColor.DarkGray, "Team: " + profile.Profile.Team);
+                if (profile.Profile.Currency.ToArray()[0].Amount > 0) // If player has any pokecoins it will show how many they have.
+                    ColoredConsoleWrite(ConsoleColor.DarkGray, "Pokecoins: " + profile.Profile.Currency.ToArray()[0].Amount);
                 ColoredConsoleWrite(ConsoleColor.DarkGray, "Stardust: " + profile.Profile.Currency.ToArray()[1].Amount + "\n");
                 ColoredConsoleWrite(ConsoleColor.DarkGray, "Latitude: " + ClientSettings.DefaultLatitude);
                 ColoredConsoleWrite(ConsoleColor.DarkGray, "Longitude: " + ClientSettings.DefaultLongitude);
+                ColoredConsoleWrite(ConsoleColor.DarkGray, "Country: " + CallAPI("country", ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude));
+                ColoredConsoleWrite(ConsoleColor.DarkGray, "Place: " + CallAPI("place", ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude));
+
                 ColoredConsoleWrite(ConsoleColor.Yellow, "----------------------------");
-                if (ClientSettings.TransferType == "leaveStrongest")
-                    await TransferAllButStrongestUnwantedPokemon(client);
-                else if (ClientSettings.TransferType == "all")
-                    await TransferAllGivenPokemons(client, pokemons);
-                else if (ClientSettings.TransferType == "duplicate")
-                    await TransferDuplicatePokemon(client);
-                else if (ClientSettings.TransferType == "cp")
-                    await TransferAllWeakPokemon(client, ClientSettings.TransferCPThreshold);
-                else
-                    ColoredConsoleWrite(ConsoleColor.DarkGray, $"Transfering pokemon disabled");
+
+                // I believe a switch is more efficient and easier to read.
+                switch (ClientSettings.TransferType)
+                {
+                    case "leaveStrongest":
+                        await TransferAllButStrongestUnwantedPokemon(client);
+                        break;
+                    case "all":
+                        await TransferAllGivenPokemons(client, pokemons);
+                        break;
+                    case "duplicate":
+                        await TransferDuplicatePokemon(client);
+                        break;
+                    case "cp":
+                        await TransferAllWeakPokemon(client, ClientSettings.TransferCPThreshold);
+                        break;
+                    default:
+                        ColoredConsoleWrite(ConsoleColor.DarkGray, "Transfering pokemon disabled");
+                        break;
+                }
+
                 if (ClientSettings.EvolveAllGivenPokemons)
                     await EvolveAllGivenPokemons(client, pokemons);
                 if (ClientSettings.Recycler)
@@ -201,6 +225,39 @@ namespace PokemonGo.RocketAPI.Console
             catch (ArgumentNullException) { ColoredConsoleWrite(ConsoleColor.White, "Argument Null Refference - Restarting"); Execute(); }
             catch (NullReferenceException) { ColoredConsoleWrite(ConsoleColor.White, "Null Refference - Restarting"); Execute(); }
             catch (Exception ex) { ColoredConsoleWrite(ConsoleColor.White, ex.ToString()); Execute(); }
+        }
+
+        private static string CallAPI(string elem, double lat, double lon)
+        {
+            using (XmlReader reader = XmlReader.Create(@"http://api.geonames.org/findNearby?lat" + lat + "&lng=" + lon + "&username=demo"))
+            {
+                while (reader.Read())
+                {
+                    if (reader.IsStartElement())
+                    {
+                        switch (elem)
+                        {
+                            case "country":
+                                if (reader.Name == "countryName")
+                                {
+                                    return reader.ReadString();
+                                }
+                                break;
+
+                            case "place":
+                                if (reader.Name == "toponymName")
+                                {
+                                    return reader.ReadString();
+                                }
+                                break;
+                            default:
+                                return "N/A";
+                                break;
+                        }
+                    }
+                }
+            }
+            return "Error";
         }
 
         private static async Task ExecuteCatchAllNearbyPokemons(Client client)
