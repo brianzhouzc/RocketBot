@@ -28,6 +28,9 @@ namespace PokemonGo.RocketAPI.Window
             transferTypeCb.Text = Settings.Instance.TransferType;
             transferCpThresText.Text = Settings.Instance.TransferCPThreshold.ToString();
             evolveAllChk.Checked = Settings.Instance.EvolveAllGivenPokemons;
+
+              
+
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
@@ -44,6 +47,26 @@ namespace PokemonGo.RocketAPI.Window
             Settings.Instance.SetSetting(evolveAllChk.Checked ? "true" : "false", "EvolveAllGivenPokemons");
             Settings.Instance.Reload();
             Close();
+        }
+
+        private void authTypeCb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (authTypeCb.Text == "Google")
+            {
+                ptcUserText.Visible = false;
+                ptcPassText.Visible = false;
+                ptcUserLabel.Visible = false;
+                ptcPasswordLabel.Visible = false;
+            }
+            else
+            {
+                ptcUserText.Visible = true;
+                ptcPassText.Visible = true;
+                ptcUserLabel.Visible = true;
+                ptcPasswordLabel.Visible = true;
+
+            }
+        
         }
     }
 }
