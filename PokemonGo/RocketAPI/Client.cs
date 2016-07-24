@@ -401,6 +401,9 @@ namespace PokemonGo.RocketAPI
         public async Task<PlayerUpdateResponse> UpdatePlayerLocation(double lat, double lng)
         {
             SetCoordinates(lat, lng);
+            var latlng = _currentLat + ":" + _currentLng;
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "coords.txt", latlng);
+
             var customRequest = new Request.Types.PlayerUpdateProto
             {
                 Lat = Utils.FloatAsUlong(_currentLat),
