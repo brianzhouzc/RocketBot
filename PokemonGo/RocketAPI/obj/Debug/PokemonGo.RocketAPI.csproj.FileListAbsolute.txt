@@ -32,3 +32,20 @@ C:\Users\Bailey\Source\Repos\Pokemon-Go-Rocket-API4\PokemonGo\RocketAPI\bin\Debu
 C:\Users\Bailey\Source\Repos\Pokemon-Go-Rocket-API4\PokemonGo\RocketAPI\obj\Debug\PokemonGo.RocketAPI.csprojResolveAssemblyReference.cache
 C:\Users\Bailey\Source\Repos\Pokemon-Go-Rocket-API4\PokemonGo\RocketAPI\obj\Debug\Pokemon Go Rocket API.dll
 C:\Users\Bailey\Source\Repos\Pokemon-Go-Rocket-API4\PokemonGo\RocketAPI\obj\Debug\Pokemon Go Rocket API.pdb
+C:\Users\peter\Desktop\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\bin\Debug\Pokemon Go Rocket API.dll.config
+C:\Users\peter\Desktop\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\bin\Debug\Pokemon Go Rocket API.dll
+C:\Users\peter\Desktop\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\bin\Debug\Pokemon Go Rocket API.pdb
+C:\Users\peter\Desktop\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\bin\Debug\C5.dll
+C:\Users\peter\Desktop\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\bin\Debug\Google.Protobuf.dll
+C:\Users\peter\Desktop\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\bin\Debug\Newtonsoft.Json.dll
+C:\Users\peter\Desktop\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\bin\Debug\S2Geometry.dll
+C:\Users\peter\Desktop\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\peter\Desktop\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\bin\Debug\System.VarintBitConverter.dll
+C:\Users\peter\Desktop\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\bin\Debug\C5.xml
+C:\Users\peter\Desktop\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\bin\Debug\Google.Protobuf.xml
+C:\Users\peter\Desktop\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\bin\Debug\Newtonsoft.Json.xml
+C:\Users\peter\Desktop\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\bin\Debug\S2Geometry.xml
+C:\Users\peter\Desktop\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\bin\Debug\System.Net.Http.Formatting.xml
+C:\Users\peter\Desktop\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\obj\Debug\PokemonGo.RocketAPI.csprojResolveAssemblyReference.cache
+C:\Users\peter\Desktop\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\obj\Debug\Pokemon Go Rocket API.dll
+C:\Users\peter\Desktop\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\obj\Debug\Pokemon Go Rocket API.pdb
