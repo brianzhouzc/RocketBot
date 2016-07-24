@@ -47,12 +47,13 @@ namespace PokemonGo.RocketAPI.Window
                 var pokemons =
                     inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon)
                         .Where(p => p != null && p?.PokemonId > 0).OrderByDescending(key => key.Cp);
+                
 
                 foreach (var pokemon in pokemons)
                 {
                     ListViewItem lvi = new ListViewItem(pokemon.PokemonId.ToString());
-                    lvi.SubItems.Add(pokemon.Cp.ToString());
                     listView1.Items.Add(lvi);
+                    lvi.SubItems.Add(pokemon.Cp.ToString());
                 }
             }
             catch (TaskCanceledException) { ColoredConsoleWrite(Color.Red, "Task Canceled Exception - Restarting"); Execute(); }
@@ -70,12 +71,18 @@ namespace PokemonGo.RocketAPI.Window
 
         private void button1_Click(object sender, EventArgs e)
         {
+            listView1.Items.Clear();
             Execute();
         }
 
         private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
         {
             //listView1.Sorting = listView1.Sorting == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

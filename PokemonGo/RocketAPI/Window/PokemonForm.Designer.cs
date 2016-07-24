@@ -36,9 +36,12 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 347);
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.button1.Location = new System.Drawing.Point(12, 373);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(336, 33);
+            this.button1.Size = new System.Drawing.Size(289, 33);
             this.button1.TabIndex = 1;
             this.button1.Text = "UPDATE LIST";
             this.button1.UseVisualStyleBackColor = true;
@@ -52,29 +55,31 @@
             this.listView1.GridLines = true;
             this.listView1.Location = new System.Drawing.Point(12, 12);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(336, 329);
-            this.listView1.TabIndex = 3;
+            this.listView1.Size = new System.Drawing.Size(287, 352);
+            this.listView1.TabIndex = 2;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             this.listView1.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView1_ColumnClick);
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // pokemonId
             // 
             this.pokemonId.Text = "Pokemon Id";
-            this.pokemonId.Width = 165;
+            this.pokemonId.Width = 133;
             // 
             // pokemonCp
             // 
             this.pokemonCp.Text = "Combat Power";
-            this.pokemonCp.Width = 165;
+            this.pokemonCp.Width = 133;
             // 
             // PokemonForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(358, 392);
-            this.Controls.Add(this.listView1);
+            this.ClientSize = new System.Drawing.Size(311, 418);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.listView1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "PokemonForm";
             this.Text = "Pokemon List";
             this.Load += new System.EventHandler(this.PokemonForm_Load);
