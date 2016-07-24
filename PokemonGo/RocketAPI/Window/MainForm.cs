@@ -97,7 +97,12 @@ namespace PokemonGo.RocketAPI.Window
             string textToAppend = "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\r\n";
             logTextBox.SelectionColor = color;
             logTextBox.AppendText(textToAppend);
-            File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + @"\Logs.txt", "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\n");
+            
+            object syncRoot = new object();
+            lock (syncRoot) // Added locking to prevent text file trying to be accessed by two things at the same time
+            {
+                File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + @"\Logs.txt", "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\n");
+            }
         }
 
         public void SetStatusText(string text)
