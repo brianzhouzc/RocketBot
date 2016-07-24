@@ -39,9 +39,12 @@ namespace PokemonGo.RocketAPI.Window
             //not use proxy
             GMapProvider.WebProxy = null;
             //center map on moscow
-            double defaultLatitude = Convert.ToDouble(ConfigurationManager.AppSettings["DefaultLatitude"]);
-            double defaultLongitude = Convert.ToDouble(ConfigurationManager.AppSettings["DefaultLongitude"]);
-            gMapControl1.Position = new PointLatLng(defaultLatitude, defaultLongitude);
+            string lat = ConfigurationManager.AppSettings["DefaultLatitude"];
+            string longit = ConfigurationManager.AppSettings["DefaultLongitude"];
+            lat.Replace(',', '.');
+            longit.Replace(',', '.'); 
+            gMapControl1.Position = new PointLatLng(Convert.ToDouble(lat), Convert.ToDouble(longit));
+           
 
 
             //zoom min/max; default both = 2
@@ -60,8 +63,15 @@ namespace PokemonGo.RocketAPI.Window
             Settings.Instance.SetSetting(authTypeCb.Text, "AuthType");
             Settings.Instance.SetSetting(ptcUserText.Text, "PtcUsername");
             Settings.Instance.SetSetting(ptcPassText.Text, "PtcPassword");
-            Settings.Instance.SetSetting(latitudeText.Text, "DefaultLatitude");
-            Settings.Instance.SetSetting(longitudeText.Text, "DefaultLongitude");
+            Settings.Instance.SetSetting(latitudeText.Text.Replace(',', '.'), "DefaultLatitude");
+            Settings.Instance.SetSetting(longitudeText.Text.Replace(',', '.'), "DefaultLongitude");
+
+            string lat = ConfigurationManager.AppSettings["DefaultLatitude"];
+            string longit = ConfigurationManager.AppSettings["DefaultLongitude"];
+            lat.Replace(',', '.');
+            longit.Replace(',', '.');
+
+
             Settings.Instance.SetSetting(razzmodeCb.Text, "RazzBerryMode");
             Settings.Instance.SetSetting(razzSettingText.Text, "RazzBerrySetting");
             Settings.Instance.SetSetting(transferTypeCb.Text, "TransferType");
