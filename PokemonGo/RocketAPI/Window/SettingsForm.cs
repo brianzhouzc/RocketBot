@@ -6,6 +6,8 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GMap.NET.MapProviders;
+using GMap.NET;
 
 namespace PokemonGo.RocketAPI.Window
 {
@@ -28,6 +30,25 @@ namespace PokemonGo.RocketAPI.Window
             transferTypeCb.Text = Settings.Instance.TransferType;
             transferCpThresText.Text = Settings.Instance.TransferCPThreshold.ToString();
             evolveAllChk.Checked = Settings.Instance.EvolveAllGivenPokemons;
+            // Initialize map:
+            //use google provider
+            gMapControl1.MapProvider = GoogleMapProvider.Instance;
+            //get tiles from server only
+            gMapControl1.Manager.Mode = AccessMode.ServerOnly;
+            //not use proxy
+            GMapProvider.WebProxy = null;
+            //center map on moscow
+            gMapControl1.Position = new PointLatLng(55.711311, 9.536354);
+
+            //zoom min/max; default both = 2
+            gMapControl1.MinZoom = 1;
+            gMapControl1.MaxZoom = 20;
+            //set zoom
+            gMapControl1.Zoom = 10;
+            label6.Text = "Right-Click and drag to move the map.";
+
+
+
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
@@ -63,6 +84,25 @@ namespace PokemonGo.RocketAPI.Window
                 ptcPasswordLabel.Visible = true;
 
             }
+        }
+
+        private void gMapControl1_MouseClick(object sender, MouseEventArgs e)
+        {
+            double X = Math.Round(gMapControl1.FromLocalToLatLng(e.X, e.Y).Lng, 6);
+            double Y = Math.Round(gMapControl1.FromLocalToLatLng(e.X, e.Y).Lat, 6);
+            string longitude = X.ToString();
+            string latitude = Y.ToString();
+            latitudeText.Text = latitude;
+            longitudeText.Text = longitude;
+
+
+
+
+
+
+
+
+
         }
     }
 }
