@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GMap.NET.MapProviders;
 using GMap.NET;
+using System.Configuration;
 
 namespace PokemonGo.RocketAPI.Window
 {
@@ -38,7 +39,10 @@ namespace PokemonGo.RocketAPI.Window
             //not use proxy
             GMapProvider.WebProxy = null;
             //center map on moscow
-            gMapControl1.Position = new PointLatLng(55.711311, 9.536354);
+            double defaultLatitude = Convert.ToDouble(ConfigurationManager.AppSettings["DefaultLatitude"]);
+            double defaultLongitude = Convert.ToDouble(ConfigurationManager.AppSettings["DefaultLongitude"]);
+            gMapControl1.Position = new PointLatLng(defaultLatitude, defaultLongitude);
+
 
             //zoom min/max; default both = 2
             gMapControl1.MinZoom = 1;
@@ -53,15 +57,15 @@ namespace PokemonGo.RocketAPI.Window
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
-            Settings.Instance.SetSetting(authTypeCb.Text , "AuthType");
-            Settings.Instance.SetSetting(ptcUserText.Text , "PtcUsername");
-            Settings.Instance.SetSetting(ptcPassText.Text , "PtcPassword");
-            Settings.Instance.SetSetting(latitudeText.Text , "DefaultLatitude");
-            Settings.Instance.SetSetting(longitudeText.Text , "DefaultLongitude");
-            Settings.Instance.SetSetting(razzmodeCb.Text , "RazzBerryMode");
-            Settings.Instance.SetSetting(razzSettingText.Text , "RazzBerrySetting");
-            Settings.Instance.SetSetting(transferTypeCb.Text , "TransferType");
-            Settings.Instance.SetSetting(transferCpThresText.Text , "TransferCPThreshold");
+            Settings.Instance.SetSetting(authTypeCb.Text, "AuthType");
+            Settings.Instance.SetSetting(ptcUserText.Text, "PtcUsername");
+            Settings.Instance.SetSetting(ptcPassText.Text, "PtcPassword");
+            Settings.Instance.SetSetting(latitudeText.Text, "DefaultLatitude");
+            Settings.Instance.SetSetting(longitudeText.Text, "DefaultLongitude");
+            Settings.Instance.SetSetting(razzmodeCb.Text, "RazzBerryMode");
+            Settings.Instance.SetSetting(razzSettingText.Text, "RazzBerrySetting");
+            Settings.Instance.SetSetting(transferTypeCb.Text, "TransferType");
+            Settings.Instance.SetSetting(transferCpThresText.Text, "TransferCPThreshold");
             Settings.Instance.SetSetting(evolveAllChk.Checked ? "true" : "false", "EvolveAllGivenPokemons");
             Settings.Instance.Reload();
             Close();
