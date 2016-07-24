@@ -170,9 +170,14 @@ namespace PokemonGo.RocketAPI.Window
                 switch (ClientSettings.AuthType)
                 {
                     case AuthType.Ptc:
+                        ColoredConsoleWrite(Color.Green, "Attempting to log into Pokemon Trainers Club..");
                         await client.DoPtcLogin(ClientSettings.PtcUsername, ClientSettings.PtcPassword);
                         break;
                     case AuthType.Google:
+                        ColoredConsoleWrite(Color.Green, "Attempting to log into Google..");
+                        if (ClientSettings.GoogleRefreshToken == "")
+                            ColoredConsoleWrite(Color.Green, "Now opening www.Google.com/device and copying the 8 digit code to your clipboard");
+                        
                         await client.DoGoogleLogin();
                         break;
                 }
@@ -482,7 +487,8 @@ namespace PokemonGo.RocketAPI.Window
                     string pokemonName;
                     if (ClientSettings.Language == "german")
                     {
-                        ColoredConsoleWrite(Color.DarkCyan, "german");
+                        // Dont really need to print this do we? youll know if its German or not
+                        //ColoredConsoleWrite(Color.DarkCyan, "german");
                         string name_english = Convert.ToString(pokemon.PokemonId);
                         var request = (HttpWebRequest)WebRequest.Create("http://boosting-service.de/pokemon/index.php?pokeName=" + name_english);
                         var response = (HttpWebResponse)request.GetResponse();

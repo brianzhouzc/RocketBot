@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AllEnum.AllEnumReflection">
+    <Position X="0.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="AllEnum.RpcDirection" Collapsed="true">
+    <Position X="4" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAgAAAAAAAAAAAABA=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AllEnum.TeamColor" Collapsed="true">
+    <Position X="5.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAgAAAAAAAAAAAAAAIAAAAAAAACAAAAA=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AllEnum.RequestMethod" Collapsed="true">
+    <Position X="2.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IIEIDEUIQAgqBDwIoCGGoIJApQyEDCBAk2AQBAaCIhA=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AllEnum.PokemonMove" Collapsed="true">
+    <Position X="5.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>///2a2taND3nEkI0wUfJo5wDB/SAnlktDmPQTadRedI=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AllEnum.ItemId" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABEMCCAIiAAAAABAAAgAADmAEQQIQAAEAAAECRAEhA=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AllEnum.InventoryUpgradeType" Collapsed="true">
+    <Position X="7.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEIAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AllEnum.EggIncubatorType" Collapsed="true">
+    <Position X="7.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AllEnum.PokemonFamilyId" Collapsed="true">
+    <Position X="2.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>4ABEQHEDC1gQ1AB4LFTSAUAAUAAwQwoVEAowJDJkQCg=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AllEnum.MapObjectsStatus" Collapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAABAAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AllEnum.FortType" Collapsed="true">
+    <Position X="4" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AllEnum.PokemonId" Collapsed="true">
+    <Position X="4" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BhccSFupyuqvFunnYpjg+yh/jNHQBhy0N3uocpNlETg=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AllEnum.FortSponsor" Collapsed="true">
+    <Position X="2.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAAAACAAAAAACAAAA=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AllEnum.FortRenderingType" Collapsed="true">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AllEnum.ItemType" Collapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAIARAAACAABAAQCSAAAAAAAAAAAAAAAkEAAAA=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AllEnum.ItemCategory" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAQAAACAABAAAASAAQAAAAAAAAAAAAkEACAA=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AllEnum.ItemEffect" Collapsed="true">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAgACQAAAAwAAAAIAACAAAAIAUEQIA=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AllEnum.ActivityType">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABBAAAEAAICBBBAAAAAAYQQAACAMgASAAIAAAAABQAo=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AllEnum.BadgeType" Collapsed="true">
+    <Position X="2.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAgBgiEAAYDUIAAEAICAAsEABAUAUkgAAAeAA=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AllEnum.HoloIapItemCategory" Collapsed="true">
+    <Position X="5.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAgAAAAAAAAAEAAAAAACAAAAAAAAAAQAA=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AllEnum.CameraInterpolation" Collapsed="true">
+    <Position X="4" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IEAAAAAAAAAAIAAAAACAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AllEnum.CameraTarget" Collapsed="true">
+    <Position X="5.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAABIAAAAAAAAhAICAAAABAAAAACIAAAGAAAAFAA=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AllEnum.PokemonType" Collapsed="true">
+    <Position X="0.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAACAAAIBUAAAAAACAAsAABAEAAEAAEAcAA=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AllEnum.PokemonMovementType" Collapsed="true">
+    <Position X="7.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAIAgAAAAAAAAAAAAAAAAAAAAECgAAAAAQAAAAAA=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AllEnum.PokemonClass" Collapsed="true">
+    <Position X="0.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAIIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GeneratedCode\AllEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

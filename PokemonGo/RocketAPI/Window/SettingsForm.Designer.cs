@@ -69,6 +69,7 @@
             this.authTypeCb.Name = "authTypeCb";
             this.authTypeCb.Size = new System.Drawing.Size(75, 21);
             this.authTypeCb.TabIndex = 1;
+            this.authTypeCb.SelectedIndexChanged += new System.EventHandler(this.authTypeCb_SelectedIndexChanged);
             // 
             // ptcUserLabel
             // 

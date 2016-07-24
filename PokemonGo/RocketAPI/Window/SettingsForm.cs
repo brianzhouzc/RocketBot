@@ -45,5 +45,24 @@ namespace PokemonGo.RocketAPI.Window
             Settings.Instance.Reload();
             Close();
         }
+
+        private void authTypeCb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (authTypeCb.Text == "Google")
+            {
+                ptcUserText.Visible = false;
+                ptcPassText.Visible = false;
+                ptcUserLabel.Visible = false;
+                ptcPasswordLabel.Visible = false;
+            }
+            else
+            {
+                ptcUserText.Visible = true;
+                ptcPassText.Visible = true;
+                ptcUserLabel.Visible = true;
+                ptcPasswordLabel.Visible = true;
+
+            }
+        }
     }
 }
