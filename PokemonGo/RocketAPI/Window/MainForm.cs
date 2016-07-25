@@ -41,6 +41,8 @@ namespace PokemonGo.RocketAPI.Window
         private static DateTime TimeStarted = DateTime.Now;
         public static DateTime InitSessionDateTime = DateTime.Now;
 
+        Client client;
+
         public static double GetRuntime()
         {
             return ((DateTime.Now - TimeStarted).TotalSeconds) / 3600;
@@ -164,7 +166,7 @@ namespace PokemonGo.RocketAPI.Window
 
         private async void Execute()
         {
-            var client = new Client(ClientSettings);
+            client = new Client(ClientSettings);
             try
             {
                 switch (ClientSettings.AuthType)
@@ -780,6 +782,37 @@ namespace PokemonGo.RocketAPI.Window
         private void statsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // todo: add player stats later
+        }
+
+        private async void useLuckyEggToolStripMenuItem_Click(object sender ,EventArgs e)
+        {
+            if (client != null)
+            {
+                try
+                {
+                    IEnumerable<Item> myItems = await client.GetItems(client);
+                    IEnumerable<Item> LuckyEggs = myItems.Where(i => (ItemId)i.Item_ == ItemId.ItemLuckyEgg);
+                    Item LuckyEgg = LuckyEggs.FirstOrDefault();
+                    if (LuckyEgg != null)
+                    {
+                        var useItemXpBoostRequest = await client.UseItemXpBoost(ItemId.ItemLuckyEgg);
+                        ColoredConsoleWrite(Color.Green, $"Using a Lucky Egg, we have {LuckyEgg.Count} left.");
+                        ColoredConsoleWrite(Color.Yellow, $"Lucky Egg Valid until: {DateTime.Now.AddMinutes(30).ToString()}");
+                    }
+                    else
+                    {
+                        ColoredConsoleWrite(Color.Red, $"You don't have any Lucky Egg to use.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ColoredConsoleWrite(Color.Red, $"Unhandled exception in using lucky egg: {ex}");
+                }
+            }
+            else
+            {
+                ColoredConsoleWrite(Color.Red, "Please start the bot before trying to use a lucky egg.");
+            }
         }
     }
 }
