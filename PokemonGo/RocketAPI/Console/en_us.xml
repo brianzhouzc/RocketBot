@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<en_us>
+  <pokemon key="Bulbasaur" value="Bulbasaur" />
+  <pokemon key="Ivysaur" value="Ivysaur" />
+  <pokemon key="Venusaur" value="Venusaur" />
+  <pokemon key="Charmander" value="Charmander" />
+  <pokemon key="Charmeleon" value="Charmeleon" />
+  <pokemon key="Charizard" value="Charizard" />
+  <pokemon key="Squirtle" value="Squirtle" />
+  <pokemon key="Wartortle" value="Wartortle" />
+  <pokemon key="Blastoise" value="Blastoise" />
+  <pokemon key="Caterpie" value="Caterpie" />
+  <pokemon key="Metapod" value="Metapod" />
+  <pokemon key="Butterfree" value="Butterfree" />
+  <pokemon key="Weedle" value="Weedle" />
+  <pokemon key="Kakuna" value="Kakuna" />
+  <pokemon key="Beedrill" value="Beedrill" />
+  <pokemon key="Pidgey" value="Pidgey" />
+  <pokemon key="Pidgeotto" value="Pidgeotto" />
+  <pokemon key="Pidgeot" value="Pidgeot" />
+  <pokemon key="Rattata" value="Rattata" />
+  <pokemon key="Raticate" value="Raticate" />
+  <pokemon key="Spearow" value="Spearow" />
+  <pokemon key="Fearow" value="Fearow" />
+  <pokemon key="Ekans" value="Ekans" />
+  <pokemon key="Arbok" value="Arbok" />
+  <pokemon key="Pikachu" value="Pikachu" />
+  <pokemon key="Raichu" value="Raichu" />
+  <pokemon key="Sandshrew" value="Sandshrew" />
+  <pokemon key="Sandslash" value="Sandslash" />
+  <pokemon key="NidoranFemale" value="Nidoran♀" />
+  <pokemon key="Nidorina" value="Nidorina" />
+  <pokemon key="Nidoqueen" value="Nidoqueen" />
+  <pokemon key="NidoranMale" value="Nidoran♂" />
+  <pokemon key="Nidorino" value="Nidorino" />
+  <pokemon key="Nidoking" value="Nidoking" />
+  <pokemon key="Clefairy" value="Clefairy" />
+  <pokemon key="Clefable" value="Clefable" />
+  <pokemon key="Vulpix" value="Vulpix" />
+  <pokemon key="Ninetales" value="Ninetales" />
+  <pokemon key="Jigglypuff" value="Jigglypuff" />
+  <pokemon key="Wigglytuff" value="Wigglytuff" />
+  <pokemon key="Zubat" value="Zubat" />
+  <pokemon key="Golbat" value="Golbat" />
+  <pokemon key="Oddish" value="Oddish" />
+  <pokemon key="Gloom" value="Gloom" />
+  <pokemon key="Vileplume" value="Vileplume" />
+  <pokemon key="Paras" value="Paras" />
+  <pokemon key="Parasect" value="Parasect" />
+  <pokemon key="Venonat" value="Venonat" />
+  <pokemon key="Venomoth" value="Venomoth" />
+  <pokemon key="Diglett" value="Diglett" />
+  <pokemon key="Dugtrio" value="Dugtrio" />
+  <pokemon key="Meowth" value="Meowth" />
+  <pokemon key="Persian" value="Persian" />
+  <pokemon key="Psyduck" value="Psyduck" />
+  <pokemon key="Golduck" value="Golduck" />
+  <pokemon key="Mankey" value="Mankey" />
+  <pokemon key="Primeape" value="Primeape" />
+  <pokemon key="Growlithe" value="Growlithe" />
+  <pokemon key="Arcanine" value="Arcanine" />
+  <pokemon key="Poliwag" value="Poliwag" />
+  <pokemon key="Poliwhirl" value="Poliwhirl" />
+  <pokemon key="Poliwrath" value="Poliwrath" />
+  <pokemon key="Abra" value="Abra" />
+  <pokemon key="Kadabra" value="Kadabra" />
+  <pokemon key="Alakazam" value="Alakazam" />
+  <pokemon key="Machop" value="Machop" />
+  <pokemon key="Machoke" value="Machoke" />
+  <pokemon key="Machamp" value="Machamp" />
+  <pokemon key="Bellsprout" value="Bellsprout" />
+  <pokemon key="Weepinbell" value="Weepinbell" />
+  <pokemon key="Victreebel" value="Victreebel" />
+  <pokemon key="Tentacool" value="Tentacool" />
+  <pokemon key="Tentacruel" value="Tentacruel" />
+  <pokemon key="Geodude" value="Geodude" />
+  <pokemon key="Graveler" value="Graveler" />
+  <pokemon key="Golem" value="Golem" />
+  <pokemon key="Ponyta" value="Ponyta" />
+  <pokemon key="Rapidash" value="Rapidash" />
+  <pokemon key="Slowpoke" value="Slowpoke" />
+  <pokemon key="Slowbro" value="Slowbro" />
+  <pokemon key="Magnemite" value="Magnemite" />
+  <pokemon key="Magneton" value="Magneton" />
+  <pokemon key="Farfetchd" value="Farfetch'd" />
+  <pokemon key="Doduo" value="Doduo" />
+  <pokemon key="Dodrio" value="Dodrio" />
+  <pokemon key="Seel" value="Seel" />
+  <pokemon key="Dewgong" value="Dewgong" />
+  <pokemon key="Grimer" value="Grimer" />
+  <pokemon key="Muk" value="Muk" />
+  <pokemon key="Shellder" value="Shellder" />
+  <pokemon key="Cloyster" value="Cloyster" />
+  <pokemon key="Gastly" value="Gastly" />
+  <pokemon key="Haunter" value="Haunter" />
+  <pokemon key="Gengar" value="Gengar" />
+  <pokemon key="Onix" value="Onix" />
+  <pokemon key="Drowzee" value="Drowzee" />
+  <pokemon key="Hypno" value="Hypno" />
+  <pokemon key="Krabby" value="Krabby" />
+  <pokemon key="Kingler" value="Kingler" />
+  <pokemon key="Voltorb" value="Voltorb" />
+  <pokemon key="Electrode" value="Electrode" />
+  <pokemon key="Exeggcute" value="Exeggcute" />
+  <pokemon key="Exeggutor" value="Exeggutor" />
+  <pokemon key="Cubone" value="Cubone" />
+  <pokemon key="Marowak" value="Marowak" />
+  <pokemon key="Hitmonlee" value="Hitmonlee" />
+  <pokemon key="Hitmonchan" value="Hitmonchan" />
+  <pokemon key="Lickitung" value="Lickitung" />
+  <pokemon key="Koffing" value="Koffing" />
+  <pokemon key="Weezing" value="Weezing" />
+  <pokemon key="Rhyhorn" value="Rhyhorn" />
+  <pokemon key="Rhydon" value="Rhydon" />
+  <pokemon key="Chansey" value="Chansey" />
+  <pokemon key="Tangela" value="Tangela" />
+  <pokemon key="Kangaskhan" value="Kangaskhan" />
+  <pokemon key="Horsea" value="Horsea" />
+  <pokemon key="Seadra" value="Seadra" />
+  <pokemon key="Goldeen" value="Goldeen" />
+  <pokemon key="Seaking" value="Seaking" />
+  <pokemon key="Staryu" value="Staryu" />
+  <pokemon key="Starmie" value="Starmie" />
+  <pokemon key="Mr. Mime" value="Mr. Mime" />
+  <pokemon key="Scyther" value="Scyther" />
+  <pokemon key="Jynx" value="Jynx" />
+  <pokemon key="Electabuzz" value="Electabuzz" />
+  <pokemon key="Magmar" value="Magmar" />
+  <pokemon key="Pinsir" value="Pinsir" />
+  <pokemon key="Tauros" value="Tauros" />
+  <pokemon key="Magikarp" value="Magikarp" />
+  <pokemon key="Gyarados" value="Gyarados" />
+  <pokemon key="Lapras" value="Lapras" />
+  <pokemon key="Ditto" value="Ditto" />
+  <pokemon key="Eevee" value="Eevee" />
+  <pokemon key="Vaporeon" value="Vaporeon" />
+  <pokemon key="Jolteon" value="Jolteon" />
+  <pokemon key="Flareon" value="Flareon" />
+  <pokemon key="Porygon" value="Porygon" />
+  <pokemon key="Omanyte" value="Omanyte" />
+  <pokemon key="Omastar" value="Omastar" />
+  <pokemon key="Kabuto" value="Kabuto" />
+  <pokemon key="Kabutops" value="Kabutops" />
+  <pokemon key="Aerodactyl" value="Aerodactyl" />
+  <pokemon key="Snorlax" value="Snorlax" />
+  <pokemon key="Articuno" value="Articuno" />
+  <pokemon key="Zapdos" value="Zapdos" />
+  <pokemon key="Moltres" value="Moltres" />
+  <pokemon key="Dratini" value="Dratini" />
+  <pokemon key="Dragonair" value="Dragonair" />
+  <pokemon key="Dragonite" value="Dragonite" />
+  <pokemon key="Mewtwo" value="Mewtwo" />
+  <pokemon key="Mew" value="Mew" />
+  
+  <phrase key="have_latest_ver" value="Awesome! You have already got the newest version! [version]" />
+  <phrase key="new_ver_avaliabe" value="There is a new Version available: [version]" />
+  <phrase key="get_new_ver_link" value="You can find it at https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API" />
+  <phrase key="unable_to_check_update" value="Unable to check for updates now..." />
+  <phrase key="evolved_one_pokemon" value="Evolved [pokemon] successfully for [xp]xp" />
+  <phrase key="evolved_multi_pokemons" value="Evolved [number] pieces of [pokemon] for [xp]xp" />
+  <phrase key="account" value="Account: [username]" />
+  <phrase key="password" value="Password: [password]" />
+  <phrase key="latitude" value="Latitude: [latitude]" />
+  <phrase key="longtitude" value="Longtitude: [longtitude]" />
+  <phrase key="your_account" value="Your Account:" />
+  <phrase key="username" value="Username: [username]" />
+  <phrase key="team" value="Team: [team]" />
+  <phrase key="stardust" value="Stardust: [stardust]" />
+  <phrase key="area" value="Area: [area]" />
+  <phrase key="country" value="Country: [country]" />
+  <phrase key="farming_started" value="Farming Started" />
+  <phrase key="transfering_disabled" value="Transfering pokemon disabled" />
+  <phrase key="no_nearby_loc_found" value="No nearby usefull locations found. Please wait 10 seconds." />
+  <phrase key="task_canceled_ex" value="Task Canceled Exception - Restarting" />
+  <phrase key="sys_uri_format_ex" value="System URI Format Exception - Restarting" />
+  <phrase key="arg_out_of_range_ex" value="ArgumentOutOfRangeException - Restarting" />
+  <phrase key="arg_null_ref" value="Argument Null Refference - Restarting" />
+  <phrase key="null_ref" value="Null Refference - Restarting" />
+  <phrase key="caught_pokemon" value="We caught a [pokemon] with [cp] CP" />
+  <phrase key="pokemon_got_away" value="[pokemon] with [cp] CP got away..." />
+  <phrase key="pokestop" value="Pokestop: [pokestop]" />
+  <phrase key="xp" value="XP: [xp]" />
+  <phrase key="gem" value="Gems: [gem]" />
+  <phrase key="egg" value="Eggs: [egg]" />
+  <phrase key="item" value="Items: [item]" />
+  <phrase key="ptc_server_down" value="PTC Servers are probably down OR your credentials are wrong. Try google." />
+  <phrase key="unhandled_ex" value="Unhandled exception: [ex]" />
+  <phrase key="pokemon_iv_percent_less_than" value="Pokemon [pokemon] with [cp] CP has IV percent less than [percent]%" />
+  <phrase key="transferred_pokemon" value="Transferred [pokemon] with [cp] CP" />
+  <phrase key="transferred_pokemon_failed" value="Somehow failed to transfer [pokemon] with [cp] CP." />
+  <phrase key="transferred_low_pokemon" value="Transferred [pokemon] with [cp] CP. (Highest is [high_cp] CP)" />
+  <phrase key="grinding_pokemon" value="Grinding [number] pokemon below [cp] CP." />
+  <phrase key="finished_grinding" value="Finished grinding all the meat" />
+  <phrase key="current_lv" value="Current Level:" />
+  <phrase key="xp_needed_for_next_lv" value="XP needed for next Level:" />
+</en_us>

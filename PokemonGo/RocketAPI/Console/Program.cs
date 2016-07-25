@@ -60,16 +60,16 @@ namespace PokemonGo.RocketAPI.Console
                             match.Groups[4]));
                 if (gitVersion <= Assembly.GetExecutingAssembly().GetName().Version)
                 {
-                    ColoredConsoleWrite(ConsoleColor.Green, "Awesome! You have already got the newest version! " + Assembly.GetExecutingAssembly().GetName().Version);
+                    ColoredConsoleWrite(ConsoleColor.Green, Language.GetPhrases()["have_latest_ver"].Replace("[version]", Convert.ToString(Assembly.GetExecutingAssembly().GetName().Version)));
                     return;
                 }
 
-                ColoredConsoleWrite(ConsoleColor.Red, "There is a new Version available: " + gitVersion);
-                ColoredConsoleWrite(ConsoleColor.Red, "You can find it at https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API");
+                ColoredConsoleWrite(ConsoleColor.Red, Language.GetPhrases()["new_ver_avaliabe"].Replace("[version]", Convert.ToString(gitVersion)));
+                ColoredConsoleWrite(ConsoleColor.Red, Language.GetPhrases()["get_new_ver_link"]);
             }
             catch (Exception)
             {
-                ColoredConsoleWrite(ConsoleColor.Red, "Unable to check for updates now...");
+                ColoredConsoleWrite(ConsoleColor.Red, Language.GetPhrases()["unable_to_check_update"]);
             }
         }
 
@@ -109,15 +109,16 @@ namespace PokemonGo.RocketAPI.Console
                 var xpCount = 0;
 
                 EvolvePokemonOut evolvePokemonOutProto;
+                string pokemonname = Language.GetPokemons()[Convert.ToString(pokemon.PokemonId)];
+
                 do
                 {
                     evolvePokemonOutProto = await client.EvolvePokemon(pokemon.Id);
                     //todo: someone check whether this still works
-
                     if (evolvePokemonOutProto.Result == 1)
                     {
                         ColoredConsoleWrite(ConsoleColor.Cyan,
-                            $"Evolved {pokemon.PokemonId} successfully for {evolvePokemonOutProto.ExpAwarded}xp");
+                            Language.GetPhrases()["evolved_one_pokemon"].Replace("[pokemon]", pokemonname).Replace("[xp]", Convert.ToString(evolvePokemonOutProto.ExpAwarded)));
 
                         countOfEvolvedUnits++;
                         xpCount += evolvePokemonOutProto.ExpAwarded;
@@ -134,8 +135,7 @@ namespace PokemonGo.RocketAPI.Console
                     }
                 } while (evolvePokemonOutProto.Result == 1);
                 if (countOfEvolvedUnits > 0)
-                    ColoredConsoleWrite(ConsoleColor.Cyan,
-                        $"Evolved {countOfEvolvedUnits} pieces of {pokemon.PokemonId} for {xpCount}xp");
+                    ColoredConsoleWrite(ConsoleColor.Cyan, Language.GetPhrases()["evolved_multi_pokemons"].Replace("[number]", Convert.ToString(countOfEvolvedUnits)).Replace("[pokemon]", pokemonname).Replace("[xp]", Convert.ToString(evolvePokemonOutProto.ExpAwarded)));
 
                 await Task.Delay(3000);
             }
@@ -171,20 +171,20 @@ namespace PokemonGo.RocketAPI.Console
                 ColoredConsoleWrite(ConsoleColor.Yellow, "----------------------------");
                 if (ClientSettings.AuthType == AuthType.Ptc)
                 {
-                    ColoredConsoleWrite(ConsoleColor.Cyan, "Account: " + ClientSettings.PtcUsername);
-                    ColoredConsoleWrite(ConsoleColor.Cyan, "Password: " + ClientSettings.PtcPassword + "\n");
+                    ColoredConsoleWrite(ConsoleColor.Cyan, Language.GetPhrases()["account"].Replace("[username]", ClientSettings.PtcUsername));
+                    ColoredConsoleWrite(ConsoleColor.Cyan, Language.GetPhrases()["password"].Replace("[password]", ClientSettings.PtcPassword) + "\n");
                 }
-                ColoredConsoleWrite(ConsoleColor.DarkGray, "Name: " + profile.Profile.Username);
-                ColoredConsoleWrite(ConsoleColor.DarkGray, "Team: " + profile.Profile.Team);
+                ColoredConsoleWrite(ConsoleColor.DarkGray, Language.GetPhrases()["username"].Replace("[username]", profile.Profile.Username));
+                ColoredConsoleWrite(ConsoleColor.DarkGray, Language.GetPhrases()["team"].Replace("[team]", Convert.ToString(profile.Profile.Team)));
                 if (profile.Profile.Currency.ToArray()[0].Amount > 0) // If player has any pokecoins it will show how many they have.
                     ColoredConsoleWrite(ConsoleColor.DarkGray, "Pokecoins: " + profile.Profile.Currency.ToArray()[0].Amount);
-                ColoredConsoleWrite(ConsoleColor.DarkGray, "Stardust: " + profile.Profile.Currency.ToArray()[1].Amount + "\n");
-                ColoredConsoleWrite(ConsoleColor.DarkGray, "Latitude: " + ClientSettings.DefaultLatitude);
-                ColoredConsoleWrite(ConsoleColor.DarkGray, "Longitude: " + ClientSettings.DefaultLongitude);
+                ColoredConsoleWrite(ConsoleColor.DarkGray, Language.GetPhrases()["stardust"].Replace("[stardust]", Convert.ToString(profile.Profile.Currency.ToArray()[1].Amount)) + "\n");
+                ColoredConsoleWrite(ConsoleColor.DarkGray, Language.GetPhrases()["latitude"].Replace("[latitude]", Convert.ToString(ClientSettings.DefaultLatitude)));
+                ColoredConsoleWrite(ConsoleColor.DarkGray, Language.GetPhrases()["longtitude"].Replace("[longtitude]", Convert.ToString(ClientSettings.DefaultLongitude)));
                 try
                 {
-                    ColoredConsoleWrite(ConsoleColor.DarkGray, "Area: " + CallAPI("place", ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude));
-                    ColoredConsoleWrite(ConsoleColor.DarkGray, "Country: " + CallAPI("country", ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude));
+                    ColoredConsoleWrite(ConsoleColor.DarkGray, Language.GetPhrases()["area"].Replace("[area]", CallAPI("place", ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude)));
+                    ColoredConsoleWrite(ConsoleColor.DarkGray, Language.GetPhrases()["country"].Replace("[country]", CallAPI("country", ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude)));
                 }
                 catch (Exception)
                 {
@@ -209,7 +209,7 @@ namespace PokemonGo.RocketAPI.Console
                         await TransferAllWeakPokemon(client, ClientSettings.TransferCPThreshold);
                         break;
                     default:
-                        ColoredConsoleWrite(ConsoleColor.DarkGray, "Transfering pokemon disabled");
+                        ColoredConsoleWrite(ConsoleColor.DarkGray, Language.GetPhrases()["transfering_disabled"]);
                         break;
                 }
 
@@ -221,16 +221,16 @@ namespace PokemonGo.RocketAPI.Console
                 await Task.Delay(5000);
                 PrintLevel(client);
                 await ExecuteFarmingPokestopsAndPokemons(client);
-                ColoredConsoleWrite(ConsoleColor.Red, $"No nearby usefull locations found. Please wait 10 seconds.");
+                ColoredConsoleWrite(ConsoleColor.Red,  Language.GetPhrases()["no_nearby_loc_found"]);
                 await Task.Delay(10000);
                 CheckVersion();
                 Execute();
             }
-            catch (TaskCanceledException) { ColoredConsoleWrite(ConsoleColor.Red, "Task Canceled Exception - Restarting"); Execute(); }
-            catch (UriFormatException) { ColoredConsoleWrite(ConsoleColor.Red, "System URI Format Exception - Restarting"); Execute(); }
-            catch (ArgumentOutOfRangeException) { ColoredConsoleWrite(ConsoleColor.Red, "ArgumentOutOfRangeException - Restarting"); Execute(); }
-            catch (ArgumentNullException) { ColoredConsoleWrite(ConsoleColor.Red, "Argument Null Refference - Restarting"); Execute(); }
-            catch (NullReferenceException) { ColoredConsoleWrite(ConsoleColor.Red, "Null Refference - Restarting"); Execute(); }
+            catch (TaskCanceledException) { ColoredConsoleWrite(ConsoleColor.Red, Language.GetPhrases()["task_canceled_ex"]); Execute(); }
+            catch (UriFormatException) { ColoredConsoleWrite(ConsoleColor.Red, Language.GetPhrases()["sys_uri_format_ex"]); Execute(); }
+            catch (ArgumentOutOfRangeException) { ColoredConsoleWrite(ConsoleColor.Red, Language.GetPhrases()["arg_out_of_range_ex"]); Execute(); }
+            catch (ArgumentNullException) { ColoredConsoleWrite(ConsoleColor.Red, Language.GetPhrases()["arg_null_ref"]); Execute(); }
+            catch (NullReferenceException) { ColoredConsoleWrite(ConsoleColor.Red, Language.GetPhrases()["null_ref"]); Execute(); }
             catch (Exception ex) { ColoredConsoleWrite(ConsoleColor.Red, ex.ToString()); Execute(); }
         }
 
@@ -296,25 +296,17 @@ namespace PokemonGo.RocketAPI.Console
                     caughtPokemonResponse = await client.CatchPokemon(pokemon.EncounterId, pokemon.SpawnpointId, pokemon.Latitude, pokemon.Longitude, MiscEnums.Item.ITEM_POKE_BALL, pokemonCP); ; //note: reverted from settings because this should not be part of settings but part of logic
                 } while (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed || caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchEscape);
 
-                string pokemonName;
-                if (ClientSettings.Language == "german")
-                {
-                    string name_english = Convert.ToString(pokemon.PokemonId);
-                    var request = (HttpWebRequest)WebRequest.Create("http://boosting-service.de/pokemon/index.php?pokeName=" + name_english);
-                    var response = (HttpWebResponse)request.GetResponse();
-                    pokemonName = new StreamReader(response.GetResponseStream()).ReadToEnd();
-                }
-                else
-                    pokemonName = Convert.ToString(pokemon.PokemonId);
+                string pokemonName = Language.GetPokemons()[Convert.ToString(pokemon.PokemonId)];
+
                 if (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchSuccess)
                 {
-                    ColoredConsoleWrite(ConsoleColor.Green, $"We caught a {pokemonName} with {encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp} CP");
+                    ColoredConsoleWrite(ConsoleColor.Green, Language.GetPhrases()["caught_pokemon"].Replace("[pokemon]", pokemonName).Replace("[cp]", Convert.ToString(encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp)));
                     foreach (int xp in caughtPokemonResponse.Scores.Xp)
                         TotalExperience += xp;
                     TotalPokemon += 1;
                 }
                 else
-                    ColoredConsoleWrite(ConsoleColor.Red, $"{pokemonName} with {encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp} CP got away..");
+                    ColoredConsoleWrite(ConsoleColor.Red, Language.GetPhrases()["pokemon_got_away"].Replace("[pokemon]", pokemonName).Replace("[cp}", Convert.ToString(encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp)));
 
                 if (ClientSettings.TransferType == "leaveStrongest")
                     await TransferAllButStrongestUnwantedPokemon(client);
@@ -344,15 +336,15 @@ namespace PokemonGo.RocketAPI.Console
                 StringWriter PokeStopOutput = new StringWriter();
                 PokeStopOutput.Write($"");
                 if (fortInfo.Name != string.Empty)
-                    PokeStopOutput.Write("PokeStop: " + fortInfo.Name);
+                    PokeStopOutput.Write(Language.GetPhrases()["pokestop"].Replace("[pokestop]", fortInfo.Name));
                 if (fortSearch.ExperienceAwarded != 0)
-                    PokeStopOutput.Write($", XP: {fortSearch.ExperienceAwarded}");
+                    PokeStopOutput.Write($", {Language.GetPhrases()["xp"].Replace("[xp]", Convert.ToString(fortSearch.ExperienceAwarded))}");
                 if (fortSearch.GemsAwarded != 0)
-                    PokeStopOutput.Write($", Gems: {fortSearch.GemsAwarded}");
+                    PokeStopOutput.Write($", {Language.GetPhrases()["gem"].Replace("[gem]", Convert.ToString(fortSearch.GemsAwarded))}");
                 if (fortSearch.PokemonDataEgg != null)
-                    PokeStopOutput.Write($", Eggs: {fortSearch.PokemonDataEgg}");
+                    PokeStopOutput.Write($", {Language.GetPhrases()["egg"].Replace("[egg]", Convert.ToString(fortSearch.PokemonDataEgg))}");
                 if (GetFriendlyItemsString(fortSearch.ItemsAwarded) != string.Empty)
-                    PokeStopOutput.Write($", Items: {GetFriendlyItemsString(fortSearch.ItemsAwarded)} ");
+                    PokeStopOutput.Write($", {Language.GetPhrases()["item"].Replace("[item]", GetFriendlyItemsString(fortSearch.ItemsAwarded))}");
                 ColoredConsoleWrite(ConsoleColor.Cyan, PokeStopOutput.ToString());
 
                 if (fortSearch.ExperienceAwarded != 0)
@@ -377,6 +369,28 @@ namespace PokemonGo.RocketAPI.Console
 
         private static void Main(string[] args)
         {
+            try
+            {
+                Language.LoadLanguageFile(ClientSettings.Language);
+                ColoredConsoleWrite(ConsoleColor.Gray, $"Loaded language file: {ClientSettings.Language}");
+            }
+            catch (Exception ex)
+            {
+                ColoredConsoleWrite(ConsoleColor.Red, $"[{DateTime.Now.ToString("HH:mm:ss")}] Something's wrong when loading language file: \n{ex}");
+                try
+                {
+                    ColoredConsoleWrite(ConsoleColor.White, $"[{DateTime.Now.ToString("HH:mm:ss")}] Using default en_us instead.");
+                    Language.LoadLanguageFile("en_us");
+                }
+                catch
+                {
+                    ColoredConsoleWrite(ConsoleColor.Red, $"[{DateTime.Now.ToString("HH:mm:ss")}] Something's wrong when loading default language file again: \n{ex}");
+                    ColoredConsoleWrite(ConsoleColor.White, $"[{DateTime.Now.ToString("HH:mm:ss")}] Please check if your language files are valid. Press any key to exit the program...");
+                    System.Console.ReadKey();
+                    System.Environment.Exit(1);
+                }
+
+            }
             Task.Run(() =>
             {
                 try
@@ -387,11 +401,11 @@ namespace PokemonGo.RocketAPI.Console
                 }
                 catch (PtcOfflineException)
                 {
-                    ColoredConsoleWrite(ConsoleColor.Red, "PTC Servers are probably down OR your credentials are wrong. Try google");
+                    ColoredConsoleWrite(ConsoleColor.Red, Language.GetPhrases()["ptc_server_down"]);
                 }
                 catch (Exception ex)
                 {
-                    ColoredConsoleWrite(ConsoleColor.Red, $"Unhandled exception: {ex}");
+                    ColoredConsoleWrite(ConsoleColor.Red, Language.GetPhrases()["unhandled_ex"].Replace("[ex]", Convert.ToString(ex)));
                 }
             });
             System.Console.ReadLine();
@@ -465,7 +479,7 @@ namespace PokemonGo.RocketAPI.Console
             foreach (var pokemon in unwantedPokemons)
             {
                 if (Perfect(pokemon) >= keepPerfectPokemonLimit) continue;
-                ColoredConsoleWrite(ConsoleColor.White, $"Pokemon {pokemon.PokemonId} with {pokemon.Cp} CP has IV percent less than {keepPerfectPokemonLimit}%");
+                ColoredConsoleWrite(ConsoleColor.White, Language.GetPhrases()["pokemon_iv_percent_less_than"].Replace("[pokemon]", Language.GetPokemons()[Convert.ToString(pokemon.PokemonId)]).Replace("[cp]", Convert.ToString(pokemon.Cp)).Replace("[percent]", Convert.ToString(keepPerfectPokemonLimit)));
 
                 if (pokemon.Favorite == 0)
                 {
@@ -479,26 +493,17 @@ namespace PokemonGo.RocketAPI.Console
                         FAILED = 3;
                         ERROR_POKEMON_IS_EGG = 4;
                     }*/
-                    string pokemonName;
-                    if (ClientSettings.Language == "german")
-                    {
-                        ColoredConsoleWrite(ConsoleColor.DarkCyan, "german");
-                        string name_english = Convert.ToString(pokemon.PokemonId);
-                        var request = (HttpWebRequest)WebRequest.Create("http://boosting-service.de/pokemon/index.php?pokeName=" + name_english);
-                        var response = (HttpWebResponse)request.GetResponse();
-                        pokemonName = new StreamReader(response.GetResponseStream()).ReadToEnd();
-                    }
-                    else
-                        pokemonName = Convert.ToString(pokemon.PokemonId);
+                    string pokemonName = Language.GetPokemons()[Convert.ToString(pokemon.PokemonId)];
+
                     if (transferPokemonResponse.Status == 1)
                     {
-                        ColoredConsoleWrite(ConsoleColor.Magenta, $"Transferred {pokemonName} with {pokemon.Cp} CP");
+                        ColoredConsoleWrite(ConsoleColor.Magenta, Language.GetPhrases()["transferred_pokemon"].Replace("[pokemon]", Language.GetPokemons()[Convert.ToString(pokemon.PokemonId)]).Replace("[cp]", Convert.ToString(pokemon.Cp)));
                     }
                     else
                     {
                         var status = transferPokemonResponse.Status;
 
-                        ColoredConsoleWrite(ConsoleColor.Red, $"Somehow failed to transfer {pokemonName} with {pokemon.Cp} CP. " +
+                        ColoredConsoleWrite(ConsoleColor.Red, Language.GetPhrases()["transferred_pokemon_failed"].Replace("[pokemon]", Language.GetPokemons()[Convert.ToString(pokemon.PokemonId)]).Replace("[cp]", Convert.ToString(pokemon.Cp)) +
                                                  $"ReleasePokemonOutProto.Status was {status}");
                     }
 
@@ -528,18 +533,11 @@ namespace PokemonGo.RocketAPI.Console
                     if (dubpokemon.Favorite == 0)
                     {
                         var transfer = await client.TransferPokemon(dubpokemon.Id);
-                        string pokemonName;
-                        if (ClientSettings.Language == "german")
-                        {
-                            string name_english = Convert.ToString(dubpokemon.PokemonId);
-                            var request = (HttpWebRequest)WebRequest.Create("http://boosting-service.de/pokemon/index.php?pokeName=" + name_english);
-                            var response = (HttpWebResponse)request.GetResponse();
-                            pokemonName = new StreamReader(response.GetResponseStream()).ReadToEnd();
-                        }
-                        else
-                            pokemonName = Convert.ToString(dubpokemon.PokemonId);
+
+                        string pokemonName = Language.GetPokemons()[Convert.ToString(dubpokemon.PokemonId)];
+
                         ColoredConsoleWrite(ConsoleColor.DarkGreen,
-                            $"Transferred {pokemonName} with {dubpokemon.Cp} CP (Highest is {dupes.ElementAt(i).Last().value.Cp})");
+                            Language.GetPhrases()["transferred_low_pokemon"].Replace("[pokemon]", Language.GetPokemons()[Convert.ToString(dubpokemon.PokemonId)]).Replace("[cp]", Convert.ToString(dubpokemon.Cp)).Replace("[high_cp]", Convert.ToString(dupes.ElementAt(i).Last().value.Cp)));
 
                     }
                 }
@@ -590,12 +588,12 @@ namespace PokemonGo.RocketAPI.Console
 
                 //var unwantedPokemon = pokemonOfDesiredType.Skip(1) // keep the strongest one for potential battle-evolving
                 //                                          .ToList();
-                ColoredConsoleWrite(ConsoleColor.Gray, $"Grinding {pokemonToDiscard.Count} pokemon below {cpThreshold} CP.");
+                ColoredConsoleWrite(ConsoleColor.Gray, Language.GetPhrases()["grinding_pokemon"].Replace("[number]", Convert.ToString(pokemonToDiscard.Count)).Replace("[cp]", Convert.ToString(cpThreshold)));
                 await TransferAllGivenPokemons(client, pokemonToDiscard);
 
             }
 
-            ColoredConsoleWrite(ConsoleColor.Gray, $"Finished grinding all the meat");
+            ColoredConsoleWrite(ConsoleColor.Gray, Language.GetPhrases()["finished_grinding"]);
         }
 
         public static async Task PrintLevel(Client client)
@@ -607,12 +605,12 @@ namespace PokemonGo.RocketAPI.Console
                 {
                     int XpDiff = GetXpDiff(client, v.Level);
                     if (ClientSettings.LevelOutput == "time")
-                        ColoredConsoleWrite(ConsoleColor.Yellow, $"Current Level: " + v.Level + " (" + (v.Experience - XpDiff) + "/" + (v.NextLevelXp - XpDiff) + ")");
+                        ColoredConsoleWrite(ConsoleColor.Yellow, Language.GetPhrases()["current_lv"] + v.Level + "(" + (v.Experience - v.PrevLevelXp - XpDiff) + " / " + (v.NextLevelXp - v.PrevLevelXp - XpDiff) + ")");
                     else if (ClientSettings.LevelOutput == "levelup")
                         if (Currentlevel != v.Level)
                         {
                             Currentlevel = v.Level;
-                            ColoredConsoleWrite(ConsoleColor.Magenta, $"Current Level: " + v.Level + ". XP needed for next Level: " + (v.NextLevelXp - v.Experience));
+                            ColoredConsoleWrite(ConsoleColor.Magenta, Language.GetPhrases()["current_lv"] + v.Level + " " +  Language.GetPhrases()["xp_needed_for_next_lv"] + (v.NextLevelXp - v.Experience));
                         }
                 }
             if (ClientSettings.LevelOutput == "levelup")
