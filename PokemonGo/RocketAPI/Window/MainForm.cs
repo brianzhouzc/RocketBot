@@ -64,14 +64,9 @@ namespace PokemonGo.RocketAPI.Window
                             match.Groups[2],
                             match.Groups[3],
                             match.Groups[4]));
-                if (gitVersion <= Assembly.GetExecutingAssembly().GetName().Version)
-                {
-                    ColoredConsoleWrite(Color.Green, "Awesome! You have already got the newest version! " + Assembly.GetExecutingAssembly().GetName().Version);
-                    return;
-                }
-
-                ColoredConsoleWrite(Color.Red, "There is a new Version available: " + gitVersion);
-                ColoredConsoleWrite(Color.Red, "You can find it at https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API");
+                // makes sense to display your version and say what the current one is on github
+                ColoredConsoleWrite(Color.White, "Your version is " + Assembly.GetExecutingAssembly().GetName().Version + " current version is " + gitVersion);
+                ColoredConsoleWrite(Color.White, "You can find it at https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API");
             }
             catch (Exception)
             {
