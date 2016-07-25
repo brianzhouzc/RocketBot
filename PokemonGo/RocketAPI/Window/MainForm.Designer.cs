@@ -51,9 +51,9 @@
             this.logTextBox.BackColor = System.Drawing.Color.Black;
             this.logTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.logTextBox.ForeColor = System.Drawing.Color.White;
-            this.logTextBox.Location = new System.Drawing.Point(0, 24);
+            this.logTextBox.Location = new System.Drawing.Point(0, 25);
             this.logTextBox.Name = "logTextBox";
-            this.logTextBox.Size = new System.Drawing.Size(905, 471);
+            this.logTextBox.Size = new System.Drawing.Size(905, 430);
             this.logTextBox.TabIndex = 0;
             this.logTextBox.Text = "";
             this.logTextBox.TextChanged += new System.EventHandler(this.logTextBox_TextChanged);
@@ -62,16 +62,17 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 495);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 455);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(905, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
+            this.statusStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
             // 
             // statusLabel
             // 
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(39, 17);
+            this.statusLabel.Size = new System.Drawing.Size(43, 17);
             this.statusLabel.Text = "Status";
             // 
             // menuStrip1
@@ -82,7 +83,7 @@
             this.pokemonToolStripMenuItem2});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(905, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(905, 25);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -91,20 +92,20 @@
             this.todoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripMenuItem});
             this.todoToolStripMenuItem.Name = "todoToolStripMenuItem";
-            this.todoToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.todoToolStripMenuItem.Size = new System.Drawing.Size(40, 21);
             this.todoToolStripMenuItem.Text = "Bot";
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // startBotToolStripMenuItem
             // 
             this.startBotToolStripMenuItem.Name = "startBotToolStripMenuItem";
-            this.startBotToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            this.startBotToolStripMenuItem.Size = new System.Drawing.Size(71, 21);
             this.startBotToolStripMenuItem.Text = "Start bot";
             this.startBotToolStripMenuItem.Click += new System.EventHandler(this.startBotToolStripMenuItem_Click);
             // 
@@ -114,7 +115,7 @@
             this.showAllToolStripMenuItem2,
             this.statsToolStripMenuItem});
             this.pokemonToolStripMenuItem2.Name = "pokemonToolStripMenuItem2";
-            this.pokemonToolStripMenuItem2.Size = new System.Drawing.Size(51, 20);
+            this.pokemonToolStripMenuItem2.Size = new System.Drawing.Size(55, 21);
             this.pokemonToolStripMenuItem2.Text = "Player";
             // 
             // showAllToolStripMenuItem2
@@ -128,7 +129,7 @@
             // showAllToolStripMenuItem3
             // 
             this.showAllToolStripMenuItem3.Name = "showAllToolStripMenuItem3";
-            this.showAllToolStripMenuItem3.Size = new System.Drawing.Size(101, 22);
+            this.showAllToolStripMenuItem3.Size = new System.Drawing.Size(105, 22);
             this.showAllToolStripMenuItem3.Text = "Mine";
             this.showAllToolStripMenuItem3.Click += new System.EventHandler(this.showAllToolStripMenuItem3_Click);
             // 
@@ -151,9 +152,9 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(905, 517);
+            this.ClientSize = new System.Drawing.Size(905, 477);
             this.Controls.Add(this.logTextBox);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
