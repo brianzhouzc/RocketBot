@@ -90,7 +90,7 @@ namespace PokemonGo.RocketAPI
             _authType = AuthType.Google;
             GoogleLogin.TokenResponseModel tokenResponse = null;
 
-            if (_settings.GoogleRefreshToken == string.Empty && AccessToken == string.Empty)
+            if (string.IsNullOrEmpty(_settings.GoogleRefreshToken) && string.IsNullOrEmpty(AccessToken))
             {
                 var deviceCode = await GoogleLogin.GetDeviceCode();
                 tokenResponse = await GoogleLogin.GetAccessToken(deviceCode);
@@ -101,7 +101,7 @@ namespace PokemonGo.RocketAPI
             }
             else
             {
-                if (_settings.GoogleRefreshToken != null)
+                if (!string.IsNullOrEmpty(_settings.GoogleRefreshToken))
                     tokenResponse = await GoogleLogin.GetAccessToken(_settings.GoogleRefreshToken);
                 else
                     tokenResponse = await GoogleLogin.GetAccessToken(AccessToken);
