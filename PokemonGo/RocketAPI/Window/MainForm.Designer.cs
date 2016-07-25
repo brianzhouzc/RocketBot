@@ -42,6 +42,7 @@
             this.statsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.useLuckyEggToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -79,7 +80,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.todoToolStripMenuItem,
             this.startBotToolStripMenuItem,
-            this.pokemonToolStripMenuItem2});
+            this.pokemonToolStripMenuItem2,
+            this.useLuckyEggToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(905, 24);
@@ -122,7 +124,7 @@
             this.showAllToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showAllToolStripMenuItem3});
             this.showAllToolStripMenuItem2.Name = "showAllToolStripMenuItem2";
-            this.showAllToolStripMenuItem2.Size = new System.Drawing.Size(125, 22);
+            this.showAllToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.showAllToolStripMenuItem2.Text = "Pokemon";
             // 
             // showAllToolStripMenuItem3
@@ -135,7 +137,7 @@
             // statsToolStripMenuItem
             // 
             this.statsToolStripMenuItem.Name = "statsToolStripMenuItem";
-            this.statsToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.statsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.statsToolStripMenuItem.Text = "Stats";
             this.statsToolStripMenuItem.Click += new System.EventHandler(this.statsToolStripMenuItem_Click);
             // 
@@ -148,6 +150,13 @@
             // 
             this.showAllToolStripMenuItem1.Name = "showAllToolStripMenuItem1";
             this.showAllToolStripMenuItem1.Size = new System.Drawing.Size(32, 19);
+            // 
+            // useLuckyEggToolStripMenuItem
+            // 
+            this.useLuckyEggToolStripMenuItem.Name = "useLuckyEggToolStripMenuItem";
+            this.useLuckyEggToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
+            this.useLuckyEggToolStripMenuItem.Text = "Use Lucky Egg";
+            this.useLuckyEggToolStripMenuItem.Click += new System.EventHandler(this.useLuckyEggToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -186,6 +195,7 @@
         private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem statsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem useLuckyEggToolStripMenuItem;
     }
 }
 
