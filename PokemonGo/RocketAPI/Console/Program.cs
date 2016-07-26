@@ -287,7 +287,7 @@ namespace PokemonGo.RocketAPI.Console
                 var update = await client.UpdatePlayerLocation(pokemon.Latitude, pokemon.Longitude);
                 var encounterPokemonResponse = await client.EncounterPokemon(pokemon.EncounterId, pokemon.SpawnpointId);
                 var pokemonCP = encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp;
-                var pokemonIV = Perfect(encounterPokemonResponse?.WildPokemon?.PokemonData);
+                var pokemonIV = Helpers.PerfectHelper.Perfect(encounterPokemonResponse?.WildPokemon?.PokemonData);
                 CatchPokemonResponse caughtPokemonResponse;
                 do
                 {
@@ -462,16 +462,11 @@ namespace PokemonGo.RocketAPI.Console
             //ColoredConsoleWrite(ConsoleColor.White, $"Finished grinding all the meat");
         }
 
-        public static float Perfect(PokemonData poke)
-        {
-            return ((float)(poke.IndividualAttack + poke.IndividualDefense + poke.IndividualStamina) / (3.0f * 15.0f)) * 100.0f;
-        }
-
         private static async Task TransferAllGivenPokemons(Client client, IEnumerable<PokemonData> unwantedPokemons, float keepPerfectPokemonLimit = 80.0f)
         {
             foreach (var pokemon in unwantedPokemons)
             {
-                if (Perfect(pokemon) >= keepPerfectPokemonLimit) continue;
+                if (Helpers.PerfectHelper.Perfect(pokemon) >= keepPerfectPokemonLimit) continue;
                 ColoredConsoleWrite(ConsoleColor.White, $"Pokemon {pokemon.PokemonId} with {pokemon.Cp} CP has IV percent less than {keepPerfectPokemonLimit}%");
 
                 if (pokemon.Favorite == 0)

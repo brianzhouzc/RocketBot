@@ -79,6 +79,7 @@
     <Compile Include="GeneratedCode\Response.cs" />
     <Compile Include="Helpers\HttpClientHelper.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
+    <Compile Include="Helpers\PerfectHelper.cs" />
     <Compile Include="Helpers\ProtoHelper.cs" />
     <Compile Include="Helpers\RetryHandler.cs" />
     <Compile Include="Helpers\S2Helper.cs" />
