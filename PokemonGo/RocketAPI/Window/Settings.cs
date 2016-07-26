@@ -45,6 +45,7 @@ namespace PokemonGo.RocketAPI.Window
         /// </summary>
         public string TransferType => GetSetting() != string.Empty ? GetSetting() : "none";
         public int TransferCPThreshold => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 0;
+        public int TransferIVThreshold => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 0;
         public bool EvolveAllGivenPokemons => GetSetting() != string.Empty && Convert.ToBoolean(GetSetting(), CultureInfo.InvariantCulture);
 
 

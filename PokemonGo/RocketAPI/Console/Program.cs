@@ -208,6 +208,9 @@ namespace PokemonGo.RocketAPI.Console
                     case "cp":
                         await TransferAllWeakPokemon(client, ClientSettings.TransferCPThreshold);
                         break;
+                    case "iv":
+                        await TransferAllGivenPokemons(client, pokemons, ClientSettings.TransferIVThreshold);
+                        break;
                     default:
                         ColoredConsoleWrite(ConsoleColor.DarkGray, "Transfering pokemon disabled");
                         break;
@@ -284,6 +287,7 @@ namespace PokemonGo.RocketAPI.Console
                 var update = await client.UpdatePlayerLocation(pokemon.Latitude, pokemon.Longitude);
                 var encounterPokemonResponse = await client.EncounterPokemon(pokemon.EncounterId, pokemon.SpawnpointId);
                 var pokemonCP = encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp;
+                var pokemonIV = Perfect(encounterPokemonResponse?.WildPokemon?.PokemonData);
                 CatchPokemonResponse caughtPokemonResponse;
                 do
                 {
@@ -306,15 +310,16 @@ namespace PokemonGo.RocketAPI.Console
                 }
                 else
                     pokemonName = Convert.ToString(pokemon.PokemonId);
+
                 if (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchSuccess)
                 {
-                    ColoredConsoleWrite(ConsoleColor.Green, $"We caught a {pokemonName} with {encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp} CP");
+                    ColoredConsoleWrite(ConsoleColor.Green, $"We caught a {pokemonName} with {pokemonCP} CP and {pokemonIV}% IV");
                     foreach (int xp in caughtPokemonResponse.Scores.Xp)
                         TotalExperience += xp;
                     TotalPokemon += 1;
                 }
                 else
-                    ColoredConsoleWrite(ConsoleColor.Red, $"{pokemonName} with {encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp} CP got away..");
+                    ColoredConsoleWrite(ConsoleColor.Red, $"{pokemonName} with {pokemonCP} CP and {pokemonIV}% IV");
 
                 if (ClientSettings.TransferType == "leaveStrongest")
                     await TransferAllButStrongestUnwantedPokemon(client);
@@ -324,6 +329,8 @@ namespace PokemonGo.RocketAPI.Console
                     await TransferDuplicatePokemon(client);
                 else if (ClientSettings.TransferType == "cp")
                     await TransferAllWeakPokemon(client, ClientSettings.TransferCPThreshold);
+                else if (ClientSettings.TransferType == "iv")
+                    await TransferAllGivenPokemons(client, pokemons2, ClientSettings.TransferIVThreshold);
 
                 await Task.Delay(3000);
             }
