@@ -84,4 +84,4 @@ Go to PokemonGo\RocketAPI\Console\App.config -> Edit the Settings you like -> Bu
 
 ## EvolveAllGivenPokemons
 * *false* Evolves no pokemons.
-* *true* Evolves all pokemoms.
+* *true* Evolves all pokemons.

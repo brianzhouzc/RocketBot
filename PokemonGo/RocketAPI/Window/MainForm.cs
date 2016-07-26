@@ -67,8 +67,9 @@ namespace PokemonGo.RocketAPI.Window
                             match.Groups[3],
                             match.Groups[4]));
                 // makes sense to display your version and say what the current one is on github
-                ColoredConsoleWrite(Color.White, "Your version is " + Assembly.GetExecutingAssembly().GetName().Version + " current version is " + gitVersion);
-                ColoredConsoleWrite(Color.White, "You can find it at https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API");
+                ColoredConsoleWrite(Color.Green, "Your version is " + Assembly.GetExecutingAssembly().GetName().Version);
+                ColoredConsoleWrite(Color.Green, "Github version is " + gitVersion);
+                ColoredConsoleWrite(Color.Green, "You can find it at https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API");
             }
             catch (Exception)
             {
@@ -249,7 +250,7 @@ namespace PokemonGo.RocketAPI.Window
                 await Task.Delay(5000);
                 PrintLevel(client);
                 await ExecuteFarmingPokestopsAndPokemons(client);
-                ColoredConsoleWrite(Color.Red, $"No nearby usefull locations found. Please wait 10 seconds.");
+                ColoredConsoleWrite(Color.Red, $"No nearby useful locations found. Please wait 10 seconds.");
                 await Task.Delay(10000);
                 CheckVersion();
                 Execute();

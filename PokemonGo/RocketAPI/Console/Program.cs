@@ -221,7 +221,7 @@ namespace PokemonGo.RocketAPI.Console
                 await Task.Delay(5000);
                 PrintLevel(client);
                 await ExecuteFarmingPokestopsAndPokemons(client);
-                ColoredConsoleWrite(ConsoleColor.Red, $"No nearby usefull locations found. Please wait 10 seconds.");
+                ColoredConsoleWrite(ConsoleColor.Red, $"No nearby useful locations found. Please wait 10 seconds.");
                 await Task.Delay(10000);
                 CheckVersion();
                 Execute();
