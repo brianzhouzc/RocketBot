@@ -29,10 +29,10 @@
   <pokemon key="Sandshrew" value="Sabelette" />
   <pokemon key="Sandslash" value="Sablaireau" />
   <pokemon key="NidoranFemale" value="Nidoran femelle" />
-  <pokemon key="Nidorina" value="Nidorino femelle" />
+  <pokemon key="Nidorina" value="Nidorina" />
   <pokemon key="Nidoqueen" value="Nidoqueen" />
   <pokemon key="NidoranMale" value="Nidoran male" />
-  <pokemon key="Nidorino" value="Nidorino male" />
+  <pokemon key="Nidorino" value="Nidorino" />
   <pokemon key="Nidoking" value="Nidoking" />
   <pokemon key="Clefairy" value="Melofee" />
   <pokemon key="Clefable" value="Melodelfe" />
