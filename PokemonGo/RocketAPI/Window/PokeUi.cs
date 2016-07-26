@@ -81,7 +81,7 @@ namespace PokemonGo.RocketAPI.Window
                     var currIv = Math.Round(Perfect(pokemon));
                     //listViewItem.SubItems.Add();
                     listViewItem.ImageKey = pokemon.PokemonId.ToString();
-                    listViewItem.Text = string.Format("{0} Cp: {1}", pokemon.PokemonId, pokemon.Cp);
+                    listViewItem.Text = string.Format("{0}\nCp:{1}", pokemon.PokemonId, pokemon.Cp);
                     listViewItem.ToolTipText = "Candy: " + currentCandy+"\n"+"IV: "+currIv+"%";
 
 
