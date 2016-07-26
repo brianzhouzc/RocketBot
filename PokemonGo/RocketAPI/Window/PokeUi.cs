@@ -78,11 +78,11 @@ namespace PokemonGo.RocketAPI.Window
                         .Where(i => (int) i.FamilyId <= (int) pokemon.PokemonId)
                         .Select(f=>f.Candy)
                         .First();
-                   
+                    var currIv = Math.Round(Perfect(pokemon));
                     //listViewItem.SubItems.Add();
                     listViewItem.ImageKey = pokemon.PokemonId.ToString();
                     listViewItem.Text = string.Format("{0} Cp: {1}", pokemon.PokemonId, pokemon.Cp);
-                    listViewItem.ToolTipText = "Candy: " + currentCandy;
+                    listViewItem.ToolTipText = "Candy: " + currentCandy+"\n"+"IV: "+currIv+"%";
 
 
                     this.listView1.Items.Add(listViewItem);
@@ -117,9 +117,13 @@ namespace PokemonGo.RocketAPI.Window
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listView1.SelectedItems.Count == 0) return;
+            //if (listView1.SelectedItems.Count == 0) return;
             //label1.Text = listView1.SelectedItems[0]?.SubItems[1].Text;
             //label2.Text = listView1.SelectedItems[0]?.SubItems[2].Text;
+        }
+        public static float Perfect(PokemonData poke)
+        {
+            return ((float)(poke.IndividualAttack + poke.IndividualDefense + poke.IndividualStamina) / (3.0f * 15.0f)) * 100.0f;
         }
     }
 }
