@@ -193,6 +193,19 @@ namespace PokemonGo.RocketAPI.Console
 
                 ColoredConsoleWrite(ConsoleColor.Yellow, "----------------------------");
 
+                var pokemonFamilies =
+                    inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PokemonFamily).Where(p => p != null && p?.FamilyId > 0);
+
+                if (ClientSettings.ShowCandyAmounts)
+                {
+                    foreach (var pokemonFamily in pokemonFamilies)
+                    {
+                        ColoredConsoleWrite(ConsoleColor.DarkGreen, pokemonFamily.FamilyId + " has candy amount: " + pokemonFamily.Candy);
+                    }
+
+                    ColoredConsoleWrite(ConsoleColor.Yellow, "----------------------------");
+                }
+
                 // I believe a switch is more efficient and easier to read.
                 switch (ClientSettings.TransferType)
                 {
