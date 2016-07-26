@@ -13,7 +13,7 @@
   <pokemon key="Metapod" value="Safcon" />
   <pokemon key="Butterfree" value="Smettbo" />
   <pokemon key="Weedle" value="Hornliu" />
-  <pokemon key="Kakuna" value="Kakuna" />
+  <pokemon key="Kakuna" value="Kokuna" />
   <pokemon key="Beedrill" value="Bibor" />
   <pokemon key="Pidgey" value="Taubsi" />
   <pokemon key="Pidgeotto" value="Tauboga" />
@@ -155,7 +155,7 @@
   <phrase key="have_latest_ver" value="Super! Du hast bereits die neueste Version! [version]" />
   <phrase key="new_ver_avaliabe" value="Es eine neue Version verfügbar: [version]" />
   <phrase key="get_new_ver_link" value="Gehe zu https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API" />
-  <phrase key="unable_to_check_update" value="Unable to check for updates now..." />
+  <phrase key="unable_to_check_update" value="Suche nach Updates momentan nicht möglich..." />
   <phrase key="evolved_one_pokemon" value="Entwickelt [pokemon] erfolgreich für [xp]xp" />
   <phrase key="evolved_multi_pokemons" value="Entwickelt [number] einen [pokemon] es gab [xp]xp" />
   <phrase key="account" value="Account: [username]" />
@@ -167,15 +167,15 @@
   <phrase key="team" value="Team: [team]" />
   <phrase key="stardust" value="Sternenstaub: [stardust]" />
   <phrase key="farming_started" value="Farming gestartet" />
-  <phrase key="transfering_disabled" value="Verschicken von pokemon deaktiviert" />
+  <phrase key="transfering_disabled" value="Verschicken von Pokemon´s deaktiviert" />
   <phrase key="no_nearby_loc_found" value="Nichts brauchbares gefunden. Bitte warte 10 Sekunden." />
   <phrase key="task_canceled_ex" value="Aufgabe abgebrochen Ausnahme - Neustart" />
   <phrase key="sys_uri_format_ex" value="System-URI-Format Ausnahme - Neustart" />
   <phrase key="arg_out_of_range_ex" value="ArgumentOutOfRangeException - Neustart" />
   <phrase key="arg_null_ref" value="Argument NULL Verweis - Neustart" />
   <phrase key="null_ref" value="Nullreferenz - Neustart" />
-  <phrase key="caught_pokemon" value="Wir haben uns ein [pokemon] mit [cp] CP" />
-  <phrase key="pokemon_got_away" value="[pokemon] mit [cp] CP davongekommen..." />
+  <phrase key="caught_pokemon" value="Wir haben ein[pokemon] mit [cp] CP" />
+  <phrase key="pokemon_got_away" value="[pokemon] mit [cp] ist geflüchtet..."..." />
   <phrase key="pokestop" value="Pokestop: [pokestop]" />
   <phrase key="xp" value="XP: [xp]" />
   <phrase key="gem" value="Gems: [gem]" />
