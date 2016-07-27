@@ -64,7 +64,6 @@ namespace PokemonGo.RocketAPI.Login
             {
                 //ColoredConsoleWrite("Google Device Code copied to clipboard");
                 System.Console.WriteLine($"Goto: http://www.google.com/device & enter {deviceCode.user_code}");
-                Thread.Sleep(2000);
                 Process.Start(@"http://www.google.com/device");
                 var thread = new Thread(() => Clipboard.SetText(deviceCode.user_code)); //Copy device code
                 thread.SetApartmentState(ApartmentState.STA); //Set the thread to STA
