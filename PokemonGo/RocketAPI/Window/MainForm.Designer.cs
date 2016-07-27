@@ -34,12 +34,8 @@
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.todoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pokemonToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.showAllToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.showAllToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.statsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.useLuckyEggToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,7 +48,7 @@
             // 
             this.logTextBox.BackColor = System.Drawing.Color.Black;
             this.logTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.logTextBox.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.logTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.logTextBox.ForeColor = System.Drawing.Color.White;
             this.logTextBox.Location = new System.Drawing.Point(0, 25);
             this.logTextBox.Name = "logTextBox";
@@ -80,8 +76,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.todoToolStripMenuItem,
             this.startBotToolStripMenuItem,
+            this.todoToolStripMenuItem,
             this.pokemonToolStripMenuItem2,
             this.useLuckyEggToolStripMenuItem,
             this.forceUnbanToolStripMenuItem});
@@ -93,56 +89,24 @@
             // 
             // todoToolStripMenuItem
             // 
-            this.todoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.settingsToolStripMenuItem});
             this.todoToolStripMenuItem.Name = "todoToolStripMenuItem";
-            this.todoToolStripMenuItem.Size = new System.Drawing.Size(40, 21);
-            this.todoToolStripMenuItem.Text = "Bot";
-            // 
-            // settingsToolStripMenuItem
-            // 
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-            this.settingsToolStripMenuItem.Text = "Settings";
-            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            this.todoToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.todoToolStripMenuItem.Text = "Settings";
+            this.todoToolStripMenuItem.Click += new System.EventHandler(this.todoToolStripMenuItem_Click);
             // 
             // startBotToolStripMenuItem
             // 
             this.startBotToolStripMenuItem.Name = "startBotToolStripMenuItem";
-            this.startBotToolStripMenuItem.Size = new System.Drawing.Size(71, 21);
-            this.startBotToolStripMenuItem.Text = "Start bot";
+            this.startBotToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            this.startBotToolStripMenuItem.Text = "Start Bot";
             this.startBotToolStripMenuItem.Click += new System.EventHandler(this.startBotToolStripMenuItem_Click);
             // 
             // pokemonToolStripMenuItem2
             // 
-            this.pokemonToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showAllToolStripMenuItem2,
-            this.statsToolStripMenuItem});
             this.pokemonToolStripMenuItem2.Name = "pokemonToolStripMenuItem2";
-            this.pokemonToolStripMenuItem2.Size = new System.Drawing.Size(55, 21);
-            this.pokemonToolStripMenuItem2.Text = "Player";
-            // 
-            // showAllToolStripMenuItem2
-            // 
-            this.showAllToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showAllToolStripMenuItem3});
-            this.showAllToolStripMenuItem2.Name = "showAllToolStripMenuItem2";
-            this.showAllToolStripMenuItem2.Size = new System.Drawing.Size(131, 22);
-            this.showAllToolStripMenuItem2.Text = "Pokemon";
-            // 
-            // showAllToolStripMenuItem3
-            // 
-            this.showAllToolStripMenuItem3.Name = "showAllToolStripMenuItem3";
-            this.showAllToolStripMenuItem3.Size = new System.Drawing.Size(105, 22);
-            this.showAllToolStripMenuItem3.Text = "Mine";
-            this.showAllToolStripMenuItem3.Click += new System.EventHandler(this.showAllToolStripMenuItem3_Click);
-            // 
-            // statsToolStripMenuItem
-            // 
-            this.statsToolStripMenuItem.Name = "statsToolStripMenuItem";
-            this.statsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
-            this.statsToolStripMenuItem.Text = "Stats";
-            this.statsToolStripMenuItem.Click += new System.EventHandler(this.statsToolStripMenuItem_Click);
+            this.pokemonToolStripMenuItem2.Size = new System.Drawing.Size(70, 20);
+            this.pokemonToolStripMenuItem2.Text = "Pokemon";
+            this.pokemonToolStripMenuItem2.Click += new System.EventHandler(this.pokemonToolStripMenuItem2_Click);
             // 
             // useLuckyEggToolStripMenuItem
             // 
@@ -176,6 +140,7 @@
             this.Controls.Add(this.logTextBox);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
@@ -197,14 +162,10 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem todoToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
-        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem startBotToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem pokemonToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem statsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem useLuckyEggToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem forceUnbanToolStripMenuItem;
     }

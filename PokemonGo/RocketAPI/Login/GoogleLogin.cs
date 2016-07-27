@@ -7,12 +7,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PokemonGo.RocketAPI.Helpers;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using PokemonGo.RocketAPI.Enums;
+using System.IO;
+
 
 #endregion
 
@@ -64,7 +60,7 @@ namespace PokemonGo.RocketAPI.Login
             {
                 //ColoredConsoleWrite("Google Device Code copied to clipboard");
                 System.Console.WriteLine($"Goto: http://www.google.com/device & enter {deviceCode.user_code}");
-                Thread.Sleep(2000);
+                File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + @"\Logs.txt", "[" + DateTime.Now.ToString("HH:mm:ss tt") + $"] Goto: http://www.google.com/device & enter {deviceCode.user_code}");
                 Process.Start(@"http://www.google.com/device");
                 var thread = new Thread(() => Clipboard.SetText(deviceCode.user_code)); //Copy device code
                 thread.SetApartmentState(ApartmentState.STA); //Set the thread to STA

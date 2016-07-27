@@ -20,7 +20,9 @@ namespace PokemonGo.RocketAPI.Console
         public string TransferType => GetSetting() != string.Empty ? GetSetting() : "none";
         public int TransferCPThreshold => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 0;
         public int TransferIVThreshold => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 0;
+        public int TravelSpeed => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 60;
         public bool EvolveAllGivenPokemons => GetSetting() != string.Empty ? System.Convert.ToBoolean(GetSetting(), CultureInfo.InvariantCulture) : false;
+        public bool CatchPokemon => GetSetting() != string.Empty ? System.Convert.ToBoolean(GetSetting(), CultureInfo.InvariantCulture) : false;
 
 
         public AuthType AuthType => (GetSetting() != string.Empty ? GetSetting() : "Ptc") == "Ptc" ? AuthType.Ptc : AuthType.Google;
@@ -60,6 +62,7 @@ namespace PokemonGo.RocketAPI.Console
                     new KeyValuePair<ItemId, int>(ItemId.ItemMasterBall, 200),
                     new KeyValuePair<ItemId, int>(ItemId.ItemRazzBerry, 20),
                     new KeyValuePair<ItemId, int>(ItemId.ItemRevive, 20),
+                    new KeyValuePair<ItemId, int>(ItemId.ItemMaxRevive, 40),
                     new KeyValuePair<ItemId, int>(ItemId.ItemPotion, 0),
                     new KeyValuePair<ItemId, int>(ItemId.ItemSuperPotion, 0),
                     new KeyValuePair<ItemId, int>(ItemId.ItemHyperPotion, 50)
