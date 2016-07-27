@@ -55,8 +55,9 @@
             this.trackBar = new System.Windows.Forms.TrackBar();
             this.panel2 = new System.Windows.Forms.Panel();
             this.buttonFindAddress = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.textBoxAddress = new PokemonGo.RocketAPI.Window.CueTextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.pokestopHarvest = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.panel2.SuspendLayout();
@@ -336,8 +337,20 @@
             this.buttonFindAddress.UseVisualStyleBackColor = true;
             this.buttonFindAddress.Click += new System.EventHandler(this.buttonFindAddress_Click);
             // 
+            // textBoxAddress
+            // 
+            this.textBoxAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxAddress.Cue = "Address or latitude, longitude";
+            this.textBoxAddress.Location = new System.Drawing.Point(3, 6);
+            this.textBoxAddress.Name = "textBoxAddress";
+            this.textBoxAddress.Size = new System.Drawing.Size(372, 20);
+            this.textBoxAddress.TabIndex = 0;
+            this.textBoxAddress.Text = "Union Station, Chicago, IL";
+            // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.pokestopHarvest);
             this.panel1.Controls.Add(this.authTypeLabel);
             this.panel1.Controls.Add(this.authTypeCb);
             this.panel1.Controls.Add(this.ptcUserLabel);
@@ -366,16 +379,15 @@
             this.panel1.Size = new System.Drawing.Size(212, 413);
             this.panel1.TabIndex = 26;
             // 
-            // textBoxAddress
+            // pokestopHarvest
             // 
-            this.textBoxAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxAddress.Cue = "Address or latitude, longitude";
-            this.textBoxAddress.Location = new System.Drawing.Point(3, 6);
-            this.textBoxAddress.Name = "textBoxAddress";
-            this.textBoxAddress.Size = new System.Drawing.Size(372, 20);
-            this.textBoxAddress.TabIndex = 0;
-            this.textBoxAddress.Text = "Union Station, Chicago, IL";
+            this.pokestopHarvest.AutoSize = true;
+            this.pokestopHarvest.Location = new System.Drawing.Point(9, 281);
+            this.pokestopHarvest.Name = "pokestopHarvest";
+            this.pokestopHarvest.Size = new System.Drawing.Size(132, 17);
+            this.pokestopHarvest.TabIndex = 24;
+            this.pokestopHarvest.Text = "Harvest only pokestop";
+            this.pokestopHarvest.UseVisualStyleBackColor = true;
             // 
             // SettingsForm
             // 
@@ -434,5 +446,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button buttonFindAddress;
         private CueTextBox textBoxAddress;
+        private System.Windows.Forms.CheckBox pokestopHarvest;
     }
 }
