@@ -96,7 +96,7 @@
             // 
             this.startBotToolStripMenuItem.Name = "startBotToolStripMenuItem";
             this.startBotToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
-            this.startBotToolStripMenuItem.Text = "Start bot";
+            this.startBotToolStripMenuItem.Text = "Start Bot";
             this.startBotToolStripMenuItem.Click += new System.EventHandler(this.startBotToolStripMenuItem_Click);
             // 
             // pokemonToolStripMenuItem2
