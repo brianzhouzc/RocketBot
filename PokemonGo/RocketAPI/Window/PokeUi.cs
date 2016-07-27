@@ -145,11 +145,11 @@ namespace PokemonGo.RocketAPI.Window
             var pokemon = (PokemonData)listView1.SelectedItems[0].Tag;
                    
 
-            if(MessageBox.Show(this,"Trasfer: "+pokemon.Id +"With :"+pokemon.Cp+"CP ?" ,"Are You Sure?",MessageBoxButtons.OKCancel) == DialogResult.OK)
+        if(MessageBox.Show(this,"Trasfer: "+pokemon.PokemonId + "With :"+pokemon.Cp+"CP ?" ,"Are You Sure?",MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 var transfer = await client.TransferPokemon(pokemon.Id);
             }
-            Execute();
+            listView1.Items.Remove(listView1.SelectedItems[0]);
         }
     }
 }
