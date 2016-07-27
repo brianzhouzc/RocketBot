@@ -194,7 +194,7 @@ namespace PokemonGo.RocketAPI.Window
                     inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon)
                         .Where(p => p != null && p?.PokemonId > 0);
 
-                ConsoleLevelTitle(profile.Profile.Username, client);
+                await ConsoleLevelTitle(profile.Profile.Username, client);
 
                 // Write the players ingame details
                 ColoredConsoleWrite(Color.Yellow, "----------------------------");
@@ -248,10 +248,10 @@ namespace PokemonGo.RocketAPI.Window
                 if (ClientSettings.EvolveAllGivenPokemons)
                     await EvolveAllGivenPokemons(client, pokemons);
                 if (ClientSettings.Recycler)
-                    client.RecycleItems(client);
+                    await client.RecycleItems(client);
 
                 await Task.Delay(5000);
-                PrintLevel(client);
+                await PrintLevel(client);
                 await ExecuteFarmingPokestopsAndPokemons(client);
                 ColoredConsoleWrite(Color.Red, $"No nearby useful locations found. Please wait 10 seconds.");
                 await Task.Delay(10000);
@@ -394,7 +394,9 @@ namespace PokemonGo.RocketAPI.Window
                 if (fortSearch.ExperienceAwarded != 0)
                     TotalExperience += (fortSearch.ExperienceAwarded);
                 await Task.Delay(15000);
-                await ExecuteCatchAllNearbyPokemons(client);
+
+                if(!ClientSettings.PokestopHarvest)
+                    await ExecuteCatchAllNearbyPokemons(client);
             }
         }
 

@@ -31,6 +31,8 @@ namespace PokemonGo.RocketAPI.Window
             transferTypeCb.Text = Settings.Instance.TransferType;
             transferCpThresText.Text = Settings.Instance.TransferCPThreshold.ToString();
             evolveAllChk.Checked = Settings.Instance.EvolveAllGivenPokemons;
+            pokestopHarvest.Checked = Settings.Instance.PokestopHarvest;
+
             // Initialize map:
             //use google provider
             gMapControl1.MapProvider = GoogleMapProvider.Instance;
@@ -78,6 +80,8 @@ namespace PokemonGo.RocketAPI.Window
             Settings.Instance.SetSetting(transferTypeCb.Text, "TransferType");
             Settings.Instance.SetSetting(transferCpThresText.Text, "TransferCPThreshold");
             Settings.Instance.SetSetting(evolveAllChk.Checked ? "true" : "false", "EvolveAllGivenPokemons");
+            Settings.Instance.SetSetting(pokestopHarvest.Checked ? "true" : "false", "PokestopHarvest");
+
             Settings.Instance.Reload();
             Close();
         }
