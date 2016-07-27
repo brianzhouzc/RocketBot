@@ -13,6 +13,13 @@ using PokemonGo.RocketAPI.Helpers;
 using PokemonGo.RocketAPI.Login;
 using AllEnum;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Reflection;
+using System.Text.RegularExpressions;
+using System.Threading;
+using PokemonGo.RocketAPI.Exceptions;
+using System.Text;
+using System.IO;
 
 #endregion
 
@@ -29,7 +36,7 @@ namespace PokemonGo.RocketAPI
         private double _currentLat;
         private double _currentLng;
         private Request.Types.UnknownAuth _unknownAuth;
-        static string accestoken = string.Empty;
+        public static string AccessToken { get; set; } = string.Empty;
 
         public Client(ISettings settings)
         {
@@ -58,7 +65,7 @@ namespace PokemonGo.RocketAPI
             var customRequest = new Request.Types.CatchPokemonRequest
             {
                 EncounterId = encounterId,
-                Pokeball = (int) GetBestBall(pokemonCP).Result,
+                Pokeball = (int)GetBestBall(pokemonCP).Result,
                 SpawnPointGuid = spawnPointGuid,
                 HitPokemon = 1,
                 NormalizedReticleSize = Utils.FloatAsUlong(1.950),
@@ -69,7 +76,7 @@ namespace PokemonGo.RocketAPI
             var catchPokemonRequest = RequestBuilder.GetRequest(_unknownAuth, _currentLat, _currentLng, 30,
                 new Request.Types.Requests
                 {
-                    Type = (int) RequestType.CATCH_POKEMON,
+                    Type = (int)RequestType.CATCH_POKEMON,
                     Message = customRequest.ToByteString()
                 });
             return
@@ -80,29 +87,37 @@ namespace PokemonGo.RocketAPI
 
         public async Task DoGoogleLogin()
         {
-            if (_settings.GoogleRefreshToken == string.Empty && accestoken == string.Empty)
+            _authType = AuthType.Google;
+            GoogleLogin.TokenResponseModel tokenResponse = null;
+
+            if (string.IsNullOrEmpty(_settings.GoogleRefreshToken) && string.IsNullOrEmpty(AccessToken))
             {
-                var tokenResponse = await GoogleLogin.GetAccessToken();
+                var deviceCode = await GoogleLogin.GetDeviceCode();
+                tokenResponse = await GoogleLogin.GetAccessToken(deviceCode);
                 _accessToken = tokenResponse.id_token;
-                Console.WriteLine($"Put RefreshToken in settings for direct login: {tokenResponse.access_token}");
-                accestoken = tokenResponse.access_token;
+                ColoredConsoleWrite(ConsoleColor.White, $"Put RefreshToken in settings for direct login: {tokenResponse.refresh_token}");
+                _settings.GoogleRefreshToken = tokenResponse.refresh_token;
+                AccessToken = tokenResponse.refresh_token;
             }
             else
             {
-                GoogleLogin.TokenResponseModel tokenResponse;
-                if (_settings.GoogleRefreshToken != string.Empty)
+                if (!string.IsNullOrEmpty(_settings.GoogleRefreshToken))
                     tokenResponse = await GoogleLogin.GetAccessToken(_settings.GoogleRefreshToken);
                 else
-                    tokenResponse = await GoogleLogin.GetAccessToken(accestoken);
+                    tokenResponse = await GoogleLogin.GetAccessToken(AccessToken);
                 _accessToken = tokenResponse.id_token;
-                _authType = AuthType.Google;
             }
         }
 
         public async Task DoPtcLogin(string username, string password)
         {
-            _accessToken = await PtcLogin.GetAccessToken(username, password);
-            _authType = AuthType.Ptc;
+            try
+            {
+                _accessToken = await PtcLogin.GetAccessToken(username, password);
+                _authType = AuthType.Ptc;
+            }
+            catch (Newtonsoft.Json.JsonReaderException) { ColoredConsoleWrite(ConsoleColor.White, "Json Reader Exception - Server down? - Restarting"); DoPtcLogin(username, password); }
+            catch (Exception ex) { ColoredConsoleWrite(ConsoleColor.White, ex.ToString() + "Exception - Please report - Restarting"); DoPtcLogin(username, password); }
         }
 
         public async Task<EncounterResponse> EncounterPokemon(ulong encounterId, string spawnPointGuid)
@@ -118,7 +133,7 @@ namespace PokemonGo.RocketAPI
             var encounterResponse = RequestBuilder.GetRequest(_unknownAuth, _currentLat, _currentLng, 30,
                 new Request.Types.Requests
                 {
-                    Type = (int) RequestType.ENCOUNTER,
+                    Type = (int)RequestType.ENCOUNTER,
                     Message = customRequest.ToByteString()
                 });
             return
@@ -136,7 +151,7 @@ namespace PokemonGo.RocketAPI
             var releasePokemonRequest = RequestBuilder.GetRequest(_unknownAuth, _currentLat, _currentLng, 30,
                 new Request.Types.Requests
                 {
-                    Type = (int) RequestType.EVOLVE_POKEMON,
+                    Type = (int)RequestType.EVOLVE_POKEMON,
                     Message = customRequest.ToByteString()
                 });
             return
@@ -151,60 +166,60 @@ namespace PokemonGo.RocketAPI
 
             var ballCollection = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Item)
                 .Where(p => p != null)
-                .GroupBy(i => (MiscEnums.Item) i.Item_)
-                .Select(kvp => new {ItemId = kvp.Key, Amount = kvp.Sum(x => x.Count)})
+                .GroupBy(i => (MiscEnums.Item)i.Item_)
+                .Select(kvp => new { ItemId = kvp.Key, Amount = kvp.Sum(x => x.Count) })
                 .Where(y => y.ItemId == MiscEnums.Item.ITEM_POKE_BALL
                             || y.ItemId == MiscEnums.Item.ITEM_GREAT_BALL
                             || y.ItemId == MiscEnums.Item.ITEM_ULTRA_BALL
                             || y.ItemId == MiscEnums.Item.ITEM_MASTER_BALL);
 
             var pokeBallsCount = ballCollection.Where(p => p.ItemId == MiscEnums.Item.ITEM_POKE_BALL).
-                DefaultIfEmpty(new {ItemId = MiscEnums.Item.ITEM_POKE_BALL, Amount = 0}).FirstOrDefault().Amount;
+                DefaultIfEmpty(new { ItemId = MiscEnums.Item.ITEM_POKE_BALL, Amount = 0 }).FirstOrDefault().Amount;
             var greatBallsCount = ballCollection.Where(p => p.ItemId == MiscEnums.Item.ITEM_GREAT_BALL).
-                DefaultIfEmpty(new {ItemId = MiscEnums.Item.ITEM_GREAT_BALL, Amount = 0}).FirstOrDefault().Amount;
+                DefaultIfEmpty(new { ItemId = MiscEnums.Item.ITEM_GREAT_BALL, Amount = 0 }).FirstOrDefault().Amount;
             var ultraBallsCount = ballCollection.Where(p => p.ItemId == MiscEnums.Item.ITEM_ULTRA_BALL).
-                DefaultIfEmpty(new {ItemId = MiscEnums.Item.ITEM_ULTRA_BALL, Amount = 0}).FirstOrDefault().Amount;
+                DefaultIfEmpty(new { ItemId = MiscEnums.Item.ITEM_ULTRA_BALL, Amount = 0 }).FirstOrDefault().Amount;
             var masterBallsCount = ballCollection.Where(p => p.ItemId == MiscEnums.Item.ITEM_MASTER_BALL).
-                DefaultIfEmpty(new {ItemId = MiscEnums.Item.ITEM_MASTER_BALL, Amount = 0}).FirstOrDefault().Amount;
+                DefaultIfEmpty(new { ItemId = MiscEnums.Item.ITEM_MASTER_BALL, Amount = 0 }).FirstOrDefault().Amount;
 
             // Use better balls for high CP pokemon
             if (masterBallsCount > 0 && pokemonCP >= 1000)
             {
-                ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Master Ball is being used");
+                ColoredConsoleWrite(ConsoleColor.Green, $"Master Ball is being used");
                 return MiscEnums.Item.ITEM_MASTER_BALL;
             }
 
             if (ultraBallsCount > 0 && pokemonCP >= 600)
             {
-                ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Ultra Ball is being used");
+                ColoredConsoleWrite(ConsoleColor.Green, $"Ultra Ball is being used");
                 return MiscEnums.Item.ITEM_ULTRA_BALL;
             }
 
             if (greatBallsCount > 0 && pokemonCP >= 350)
             {
-                ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Great Ball is being used");
+                ColoredConsoleWrite(ConsoleColor.Green, $"Great Ball is being used");
                 return MiscEnums.Item.ITEM_GREAT_BALL;
             }
 
             // If low CP pokemon, but no more pokeballs; only use better balls if pokemon are of semi-worthy quality
             if (pokeBallsCount > 0)
             {
-                ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Poke Ball is being used");
+                ColoredConsoleWrite(ConsoleColor.Green, $"Poke Ball is being used");
                 return MiscEnums.Item.ITEM_POKE_BALL;
             }
             else if ((greatBallsCount < 40 && pokemonCP >= 200) || greatBallsCount >= 40)
-                {
-                    ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Great Ball is being used");
+            {
+                ColoredConsoleWrite(ConsoleColor.Green, $"Great Ball is being used");
                 return MiscEnums.Item.ITEM_GREAT_BALL;
             }
             else if (ultraBallsCount > 0 && pokemonCP >= 500)
-                { 
-                ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Ultra Ball is being used");
+            {
+                ColoredConsoleWrite(ConsoleColor.Green, $"Ultra Ball is being used");
                 return MiscEnums.Item.ITEM_ULTRA_BALL;
             }
             else if (masterBallsCount > 0 && pokemonCP >= 700)
             {
-                ColoredConsoleWrite(ConsoleColor.Green, $"[{DateTime.Now.ToString("HH:mm:ss")}] Master Ball is being used");
+                ColoredConsoleWrite(ConsoleColor.Green, $"Master Ball is being used");
                 return MiscEnums.Item.ITEM_MASTER_BALL;
             }
 
@@ -215,7 +230,8 @@ namespace PokemonGo.RocketAPI
         {
             ConsoleColor originalColor = System.Console.ForegroundColor;
             System.Console.ForegroundColor = color;
-            System.Console.WriteLine(text);
+            System.Console.WriteLine("[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text);
+            File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + @"\Logs.txt", "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\n");
             System.Console.ForegroundColor = originalColor;
         }
 
@@ -231,7 +247,7 @@ namespace PokemonGo.RocketAPI
             var fortDetailRequest = RequestBuilder.GetRequest(_unknownAuth, _currentLat, _currentLng, 10,
                 new Request.Types.Requests
                 {
-                    Type = (int) RequestType.FORT_DETAILS,
+                    Type = (int)RequestType.FORT_DETAILS,
                     Message = customRequest.ToByteString()
                 });
             return
@@ -266,19 +282,19 @@ namespace PokemonGo.RocketAPI
             var mapRequest = RequestBuilder.GetRequest(_unknownAuth, _currentLat, _currentLng, 10,
                 new Request.Types.Requests
                 {
-                    Type = (int) RequestType.GET_MAP_OBJECTS,
+                    Type = (int)RequestType.GET_MAP_OBJECTS,
                     Message = customRequest.ToByteString()
                 },
-                new Request.Types.Requests {Type = (int) RequestType.GET_HATCHED_OBJECTS},
+                new Request.Types.Requests { Type = (int)RequestType.GET_HATCHED_OBJECTS },
                 new Request.Types.Requests
                 {
-                    Type = (int) RequestType.GET_INVENTORY,
-                    Message = new Request.Types.Time {Time_ = DateTime.UtcNow.ToUnixTime()}.ToByteString()
+                    Type = (int)RequestType.GET_INVENTORY,
+                    Message = new Request.Types.Time { Time_ = DateTime.UtcNow.ToUnixTime() }.ToByteString()
                 },
-                new Request.Types.Requests {Type = (int) RequestType.CHECK_AWARDED_BADGES},
+                new Request.Types.Requests { Type = (int)RequestType.CHECK_AWARDED_BADGES },
                 new Request.Types.Requests
                 {
-                    Type = (int) RequestType.DOWNLOAD_SETTINGS,
+                    Type = (int)RequestType.DOWNLOAD_SETTINGS,
                     Message =
                         new Request.Types.SettingsGuid
                         {
@@ -293,7 +309,7 @@ namespace PokemonGo.RocketAPI
         public async Task<GetPlayerResponse> GetProfile()
         {
             var profileRequest = RequestBuilder.GetInitialRequest(_accessToken, _authType, _currentLat, _currentLng, 10,
-                new Request.Types.Requests {Type = (int) RequestType.GET_PLAYER});
+                new Request.Types.Requests { Type = (int)RequestType.GET_PLAYER });
             return
                 await _httpClient.PostProtoPayload<Request, GetPlayerResponse>($"https://{_apiUrl}/rpc", profileRequest);
         }
@@ -330,7 +346,7 @@ namespace PokemonGo.RocketAPI
             var fortDetailRequest = RequestBuilder.GetRequest(_unknownAuth, _currentLat, _currentLng, 30,
                 new Request.Types.Requests
                 {
-                    Type = (int) RequestType.FORT_SEARCH,
+                    Type = (int)RequestType.FORT_SEARCH,
                     Message = customRequest.ToByteString()
                 });
             return
@@ -343,6 +359,8 @@ namespace PokemonGo.RocketAPI
         {
             _currentLat = lat;
             _currentLng = lng;
+//            _settings.DefaultLatitude = lat;
+//            _settings.DefaultLongitude = lng;
         }
 
         public async Task SetServer()
@@ -371,7 +389,7 @@ namespace PokemonGo.RocketAPI
             var releasePokemonRequest = RequestBuilder.GetRequest(_unknownAuth, _currentLat, _currentLng, 30,
                 new Request.Types.Requests
                 {
-                    Type = (int) RequestType.RELEASE_POKEMON,
+                    Type = (int)RequestType.RELEASE_POKEMON,
                     Message = customRequest.ToByteString()
                 });
             return
@@ -383,6 +401,9 @@ namespace PokemonGo.RocketAPI
         public async Task<PlayerUpdateResponse> UpdatePlayerLocation(double lat, double lng)
         {
             SetCoordinates(lat, lng);
+            var latlng = _currentLat + ":" + _currentLng;
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "coords.txt", latlng);
+
             var customRequest = new Request.Types.PlayerUpdateProto
             {
                 Lat = Utils.FloatAsUlong(_currentLat),
@@ -392,7 +413,7 @@ namespace PokemonGo.RocketAPI
             var updateRequest = RequestBuilder.GetRequest(_unknownAuth, _currentLat, _currentLng, 10,
                 new Request.Types.Requests
                 {
-                    Type = (int) RequestType.PLAYER_UPDATE,
+                    Type = (int)RequestType.PLAYER_UPDATE,
                     Message = customRequest.ToByteString()
                 });
             var updateResponse =
@@ -420,7 +441,7 @@ namespace PokemonGo.RocketAPI
             foreach (var item in items)
             {
                 var transfer = await RecycleItem((AllEnum.ItemId)item.Item_, item.Count);
-                ColoredConsoleWrite(ConsoleColor.DarkCyan, $"[{DateTime.Now.ToString("HH:mm:ss")}] Recycled {item.Count}x {(AllEnum.ItemId)item.Item_}");
+                ColoredConsoleWrite(ConsoleColor.DarkCyan, $"Recycled {item.Count}x {((AllEnum.ItemId)item.Item_).ToString().Substring(4)}");
                 await Task.Delay(500);
             }
             await Task.Delay(_settings.RecycleItemsInterval * 1000);
@@ -450,6 +471,56 @@ namespace PokemonGo.RocketAPI
             return inventory.InventoryDelta.InventoryItems
                 .Select(i => i.InventoryItemData?.Item)
                 .Where(p => p != null);
+        }
+
+        public async Task<UseItemCaptureRequest> UseCaptureItem(ulong encounterId, AllEnum.ItemId itemId, string spawnPointGuid)
+        {
+            var customRequest = new UseItemCaptureRequest
+            {
+                EncounterId = encounterId,
+                ItemId = itemId,
+                SpawnPointGuid = spawnPointGuid
+            };
+
+            var useItemRequest = RequestBuilder.GetRequest(_unknownAuth, _currentLat, _currentLng, 30,
+                new Request.Types.Requests()
+                {
+                    Type = (int)RequestType.USE_ITEM_CAPTURE,
+                    Message = customRequest.ToByteString()
+                });
+            return await _httpClient.PostProtoPayload<Request, UseItemCaptureRequest>($"https://{_apiUrl}/rpc", useItemRequest);
+        }
+
+        public async Task UseRazzBerry(Client client, ulong encounterId, string spawnPointGuid)
+        {
+            IEnumerable<Item> myItems = await GetItems(client);
+            IEnumerable<Item> RazzBerries = myItems.Where(i => (ItemId)i.Item_ == ItemId.ItemRazzBerry);
+            Item RazzBerry = RazzBerries.FirstOrDefault();
+            if (RazzBerry != null)
+            {
+                UseItemCaptureRequest useRazzBerry = await client.UseCaptureItem(encounterId, AllEnum.ItemId.ItemRazzBerry, spawnPointGuid);
+                ColoredConsoleWrite(ConsoleColor.Green, $"Using a Razz Berry, we have {RazzBerry.Count} left");
+                await Task.Delay(2000);
+            }
+        }
+
+        public async Task<UseItemRequest> UseItemXpBoost(ItemId itemId)
+        {
+            var customRequest = new UseItemRequest
+            {
+                ItemId = itemId,
+            };
+
+            var useItemRequest = RequestBuilder.GetRequest(_unknownAuth, _currentLat, _currentLng, 30,
+                new Request.Types.Requests
+                {
+                    Type = (int)RequestType.USE_ITEM_XP_BOOST,
+                    Message = customRequest.ToByteString()
+                });
+            return
+                await
+                    _httpClient.PostProtoPayload<Request, UseItemRequest>($"https://{_apiUrl}/rpc",
+                        useItemRequest);
         }
     }
 }
