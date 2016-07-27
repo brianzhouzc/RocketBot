@@ -120,6 +120,16 @@ namespace PokemonGo.RocketAPI
             catch (Exception ex) { ColoredConsoleWrite(ConsoleColor.White, ex.ToString() + "Exception - Please report - Restarting"); DoPtcLogin(username, password); }
         }
 
+        public async Task RenewGoogleAccess()
+        {
+            var tokenInfo = await GoogleLogin.GetTokenInfo(AccessToken);
+            if (tokenInfo.expires_in < 60)
+            {
+                var newToken = await GoogleLogin.GetAccessToken(AccessToken);
+                _accessToken = newToken.id_token;
+            }
+        }
+
         public async Task<EncounterResponse> EncounterPokemon(ulong encounterId, string spawnPointGuid)
         {
             var customRequest = new Request.Types.EncounterRequest
