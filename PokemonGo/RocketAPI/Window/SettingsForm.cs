@@ -31,6 +31,7 @@ namespace PokemonGo.RocketAPI.Window
             transferTypeCb.Text = Settings.Instance.TransferType;
             transferCpThresText.Text = Settings.Instance.TransferCPThreshold.ToString();
             evolveAllChk.Checked = Settings.Instance.EvolveAllGivenPokemons;
+            TravelSpeedBox.Text = Settings.Instance.TravelSpeed.ToString();
             // Initialize map:
             //use google provider
             gMapControl1.MapProvider = GoogleMapProvider.Instance;
@@ -77,6 +78,7 @@ namespace PokemonGo.RocketAPI.Window
             Settings.Instance.SetSetting(razzSettingText.Text, "RazzBerrySetting");
             Settings.Instance.SetSetting(transferTypeCb.Text, "TransferType");
             Settings.Instance.SetSetting(transferCpThresText.Text, "TransferCPThreshold");
+            Settings.Instance.SetSetting(TravelSpeedBox.Text, "TravelSpeed");
             Settings.Instance.SetSetting(evolveAllChk.Checked ? "true" : "false", "EvolveAllGivenPokemons");
             Settings.Instance.Reload();
             Close();
@@ -84,7 +86,7 @@ namespace PokemonGo.RocketAPI.Window
 
         private void authTypeCb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (authTypeCb.Text == "Google")
+            if (authTypeCb.Text == "google")
             {
                 ptcUserText.Visible = false;
                 ptcPassText.Visible = false;
@@ -124,9 +126,9 @@ namespace PokemonGo.RocketAPI.Window
             gMapControl1.Zoom = trackBar.Value;
         }
 
-        private void buttonFindAddress_Click(object sender, EventArgs e)
+        private void FindAdressButton_Click(object sender, EventArgs e)
         {
-            gMapControl1.SetPositionByKeywords(textBoxAddress.Text);
+            gMapControl1.SetPositionByKeywords(AdressBox.Text);
             gMapControl1.Zoom = 15;
         }
 
@@ -175,6 +177,28 @@ namespace PokemonGo.RocketAPI.Window
 
             }
 
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void gMapControl1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FindAdressButton_Click_1(object sender, EventArgs e)
+        {
+            gMapControl1.SetPositionByKeywords(AdressBox.Text);
+            gMapControl1.Zoom = 15;
+            double X = Math.Round(gMapControl1.Position.Lng, 6);
+            double Y = Math.Round(gMapControl1.Position.Lat, 6);
+            string longitude = X.ToString();
+            string latitude = Y.ToString();
+            latitudeText.Text = latitude;
+            longitudeText.Text = longitude;
         }
     }
 }

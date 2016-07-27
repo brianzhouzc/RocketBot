@@ -1,0 +1,7 @@
+Z:\Pokeman Bots\Pokemon-Go-Rocket-API-master\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\Window\bin\Debug\PokemonGo.RocketAPI.Window.exe
+Z:\Pokeman Bots\Pokemon-Go-Rocket-API-master\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\Window\bin\Debug\GMap.NET.Core.dll
+Z:\Pokeman Bots\Pokemon-Go-Rocket-API-master\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\Window\bin\Debug\GMap.NET.WindowsForms.dll
+Z:\Pokeman Bots\Pokemon-Go-Rocket-API-master\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\Window\bin\Debug\Google.Protobuf.dll
+Z:\Pokeman Bots\Pokemon-Go-Rocket-API-master\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\Window\bin\Debug\Pokemon Go Rocket API.dll
+Z:\Pokeman Bots\Pokemon-Go-Rocket-API-master\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\Window\bin\Debug\Newtonsoft.Json.dll
+Z:\Pokeman Bots\Pokemon-Go-Rocket-API-master\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\Window\bin\Debug\System.Net.Http.Formatting.dll

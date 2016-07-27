@@ -40,7 +40,7 @@ namespace PokemonGo.RocketAPI.Window
         private static int TotalPokemon = 0;
         private static DateTime TimeStarted = DateTime.Now;
         public static DateTime InitSessionDateTime = DateTime.Now;
-        private static double Speed = 60; //in km/h
+        
 
         Client client;
         LocationManager locationManager;
@@ -179,7 +179,7 @@ namespace PokemonGo.RocketAPI.Window
         private async void Execute()
         {
             client = new Client(ClientSettings);
-            this.locationManager = new LocationManager(client, Speed);
+            this.locationManager = new LocationManager(client, ClientSettings.TravelSpeed);
             try
             {
                 switch (ClientSettings.AuthType)

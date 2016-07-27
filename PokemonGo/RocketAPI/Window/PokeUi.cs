@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PokemonGo.RocketAPI.Enums;
 using PokemonGo.RocketAPI.GeneratedCode;
-using System;
 using System.Net;
 using System.IO;
 
@@ -17,6 +16,7 @@ namespace PokemonGo.RocketAPI.Window
 {
     public partial class PokeUi : Form
     {
+        private Client client;
         public PokeUi()
         {
             InitializeComponent();
@@ -34,9 +34,7 @@ namespace PokemonGo.RocketAPI.Window
         {
             button1.Enabled = false;
 
-            var client = new Client(ClientSettings);
-
-
+            client = new Client(ClientSettings);
 
             try
             {
@@ -59,36 +57,39 @@ namespace PokemonGo.RocketAPI.Window
                         .OrderByDescending(key => key.Cp);
                 var families = inventory.InventoryDelta.InventoryItems
                     .Select(i => i.InventoryItemData?.PokemonFamily)
-                    .Where(p => p != null && (int) p?.FamilyId > 0)
+                    .Where(p => p != null && (int)p?.FamilyId > 0)
                     .OrderByDescending(p => (int)p.FamilyId);
-                    
-                    
-                
-                
+
+
+
+
                 var imageList = new ImageList { ImageSize = new Size(50, 50) };
                 listView1.ShowItemToolTips = true;
-                
 
                 foreach (var pokemon in pokemons)
                 {
-
-                    var pokemonImage = GetPokemonImage((int)pokemon.PokemonId);
-                    imageList.Images.Add(pokemon.PokemonId.ToString(),pokemonImage);
+                    Bitmap pokemonImage = null;
+                    await Task.Run(() =>
+                    {
+                        pokemonImage = GetPokemonImage((int)pokemon.PokemonId);
+                    });
+                    imageList.Images.Add(pokemon.PokemonId.ToString(), pokemonImage);
 
                     listView1.LargeImageList = imageList;
                     var listViewItem = new ListViewItem();
-                    listViewItem.SubItems.Add("Cp: " + pokemon.Cp);
+                    listViewItem.Tag = pokemon;
 
 
                     var currentCandy = families
-                        .Where(i => (int) i.FamilyId <= (int) pokemon.PokemonId)
-                        .Select(f=>f.Candy)
+                        .Where(i => (int)i.FamilyId <= (int)pokemon.PokemonId)
+                        .Select(f => f.Candy)
                         .First();
                     var currIv = Math.Round(Perfect(pokemon));
                     //listViewItem.SubItems.Add();
                     listViewItem.ImageKey = pokemon.PokemonId.ToString();
+
                     listViewItem.Text = string.Format("{0}\n{1} CP", pokemon.PokemonId, pokemon.Cp);
-                    listViewItem.ToolTipText = currentCandy+" Candy\n"+currIv+"% IV";
+                    listViewItem.ToolTipText = currentCandy + " Candy\n" + currIv + "% IV";
 
 
                     this.listView1.Items.Add(listViewItem);
@@ -98,13 +99,15 @@ namespace PokemonGo.RocketAPI.Window
                 button1.Enabled = true;
 
             }
-            catch (TaskCanceledException){ Execute(); }
+            catch (TaskCanceledException) { Execute(); }
             catch (UriFormatException) { Execute(); }
-            catch (ArgumentOutOfRangeException) {  Execute(); }
+            catch (ArgumentOutOfRangeException) { Execute(); }
             catch (ArgumentNullException) { Execute(); }
             catch (NullReferenceException) { Execute(); }
-            catch (Exception ex) {  Execute(); }
+            catch (Exception ex) { Execute(); }
         }
+
+
         private static Bitmap GetPokemonImage(int pokemonId)
         {
             var Sprites = AppDomain.CurrentDomain.BaseDirectory + "Sprites\\";
@@ -130,13 +133,34 @@ namespace PokemonGo.RocketAPI.Window
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (listView1.SelectedItems.Count == 0) return;
-            //label1.Text = listView1.SelectedItems[0]?.SubItems[1].Text;
-            //label2.Text = listView1.SelectedItems[0]?.SubItems[2].Text;
+
         }
         public static float Perfect(PokemonData poke)
         {
             return ((float)(poke.IndividualAttack + poke.IndividualDefense + poke.IndividualStamina) / (3.0f * 15.0f)) * 100.0f;
+        }
+
+        private void listView1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (listView1.FocusedItem.Bounds.Contains(e.Location) == true)
+                {
+                    contextMenuStrip1.Show(Cursor.Position);
+                }
+            }
+        }
+
+        private async void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var pokemon = (PokemonData)listView1.SelectedItems[0].Tag;
+
+
+            if (MessageBox.Show(this, pokemon.PokemonId + " with " + pokemon.Cp + " CP thats " + Math.Round(Perfect(pokemon)) + "% perfect", "Are you sure you want to transfer?", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                var transfer = await client.TransferPokemon(pokemon.Id);
+            }
+            listView1.Items.Remove(listView1.SelectedItems[0]);
         }
     }
 }
