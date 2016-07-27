@@ -30,6 +30,7 @@ namespace PokemonGo.RocketAPI.Window
             razzSettingText.Text = Settings.Instance.RazzBerrySetting.ToString();
             transferTypeCb.Text = Settings.Instance.TransferType;
             transferCpThresText.Text = Settings.Instance.TransferCPThreshold.ToString();
+            transferIVThresText.Text = Settings.Instance.TransferIVThreshold.ToString();
             evolveAllChk.Checked = Settings.Instance.EvolveAllGivenPokemons;
             CatchPokemonBox.Checked = Settings.Instance.CatchPokemon;
             TravelSpeedBox.Text = Settings.Instance.TravelSpeed.ToString();
@@ -79,6 +80,7 @@ namespace PokemonGo.RocketAPI.Window
             Settings.Instance.SetSetting(razzSettingText.Text, "RazzBerrySetting");
             Settings.Instance.SetSetting(transferTypeCb.Text, "TransferType");
             Settings.Instance.SetSetting(transferCpThresText.Text, "TransferCPThreshold");
+            Settings.Instance.SetSetting(transferIVThresText.Text, "TransferIVThreshold");
             Settings.Instance.SetSetting(TravelSpeedBox.Text, "TravelSpeed");
             Settings.Instance.SetSetting(evolveAllChk.Checked ? "true" : "false", "EvolveAllGivenPokemons");
             Settings.Instance.SetSetting(CatchPokemonBox.Checked ? "true" : "false", "CatchPokemon");
@@ -170,12 +172,12 @@ namespace PokemonGo.RocketAPI.Window
             if (transferTypeCb.Text == "IV")
             {
                 label6.Visible = true;
-                textBox1.Visible = true;
+                transferIVThresText.Visible = true;
             }
             else
             {
                 label6.Visible = false;
-                textBox1.Visible = false;
+                transferIVThresText.Visible = false;
 
             }
 

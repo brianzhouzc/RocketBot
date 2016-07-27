@@ -55,12 +55,12 @@
             this.AdressBox = new System.Windows.Forms.TextBox();
             this.trackBar = new System.Windows.Forms.TrackBar();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.TravelSpeedBox = new System.Windows.Forms.TextBox();
-            this.TravelSpeedText = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.CatchPokemonBox = new System.Windows.Forms.CheckBox();
             this.CatchPokemonText = new System.Windows.Forms.Label();
+            this.transferIVThresText = new System.Windows.Forms.TextBox();
+            this.TravelSpeedText = new System.Windows.Forms.Label();
+            this.TravelSpeedBox = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.panel1.SuspendLayout();
@@ -145,7 +145,6 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 292);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(91, 13);
             this.label3.TabIndex = 8;
@@ -237,7 +236,7 @@
             // 
             // transferCpThresText
             // 
-            this.transferCpThresText.Location = new System.Drawing.Point(104, 217);
+            this.transferCpThresText.Location = new System.Drawing.Point(104, 220);
             this.transferCpThresText.Name = "transferCpThresText";
             this.transferCpThresText.Size = new System.Drawing.Size(100, 20);
             this.transferCpThresText.TabIndex = 18;
@@ -246,7 +245,6 @@
             // evolveAllChk
             // 
             this.evolveAllChk.AutoSize = true;
-            this.evolveAllChk.Location = new System.Drawing.Point(104, 292);
             this.evolveAllChk.Name = "evolveAllChk";
             this.evolveAllChk.Size = new System.Drawing.Size(15, 14);
             this.evolveAllChk.TabIndex = 19;
@@ -257,7 +255,6 @@
             // 
             this.saveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveBtn.Location = new System.Drawing.Point(6, 312);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(198, 95);
             this.saveBtn.TabIndex = 20;
@@ -302,7 +299,6 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(221, 9);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(474, 413);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Location";
@@ -311,7 +307,6 @@
             // 
             this.FindAdressButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.FindAdressButton.Location = new System.Drawing.Point(338, 384);
             this.FindAdressButton.Name = "FindAdressButton";
             this.FindAdressButton.Size = new System.Drawing.Size(130, 26);
             this.FindAdressButton.TabIndex = 25;
@@ -321,7 +316,6 @@
             // 
             // AdressBox
             // 
-            this.AdressBox.Location = new System.Drawing.Point(6, 387);
             this.AdressBox.Name = "AdressBox";
             this.AdressBox.Size = new System.Drawing.Size(326, 20);
             this.AdressBox.TabIndex = 25;
@@ -342,9 +336,9 @@
             // 
             this.panel1.Controls.Add(this.CatchPokemonBox);
             this.panel1.Controls.Add(this.CatchPokemonText);
-            this.panel1.Controls.Add(this.TravelSpeedBox);
+            this.panel1.Controls.Add(this.transferIVThresText);
             this.panel1.Controls.Add(this.TravelSpeedText);
-            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.TravelSpeedBox);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.authTypeLabel);
             this.panel1.Controls.Add(this.authTypeCb);
@@ -370,49 +364,12 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(9, 9);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(212, 413);
             this.panel1.TabIndex = 26;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
-            // 
-            // TravelSpeedBox
-            // 
-            this.TravelSpeedBox.Location = new System.Drawing.Point(104, 243);
-            this.TravelSpeedBox.Name = "TravelSpeedBox";
-            this.TravelSpeedBox.Size = new System.Drawing.Size(100, 20);
-            this.TravelSpeedBox.TabIndex = 24;
-            this.TravelSpeedBox.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
-            // 
-            // TravelSpeedText
-            // 
-            this.TravelSpeedText.AutoSize = true;
-            this.TravelSpeedText.Location = new System.Drawing.Point(3, 246);
-            this.TravelSpeedText.Name = "TravelSpeedText";
-            this.TravelSpeedText.Size = new System.Drawing.Size(102, 13);
-            this.TravelSpeedText.TabIndex = 23;
-            this.TravelSpeedText.Text = "Travel Speed km/h:";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(104, 217);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 22;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 220);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(70, 13);
-            this.label6.TabIndex = 21;
-            this.label6.Text = "IV Threshold:";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // CatchPokemonBox
             // 
             this.CatchPokemonBox.AutoSize = true;
-            this.CatchPokemonBox.Location = new System.Drawing.Point(104, 269);
             this.CatchPokemonBox.Name = "CatchPokemonBox";
             this.CatchPokemonBox.Size = new System.Drawing.Size(15, 14);
             this.CatchPokemonBox.TabIndex = 26;
@@ -422,18 +379,49 @@
             // CatchPokemonText
             // 
             this.CatchPokemonText.AutoSize = true;
-            this.CatchPokemonText.Location = new System.Drawing.Point(3, 269);
             this.CatchPokemonText.Name = "CatchPokemonText";
             this.CatchPokemonText.Size = new System.Drawing.Size(86, 13);
             this.CatchPokemonText.TabIndex = 25;
             this.CatchPokemonText.Text = "Catch Pokemon:";
             this.CatchPokemonText.Click += new System.EventHandler(this.label7_Click);
             // 
+            // transferIVThresText
+            // 
+            this.transferIVThresText.Location = new System.Drawing.Point(104, 246);
+            this.transferIVThresText.Name = "transferIVThresText";
+            this.transferIVThresText.Size = new System.Drawing.Size(100, 20);
+            this.transferIVThresText.TabIndex = 24;
+            this.transferIVThresText.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            // 
+            // TravelSpeedText
+            // 
+            this.TravelSpeedText.AutoSize = true;
+            this.TravelSpeedText.Name = "TravelSpeedText";
+            this.TravelSpeedText.Size = new System.Drawing.Size(102, 13);
+            this.TravelSpeedText.TabIndex = 23;
+            this.TravelSpeedText.Text = "Travel Speed km/h:";
+            // 
+            // TravelSpeedBox
+            // 
+            this.TravelSpeedBox.Name = "TravelSpeedBox";
+            this.TravelSpeedBox.Size = new System.Drawing.Size(100, 20);
+            this.TravelSpeedBox.TabIndex = 22;
+            this.TravelSpeedBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(3, 246);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(70, 13);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "IV Threshold:";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(704, 431);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -481,10 +469,10 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TrackBar trackBar;
         private CueTextBox textBoxAddress;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox TravelSpeedBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label TravelSpeedText;
-        private System.Windows.Forms.TextBox TravelSpeedBox;
+        private System.Windows.Forms.TextBox transferIVThresText;
         private System.Windows.Forms.TextBox AdressBox;
         private System.Windows.Forms.Button FindAdressButton;
         private System.Windows.Forms.CheckBox CatchPokemonBox;
