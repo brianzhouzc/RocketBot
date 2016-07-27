@@ -814,7 +814,7 @@ namespace PokemonGo.RocketAPI.Window
                     }
                     else
                     {
-                        ColoredConsoleWrite(Color.Red, $"You don't have any Lucky Egg to use.");
+                        ColoredConsoleWrite(Color.Red, $"You don't have any Lucky Eggs to use.");
                     }
                 }
                 catch (Exception ex)
@@ -825,6 +825,42 @@ namespace PokemonGo.RocketAPI.Window
             else
             {
                 ColoredConsoleWrite(Color.Red, "Please start the bot before trying to use a lucky egg.");
+            }
+        }
+
+        private async void useIncenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (client != null)
+            {
+                try
+                {
+                    IEnumerable<Item> myItems = await client.GetItems(client);
+                    IEnumerable<Item> incenses = myItems.Where(i => (ItemId)i.Item_ == ItemId.ItemIncenseOrdinary);
+                    Item incense = incenses.FirstOrDefault();
+                    if (incense != null)
+                    {
+                        var useItemXpBoostRequest = await client.UseItemXpBoost(ItemId.ItemIncenseOrdinary);
+                        ColoredConsoleWrite(Color.Green, $"Using an Incense, we have {incense.Count} left.");
+                        ColoredConsoleWrite(Color.Yellow, $"Incense valid until: {DateTime.Now.AddMinutes(30).ToString()}");
+
+                        var stripItem = sender as ToolStripMenuItem;
+                        stripItem.Enabled = false;
+                        await Task.Delay(30000);
+                        stripItem.Enabled = true;
+                    }
+                    else
+                    {
+                        ColoredConsoleWrite(Color.Red, $"You don't have any Incenses to use.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ColoredConsoleWrite(Color.Red, $"Unhandled exception in using incense: {ex}");
+                }
+            }
+            else
+            {
+                ColoredConsoleWrite(Color.Red, "Please start the bot before trying to use an incense.");
             }
         }
     }
