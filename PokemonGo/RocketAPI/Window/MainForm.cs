@@ -886,39 +886,48 @@ namespace PokemonGo.RocketAPI.Window
             // todo: add player stats later
         }
 
-        private async void useLuckyEggToolStripMenuItem_Click(object sender ,EventArgs e)
+        async void useLuckyEggToolStripMenuItem_Click(object sender ,EventArgs e)
+        {
+            useTimedItem(sender as ToolStripMenuItem, ItemId.ItemLuckyEgg, 30);
+        }
+
+        async void useIncenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            useTimedItem(sender as ToolStripMenuItem, ItemId.ItemIncenseOrdinary, 30);
+        }
+
+        async void useTimedItem(ToolStripMenuItem stripItem, ItemId wantedId, int cooldownInMinutes)
         {
             if (client != null)
             {
                 try
                 {
                     IEnumerable<Item> myItems = await client.GetItems(client);
-                    IEnumerable<Item> LuckyEggs = myItems.Where(i => (ItemId)i.Item_ == ItemId.ItemLuckyEgg);
-                    Item LuckyEgg = LuckyEggs.FirstOrDefault();
-                    if (LuckyEgg != null)
+                    IEnumerable<Item> wantedItems = myItems.Where(i => (ItemId)i.Item_ == wantedId);
+                    Item wantedItem = wantedItems.FirstOrDefault();
+                    if (wantedItem != null)
                     {
-                        var useItemXpBoostRequest = await client.UseItemXpBoost(ItemId.ItemLuckyEgg);
-                        ColoredConsoleWrite(Color.Green, $"Using a Lucky Egg, we have {LuckyEgg.Count} left.");
-                        ColoredConsoleWrite(Color.Yellow, $"Lucky Egg Valid until: {DateTime.Now.AddMinutes(30).ToString()}");
-                        
-                        var stripItem = sender as ToolStripMenuItem;
+                        var useItemXpBoostRequest = await client.UseLuckyEgg();
+                        ColoredConsoleWrite(Color.Green, $"Using a {wantedId}, we have {wantedItem.Count} left.");
+                        ColoredConsoleWrite(Color.Yellow, $"{wantedId} Valid until: {DateTime.Now.AddMinutes(cooldownInMinutes).ToString()}");
+
                         stripItem.Enabled = false;
-                        await Task.Delay(30000);
+                        await Task.Delay(cooldownInMinutes * 60 * 1000);
                         stripItem.Enabled = true;
                     }
                     else
                     {
-                        ColoredConsoleWrite(Color.Red, $"You don't have any Lucky Egg to use.");
+                        ColoredConsoleWrite(Color.Red, $"You don't have any {wantedId} to use.");
                     }
                 }
                 catch (Exception ex)
                 {
-                    ColoredConsoleWrite(Color.Red, $"Unhandled exception in using lucky egg: {ex}");
+                    ColoredConsoleWrite(Color.Red, $"Unhandled exception in using {wantedId}: {ex}");
                 }
             }
             else
             {
-                ColoredConsoleWrite(Color.Red, "Please start the bot before trying to use a lucky egg.");
+                ColoredConsoleWrite(Color.Red, $"Please start the bot before trying to use {wantedId}.");
             }
         }
 
