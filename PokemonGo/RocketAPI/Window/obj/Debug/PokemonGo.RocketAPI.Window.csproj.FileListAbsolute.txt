@@ -5,3 +5,33 @@ Z:\Pokeman Bots\Pokemon-Go-Rocket-API-master\Pokemon-Go-Rocket-API-master\Pokemo
 Z:\Pokeman Bots\Pokemon-Go-Rocket-API-master\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\Window\bin\Debug\Pokemon Go Rocket API.dll
 Z:\Pokeman Bots\Pokemon-Go-Rocket-API-master\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\Window\bin\Debug\Newtonsoft.Json.dll
 Z:\Pokeman Bots\Pokemon-Go-Rocket-API-master\Pokemon-Go-Rocket-API-master\PokemonGo\RocketAPI\Window\bin\Debug\System.Net.Http.Formatting.dll
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\bin\Debug\pokemonGo.ico
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\bin\Debug\PokemonGo.RocketAPI.Window.exe.config
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\bin\Debug\PokemonGo.RocketAPI.Window.exe
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\bin\Debug\PokemonGo.RocketAPI.Window.pdb
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\bin\Debug\GMap.NET.Core.dll
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\bin\Debug\GMap.NET.WindowsForms.dll
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\bin\Debug\Google.Protobuf.dll
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\bin\Debug\Pokemon Go Rocket API.dll
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\bin\Debug\Newtonsoft.Json.dll
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\bin\Debug\S2Geometry.dll
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\bin\Debug\System.VarintBitConverter.dll
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\bin\Debug\System.Net.Http.Formatting.dll
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\bin\Debug\C5.dll
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\bin\Debug\Pokemon Go Rocket API.pdb
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\bin\Debug\GMap.NET.Core.xml
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\bin\Debug\GMap.NET.WindowsForms.xml
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\bin\Debug\Google.Protobuf.xml
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\bin\Debug\Newtonsoft.Json.xml
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\bin\Debug\S2Geometry.xml
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\bin\Debug\System.Net.Http.Formatting.xml
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\bin\Debug\C5.xml
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\obj\Debug\PokemonGo.RocketAPI.Window.csprojResolveAssemblyReference.cache
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\obj\Debug\PokemonGo.RocketAPI.Window.MainForm.resources
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\obj\Debug\PokemonGo.RocketAPI.Window.PokemonForm.resources
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\obj\Debug\PokemonGo.RocketAPI.Window.PokeUi.resources
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\obj\Debug\PokemonGo.RocketAPI.Window.Properties.Resources.resources
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\obj\Debug\PokemonGo.RocketAPI.Window.SettingsForm.resources
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\obj\Debug\PokemonGo.RocketAPI.Window.csproj.GenerateResource.Cache
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\obj\Debug\PokemonGo.RocketAPI.Window.exe
+Z:\Pokeman Bots\Pokemon Go Rocket API\PokemonGo\RocketAPI\Window\obj\Debug\PokemonGo.RocketAPI.Window.pdb

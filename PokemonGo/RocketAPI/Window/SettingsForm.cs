@@ -31,6 +31,7 @@ namespace PokemonGo.RocketAPI.Window
             transferTypeCb.Text = Settings.Instance.TransferType;
             transferCpThresText.Text = Settings.Instance.TransferCPThreshold.ToString();
             evolveAllChk.Checked = Settings.Instance.EvolveAllGivenPokemons;
+            CatchPokemonBox.Checked = Settings.Instance.CatchPokemon;
             TravelSpeedBox.Text = Settings.Instance.TravelSpeed.ToString();
             // Initialize map:
             //use google provider
@@ -80,6 +81,7 @@ namespace PokemonGo.RocketAPI.Window
             Settings.Instance.SetSetting(transferCpThresText.Text, "TransferCPThreshold");
             Settings.Instance.SetSetting(TravelSpeedBox.Text, "TravelSpeed");
             Settings.Instance.SetSetting(evolveAllChk.Checked ? "true" : "false", "EvolveAllGivenPokemons");
+            Settings.Instance.SetSetting(CatchPokemonBox.Checked ? "true" : "false", "CatchPokemon");
             Settings.Instance.Reload();
             Close();
         }
@@ -199,6 +201,31 @@ namespace PokemonGo.RocketAPI.Window
             string latitude = Y.ToString();
             latitudeText.Text = latitude;
             longitudeText.Text = longitude;
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void evolveAllChk_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

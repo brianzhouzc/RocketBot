@@ -260,6 +260,7 @@ namespace PokemonGo.RocketAPI.Window
                         break;
                 }
 
+
                 if (ClientSettings.EvolveAllGivenPokemons)
                     await EvolveAllGivenPokemons(client, pokemons);
                 if (ClientSettings.Recycler)
@@ -443,7 +444,9 @@ namespace PokemonGo.RocketAPI.Window
                 {
                     nextPokeStopList = pokeStopsNearPokeStop;
                 }
-                await ExecuteCatchAllNearbyPokemons(client);
+
+                if (ClientSettings.CatchPokemon)
+                    await ExecuteCatchAllNearbyPokemons(client);
             }
             if (nextPokeStopList != null)
             {
