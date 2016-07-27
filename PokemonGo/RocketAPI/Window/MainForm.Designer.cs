@@ -43,6 +43,7 @@
             this.useLuckyEggToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.useIncenseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -82,7 +83,8 @@
             this.todoToolStripMenuItem,
             this.startBotToolStripMenuItem,
             this.pokemonToolStripMenuItem2,
-            this.useLuckyEggToolStripMenuItem});
+            this.useLuckyEggToolStripMenuItem,
+            this.useIncenseToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(905, 24);
@@ -159,6 +161,13 @@
             this.showAllToolStripMenuItem1.Name = "showAllToolStripMenuItem1";
             this.showAllToolStripMenuItem1.Size = new System.Drawing.Size(32, 19);
             // 
+            // useIncenseToolStripMenuItem
+            // 
+            this.useIncenseToolStripMenuItem.Name = "useIncenseToolStripMenuItem";
+            this.useIncenseToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
+            this.useIncenseToolStripMenuItem.Text = "Use Incense";
+            this.useIncenseToolStripMenuItem.Click += new System.EventHandler(this.useIncenseToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -197,6 +206,7 @@
         private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem statsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem useLuckyEggToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem useIncenseToolStripMenuItem;
     }
 }
 

@@ -504,7 +504,7 @@ namespace PokemonGo.RocketAPI
             }
         }
 
-        public async Task<UseItemRequest> UseItemXpBoost(ItemId itemId)
+        public async Task<UseItemRequest> UseItem(ItemId itemId, RequestType requestType)
         {
             var customRequest = new UseItemRequest
             {
@@ -514,13 +514,23 @@ namespace PokemonGo.RocketAPI
             var useItemRequest = RequestBuilder.GetRequest(_unknownAuth, _currentLat, _currentLng, 30,
                 new Request.Types.Requests
                 {
-                    Type = (int)RequestType.USE_ITEM_XP_BOOST,
+                    Type = (int)requestType,
                     Message = customRequest.ToByteString()
                 });
             return
                 await
                     _httpClient.PostProtoPayload<Request, UseItemRequest>($"https://{_apiUrl}/rpc",
                         useItemRequest);
+        }
+
+        public async Task<UseItemRequest> UseLuckyEgg()
+        {
+            return await UseItem(ItemId.ItemLuckyEgg, RequestType.USE_ITEM_XP_BOOST);
+        }
+
+        public async Task<UseItemRequest> UseIncense()
+        {
+            return await UseItem(ItemId.ItemIncenseOrdinary, RequestType.USE_INCENSE);
         }
     }
 }
