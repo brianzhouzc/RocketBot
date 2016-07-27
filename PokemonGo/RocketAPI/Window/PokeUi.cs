@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Net;
 using PokemonGo.RocketAPI.Enums;
 using PokemonGo.RocketAPI.GeneratedCode;
 
@@ -97,14 +99,25 @@ namespace PokemonGo.RocketAPI.Window
             catch (ArgumentOutOfRangeException) {  Execute(); }
             catch (ArgumentNullException) { Execute(); }
             catch (NullReferenceException) { Execute(); }
-            catch (Exception ex) {  Execute(); }
+            catch (Exception) {  Execute(); }
         }
 
         private static Bitmap GetPokemonImage(int pokemonId)
         {
-            var url = "http://pokeapi.co/media/sprites/pokemon/" + pokemonId + ".png";
+            if (!Directory.Exists("cache/pokemon"))
+            {
+                Directory.CreateDirectory("cache/pokemon");
+            }
             PictureBox picbox = new PictureBox();
-            picbox.Load(url);
+            var url = "http://pokeapi.co/media/sprites/pokemon/" + pokemonId + ".png";
+            if (!File.Exists("cache/pokemon/" + pokemonId + ".png"))
+            {
+                using (WebClient wb = new WebClient())
+                {
+                    wb.DownloadFile(url, "cache/pokemon/" + pokemonId + ".png");
+                }
+            }
+            picbox.Load("cache/pokemon/" + pokemonId + ".png");
             Bitmap bitmapRemote = (Bitmap)picbox.Image;
             return bitmapRemote;
         }

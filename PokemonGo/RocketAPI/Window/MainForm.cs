@@ -356,6 +356,8 @@ namespace PokemonGo.RocketAPI.Window
                     await TransferAllGivenPokemons(client, pokemons2);
                 else if (ClientSettings.TransferType == "duplicate")
                     await TransferDuplicatePokemon(client);
+                else if (ClientSettings.TransferType == "duplicateIV")
+                    await TransferDuplicateIVPokemon(client);
                 else if (ClientSettings.TransferType == "cp")
                     await TransferAllWeakPokemon(client, ClientSettings.TransferCPThreshold);
                 else if (ClientSettings.TransferType == "iv")
@@ -555,7 +557,46 @@ namespace PokemonGo.RocketAPI.Window
                         else
                             pokemonName = Convert.ToString(dubpokemon.PokemonId);
                         ColoredConsoleWrite(Color.DarkGreen,
-                            $"Transferred {pokemonName} with {dubpokemon.Cp} CP (Highest is {dupes.ElementAt(i).Last().value.Cp})");
+                            $"Transferred {pokemonName} with {dubpokemon.Cp} CP (Highest is {dupes.ElementAt(i).Last().value.Cp} CP) ");
+
+                    }
+                }
+            }
+        }
+        
+        private async Task TransferDuplicateIVPokemon(Client client)
+        {
+
+            //ColoredConsoleWrite(ConsoleColor.White, $"Check for duplicates");
+            var inventory = await client.GetInventory();
+            var allpokemons =
+                inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon)
+                    .Where(p => p != null && p?.PokemonId > 0);
+
+            var dupes = allpokemons.OrderBy(x => Perfect(x)).Select((x, i) => new { index = i, value = x })
+                .GroupBy(x => x.value.PokemonId)
+                .Where(x => x.Skip(1).Any());
+
+            for (var i = 0; i < dupes.Count(); i++)
+            {
+                for (var j = 0; j < dupes.ElementAt(i).Count() - 1; j++)
+                {
+                    var dubpokemon = dupes.ElementAt(i).ElementAt(j).value;
+                    if (dubpokemon.Favorite == 0)
+                    {
+                        var transfer = await client.TransferPokemon(dubpokemon.Id);
+                        string pokemonName;
+                        if (ClientSettings.Language == "german")
+                        {
+                            string name_english = Convert.ToString(dubpokemon.PokemonId);
+                            var request = (HttpWebRequest)WebRequest.Create("http://boosting-service.de/pokemon/index.php?pokeName=" + name_english);
+                            var response = (HttpWebResponse)request.GetResponse();
+                            pokemonName = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                        }
+                        else
+                            pokemonName = Convert.ToString(dubpokemon.PokemonId);
+                        ColoredConsoleWrite(Color.DarkGreen,
+                            $"Transferred {pokemonName} with {Math.Round(Perfect(dubpokemon))}% IV (Highest is {Math.Round(Perfect(dupes.ElementAt(i).Last().value))}% IV)");
 
                     }
                 }
