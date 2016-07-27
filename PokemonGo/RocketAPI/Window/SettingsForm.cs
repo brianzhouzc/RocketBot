@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using GMap.NET.MapProviders;
 using GMap.NET;
 using System.Configuration;
+using System.Globalization;
 
 namespace PokemonGo.RocketAPI.Window
 {
@@ -45,8 +46,8 @@ namespace PokemonGo.RocketAPI.Window
             string lat = ConfigurationManager.AppSettings["DefaultLatitude"];
             string longit = ConfigurationManager.AppSettings["DefaultLongitude"];
             lat.Replace(',', '.');
-            longit.Replace(',', '.'); 
-            gMapControl1.Position = new PointLatLng(Convert.ToDouble(lat), Convert.ToDouble(longit));
+            longit.Replace(',', '.');
+            gMapControl1.Position = new PointLatLng(double.Parse(lat.Replace(",", "."), CultureInfo.InvariantCulture), double.Parse(longit.Replace(",", "."), CultureInfo.InvariantCulture));
 
 
 
