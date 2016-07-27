@@ -234,6 +234,9 @@ namespace PokemonGo.RocketAPI.Window
                     case "duplicate":
                         await TransferDuplicatePokemon(client);
                         break;
+                    case "duplicateIV":
+                        await TransferDuplicateIVPokemon(client);
+                        break;
                     case "cp":
                         await TransferAllWeakPokemon(client, ClientSettings.TransferCPThreshold);
                         break;
