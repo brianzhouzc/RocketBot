@@ -14,6 +14,7 @@ namespace PokemonGo.RocketAPI.Window
 {
     public partial class PokeUi : Form
     {
+        private Client client;
         public PokeUi()
         {
             InitializeComponent();
@@ -31,7 +32,7 @@ namespace PokemonGo.RocketAPI.Window
         {
             button1.Enabled = false;
 
-            var client = new Client(ClientSettings);
+           client = new Client(ClientSettings);
 
             try
             {
@@ -65,13 +66,16 @@ namespace PokemonGo.RocketAPI.Window
 
                 foreach (var pokemon in pokemons)
                 {
-
-                    var pokemonImage = GetPokemonImage((int)pokemon.PokemonId);
-                    imageList.Images.Add(pokemon.PokemonId.ToString(),pokemonImage);
-
+                    Bitmap pokemonImage = null;
+                  //  await Task.Run(() =>
+              //      {
+                         pokemonImage = GetPokemonImage((int)pokemon.PokemonId);
+             //       });
+                    imageList.Images.Add(pokemon.PokemonId.ToString(), pokemonImage);
+                    
                     listView1.LargeImageList = imageList;
                     var listViewItem = new ListViewItem();
-                    listViewItem.SubItems.Add("Cp: " + pokemon.Cp);
+                    listViewItem.Tag = pokemon;
 
 
                     var currentCandy = families
@@ -81,6 +85,7 @@ namespace PokemonGo.RocketAPI.Window
                     var currIv = Math.Round(Perfect(pokemon));
                     //listViewItem.SubItems.Add();
                     listViewItem.ImageKey = pokemon.PokemonId.ToString();
+                   
                     listViewItem.Text = string.Format("{0}\nCp:{1}", pokemon.PokemonId, pokemon.Cp);
                     listViewItem.ToolTipText = "Candy: " + currentCandy+"\n"+"IV: "+currIv+"%";
 
@@ -117,13 +122,34 @@ namespace PokemonGo.RocketAPI.Window
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (listView1.SelectedItems.Count == 0) return;
-            //label1.Text = listView1.SelectedItems[0]?.SubItems[1].Text;
-            //label2.Text = listView1.SelectedItems[0]?.SubItems[2].Text;
+         
         }
         public static float Perfect(PokemonData poke)
         {
             return ((float)(poke.IndividualAttack + poke.IndividualDefense + poke.IndividualStamina) / (3.0f * 15.0f)) * 100.0f;
+        }
+
+        private void listView1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (listView1.FocusedItem.Bounds.Contains(e.Location) == true)
+                {
+                    contextMenuStrip1.Show(Cursor.Position);
+                }
+            }
+        }
+
+        private async void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var pokemon = (PokemonData)listView1.SelectedItems[0].Tag;
+                   
+
+            if(MessageBox.Show(this,"Trasfer: "+pokemon.Id +"With :"+pokemon.Cp+"CP ?" ,"Are You Sure?",MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                var transfer = await client.TransferPokemon(pokemon.Id);
+            }
+            Execute();
         }
     }
 }
