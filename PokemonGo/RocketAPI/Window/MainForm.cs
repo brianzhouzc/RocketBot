@@ -18,15 +18,25 @@ using PokemonGo.RocketAPI.Enums;
 using PokemonGo.RocketAPI.Exceptions;
 using PokemonGo.RocketAPI.Extensions;
 using PokemonGo.RocketAPI.GeneratedCode;
+using PokemonGo.RocketAPI.Services;
 
 namespace PokemonGo.RocketAPI.Window
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, IConsoleWriterService
     {
+        private readonly IVersionCheckerService _versionCheckerService;
+        private readonly IExperienceService _experienceService;
+
         public MainForm()
         {
             InitializeComponent();
             ClientSettings = Settings.Instance;
+
+            _versionCheckerService = new VersionCheckerService(
+                this, 
+                "https://raw.githubusercontent.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/master/PokemonGo/RocketAPI/Window/Properties/AssemblyInfo.cs");
+
+            _experienceService = new ExperienceService();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -49,41 +59,9 @@ namespace PokemonGo.RocketAPI.Window
             return ((DateTime.Now - TimeStarted).TotalSeconds) / 3600;
         }
 
-        public void CheckVersion()
+        void IConsoleWriterService.Write(ConsoleColor color, string text)
         {
-            try
-            {
-                var match =
-                    new Regex(
-                        @"\[assembly\: AssemblyVersion\(""(\d{1,})\.(\d{1,})\.(\d{1,})\.(\d{1,})""\)\]")
-                        .Match(DownloadServerVersion());
-
-                if (!match.Success) return;
-                var gitVersion =
-                    new Version(
-                        string.Format(
-                            "{0}.{1}.{2}.{3}",
-                            match.Groups[1],
-                            match.Groups[2],
-                            match.Groups[3],
-                            match.Groups[4]));
-                // makes sense to display your version and say what the current one is on github
-                ColoredConsoleWrite(Color.Green, "Your version is " + Assembly.GetExecutingAssembly().GetName().Version);
-                ColoredConsoleWrite(Color.Green, "Github version is " + gitVersion);
-                ColoredConsoleWrite(Color.Green, "You can find it at www.GitHub.com/DetectiveSquirrel/Pokemon-Go-Rocket-API");
-            }
-            catch (Exception)
-            {
-                ColoredConsoleWrite(Color.Red, "Unable to check for updates now...");
-            }
-        }
-
-        private static string DownloadServerVersion()
-        {
-            using (var wC = new WebClient())
-                return
-                    wC.DownloadString(
-                        "https://raw.githubusercontent.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/master/PokemonGo/RocketAPI/Window/Properties/AssemblyInfo.cs");
+            ColoredConsoleWrite(ColorMap.GetColor(color), text);
         }
 
         public void ColoredConsoleWrite(Color color, string text)
@@ -270,7 +248,7 @@ namespace PokemonGo.RocketAPI.Window
                 await ExecuteFarmingPokestopsAndPokemons(client);
                 ColoredConsoleWrite(Color.Red, $"No nearby useful locations found. Please wait 10 seconds.");
                 await Task.Delay(10000);
-                CheckVersion();
+                _versionCheckerService.CheckVersion();
                 Execute();
             }
             catch (TaskCanceledException) { ColoredConsoleWrite(Color.Red, "Task Canceled Exception - Restarting"); Execute(); }
@@ -714,7 +692,7 @@ namespace PokemonGo.RocketAPI.Window
             foreach (var v in stats)
                 if (v != null)
                 {
-                    int XpDiff = GetXpDiff(client, v.Level);
+                    int XpDiff = _experienceService.GetExperienceForLevel(v.Level);
                     if (ClientSettings.LevelOutput == "time")
                         ColoredConsoleWrite(Color.Yellow, $"Current Level: " + v.Level + " (" + (v.Experience - XpDiff) + "/" + (v.NextLevelXp - XpDiff) + ")");
                     else if (ClientSettings.LevelOutput == "levelup")
@@ -745,99 +723,11 @@ namespace PokemonGo.RocketAPI.Window
             foreach (var v in stats)
                 if (v != null)
                 {
-                    int XpDiff = GetXpDiff(client, v.Level);
+                    int XpDiff = _experienceService.GetExperienceForLevel(v.Level);
                     SetStatusText(string.Format(Username + " | Level: {0:0} - ({2:0} / {3:0}) | Runtime {1} | Stardust: {4:0}", v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount) + " | XP/Hour: " + Math.Round(TotalExperience / GetRuntime()) + " | Pokemon/Hour: " + Math.Round(TotalPokemon / GetRuntime()));
                 }
             await Task.Delay(1000);
             ConsoleLevelTitle(Username, client);
-        }
-
-        public static int GetXpDiff(Client client, int Level)
-        {
-            switch (Level)
-            {
-                case 1:
-                    return 0;
-                case 2:
-                    return 1000;
-                case 3:
-                    return 2000;
-                case 4:
-                    return 3000;
-                case 5:
-                    return 4000;
-                case 6:
-                    return 5000;
-                case 7:
-                    return 6000;
-                case 8:
-                    return 7000;
-                case 9:
-                    return 8000;
-                case 10:
-                    return 9000;
-                case 11:
-                    return 10000;
-                case 12:
-                    return 10000;
-                case 13:
-                    return 10000;
-                case 14:
-                    return 10000;
-                case 15:
-                    return 15000;
-                case 16:
-                    return 20000;
-                case 17:
-                    return 20000;
-                case 18:
-                    return 20000;
-                case 19:
-                    return 25000;
-                case 20:
-                    return 25000;
-                case 21:
-                    return 50000;
-                case 22:
-                    return 75000;
-                case 23:
-                    return 100000;
-                case 24:
-                    return 125000;
-                case 25:
-                    return 150000;
-                case 26:
-                    return 190000;
-                case 27:
-                    return 200000;
-                case 28:
-                    return 250000;
-                case 29:
-                    return 300000;
-                case 30:
-                    return 350000;
-                case 31:
-                    return 500000;
-                case 32:
-                    return 500000;
-                case 33:
-                    return 750000;
-                case 34:
-                    return 1000000;
-                case 35:
-                    return 1250000;
-                case 36:
-                    return 1500000;
-                case 37:
-                    return 2000000;
-                case 38:
-                    return 2500000;
-                case 39:
-                    return 1000000;
-                case 40:
-                    return 1000000;
-            }
-            return 0;
         }
 
         private void logTextBox_TextChanged(object sender, EventArgs e)
@@ -860,7 +750,7 @@ namespace PokemonGo.RocketAPI.Window
                 try
                 {
                     //ColoredConsoleWrite(ConsoleColor.White, "Coded by Ferox - edited by NecronomiconCoding");
-                    CheckVersion();
+                    _versionCheckerService.CheckVersion();
                     Execute();
                 }
                 catch (PtcOfflineException)
