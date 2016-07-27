@@ -532,7 +532,7 @@ namespace PokemonGo.RocketAPI.Window
                 inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon)
                     .Where(p => p != null && p?.PokemonId > 0);
 
-            var dupes = allpokemons.OrderBy(x => x.Cp).Select((x, i) => new { index = i, value = x })
+            var dupes = allpokemons.OrderBy(x => Perfect(x)).Select((x, i) => new { index = i, value = x })
                 .GroupBy(x => x.value.PokemonId)
                 .Where(x => x.Skip(1).Any());
 
@@ -555,7 +555,7 @@ namespace PokemonGo.RocketAPI.Window
                         else
                             pokemonName = Convert.ToString(dubpokemon.PokemonId);
                         ColoredConsoleWrite(Color.DarkGreen,
-                            $"Transferred {pokemonName} with {dubpokemon.Cp} CP (Highest is {dupes.ElementAt(i).Last().value.Cp})");
+                            $"Transferred {pokemonName} with {Math.Round(Perfect(dubpokemon))}% IV (Highest is {Math.Round(Perfect(dupes.ElementAt(i).Last().value))})% IV");
 
                     }
                 }
