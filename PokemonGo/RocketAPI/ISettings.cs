@@ -28,5 +28,6 @@ namespace PokemonGo.RocketAPI
         string Language { get; }
         string RazzBerryMode { get; }
         double RazzBerrySetting { get; }
+        bool ShowCandyAmounts { get; }
     }
 }
