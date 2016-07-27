@@ -40,9 +40,10 @@ namespace PokemonGo.RocketAPI.Window
         private static int TotalPokemon = 0;
         private static DateTime TimeStarted = DateTime.Now;
         public static DateTime InitSessionDateTime = DateTime.Now;
+        private static double Speed = 60; //in km/h
 
         Client client;
-
+        LocationManager locationManager;
         public static double GetRuntime()
         {
             return ((DateTime.Now - TimeStarted).TotalSeconds) / 3600;
@@ -114,6 +115,16 @@ namespace PokemonGo.RocketAPI.Window
             statusLabel.Text = text;
         }
 
+        private async Task EvolvePokemons(Client client)
+        {
+            var inventory = await client.GetInventory();
+            var pokemons =
+                inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon)
+                    .Where(p => p != null && p?.PokemonId > 0);
+
+            await EvolveAllGivenPokemons(client, pokemons);
+        }
+
         private async Task EvolveAllGivenPokemons(Client client, IEnumerable<PokemonData> pokemonToEvolve)
         {
             foreach (var pokemon in pokemonToEvolve)
@@ -168,6 +179,7 @@ namespace PokemonGo.RocketAPI.Window
         private async void Execute()
         {
             client = new Client(ClientSettings);
+            this.locationManager = new LocationManager(client, Speed);
             try
             {
                 switch (ClientSettings.AuthType)
@@ -298,13 +310,11 @@ namespace PokemonGo.RocketAPI.Window
             }
             return "Error";
         }
-
         private async Task ExecuteCatchAllNearbyPokemons(Client client)
         {
             var mapObjects = await client.GetMapObjects();
 
             var pokemons = mapObjects.MapCells.SelectMany(i => i.CatchablePokemons);
-
             var inventory2 = await client.GetInventory();
             var pokemons2 = inventory2.InventoryDelta.InventoryItems
                 .Select(i => i.InventoryItemData?.Pokemon)
@@ -313,7 +323,7 @@ namespace PokemonGo.RocketAPI.Window
 
             foreach (var pokemon in pokemons)
             {
-                var update = await client.UpdatePlayerLocation(pokemon.Latitude, pokemon.Longitude);
+                await locationManager.update(pokemon.Latitude, pokemon.Longitude);
                 var encounterPokemonResponse = await client.EncounterPokemon(pokemon.EncounterId, pokemon.SpawnpointId);
                 var pokemonCP = encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp;
                 var pokemonIV = Math.Round(Perfect(encounterPokemonResponse?.WildPokemon?.PokemonData));
@@ -365,15 +375,20 @@ namespace PokemonGo.RocketAPI.Window
             }
         }
 
-        private async Task ExecuteFarmingPokestopsAndPokemons(Client client)
+        private async Task ExecuteFarmingPokestopsAndPokemons(Client client, IEnumerable<FortData> pokeStops = null)
         {
             var mapObjects = await client.GetMapObjects();
-
-            var pokeStops = mapObjects.MapCells.SelectMany(i => i.Forts).Where(i => i.Type == FortType.Checkpoint && i.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime());
-
+            if (pokeStops == null)
+            {
+                pokeStops = mapObjects.MapCells.SelectMany(i => i.Forts).Where(i => i.Type == FortType.Checkpoint && i.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime());
+            }
+            HashSet<FortData> pokeStopSet = new HashSet<FortData>(pokeStops);
+            IEnumerable<FortData> nextPokeStopList = null;
+            ColoredConsoleWrite(Color.Cyan, $"Visiting {pokeStops.Count()} PokeStops");
             foreach (var pokeStop in pokeStops)
             {
-                var update = await client.UpdatePlayerLocation(pokeStop.Latitude, pokeStop.Longitude);
+                double pokeStopDistance = locationManager.getDistance(pokeStop.Latitude, pokeStop.Longitude);
+                await locationManager.update(pokeStop.Latitude, pokeStop.Longitude);
                 var fortInfo = await client.GetFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
                 var fortSearch = await client.SearchFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
 
@@ -393,8 +408,28 @@ namespace PokemonGo.RocketAPI.Window
 
                 if (fortSearch.ExperienceAwarded != 0)
                     TotalExperience += (fortSearch.ExperienceAwarded);
-                await Task.Delay(15000);
+                var pokeStopMapObjects = await client.GetMapObjects();
+
+                /* Gets all pokeStops near this pokeStop which are not in the set of pokeStops being currently
+                 * traversed and which are ready to be farmed again.  */
+                var pokeStopsNearPokeStop = pokeStopMapObjects.MapCells.SelectMany(i => i.Forts).Where(i =>
+                    i.Type == FortType.Checkpoint
+                    && i.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime()
+                    && !pokeStopSet.Contains(i)
+                    );
+
+                /* We choose the longest list of farmable PokeStops to traverse next, though we could use a different
+                 * criterion, such as the number of PokeStops with lures in the list.*/
+                if (pokeStopsNearPokeStop.Count() > (nextPokeStopList == null ? 0 : nextPokeStopList.Count()))
+                {
+                    nextPokeStopList = pokeStopsNearPokeStop;
+                }
                 await ExecuteCatchAllNearbyPokemons(client);
+            }
+            if (nextPokeStopList != null)
+            {
+                client.RecycleItems(client);
+                await ExecuteFarmingPokestopsAndPokemons(client, nextPokeStopList);
             }
         }
 
