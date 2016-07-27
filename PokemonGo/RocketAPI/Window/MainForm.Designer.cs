@@ -40,9 +40,9 @@
             this.showAllToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.statsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.useLuckyEggToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.useLuckyEggToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -51,6 +51,7 @@
             // 
             this.logTextBox.BackColor = System.Drawing.Color.Black;
             this.logTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.logTextBox.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.logTextBox.ForeColor = System.Drawing.Color.White;
             this.logTextBox.Location = new System.Drawing.Point(0, 24);
             this.logTextBox.Name = "logTextBox";
@@ -124,7 +125,7 @@
             this.showAllToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showAllToolStripMenuItem3});
             this.showAllToolStripMenuItem2.Name = "showAllToolStripMenuItem2";
-            this.showAllToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.showAllToolStripMenuItem2.Size = new System.Drawing.Size(125, 22);
             this.showAllToolStripMenuItem2.Text = "Pokemon";
             // 
             // showAllToolStripMenuItem3
@@ -137,9 +138,16 @@
             // statsToolStripMenuItem
             // 
             this.statsToolStripMenuItem.Name = "statsToolStripMenuItem";
-            this.statsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.statsToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.statsToolStripMenuItem.Text = "Stats";
             this.statsToolStripMenuItem.Click += new System.EventHandler(this.statsToolStripMenuItem_Click);
+            // 
+            // useLuckyEggToolStripMenuItem
+            // 
+            this.useLuckyEggToolStripMenuItem.Name = "useLuckyEggToolStripMenuItem";
+            this.useLuckyEggToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
+            this.useLuckyEggToolStripMenuItem.Text = "Use Lucky Egg";
+            this.useLuckyEggToolStripMenuItem.Click += new System.EventHandler(this.useLuckyEggToolStripMenuItem_Click);
             // 
             // showAllToolStripMenuItem
             // 
@@ -150,13 +158,6 @@
             // 
             this.showAllToolStripMenuItem1.Name = "showAllToolStripMenuItem1";
             this.showAllToolStripMenuItem1.Size = new System.Drawing.Size(32, 19);
-            // 
-            // useLuckyEggToolStripMenuItem
-            // 
-            this.useLuckyEggToolStripMenuItem.Name = "useLuckyEggToolStripMenuItem";
-            this.useLuckyEggToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
-            this.useLuckyEggToolStripMenuItem.Text = "Use Lucky Egg";
-            this.useLuckyEggToolStripMenuItem.Click += new System.EventHandler(this.useLuckyEggToolStripMenuItem_Click);
             // 
             // MainForm
             // 
