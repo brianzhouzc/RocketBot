@@ -38,8 +38,6 @@
             this.startBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pokemonToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.showAllToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.statsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.useLuckyEggToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,7 +49,7 @@
             // 
             this.logTextBox.BackColor = System.Drawing.Color.Black;
             this.logTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.logTextBox.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.logTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.logTextBox.ForeColor = System.Drawing.Color.White;
             this.logTextBox.Location = new System.Drawing.Point(0, 24);
             this.logTextBox.Name = "logTextBox";
@@ -114,33 +112,17 @@
             // pokemonToolStripMenuItem2
             // 
             this.pokemonToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showAllToolStripMenuItem2,
-            this.statsToolStripMenuItem});
+            this.showAllToolStripMenuItem2});
             this.pokemonToolStripMenuItem2.Name = "pokemonToolStripMenuItem2";
             this.pokemonToolStripMenuItem2.Size = new System.Drawing.Size(51, 20);
             this.pokemonToolStripMenuItem2.Text = "Player";
             // 
             // showAllToolStripMenuItem2
             // 
-            this.showAllToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showAllToolStripMenuItem3});
             this.showAllToolStripMenuItem2.Name = "showAllToolStripMenuItem2";
-            this.showAllToolStripMenuItem2.Size = new System.Drawing.Size(125, 22);
+            this.showAllToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.showAllToolStripMenuItem2.Text = "Pokemon";
-            // 
-            // showAllToolStripMenuItem3
-            // 
-            this.showAllToolStripMenuItem3.Name = "showAllToolStripMenuItem3";
-            this.showAllToolStripMenuItem3.Size = new System.Drawing.Size(101, 22);
-            this.showAllToolStripMenuItem3.Text = "Mine";
-            this.showAllToolStripMenuItem3.Click += new System.EventHandler(this.showAllToolStripMenuItem3_Click);
-            // 
-            // statsToolStripMenuItem
-            // 
-            this.statsToolStripMenuItem.Name = "statsToolStripMenuItem";
-            this.statsToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
-            this.statsToolStripMenuItem.Text = "Stats";
-            this.statsToolStripMenuItem.Click += new System.EventHandler(this.statsToolStripMenuItem_Click);
+            this.showAllToolStripMenuItem2.Click += new System.EventHandler(this.showAllToolStripMenuItem2_Click);
             // 
             // useLuckyEggToolStripMenuItem
             // 
@@ -167,6 +149,7 @@
             this.Controls.Add(this.logTextBox);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
@@ -194,8 +177,6 @@
         private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem pokemonToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem statsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem useLuckyEggToolStripMenuItem;
     }
 }

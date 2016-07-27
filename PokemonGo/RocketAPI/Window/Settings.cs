@@ -53,7 +53,7 @@ namespace PokemonGo.RocketAPI.Window
         {
             get
             {
-                return (GetSetting() != string.Empty ? GetSetting() : "Ptc") == "Ptc" ? AuthType.Ptc : AuthType.Google;
+                return (GetSetting() != string.Empty ? GetSetting() : "Ptc") == "Pokemon Trainers Club" ? AuthType.Ptc : AuthType.Google;
             }
             set { SetSetting(value.ToString()); }
         }
