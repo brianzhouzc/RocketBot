@@ -44,18 +44,19 @@ namespace PokemonGo.RocketAPI.Window
             lat.Replace(',', '.');
             longit.Replace(',', '.'); 
             gMapControl1.Position = new PointLatLng(Convert.ToDouble(lat), Convert.ToDouble(longit));
-           
+
 
 
             //zoom min/max; default both = 2
-            gMapControl1.MinZoom = 1;
-            gMapControl1.MaxZoom = 20;
+            gMapControl1.DragButton = MouseButtons.Left;
+
+            gMapControl1.CenterPen = new Pen(Color.Red, 2);
+            gMapControl1.MinZoom = trackBar.Maximum = 1;
+            gMapControl1.MaxZoom = trackBar.Maximum = 20;
+            trackBar.Value = 10;
+
             //set zoom
-            gMapControl1.Zoom = 10;
-            label6.Text = "Right-Click and drag to move the map.";
-
-
-
+            gMapControl1.Zoom = trackBar.Value;          
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
@@ -102,21 +103,31 @@ namespace PokemonGo.RocketAPI.Window
 
         private void gMapControl1_MouseClick(object sender, MouseEventArgs e)
         {
-            double X = Math.Round(gMapControl1.FromLocalToLatLng(e.X, e.Y).Lng, 6);
-            double Y = Math.Round(gMapControl1.FromLocalToLatLng(e.X, e.Y).Lat, 6);
+            Point localCoordinates = e.Location;
+            gMapControl1.Position = gMapControl1.FromLocalToLatLng(localCoordinates.X, localCoordinates.Y);
+
+            if (e.Clicks >= 2)
+            {
+                gMapControl1.Zoom += 5;
+            }
+            
+            double X = Math.Round(gMapControl1.Position.Lng, 6);
+            double Y = Math.Round(gMapControl1.Position.Lat, 6);
             string longitude = X.ToString();
             string latitude = Y.ToString();
             latitudeText.Text = latitude;
-            longitudeText.Text = longitude;
+            longitudeText.Text = longitude;            
+        }
 
+        private void trackBar_Scroll(object sender, EventArgs e)
+        {
+            gMapControl1.Zoom = trackBar.Value;
+        }
 
-
-
-
-
-
-
-
+        private void buttonFindAddress_Click(object sender, EventArgs e)
+        {
+            gMapControl1.SetPositionByKeywords(textBoxAddress.Text);
+            gMapControl1.Zoom = 15;
         }
     }
 }

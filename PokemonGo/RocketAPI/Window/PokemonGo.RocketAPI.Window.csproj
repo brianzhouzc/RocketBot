@@ -59,6 +59,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CueTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +73,12 @@
     </Compile>
     <Compile Include="PokemonForm.Designer.cs">
       <DependentUpon>PokemonForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PokeUi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PokeUi.Designer.cs">
+      <DependentUpon>PokeUi.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,6 +94,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PokemonForm.resx">
       <DependentUpon>PokemonForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PokeUi.resx">
+      <DependentUpon>PokeUi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

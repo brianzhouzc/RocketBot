@@ -40,6 +40,7 @@
             this.showAllToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.statsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.useLuckyEggToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
@@ -50,6 +51,7 @@
             // 
             this.logTextBox.BackColor = System.Drawing.Color.Black;
             this.logTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.logTextBox.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.logTextBox.ForeColor = System.Drawing.Color.White;
             this.logTextBox.Location = new System.Drawing.Point(0, 24);
             this.logTextBox.Name = "logTextBox";
@@ -79,7 +81,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.todoToolStripMenuItem,
             this.startBotToolStripMenuItem,
-            this.pokemonToolStripMenuItem2});
+            this.pokemonToolStripMenuItem2,
+            this.useLuckyEggToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(905, 24);
@@ -139,6 +142,13 @@
             this.statsToolStripMenuItem.Text = "Stats";
             this.statsToolStripMenuItem.Click += new System.EventHandler(this.statsToolStripMenuItem_Click);
             // 
+            // useLuckyEggToolStripMenuItem
+            // 
+            this.useLuckyEggToolStripMenuItem.Name = "useLuckyEggToolStripMenuItem";
+            this.useLuckyEggToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
+            this.useLuckyEggToolStripMenuItem.Text = "Use Lucky Egg";
+            this.useLuckyEggToolStripMenuItem.Click += new System.EventHandler(this.useLuckyEggToolStripMenuItem_Click);
+            // 
             // showAllToolStripMenuItem
             // 
             this.showAllToolStripMenuItem.Name = "showAllToolStripMenuItem";
@@ -186,6 +196,7 @@
         private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem statsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem useLuckyEggToolStripMenuItem;
     }
 }
 

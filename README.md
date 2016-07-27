@@ -1,7 +1,9 @@
 # Pokemon-Go-Rocket-API
 
 #Window
-![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/window__screenshot.PNG)
+![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/MainWindow.png)
+![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/MainPokeUi.png)
+![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/MainSettings.png)
 
 #Console
 ![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/screenshot.png)
@@ -32,7 +34,7 @@ Go to PokemonGo\RocketAPI\Console\App.config -> Edit the Settings you like -> Bu
 # Settings
 ## AuthType
 * *Google* - Google login via oauth2
-* *Ptc* - Pokemon Trainer Club login with username/password combination
+* *Ptc* - Pokémon Trainer Club login with username/password combination
 
 ## PtcUsername
 * *username* for PTC account. No need for when using Google.
@@ -62,8 +64,8 @@ Go to PokemonGo\RocketAPI\Console\App.config -> Edit the Settings you like -> Bu
 * *seconds* After X seconds it recycles items from the filter in *Settings.cs*.
 
 ## Language
-* *english* Outputs caught pokemons in english name.
-* *german*  Outputs caught pokemons in german name.
+* *english* Outputs caught Pokémon in english name.
+* *german*  Outputs caught Pokémon in german name.
 
 ## RazzBerryMode
 * *cp* - Use RazzBerry when Pokemon is over specific CP.
@@ -80,8 +82,8 @@ Go to PokemonGo\RocketAPI\Console\App.config -> Edit the Settings you like -> Bu
 * *all* - transfers all pokemon
 
 ## TransferCPThreshold
-* *CP* transfers all pokemons with less CP than this value.
+* *CP* transfers all Pokémon with less CP than this value.
 
 ## EvolveAllGivenPokemons
-* *false* Evolves no pokemons.
-* *true* Evolves all pokemoms.
+* *false* Evolves no Pokémon.
+* *true* Evolves all Pokémon.
