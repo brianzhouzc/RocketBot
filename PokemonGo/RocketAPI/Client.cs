@@ -398,6 +398,16 @@ namespace PokemonGo.RocketAPI
                         releasePokemonRequest);
         }
 
+        public double getCurrentLat()
+        {
+            return this._currentLat;
+        }
+
+        public double getCurrentLong()
+        {
+            return this._currentLng;
+        }
+
         public async Task<PlayerUpdateResponse> UpdatePlayerLocation(double lat, double lng)
         {
             SetCoordinates(lat, lng);
