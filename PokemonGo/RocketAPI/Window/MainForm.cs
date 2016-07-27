@@ -39,7 +39,8 @@ namespace PokemonGo.RocketAPI.Window
         private static int TotalExperience = 0;
         private static int TotalPokemon = 0;
         private static bool ForceUnbanning = false;
-        private static bool Farming = false;
+        private static bool FarmingStops = false;
+        private static bool FarmingPokemons = false;
         private static DateTime TimeStarted = DateTime.Now;
         public static DateTime InitSessionDateTime = DateTime.Now;
 
@@ -316,6 +317,12 @@ namespace PokemonGo.RocketAPI.Window
 
             foreach (var pokemon in pokemons)
             {
+                while (ForceUnbanning)
+                {
+                    await Task.Delay(25);
+                }
+
+                FarmingPokemons = true;
                 var update = await client.UpdatePlayerLocation(pokemon.Latitude, pokemon.Longitude);
                 var encounterPokemonResponse = await client.EncounterPokemon(pokemon.EncounterId, pokemon.SpawnpointId);
                 var pokemonCP = encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp;
@@ -364,6 +371,7 @@ namespace PokemonGo.RocketAPI.Window
                 else if (ClientSettings.TransferType == "iv")
                     await TransferAllGivenPokemons(client, pokemons2, ClientSettings.TransferIVThreshold);
 
+                FarmingPokemons = false;
                 await Task.Delay(3000);
             }
         }
@@ -378,10 +386,10 @@ namespace PokemonGo.RocketAPI.Window
             {
                 while (ForceUnbanning)
                 {
-                    Farming = false;
                     await Task.Delay(25);
                 }
-                Farming = true;
+
+                FarmingStops = true;
                 var update = await client.UpdatePlayerLocation(pokeStop.Latitude, pokeStop.Longitude);
                 var fortInfo = await client.GetFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
                 var fortSearch = await client.SearchFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
@@ -403,15 +411,10 @@ namespace PokemonGo.RocketAPI.Window
                 if (fortSearch.ExperienceAwarded != 0)
                     TotalExperience += (fortSearch.ExperienceAwarded);
 
-                if (ForceUnbanning)
-                {
-                    Farming = false;
-                    break;
-                }
+                FarmingStops = false;
                 await Task.Delay(15000);
+                await ExecuteCatchAllNearbyPokemons(client);
             }
-            Farming = false;
-            await ExecuteCatchAllNearbyPokemons(client);
         }
 
         private async Task ForceUnban(Client client)
@@ -420,10 +423,12 @@ namespace PokemonGo.RocketAPI.Window
             {
                 ColoredConsoleWrite(Color.LightGreen, "Waiting for last farming action to be complete...");
                 ForceUnbanning = true;
-                while (Farming)
+
+                while (FarmingStops || FarmingPokemons)
                 {
                     await Task.Delay(25);
                 }
+                
                 ColoredConsoleWrite(Color.LightGreen, "Starting force unban...");
 
                 var mapObjects = await client.GetMapObjects();
@@ -449,7 +454,8 @@ namespace PokemonGo.RocketAPI.Window
                             }
                             else
                             {
-                                ColoredConsoleWrite(Color.LightGreen, "Fuck yes, you are now unbanned!");
+                                ColoredConsoleWrite(Color.LightGreen, "Fuck yes, you are now unbanned! Total attempts: " + i);
+                                ColoredConsoleWrite(Color.LightGreen, "The next few farming action might still fail, force unban again if there are no effect after 10 actions.");
                                 done = true;
                                 break;
                             }
