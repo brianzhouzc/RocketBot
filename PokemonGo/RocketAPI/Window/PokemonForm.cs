@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using PokemonGo.RocketAPI.Enums;
+using System;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using PokemonGo.RocketAPI.Enums;
 
 namespace PokemonGo.RocketAPI.Window
 {
@@ -19,8 +18,16 @@ namespace PokemonGo.RocketAPI.Window
             ClientSettings = Settings.Instance;
         }
 
+        private Locale localePokemonName = null;
+
         private void PokemonForm_Load(object sender, EventArgs e)
         {
+            string locale = ClientSettings.Language;
+            using (StreamReader sr = new StreamReader(string.Format("locales/pokemon.{0}.json", locale), Encoding.GetEncoding("UTF-8")))
+            {
+                localePokemonName = new Locale(Newtonsoft.Json.JsonConvert.DeserializeObject<LocaleData[]>(sr.ReadToEnd()));
+            }
+
             Execute();
         }
 
@@ -37,6 +44,7 @@ namespace PokemonGo.RocketAPI.Window
                     case AuthType.Ptc:
                         await client.DoPtcLogin(ClientSettings.PtcUsername, ClientSettings.PtcPassword);
                         break;
+
                     case AuthType.Google:
                         await client.DoGoogleLogin();
                         break;
@@ -47,11 +55,17 @@ namespace PokemonGo.RocketAPI.Window
                 var pokemons =
                     inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon)
                         .Where(p => p != null && p?.PokemonId > 0).OrderByDescending(key => key.Cp);
-                
 
                 foreach (var pokemon in pokemons)
                 {
-                    ListViewItem lvi = new ListViewItem(pokemon.PokemonId.ToString());
+                    string pokemonName = Convert.ToString(pokemon.PokemonId);
+                    var pokeName = localePokemonName.Get(((int)pokemon.PokemonId).ToString());
+                    if (string.IsNullOrEmpty(pokeName) == false)
+                    {
+                        pokemonName = pokeName;
+                    }
+
+                    ListViewItem lvi = new ListViewItem(pokemonName);
                     listView1.Items.Add(lvi);
                     lvi.SubItems.Add(pokemon.Cp.ToString());
                 }
@@ -82,7 +96,6 @@ namespace PokemonGo.RocketAPI.Window
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
     }
 }

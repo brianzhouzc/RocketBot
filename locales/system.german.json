@@ -1,0 +1,195 @@
+[
+  {
+    "id": "CatchSuccess",
+    "text": "We caught a {0} with {1} CP and {2}% IV"
+  },
+  {
+    "id": "CatchError",
+    "text": "{0} with {1} CP and {2}% IV got away.."
+  },
+  {
+    "id": "PokeStop",
+    "text": "PokeStop"
+  },
+  {
+    "id": "Gems",
+    "text": "Gems"
+  },
+  {
+    "id": "Eggs",
+    "text": "Eggs"
+  },
+  {
+    "id": "Items",
+    "text": "Items"
+  },
+  {
+    "id": "TransferredPokemon",
+    "text": "Transferred {0} with {1} CP"
+  },
+  {
+    "id": "TransferredPokemonError",
+    "text": "Somehow failed to transfer {0} with {1} CP. ReleasePokemonOutProto.Status was {2}"
+  },
+  {
+    "id": "HighestTransferredPokemon",
+    "text": "Transferred {0} with {1} CP (Highest is {2})"
+  },
+  {
+    "id": "Account",
+    "text": "Account"
+  },
+  {
+    "id": "Password",
+    "text": "Password"
+  },
+  {
+    "id": "Name",
+    "text": "Name"
+  },
+  {
+    "id": "Team",
+    "text": "Team"
+  },
+  {
+    "id": "Pokecoins",
+    "text": "Pokecoins"
+  },
+  {
+    "id": "Stardust",
+    "text": "Stardust"
+  },
+  {
+    "id": "Latitude",
+    "text": "Latitude"
+  },
+  {
+    "id": "Longitude",
+    "text": "Longitude"
+  },
+  {
+    "id": "Area",
+    "text": "Area"
+  },
+  {
+    "id": "Country",
+    "text": "Country"
+  },
+  {
+    "id": "AreaCountryError",
+    "text": "Unable to get Country/Place"
+  },
+  {
+    "id": "YourVersion",
+    "text": "Your version"
+  },
+  {
+    "id": "GitHubVersion",
+    "text": "Github version"
+  },
+  {
+    "id": "GitHubFind",
+    "text": "You can find it at "
+  },
+  {
+    "id": "UpdateException",
+    "text": "Unable to check for updates now..."
+  },
+  {
+    "id": "StartLoginPtc",
+    "text": "Login Type: Pokemon Trainers Club"
+  },
+  {
+    "id": "StartLoginGoogle",
+    "text": "Login Type: Google"
+  },
+  {
+    "id": "GetGoogleToken",
+    "text": "Now opening www.Google.com/device and copying the 8 digit code to your clipboard"
+  },
+  {
+    "id": "TransferingPokemonDisabled",
+    "text": "Transfering pokemon disabled"
+  },
+  {
+    "id": "MoveFound",
+    "text": "No nearby useful locations found. Please wait 10 seconds."
+  },
+  {
+    "id": "TaskCanceledException",
+    "text": "Task Canceled Exception - Restarting"
+  },
+  {
+    "id": "UriFormatException",
+    "text": "System URI Format Exception - Restarting"
+  },
+  {
+    "id": "ArgumentOutOfRangeException",
+    "text": "ArgumentOutOfRangeException - Restarting"
+  },
+  {
+    "id": "ArgumentNullException",
+    "text": "Argument Null Refference - Restarting"
+  },
+  {
+    "id": "NullReferenceException",
+    "text": "Null Refference - Restarting"
+  },
+  {
+    "id": "EvolvedSuccess",
+    "text": "Evolved {0} successfully for {1}xp"
+  },
+  {
+    "id": "CountOfEvolvedUnits",
+    "text": "Evolved {0} pieces of {1} for {2}xp"
+  },
+  {
+    "id": "TransferCheckPokemon",
+    "text": "Pokemon {0} with {1} CP has IV percent less than {2}%"
+  },
+  {
+    "id": "GrindingPokemon",
+    "text": "Grinding {0} pokemon below {1} CP."
+  },
+  {
+    "id": "FinishedGrindingPokemon",
+    "text": "Finished grinding all the meat"
+  },
+  {
+    "id": "ShowCurrentLevel",
+    "text": "Current Level: {0} ({1}/{2})"
+  },
+  {
+    "id": "ShowNextLevel",
+    "text": "Current Level: {0}. XP needed for next Level: {1}"
+  },
+  {
+    "id": "ServiceDown",
+    "text": "PTC Servers are probably down OR your credentials are wrong. Try google"
+  },
+  {
+    "id": "UnhandledException",
+    "text": "Unhandled exception: {0}"
+  },
+  {
+    "id": "UseLackyEgg",
+    "text": "Using a Lucky Egg, we have {0} left."
+  },
+  {
+    "id": "LackyEggValid",
+    "text": "Lucky Egg Valid until: {0}"
+  },
+  {
+    "id": "DontHaveLackyEgg",
+    "text": "You don't have any Lucky Egg to use."
+  },
+  {
+    "id": "UseLackyEggException",
+    "text": "Unhandled exception in using lucky egg: {ex}"
+  },
+  {
+    "id": "RunBotUseLackyEgg",
+    "text": "Please start the bot before trying to use a lucky egg."
+  }
+  
+]

@@ -1,0 +1,195 @@
+[
+  {
+    "id": "CatchSuccess",
+    "text": "{0}を捕まえました CP:{1} IV:{2}%"
+  },
+  {
+    "id": "CatchError",
+    "text": "{0}に逃げられた・・・ CP:{1} IV:{2}%"
+  },
+  {
+    "id": "PokeStop",
+    "text": "ポケスポット"
+  },
+  {
+    "id": "Gems",
+    "text": "ポケコイン"
+  },
+  {
+    "id": "Eggs",
+    "text": "たまご"
+  },
+  {
+    "id": "Items",
+    "text": "どうぐ"
+  },
+  {
+    "id": "TransferredPokemon",
+    "text": "{1}CPの{0}を博士に送った"
+  },
+  {
+    "id": "TransferredPokemonError",
+    "text": "博士に{1}CPの{0}を送るのに失敗した・・・ Status:{2}"
+  },
+  {
+    "id": "HighestTransferredPokemon",
+    "text": "他に高いCPのポケモンがいたので{1}CPの{0}を博士に送った。(所有最大CP:{2})"
+  },
+  {
+    "id": "Account",
+    "text": "アカウント"
+  },
+  {
+    "id": "Password",
+    "text": "パスワード"
+  },
+  {
+    "id": "Name",
+    "text": "名前"
+  },
+  {
+    "id": "Team",
+    "text": "チーム"
+  },
+  {
+    "id": "Pokecoins",
+    "text": "ポケコイン"
+  },
+  {
+    "id": "Stardust",
+    "text": "ほしのすな"
+  },
+  {
+    "id": "Latitude",
+    "text": "緯度"
+  },
+  {
+    "id": "Longitude",
+    "text": "経度"
+  },
+  {
+    "id": "Area",
+    "text": "エリア"
+  },
+  {
+    "id": "Country",
+    "text": "国"
+  },
+  {
+    "id": "AreaCountryError",
+    "text": "国・エリアを取得できませんでした。"
+  },
+  {
+    "id": "YourVersion",
+    "text": "使用中のバージョン"
+  },
+  {
+    "id": "GitHubVersion",
+    "text": "GitHubのバージョン"
+  },
+  {
+    "id": "GitHubFind",
+    "text": "GitHubURL:"
+  },
+  {
+    "id": "UpdateException",
+    "text": "更新情報を取得できませんでした。"
+  },
+  {
+    "id": "StartLoginPtc",
+    "text": "ポケモントレーナークラブにログインしています・・・"
+  },
+  {
+    "id": "StartLoginGoogle",
+    "text": "Googleにログインしています・・・"
+  },
+  {
+    "id": "GetGoogleToken",
+    "text": "Google認証を行います。[https://www.google.com/device]にアクセスしクリップボードにコピーされている8桁の文字列を入力してください。"
+  },
+  {
+    "id": "TransferingPokemonDisabled",
+    "text": "ポケモンの転送は無効になっています"
+  },
+  {
+    "id": "MoveFound",
+    "text": "移動先がありませんでした。10秒間待機します。"
+  },
+  {
+    "id": "TaskCanceledException",
+    "text": "キャンセル処理が発生しました。 - リスタートします。"
+  },
+  {
+    "id": "UriFormatException",
+    "text": "URLのフォーマットエラーが発生しました。 - リスタートします。"
+  },
+  {
+    "id": "ArgumentOutOfRangeException",
+    "text": "引数エラーまたは範囲外エラーが発生しました。 - リスタートします。"
+  },
+  {
+    "id": "ArgumentNullException",
+    "text": "引数Nullエラーが発生しました。 - リスタートします。"
+  },
+  {
+    "id": "NullReferenceException",
+    "text": "Null参照エラーが発生しました。 - リスタートします。"
+  },
+  {
+    "id": "EvolvedSuccess",
+    "text": "{0}を進化させた。 XP:{1}"
+  },
+  {
+    "id": "CountOfEvolvedUnits",
+    "text": "{0}体{1}を進化させた。 XP:{2}"
+  },
+  {
+    "id": "TransferCheckPokemon",
+    "text": "{0}の{1}CPはIV{2}%以下です。"
+  },
+  {
+    "id": "GrindingPokemon",
+    "text": "{0}体のポケモンを博士に送ります。 CP:{1}"
+  },
+  {
+    "id": "FinishedGrindingPokemon",
+    "text": "すべてのポケモンを博士に送りつけた。"
+  },
+  {
+    "id": "ShowCurrentLevel",
+    "text": "現在レベル:{0} ({1}/{2})"
+  },
+  {
+    "id": "ShowNextLevel",
+    "text": "現在レベル:{0} 次のレベルまで:{1}"
+  },
+  {
+    "id": "ServiceDown",
+    "text": "PTCサーバーがダウンしているかGoogleの認証が間違っています。"
+  },
+  {
+    "id": "UnhandledException",
+    "text": "未定義の例外が発生しました:{0}"
+  },
+  {
+    "id": "UseLackyEgg",
+    "text": "しあわせタマゴを使用しました。残り{0}個"
+  },
+  {
+    "id": "LackyEggValid",
+    "text": "しあわせタマゴの有効時間:{0}"
+  },
+  {
+    "id": "DontHaveLackyEgg",
+    "text": "しあわせタマゴを持っていないため使用できません。"
+  },
+  {
+    "id": "UseLackyEggException",
+    "text": "しあわせタマゴを使用しようとしたら例外が発生しました。:{0}"
+  },
+  {
+    "id": "RunBotUseLackyEgg",
+    "text": "しあわせタマゴを使用する前にボットを実行をしてください。"
+  }
+  
+]

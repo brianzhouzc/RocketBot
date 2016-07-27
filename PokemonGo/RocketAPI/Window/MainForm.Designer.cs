@@ -1,4 +1,6 @@
-﻿namespace PokemonGo.RocketAPI.Window
+﻿using System;
+
+namespace PokemonGo.RocketAPI.Window
 {
     partial class MainForm
     {
