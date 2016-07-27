@@ -145,6 +145,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 321);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(91, 13);
             this.label3.TabIndex = 8;
@@ -245,6 +246,7 @@
             // evolveAllChk
             // 
             this.evolveAllChk.AutoSize = true;
+            this.evolveAllChk.Location = new System.Drawing.Point(104, 321);
             this.evolveAllChk.Name = "evolveAllChk";
             this.evolveAllChk.Size = new System.Drawing.Size(15, 14);
             this.evolveAllChk.TabIndex = 19;
@@ -255,6 +257,7 @@
             // 
             this.saveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.saveBtn.Location = new System.Drawing.Point(6, 337);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(198, 95);
             this.saveBtn.TabIndex = 20;
@@ -299,6 +302,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(221, 9);
             this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(474, 442);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Location";
@@ -307,6 +311,7 @@
             // 
             this.FindAdressButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.FindAdressButton.Location = new System.Drawing.Point(338, 410);
             this.FindAdressButton.Name = "FindAdressButton";
             this.FindAdressButton.Size = new System.Drawing.Size(130, 26);
             this.FindAdressButton.TabIndex = 25;
@@ -316,6 +321,7 @@
             // 
             // AdressBox
             // 
+            this.AdressBox.Location = new System.Drawing.Point(6, 416);
             this.AdressBox.Name = "AdressBox";
             this.AdressBox.Size = new System.Drawing.Size(326, 20);
             this.AdressBox.TabIndex = 25;
@@ -364,12 +370,14 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(9, 9);
             this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(212, 442);
             this.panel1.TabIndex = 26;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // CatchPokemonBox
             // 
             this.CatchPokemonBox.AutoSize = true;
+            this.CatchPokemonBox.Location = new System.Drawing.Point(104, 298);
             this.CatchPokemonBox.Name = "CatchPokemonBox";
             this.CatchPokemonBox.Size = new System.Drawing.Size(15, 14);
             this.CatchPokemonBox.TabIndex = 26;
@@ -379,6 +387,7 @@
             // CatchPokemonText
             // 
             this.CatchPokemonText.AutoSize = true;
+            this.CatchPokemonText.Location = new System.Drawing.Point(3, 298);
             this.CatchPokemonText.Name = "CatchPokemonText";
             this.CatchPokemonText.Size = new System.Drawing.Size(86, 13);
             this.CatchPokemonText.TabIndex = 25;
@@ -396,6 +405,7 @@
             // TravelSpeedText
             // 
             this.TravelSpeedText.AutoSize = true;
+            this.TravelSpeedText.Location = new System.Drawing.Point(3, 275);
             this.TravelSpeedText.Name = "TravelSpeedText";
             this.TravelSpeedText.Size = new System.Drawing.Size(102, 13);
             this.TravelSpeedText.TabIndex = 23;
@@ -403,6 +413,7 @@
             // 
             // TravelSpeedBox
             // 
+            this.TravelSpeedBox.Location = new System.Drawing.Point(104, 272);
             this.TravelSpeedBox.Name = "TravelSpeedBox";
             this.TravelSpeedBox.Size = new System.Drawing.Size(100, 20);
             this.TravelSpeedBox.TabIndex = 22;
@@ -422,6 +433,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(704, 460);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
