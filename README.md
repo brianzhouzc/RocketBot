@@ -1,7 +1,9 @@
 # Pokemon-Go-Rocket-API
 
 #Window
-![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/window__screenshot.PNG)
+![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/MainWindow.PNG)
+![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/MainPokeUi.PNG)
+![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/MainSettings.PNG)
 
 #Console
 ![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/screenshot.png)
