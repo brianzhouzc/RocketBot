@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PokemonGo.RocketAPI.GeneratedCode;
+using PokemonGo.RocketAPI.Helpers;
 using PokemonGo.RocketAPI.Enums;
 
 namespace PokemonGo.RocketAPI.Window
@@ -54,6 +57,8 @@ namespace PokemonGo.RocketAPI.Window
                     ListViewItem lvi = new ListViewItem(pokemon.PokemonId.ToString());
                     listView1.Items.Add(lvi);
                     lvi.SubItems.Add(pokemon.Cp.ToString());
+                    float iv = PerfectHelper.Perfect(pokemon);
+                    lvi.SubItems.Add(Math.Round(iv, MidpointRounding.AwayFromZero).ToString());
                 }
             }
             catch (TaskCanceledException) { ColoredConsoleWrite(Color.Red, "Task Canceled Exception - Restarting"); Execute(); }
@@ -75,13 +80,24 @@ namespace PokemonGo.RocketAPI.Window
             Execute();
         }
 
+        private ListViewColumnSorter lvwColumnSorter = new ListViewColumnSorter();
         private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-            //listView1.Sorting = listView1.Sorting == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
-        }
+            // Determine if clicked column is already the column that is being sorted.
+            if (e.Column == lvwColumnSorter.SortColumn)
+            {
+                // Reverse the current sort direction for this column.
+                lvwColumnSorter.Order = lvwColumnSorter.Order == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
+            }
+            else
+            {
+                // Set the column number that is to be sorted; default to ascending.
+                lvwColumnSorter.SortColumn = e.Column;
+                lvwColumnSorter.Order = SortOrder.Descending;
+            }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
+            // Perform the sort with these new sort options.
+            this.listView1.Sort();
 
         }
     }
