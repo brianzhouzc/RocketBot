@@ -783,7 +783,7 @@ namespace PokemonGo.RocketAPI.Window
 
         private void showAllToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            var pForm = new PokemonForm();
+            var pForm = new PokeUi();
             pForm.Show();
         }
 
