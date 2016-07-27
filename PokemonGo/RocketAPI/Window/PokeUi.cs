@@ -61,9 +61,9 @@ namespace PokemonGo.RocketAPI.Window
                     .OrderByDescending(p => (int)p.FamilyId);
 
 
+				lblPokemonsCount.Text = pokemons.Count().ToString();
 
-
-                var imageList = new ImageList { ImageSize = new Size(50, 50) };
+				var imageList = new ImageList { ImageSize = new Size(50, 50) };
                 listView1.ShowItemToolTips = true;
 
                 foreach (var pokemon in pokemons)
