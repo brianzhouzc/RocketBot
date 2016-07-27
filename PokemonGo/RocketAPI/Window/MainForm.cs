@@ -40,9 +40,10 @@ namespace PokemonGo.RocketAPI.Window
         private static int TotalPokemon = 0;
         private static DateTime TimeStarted = DateTime.Now;
         public static DateTime InitSessionDateTime = DateTime.Now;
+        
 
         Client client;
-
+        LocationManager locationManager;
         public static double GetRuntime()
         {
             return ((DateTime.Now - TimeStarted).TotalSeconds) / 3600;
@@ -69,7 +70,7 @@ namespace PokemonGo.RocketAPI.Window
                 // makes sense to display your version and say what the current one is on github
                 ColoredConsoleWrite(Color.Green, "Your version is " + Assembly.GetExecutingAssembly().GetName().Version);
                 ColoredConsoleWrite(Color.Green, "Github version is " + gitVersion);
-                ColoredConsoleWrite(Color.Green, "You can find it at https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API");
+                ColoredConsoleWrite(Color.Green, "You can find it at www.GitHub.com/DetectiveSquirrel/Pokemon-Go-Rocket-API");
             }
             catch (Exception)
             {
@@ -112,6 +113,16 @@ namespace PokemonGo.RocketAPI.Window
             }
 
             statusLabel.Text = text;
+        }
+
+        private async Task EvolvePokemons(Client client)
+        {
+            var inventory = await client.GetInventory();
+            var pokemons =
+                inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon)
+                    .Where(p => p != null && p?.PokemonId > 0);
+
+            await EvolveAllGivenPokemons(client, pokemons);
         }
 
         private async Task EvolveAllGivenPokemons(Client client, IEnumerable<PokemonData> pokemonToEvolve)
@@ -168,16 +179,17 @@ namespace PokemonGo.RocketAPI.Window
         private async void Execute()
         {
             client = new Client(ClientSettings);
+            this.locationManager = new LocationManager(client, ClientSettings.TravelSpeed);
             try
             {
                 switch (ClientSettings.AuthType)
                 {
                     case AuthType.Ptc:
-                        ColoredConsoleWrite(Color.Green, "Attempting to log into Pokemon Trainers Club..");
+                        ColoredConsoleWrite(Color.Green, "Login Type: Pokemon Trainers Club");
                         await client.DoPtcLogin(ClientSettings.PtcUsername, ClientSettings.PtcPassword);
                         break;
                     case AuthType.Google:
-                        ColoredConsoleWrite(Color.Green, "Attempting to log into Google..");
+                        ColoredConsoleWrite(Color.Green, "Login Type: Google");
                         if (ClientSettings.GoogleRefreshToken == "")
                             ColoredConsoleWrite(Color.Green, "Now opening www.Google.com/device and copying the 8 digit code to your clipboard");
                         
@@ -225,25 +237,29 @@ namespace PokemonGo.RocketAPI.Window
                 // I believe a switch is more efficient and easier to read.
                 switch (ClientSettings.TransferType)
                 {
-                    case "leaveStrongest":
+                    case "Leave Strongest":
                         await TransferAllButStrongestUnwantedPokemon(client);
                         break;
-                    case "all":
+                    case "All":
                         await TransferAllGivenPokemons(client, pokemons);
                         break;
-                    case "duplicate":
+                    case "Duplicate":
                         await TransferDuplicatePokemon(client);
                         break;
-                    case "cp":
+                    case "IV Duplicate":
+                        await TransferDuplicateIVPokemon(client);
+                        break;
+                    case "CP":
                         await TransferAllWeakPokemon(client, ClientSettings.TransferCPThreshold);
                         break;
-                    case "iv":
+                    case "IV":
                         await TransferAllGivenPokemons(client, pokemons, ClientSettings.TransferIVThreshold);
                         break;
                     default:
                         ColoredConsoleWrite(Color.DarkGray, "Transfering pokemon disabled");
                         break;
                 }
+
 
                 if (ClientSettings.EvolveAllGivenPokemons)
                     await EvolveAllGivenPokemons(client, pokemons);
@@ -298,13 +314,11 @@ namespace PokemonGo.RocketAPI.Window
             }
             return "Error";
         }
-
         private async Task ExecuteCatchAllNearbyPokemons(Client client)
         {
             var mapObjects = await client.GetMapObjects();
 
             var pokemons = mapObjects.MapCells.SelectMany(i => i.CatchablePokemons);
-
             var inventory2 = await client.GetInventory();
             var pokemons2 = inventory2.InventoryDelta.InventoryItems
                 .Select(i => i.InventoryItemData?.Pokemon)
@@ -313,7 +327,7 @@ namespace PokemonGo.RocketAPI.Window
 
             foreach (var pokemon in pokemons)
             {
-                var update = await client.UpdatePlayerLocation(pokemon.Latitude, pokemon.Longitude);
+                await locationManager.update(pokemon.Latitude, pokemon.Longitude);
                 var encounterPokemonResponse = await client.EncounterPokemon(pokemon.EncounterId, pokemon.SpawnpointId);
                 var pokemonCP = encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp;
                 var pokemonIV = Math.Round(Perfect(encounterPokemonResponse?.WildPokemon?.PokemonData));
@@ -350,30 +364,51 @@ namespace PokemonGo.RocketAPI.Window
                 else
                     ColoredConsoleWrite(Color.Red, $"{pokemonName} with {pokemonCP} CP and {pokemonIV}% IV got away..");
 
-                if (ClientSettings.TransferType == "leaveStrongest")
-                    await TransferAllButStrongestUnwantedPokemon(client);
-                else if (ClientSettings.TransferType == "all")
-                    await TransferAllGivenPokemons(client, pokemons2);
-                else if (ClientSettings.TransferType == "duplicate")
-                    await TransferDuplicatePokemon(client);
-                else if (ClientSettings.TransferType == "cp")
-                    await TransferAllWeakPokemon(client, ClientSettings.TransferCPThreshold);
-                else if (ClientSettings.TransferType == "iv")
-                    await TransferAllGivenPokemons(client, pokemons2, ClientSettings.TransferIVThreshold);
+
+                // I believe a switch is more efficient and easier to read.
+                switch (ClientSettings.TransferType)
+                {
+                    case "Leave Strongest":
+                        await TransferAllButStrongestUnwantedPokemon(client);
+                        break;
+                    case "All":
+                        await TransferAllGivenPokemons(client, pokemons2);
+                        break;
+                    case "Duplicate":
+                        await TransferDuplicatePokemon(client);
+                        break;
+                    case "IV Duplicate":
+                        await TransferDuplicateIVPokemon(client);
+                        break;
+                    case "CP":
+                        await TransferAllWeakPokemon(client, ClientSettings.TransferCPThreshold);
+                        break;
+                    case "IV":
+                        await TransferAllGivenPokemons(client, pokemons2, ClientSettings.TransferIVThreshold);
+                        break;
+                    default:
+                        ColoredConsoleWrite(Color.DarkGray, "Transfering pokemon disabled");
+                        break;
+                }
 
                 await Task.Delay(3000);
             }
         }
 
-        private async Task ExecuteFarmingPokestopsAndPokemons(Client client)
+        private async Task ExecuteFarmingPokestopsAndPokemons(Client client, IEnumerable<FortData> pokeStops = null)
         {
             var mapObjects = await client.GetMapObjects();
-
-            var pokeStops = mapObjects.MapCells.SelectMany(i => i.Forts).Where(i => i.Type == FortType.Checkpoint && i.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime());
-
+            if (pokeStops == null)
+            {
+                pokeStops = mapObjects.MapCells.SelectMany(i => i.Forts).Where(i => i.Type == FortType.Checkpoint && i.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime());
+            }
+            HashSet<FortData> pokeStopSet = new HashSet<FortData>(pokeStops);
+            IEnumerable<FortData> nextPokeStopList = null;
+            ColoredConsoleWrite(Color.Cyan, $"Visiting {pokeStops.Count()} PokeStops");
             foreach (var pokeStop in pokeStops)
             {
-                var update = await client.UpdatePlayerLocation(pokeStop.Latitude, pokeStop.Longitude);
+                double pokeStopDistance = locationManager.getDistance(pokeStop.Latitude, pokeStop.Longitude);
+                await locationManager.update(pokeStop.Latitude, pokeStop.Longitude);
                 var fortInfo = await client.GetFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
                 var fortSearch = await client.SearchFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
 
@@ -393,8 +428,30 @@ namespace PokemonGo.RocketAPI.Window
 
                 if (fortSearch.ExperienceAwarded != 0)
                     TotalExperience += (fortSearch.ExperienceAwarded);
-                await Task.Delay(15000);
-                await ExecuteCatchAllNearbyPokemons(client);
+                var pokeStopMapObjects = await client.GetMapObjects();
+
+                /* Gets all pokeStops near this pokeStop which are not in the set of pokeStops being currently
+                 * traversed and which are ready to be farmed again.  */
+                var pokeStopsNearPokeStop = pokeStopMapObjects.MapCells.SelectMany(i => i.Forts).Where(i =>
+                    i.Type == FortType.Checkpoint
+                    && i.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime()
+                    && !pokeStopSet.Contains(i)
+                    );
+
+                /* We choose the longest list of farmable PokeStops to traverse next, though we could use a different
+                 * criterion, such as the number of PokeStops with lures in the list.*/
+                if (pokeStopsNearPokeStop.Count() > (nextPokeStopList == null ? 0 : nextPokeStopList.Count()))
+                {
+                    nextPokeStopList = pokeStopsNearPokeStop;
+                }
+
+                if (ClientSettings.CatchPokemon)
+                    await ExecuteCatchAllNearbyPokemons(client);
+            }
+            if (nextPokeStopList != null)
+            {
+                client.RecycleItems(client);
+                await ExecuteFarmingPokestopsAndPokemons(client, nextPokeStopList);
             }
         }
 
@@ -556,6 +613,45 @@ namespace PokemonGo.RocketAPI.Window
                             pokemonName = Convert.ToString(dubpokemon.PokemonId);
                         ColoredConsoleWrite(Color.DarkGreen,
                             $"Transferred {pokemonName} with {dubpokemon.Cp} CP (Highest is {dupes.ElementAt(i).Last().value.Cp})");
+
+                    }
+                }
+            }
+        }
+
+        private async Task TransferDuplicateIVPokemon(Client client)
+        {
+
+            //ColoredConsoleWrite(ConsoleColor.White, $"Check for duplicates");
+            var inventory = await client.GetInventory();
+            var allpokemons =
+                inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon)
+                    .Where(p => p != null && p?.PokemonId > 0);
+
+            var dupes = allpokemons.OrderBy(x => Perfect(x)).Select((x, i) => new { index = i, value = x })
+                .GroupBy(x => x.value.PokemonId)
+                .Where(x => x.Skip(1).Any());
+
+            for (var i = 0; i < dupes.Count(); i++)
+            {
+                for (var j = 0; j < dupes.ElementAt(i).Count() - 1; j++)
+                {
+                    var dubpokemon = dupes.ElementAt(i).ElementAt(j).value;
+                    if (dubpokemon.Favorite == 0)
+                    {
+                        var transfer = await client.TransferPokemon(dubpokemon.Id);
+                        string pokemonName;
+                        if (ClientSettings.Language == "german")
+                        {
+                            string name_english = Convert.ToString(dubpokemon.PokemonId);
+                            var request = (HttpWebRequest)WebRequest.Create("http://boosting-service.de/pokemon/index.php?pokeName=" + name_english);
+                            var response = (HttpWebResponse)request.GetResponse();
+                            pokemonName = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                        }
+                        else
+                            pokemonName = Convert.ToString(dubpokemon.PokemonId);
+                        ColoredConsoleWrite(Color.DarkGreen,
+                            $"Transferred {pokemonName} with {Math.Round(Perfect(dubpokemon))}% IV (Highest is {Math.Round(Perfect(dupes.ElementAt(i).Last().value))}% IV)");
 
                     }
                 }
@@ -783,8 +879,6 @@ namespace PokemonGo.RocketAPI.Window
 
         private void showAllToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            var pForm = new PokeUi();
-            pForm.Show();
         }
 
         private void statsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -826,6 +920,25 @@ namespace PokemonGo.RocketAPI.Window
             {
                 ColoredConsoleWrite(Color.Red, "Please start the bot before trying to use a lucky egg.");
             }
+        }
+
+        private void showAllToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void todoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SettingsForm settingsForm = new SettingsForm();
+            settingsForm.Show();
+
+        }
+
+        private void pokemonToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            var pForm = new PokeUi();
+            pForm.Show();
+
         }
     }
 }

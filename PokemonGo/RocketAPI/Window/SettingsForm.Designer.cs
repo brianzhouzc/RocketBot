@@ -50,16 +50,19 @@
             this.evolveAllChk = new System.Windows.Forms.CheckBox();
             this.saveBtn = new System.Windows.Forms.Button();
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.FindAdressButton = new System.Windows.Forms.Button();
+            this.AdressBox = new System.Windows.Forms.TextBox();
             this.trackBar = new System.Windows.Forms.TrackBar();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.buttonFindAddress = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.textBoxAddress = new PokemonGo.RocketAPI.Window.CueTextBox();
+            this.CatchPokemonBox = new System.Windows.Forms.CheckBox();
+            this.CatchPokemonText = new System.Windows.Forms.Label();
+            this.transferIVThresText = new System.Windows.Forms.TextBox();
+            this.TravelSpeedText = new System.Windows.Forms.Label();
+            this.TravelSpeedBox = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
-            this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,19 +71,20 @@
             this.authTypeLabel.AutoSize = true;
             this.authTypeLabel.Location = new System.Drawing.Point(3, 7);
             this.authTypeLabel.Name = "authTypeLabel";
-            this.authTypeLabel.Size = new System.Drawing.Size(59, 13);
+            this.authTypeLabel.Size = new System.Drawing.Size(63, 13);
             this.authTypeLabel.TabIndex = 0;
-            this.authTypeLabel.Text = "Auth Type:";
+            this.authTypeLabel.Text = "Login Type:";
+            this.authTypeLabel.Click += new System.EventHandler(this.authTypeLabel_Click);
             // 
             // authTypeCb
             // 
             this.authTypeCb.FormattingEnabled = true;
             this.authTypeCb.Items.AddRange(new object[] {
-            "Ptc",
-            "Google"});
-            this.authTypeCb.Location = new System.Drawing.Point(104, 4);
+            "google",
+            "Ptc"});
+            this.authTypeCb.Location = new System.Drawing.Point(68, 4);
             this.authTypeCb.Name = "authTypeCb";
-            this.authTypeCb.Size = new System.Drawing.Size(100, 21);
+            this.authTypeCb.Size = new System.Drawing.Size(136, 21);
             this.authTypeCb.TabIndex = 1;
             this.authTypeCb.SelectedIndexChanged += new System.EventHandler(this.authTypeCb_SelectedIndexChanged);
             // 
@@ -89,18 +93,18 @@
             this.ptcUserLabel.AutoSize = true;
             this.ptcUserLabel.Location = new System.Drawing.Point(3, 36);
             this.ptcUserLabel.Name = "ptcUserLabel";
-            this.ptcUserLabel.Size = new System.Drawing.Size(77, 13);
+            this.ptcUserLabel.Size = new System.Drawing.Size(58, 13);
             this.ptcUserLabel.TabIndex = 2;
-            this.ptcUserLabel.Text = "Ptc Username:";
+            this.ptcUserLabel.Text = "Username:";
             // 
             // ptcPasswordLabel
             // 
             this.ptcPasswordLabel.AutoSize = true;
             this.ptcPasswordLabel.Location = new System.Drawing.Point(3, 62);
             this.ptcPasswordLabel.Name = "ptcPasswordLabel";
-            this.ptcPasswordLabel.Size = new System.Drawing.Size(75, 13);
+            this.ptcPasswordLabel.Size = new System.Drawing.Size(56, 13);
             this.ptcPasswordLabel.TabIndex = 3;
-            this.ptcPasswordLabel.Text = "Ptc Password:";
+            this.ptcPasswordLabel.Text = "Password:";
             // 
             // latLabel
             // 
@@ -125,9 +129,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 140);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(86, 13);
+            this.label1.Size = new System.Drawing.Size(87, 13);
             this.label1.TabIndex = 6;
-            this.label1.Text = "Razzberry mode:";
+            this.label1.Text = "Razzberry Mode:";
             // 
             // label2
             // 
@@ -141,20 +145,21 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 250);
+            this.label3.Location = new System.Drawing.Point(3, 321);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(103, 13);
+            this.label3.Size = new System.Drawing.Size(91, 13);
             this.label3.TabIndex = 8;
-            this.label3.Text = "Evolve all pokemon:";
+            this.label3.Text = "Evolve Pokemon:";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 221);
+            this.label4.Location = new System.Drawing.Point(3, 220);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(98, 13);
+            this.label4.Size = new System.Drawing.Size(74, 13);
             this.label4.TabIndex = 9;
-            this.label4.Text = "Trsfr CP Threshold:";
+            this.label4.Text = "CP Threshold:";
             // 
             // label5
             // 
@@ -210,46 +215,51 @@
             // 
             this.razzSettingText.Location = new System.Drawing.Point(104, 164);
             this.razzSettingText.Name = "razzSettingText";
-            this.razzSettingText.Size = new System.Drawing.Size(37, 20);
+            this.razzSettingText.Size = new System.Drawing.Size(100, 20);
             this.razzSettingText.TabIndex = 16;
             // 
             // transferTypeCb
             // 
             this.transferTypeCb.FormattingEnabled = true;
             this.transferTypeCb.Items.AddRange(new object[] {
-            "none",
-            "cp",
-            "leaveStrongest",
-            "duplicate",
-            "all"});
+            "None",
+            "CP",
+            "IV",
+            "Leave Strongest",
+            "Duplicate",
+            "IV Duplicate",
+            "All"});
             this.transferTypeCb.Location = new System.Drawing.Point(104, 190);
             this.transferTypeCb.Name = "transferTypeCb";
             this.transferTypeCb.Size = new System.Drawing.Size(100, 21);
             this.transferTypeCb.TabIndex = 17;
+            this.transferTypeCb.SelectedIndexChanged += new System.EventHandler(this.transferTypeCb_SelectedIndexChanged);
             // 
             // transferCpThresText
             // 
-            this.transferCpThresText.Location = new System.Drawing.Point(104, 218);
+            this.transferCpThresText.Location = new System.Drawing.Point(104, 220);
             this.transferCpThresText.Name = "transferCpThresText";
             this.transferCpThresText.Size = new System.Drawing.Size(100, 20);
             this.transferCpThresText.TabIndex = 18;
+            this.transferCpThresText.TextChanged += new System.EventHandler(this.transferCpThresText_TextChanged);
             // 
             // evolveAllChk
             // 
             this.evolveAllChk.AutoSize = true;
-            this.evolveAllChk.Location = new System.Drawing.Point(104, 250);
+            this.evolveAllChk.Location = new System.Drawing.Point(104, 321);
             this.evolveAllChk.Name = "evolveAllChk";
             this.evolveAllChk.Size = new System.Drawing.Size(15, 14);
             this.evolveAllChk.TabIndex = 19;
             this.evolveAllChk.UseVisualStyleBackColor = true;
+            this.evolveAllChk.CheckedChanged += new System.EventHandler(this.evolveAllChk_CheckedChanged);
             // 
             // saveBtn
             // 
             this.saveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveBtn.Location = new System.Drawing.Point(6, 384);
+            this.saveBtn.Location = new System.Drawing.Point(6, 337);
             this.saveBtn.Name = "saveBtn";
-            this.saveBtn.Size = new System.Drawing.Size(198, 20);
+            this.saveBtn.Size = new System.Drawing.Size(198, 95);
             this.saveBtn.TabIndex = 20;
             this.saveBtn.Text = "Save";
             this.saveBtn.UseVisualStyleBackColor = true;
@@ -260,7 +270,6 @@
             this.gMapControl1.BackColor = System.Drawing.SystemColors.Info;
             this.gMapControl1.Bearing = 0F;
             this.gMapControl1.CanDragMap = true;
-            this.gMapControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gMapControl1.EmptyTileColor = System.Drawing.Color.Navy;
             this.gMapControl1.GrayScaleMode = false;
             this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
@@ -278,30 +287,44 @@
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(468, 362);
+            this.gMapControl1.Size = new System.Drawing.Size(468, 388);
             this.gMapControl1.TabIndex = 22;
             this.gMapControl1.Zoom = 0D;
+            this.gMapControl1.Load += new System.EventHandler(this.gMapControl1_Load);
             this.gMapControl1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.gMapControl1_MouseClick);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(125, 247);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(79, 20);
-            this.textBox1.TabIndex = 23;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.FindAdressButton);
+            this.groupBox1.Controls.Add(this.AdressBox);
             this.groupBox1.Controls.Add(this.trackBar);
             this.groupBox1.Controls.Add(this.gMapControl1);
-            this.groupBox1.Controls.Add(this.panel2);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(221, 9);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(474, 413);
+            this.groupBox1.Size = new System.Drawing.Size(474, 442);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Location";
+            // 
+            // FindAdressButton
+            // 
+            this.FindAdressButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FindAdressButton.Location = new System.Drawing.Point(338, 410);
+            this.FindAdressButton.Name = "FindAdressButton";
+            this.FindAdressButton.Size = new System.Drawing.Size(130, 26);
+            this.FindAdressButton.TabIndex = 25;
+            this.FindAdressButton.Text = "Find Location";
+            this.FindAdressButton.UseVisualStyleBackColor = true;
+            this.FindAdressButton.Click += new System.EventHandler(this.FindAdressButton_Click_1);
+            // 
+            // AdressBox
+            // 
+            this.AdressBox.Location = new System.Drawing.Point(6, 416);
+            this.AdressBox.Name = "AdressBox";
+            this.AdressBox.Size = new System.Drawing.Size(326, 20);
+            this.AdressBox.TabIndex = 25;
             // 
             // trackBar
             // 
@@ -315,33 +338,17 @@
             this.trackBar.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
             this.trackBar.Scroll += new System.EventHandler(this.trackBar_Scroll);
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.buttonFindAddress);
-            this.panel2.Controls.Add(this.textBoxAddress);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(3, 378);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(468, 32);
-            this.panel2.TabIndex = 26;
-            // 
-            // buttonFindAddress
-            // 
-            this.buttonFindAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonFindAddress.Location = new System.Drawing.Point(381, 6);
-            this.buttonFindAddress.Name = "buttonFindAddress";
-            this.buttonFindAddress.Size = new System.Drawing.Size(84, 20);
-            this.buttonFindAddress.TabIndex = 1;
-            this.buttonFindAddress.Text = "Find";
-            this.buttonFindAddress.UseVisualStyleBackColor = true;
-            this.buttonFindAddress.Click += new System.EventHandler(this.buttonFindAddress_Click);
-            // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.CatchPokemonBox);
+            this.panel1.Controls.Add(this.CatchPokemonText);
+            this.panel1.Controls.Add(this.transferIVThresText);
+            this.panel1.Controls.Add(this.TravelSpeedText);
+            this.panel1.Controls.Add(this.TravelSpeedBox);
+            this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.authTypeLabel);
             this.panel1.Controls.Add(this.authTypeCb);
             this.panel1.Controls.Add(this.ptcUserLabel);
-            this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.ptcPasswordLabel);
             this.panel1.Controls.Add(this.saveBtn);
             this.panel1.Controls.Add(this.latLabel);
@@ -363,25 +370,70 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(9, 9);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(212, 413);
+            this.panel1.Size = new System.Drawing.Size(212, 442);
             this.panel1.TabIndex = 26;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
-            // textBoxAddress
+            // CatchPokemonBox
             // 
-            this.textBoxAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxAddress.Cue = "Address or latitude, longitude";
-            this.textBoxAddress.Location = new System.Drawing.Point(3, 6);
-            this.textBoxAddress.Name = "textBoxAddress";
-            this.textBoxAddress.Size = new System.Drawing.Size(372, 20);
-            this.textBoxAddress.TabIndex = 0;
-            this.textBoxAddress.Text = "Union Station, Chicago, IL";
+            this.CatchPokemonBox.AutoSize = true;
+            this.CatchPokemonBox.Location = new System.Drawing.Point(104, 298);
+            this.CatchPokemonBox.Name = "CatchPokemonBox";
+            this.CatchPokemonBox.Size = new System.Drawing.Size(15, 14);
+            this.CatchPokemonBox.TabIndex = 26;
+            this.CatchPokemonBox.UseVisualStyleBackColor = true;
+            this.CatchPokemonBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // CatchPokemonText
+            // 
+            this.CatchPokemonText.AutoSize = true;
+            this.CatchPokemonText.Location = new System.Drawing.Point(3, 298);
+            this.CatchPokemonText.Name = "CatchPokemonText";
+            this.CatchPokemonText.Size = new System.Drawing.Size(86, 13);
+            this.CatchPokemonText.TabIndex = 25;
+            this.CatchPokemonText.Text = "Catch Pokemon:";
+            this.CatchPokemonText.Click += new System.EventHandler(this.label7_Click);
+            // 
+            // transferIVThresText
+            // 
+            this.transferIVThresText.Location = new System.Drawing.Point(104, 246);
+            this.transferIVThresText.Name = "transferIVThresText";
+            this.transferIVThresText.Size = new System.Drawing.Size(100, 20);
+            this.transferIVThresText.TabIndex = 24;
+            this.transferIVThresText.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            // 
+            // TravelSpeedText
+            // 
+            this.TravelSpeedText.AutoSize = true;
+            this.TravelSpeedText.Location = new System.Drawing.Point(3, 275);
+            this.TravelSpeedText.Name = "TravelSpeedText";
+            this.TravelSpeedText.Size = new System.Drawing.Size(102, 13);
+            this.TravelSpeedText.TabIndex = 23;
+            this.TravelSpeedText.Text = "Travel Speed km/h:";
+            // 
+            // TravelSpeedBox
+            // 
+            this.TravelSpeedBox.Location = new System.Drawing.Point(104, 272);
+            this.TravelSpeedBox.Name = "TravelSpeedBox";
+            this.TravelSpeedBox.Size = new System.Drawing.Size(100, 20);
+            this.TravelSpeedBox.TabIndex = 22;
+            this.TravelSpeedBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(3, 246);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(70, 13);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "IV Threshold:";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(704, 431);
+            this.ClientSize = new System.Drawing.Size(704, 460);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -395,8 +447,6 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).EndInit();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -427,12 +477,17 @@
         private System.Windows.Forms.CheckBox evolveAllChk;
         private System.Windows.Forms.Button saveBtn;
         private GMap.NET.WindowsForms.GMapControl gMapControl1;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TrackBar trackBar;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button buttonFindAddress;
         private CueTextBox textBoxAddress;
+        private System.Windows.Forms.TextBox TravelSpeedBox;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label TravelSpeedText;
+        private System.Windows.Forms.TextBox transferIVThresText;
+        private System.Windows.Forms.TextBox AdressBox;
+        private System.Windows.Forms.Button FindAdressButton;
+        private System.Windows.Forms.CheckBox CatchPokemonBox;
+        private System.Windows.Forms.Label CatchPokemonText;
     }
 }
