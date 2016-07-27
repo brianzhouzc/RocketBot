@@ -35,6 +35,9 @@
   <PropertyGroup>
     <ApplicationIcon>pokemonGo.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="GMap.NET.Core">
       <HintPath>lib\GMap.NET.Core.dll</HintPath>

@@ -129,5 +129,52 @@ namespace PokemonGo.RocketAPI.Window
             gMapControl1.SetPositionByKeywords(textBoxAddress.Text);
             gMapControl1.Zoom = 15;
         }
+
+        private void authTypeLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void transferCpThresText_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void transferTypeCb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (transferTypeCb.Text == "CP")
+            {
+                label4.Visible = true;
+                transferCpThresText.Visible = true;
+            }
+            else
+            {
+                label4.Visible = false;
+                transferCpThresText.Visible = false;
+
+            }
+
+            if (transferTypeCb.Text == "IV")
+            {
+                label6.Visible = true;
+                textBox1.Visible = true;
+            }
+            else
+            {
+                label6.Visible = false;
+                textBox1.Visible = false;
+
+            }
+
+        }
     }
 }
