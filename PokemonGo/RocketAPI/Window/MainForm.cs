@@ -31,13 +31,16 @@ namespace PokemonGo.RocketAPI.Window
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-           
+
         }
 
         public static ISettings ClientSettings;
         private static int Currentlevel = -1;
         private static int TotalExperience = 0;
         private static int TotalPokemon = 0;
+        private static bool ForceUnbanning = false;
+        private static bool FarmingStops = false;
+        private static bool FarmingPokemons = false;
         private static DateTime TimeStarted = DateTime.Now;
         public static DateTime InitSessionDateTime = DateTime.Now;
         
@@ -192,7 +195,7 @@ namespace PokemonGo.RocketAPI.Window
                         ColoredConsoleWrite(Color.Green, "Login Type: Google");
                         if (ClientSettings.GoogleRefreshToken == "")
                             ColoredConsoleWrite(Color.Green, "Now opening www.Google.com/device and copying the 8 digit code to your clipboard");
-                        
+
                         await client.DoGoogleLogin();
                         break;
                 }
@@ -269,6 +272,11 @@ namespace PokemonGo.RocketAPI.Window
                 await Task.Delay(5000);
                 PrintLevel(client);
                 await ExecuteFarmingPokestopsAndPokemons(client);
+
+                while (ForceUnbanning)
+                    await Task.Delay(25);
+
+                // await ForceUnban(client);
                 ColoredConsoleWrite(Color.Red, $"No nearby useful locations found. Please wait 10 seconds.");
                 await Task.Delay(10000);
                 CheckVersion();
@@ -327,6 +335,11 @@ namespace PokemonGo.RocketAPI.Window
 
             foreach (var pokemon in pokemons)
             {
+                if (ForceUnbanning)
+                    break;
+
+                FarmingPokemons = true;
+
                 await locationManager.update(pokemon.Latitude, pokemon.Longitude);
                 var encounterPokemonResponse = await client.EncounterPokemon(pokemon.EncounterId, pokemon.SpawnpointId);
                 var pokemonCP = encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp;
@@ -391,6 +404,7 @@ namespace PokemonGo.RocketAPI.Window
                         break;
                 }
 
+                FarmingPokemons = false;
                 await Task.Delay(3000);
             }
         }
@@ -404,9 +418,15 @@ namespace PokemonGo.RocketAPI.Window
             }
             HashSet<FortData> pokeStopSet = new HashSet<FortData>(pokeStops);
             IEnumerable<FortData> nextPokeStopList = null;
-            ColoredConsoleWrite(Color.Cyan, $"Visiting {pokeStops.Count()} PokeStops");
+            if (!ForceUnbanning)
+                ColoredConsoleWrite(Color.Cyan, $"Visiting {pokeStops.Count()} PokeStops");
             foreach (var pokeStop in pokeStops)
             {
+                if (ForceUnbanning)
+                    break;
+
+                FarmingStops = true;
+
                 double pokeStopDistance = locationManager.getDistance(pokeStop.Latitude, pokeStop.Longitude);
                 await locationManager.update(pokeStop.Latitude, pokeStop.Longitude);
                 var fortInfo = await client.GetFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
@@ -428,6 +448,7 @@ namespace PokemonGo.RocketAPI.Window
 
                 if (fortSearch.ExperienceAwarded != 0)
                     TotalExperience += (fortSearch.ExperienceAwarded);
+
                 var pokeStopMapObjects = await client.GetMapObjects();
 
                 /* Gets all pokeStops near this pokeStop which are not in the set of pokeStops being currently
@@ -448,11 +469,73 @@ namespace PokemonGo.RocketAPI.Window
                 if (ClientSettings.CatchPokemon)
                     await ExecuteCatchAllNearbyPokemons(client);
             }
+            FarmingStops = false;
             if (nextPokeStopList != null)
             {
                 client.RecycleItems(client);
                 await ExecuteFarmingPokestopsAndPokemons(client, nextPokeStopList);
             }
+        }
+
+        private async Task ForceUnban(Client client)
+        {
+            if (!ForceUnbanning)
+            {
+                ColoredConsoleWrite(Color.LightGreen, "Waiting for last farming action to be complete...");
+                ForceUnbanning = true;
+
+                while (FarmingStops || FarmingPokemons)
+                {
+                    await Task.Delay(25);
+                }
+                
+                ColoredConsoleWrite(Color.LightGreen, "Starting force unban...");
+
+                var mapObjects = await client.GetMapObjects();
+                var pokeStops = mapObjects.MapCells.SelectMany(i => i.Forts).Where(i => i.Type == FortType.Checkpoint && i.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime());
+
+                await Task.Delay(10000);
+                bool done = false;
+
+                foreach (var pokeStop in pokeStops)
+                {
+
+                    double pokeStopDistance = locationManager.getDistance(pokeStop.Latitude, pokeStop.Longitude);
+                    await locationManager.update(pokeStop.Latitude, pokeStop.Longitude);
+                    var fortInfo = await client.GetFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
+
+                    if (fortInfo.Name != string.Empty)
+                    {
+                        ColoredConsoleWrite(Color.LightGreen, "Chosen PokeStop " + fortInfo.Name + " for force unban");
+                        for (int i = 1; i <= 50; i++)
+                        {
+                            var fortSearch = await client.SearchFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
+                            if (fortSearch.ExperienceAwarded == 0)
+                            {
+                                ColoredConsoleWrite(Color.LightGreen, "Attempt: " + i);
+                            }
+                            else
+                            {
+                                ColoredConsoleWrite(Color.LightGreen, "Fuck yes, you are now unbanned! Total attempts: " + i);
+                                done = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (!done)
+                        ColoredConsoleWrite(Color.LightGreen, "Force unban failed, please try again.");
+                    
+                    ForceUnbanning = false;
+                    break;
+                }
+            }
+            else
+            {
+                ColoredConsoleWrite(Color.Red, "A force unban attempt is in action... Please wait.");
+            }
+
+
         }
 
         private string GetFriendlyItemsString(IEnumerable<FortSearchResponse.Types.ItemAward> items)
@@ -886,7 +969,7 @@ namespace PokemonGo.RocketAPI.Window
             // todo: add player stats later
         }
 
-        private async void useLuckyEggToolStripMenuItem_Click(object sender ,EventArgs e)
+        private async void useLuckyEggToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (client != null)
             {
@@ -900,7 +983,7 @@ namespace PokemonGo.RocketAPI.Window
                         var useItemXpBoostRequest = await client.UseItemXpBoost(ItemId.ItemLuckyEgg);
                         ColoredConsoleWrite(Color.Green, $"Using a Lucky Egg, we have {LuckyEgg.Count} left.");
                         ColoredConsoleWrite(Color.Yellow, $"Lucky Egg Valid until: {DateTime.Now.AddMinutes(30).ToString()}");
-                        
+
                         var stripItem = sender as ToolStripMenuItem;
                         stripItem.Enabled = false;
                         await Task.Delay(30000);
@@ -922,6 +1005,25 @@ namespace PokemonGo.RocketAPI.Window
             }
         }
 
+        private async void forceUnbanToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (client != null)
+            {
+                if (ForceUnbanning)
+                {
+                    ColoredConsoleWrite(Color.Red, "A force unban attempt is in action... Please wait.");
+                }
+                else
+                {
+                    await ForceUnban(client);
+                }
+            }
+            else
+            {
+                ColoredConsoleWrite(Color.Red, "Please start the bot before trying to force unban");
+            }
+        }
+
         private void showAllToolStripMenuItem2_Click(object sender, EventArgs e)
         {
 
@@ -938,6 +1040,7 @@ namespace PokemonGo.RocketAPI.Window
         {
             var pForm = new PokeUi();
             pForm.Show();
+
 
         }
     }
