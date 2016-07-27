@@ -54,9 +54,14 @@
             this.trackBar = new System.Windows.Forms.TrackBar();
             this.panel2 = new System.Windows.Forms.Panel();
             this.buttonFindAddress = new System.Windows.Forms.Button();
+<<<<<<< HEAD
+            this.textBoxAddress = new PokemonGo.RocketAPI.Window.CueTextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+=======
             this.panel1 = new System.Windows.Forms.Panel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+>>>>>>> upstream/master
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.panel2.SuspendLayout();
@@ -218,6 +223,15 @@
             // 
             this.transferTypeCb.FormattingEnabled = true;
             this.transferTypeCb.Items.AddRange(new object[] {
+<<<<<<< HEAD
+            "none",
+            "cp",
+            "iv",
+            "leaveStrongest",
+            "duplicate",
+            "duplicateIV",
+            "all"});
+=======
             "None",
             "CP",
             "IV",
@@ -225,6 +239,7 @@
             "Duplicate",
             "IV Duplicate",
             "All"});
+>>>>>>> upstream/master
             this.transferTypeCb.Location = new System.Drawing.Point(104, 190);
             this.transferTypeCb.Name = "transferTypeCb";
             this.transferTypeCb.Size = new System.Drawing.Size(100, 21);
@@ -333,6 +348,17 @@
             this.buttonFindAddress.UseVisualStyleBackColor = true;
             this.buttonFindAddress.Click += new System.EventHandler(this.buttonFindAddress_Click);
             // 
+            // textBoxAddress
+            // 
+            this.textBoxAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxAddress.Cue = "Address or latitude, longitude";
+            this.textBoxAddress.Location = new System.Drawing.Point(3, 6);
+            this.textBoxAddress.Name = "textBoxAddress";
+            this.textBoxAddress.Size = new System.Drawing.Size(372, 20);
+            this.textBoxAddress.TabIndex = 0;
+            this.textBoxAddress.Text = "Union Station, Chicago, IL";
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.textBox1);
@@ -364,6 +390,8 @@
             this.panel1.Size = new System.Drawing.Size(212, 413);
             this.panel1.TabIndex = 26;
             // 
+<<<<<<< HEAD
+=======
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(104, 217);
@@ -382,6 +410,7 @@
             this.label6.Text = "IV Threshold:";
             this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
+>>>>>>> upstream/master
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
