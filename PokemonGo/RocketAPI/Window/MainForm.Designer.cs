@@ -34,10 +34,8 @@
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.todoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pokemonToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.showAllToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.useLuckyEggToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,8 +75,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.todoToolStripMenuItem,
             this.startBotToolStripMenuItem,
+            this.todoToolStripMenuItem,
             this.pokemonToolStripMenuItem2,
             this.useLuckyEggToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -89,18 +87,10 @@
             // 
             // todoToolStripMenuItem
             // 
-            this.todoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.settingsToolStripMenuItem});
             this.todoToolStripMenuItem.Name = "todoToolStripMenuItem";
-            this.todoToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.todoToolStripMenuItem.Text = "Bot";
-            // 
-            // settingsToolStripMenuItem
-            // 
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
-            this.settingsToolStripMenuItem.Text = "Settings";
-            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            this.todoToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.todoToolStripMenuItem.Text = "Settings";
+            this.todoToolStripMenuItem.Click += new System.EventHandler(this.todoToolStripMenuItem_Click);
             // 
             // startBotToolStripMenuItem
             // 
@@ -111,18 +101,10 @@
             // 
             // pokemonToolStripMenuItem2
             // 
-            this.pokemonToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showAllToolStripMenuItem2});
             this.pokemonToolStripMenuItem2.Name = "pokemonToolStripMenuItem2";
-            this.pokemonToolStripMenuItem2.Size = new System.Drawing.Size(51, 20);
-            this.pokemonToolStripMenuItem2.Text = "Player";
-            // 
-            // showAllToolStripMenuItem2
-            // 
-            this.showAllToolStripMenuItem2.Name = "showAllToolStripMenuItem2";
-            this.showAllToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
-            this.showAllToolStripMenuItem2.Text = "Pokemon";
-            this.showAllToolStripMenuItem2.Click += new System.EventHandler(this.showAllToolStripMenuItem2_Click);
+            this.pokemonToolStripMenuItem2.Size = new System.Drawing.Size(70, 20);
+            this.pokemonToolStripMenuItem2.Text = "Pokemon";
+            this.pokemonToolStripMenuItem2.Click += new System.EventHandler(this.pokemonToolStripMenuItem2_Click);
             // 
             // useLuckyEggToolStripMenuItem
             // 
@@ -171,12 +153,10 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem todoToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
-        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem startBotToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem pokemonToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem useLuckyEggToolStripMenuItem;
     }
 }

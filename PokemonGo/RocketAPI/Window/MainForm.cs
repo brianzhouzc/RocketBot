@@ -924,6 +924,18 @@ namespace PokemonGo.RocketAPI.Window
 
         private void showAllToolStripMenuItem2_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void todoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SettingsForm settingsForm = new SettingsForm();
+            settingsForm.Show();
+
+        }
+
+        private void pokemonToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
             var pForm = new PokeUi();
             pForm.Show();
 
