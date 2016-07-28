@@ -66,7 +66,7 @@ namespace PokemonGo.RocketAPI.Window
 
                 var imageList = new ImageList { ImageSize = new Size(50, 50) };
                 listView1.ShowItemToolTips = true;
-
+		int countpkmn = 1;
                 foreach (var pokemon in pokemons)
                 {
                     Bitmap pokemonImage = null;
@@ -97,9 +97,10 @@ namespace PokemonGo.RocketAPI.Window
 
 
                     this.listView1.Items.Add(listViewItem);
-		    this.Text = "PokeUi " + countpkmn + "/" + profile.Profile.PokeStorage;
+		    
                     countpkmn++;
                 }
+                this.Text = "PokeUi " + countpkmn + "/" + profile.Profile.PokeStorage;
 				EnabledButton(true);
 
 
