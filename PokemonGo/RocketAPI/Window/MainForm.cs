@@ -1033,15 +1033,18 @@ namespace PokemonGo.RocketAPI.Window
         {
             SettingsForm settingsForm = new SettingsForm();
             settingsForm.Show();
-
         }
 
         private void pokemonToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             var pForm = new PokeUi();
             pForm.Show();
+        }
 
-
+        private void mapToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var mForm = new MapForm(ref client);
+            mForm.Show();
         }
     }
 }
