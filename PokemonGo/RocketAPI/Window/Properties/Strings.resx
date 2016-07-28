@@ -120,8 +120,26 @@
   <data name="account" xml:space="preserve">
     <value>Account: {0}</value>
   </data>
+  <data name="area" xml:space="preserve">
+    <value>Area: </value>
+  </data>
+  <data name="argument_null" xml:space="preserve">
+    <value>Argument Null Refference - Restarting</value>
+  </data>
   <data name="check_update_failed" xml:space="preserve">
     <value>Unable to check for updates now...</value>
+  </data>
+  <data name="country" xml:space="preserve">
+    <value>Country: </value>
+  </data>
+  <data name="eggs" xml:space="preserve">
+    <value>, Eggs: {0}</value>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="error_country" xml:space="preserve">
+    <value>Unable to get Country/Place</value>
   </data>
   <data name="evolve_pieces" xml:space="preserve">
     <value>Evolved {0} pieces of {1} for {2}xp</value>
@@ -129,11 +147,17 @@
   <data name="evolve_success" xml:space="preserve">
     <value>Evolved {0} successfully for {1}xp</value>
   </data>
+  <data name="gems" xml:space="preserve">
+    <value>, Gems: {0}</value>
+  </data>
   <data name="github_link" xml:space="preserve">
     <value>You can find it at www.github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API</value>
   </data>
   <data name="github_version" xml:space="preserve">
     <value>Github version is </value>
+  </data>
+  <data name="items" xml:space="preserve">
+    <value>, Items: {0}</value>
   </data>
   <data name="latitude" xml:space="preserve">
     <value>Latitude: {0}</value>
@@ -150,8 +174,17 @@
   <data name="name" xml:space="preserve">
     <value>Name: {0}</value>
   </data>
+  <data name="no_location" xml:space="preserve">
+    <value>No nearby useful locations found. Please wait 10 seconds.</value>
+  </data>
+  <data name="null_reference" xml:space="preserve">
+    <value>Null Refference - Restarting</value>
+  </data>
   <data name="opening_Google" xml:space="preserve">
     <value>Now opening www.google.com/device and copying the 8 digit code to your clipboard</value>
+  </data>
+  <data name="out_of_range" xml:space="preserve">
+    <value>ArgumentOutOfRangeException - Restarting</value>
   </data>
   <data name="password" xml:space="preserve">
     <value>Password: {0}</value>
@@ -159,11 +192,35 @@
   <data name="pokecoin" xml:space="preserve">
     <value>Pokecoins: {0}</value>
   </data>
+  <data name="pokemon_caught" xml:space="preserve">
+    <value>We caught a {0} with {1} CP and {2}% IV"</value>
+  </data>
+  <data name="pokemon_got_away" xml:space="preserve">
+    <value>{0} with {1} CP and {2}% IV got away...</value>
+  </data>
+  <data name="pokestop" xml:space="preserve">
+    <value>PokeStop: </value>
+  </data>
   <data name="stardust" xml:space="preserve">
     <value>Stardust: {0}</value>
   </data>
+  <data name="task_canceled" xml:space="preserve">
+    <value>Task Canceled Exception - Restarting</value>
+  </data>
   <data name="team" xml:space="preserve">
     <value>Team: {0}</value>
+  </data>
+  <data name="transfering_disabled" xml:space="preserve">
+    <value>Transfering pokemon disabled</value>
+  </data>
+  <data name="uri_exception" xml:space="preserve">
+    <value>System URI Format Exception - Restarting</value>
+  </data>
+  <data name="visiting_pokestops" xml:space="preserve">
+    <value>Visiting {0} PokeStops</value>
+  </data>
+  <data name="xp" xml:space="preserve">
+    <value>, XP: {0}</value>
   </data>
   <data name="your_version" xml:space="preserve">
     <value>Your version is </value>

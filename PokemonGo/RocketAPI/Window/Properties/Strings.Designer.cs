@@ -70,11 +70,65 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Area: .
+        /// </summary>
+        internal static string area {
+            get {
+                return ResourceManager.GetString("area", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Argument Null Refference - Restarting.
+        /// </summary>
+        internal static string argument_null {
+            get {
+                return ResourceManager.GetString("argument_null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Unable to check for updates now....
         /// </summary>
         internal static string check_update_failed {
             get {
                 return ResourceManager.GetString("check_update_failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Country: .
+        /// </summary>
+        internal static string country {
+            get {
+                return ResourceManager.GetString("country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à , Eggs: {0}.
+        /// </summary>
+        internal static string eggs {
+            get {
+                return ResourceManager.GetString("eggs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Error.
+        /// </summary>
+        internal static string error {
+            get {
+                return ResourceManager.GetString("error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Unable to get Country/Place.
+        /// </summary>
+        internal static string error_country {
+            get {
+                return ResourceManager.GetString("error_country", resourceCulture);
             }
         }
         
@@ -97,6 +151,15 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à , Gems: {0}.
+        /// </summary>
+        internal static string gems {
+            get {
+                return ResourceManager.GetString("gems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à You can find it at www.github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API.
         /// </summary>
         internal static string github_link {
@@ -111,6 +174,15 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         internal static string github_version {
             get {
                 return ResourceManager.GetString("github_version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à , Items: {0}.
+        /// </summary>
+        internal static string items {
+            get {
+                return ResourceManager.GetString("items", resourceCulture);
             }
         }
         
@@ -160,11 +232,38 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à No nearby useful locations found. Please wait 10 seconds..
+        /// </summary>
+        internal static string no_location {
+            get {
+                return ResourceManager.GetString("no_location", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Null Refference - Restarting.
+        /// </summary>
+        internal static string null_reference {
+            get {
+                return ResourceManager.GetString("null_reference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Now opening www.google.com/device and copying the 8 digit code to your clipboard.
         /// </summary>
         internal static string opening_Google {
             get {
                 return ResourceManager.GetString("opening_Google", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à ArgumentOutOfRangeException - Restarting.
+        /// </summary>
+        internal static string out_of_range {
+            get {
+                return ResourceManager.GetString("out_of_range", resourceCulture);
             }
         }
         
@@ -187,6 +286,33 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à We caught a {0} with {1} CP and {2}% IV&quot;.
+        /// </summary>
+        internal static string pokemon_caught {
+            get {
+                return ResourceManager.GetString("pokemon_caught", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à {0} with {1} CP and {2}% IV got away....
+        /// </summary>
+        internal static string pokemon_got_away {
+            get {
+                return ResourceManager.GetString("pokemon_got_away", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à PokeStop: .
+        /// </summary>
+        internal static string pokestop {
+            get {
+                return ResourceManager.GetString("pokestop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Stardust: {0}.
         /// </summary>
         internal static string stardust {
@@ -196,11 +322,56 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Task Canceled Exception - Restarting.
+        /// </summary>
+        internal static string task_canceled {
+            get {
+                return ResourceManager.GetString("task_canceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Team: {0}.
         /// </summary>
         internal static string team {
             get {
                 return ResourceManager.GetString("team", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Transfering pokemon disabled.
+        /// </summary>
+        internal static string transfering_disabled {
+            get {
+                return ResourceManager.GetString("transfering_disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à System URI Format Exception - Restarting.
+        /// </summary>
+        internal static string uri_exception {
+            get {
+                return ResourceManager.GetString("uri_exception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Visiting {0} PokeStops.
+        /// </summary>
+        internal static string visiting_pokestops {
+            get {
+                return ResourceManager.GetString("visiting_pokestops", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à , XP: {0}.
+        /// </summary>
+        internal static string xp {
+            get {
+                return ResourceManager.GetString("xp", resourceCulture);
             }
         }
         
