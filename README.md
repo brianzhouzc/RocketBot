@@ -9,7 +9,7 @@
 ![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/screenshot.png)
 
 
-A Pokemon Go bot in C#
+A Pokémon Go bot in C#
 
 ## Features
 * PTC / Google Login
@@ -21,8 +21,8 @@ A Pokemon Go bot in C#
 * Transfer Pokémon
 * Auto-Recycle uneeded items
 * Output level and needed XP for levelup
-* Output Username, Level, Stardust, XP/hour, Pokemon/hour in Console Title
-* German/English pokemon names
+* Output Username, Level, Stardust, XP/hour, Pokémon/hour in Console Title
+* German/English Pokémon names
 * Automatic use of Razzberries
 * Automatic Update checker
 * Logs everything into Logs.txt
@@ -57,33 +57,33 @@ Go to PokemonGo\RocketAPI\Console\App.config -> Edit the Settings you like -> Bu
 * *seconds* - After X seconds it will print the current level and experience needed for levelup when using *time* mode.
 
 ## Recycler
-* *false* Recycler not active.
-* *true* Recycler active.
+* *false* - Recycler not active.
+* *true* - Recycler active.
 
 ## RecycleItemsInterval
-* *seconds* After X seconds it recycles items from the filter in *Settings.cs*.
+* *seconds* - After X seconds it recycles items from the filter in *Settings.cs*.
 
 ## Language
-* *english* Outputs caught Pokémon in english name.
-* *german*  Outputs caught Pokémon in german name.
+* *english* - Outputs caught Pokémon in english name.
+* *german*  - Outputs caught Pokémon in german name.
 
 ## RazzBerryMode
-* *cp* - Use RazzBerry when Pokemon is over specific CP.
-* *probability* - Use RazzBerry when Pokemon catch chance is under a specific percentage.
+* *cp* - Use RazzBerry when Pokémon is over specific CP.
+* *probability* - Use RazzBerry when Pokémon catch chance is under a specific percentage.
 
 ## RazzBerrySetting
-* *value* CP: Use RazzBerry when Pokemon is over this value | Probability Mode: Use Razzberry when % of catching is under this value
+* *value* - CP: Use RazzBerry when Pokémon is over this value | Probability Mode: Use Razzberry when % of catching is under this value
 
 ## TransferType
 * *none* - disables transferring
-* *cp* - transfers all pokemon below the CP threshold in the app.config, EXCEPT for those types specified in program.cs in TransferAllWeakPokemon
-* *leaveStrongest* - transfers all but the highest CP pokemon of each type SPECIFIED IN program.cs in TransferAllButStrongestUnwantedPokemon (those that aren't specified are untouched)
-* *duplicate* - same as above but for all pokemon (no need to specify type), (will not transfer favorited pokemon)
-* *all* - transfers all pokemon
+* *cp* - transfers all Pokémon below the CP threshold in the app.config, EXCEPT for those types specified in program.cs in TransferAllWeakPokemon
+* *leaveStrongest* - transfers all but the highest CP Pokémon of each type SPECIFIED IN program.cs in TransferAllButStrongestUnwantedPokemon (those that aren't specified are untouched)
+* *duplicate* - same as above but for all Pokémon (no need to specify type), (will not transfer favorited Pokémon)
+* *all* - transfers all Pokémon
 
 ## TransferCPThreshold
-* *CP* transfers all Pokémon with less CP than this value.
+* *CP* - transfers all Pokémon with less CP than this value.
 
 ## EvolveAllGivenPokemons
-* *false* Evolves no Pokémon.
-* *true* Evolves all Pokémon.
+* *false* - Evolves no Pokémon.
+* *true* - Evolves all Pokémon.
