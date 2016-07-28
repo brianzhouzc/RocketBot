@@ -49,6 +49,7 @@ namespace PokemonGo.RocketAPI.Window
                 }
                 //
                 await client.SetServer();
+                var profile = await client.GetProfile();
                 var inventory = await client.GetInventory();
                 var pokemons =
                     inventory.InventoryDelta.InventoryItems
@@ -96,8 +97,8 @@ namespace PokemonGo.RocketAPI.Window
 
 
                     this.listView1.Items.Add(listViewItem);
-
-
+		    this.Text = "PokeUi " + countpkmn + "/" + profile.Profile.PokeStorage;
+                    countpkmn++;
                 }
 				EnabledButton(true);
 
