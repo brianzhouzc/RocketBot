@@ -176,8 +176,8 @@ namespace PokemonGo.RocketAPI.Console
                 }
                 else
                 {
-                    ColoredConsoleWrite(Color.Cyan, "Email: " + ClientSettings.Email);
-                    ColoredConsoleWrite(Color.Cyan, "Password: " + ClientSettings.Password + "\n");
+                    ColoredConsoleWrite(ConsoleColor.Cyan, "Email: " + ClientSettings.Email);
+                    ColoredConsoleWrite(ConsoleColor.Cyan, "Password: " + ClientSettings.Password + "\n");
                 }
                 ColoredConsoleWrite(ConsoleColor.DarkGray, "Name: " + profile.Profile.Username);
                 ColoredConsoleWrite(ConsoleColor.DarkGray, "Team: " + profile.Profile.Team);
