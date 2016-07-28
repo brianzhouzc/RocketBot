@@ -117,7 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="account" xml:space="preserve">
+    <value>Compte : {0}</value>
+  </data>
+  <data name="check_update_failed" xml:space="preserve">
+    <value>Impossible de vérifier les mises à jour...</value>
+  </data>
+  <data name="evolve_pieces" xml:space="preserve">
+    <value>Evolved {0} pieces of {1} for {2}xp</value>
+  </data>
+  <data name="evolve_success" xml:space="preserve">
+    <value>{0} a bien évolué pour {1}xp</value>
+  </data>
+  <data name="github_link" xml:space="preserve">
+    <value>Vous pouver trouver la dernière version sur www.github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API</value>
+  </data>
+  <data name="github_version" xml:space="preserve">
+    <value>La version de GitHub est la </value>
+  </data>
+  <data name="latitude" xml:space="preserve">
+    <value>Latitude: {0}</value>
+  </data>
+  <data name="login_type_Google" xml:space="preserve">
+    <value>Type de login : Google</value>
+  </data>
+  <data name="login_type_PTC" xml:space="preserve">
+    <value>Type de login : Pokemon Trainers Club</value>
+  </data>
+  <data name="longitude" xml:space="preserve">
+    <value>Longitude: {0}</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Nom : {0}</value>
+  </data>
+  <data name="opening_Google" xml:space="preserve">
+    <value>Overture de www.google.com/device et copie du code à 8 caractères dans votre presse-papier</value>
+  </data>
+  <data name="password" xml:space="preserve">
+    <value>Mot de passe : {0}</value>
+  </data>
+  <data name="pokecoin" xml:space="preserve">
+    <value>Pokecoins : {0}</value>
+  </data>
+  <data name="stardust" xml:space="preserve">
+    <value>Poussières étoile : {0}</value>
+  </data>
+  <data name="team" xml:space="preserve">
+    <value>Équipe : {0}</value>
+  </data>
   <data name="your_version" xml:space="preserve">
-    <value>xxx</value>
+    <value>Votre version est la </value>
   </data>
 </root>

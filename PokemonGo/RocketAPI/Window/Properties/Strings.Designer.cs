@@ -205,7 +205,7 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Your version is 3.
+        ///   Recherche une chaîne localisée semblable à Your version is .
         /// </summary>
         internal static string your_version {
             get {

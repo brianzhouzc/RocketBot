@@ -166,6 +166,6 @@
     <value>Team: {0}</value>
   </data>
   <data name="your_version" xml:space="preserve">
-    <value>Your version is 3</value>
+    <value>Your version is </value>
   </data>
 </root>
