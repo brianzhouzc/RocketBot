@@ -30,8 +30,11 @@ A Pokémon Go bot in C#
 * Logs everything into Logs.txt
 
 ## Getting Started
-
-Go to PokemonGo\RocketAPI\Console\App.config -> Edit the Settings you like -> Build and Run (CTRL+F5)
+1- Use Visual Studio(Download from https://www.visualstudio.com).
+2- Open Pokemon Go Rocket API.sln
+3- Go to PokemonGo\RocketAPI\Console\App.config -> Edit the Settings you like
+4- Build and Run (CTRL+F5)
+5- Click start bot menu option
 
 # Settings
 ## AuthType
