@@ -32,11 +32,9 @@ namespace PokemonGo.RocketAPI.Window
 
         private async void Execute()
         {
-            button1.Enabled = false;
-            button2.Enabled = false;
-            button3.Enabled = false;
+			EnabledButton(false);
 
-            client = new Client(ClientSettings);
+			client = new Client(ClientSettings);
 
             try
             {
@@ -101,11 +99,10 @@ namespace PokemonGo.RocketAPI.Window
 
 
                 }
-                button1.Enabled = true;
-                button2.Enabled = true;
-                button3.Enabled = true;
+				EnabledButton(true);
 
-            }
+
+			}
             catch (TaskCanceledException) { Execute(); }
             catch (UriFormatException) { Execute(); }
             catch (ArgumentOutOfRangeException) { Execute(); }
@@ -114,6 +111,13 @@ namespace PokemonGo.RocketAPI.Window
             catch (Exception ex) { Execute(); }
         }
 
+		private void EnabledButton(bool enabled)
+		{
+			button1.Enabled = enabled;
+			button2.Enabled = enabled;
+			button3.Enabled = enabled;
+			btnUpgrade.Enabled = enabled;
+		}
 
         private static Bitmap GetPokemonImage(int pokemonId)
         {
@@ -257,5 +261,49 @@ namespace PokemonGo.RocketAPI.Window
             catch (NullReferenceException) { await transferPokemon(pokemon); }
             catch (Exception ex) { await transferPokemon(pokemon); }
         }
-    }
+
+		private async void btnUpgrade_Click(object sender, EventArgs e)
+		{
+			var selectedItems = listView1.SelectedItems;
+
+			foreach (ListViewItem selectedItem in selectedItems)
+			{
+				await PowerUp((PokemonData)selectedItem.Tag);
+			}
+
+			listView1.Clear();
+			Execute();
+		}
+
+		private static async Task PowerUp(PokemonData pokemon)
+		{
+			try
+			{
+				var evolvePokemonResponse = await client.PowerUp(pokemon.Id);
+				string message = "";
+				string caption = "";
+				MessageBoxButtons buttons = MessageBoxButtons.OK;
+				DialogResult result;
+
+				if (evolvePokemonResponse.Result == 1)
+				{
+					message = $"{pokemon.PokemonId} successfully upgraded.";
+					caption = $"{pokemon.PokemonId} upgraded";
+				}
+				else
+				{
+					message = $"{pokemon.PokemonId} could not be upgraded";
+					caption = $"Upgrade {pokemon.PokemonId} failed";
+				}
+
+				result = MessageBox.Show(message, caption, buttons, MessageBoxIcon.Information);
+			}
+			catch (TaskCanceledException) { await PowerUp(pokemon); }
+			catch (UriFormatException) { await PowerUp(pokemon); }
+			catch (ArgumentOutOfRangeException) { await PowerUp(pokemon); }
+			catch (ArgumentNullException) { await PowerUp(pokemon); }
+			catch (NullReferenceException) { await PowerUp(pokemon); }
+			catch (Exception ex) { await PowerUp(pokemon); }
+		}
+	}
 }
