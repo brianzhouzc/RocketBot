@@ -33,13 +33,15 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.todoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.todoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pokemonToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.useLuckyEggToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.forceUnbanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.teleportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -80,31 +82,31 @@
             this.todoToolStripMenuItem,
             this.pokemonToolStripMenuItem2,
             this.useLuckyEggToolStripMenuItem,
-            this.forceUnbanToolStripMenuItem});
+            this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(905, 25);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // todoToolStripMenuItem
-            // 
-            this.todoToolStripMenuItem.Name = "todoToolStripMenuItem";
-            this.todoToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.todoToolStripMenuItem.Text = "Settings";
-            this.todoToolStripMenuItem.Click += new System.EventHandler(this.todoToolStripMenuItem_Click);
-            // 
             // startBotToolStripMenuItem
             // 
             this.startBotToolStripMenuItem.Name = "startBotToolStripMenuItem";
-            this.startBotToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            this.startBotToolStripMenuItem.Size = new System.Drawing.Size(71, 21);
             this.startBotToolStripMenuItem.Text = "Start Bot";
             this.startBotToolStripMenuItem.Click += new System.EventHandler(this.startBotToolStripMenuItem_Click);
+            // 
+            // todoToolStripMenuItem
+            // 
+            this.todoToolStripMenuItem.Name = "todoToolStripMenuItem";
+            this.todoToolStripMenuItem.Size = new System.Drawing.Size(66, 21);
+            this.todoToolStripMenuItem.Text = "Settings";
+            this.todoToolStripMenuItem.Click += new System.EventHandler(this.todoToolStripMenuItem_Click);
             // 
             // pokemonToolStripMenuItem2
             // 
             this.pokemonToolStripMenuItem2.Name = "pokemonToolStripMenuItem2";
-            this.pokemonToolStripMenuItem2.Size = new System.Drawing.Size(70, 20);
+            this.pokemonToolStripMenuItem2.Size = new System.Drawing.Size(75, 21);
             this.pokemonToolStripMenuItem2.Text = "Pokemon";
             this.pokemonToolStripMenuItem2.Click += new System.EventHandler(this.pokemonToolStripMenuItem2_Click);
             // 
@@ -114,6 +116,15 @@
             this.useLuckyEggToolStripMenuItem.Size = new System.Drawing.Size(105, 21);
             this.useLuckyEggToolStripMenuItem.Text = "Use Lucky Egg";
             this.useLuckyEggToolStripMenuItem.Click += new System.EventHandler(this.useLuckyEggToolStripMenuItem_Click);
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.forceUnbanToolStripMenuItem,
+            this.teleportToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(94, 21);
+            this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // showAllToolStripMenuItem
             // 
@@ -128,9 +139,15 @@
             // forceUnbanToolStripMenuItem
             // 
             this.forceUnbanToolStripMenuItem.Name = "forceUnbanToolStripMenuItem";
-            this.forceUnbanToolStripMenuItem.Size = new System.Drawing.Size(94, 21);
+            this.forceUnbanToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.forceUnbanToolStripMenuItem.Text = "Force Unban";
             this.forceUnbanToolStripMenuItem.Click += new System.EventHandler(this.forceUnbanToolStripMenuItem_Click);
+            // 
+            // teleportToolStripMenuItem
+            // 
+            this.teleportToolStripMenuItem.Name = "teleportToolStripMenuItem";
+            this.teleportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.teleportToolStripMenuItem.Text = "Teleport";
             // 
             // MainForm
             // 
@@ -167,7 +184,9 @@
         private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem pokemonToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem useLuckyEggToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem forceUnbanToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem teleportToolStripMenuItem;
     }
 }
 
