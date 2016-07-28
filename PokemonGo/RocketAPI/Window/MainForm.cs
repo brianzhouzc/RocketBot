@@ -18,6 +18,8 @@ using PokemonGo.RocketAPI.Enums;
 using PokemonGo.RocketAPI.Exceptions;
 using PokemonGo.RocketAPI.Extensions;
 using PokemonGo.RocketAPI.GeneratedCode;
+using System.Resources;
+using System.Threading;
 
 namespace PokemonGo.RocketAPI.Window
 {
@@ -25,13 +27,19 @@ namespace PokemonGo.RocketAPI.Window
     {
         public MainForm()
         {
+            
             InitializeComponent();
             ClientSettings = Settings.Instance;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            //CultureInfo.DefaultThreadCurrentCulture = FrenchCulture;
+            //RM = new ResourceManager("PokemonGo.RocketAPI.Window.MainForm", typeof(MainForm).Assembly);
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.GetCultureInfo("fr-FR");
+            MessageBox.Show(CultureInfo.CurrentCulture.Name);
+            MessageBox.Show(Properties.Strings.your_version);
+            int a = 1;
         }
 
         public static ISettings ClientSettings;
@@ -43,7 +51,10 @@ namespace PokemonGo.RocketAPI.Window
         private static bool FarmingPokemons = false;
         private static DateTime TimeStarted = DateTime.Now;
         public static DateTime InitSessionDateTime = DateTime.Now;
-        
+        private static ResourceManager RM;
+        private static CultureInfo EnglishCulture = new CultureInfo("en-US");
+        private static CultureInfo FrenchCulture = new CultureInfo("fr-FR");
+
 
         Client client;
         LocationManager locationManager;
@@ -54,6 +65,7 @@ namespace PokemonGo.RocketAPI.Window
 
         public void CheckVersion()
         {
+            
             try
             {
                 var match =
@@ -71,13 +83,13 @@ namespace PokemonGo.RocketAPI.Window
                             match.Groups[3],
                             match.Groups[4]));
                 // makes sense to display your version and say what the current one is on github
-                ColoredConsoleWrite(Color.Green, "Your version is " + Assembly.GetExecutingAssembly().GetName().Version);
-                ColoredConsoleWrite(Color.Green, "Github version is " + gitVersion);
-                ColoredConsoleWrite(Color.Green, "You can find it at www.GitHub.com/DetectiveSquirrel/Pokemon-Go-Rocket-API");
+                ColoredConsoleWrite(Color.Green, RM.GetString("your_version") + Assembly.GetExecutingAssembly().GetName().Version);
+                ColoredConsoleWrite(Color.Green, RM.GetString("github_version") + gitVersion);
+                ColoredConsoleWrite(Color.Green, RM.GetString("github_link"));
             }
             catch (Exception)
             {
-                ColoredConsoleWrite(Color.Red, "Unable to check for updates now...");
+                ColoredConsoleWrite(Color.Red, RM.GetString("check_update_failed"));
             }
         }
 
@@ -155,7 +167,7 @@ namespace PokemonGo.RocketAPI.Window
                     if (evolvePokemonOutProto.Result == 1)
                     {
                         ColoredConsoleWrite(Color.Cyan,
-                            $"Evolved {pokemon.PokemonId} successfully for {evolvePokemonOutProto.ExpAwarded}xp");
+                            string.Format(RM.GetString("evolve_success"), pokemon.PokemonId, evolvePokemonOutProto.ExpAwarded));
 
                         countOfEvolvedUnits++;
                         xpCount += evolvePokemonOutProto.ExpAwarded;
@@ -173,7 +185,7 @@ namespace PokemonGo.RocketAPI.Window
                 } while (evolvePokemonOutProto.Result == 1);
                 if (countOfEvolvedUnits > 0)
                     ColoredConsoleWrite(Color.Cyan,
-                        $"Evolved {countOfEvolvedUnits} pieces of {pokemon.PokemonId} for {xpCount}xp");
+                       string.Format(RM.GetString("evolve_pieces"), countOfEvolvedUnits, pokemon.PokemonId, xpCount));
 
                 await Task.Delay(3000);
             }
@@ -188,13 +200,13 @@ namespace PokemonGo.RocketAPI.Window
                 switch (ClientSettings.AuthType)
                 {
                     case AuthType.Ptc:
-                        ColoredConsoleWrite(Color.Green, "Login Type: Pokemon Trainers Club");
+                        ColoredConsoleWrite(Color.Green, RM.GetString("login_type_PTC"));
                         await client.DoPtcLogin(ClientSettings.PtcUsername, ClientSettings.PtcPassword);
                         break;
                     case AuthType.Google:
-                        ColoredConsoleWrite(Color.Green, "Login Type: Google");
+                        ColoredConsoleWrite(Color.Green, RM.GetString("login_type_Google"));
                         if (ClientSettings.GoogleRefreshToken == "")
-                            ColoredConsoleWrite(Color.Green, "Now opening www.Google.com/device and copying the 8 digit code to your clipboard");
+                            ColoredConsoleWrite(Color.Green, RM.GetString("opening_Google"));
 
                         await client.DoGoogleLogin();
                         break;
@@ -215,16 +227,16 @@ namespace PokemonGo.RocketAPI.Window
                 ColoredConsoleWrite(Color.Yellow, "----------------------------");
                 if (ClientSettings.AuthType == AuthType.Ptc)
                 {
-                    ColoredConsoleWrite(Color.Cyan, "Account: " + ClientSettings.PtcUsername);
-                    ColoredConsoleWrite(Color.Cyan, "Password: " + ClientSettings.PtcPassword + "\n");
+                    ColoredConsoleWrite(Color.Cyan, string.Format(RM.GetString("account"), ClientSettings.PtcUsername));
+                    ColoredConsoleWrite(Color.Cyan, string.Format(RM.GetString("password"), ClientSettings.PtcPassword));
                 }
-                ColoredConsoleWrite(Color.DarkGray, "Name: " + profile.Profile.Username);
-                ColoredConsoleWrite(Color.DarkGray, "Team: " + profile.Profile.Team);
+                ColoredConsoleWrite(Color.DarkGray, string.Format(RM.GetString("name"), profile.Profile.Username));
+                ColoredConsoleWrite(Color.DarkGray, string.Format(RM.GetString("team"), profile.Profile.Team));
                 if (profile.Profile.Currency.ToArray()[0].Amount > 0) // If player has any pokecoins it will show how many they have.
-                    ColoredConsoleWrite(Color.DarkGray, "Pokecoins: " + profile.Profile.Currency.ToArray()[0].Amount);
-                ColoredConsoleWrite(Color.DarkGray, "Stardust: " + profile.Profile.Currency.ToArray()[1].Amount + "\n");
-                ColoredConsoleWrite(Color.DarkGray, "Latitude: " + ClientSettings.DefaultLatitude);
-                ColoredConsoleWrite(Color.DarkGray, "Longitude: " + ClientSettings.DefaultLongitude);
+                    ColoredConsoleWrite(Color.DarkGray, string.Format(RM.GetString("pokecoin"), profile.Profile.Currency.ToArray()[0].Amount));
+                ColoredConsoleWrite(Color.DarkGray, string.Format(RM.GetString("stardust"), profile.Profile.Currency.ToArray()[1].Amount));
+                ColoredConsoleWrite(Color.DarkGray, string.Format(RM.GetString("latitude"), ClientSettings.DefaultLatitude));
+                ColoredConsoleWrite(Color.DarkGray, string.Format(RM.GetString("longitude"), ClientSettings.DefaultLongitude));
                 try
                 {
                     ColoredConsoleWrite(Color.DarkGray, "Country: " + CallAPI("country", ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude));

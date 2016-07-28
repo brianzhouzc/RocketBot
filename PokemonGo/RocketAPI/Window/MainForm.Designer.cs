@@ -33,118 +33,98 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.todoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.todoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pokemonToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.useLuckyEggToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.forceUnbanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.forceUnbanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // logTextBox
             // 
+            resources.ApplyResources(this.logTextBox, "logTextBox");
             this.logTextBox.BackColor = System.Drawing.Color.Black;
-            this.logTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.logTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.logTextBox.ForeColor = System.Drawing.Color.White;
-            this.logTextBox.Location = new System.Drawing.Point(0, 25);
             this.logTextBox.Name = "logTextBox";
-            this.logTextBox.Size = new System.Drawing.Size(905, 430);
-            this.logTextBox.TabIndex = 0;
-            this.logTextBox.Text = "";
             this.logTextBox.TextChanged += new System.EventHandler(this.logTextBox_TextChanged);
             // 
             // statusStrip1
             // 
+            resources.ApplyResources(this.statusStrip1, "statusStrip1");
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 455);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(905, 22);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
             // 
             // statusLabel
             // 
+            resources.ApplyResources(this.statusLabel, "statusLabel");
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(43, 17);
-            this.statusLabel.Text = "Status";
             // 
             // menuStrip1
             // 
+            resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startBotToolStripMenuItem,
             this.todoToolStripMenuItem,
             this.pokemonToolStripMenuItem2,
             this.useLuckyEggToolStripMenuItem,
             this.forceUnbanToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(905, 25);
-            this.menuStrip1.TabIndex = 2;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // todoToolStripMenuItem
-            // 
-            this.todoToolStripMenuItem.Name = "todoToolStripMenuItem";
-            this.todoToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.todoToolStripMenuItem.Text = "Settings";
-            this.todoToolStripMenuItem.Click += new System.EventHandler(this.todoToolStripMenuItem_Click);
             // 
             // startBotToolStripMenuItem
             // 
+            resources.ApplyResources(this.startBotToolStripMenuItem, "startBotToolStripMenuItem");
             this.startBotToolStripMenuItem.Name = "startBotToolStripMenuItem";
-            this.startBotToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
-            this.startBotToolStripMenuItem.Text = "Start Bot";
             this.startBotToolStripMenuItem.Click += new System.EventHandler(this.startBotToolStripMenuItem_Click);
+            // 
+            // todoToolStripMenuItem
+            // 
+            resources.ApplyResources(this.todoToolStripMenuItem, "todoToolStripMenuItem");
+            this.todoToolStripMenuItem.Name = "todoToolStripMenuItem";
+            this.todoToolStripMenuItem.Click += new System.EventHandler(this.todoToolStripMenuItem_Click);
             // 
             // pokemonToolStripMenuItem2
             // 
+            resources.ApplyResources(this.pokemonToolStripMenuItem2, "pokemonToolStripMenuItem2");
             this.pokemonToolStripMenuItem2.Name = "pokemonToolStripMenuItem2";
-            this.pokemonToolStripMenuItem2.Size = new System.Drawing.Size(70, 20);
-            this.pokemonToolStripMenuItem2.Text = "Pokemon";
             this.pokemonToolStripMenuItem2.Click += new System.EventHandler(this.pokemonToolStripMenuItem2_Click);
             // 
             // useLuckyEggToolStripMenuItem
             // 
+            resources.ApplyResources(this.useLuckyEggToolStripMenuItem, "useLuckyEggToolStripMenuItem");
             this.useLuckyEggToolStripMenuItem.Name = "useLuckyEggToolStripMenuItem";
-            this.useLuckyEggToolStripMenuItem.Size = new System.Drawing.Size(105, 21);
-            this.useLuckyEggToolStripMenuItem.Text = "Use Lucky Egg";
             this.useLuckyEggToolStripMenuItem.Click += new System.EventHandler(this.useLuckyEggToolStripMenuItem_Click);
-            // 
-            // showAllToolStripMenuItem
-            // 
-            this.showAllToolStripMenuItem.Name = "showAllToolStripMenuItem";
-            this.showAllToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
-            // 
-            // showAllToolStripMenuItem1
-            // 
-            this.showAllToolStripMenuItem1.Name = "showAllToolStripMenuItem1";
-            this.showAllToolStripMenuItem1.Size = new System.Drawing.Size(32, 19);
             // 
             // forceUnbanToolStripMenuItem
             // 
+            resources.ApplyResources(this.forceUnbanToolStripMenuItem, "forceUnbanToolStripMenuItem");
             this.forceUnbanToolStripMenuItem.Name = "forceUnbanToolStripMenuItem";
-            this.forceUnbanToolStripMenuItem.Size = new System.Drawing.Size(94, 21);
-            this.forceUnbanToolStripMenuItem.Text = "Force Unban";
             this.forceUnbanToolStripMenuItem.Click += new System.EventHandler(this.forceUnbanToolStripMenuItem_Click);
+            // 
+            // showAllToolStripMenuItem
+            // 
+            resources.ApplyResources(this.showAllToolStripMenuItem, "showAllToolStripMenuItem");
+            this.showAllToolStripMenuItem.Name = "showAllToolStripMenuItem";
+            // 
+            // showAllToolStripMenuItem1
+            // 
+            resources.ApplyResources(this.showAllToolStripMenuItem1, "showAllToolStripMenuItem1");
+            this.showAllToolStripMenuItem1.Name = "showAllToolStripMenuItem1";
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(905, 477);
             this.Controls.Add(this.logTextBox);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = "PokemonGo Rocket API";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
