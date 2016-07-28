@@ -91,7 +91,7 @@ namespace PokemonGo.RocketAPI.Window
                     var pokemonId2 = pokemon.PokemonId;
                     var pokemonName = pokemon.Id;
 
-                    listViewItem.Text = string.Format("{0}\n{1} CP", pokemon.PokemonId, pokemon.Cp);
+                    listViewItem.Text = string.Format("{0} ({1})\n{2} CP ({3}% IV)", pokemon.PokemonId, currentCandy, pokemon.Cp, currIv);
                     listViewItem.ToolTipText = currentCandy + " Candy\n" + currIv + "% IV";
 
 
