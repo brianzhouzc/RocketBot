@@ -28,6 +28,8 @@ namespace PokemonGo.RocketAPI.Console
         public AuthType AuthType => (GetSetting() != string.Empty ? GetSetting() : "Ptc") == "Ptc" ? AuthType.Ptc : AuthType.Google;
         public string PtcUsername => GetSetting() != string.Empty ? GetSetting() : "username";
         public string PtcPassword => GetSetting() != string.Empty ? GetSetting() : "password";
+        public string Email => GetSetting() != string.Empty ? GetSetting() : "Email";
+        public string Password => GetSetting() != string.Empty ? GetSetting() : "Password";
 
         public double DefaultLatitude
         {
