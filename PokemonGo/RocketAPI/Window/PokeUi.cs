@@ -32,11 +32,9 @@ namespace PokemonGo.RocketAPI.Window
 
         private async void Execute()
         {
-            button1.Enabled = false;
-            button2.Enabled = false;
-            button3.Enabled = false;
+			EnabledButton(false);
 
-            client = new Client(ClientSettings);
+			client = new Client(ClientSettings);
 
             try
             {
@@ -101,11 +99,10 @@ namespace PokemonGo.RocketAPI.Window
 
 
                 }
-                button1.Enabled = true;
-                button2.Enabled = true;
-                button3.Enabled = true;
+				EnabledButton(true);
 
-            }
+
+			}
             catch (TaskCanceledException) { Execute(); }
             catch (UriFormatException) { Execute(); }
             catch (ArgumentOutOfRangeException) { Execute(); }
@@ -114,6 +111,13 @@ namespace PokemonGo.RocketAPI.Window
             catch (Exception ex) { Execute(); }
         }
 
+		private void EnabledButton(bool enabled)
+		{
+			button1.Enabled = enabled;
+			button2.Enabled = enabled;
+			button3.Enabled = enabled;
+			btnUpgrade.Enabled = enabled;
+		}
 
         private static Bitmap GetPokemonImage(int pokemonId)
         {
