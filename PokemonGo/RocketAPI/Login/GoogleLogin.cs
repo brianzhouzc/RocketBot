@@ -18,6 +18,7 @@ namespace PokemonGo.RocketAPI.Login
     {
         private const string OauthTokenEndpoint = "https://www.googleapis.com/oauth2/v4/token";
         private const string OauthEndpoint = "https://accounts.google.com/o/oauth2/device/code";
+        private const string OauthTokenInfoEndpoint = "https://www.googleapis.com/oauth2/v1/tokeninfo?";
         private const string ClientId = "848232511240-73ri3t7plvk96pj4f85uj8otdat2alem.apps.googleusercontent.com";
         private const string ClientSecret = "NCjF1TLi2CcY6t5mt0ZveuL7";
 
@@ -47,6 +48,7 @@ namespace PokemonGo.RocketAPI.Login
                 new KeyValuePair<string, string>("client_secret", ClientSecret),
                 new KeyValuePair<string, string>("refresh_token", refreshToken),
                 new KeyValuePair<string, string>("grant_type", "refresh_token"),
+                new KeyValuePair<string, string>("access_type", "offline"),
                 new KeyValuePair<string, string>("scope", "openid email https://www.googleapis.com/auth/userinfo.email"));
         }
 
@@ -76,12 +78,19 @@ namespace PokemonGo.RocketAPI.Login
             return deviceCode;
         }
 
+        public static async Task<TokenInfoModel> GetTokenInfo(string token)
+        {
+            return await HttpClientHelper.Get<TokenInfoModel>(OauthTokenInfoEndpoint,
+                new KeyValuePair<string, string>("access_token", token));
+        }
+
         private static async Task<TokenResponseModel> PollSubmittedToken(string deviceCode)
         {
             return await HttpClientHelper.PostFormEncodedAsync<TokenResponseModel>(OauthTokenEndpoint,
                 new KeyValuePair<string, string>("client_id", ClientId),
                 new KeyValuePair<string, string>("client_secret", ClientSecret),
                 new KeyValuePair<string, string>("code", deviceCode),
+                new KeyValuePair<string, string>("access_type", "offline"),
                 new KeyValuePair<string, string>("grant_type", "http://oauth.net/grant_type/device/1.0"),
                 new KeyValuePair<string, string>("scope", "openid email https://www.googleapis.com/auth/userinfo.email"));
         }
@@ -110,6 +119,16 @@ namespace PokemonGo.RocketAPI.Login
             public int interval { get; set; }
             public string device_code { get; set; }
             public string user_code { get; set; }
+        }
+
+        public class TokenInfoModel
+        {
+            public string user_id { get; set; }
+            public string scope { get; set; }
+            public int expires_in { get; set; }
+            public string email { get; set; }
+            public bool verified_email { get; set; }
+            public string access_type { get; set; }
         }
     }
 }
