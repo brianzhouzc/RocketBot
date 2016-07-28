@@ -41,7 +41,7 @@ namespace PokemonGo.RocketAPI
         public Client(ISettings settings)
         {
             _settings = settings;
-            SetCoordinates(_settings.DefaultLatitude, _settings.DefaultLongitude);
+            SetCoordinates(_settings.LatitudeCheckPoint, _settings.LongtitudeCheckPoint);
 
             //Setup HttpClient and create default headers
             var handler = new HttpClientHandler

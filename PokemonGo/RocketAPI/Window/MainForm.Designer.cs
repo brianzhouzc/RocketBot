@@ -38,10 +38,10 @@
             this.pokemonToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.useLuckyEggToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.forceUnbanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.teleportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -123,18 +123,8 @@
             this.forceUnbanToolStripMenuItem,
             this.teleportToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(94, 21);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(52, 21);
             this.toolsToolStripMenuItem.Text = "Tools";
-            // 
-            // showAllToolStripMenuItem
-            // 
-            this.showAllToolStripMenuItem.Name = "showAllToolStripMenuItem";
-            this.showAllToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
-            // 
-            // showAllToolStripMenuItem1
-            // 
-            this.showAllToolStripMenuItem1.Name = "showAllToolStripMenuItem1";
-            this.showAllToolStripMenuItem1.Size = new System.Drawing.Size(32, 19);
             // 
             // forceUnbanToolStripMenuItem
             // 
@@ -148,6 +138,17 @@
             this.teleportToolStripMenuItem.Name = "teleportToolStripMenuItem";
             this.teleportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.teleportToolStripMenuItem.Text = "Teleport";
+            this.teleportToolStripMenuItem.Click += new System.EventHandler(this.teleportToolStripMenuItem_Click);
+            // 
+            // showAllToolStripMenuItem
+            // 
+            this.showAllToolStripMenuItem.Name = "showAllToolStripMenuItem";
+            this.showAllToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
+            // 
+            // showAllToolStripMenuItem1
+            // 
+            this.showAllToolStripMenuItem1.Name = "showAllToolStripMenuItem1";
+            this.showAllToolStripMenuItem1.Size = new System.Drawing.Size(32, 19);
             // 
             // MainForm
             // 

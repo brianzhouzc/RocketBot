@@ -75,6 +75,7 @@
             this.teleportButton.TabIndex = 19;
             this.teleportButton.Text = "Teleport!";
             this.teleportButton.UseVisualStyleBackColor = true;
+            this.teleportButton.Click += new System.EventHandler(this.teleportButton_Click);
             // 
             // TeleportForm
             // 
@@ -88,6 +89,7 @@
             this.Controls.Add(this.latitudeText);
             this.Name = "TeleportForm";
             this.Text = "TeleportForm";
+            this.Load += new System.EventHandler(this.TeleportForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

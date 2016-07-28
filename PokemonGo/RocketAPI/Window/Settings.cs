@@ -18,6 +18,9 @@ namespace PokemonGo.RocketAPI.Window
         private static volatile Settings _instance;
         private static readonly object SyncRoot = new object();
 
+        private double latcheckpoint = -1;
+        private double lngcheckpoint = -1;
+
         public static Settings Instance
         {
             get
@@ -30,7 +33,6 @@ namespace PokemonGo.RocketAPI.Window
                     if (_instance == null)
                         _instance = new Settings();
                 }
-
                 return _instance;
             }
         }
@@ -74,6 +76,28 @@ namespace PokemonGo.RocketAPI.Window
         {
             get { return GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 6.77874; }
             set { SetSetting(value); }
+        }
+
+        public double LatitudeCheckPoint
+        {
+            get
+            {
+                if(latcheckpoint == -1)
+                    latcheckpoint = DefaultLatitude;
+                return latcheckpoint;
+            }
+            set { latcheckpoint = value; }
+        }
+
+        public double LongtitudeCheckPoint
+        {
+            get
+            {
+                if (lngcheckpoint == -1)
+                    lngcheckpoint = DefaultLongitude;
+                return lngcheckpoint;
+            }
+            set { lngcheckpoint = value; }
         }
 
 
