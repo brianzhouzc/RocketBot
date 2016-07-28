@@ -155,7 +155,7 @@ namespace PokemonGo.RocketAPI.Window
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.listView2.Clear();
+            this.listView2.Items.Clear();
             this.listView1.Clear();
             Execute();
         }
