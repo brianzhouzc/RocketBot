@@ -64,16 +64,16 @@ namespace PokemonGo.RocketAPI.Window
             trackBar.Value = 10;
 
             //set zoom
-            gMapControl1.Zoom = trackBar.Value;          
+            gMapControl1.Zoom = trackBar.Value;
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
             Settings.Instance.SetSetting(authTypeCb.Text, "AuthType");
-                Settings.Instance.SetSetting(EmailLoginBox.Text, "Email");
-                Settings.Instance.SetSetting(EmailPasswordBox.Text, "Password");
-                Settings.Instance.SetSetting(ptcUserText.Text, "PtcUsername");
-                Settings.Instance.SetSetting(ptcPassText.Text, "PtcPassword");
+            Settings.Instance.SetSetting(EmailLoginBox.Text, "Email");
+            Settings.Instance.SetSetting(EmailPasswordBox.Text, "Password");
+            Settings.Instance.SetSetting(ptcUserText.Text, "PtcUsername");
+            Settings.Instance.SetSetting(ptcPassText.Text, "PtcPassword");
             Settings.Instance.SetSetting(latitudeText.Text.Replace(',', '.'), "DefaultLatitude");
             Settings.Instance.SetSetting(longitudeText.Text.Replace(',', '.'), "DefaultLongitude");
 
@@ -131,13 +131,13 @@ namespace PokemonGo.RocketAPI.Window
             {
                 gMapControl1.Zoom += 5;
             }
-            
+
             double X = Math.Round(gMapControl1.Position.Lng, 6);
             double Y = Math.Round(gMapControl1.Position.Lat, 6);
             string longitude = X.ToString();
             string latitude = Y.ToString();
             latitudeText.Text = latitude;
-            longitudeText.Text = longitude;            
+            longitudeText.Text = longitude;
         }
 
         private void trackBar_Scroll(object sender, EventArgs e)
