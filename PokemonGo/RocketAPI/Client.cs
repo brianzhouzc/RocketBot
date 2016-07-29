@@ -20,6 +20,7 @@ using System.Threading;
 using PokemonGo.RocketAPI.Exceptions;
 using System.Text;
 using System.IO;
+using DankMemes.GPSOAuthSharp;
 
 #endregion
 
@@ -85,27 +86,24 @@ namespace PokemonGo.RocketAPI
                         catchPokemonRequest);
         }
 
-        public async Task DoGoogleLogin()
+        public async Task DoGoogleLogin(string email, string password)
         {
             _authType = AuthType.Google;
-            GoogleLogin.TokenResponseModel tokenResponse = null;
-
-            if (string.IsNullOrEmpty(_settings.GoogleRefreshToken) && string.IsNullOrEmpty(AccessToken))
+            GPSOAuthClient _GPSOclient = new GPSOAuthClient(email, password);
+            Dictionary<string, string> _GPSOresponse = _GPSOclient.PerformMasterLogin();
+            /* string json = JsonConvert.SerializeObject(_GPSOresponse, Formatting.Indented);
+               Console.WriteLine(json); */
+            if (_GPSOresponse.ContainsKey("Token"))
             {
-                var deviceCode = await GoogleLogin.GetDeviceCode();
-                tokenResponse = await GoogleLogin.GetAccessToken(deviceCode);
-                _accessToken = tokenResponse.id_token;
-                ColoredConsoleWrite(ConsoleColor.White, $"Put RefreshToken in settings for direct login: {tokenResponse.refresh_token}");
-                _settings.GoogleRefreshToken = tokenResponse.refresh_token;
-                AccessToken = tokenResponse.refresh_token;
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(_settings.GoogleRefreshToken))
-                    tokenResponse = await GoogleLogin.GetAccessToken(_settings.GoogleRefreshToken);
-                else
-                    tokenResponse = await GoogleLogin.GetAccessToken(AccessToken);
-                _accessToken = tokenResponse.id_token;
+                string token = _GPSOresponse["Token"];
+                Dictionary<string, string> oauthResponse = _GPSOclient.PerformOAuth(
+                token,
+                "audience:server:client_id:848232511240-7so421jotr2609rmqakceuu1luuq0ptb.apps.googleusercontent.com",
+                "com.nianticlabs.pokemongo",
+                "321187995bc7cdc2b5fc91b11a96e2baa8602c62");
+                /* string oauthJson = JsonConvert.SerializeObject(oauthResponse, Formatting.Indented);
+                  Console.WriteLine(oauthJson); */
+                _accessToken = oauthResponse["Auth"];
             }
         }
 
@@ -161,26 +159,26 @@ namespace PokemonGo.RocketAPI
         }
 
 
-		public async Task<EvolvePokemonOut> PowerUp(ulong pokemonId)
-		{
-			var customRequest = new EvolvePokemon
-			{
-				PokemonId = pokemonId
-			};
+        public async Task<EvolvePokemonOut> PowerUp(ulong pokemonId)
+        {
+            var customRequest = new EvolvePokemon
+            {
+                PokemonId = pokemonId
+            };
 
-			var releasePokemonRequest = RequestBuilder.GetRequest(_unknownAuth, _currentLat, _currentLng, 30,
-				new Request.Types.Requests
-				{
-					Type = (int)RequestType.UPGRADE_POKEMON,
-					Message = customRequest.ToByteString()
-				});
-			return
-				await
-					_httpClient.PostProtoPayload<Request, EvolvePokemonOut>($"https://{_apiUrl}/rpc",
-						releasePokemonRequest);
-		}
+            var releasePokemonRequest = RequestBuilder.GetRequest(_unknownAuth, _currentLat, _currentLng, 30,
+                new Request.Types.Requests
+                {
+                    Type = (int)RequestType.UPGRADE_POKEMON,
+                    Message = customRequest.ToByteString()
+                });
+            return
+                await
+                    _httpClient.PostProtoPayload<Request, EvolvePokemonOut>($"https://{_apiUrl}/rpc",
+                        releasePokemonRequest);
+        }
 
-		private async Task<MiscEnums.Item> GetBestBall(int? pokemonCP)
+        private async Task<MiscEnums.Item> GetBestBall(int? pokemonCP)
         {
             var inventory = await GetInventory();
 
@@ -379,8 +377,8 @@ namespace PokemonGo.RocketAPI
         {
             _currentLat = lat;
             _currentLng = lng;
-//            _settings.DefaultLatitude = lat;
-//            _settings.DefaultLongitude = lng;
+            //            _settings.DefaultLatitude = lat;
+            //            _settings.DefaultLongitude = lng;
         }
 
         public async Task SetServer()
