@@ -857,7 +857,7 @@ namespace PokemonGo.RocketAPI.Window
             var inventory = await client.GetInventory();
             var stats = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PlayerStats).ToArray();
             var profile = await client.GetProfile();
-            Int64 hoursLeft = 0; Int64 minutesLeft = 0; Int64 secondsLeft = 0; double xpSec = 0;
+            Int64 hoursLeft = 0; Int64 minutesLeft = 0; double secondsLeft = 0; double xpSec = 0;
             foreach (var v in stats)
                 if (v != null)
                 {
@@ -867,7 +867,7 @@ namespace PokemonGo.RocketAPI.Window
                     //Calculating the exp made per second
                     xpSec = (Math.Round(TotalExperience / GetRuntime()) / 60) / 60;
                     //Calculating the seconds left to level up
-                    secondsLeft = Convert.ToInt64((expNextLvl / xpSec));
+                    secondsLeft = (expNextLvl / xpSec);
                     //formatting data to make an output like DateFormat
                     while (secondsLeft > 60)
                     {
