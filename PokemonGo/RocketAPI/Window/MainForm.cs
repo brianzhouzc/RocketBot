@@ -204,15 +204,13 @@ namespace PokemonGo.RocketAPI.Window
                 {
                     case AuthType.Ptc:
                         ColoredConsoleWrite(Color.Green, "Login Type: Pokemon Trainers Club");
-                        await client.DoPtcLogin(ClientSettings.PtcUsername, ClientSettings.PtcPassword);
                         break;
                     case AuthType.Google:
                         ColoredConsoleWrite(Color.Green, "Login Type: Google");
-                        await client.DoGoogleLogin(ClientSettings.Email, ClientSettings.Password);
-
                         break;
                 }
 
+                await client.Login();
                 await client.SetServer();
                 var profile = await client.GetProfile();
                 var settings = await client.GetSettings();
