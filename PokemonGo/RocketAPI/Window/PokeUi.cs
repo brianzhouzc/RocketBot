@@ -49,6 +49,7 @@ namespace PokemonGo.RocketAPI.Window
                 }
                 //
                 await client.SetServer();
+                var profile = await client.GetProfile();
                 var inventory = await client.GetInventory();
                 var pokemons =
                     inventory.InventoryDelta.InventoryItems
@@ -65,7 +66,7 @@ namespace PokemonGo.RocketAPI.Window
 
                 var imageList = new ImageList { ImageSize = new Size(50, 50) };
                 listView1.ShowItemToolTips = true;
-
+                
                 foreach (var pokemon in pokemons)
                 {
                     Bitmap pokemonImage = null;
@@ -96,10 +97,10 @@ namespace PokemonGo.RocketAPI.Window
 
 
                     this.listView1.Items.Add(listViewItem);
-
-
+		    
                 }
-				EnabledButton(true);
+		this.Text = "PokeUi " + pokemons.Count<PokemonData>() + "/" + profile.Profile.PokeStorage;
+		EnabledButton(true);
 
 
 			}
