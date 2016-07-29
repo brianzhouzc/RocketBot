@@ -733,7 +733,7 @@ namespace PokemonGo.RocketAPI.Window
             foreach (var pokemon in unwantedPokemons)
             {
                 if (pokemon.GetIV() >= keepPerfectPokemonLimit) continue;
-                ColoredConsoleWrite(Color.White, $"Pokemon {pokemon.PokemonId} with {pokemon.Cp} CP has IV percent less than {keepPerfectPokemonLimit}%");
+                ColoredConsoleWrite(Color.White, $"Pokemon {pokemon.PokemonId} with {pokemon.Cp} CP has IV percent less than {keepPerfectPokemonLimit * 100}%");
 
                 if (pokemon.Favorite == 0)
                 {
