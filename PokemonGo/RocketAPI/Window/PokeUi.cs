@@ -63,8 +63,13 @@ namespace PokemonGo.RocketAPI.Window
 
 
 
+                var imageSize = ClientSettings.ImageSize;
 
-                var imageList = new ImageList { ImageSize = new Size(50, 50) };
+                if ((imageSize > 96) || (imageSize < 1)) // no bigger than orig size and no smaller than 1x1
+                    imageSize = 50;
+
+                var imageList = new ImageList { ImageSize = new Size(imageSize, imageSize) };
+                //var imageList = new ImageList { ImageSize = new Size(96, 96) };
                 listView1.ShowItemToolTips = true;
                 
                 foreach (var pokemon in pokemons)
