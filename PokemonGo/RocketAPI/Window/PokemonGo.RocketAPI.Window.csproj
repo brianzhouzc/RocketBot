@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColorMap.cs" />
     <Compile Include="CueTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -137,6 +138,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\PokemonGo.RocketAPI.Services\PokemonGo.RocketAPI.Services.csproj">
+      <Project>{1d8e0908-1b01-46dc-91e2-504c07790a81}</Project>
+      <Name>PokemonGo.RocketAPI.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PokemonGo.RocketAPI.csproj">
       <Project>{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}</Project>
       <Name>PokemonGo.RocketAPI</Name>
