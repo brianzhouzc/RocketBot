@@ -110,14 +110,23 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MapForm.fr.resx">
+      <DependentUpon>MapForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MapForm.resx">
       <DependentUpon>MapForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PokemonForm.resx">
       <DependentUpon>PokemonForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PokeUi.fr.resx">
+      <DependentUpon>PokeUi.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PokeUi.resx">
       <DependentUpon>PokeUi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsForm.fr.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>

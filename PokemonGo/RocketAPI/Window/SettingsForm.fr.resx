@@ -117,15 +117,145 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;todoToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;showAllToolStripMenuItem.Name" xml:space="preserve">
-    <value>showAllToolStripMenuItem</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="authTypeCb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 4</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ptcUserText.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="ptcUserText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 33</value>
+  </data>
+  <data name="ptcPassText.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="ptcPassText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 62</value>
+  </data>
+  <data name="latitudeText.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="latitudeText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 85</value>
+  </data>
+  <data name="longitudeText.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="longitudeText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 111</value>
+  </data>
+  <data name="razzmodeCb.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="razzmodeCb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 137</value>
+  </data>
+  <data name="razzSettingText.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="razzSettingText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 164</value>
+  </data>
+  <data name="transferTypeCb.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="transferTypeCb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 190</value>
+  </data>
+  <data name="transferCpThresText.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="transferCpThresText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 220</value>
+  </data>
+  <data name="evolveAllChk.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="evolveAllChk.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 321</value>
+  </data>
+  <data name="saveBtn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 360</value>
+  </data>
+  <data name="saveBtn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>320, 95</value>
+  </data>
+  <data name="gMapControl1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="gMapControl1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 16</value>
+  </data>
+  <data name="gMapControl1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>483, 407</value>
+  </data>
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>343, 9</value>
+  </data>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>547, 461</value>
+  </data>
+  <data name="FindAdressButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="FindAdressButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>341, 429</value>
+  </data>
+  <data name="FindAdressButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 26</value>
+  </data>
+  <data name="AdressBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="AdressBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 432</value>
+  </data>
+  <data name="trackBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>499, 16</value>
+  </data>
+  <data name="ImageSizeBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="ImageSizeBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 246</value>
+  </data>
+  <data name="CatchPokemonBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="CatchPokemonBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 298</value>
+  </data>
+  <data name="EmailPasswordBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="EmailPasswordBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 62</value>
+  </data>
+  <data name="EmailLoginBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="EmailLoginBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 33</value>
+  </data>
+  <data name="transferIVThresText.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="transferIVThresText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 220</value>
+  </data>
+  <data name="TravelSpeedBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="TravelSpeedBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 272</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>334, 461</value>
+  </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>905, 517</value>
+    <value>899, 479</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1551,213 +1681,97 @@
         ////////////////////////////////////////////////////////
 </value>
   </data>
-  <data name="&gt;&gt;statusLabel.Name" xml:space="preserve">
-    <value>statusLabel</value>
-  </data>
-  <data name="&gt;&gt;statusStrip1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="menuStrip1.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;todoToolStripMenuItem.Name" xml:space="preserve">
-    <value>todoToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;pokemonToolStripMenuItem2.Name" xml:space="preserve">
-    <value>pokemonToolStripMenuItem2</value>
-  </data>
-  <data name="&gt;&gt;statusStrip1.Name" xml:space="preserve">
-    <value>statusStrip1</value>
-  </data>
-  <data name="useLuckyEggToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 20</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>MainForm</value>
-  </data>
-  <data name="pokemonToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 20</value>
-  </data>
-  <data name="logTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;menuStrip1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
-  <data name="forceUnbanToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 20</value>
-  </data>
-  <data name="&gt;&gt;useLuckyEggToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="statusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 17</value>
-  </data>
-  <data name="menuStrip1.Text" xml:space="preserve">
-    <value>menuStrip1</value>
-  </data>
-  <data name="&gt;&gt;menuStrip1.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="useLuckyEggToolStripMenuItem.Text" xml:space="preserve">
-    <value>Use Lucky Egg</value>
-  </data>
-  <data name="todoToolStripMenuItem.Text" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="&gt;&gt;forceUnbanToolStripMenuItem.Name" xml:space="preserve">
-    <value>forceUnbanToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;menuStrip1.Name" xml:space="preserve">
-    <value>menuStrip1</value>
-  </data>
-  <data name="&gt;&gt;startStopBotToolStripMenuItem.Name" xml:space="preserve">
-    <value>startStopBotToolStripMenuItem</value>
-  </data>
-  <data name="statusStrip1.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;logTextBox.Name" xml:space="preserve">
-    <value>logTextBox</value>
-  </data>
-  <data name="forceUnbanToolStripMenuItem.Text" xml:space="preserve">
-    <value>Force Unban</value>
-  </data>
-  <data name="showAllToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 19</value>
-  </data>
-  <data name="&gt;&gt;logTextBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="pokemonToolStripMenuItem2.Text" xml:space="preserve">
-    <value>Pokemon</value>
-  </data>
-  <data name="&gt;&gt;menuStrip1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="showAllToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 19</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="logTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="statusLabel.Text" xml:space="preserve">
-    <value>Status</value>
-  </data>
-  <data name="&gt;&gt;logTextBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="statusStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>905, 22</value>
-  </data>
-  <data name="&gt;&gt;useLuckyEggToolStripMenuItem.Name" xml:space="preserve">
-    <value>useLuckyEggToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;startStopBotToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;showAllToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="statusStrip1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 495</value>
-  </data>
-  <data name="todoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 20</value>
-  </data>
-  <data name="&gt;&gt;startBotToolStripMenuItem.Name" xml:space="preserve">
-    <value>startBotToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;showAllToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="mapToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>43, 20</value>
-  </data>
-  <data name="&gt;&gt;logTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="logTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>905, 471</value>
-  </data>
-  <data name="logTextBox.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;statusLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="startBotToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 20</value>
-  </data>
-  <data name="startBotToolStripMenuItem.Text" xml:space="preserve">
-    <value>Start Bot</value>
-  </data>
-  <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>905, 24</value>
-  </data>
-  <data name="logTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 24</value>
-  </data>
-  <data name="logTextBox.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 8.25pt</value>
-  </data>
-  <data name="menuStrip1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="startStopBotToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 20</value>
-  </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>PokemonGo Rocket API</value>
+    <value>Paramètres</value>
   </data>
-  <data name="&gt;&gt;statusStrip1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="authTypeCb.Items" xml:space="preserve">
+    <value>Google</value>
   </data>
-  <data name="&gt;&gt;pokemonToolStripMenuItem2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="authTypeCb.Items1" xml:space="preserve">
+    <value>Ptc</value>
   </data>
-  <data name="&gt;&gt;mapToolStripMenuItem.Name" xml:space="preserve">
-    <value>mapToolStripMenuItem</value>
+  <data name="CatchPokemonText.Text" xml:space="preserve">
+    <value>Capturer des Pokémons ?</value>
   </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="EmailLoginText.Text" xml:space="preserve">
+    <value>E-mail :</value>
   </data>
-  <data name="&gt;&gt;forceUnbanToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="EmailPasswordText.Text" xml:space="preserve">
+    <value>Mot de passe :</value>
   </data>
-  <data name="&gt;&gt;mapToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="FindAdressButton.Text" xml:space="preserve">
+    <value>Rechercher l'emplacement</value>
   </data>
-  <data name="&gt;&gt;startBotToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Emplacement</value>
   </data>
-  <data name="statusStrip1.Text" xml:space="preserve">
-    <value>statusStrip1</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Mode baie framby</value>
   </data>
-  <data name="&gt;&gt;showAllToolStripMenuItem1.Name" xml:space="preserve">
-    <value>showAllToolStripMenuItem1</value>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Mode de transfert :</value>
   </data>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>fr</value>
-  </metadata>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>58</value>
-  </metadata>
-  <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>132, 18</value>
-  </metadata>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Faire évoluer les Pokémons ?</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Seuil de CP :</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Paramètre baie flamby :</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Seuil d'IV : </value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>Taille des images PokeUi :</value>
+  </data>
+  <data name="latLabel.Text" xml:space="preserve">
+    <value>Latitude :</value>
+  </data>
+  <data name="longiLabel.Text" xml:space="preserve">
+    <value>Longitude :</value>
+  </data>
+  <data name="Mode" xml:space="preserve">
+    <value>Mode de login :</value>
+  </data>
+  <data name="ptcPasswordLabel.Text" xml:space="preserve">
+    <value>Mot de passe :</value>
+  </data>
+  <data name="ptcUserLabel.Text" xml:space="preserve">
+    <value>Nom d'utilisateur :</value>
+  </data>
+  <data name="razzmodeCb.Items" xml:space="preserve">
+    <value>Probabilité</value>
+  </data>
+  <data name="razzmodeCb.Items1" xml:space="preserve">
+    <value>CP</value>
+  </data>
+  <data name="saveBtn.Text" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="transferTypeCb.Items" xml:space="preserve">
+    <value>Aucun</value>
+  </data>
+  <data name="transferTypeCb.Items1" xml:space="preserve">
+    <value>CP</value>
+  </data>
+  <data name="transferTypeCb.Items2" xml:space="preserve">
+    <value>IV</value>
+  </data>
+  <data name="transferTypeCb.Items3" xml:space="preserve">
+    <value>Garder les plus forts</value>
+  </data>
+  <data name="transferTypeCb.Items4" xml:space="preserve">
+    <value>À double</value>
+  </data>
+  <data name="transferTypeCb.Items5" xml:space="preserve">
+    <value>IV à double</value>
+  </data>
+  <data name="transferTypeCb.Items6" xml:space="preserve">
+    <value>Tous</value>
+  </data>
+  <data name="TravelSpeedText.Text" xml:space="preserve">
+    <value>Vitesse de déplacement (km/h) :</value>
+  </data>
 </root>
