@@ -300,26 +300,24 @@ namespace PokemonGo.RocketAPI.Window
                     await Task.Delay(10000);
                     CheckVersion();
                     Execute();
-                } else
+                }
+                else
                 {
-                    ConsoleClear();
-                    ColoredConsoleWrite(Color.Red, $"Bot successfully stopped.");
-                    startStopBotToolStripMenuItem.Text = "Start";
-                    Stopping = false;
-                    bot_started = false;
+                    confirmBotStopped();
                 }
             }
-            catch (TaskCanceledException) { ColoredConsoleWrite(Color.Red, "Task Canceled Exception - Restarting"); if (!Stopping) Execute();}
-            catch (UriFormatException) { ColoredConsoleWrite(Color.Red, "System URI Format Exception - Restarting"); if (!Stopping) Execute(); }
-            catch (ArgumentOutOfRangeException) { ColoredConsoleWrite(Color.Red, "ArgumentOutOfRangeException - Restarting"); if (!Stopping) Execute(); }
-            catch (ArgumentNullException) { ColoredConsoleWrite(Color.Red, "Argument Null Refference - Restarting"); if (!Stopping) Execute(); }
-            catch (NullReferenceException) { ColoredConsoleWrite(Color.Red, "Null Refference - Restarting"); if (!Stopping) Execute(); }
-            catch (Exception ex) { ColoredConsoleWrite(Color.Red, ex.ToString()); if (!Stopping) Execute(); }
+
+            catch (TaskCanceledException) { ColoredConsoleWrite(Color.Red, "Task Canceled Exception - Restarting"); if (!Stopping) { Execute(); } else { confirmBotStopped(); } }
+            catch (UriFormatException) { ColoredConsoleWrite(Color.Red, "System URI Format Exception - Restarting"); if (!Stopping) { Execute(); } else { confirmBotStopped(); } }
+            catch (ArgumentOutOfRangeException) { ColoredConsoleWrite(Color.Red, "ArgumentOutOfRangeException - Restarting"); if (!Stopping) { Execute(); } else { confirmBotStopped(); } }
+            catch (ArgumentNullException) { ColoredConsoleWrite(Color.Red, "Argument Null Refference - Restarting"); if (!Stopping) { Execute(); } else { confirmBotStopped(); } }
+            catch (NullReferenceException) { ColoredConsoleWrite(Color.Red, "Null Refference - Restarting"); if (!Stopping) { Execute(); } else { confirmBotStopped(); } }
+            catch (Exception ex) { ColoredConsoleWrite(Color.Red, ex.ToString()); if (!Stopping) { Execute(); } else { confirmBotStopped(); } }
         }
 
         private static string CallAPI(string elem, double lat, double lon)
         {
-            using (XmlReader reader = XmlReader.Create(@"http://api.geonames.org/findNearby?lat=" + lat + "&lng=" + lon + "&username=demo"))
+            using (XmlReader reader = XmlReader.Create(@"http://api.geonames.org/findNearby?lat=" + lat + "&lng=" + lon + "&username=pokemongobot"))
             {
                 while (reader.Read())
                 {
@@ -349,6 +347,7 @@ namespace PokemonGo.RocketAPI.Window
             }
             return "Error";
         }
+
         private async Task ExecuteCatchAllNearbyPokemons(Client client)
         {
             var mapObjects = await client.GetMapObjects();
@@ -855,11 +854,33 @@ namespace PokemonGo.RocketAPI.Window
             var inventory = await client.GetInventory();
             var stats = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PlayerStats).ToArray();
             var profile = await client.GetProfile();
+            Int16 hoursLeft = 0; Int16 minutesLeft = 0; Int32 secondsLeft = 0; double xpSec = 0;
             foreach (var v in stats)
                 if (v != null)
                 {
                     int XpDiff = GetXpDiff(client, v.Level);
-                    SetStatusText(string.Format(Username + " | Level: {0:0} - ({2:0} / {3:0}) | Runtime {1} | Stardust: {4:0}", v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount) + " | XP/Hour: " + Math.Round(TotalExperience / GetRuntime()) + " | Pokemon/Hour: " + Math.Round(TotalPokemon / GetRuntime()));
+                    //Calculating the exp needed to level up
+                    Single expNextLvl = (v.NextLevelXp - v.Experience);
+                    //Calculating the exp made per second
+                    xpSec = (Math.Round(TotalExperience / GetRuntime()) / 60) / 60;
+                    //Calculating the seconds left to level up
+                    if(xpSec!=0)
+                    secondsLeft = Convert.ToInt32((expNextLvl / xpSec));
+                    //formatting data to make an output like DateFormat
+                    while (secondsLeft > 60)
+                    {
+                        secondsLeft -= 60;
+                        if (minutesLeft < 60)
+                        {
+                            minutesLeft++;
+                        }
+                        else
+                        {
+                            minutesLeft = 0;
+                            hoursLeft++;
+                        }
+                    }
+                    SetStatusText(string.Format(Username + " | Level: {0:0} - ({2:0} / {3:0}) | Runtime {1} | Stardust: {4:0}", v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount) + " | XP/Hour: " + Math.Round(TotalExperience / GetRuntime()) + " | Pokemon/Hour: " + Math.Round(TotalPokemon / GetRuntime())+ " | NextLevel in: " + hoursLeft + ":" + minutesLeft + ":" + secondsLeft);
                 }
             await Task.Delay(1000);
             ConsoleLevelTitle(Username, client);
@@ -951,6 +972,15 @@ namespace PokemonGo.RocketAPI.Window
                     return 1000000;
             }
             return 0;
+        }
+
+        public void confirmBotStopped()
+        {
+            //ConsoleClear(); // dont really want the console to be wipped on bot stop, unnecessary
+            ColoredConsoleWrite(Color.Red, $"Bot successfully stopped.");
+            startStopBotToolStripMenuItem.Text = "Start Bot";
+            Stopping = false;
+            bot_started = false;
         }
 
         private void logTextBox_TextChanged(object sender, EventArgs e)
