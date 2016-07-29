@@ -23,16 +23,10 @@ namespace PokemonGo.RocketAPI.Window
         private void SettingsForm_Load(object sender, EventArgs e)
         {
             authTypeCb.Text = Settings.Instance.AuthType.ToString();
-            if (authTypeCb.Text == "google")
-            {
-                ptcUserText.Text = Settings.Instance.Email;
-                ptcPassText.Text = Settings.Instance.Password;
-            }
-            else
-            {
-                ptcUserText.Text = Settings.Instance.PtcUsername;
-                ptcPassText.Text = Settings.Instance.PtcPassword;
-            }
+            ptcUserText.Text = Settings.Instance.PtcUsername.ToString();
+            ptcPassText.Text = Settings.Instance.PtcPassword.ToString();
+            EmailLoginBox.Text = Settings.Instance.Email.ToString();
+            EmailPasswordBox.Text = Settings.Instance.Password.ToString();
             latitudeText.Text = Settings.Instance.DefaultLatitude.ToString();
             longitudeText.Text = Settings.Instance.DefaultLongitude.ToString();
             razzmodeCb.Text = Settings.Instance.RazzBerryMode;
@@ -74,16 +68,10 @@ namespace PokemonGo.RocketAPI.Window
         private void saveBtn_Click(object sender, EventArgs e)
         {
             Settings.Instance.SetSetting(authTypeCb.Text, "AuthType");
-            if (authTypeCb.Text == "google")
-            {
-                Settings.Instance.SetSetting(ptcUserText.Text, "Email");
-                Settings.Instance.SetSetting(ptcPassText.Text, "Password");
-            }
-            else
-            {
+                Settings.Instance.SetSetting(EmailLoginBox.Text, "Email");
+                Settings.Instance.SetSetting(EmailPasswordBox.Text, "Password");
                 Settings.Instance.SetSetting(ptcUserText.Text, "PtcUsername");
                 Settings.Instance.SetSetting(ptcPassText.Text, "PtcPassword");
-            }
             Settings.Instance.SetSetting(latitudeText.Text.Replace(',', '.'), "DefaultLatitude");
             Settings.Instance.SetSetting(longitudeText.Text.Replace(',', '.'), "DefaultLongitude");
 
@@ -109,12 +97,25 @@ namespace PokemonGo.RocketAPI.Window
         {
             if (authTypeCb.Text == "google")
             {
-                ptcUserLabel.Text = "Email:";
+                EmailLoginBox.Visible = true;
+                EmailLoginText.Visible = true;
+                EmailPasswordBox.Visible = true;
+                EmailPasswordText.Visible = true;
+                ptcUserText.Visible = false;
+                ptcPassText.Visible = false;
+                ptcUserLabel.Visible = false;
+                ptcPasswordLabel.Visible = false;
             }
             else
             {
-                ptcUserLabel.Text = "Username:";
-
+                EmailLoginBox.Visible = false;
+                EmailLoginText.Visible = false;
+                EmailPasswordBox.Visible = false;
+                EmailPasswordText.Visible = false;
+                ptcUserText.Visible = true;
+                ptcPassText.Visible = true;
+                ptcUserLabel.Visible = true;
+                ptcPasswordLabel.Visible = true;
             }
         }
 
