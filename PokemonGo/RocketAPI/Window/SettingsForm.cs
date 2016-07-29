@@ -39,6 +39,7 @@ namespace PokemonGo.RocketAPI.Window
             CatchPokemonBox.Checked = Settings.Instance.CatchPokemon;
             TravelSpeedBox.Text = Settings.Instance.TravelSpeed.ToString();
             ImageSizeBox.Text = Settings.Instance.ImageSize.ToString();
+            language.Text = Settings.Instance.Language.ToString();
             // Initialize map:
             //use google provider
             gMapControl1.MapProvider = GoogleMapProvider.Instance;
@@ -76,7 +77,6 @@ namespace PokemonGo.RocketAPI.Window
             Settings.Instance.SetSetting(ptcPassText.Text, "PtcPassword");
             Settings.Instance.SetSetting(latitudeText.Text.Replace(',', '.'), "DefaultLatitude");
             Settings.Instance.SetSetting(longitudeText.Text.Replace(',', '.'), "DefaultLongitude");
-
             string lat = ConfigurationManager.AppSettings["DefaultLatitude"];
             string longit = ConfigurationManager.AppSettings["DefaultLongitude"];
             lat.Replace(',', '.');
@@ -93,12 +93,18 @@ namespace PokemonGo.RocketAPI.Window
             Settings.Instance.SetSetting(evolveAllChk.Checked ? "true" : "false", "EvolveAllGivenPokemons");
             Settings.Instance.SetSetting(CatchPokemonBox.Checked ? "true" : "false", "CatchPokemon");
             Settings.Instance.Reload();
+
+            if (Settings.Instance.Language != language.Text)
+            {
+                Settings.Instance.SetSetting(language.Text, "Language");
+                MessageBox.Show("To set the language, please restart the application !");
+            }
             Close();
         }
 
         private void authTypeCb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (authTypeCb.Text == "google")
+            if (authTypeCb.SelectedIndex == 0)
             {
                 EmailLoginBox.Visible = true;
                 EmailLoginText.Visible = true;
@@ -172,7 +178,7 @@ namespace PokemonGo.RocketAPI.Window
 
         private void transferTypeCb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (transferTypeCb.Text == "CP")
+            if (transferTypeCb.SelectedIndex == 1)
             {
                 label4.Visible = true;
                 transferCpThresText.Visible = true;
@@ -184,7 +190,7 @@ namespace PokemonGo.RocketAPI.Window
 
             }
 
-            if (transferTypeCb.Text == "IV")
+            if (transferTypeCb.SelectedIndex == 2)
             {
                 label6.Visible = true;
                 transferIVThresText.Visible = true;

@@ -47,8 +47,8 @@
             // 
             // logTextBox
             // 
-            resources.ApplyResources(this.logTextBox, "logTextBox");
             this.logTextBox.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.logTextBox, "logTextBox");
             this.logTextBox.ForeColor = System.Drawing.Color.White;
             this.logTextBox.Name = "logTextBox";
             this.logTextBox.ReadOnly = true;
@@ -56,19 +56,18 @@
             // 
             // statusStrip1
             // 
-            resources.ApplyResources(this.statusStrip1, "statusStrip1");
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLabel});
+            resources.ApplyResources(this.statusStrip1, "statusStrip1");
             this.statusStrip1.Name = "statusStrip1";
             // 
             // statusLabel
             // 
-            resources.ApplyResources(this.statusLabel, "statusLabel");
             this.statusLabel.Name = "statusLabel";
+            resources.ApplyResources(this.statusLabel, "statusLabel");
             // 
             // menuStrip1
             // 
-            resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startStopBotToolStripMenuItem,
             this.mapToolStripMenuItem,
@@ -76,53 +75,54 @@
             this.pokemonToolStripMenuItem2,
             this.useLuckyEggToolStripMenuItem,
             this.forceUnbanToolStripMenuItem});
+            resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Name = "menuStrip1";
             // 
             // startStopBotToolStripMenuItem
             // 
-            resources.ApplyResources(this.startStopBotToolStripMenuItem, "startStopBotToolStripMenuItem");
             this.startStopBotToolStripMenuItem.Name = "startStopBotToolStripMenuItem";
+            resources.ApplyResources(this.startStopBotToolStripMenuItem, "startStopBotToolStripMenuItem");
             this.startStopBotToolStripMenuItem.Click += new System.EventHandler(this.startStopBotToolStripMenuItem_Click);
             // 
             // mapToolStripMenuItem
             // 
-            resources.ApplyResources(this.mapToolStripMenuItem, "mapToolStripMenuItem");
             this.mapToolStripMenuItem.Name = "mapToolStripMenuItem";
+            resources.ApplyResources(this.mapToolStripMenuItem, "mapToolStripMenuItem");
             this.mapToolStripMenuItem.Click += new System.EventHandler(this.mapToolStripMenuItem_Click);
             // 
             // todoToolStripMenuItem
             // 
-            resources.ApplyResources(this.todoToolStripMenuItem, "todoToolStripMenuItem");
             this.todoToolStripMenuItem.Name = "todoToolStripMenuItem";
+            resources.ApplyResources(this.todoToolStripMenuItem, "todoToolStripMenuItem");
             this.todoToolStripMenuItem.Click += new System.EventHandler(this.todoToolStripMenuItem_Click);
             // 
             // pokemonToolStripMenuItem2
             // 
-            resources.ApplyResources(this.pokemonToolStripMenuItem2, "pokemonToolStripMenuItem2");
             this.pokemonToolStripMenuItem2.Name = "pokemonToolStripMenuItem2";
+            resources.ApplyResources(this.pokemonToolStripMenuItem2, "pokemonToolStripMenuItem2");
             this.pokemonToolStripMenuItem2.Click += new System.EventHandler(this.pokemonToolStripMenuItem2_Click);
             // 
             // useLuckyEggToolStripMenuItem
             // 
-            resources.ApplyResources(this.useLuckyEggToolStripMenuItem, "useLuckyEggToolStripMenuItem");
             this.useLuckyEggToolStripMenuItem.Name = "useLuckyEggToolStripMenuItem";
+            resources.ApplyResources(this.useLuckyEggToolStripMenuItem, "useLuckyEggToolStripMenuItem");
             this.useLuckyEggToolStripMenuItem.Click += new System.EventHandler(this.useLuckyEggToolStripMenuItem_Click);
             // 
             // forceUnbanToolStripMenuItem
             // 
-            resources.ApplyResources(this.forceUnbanToolStripMenuItem, "forceUnbanToolStripMenuItem");
             this.forceUnbanToolStripMenuItem.Name = "forceUnbanToolStripMenuItem";
+            resources.ApplyResources(this.forceUnbanToolStripMenuItem, "forceUnbanToolStripMenuItem");
             this.forceUnbanToolStripMenuItem.Click += new System.EventHandler(this.forceUnbanToolStripMenuItem_Click);
             // 
             // showAllToolStripMenuItem
             // 
-            resources.ApplyResources(this.showAllToolStripMenuItem, "showAllToolStripMenuItem");
             this.showAllToolStripMenuItem.Name = "showAllToolStripMenuItem";
+            resources.ApplyResources(this.showAllToolStripMenuItem, "showAllToolStripMenuItem");
             // 
             // showAllToolStripMenuItem1
             // 
-            resources.ApplyResources(this.showAllToolStripMenuItem1, "showAllToolStripMenuItem1");
             this.showAllToolStripMenuItem1.Name = "showAllToolStripMenuItem1";
+            resources.ApplyResources(this.showAllToolStripMenuItem1, "showAllToolStripMenuItem1");
             // 
             // MainForm
             // 

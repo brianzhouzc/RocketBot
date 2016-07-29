@@ -38,10 +38,10 @@
             // 
             // gMapControl1
             // 
+            resources.ApplyResources(this.gMapControl1, "gMapControl1");
             this.gMapControl1.BackColor = System.Drawing.SystemColors.Info;
             this.gMapControl1.Bearing = 0F;
             this.gMapControl1.CanDragMap = false;
-            resources.ApplyResources(this.gMapControl1, "gMapControl1");
             this.gMapControl1.EmptyTileColor = System.Drawing.Color.Navy;
             this.gMapControl1.GrayScaleMode = false;
             this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;

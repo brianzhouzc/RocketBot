@@ -117,7 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="button1.Text" xml:space="preserve">
+    <value>Rafraichir</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>126, 22</value>
+  </data>
+  <data name="toolStripMenuItem1.Text" xml:space="preserve">
+    <value>Transférer</value>
+  </data>
+  <data name="contextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>127, 26</value>
+  </data>
+  <data name="button2.Text" xml:space="preserve">
+    <value>Faire évoluer le pokémon sélectionné</value>
+  </data>
+  <data name="button3.Text" xml:space="preserve">
+    <value>Transférer le pokémon sélectionné</value>
+  </data>
+  <data name="btnUpgrade.Text" xml:space="preserve">
+    <value>Recharger le pokémon sélectionné</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAUAEBAAAAEAIABoBAAAVgAAABgYAAABACAAiAkAAL4EAAAgIAAAAQAgAKgQAABGDgAAMDAAAAEA
@@ -1541,23 +1562,5 @@
         AAAAAB////wAAAAAAAAAAAAAAAA/////AAAAAAAAAAAAAAAA////////////////////////////////
         ////////////////////////////////////////////////////////
 </value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>PokeUi</value>
-  </data>
-  <data name="btnUpgrade.Text" xml:space="preserve">
-    <value>Recharger le pokémon sélectionné</value>
-  </data>
-  <data name="button1.Text" xml:space="preserve">
-    <value>Rafraichir</value>
-  </data>
-  <data name="button2.Text" xml:space="preserve">
-    <value>Faire évoluer le pokémon sélectionné</value>
-  </data>
-  <data name="button3.Text" xml:space="preserve">
-    <value>Transférer le pokémon sélectionné</value>
-  </data>
-  <data name="toolStripMenuItem1.Text" xml:space="preserve">
-    <value>Transférer</value>
   </data>
 </root>

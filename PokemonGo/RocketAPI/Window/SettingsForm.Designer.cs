@@ -55,6 +55,8 @@
             this.AdressBox = new System.Windows.Forms.TextBox();
             this.trackBar = new System.Windows.Forms.TrackBar();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.language = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.ImageSizeBox = new System.Windows.Forms.TextBox();
             this.EmailLoginText = new System.Windows.Forms.Label();
@@ -264,6 +266,8 @@
             // panel1
             // 
             resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.Controls.Add(this.language);
+            this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.ImageSizeBox);
             this.panel1.Controls.Add(this.EmailLoginText);
@@ -299,6 +303,21 @@
             this.panel1.Controls.Add(this.ptcPassText);
             this.panel1.Name = "panel1";
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // language
+            // 
+            resources.ApplyResources(this.language, "language");
+            this.language.FormattingEnabled = true;
+            this.language.Items.AddRange(new object[] {
+            resources.GetString("language.Items"),
+            resources.GetString("language.Items1"),
+            resources.GetString("language.Items2")});
+            this.language.Name = "language";
+            // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.Name = "label8";
             // 
             // label7
             // 
@@ -426,5 +445,7 @@
         private System.Windows.Forms.TextBox EmailPasswordBox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox ImageSizeBox;
+        private System.Windows.Forms.ComboBox language;
+        private System.Windows.Forms.Label label8;
     }
 }

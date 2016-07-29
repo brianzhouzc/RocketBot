@@ -28,13 +28,16 @@ namespace PokemonGo.RocketAPI.Window
         public MainForm()
         {
             
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(Settings.Instance.Language == "System" ? CultureInfo.InstalledUICulture.Name : Settings.Instance.Language);
+            Thread.CurrentThread.CurrentCulture =  new CultureInfo(Settings.Instance.Language == "System" ? CultureInfo.InstalledUICulture.Name : Settings.Instance.Language);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(Settings.Instance.Language == "System" ? CultureInfo.InstalledUICulture.Name : Settings.Instance.Language);
             InitializeComponent();
             ClientSettings = Settings.Instance;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            CultureInfo.DefaultThreadCurrentCulture = FrenchCulture;
+
         }
 
         public static ISettings ClientSettings;
@@ -47,8 +50,6 @@ namespace PokemonGo.RocketAPI.Window
         private static bool FarmingPokemons = false;
         private static DateTime TimeStarted = DateTime.Now;
         public static DateTime InitSessionDateTime = DateTime.Now;
-        private static CultureInfo EnglishCulture = new CultureInfo("en-US");
-        private static CultureInfo FrenchCulture = new CultureInfo("fr-FR");
 
 
         Client client;
