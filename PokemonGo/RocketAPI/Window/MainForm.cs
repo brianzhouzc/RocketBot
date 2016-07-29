@@ -461,7 +461,7 @@ namespace PokemonGo.RocketAPI.Window
                 var pokemonCP = encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp;
                 var pokemonIV = Math.Round((double)encounterPokemonResponse?.WildPokemon?.PokemonData.GetIV() * 100);
                 CatchPokemonResponse caughtPokemonResponse;
-                ColoredConsoleWrite(Color.Green, $"Encounter a {pokemonName} with {pokemon} CP and {pokemonIV}% IV");
+                ColoredConsoleWrite(Color.Green, $"Encounter a {pokemonName} with {pokemonCP} CP and {pokemonIV}% IV");
                 do
                 {
                     if (ClientSettings.RazzBerryMode == "cp")
