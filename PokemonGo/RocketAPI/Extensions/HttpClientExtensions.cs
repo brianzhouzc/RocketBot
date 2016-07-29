@@ -28,12 +28,12 @@ namespace PokemonGo.RocketAPI.Extensions
             return decodedResponse;
         }
 
-   private static bool waitingForResponse = false;
-    public static async Task<TResponsePayload> PostProtoPayload<TRequest, TResponsePayload>(this HttpClient client,
-        string url, TRequest request) where TRequest : IMessage<TRequest>
-        where TResponsePayload : IMessage<TResponsePayload>, new()
-    {
-        ByteString payload = null;
+        private static bool waitingForResponse = false;
+        public static async Task<TResponsePayload> PostProtoPayload<TRequest, TResponsePayload>(this HttpClient client,
+            string url, TRequest request) where TRequest : IMessage<TRequest>
+            where TResponsePayload : IMessage<TResponsePayload>, new()
+        {
+            ByteString payload = null;
 
             while (waitingForResponse)
                 await Task.Delay(30);
@@ -44,13 +44,9 @@ namespace PokemonGo.RocketAPI.Extensions
             do
             {
                 count++;
-                ColoredConsoleWrite(ConsoleColor.Red, "ArgumentOutOfRangeException - Restarting");
-                ColoredConsoleWrite(ConsoleColor.Red, ($"[DEBUG] [{DateTime.Now.ToString("HH:mm:ss")}] requesting {typeof(TResponsePayload).Name}"));
                 response = await PostProto(client, url, request);
                 waitingForResponse = false;
-
-
-
+                
                 //Decode payload
                 //todo: multi-payload support
 
@@ -58,11 +54,29 @@ namespace PokemonGo.RocketAPI.Extensions
             } while (response.Payload.Count < 1 && count < 30);
             payload = response.Payload[0];
 
-        var parsedPayload = new TResponsePayload();
-        parsedPayload.MergeFrom(payload);
+            var parsedPayload = new TResponsePayload();
+            parsedPayload.MergeFrom(payload);
 
-        return parsedPayload;
-    }
+            return parsedPayload;
+        }
+
+
+      //  public static async Task<TResponsePayload> PostProtoPayload<TRequest, TResponsePayload>(this HttpClient client,
+      //      string url, TRequest request) where TRequest : IMessage<TRequest>
+      //      where TResponsePayload : IMessage<TResponsePayload>, new()
+      //  {
+      ////      ColoredConsoleWrite(ConsoleColor.Red, ($"[DEBUG] [{DateTime.Now.ToString("HH:mm:ss")}] requesting {typeof(TResponsePayload).Name}"));
+      //      var response = await PostProto(client, url, request);
+
+      //      //Decode payload
+      //      //todo: multi-payload support
+      //      var payload = response.Payload[0];
+      //      var parsedPayload = new TResponsePayload();
+      //      parsedPayload.MergeFrom(payload);
+
+      //      return parsedPayload;
+      //  }
+      
         public static void ColoredConsoleWrite(ConsoleColor color, string text)
         {
             ConsoleColor originalColor = System.Console.ForegroundColor;

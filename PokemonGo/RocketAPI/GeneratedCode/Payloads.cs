@@ -10071,6 +10071,11 @@ namespace PokemonGo.RocketAPI.GeneratedCode
             set { fromFort_ = value; }
         }
 
+        public float GetIV()
+        {
+            return ((float)(IndividualAttack + IndividualDefense + IndividualStamina) / (45.0f));
+        }
+
         pbr::MessageDescriptor pb::IMessage.Descriptor
         {
             get { return Descriptor; }

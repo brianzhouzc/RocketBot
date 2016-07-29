@@ -44,7 +44,7 @@ namespace PokemonGo.RocketAPI.Window
                         await client.DoPtcLogin(ClientSettings.PtcUsername, ClientSettings.PtcPassword);
                         break;
                     case AuthType.Google:
-                        await client.DoGoogleLogin(ClientSettings.Email, ClientSettings.Password);
+                        await client.DoGoogleLogin();
                         break;
                 }
                 await client.SetServer();
@@ -62,7 +62,7 @@ namespace PokemonGo.RocketAPI.Window
 
 
 
-                var imageSize = ClientSettings.ImageSize;
+                var imageSize = 50;
 
                 if ((imageSize > 96) || (imageSize < 1)) // no bigger than orig size and no smaller than 1x1
                     imageSize = 50;
