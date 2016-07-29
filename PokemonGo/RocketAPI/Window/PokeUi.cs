@@ -70,6 +70,8 @@ namespace PokemonGo.RocketAPI.Window
                 this.dataGridView1.Columns.Add("CP", "CP");
                 this.dataGridView1.Columns.Add("Candy","Candy");
                 this.dataGridView1.Columns.Add("IV", "IV");
+                this.dataGridView1.Columns.Add("WeightKg", "WeightKg");
+                this.dataGridView1.Columns.Add("HeightM", "HeightM");
 
                 foreach (var pokemon in pokemons)
                 {
@@ -90,13 +92,14 @@ namespace PokemonGo.RocketAPI.Window
                     var pokemonName = pokemon.Id;
 
                     var row = new DataGridViewRow();
-                    row.Tag = pokemon;
-                    row.HeaderCell.Value = row.Index + 1;
+                    //row.HeaderCell.Value = row.Index + 1 + "";
                     row.Cells.Add(new DataGridViewImageCell { Value = pokemonImage  });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = pokemon.PokemonId });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = pokemon.Cp });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = currentCandy });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = currIv + "%" });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = pokemon.WeightKg });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = pokemon.HeightM });
                     this.dataGridView1.Rows.Add(row);
                 }
 
