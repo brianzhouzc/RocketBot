@@ -4,7 +4,7 @@
 * Discord channel for user and developer discussions.
 * https://discord.gg/y6EU2qY
 
-#Window
+# Screenshots
 ![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/MainWindow.png)
 ![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/MainPokeUi.png)
 ![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/MainSettings2.png)
@@ -48,7 +48,7 @@ Build and Run (CTRL+F5)
 * *email@gmail.com* - for Google account. No need for when using PTC.
 
 ## Password
-* *password* - for Google account. No need for when using PTC.
+* *password* - for Google account. No need for when using PTC. If you are using Google 2 factor authentication, generate an app password (https://security.google.com/settings/security/apppasswords) and use this instead of your normal Google password.
 
 ## GoogleRefreshToken
 * *token* - for Google account. No need for wen using PTC. (Obsolete)
