@@ -867,6 +867,7 @@ namespace PokemonGo.RocketAPI.Window
                     //Calculating the exp made per second
                     xpSec = (Math.Round(TotalExperience / GetRuntime()) / 60) / 60;
                     //Calculating the seconds left to level up
+                    if(xpSec!=0)
                     secondsLeft = (expNextLvl / xpSec);
                     //formatting data to make an output like DateFormat
                     while (secondsLeft > 60)
