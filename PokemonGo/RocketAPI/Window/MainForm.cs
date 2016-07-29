@@ -96,6 +96,9 @@ namespace PokemonGo.RocketAPI.Window
                 Invoke(new Action<Color, string>(ColoredConsoleWrite), color, text);
                 return;
             }
+
+            logTextBox.Select(logTextBox.Text.Length, 1); // Reset cursor to last
+
             string textToAppend = "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\r\n";
             logTextBox.SelectionColor = color;
             logTextBox.AppendText(textToAppend);
