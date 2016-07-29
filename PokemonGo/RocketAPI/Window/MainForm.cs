@@ -317,11 +317,11 @@ namespace PokemonGo.RocketAPI.Window
                     bot_started = false;
                 }
             }
-            catch (TaskCanceledException) { ColoredConsoleWrite(Color.Red, Properties.Strings.task_canceled); Execute(); }
-            catch (UriFormatException) { ColoredConsoleWrite(Color.Red, Properties.Strings.uri_exception); Execute(); }
-            catch (ArgumentOutOfRangeException) { ColoredConsoleWrite(Color.Red, Properties.Strings.out_of_range); Execute(); }
-            catch (ArgumentNullException) { ColoredConsoleWrite(Color.Red, Properties.Strings.argument_null); Execute(); }
-            catch (NullReferenceException) { ColoredConsoleWrite(Color.Red, Properties.Strings.null_reference); Execute(); }
+            catch (TaskCanceledException) { ColoredConsoleWrite(Color.Red, Properties.Strings.task_canceled); if (!Stopping) Execute(); }
+            catch (UriFormatException) { ColoredConsoleWrite(Color.Red, Properties.Strings.uri_exception); if (!Stopping) Execute(); }
+            catch (ArgumentOutOfRangeException) { ColoredConsoleWrite(Color.Red, Properties.Strings.out_of_range); if (!Stopping) Execute(); }
+            catch (ArgumentNullException) { ColoredConsoleWrite(Color.Red, Properties.Strings.argument_null); if (!Stopping) Execute(); }
+            catch (NullReferenceException) { ColoredConsoleWrite(Color.Red, Properties.Strings.null_reference); if (!Stopping) Execute(); }
             catch (Exception ex) { ColoredConsoleWrite(Color.Red, ex.ToString()); Execute(); }
         }
 

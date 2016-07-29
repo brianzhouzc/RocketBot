@@ -120,6 +120,8 @@
             // 
             resources.ApplyResources(this.useLuckyEggToolStripMenuItem, "useLuckyEggToolStripMenuItem");
             this.useLuckyEggToolStripMenuItem.Name = "useLuckyEggToolStripMenuItem";
+            this.useLuckyEggToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
+            this.useLuckyEggToolStripMenuItem.Text = "Use Lucky Egg";
             this.useLuckyEggToolStripMenuItem.Click += new System.EventHandler(this.useLuckyEggToolStripMenuItem_Click);
             // 
             // forceUnbanToolStripMenuItem
