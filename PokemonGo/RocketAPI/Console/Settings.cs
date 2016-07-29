@@ -31,6 +31,9 @@ namespace PokemonGo.RocketAPI.Console
         public string Email => GetSetting() != string.Empty ? GetSetting() : "Email";
         public string Password => GetSetting() != string.Empty ? GetSetting() : "Password";
 
+        private double latcheckpoint = -1;
+        private double lngcheckpoint = -1;
+
         public double DefaultLatitude
         {
             get { return GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 51.22640; }
@@ -42,6 +45,40 @@ namespace PokemonGo.RocketAPI.Console
         {
             get { return GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 6.77874; }
             set { SetSetting(value); }
+        }
+
+        public double LatitudeCheckPoint
+        {
+            get
+            {
+                if (latcheckpoint == -1)
+                {
+                    return GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 51.22640;
+                }
+                else
+                {
+                    return latcheckpoint;
+                }
+            }
+
+            set { latcheckpoint = value; }
+        }
+
+        public double LongtitudeCheckPoint
+        {
+            get
+            {
+                if (lngcheckpoint == -1)
+                {
+                    return GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 6.77874;
+                }
+                else
+                {
+                    return lngcheckpoint;
+                }
+            }
+
+            set { lngcheckpoint = value; }
         }
 
 

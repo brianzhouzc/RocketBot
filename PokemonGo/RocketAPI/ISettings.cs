@@ -13,6 +13,8 @@ namespace PokemonGo.RocketAPI
         AuthType AuthType { get; }
         double DefaultLatitude { get; set; }
         double DefaultLongitude { get; set; }
+        double LatitudeCheckPoint { get; set; }
+        double LongtitudeCheckPoint { get; set; }
         string LevelOutput { get; }
         int LevelTimeInterval { get; }
         string GoogleRefreshToken { get; set; }

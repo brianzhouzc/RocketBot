@@ -23,11 +23,22 @@ namespace PokemonGo.RocketAPI.Window
 {
     public partial class MainForm : Form
     {
+        private static MainForm instance = new MainForm();
+
         public MainForm()
         {
             InitializeComponent();
             ClientSettings = Settings.Instance;
+            instance = this;
+            latcheckpoint = ClientSettings.DefaultLatitude;
+            lngcheckpoint = ClientSettings.DefaultLongitude;
         }
+
+        public static MainForm getInstance()
+        {
+            return instance;
+        }
+
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -39,13 +50,18 @@ namespace PokemonGo.RocketAPI.Window
         private static int TotalExperience = 0;
         private static int TotalPokemon = 0;
         private static bool ForceUnbanning = false;
+        private static bool Teleporting = false;
         private static bool FarmingStops = false;
         private static bool FarmingPokemons = false;
+
+        private static double latcheckpoint;
+        private static double lngcheckpoint;
+
         private static DateTime TimeStarted = DateTime.Now;
         public static DateTime InitSessionDateTime = DateTime.Now;
         
 
-        Client client;
+        private static Client client;
         LocationManager locationManager;
         public static double GetRuntime()
         {
@@ -89,16 +105,17 @@ namespace PokemonGo.RocketAPI.Window
                         "https://raw.githubusercontent.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/master/PokemonGo/RocketAPI/Window/Properties/AssemblyInfo.cs");
         }
 
-        public void ColoredConsoleWrite(Color color, string text)
+        public static void ColoredConsoleWrite(Color color, string text)
         {
-            if (InvokeRequired)
+            System.Diagnostics.Debug.Write("well");
+            if (instance.InvokeRequired)
             {
-                Invoke(new Action<Color, string>(ColoredConsoleWrite), color, text);
+                instance.Invoke(new Action<Color, string>(ColoredConsoleWrite), color, text);
                 return;
             }
             string textToAppend = "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\r\n";
-            logTextBox.SelectionColor = color;
-            logTextBox.AppendText(textToAppend);
+            instance.logTextBox.SelectionColor = color;
+            instance.logTextBox.AppendText(textToAppend);
 
             object syncRoot = new object();
             lock (syncRoot) // Added locking to prevent text file trying to be accessed by two things at the same time
@@ -229,12 +246,12 @@ namespace PokemonGo.RocketAPI.Window
                 if (profile.Profile.Currency.ToArray()[0].Amount > 0) // If player has any pokecoins it will show how many they have.
                     ColoredConsoleWrite(Color.DarkGray, "Pokecoins: " + profile.Profile.Currency.ToArray()[0].Amount);
                 ColoredConsoleWrite(Color.DarkGray, "Stardust: " + profile.Profile.Currency.ToArray()[1].Amount + "\n");
-                ColoredConsoleWrite(Color.DarkGray, "Latitude: " + ClientSettings.DefaultLatitude);
-                ColoredConsoleWrite(Color.DarkGray, "Longitude: " + ClientSettings.DefaultLongitude);
+                ColoredConsoleWrite(Color.DarkGray, "Latitude: " + ClientSettings.LatitudeCheckPoint);
+                ColoredConsoleWrite(Color.DarkGray, "Longitude: " + ClientSettings.LongtitudeCheckPoint);
                 try
                 {
-                    ColoredConsoleWrite(Color.DarkGray, "Country: " + CallAPI("country", ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude));
-                    ColoredConsoleWrite(Color.DarkGray, "Area: " + CallAPI("place", ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude));
+                    ColoredConsoleWrite(Color.DarkGray, "Country: " + CallAPI("country", ClientSettings.DefaultLatitude, ClientSettings.LatitudeCheckPoint));
+                    ColoredConsoleWrite(Color.DarkGray, "Area: " + CallAPI("place", ClientSettings.DefaultLatitude, ClientSettings.LongtitudeCheckPoint));
                 }
                 catch (Exception)
                 {
@@ -341,7 +358,7 @@ namespace PokemonGo.RocketAPI.Window
 
             foreach (var pokemon in pokemons)
             {
-                if (ForceUnbanning)
+                if (ForceUnbanning || Teleporting)
                     break;
 
                 FarmingPokemons = true;
@@ -424,11 +441,11 @@ namespace PokemonGo.RocketAPI.Window
             }
             HashSet<FortData> pokeStopSet = new HashSet<FortData>(pokeStops);
             IEnumerable<FortData> nextPokeStopList = null;
-            if (!ForceUnbanning)
+            if (!ForceUnbanning && !Teleporting)
                 ColoredConsoleWrite(Color.Cyan, $"Visiting {pokeStops.Count()} PokeStops");
             foreach (var pokeStop in pokeStops)
             {
-                if (ForceUnbanning)
+                if (ForceUnbanning || Teleporting)
                     break;
 
                 FarmingStops = true;
@@ -485,7 +502,7 @@ namespace PokemonGo.RocketAPI.Window
 
         private async Task ForceUnban(Client client)
         {
-            if (!ForceUnbanning)
+            if (!ForceUnbanning && !Teleporting)
             {
                 ColoredConsoleWrite(Color.LightGreen, "Waiting for last farming action to be complete...");
                 ForceUnbanning = true;
@@ -538,10 +555,36 @@ namespace PokemonGo.RocketAPI.Window
             }
             else
             {
-                ColoredConsoleWrite(Color.Red, "A force unban attempt is in action... Please wait.");
+                ColoredConsoleWrite(Color.Red, "A force unban / teleport attempt is in action... Please wait.");
             }
+        }
 
+        public static async Task Teleport(Client client, double lat, double lng)
+        {
+            if (!ForceUnbanning && !Teleporting)
+            {
+                ColoredConsoleWrite(Color.LightGreen, "Waiting for last farming action to be complete...");
+                Teleporting = true;
 
+                while (FarmingStops || FarmingPokemons)
+                {
+                    await Task.Delay(25);
+                }
+
+                ColoredConsoleWrite(Color.LightGreen, "Starting to teleport...");
+
+                await client.UpdatePlayerLocation(lat, lng);
+                ClientSettings.LatitudeCheckPoint = lat;
+                ClientSettings.LongtitudeCheckPoint = lng;
+
+                Teleporting = false;
+                ColoredConsoleWrite(Color.LightGreen, "Teleported. Current location: " + lat + " / " + lng);
+
+            }
+            else
+            {
+                ColoredConsoleWrite(Color.Red, "A force unban / teleport attempt is in action... Please wait.");
+            }
         }
 
         private string GetFriendlyItemsString(IEnumerable<FortSearchResponse.Types.ItemAward> items)
@@ -823,6 +866,10 @@ namespace PokemonGo.RocketAPI.Window
             PrintLevel(client);
         }
 
+        public static Client getClient()
+        {
+            return client;
+        }
         // Pulled from NecronomiconCoding
         public static string _getSessionRuntimeInTimeFormat()
         {
@@ -1048,6 +1095,19 @@ namespace PokemonGo.RocketAPI.Window
             pForm.Show();
 
 
+        }
+
+        private void teleportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (client != null)
+            {
+                var tpForm = new TeleportForm();
+                tpForm.Show();
+            }
+            else
+            {
+                ColoredConsoleWrite(Color.Red, "Please start the bot before trying to teleport");
+            }
         }
     }
 }
