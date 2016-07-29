@@ -70,6 +70,24 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à A action is in play... Please wait..
+        /// </summary>
+        internal static string action_in_play {
+            get {
+                return ResourceManager.GetString("action_in_play", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à An action is in play, please wait until it&apos;s done..
+        /// </summary>
+        internal static string action_in_play_unban {
+            get {
+                return ResourceManager.GetString("action_in_play_unban", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Area: .
         /// </summary>
         internal static string area {
@@ -88,6 +106,24 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Attempt: .
+        /// </summary>
+        internal static string attempt {
+            get {
+                return ResourceManager.GetString("attempt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Bot successfully stopped..
+        /// </summary>
+        internal static string bot_stop {
+            get {
+                return ResourceManager.GetString("bot_stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Unable to check for updates now....
         /// </summary>
         internal static string check_update_failed {
@@ -97,11 +133,29 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Chosen PokeStop {0} for force unban.
+        /// </summary>
+        internal static string chose_pokestop {
+            get {
+                return ResourceManager.GetString("chose_pokestop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Country: .
         /// </summary>
         internal static string country {
             get {
                 return ResourceManager.GetString("country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Current Level: {0} ({1}/{2}).
+        /// </summary>
+        internal static string current_lvl {
+            get {
+                return ResourceManager.GetString("current_lvl", resourceCulture);
             }
         }
         
@@ -151,6 +205,24 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à A force unban attempt is in action... Please wait..
+        /// </summary>
+        internal static string force_unban_in_action {
+            get {
+                return ResourceManager.GetString("force_unban_in_action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Please start the bot before trying to force unban.
+        /// </summary>
+        internal static string force_unban_start_before {
+            get {
+                return ResourceManager.GetString("force_unban_start_before", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à , Gems: {0}.
         /// </summary>
         internal static string gems {
@@ -178,11 +250,38 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Finished grinding all the meat.
+        /// </summary>
+        internal static string grinding_finished {
+            get {
+                return ResourceManager.GetString("grinding_finished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Grinding {pokemonToDiscard.Count} pokemon below {cpThreshold} CP..
+        /// </summary>
+        internal static string grinding_start {
+            get {
+                return ResourceManager.GetString("grinding_start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à , Items: {0}.
         /// </summary>
         internal static string items {
             get {
                 return ResourceManager.GetString("items", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Pokemon {0} with {1} CP has IV percent less than {2}%.
+        /// </summary>
+        internal static string IV_less {
+            get {
+                return ResourceManager.GetString("IV_less", resourceCulture);
             }
         }
         
@@ -223,6 +322,42 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Unhandled exception in using lucky egg: {0}.
+        /// </summary>
+        internal static string lucky_egg_error {
+            get {
+                return ResourceManager.GetString("lucky_egg_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Please start the bot before trying to use a lucky egg..
+        /// </summary>
+        internal static string lucky_egg_start_before {
+            get {
+                return ResourceManager.GetString("lucky_egg_start_before", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Lucky Egg Valid until: {0}.
+        /// </summary>
+        internal static string lucky_egg_validity {
+            get {
+                return ResourceManager.GetString("lucky_egg_validity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Current Level: {0}. XP needed for next Level: {1}.
+        /// </summary>
+        internal static string lvlup {
+            get {
+                return ResourceManager.GetString("lvlup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Name: {0}.
         /// </summary>
         internal static string name {
@@ -237,6 +372,15 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         internal static string no_location {
             get {
                 return ResourceManager.GetString("no_location", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à You don&apos;t have any Lucky Egg to use..
+        /// </summary>
+        internal static string no_lucky_egg {
+            get {
+                return ResourceManager.GetString("no_lucky_egg", resourceCulture);
             }
         }
         
@@ -313,11 +457,83 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à PTC Servers are probably down OR your credentials are wrong. Try google.
+        /// </summary>
+        internal static string ptc_error {
+            get {
+                return ResourceManager.GetString("ptc_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à cp.
+        /// </summary>
+        internal static string RazzBerryMode_CP {
+            get {
+                return ResourceManager.GetString("RazzBerryMode_CP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à probability.
+        /// </summary>
+        internal static string RazzBerryMode_probability {
+            get {
+                return ResourceManager.GetString("RazzBerryMode_probability", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Stardust: {0}.
         /// </summary>
         internal static string stardust {
             get {
                 return ResourceManager.GetString("stardust", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Start.
+        /// </summary>
+        internal static string start {
+            get {
+                return ResourceManager.GetString("start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Starting force unban....
+        /// </summary>
+        internal static string start_unban {
+            get {
+                return ResourceManager.GetString("start_unban", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à {0} | Level: {1:0} - ({3:0}/{4:0}) | Runtime {2} | Stardust: {5:0} | XP/Hour: {6} | Pokemon/Hour: {7}.
+        /// </summary>
+        internal static string status {
+            get {
+                return ResourceManager.GetString("status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Stop Bot.
+        /// </summary>
+        internal static string stop_bot {
+            get {
+                return ResourceManager.GetString("stop_bot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Stopping the bot.. Waiting for the last action to be complete..
+        /// </summary>
+        internal static string stopping_bot {
+            get {
+                return ResourceManager.GetString("stopping_bot", resourceCulture);
             }
         }
         
@@ -340,11 +556,128 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Transferred {0} with {1} CP.
+        /// </summary>
+        internal static string transfer {
+            get {
+                return ResourceManager.GetString("transfer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Somehow failed to transfer {0} with {1} CP. ReleasePokemonOutProto.Status was {2}.
+        /// </summary>
+        internal static string transfer_failed {
+            get {
+                return ResourceManager.GetString("transfer_failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Transferred {0} with {1} CP (Highest is {2}).
+        /// </summary>
+        internal static string transfer_highest_CP {
+            get {
+                return ResourceManager.GetString("transfer_highest_CP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Transferred {0} with {1}% IV (Highest is {2}% IV).
+        /// </summary>
+        internal static string transfer_highest_IV {
+            get {
+                return ResourceManager.GetString("transfer_highest_IV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Transfering pokemon disabled.
         /// </summary>
         internal static string transfering_disabled {
             get {
                 return ResourceManager.GetString("transfering_disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à All.
+        /// </summary>
+        internal static string TransferType_All {
+            get {
+                return ResourceManager.GetString("TransferType_All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à CP.
+        /// </summary>
+        internal static string TransferType_CP {
+            get {
+                return ResourceManager.GetString("TransferType_CP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Duplicate.
+        /// </summary>
+        internal static string TransferType_Duplicate {
+            get {
+                return ResourceManager.GetString("TransferType_Duplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à IV.
+        /// </summary>
+        internal static string TransferType_IV {
+            get {
+                return ResourceManager.GetString("TransferType_IV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à IV Duplicate.
+        /// </summary>
+        internal static string TransferType_IV_Duplicate {
+            get {
+                return ResourceManager.GetString("TransferType_IV_Duplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Leave Strongest.
+        /// </summary>
+        internal static string TransferType_Strongest {
+            get {
+                return ResourceManager.GetString("TransferType_Strongest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Force unban failed, please try again..
+        /// </summary>
+        internal static string unban_failed {
+            get {
+                return ResourceManager.GetString("unban_failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Fuck yes, you are now unbanned! Total attempts: .
+        /// </summary>
+        internal static string unbanned {
+            get {
+                return ResourceManager.GetString("unbanned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Unhandled exception: {0}.
+        /// </summary>
+        internal static string unhandled_exception {
+            get {
+                return ResourceManager.GetString("unhandled_exception", resourceCulture);
             }
         }
         
@@ -358,11 +691,29 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Using a Lucky Egg, we have {0} left..
+        /// </summary>
+        internal static string using_lucky_egg {
+            get {
+                return ResourceManager.GetString("using_lucky_egg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Visiting {0} PokeStops.
         /// </summary>
         internal static string visiting_pokestops {
             get {
                 return ResourceManager.GetString("visiting_pokestops", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Waiting for last farming action to be complete....
+        /// </summary>
+        internal static string waiting_farming {
+            get {
+                return ResourceManager.GetString("waiting_farming", resourceCulture);
             }
         }
         

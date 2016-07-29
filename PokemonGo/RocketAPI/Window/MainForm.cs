@@ -262,31 +262,21 @@ namespace PokemonGo.RocketAPI.Window
 
                 ColoredConsoleWrite(Color.Yellow, "----------------------------");
 
-                // I believe a switch is more efficient and easier to read.
-                switch (ClientSettings.TransferType)
-                {
-                    case "Leave Strongest":
-                        await TransferAllButStrongestUnwantedPokemon(client);
-                        break;
-                    case "All":
-                        await TransferAllGivenPokemons(client, pokemons);
-                        break;
-                    case "Duplicate":
-                        await TransferDuplicatePokemon(client);
-                        break;
-                    case "IV Duplicate":
-                        await TransferDuplicateIVPokemon(client);
-                        break;
-                    case "CP":
-                        await TransferAllWeakPokemon(client, ClientSettings.TransferCPThreshold);
-                        break;
-                    case "IV":
-                        await TransferAllGivenPokemons(client, pokemons, ClientSettings.TransferIVThreshold);
-                        break;
-                    default:
-                        ColoredConsoleWrite(Color.DarkGray, Properties.Strings.transfering_disabled);
-                        break;
-                }
+                //Choosing if else, because switch case handle only constant values
+                if(ClientSettings.TransferType == Properties.Strings.TransferType_Strongest)
+                    await TransferAllButStrongestUnwantedPokemon(client);
+                else if(ClientSettings.TransferType == Properties.Strings.TransferType_All)
+                    await TransferAllGivenPokemons(client, pokemons);
+                else if(ClientSettings.TransferType == Properties.Strings.TransferType_Duplicate)
+                    await TransferDuplicatePokemon(client);
+                else if(ClientSettings.TransferType == Properties.Strings.TransferType_IV_Duplicate)
+                    await TransferDuplicateIVPokemon(client);
+                else if(ClientSettings.TransferType == Properties.Strings.TransferType_CP)
+                    await TransferAllWeakPokemon(client, ClientSettings.TransferCPThreshold);
+                else if(ClientSettings.TransferType == Properties.Strings.TransferType_IV)
+                    await TransferAllGivenPokemons(client, pokemons, ClientSettings.TransferIVThreshold);
+                else
+                    ColoredConsoleWrite(Color.DarkGray, Properties.Strings.transfering_disabled);
 
 
                 if (ClientSettings.EvolveAllGivenPokemons)
@@ -312,8 +302,8 @@ namespace PokemonGo.RocketAPI.Window
                 } else
                 {
                     ConsoleClear();
-                    ColoredConsoleWrite(Color.Red, $"Bot successfully stopped.");
-                    startStopBotToolStripMenuItem.Text = "Start";
+                    ColoredConsoleWrite(Color.Red, Properties.Strings.bot_stop);
+                    startStopBotToolStripMenuItem.Text = Properties.Strings.start;
                     Stopping = false;
                     bot_started = false;
                 }
@@ -383,17 +373,17 @@ namespace PokemonGo.RocketAPI.Window
                 CatchPokemonResponse caughtPokemonResponse;
                 do
                 {
-                    if (ClientSettings.RazzBerryMode == "cp")
+                    if (ClientSettings.RazzBerryMode == Properties.Strings.RazzBerryMode_CP)
                         if (pokemonCP > ClientSettings.RazzBerrySetting)
                             await client.UseRazzBerry(client, pokemon.EncounterId, pokemon.SpawnpointId);
-                    if (ClientSettings.RazzBerryMode == "probability")
+                    if (ClientSettings.RazzBerryMode == Properties.Strings.RazzBerryMode_probability)
                         if (encounterPokemonResponse.CaptureProbability.CaptureProbability_.First() < ClientSettings.RazzBerrySetting)
                             await client.UseRazzBerry(client, pokemon.EncounterId, pokemon.SpawnpointId);
                     caughtPokemonResponse = await client.CatchPokemon(pokemon.EncounterId, pokemon.SpawnpointId, pokemon.Latitude, pokemon.Longitude, MiscEnums.Item.ITEM_POKE_BALL, pokemonCP); ; //note: reverted from settings because this should not be part of settings but part of logic
                 } while (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed || caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchEscape);
 
                 string pokemonName;
-                if (ClientSettings.Language == "german")
+                if (ClientSettings.Language == "de")
                 {
                     string name_english = Convert.ToString(pokemon.PokemonId);
                     var request = (HttpWebRequest)WebRequest.Create("http://boosting-service.de/pokemon/index.php?pokeName=" + name_english);
@@ -413,32 +403,21 @@ namespace PokemonGo.RocketAPI.Window
                 else
                     ColoredConsoleWrite(Color.Red, string.Format(Properties.Strings.pokemon_got_away, pokemonName, pokemonCP, pokemonIV));
 
-
-                // I believe a switch is more efficient and easier to read.
-                switch (ClientSettings.TransferType)
-                {
-                    case "Leave Strongest":
-                        await TransferAllButStrongestUnwantedPokemon(client);
-                        break;
-                    case "All":
-                        await TransferAllGivenPokemons(client, pokemons2);
-                        break;
-                    case "Duplicate":
-                        await TransferDuplicatePokemon(client);
-                        break;
-                    case "IV Duplicate":
-                        await TransferDuplicateIVPokemon(client);
-                        break;
-                    case "CP":
-                        await TransferAllWeakPokemon(client, ClientSettings.TransferCPThreshold);
-                        break;
-                    case "IV":
-                        await TransferAllGivenPokemons(client, pokemons2, ClientSettings.TransferIVThreshold);
-                        break;
-                    default:
-                        ColoredConsoleWrite(Color.DarkGray, Properties.Strings.transfering_disabled);
-                        break;
-                }
+                // Need else if, because switch case handle only constant values
+                if(ClientSettings.TransferType == Properties.Strings.TransferType_Strongest)
+                    await TransferAllButStrongestUnwantedPokemon(client);
+                else if(ClientSettings.TransferType == Properties.Strings.TransferType_All)
+                    await TransferAllGivenPokemons(client, pokemons2);
+                else if(ClientSettings.TransferType == Properties.Strings.TransferType_Duplicate)
+                    await TransferDuplicatePokemon(client);
+                else if (ClientSettings.TransferType == Properties.Strings.TransferType_IV_Duplicate)
+                    await TransferDuplicateIVPokemon(client);
+                else if (ClientSettings.TransferType == Properties.Strings.TransferType_CP)
+                    await TransferAllWeakPokemon(client, ClientSettings.TransferCPThreshold);
+                else if (ClientSettings.TransferType == Properties.Strings.TransferType_IV)
+                    await TransferAllGivenPokemons(client, pokemons2, ClientSettings.TransferIVThreshold);
+                else
+                    ColoredConsoleWrite(Color.DarkGray, Properties.Strings.transfering_disabled);
 
                 FarmingPokemons = false;
                 await Task.Delay(3000);
@@ -519,7 +498,7 @@ namespace PokemonGo.RocketAPI.Window
         {
             if (!ForceUnbanning && !Stopping)
             {
-                ColoredConsoleWrite(Color.LightGreen, "Waiting for last farming action to be complete...");
+                ColoredConsoleWrite(Color.LightGreen, Properties.Strings.waiting_farming);
                 ForceUnbanning = true;
 
                 while (FarmingStops || FarmingPokemons)
@@ -527,7 +506,7 @@ namespace PokemonGo.RocketAPI.Window
                     await Task.Delay(25);
                 }
 
-                ColoredConsoleWrite(Color.LightGreen, "Starting force unban...");
+                ColoredConsoleWrite(Color.LightGreen, Properties.Strings.start_unban);
 
                 var mapObjects = await client.GetMapObjects();
                 var pokeStops = mapObjects.MapCells.SelectMany(i => i.Forts).Where(i => i.Type == FortType.Checkpoint && i.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime());
@@ -544,17 +523,17 @@ namespace PokemonGo.RocketAPI.Window
 
                     if (fortInfo.Name != string.Empty)
                     {
-                        ColoredConsoleWrite(Color.LightGreen, "Chosen PokeStop " + fortInfo.Name + " for force unban");
+                        ColoredConsoleWrite(Color.LightGreen, string.Format(Properties.Strings.chose_pokestop, fortInfo.Name));
                         for (int i = 1; i <= 50; i++)
                         {
                             var fortSearch = await client.SearchFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
                             if (fortSearch.ExperienceAwarded == 0)
                             {
-                                ColoredConsoleWrite(Color.LightGreen, "Attempt: " + i);
+                                ColoredConsoleWrite(Color.LightGreen, Properties.Strings.attempt + i);
                             }
                             else
                             {
-                                ColoredConsoleWrite(Color.LightGreen, "Fuck yes, you are now unbanned! Total attempts: " + i);
+                                ColoredConsoleWrite(Color.LightGreen, Properties.Strings.unbanned + i);
                                 done = true;
                                 break;
                             }
@@ -562,7 +541,7 @@ namespace PokemonGo.RocketAPI.Window
                     }
 
                     if (!done)
-                        ColoredConsoleWrite(Color.LightGreen, "Force unban failed, please try again.");
+                        ColoredConsoleWrite(Color.LightGreen, Properties.Strings.unban_failed);
 
                     ForceUnbanning = false;
                     break;
@@ -570,7 +549,7 @@ namespace PokemonGo.RocketAPI.Window
             }
             else
             {
-                ColoredConsoleWrite(Color.Red, "A action is in play... Please wait.");
+                ColoredConsoleWrite(Color.Red, Properties.Strings.action_in_play);
             }
 
 
@@ -658,7 +637,7 @@ namespace PokemonGo.RocketAPI.Window
             foreach (var pokemon in unwantedPokemons)
             {
                 if (Perfect(pokemon) >= keepPerfectPokemonLimit) continue;
-                ColoredConsoleWrite(Color.White, $"Pokemon {pokemon.PokemonId} with {pokemon.Cp} CP has IV percent less than {keepPerfectPokemonLimit}%");
+                ColoredConsoleWrite(Color.White, string.Format(Properties.Strings.IV_less, pokemon.PokemonId, pokemon.Cp, keepPerfectPokemonLimit));
 
                 if (pokemon.Favorite == 0)
                 {
@@ -673,7 +652,7 @@ namespace PokemonGo.RocketAPI.Window
                         ERROR_POKEMON_IS_EGG = 4;
                     }*/
                     string pokemonName;
-                    if (ClientSettings.Language == "german")
+                    if (ClientSettings.Language == "de")
                     {
                         // Dont really need to print this do we? youll know if its German or not
                         //ColoredConsoleWrite(Color.DarkCyan, "german");
@@ -686,14 +665,13 @@ namespace PokemonGo.RocketAPI.Window
                         pokemonName = Convert.ToString(pokemon.PokemonId);
                     if (transferPokemonResponse.Status == 1)
                     {
-                        ColoredConsoleWrite(Color.Magenta, $"Transferred {pokemonName} with {pokemon.Cp} CP");
+                        ColoredConsoleWrite(Color.Magenta, string.Format(Properties.Strings.transfer, pokemonName, pokemon.Cp));
                     }
                     else
                     {
                         var status = transferPokemonResponse.Status;
 
-                        ColoredConsoleWrite(Color.Red, $"Somehow failed to transfer {pokemonName} with {pokemon.Cp} CP. " +
-                                                 $"ReleasePokemonOutProto.Status was {status}");
+                        ColoredConsoleWrite(Color.Red, string.Format(Properties.Strings.transfer_failed, pokemonName, pokemon.Cp, status));
                     }
 
                     await Task.Delay(3000);
@@ -723,7 +701,7 @@ namespace PokemonGo.RocketAPI.Window
                     {
                         var transfer = await client.TransferPokemon(dubpokemon.Id);
                         string pokemonName;
-                        if (ClientSettings.Language == "german")
+                        if (ClientSettings.Language == "de")
                         {
                             string name_english = Convert.ToString(dubpokemon.PokemonId);
                             var request = (HttpWebRequest)WebRequest.Create("http://boosting-service.de/pokemon/index.php?pokeName=" + name_english);
@@ -732,8 +710,7 @@ namespace PokemonGo.RocketAPI.Window
                         }
                         else
                             pokemonName = Convert.ToString(dubpokemon.PokemonId);
-                        ColoredConsoleWrite(Color.DarkGreen,
-                            $"Transferred {pokemonName} with {dubpokemon.Cp} CP (Highest is {dupes.ElementAt(i).Last().value.Cp})");
+                        ColoredConsoleWrite(Color.DarkGreen, string.Format(Properties.Strings.transfer_highest_CP, pokemonName, dubpokemon.Cp, dupes.ElementAt(i).Last().value.Cp));
 
                     }
                 }
@@ -762,7 +739,7 @@ namespace PokemonGo.RocketAPI.Window
                     {
                         var transfer = await client.TransferPokemon(dubpokemon.Id);
                         string pokemonName;
-                        if (ClientSettings.Language == "german")
+                        if (ClientSettings.Language == "de")
                         {
                             string name_english = Convert.ToString(dubpokemon.PokemonId);
                             var request = (HttpWebRequest)WebRequest.Create("http://boosting-service.de/pokemon/index.php?pokeName=" + name_english);
@@ -771,8 +748,7 @@ namespace PokemonGo.RocketAPI.Window
                         }
                         else
                             pokemonName = Convert.ToString(dubpokemon.PokemonId);
-                        ColoredConsoleWrite(Color.DarkGreen,
-                            $"Transferred {pokemonName} with {Math.Round(Perfect(dubpokemon))}% IV (Highest is {Math.Round(Perfect(dupes.ElementAt(i).Last().value))}% IV)");
+                        ColoredConsoleWrite(Color.DarkGreen, string.Format(Properties.Strings.transfer_highest_IV, pokemonName, Math.Round(Perfect(dubpokemon)), Math.Round(Perfect(dupes.ElementAt(i).Last().value))));
 
                     }
                 }
@@ -823,12 +799,12 @@ namespace PokemonGo.RocketAPI.Window
 
                 //var unwantedPokemon = pokemonOfDesiredType.Skip(1) // keep the strongest one for potential battle-evolving
                 //                                          .ToList();
-                ColoredConsoleWrite(Color.Gray, $"Grinding {pokemonToDiscard.Count} pokemon below {cpThreshold} CP.");
+                ColoredConsoleWrite(Color.Gray, string.Format(Properties.Strings.grinding_start, pokemonToDiscard.Count, cpThreshold));
                 await TransferAllGivenPokemons(client, pokemonToDiscard);
 
             }
 
-            ColoredConsoleWrite(Color.Gray, $"Finished grinding all the meat");
+            ColoredConsoleWrite(Color.Gray, Properties.Strings.grinding_finished);
         }
 
         public async Task PrintLevel(Client client)
@@ -840,12 +816,12 @@ namespace PokemonGo.RocketAPI.Window
                 {
                     int XpDiff = GetXpDiff(client, v.Level);
                     if (ClientSettings.LevelOutput == "time")
-                        ColoredConsoleWrite(Color.Yellow, $"Current Level: " + v.Level + " (" + (v.Experience - XpDiff) + "/" + (v.NextLevelXp - XpDiff) + ")");
+                        ColoredConsoleWrite(Color.Yellow, string.Format(Properties.Strings.current_lvl, v.Level, v.Experience - XpDiff, v.NextLevelXp - XpDiff));
                     else if (ClientSettings.LevelOutput == "levelup")
                         if (Currentlevel != v.Level)
                         {
                             Currentlevel = v.Level;
-                            ColoredConsoleWrite(Color.Magenta, $"Current Level: " + v.Level + ". XP needed for next Level: " + (v.NextLevelXp - v.Experience));
+                            ColoredConsoleWrite(Color.Magenta, string.Format(Properties.Strings.lvlup, v.Level, v.NextLevelXp - v.Experience));
                         }
                 }
             if (ClientSettings.LevelOutput == "levelup")
@@ -870,7 +846,7 @@ namespace PokemonGo.RocketAPI.Window
                 if (v != null)
                 {
                     int XpDiff = GetXpDiff(client, v.Level);
-                    SetStatusText(string.Format(Username + " | Level: {0:0} - ({2:0} / {3:0}) | Runtime {1} | Stardust: {4:0}", v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount) + " | XP/Hour: " + Math.Round(TotalExperience / GetRuntime()) + " | Pokemon/Hour: " + Math.Round(TotalPokemon / GetRuntime()));
+                    SetStatusText(string.Format(Properties.Strings.status, Username, v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount, Math.Round(TotalExperience / GetRuntime()), Math.Round(TotalPokemon / GetRuntime())));
                 }
             await Task.Delay(1000);
             ConsoleLevelTitle(Username, client);
@@ -982,7 +958,7 @@ namespace PokemonGo.RocketAPI.Window
             if (!bot_started)
             {
                 bot_started = true;
-                startStopBotToolStripMenuItem.Text = "Stop Bot";
+                startStopBotToolStripMenuItem.Text = Properties.Strings.stop_bot;
                 Task.Run(() =>
                 {
                     try
@@ -993,11 +969,11 @@ namespace PokemonGo.RocketAPI.Window
                     }
                     catch (PtcOfflineException)
                     {
-                        ColoredConsoleWrite(Color.Red, "PTC Servers are probably down OR your credentials are wrong. Try google");
+                        ColoredConsoleWrite(Color.Red, Properties.Strings.ptc_error);
                     }
                     catch (Exception ex)
                     {
-                        ColoredConsoleWrite(Color.Red, $"Unhandled exception: {ex}");
+                        ColoredConsoleWrite(Color.Red, string.Format(Properties.Strings.unhandled_exception, ex));
                     }
                 });
             } else
@@ -1005,10 +981,10 @@ namespace PokemonGo.RocketAPI.Window
                 if (!ForceUnbanning)
                 {
                     Stopping = true;
-                    ColoredConsoleWrite(Color.Red, $"Stopping the bot.. Waiting for the last action to be complete.");
+                    ColoredConsoleWrite(Color.Red, Properties.Strings.stopping_bot);
                 } else
                 {
-                    ColoredConsoleWrite(Color.Red, $"An action is in play, please wait until it's done.");
+                    ColoredConsoleWrite(Color.Red, Properties.Strings.action_in_play_unban);
                 }
             }
         }
@@ -1034,8 +1010,8 @@ namespace PokemonGo.RocketAPI.Window
                     if (LuckyEgg != null)
                     {
                         var useItemXpBoostRequest = await client.UseItemXpBoost(ItemId.ItemLuckyEgg);
-                        ColoredConsoleWrite(Color.Green, $"Using a Lucky Egg, we have {LuckyEgg.Count} left.");
-                        ColoredConsoleWrite(Color.Yellow, $"Lucky Egg Valid until: {DateTime.Now.AddMinutes(30).ToString()}");
+                        ColoredConsoleWrite(Color.Green, string.Format(Properties.Strings.using_lucky_egg, LuckyEgg.Count));
+                        ColoredConsoleWrite(Color.Yellow, string.Format(Properties.Strings.lucky_egg_validity, DateTime.Now.AddMinutes(30).ToString()));
 
                         var stripItem = sender as ToolStripMenuItem;
                         stripItem.Enabled = false;
@@ -1044,17 +1020,17 @@ namespace PokemonGo.RocketAPI.Window
                     }
                     else
                     {
-                        ColoredConsoleWrite(Color.Red, $"You don't have any Lucky Egg to use.");
+                        ColoredConsoleWrite(Color.Red, Properties.Strings.no_lucky_egg);
                     }
                 }
                 catch (Exception ex)
                 {
-                    ColoredConsoleWrite(Color.Red, $"Unhandled exception in using lucky egg: {ex}");
+                    ColoredConsoleWrite(Color.Red, string.Format(Properties.Strings.lucky_egg_error, ex));
                 }
             }
             else
             {
-                ColoredConsoleWrite(Color.Red, "Please start the bot before trying to use a lucky egg.");
+                ColoredConsoleWrite(Color.Red, Properties.Strings.lucky_egg_start_before);
             }
         }
 
@@ -1064,7 +1040,7 @@ namespace PokemonGo.RocketAPI.Window
             {
                 if (ForceUnbanning)
                 {
-                    ColoredConsoleWrite(Color.Red, "A force unban attempt is in action... Please wait.");
+                    ColoredConsoleWrite(Color.Red, Properties.Strings.force_unban_in_action);
                 }
                 else
                 {
@@ -1073,7 +1049,7 @@ namespace PokemonGo.RocketAPI.Window
             }
             else
             {
-                ColoredConsoleWrite(Color.Red, "Please start the bot before trying to force unban");
+                ColoredConsoleWrite(Color.Red, Properties.Strings.force_unban_start_before);
             }
         }
 

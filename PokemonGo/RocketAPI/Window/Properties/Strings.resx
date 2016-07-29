@@ -120,17 +120,35 @@
   <data name="account" xml:space="preserve">
     <value>Account: {0}</value>
   </data>
+  <data name="action_in_play" xml:space="preserve">
+    <value>A action is in play... Please wait.</value>
+  </data>
+  <data name="action_in_play_unban" xml:space="preserve">
+    <value>An action is in play, please wait until it's done.</value>
+  </data>
   <data name="area" xml:space="preserve">
     <value>Area: </value>
   </data>
   <data name="argument_null" xml:space="preserve">
     <value>Argument Null Refference - Restarting</value>
   </data>
+  <data name="attempt" xml:space="preserve">
+    <value>Attempt: </value>
+  </data>
+  <data name="bot_stop" xml:space="preserve">
+    <value>Bot successfully stopped.</value>
+  </data>
   <data name="check_update_failed" xml:space="preserve">
     <value>Unable to check for updates now...</value>
   </data>
+  <data name="chose_pokestop" xml:space="preserve">
+    <value>Chosen PokeStop {0} for force unban</value>
+  </data>
   <data name="country" xml:space="preserve">
     <value>Country: </value>
+  </data>
+  <data name="current_lvl" xml:space="preserve">
+    <value>Current Level: {0} ({1}/{2})</value>
   </data>
   <data name="eggs" xml:space="preserve">
     <value>, Eggs: {0}</value>
@@ -147,6 +165,12 @@
   <data name="evolve_success" xml:space="preserve">
     <value>Evolved {0} successfully for {1}xp</value>
   </data>
+  <data name="force_unban_in_action" xml:space="preserve">
+    <value>A force unban attempt is in action... Please wait.</value>
+  </data>
+  <data name="force_unban_start_before" xml:space="preserve">
+    <value>Please start the bot before trying to force unban</value>
+  </data>
   <data name="gems" xml:space="preserve">
     <value>, Gems: {0}</value>
   </data>
@@ -156,8 +180,17 @@
   <data name="github_version" xml:space="preserve">
     <value>Github version is </value>
   </data>
+  <data name="grinding_finished" xml:space="preserve">
+    <value>Finished grinding all the meat</value>
+  </data>
+  <data name="grinding_start" xml:space="preserve">
+    <value>Grinding {pokemonToDiscard.Count} pokemon below {cpThreshold} CP.</value>
+  </data>
   <data name="items" xml:space="preserve">
     <value>, Items: {0}</value>
+  </data>
+  <data name="IV_less" xml:space="preserve">
+    <value>Pokemon {0} with {1} CP has IV percent less than {2}%</value>
   </data>
   <data name="latitude" xml:space="preserve">
     <value>Latitude: {0}</value>
@@ -171,11 +204,26 @@
   <data name="longitude" xml:space="preserve">
     <value>Longitude: {0}</value>
   </data>
+  <data name="lucky_egg_error" xml:space="preserve">
+    <value>Unhandled exception in using lucky egg: {0}</value>
+  </data>
+  <data name="lucky_egg_start_before" xml:space="preserve">
+    <value>Please start the bot before trying to use a lucky egg.</value>
+  </data>
+  <data name="lucky_egg_validity" xml:space="preserve">
+    <value>Lucky Egg Valid until: {0}</value>
+  </data>
+  <data name="lvlup" xml:space="preserve">
+    <value>Current Level: {0}. XP needed for next Level: {1}</value>
+  </data>
   <data name="name" xml:space="preserve">
     <value>Name: {0}</value>
   </data>
   <data name="no_location" xml:space="preserve">
     <value>No nearby useful locations found. Please wait 10 seconds.</value>
+  </data>
+  <data name="no_lucky_egg" xml:space="preserve">
+    <value>You don't have any Lucky Egg to use.</value>
   </data>
   <data name="null_reference" xml:space="preserve">
     <value>Null Refference - Restarting</value>
@@ -201,8 +249,32 @@
   <data name="pokestop" xml:space="preserve">
     <value>PokeStop: </value>
   </data>
+  <data name="ptc_error" xml:space="preserve">
+    <value>PTC Servers are probably down OR your credentials are wrong. Try google</value>
+  </data>
+  <data name="RazzBerryMode_CP" xml:space="preserve">
+    <value>cp</value>
+  </data>
+  <data name="RazzBerryMode_probability" xml:space="preserve">
+    <value>probability</value>
+  </data>
   <data name="stardust" xml:space="preserve">
     <value>Stardust: {0}</value>
+  </data>
+  <data name="start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="start_unban" xml:space="preserve">
+    <value>Starting force unban...</value>
+  </data>
+  <data name="status" xml:space="preserve">
+    <value>{0} | Level: {1:0} - ({3:0}/{4:0}) | Runtime {2} | Stardust: {5:0} | XP/Hour: {6} | Pokemon/Hour: {7}</value>
+  </data>
+  <data name="stopping_bot" xml:space="preserve">
+    <value>Stopping the bot.. Waiting for the last action to be complete.</value>
+  </data>
+  <data name="stop_bot" xml:space="preserve">
+    <value>Stop Bot</value>
   </data>
   <data name="task_canceled" xml:space="preserve">
     <value>Task Canceled Exception - Restarting</value>
@@ -210,14 +282,59 @@
   <data name="team" xml:space="preserve">
     <value>Team: {0}</value>
   </data>
+  <data name="transfer" xml:space="preserve">
+    <value>Transferred {0} with {1} CP</value>
+  </data>
   <data name="transfering_disabled" xml:space="preserve">
     <value>Transfering pokemon disabled</value>
+  </data>
+  <data name="TransferType_All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="TransferType_CP" xml:space="preserve">
+    <value>CP</value>
+  </data>
+  <data name="TransferType_Duplicate" xml:space="preserve">
+    <value>Duplicate</value>
+  </data>
+  <data name="TransferType_IV" xml:space="preserve">
+    <value>IV</value>
+  </data>
+  <data name="TransferType_IV_Duplicate" xml:space="preserve">
+    <value>IV Duplicate</value>
+  </data>
+  <data name="TransferType_Strongest" xml:space="preserve">
+    <value>Leave Strongest</value>
+  </data>
+  <data name="transfer_failed" xml:space="preserve">
+    <value>Somehow failed to transfer {0} with {1} CP. ReleasePokemonOutProto.Status was {2}</value>
+  </data>
+  <data name="transfer_highest_CP" xml:space="preserve">
+    <value>Transferred {0} with {1} CP (Highest is {2})</value>
+  </data>
+  <data name="transfer_highest_IV" xml:space="preserve">
+    <value>Transferred {0} with {1}% IV (Highest is {2}% IV)</value>
+  </data>
+  <data name="unbanned" xml:space="preserve">
+    <value>Fuck yes, you are now unbanned! Total attempts: </value>
+  </data>
+  <data name="unban_failed" xml:space="preserve">
+    <value>Force unban failed, please try again.</value>
+  </data>
+  <data name="unhandled_exception" xml:space="preserve">
+    <value>Unhandled exception: {0}</value>
   </data>
   <data name="uri_exception" xml:space="preserve">
     <value>System URI Format Exception - Restarting</value>
   </data>
+  <data name="using_lucky_egg" xml:space="preserve">
+    <value>Using a Lucky Egg, we have {0} left.</value>
+  </data>
   <data name="visiting_pokestops" xml:space="preserve">
     <value>Visiting {0} PokeStops</value>
+  </data>
+  <data name="waiting_farming" xml:space="preserve">
+    <value>Waiting for last farming action to be complete...</value>
   </data>
   <data name="xp" xml:space="preserve">
     <value>, XP: {0}</value>
