@@ -22,6 +22,7 @@ namespace PokemonGo.RocketAPI.Window
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
+
             authTypeCb.Text = Settings.Instance.AuthType.ToString();
             ptcUserText.Text = Settings.Instance.PtcUsername.ToString();
             ptcPassText.Text = Settings.Instance.PtcPassword.ToString();
@@ -37,6 +38,7 @@ namespace PokemonGo.RocketAPI.Window
             evolveAllChk.Checked = Settings.Instance.EvolveAllGivenPokemons;
             CatchPokemonBox.Checked = Settings.Instance.CatchPokemon;
             TravelSpeedBox.Text = Settings.Instance.TravelSpeed.ToString();
+            ImageSizeBox.Text = Settings.Instance.ImageSize.ToString();
             // Initialize map:
             //use google provider
             gMapControl1.MapProvider = GoogleMapProvider.Instance;
@@ -87,6 +89,7 @@ namespace PokemonGo.RocketAPI.Window
             Settings.Instance.SetSetting(transferCpThresText.Text, "TransferCPThreshold");
             Settings.Instance.SetSetting(transferIVThresText.Text, "TransferIVThreshold");
             Settings.Instance.SetSetting(TravelSpeedBox.Text, "TravelSpeed");
+            Settings.Instance.SetSetting(ImageSizeBox.Text, "ImageSize");
             Settings.Instance.SetSetting(evolveAllChk.Checked ? "true" : "false", "EvolveAllGivenPokemons");
             Settings.Instance.SetSetting(CatchPokemonBox.Checked ? "true" : "false", "CatchPokemon");
             Settings.Instance.Reload();

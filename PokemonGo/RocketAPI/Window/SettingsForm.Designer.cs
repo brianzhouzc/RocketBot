@@ -65,6 +65,8 @@
             this.EmailPasswordText = new System.Windows.Forms.Label();
             this.EmailLoginBox = new System.Windows.Forms.TextBox();
             this.EmailPasswordBox = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.ImageSizeBox = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.panel1.SuspendLayout();
@@ -344,6 +346,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.ImageSizeBox);
             this.panel1.Controls.Add(this.EmailLoginText);
             this.panel1.Controls.Add(this.CatchPokemonBox);
             this.panel1.Controls.Add(this.EmailPasswordText);
@@ -404,7 +408,7 @@
             // 
             // transferIVThresText
             // 
-            this.transferIVThresText.Location = new System.Drawing.Point(104, 246);
+            this.transferIVThresText.Location = new System.Drawing.Point(104, 220);
             this.transferIVThresText.Name = "transferIVThresText";
             this.transferIVThresText.Size = new System.Drawing.Size(100, 20);
             this.transferIVThresText.TabIndex = 24;
@@ -430,7 +434,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 246);
+            this.label6.Location = new System.Drawing.Point(3, 220);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(70, 13);
             this.label6.TabIndex = 21;
@@ -468,6 +472,22 @@
             this.EmailPasswordBox.Name = "EmailPasswordBox";
             this.EmailPasswordBox.Size = new System.Drawing.Size(136, 20);
             this.EmailPasswordBox.TabIndex = 30;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(3, 249);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(100, 13);
+            this.label7.TabIndex = 32;
+            this.label7.Text = "PokeUi Image Size:";
+            // 
+            // ImageSizeBox
+            // 
+            this.ImageSizeBox.Location = new System.Drawing.Point(104, 246);
+            this.ImageSizeBox.Name = "ImageSizeBox";
+            this.ImageSizeBox.Size = new System.Drawing.Size(100, 20);
+            this.ImageSizeBox.TabIndex = 31;
             // 
             // SettingsForm
             // 
@@ -533,5 +553,7 @@
         private System.Windows.Forms.Label EmailPasswordText;
         private System.Windows.Forms.TextBox EmailLoginBox;
         private System.Windows.Forms.TextBox EmailPasswordBox;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox ImageSizeBox;
     }
 }

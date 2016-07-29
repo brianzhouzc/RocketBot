@@ -43,7 +43,7 @@ namespace PokemonGo.RocketAPI.Window
         private static bool FarmingPokemons = false;
         private static DateTime TimeStarted = DateTime.Now;
         public static DateTime InitSessionDateTime = DateTime.Now;
-        
+
 
         Client client;
         LocationManager locationManager;
@@ -196,9 +196,6 @@ namespace PokemonGo.RocketAPI.Window
                         break;
                     case AuthType.Google:
                         ColoredConsoleWrite(Color.Green, "Login Type: Google");
-                            ColoredConsoleWrite(Color.Green, "Authenticating...\n");
-                            ColoredConsoleWrite(Color.Green, "Logging in to Google account.");
-                        
                         await client.DoGoogleLogin(ClientSettings.Email, ClientSettings.Password);
 
                         break;
@@ -217,16 +214,17 @@ namespace PokemonGo.RocketAPI.Window
 
                 // Write the players ingame details
                 ColoredConsoleWrite(Color.Yellow, "----------------------------");
-                        if (ClientSettings.AuthType == AuthType.Ptc)
-                        {
-                            ColoredConsoleWrite(Color.Cyan, "Account: " + ClientSettings.PtcUsername);
-                            ColoredConsoleWrite(Color.Cyan, "Password: " + ClientSettings.PtcPassword + "\n");
-                        }
-                        else
-                        {
-                            ColoredConsoleWrite(Color.Cyan, "Email: " + ClientSettings.Email);
-                            ColoredConsoleWrite(Color.Cyan, "Password: " + ClientSettings.Password + "\n");
-                        }
+                /*// dont actually want to display info but keeping here incase people want to \O_O/
+                 * if (ClientSettings.AuthType == AuthType.Ptc)
+                {
+                    ColoredConsoleWrite(Color.Cyan, "Account: " + ClientSettings.PtcUsername);
+                    ColoredConsoleWrite(Color.Cyan, "Password: " + ClientSettings.PtcPassword + "\n");
+                }
+                else
+                {
+                    ColoredConsoleWrite(Color.Cyan, "Email: " + ClientSettings.Email);
+                    ColoredConsoleWrite(Color.Cyan, "Password: " + ClientSettings.Password + "\n");
+                }*/
                 ColoredConsoleWrite(Color.DarkGray, "Name: " + profile.Profile.Username);
                 ColoredConsoleWrite(Color.DarkGray, "Team: " + profile.Profile.Team);
                 if (profile.Profile.Currency.ToArray()[0].Amount > 0) // If player has any pokecoins it will show how many they have.
@@ -497,7 +495,7 @@ namespace PokemonGo.RocketAPI.Window
                 {
                     await Task.Delay(25);
                 }
-                
+
                 ColoredConsoleWrite(Color.LightGreen, "Starting force unban...");
 
                 var mapObjects = await client.GetMapObjects();
@@ -534,7 +532,7 @@ namespace PokemonGo.RocketAPI.Window
 
                     if (!done)
                         ColoredConsoleWrite(Color.LightGreen, "Force unban failed, please try again.");
-                    
+
                     ForceUnbanning = false;
                     break;
                 }
