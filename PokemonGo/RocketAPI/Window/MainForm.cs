@@ -193,10 +193,11 @@ namespace PokemonGo.RocketAPI.Window
                         break;
                     case AuthType.Google:
                         ColoredConsoleWrite(Color.Green, "Login Type: Google");
-                        if (ClientSettings.GoogleRefreshToken == "")
-                            ColoredConsoleWrite(Color.Green, "Now opening www.Google.com/device and copying the 8 digit code to your clipboard");
+                            ColoredConsoleWrite(Color.Green, "Authenticating...\n");
+                            ColoredConsoleWrite(Color.Green, "Logging in to Google account.");
+                        
+                        await client.DoGoogleLogin(ClientSettings.Email, ClientSettings.Password);
 
-                        await client.DoGoogleLogin();
                         break;
                 }
 
@@ -213,11 +214,16 @@ namespace PokemonGo.RocketAPI.Window
 
                 // Write the players ingame details
                 ColoredConsoleWrite(Color.Yellow, "----------------------------");
-                if (ClientSettings.AuthType == AuthType.Ptc)
-                {
-                    ColoredConsoleWrite(Color.Cyan, "Account: " + ClientSettings.PtcUsername);
-                    ColoredConsoleWrite(Color.Cyan, "Password: " + ClientSettings.PtcPassword + "\n");
-                }
+                        if (ClientSettings.AuthType == AuthType.Ptc)
+                        {
+                            ColoredConsoleWrite(Color.Cyan, "Account: " + ClientSettings.PtcUsername);
+                            ColoredConsoleWrite(Color.Cyan, "Password: " + ClientSettings.PtcPassword + "\n");
+                        }
+                        else
+                        {
+                            ColoredConsoleWrite(Color.Cyan, "Email: " + ClientSettings.Email);
+                            ColoredConsoleWrite(Color.Cyan, "Password: " + ClientSettings.Password + "\n");
+                        }
                 ColoredConsoleWrite(Color.DarkGray, "Name: " + profile.Profile.Username);
                 ColoredConsoleWrite(Color.DarkGray, "Team: " + profile.Profile.Team);
                 if (profile.Profile.Currency.ToArray()[0].Amount > 0) // If player has any pokecoins it will show how many they have.

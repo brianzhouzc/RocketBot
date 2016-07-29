@@ -152,7 +152,7 @@ namespace PokemonGo.RocketAPI.Console
                         await client.DoPtcLogin(ClientSettings.PtcUsername, ClientSettings.PtcPassword);
                         break;
                     case AuthType.Google:
-                        await client.DoGoogleLogin();
+                        await client.DoGoogleLogin(ClientSettings.Email, ClientSettings.Password);
                         break;
                 }
 
@@ -173,6 +173,11 @@ namespace PokemonGo.RocketAPI.Console
                 {
                     ColoredConsoleWrite(ConsoleColor.Cyan, "Account: " + ClientSettings.PtcUsername);
                     ColoredConsoleWrite(ConsoleColor.Cyan, "Password: " + ClientSettings.PtcPassword + "\n");
+                }
+                else
+                {
+                    ColoredConsoleWrite(ConsoleColor.Cyan, "Email: " + ClientSettings.Email);
+                    ColoredConsoleWrite(ConsoleColor.Cyan, "Password: " + ClientSettings.Password + "\n");
                 }
                 ColoredConsoleWrite(ConsoleColor.DarkGray, "Name: " + profile.Profile.Username);
                 ColoredConsoleWrite(ConsoleColor.DarkGray, "Team: " + profile.Profile.Team);
