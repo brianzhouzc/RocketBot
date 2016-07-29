@@ -98,9 +98,9 @@ namespace PokemonGo.RocketAPI
                 string token = _GPSOresponse["Token"];
                 Dictionary<string, string> oauthResponse = _GPSOclient.PerformOAuth(
                 token,
-"audience:server:client_id:848232511240-7so421jotr2609rmqakceuu1luuq0ptb.apps.googleusercontent.com",
-"com.nianticlabs.pokemongo",
-"321187995bc7cdc2b5fc91b11a96e2baa8602c62");
+                "audience:server:client_id:848232511240-7so421jotr2609rmqakceuu1luuq0ptb.apps.googleusercontent.com",
+                "com.nianticlabs.pokemongo",
+                "321187995bc7cdc2b5fc91b11a96e2baa8602c62");
                 /* string oauthJson = JsonConvert.SerializeObject(oauthResponse, Formatting.Indented);
                   Console.WriteLine(oauthJson); */
                 _accessToken = oauthResponse["Auth"];
@@ -159,26 +159,26 @@ namespace PokemonGo.RocketAPI
         }
 
 
-		public async Task<EvolvePokemonOut> PowerUp(ulong pokemonId)
-		{
-			var customRequest = new EvolvePokemon
-			{
-				PokemonId = pokemonId
-			};
+        public async Task<EvolvePokemonOut> PowerUp(ulong pokemonId)
+        {
+            var customRequest = new EvolvePokemon
+            {
+                PokemonId = pokemonId
+            };
 
-			var releasePokemonRequest = RequestBuilder.GetRequest(_unknownAuth, _currentLat, _currentLng, 30,
-				new Request.Types.Requests
-				{
-					Type = (int)RequestType.UPGRADE_POKEMON,
-					Message = customRequest.ToByteString()
-				});
-			return
-				await
-					_httpClient.PostProtoPayload<Request, EvolvePokemonOut>($"https://{_apiUrl}/rpc",
-						releasePokemonRequest);
-		}
+            var releasePokemonRequest = RequestBuilder.GetRequest(_unknownAuth, _currentLat, _currentLng, 30,
+                new Request.Types.Requests
+                {
+                    Type = (int)RequestType.UPGRADE_POKEMON,
+                    Message = customRequest.ToByteString()
+                });
+            return
+                await
+                    _httpClient.PostProtoPayload<Request, EvolvePokemonOut>($"https://{_apiUrl}/rpc",
+                        releasePokemonRequest);
+        }
 
-		private async Task<MiscEnums.Item> GetBestBall(int? pokemonCP)
+        private async Task<MiscEnums.Item> GetBestBall(int? pokemonCP)
         {
             var inventory = await GetInventory();
 
@@ -377,8 +377,8 @@ namespace PokemonGo.RocketAPI
         {
             _currentLat = lat;
             _currentLng = lng;
-//            _settings.DefaultLatitude = lat;
-//            _settings.DefaultLongitude = lng;
+            //            _settings.DefaultLatitude = lat;
+            //            _settings.DefaultLongitude = lng;
         }
 
         public async Task SetServer()
