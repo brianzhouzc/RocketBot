@@ -62,6 +62,8 @@ namespace PokemonGo.RocketAPI.Window
 
         public string PtcUsername => GetSetting() != string.Empty ? GetSetting() : "username";
         public string PtcPassword => GetSetting() != string.Empty ? GetSetting() : "password";
+        public string Email => GetSetting() != string.Empty ? GetSetting() : "Email";
+        public string Password => GetSetting() != string.Empty ? GetSetting() : "Password";
 
         public double DefaultLatitude
         {

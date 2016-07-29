@@ -46,9 +46,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.listView1.Location = new System.Drawing.Point(16, 14);
-			this.listView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.listView1.Margin = new System.Windows.Forms.Padding(4);
 			this.listView1.Name = "listView1";
-			this.listView1.Size = new System.Drawing.Size(585, 451);
+			this.listView1.Size = new System.Drawing.Size(795, 458);
 			this.listView1.TabIndex = 0;
 			this.listView1.UseCompatibleStateImageBehavior = false;
 			this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
@@ -59,10 +59,10 @@
 			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.button1.Location = new System.Drawing.Point(15, 486);
-			this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.button1.Location = new System.Drawing.Point(16, 489);
+			this.button1.Margin = new System.Windows.Forms.Padding(4);
 			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(587, 32);
+			this.button1.Size = new System.Drawing.Size(795, 32);
 			this.button1.TabIndex = 3;
 			this.button1.Text = "Reload";
 			this.button1.UseVisualStyleBackColor = true;
@@ -88,10 +88,10 @@
 			this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.button2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.button2.Location = new System.Drawing.Point(16, 526);
-			this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.button2.Location = new System.Drawing.Point(16, 529);
+			this.button2.Margin = new System.Windows.Forms.Padding(4);
 			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(288, 32);
+			this.button2.Size = new System.Drawing.Size(795, 32);
 			this.button2.TabIndex = 4;
 			this.button2.Text = "Evolve Selected";
 			this.button2.UseVisualStyleBackColor = true;
@@ -102,10 +102,10 @@
 			this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.button3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.button3.Location = new System.Drawing.Point(16, 573);
-			this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.button3.Location = new System.Drawing.Point(16, 609);
+			this.button3.Margin = new System.Windows.Forms.Padding(4);
 			this.button3.Name = "button3";
-			this.button3.Size = new System.Drawing.Size(585, 32);
+			this.button3.Size = new System.Drawing.Size(795, 32);
 			this.button3.TabIndex = 5;
 			this.button3.Text = "Transfer Selected";
 			this.button3.UseVisualStyleBackColor = true;
@@ -113,9 +113,12 @@
 			// 
 			// btnUpgrade
 			// 
-			this.btnUpgrade.Location = new System.Drawing.Point(314, 525);
+			this.btnUpgrade.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnUpgrade.Location = new System.Drawing.Point(16, 569);
+			this.btnUpgrade.Margin = new System.Windows.Forms.Padding(4);
 			this.btnUpgrade.Name = "btnUpgrade";
-			this.btnUpgrade.Size = new System.Drawing.Size(287, 33);
+			this.btnUpgrade.Size = new System.Drawing.Size(795, 32);
 			this.btnUpgrade.TabIndex = 6;
 			this.btnUpgrade.Text = "Upgrade Selected";
 			this.btnUpgrade.UseVisualStyleBackColor = true;
@@ -125,14 +128,14 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(619, 618);
+			this.ClientSize = new System.Drawing.Size(829, 664);
 			this.Controls.Add(this.btnUpgrade);
 			this.Controls.Add(this.button3);
 			this.Controls.Add(this.button2);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.listView1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.Margin = new System.Windows.Forms.Padding(4);
 			this.Name = "PokeUi";
 			this.Text = "PokeUi";
 			this.Load += new System.EventHandler(this.PokeUi_Load);
