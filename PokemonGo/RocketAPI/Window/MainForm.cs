@@ -70,10 +70,12 @@ namespace PokemonGo.RocketAPI.Window
                             match.Groups[2],
                             match.Groups[3],
                             match.Groups[4]));
-                // makes sense to display your version and say what the current one is on github
-                ColoredConsoleWrite(Color.Green, "Your version is " + Assembly.GetExecutingAssembly().GetName().Version);
-                ColoredConsoleWrite(Color.Green, "Github version is " + gitVersion);
-                ColoredConsoleWrite(Color.Green, "You can find it at www.GitHub.com/DetectiveSquirrel/Pokemon-Go-Rocket-API");
+				// makes sense to display your version and say what the current one is on github
+				var sb = new StringBuilder();
+				sb.AppendLine("Your version is " + Assembly.GetExecutingAssembly().GetName().Version);
+				sb.AppendLine("Github version is " + gitVersion);
+				sb.AppendLine("You can find it at www.GitHub.com/DetectiveSquirrel/Pokemon-Go-Rocket-API");
+				ColoredConsoleWrite(Color.Green, sb.ToString());
             }
             catch (Exception)
             {
@@ -195,10 +197,7 @@ namespace PokemonGo.RocketAPI.Window
                         await client.DoPtcLogin(ClientSettings.PtcUsername, ClientSettings.PtcPassword);
                         break;
                     case AuthType.Google:
-                        ColoredConsoleWrite(Color.Green, "Login Type: Google");
-                            ColoredConsoleWrite(Color.Green, "Authenticating...\n");
-                            ColoredConsoleWrite(Color.Green, "Logging in to Google account.");
-                        
+                        ColoredConsoleWrite(Color.Green, "Login Type: Google\nAuthenticating...\nLogging in to Google account.");                             
                         await client.DoGoogleLogin(ClientSettings.Email, ClientSettings.Password);
 
                         break;
@@ -227,13 +226,18 @@ namespace PokemonGo.RocketAPI.Window
                             ColoredConsoleWrite(Color.Cyan, "Email: " + ClientSettings.Email);
                             ColoredConsoleWrite(Color.Cyan, "Password: " + ClientSettings.Password + "\n");
                         }
-                ColoredConsoleWrite(Color.DarkGray, "Name: " + profile.Profile.Username);
-                ColoredConsoleWrite(Color.DarkGray, "Team: " + profile.Profile.Team);
+				var sb = new StringBuilder();
+				sb.AppendLine("Name: " + profile.Profile.Username);
+				sb.AppendLine("Team: " + profile.Profile.Team);
+
                 if (profile.Profile.Currency.ToArray()[0].Amount > 0) // If player has any pokecoins it will show how many they have.
-                    ColoredConsoleWrite(Color.DarkGray, "Pokecoins: " + profile.Profile.Currency.ToArray()[0].Amount);
-                ColoredConsoleWrite(Color.DarkGray, "Stardust: " + profile.Profile.Currency.ToArray()[1].Amount + "\n");
-                ColoredConsoleWrite(Color.DarkGray, "Latitude: " + ClientSettings.DefaultLatitude);
-                ColoredConsoleWrite(Color.DarkGray, "Longitude: " + ClientSettings.DefaultLongitude);
+					sb.AppendLine("Pokecoins: " + profile.Profile.Currency.ToArray()[0].Amount);
+
+				sb.AppendLine("Stardust: " + profile.Profile.Currency.ToArray()[1].Amount);
+				sb.AppendLine("Latitude: " + ClientSettings.DefaultLatitude);
+				sb.AppendLine("Longitude: " + ClientSettings.DefaultLongitude);
+	
+                ColoredConsoleWrite(Color.DarkGray, sb.ToString());
                 try
                 {
                     ColoredConsoleWrite(Color.DarkGray, "Country: " + CallAPI("country", ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude));
