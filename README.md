@@ -1,5 +1,9 @@
 # Pokemon-Go-Rocket-API
 
+# Discusion not controlled by me but by user 1461748123
+* Discord channel for user and developer discussions.
+* https://discord.gg/y6EU2qY
+
 #Window
 ![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/MainWindow.png)
 ![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/MainPokeUi.png)
