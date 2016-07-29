@@ -32,12 +32,23 @@ Go to PokemonGo\RocketAPI\Window\App.config -> Edit the Settings you like -> Bui
 
 # Settings
 ## AuthType
-* *Google* - Google login
-* *Ptc* - Pokémon Trainer Club login with username/password combination
+* *google* - Google login
+* *ptc* - Pokémon Trainer Club
 
 ## PtcUsername
-* *username* for PTC account. No need for when using Google.
-* *password* for PTC account. No need for when using Google.
+* *username* - for PTC account. No need for when using Google.
+
+## PtcPassword
+* *password* - for PTC account. No need for when using Google.
+
+## Email
+* *email@gmail.com* - for Google account. No need for when using PTC.
+
+## Password
+* *password* - for Google account. No need for when using PTC.
+
+## GoogleRefreshToken
+* *token* - for Google account. No need for wen using PTC. (Obsolete)
 
 ## DefaultLatitude
 * *12.345678* - Latitude of your location you want to use the bot in. Number between -90 and +90. Doesn't matter how many numbers stand after the comma.
@@ -68,7 +79,8 @@ Go to PokemonGo\RocketAPI\Window\App.config -> Edit the Settings you like -> Bui
 * *probability* - Use RazzBerry when Pokémon catch chance is under a specific percentage.
 
 ## RazzBerrySetting
-* *value* - CP: Use RazzBerry when Pokémon is over this value | Probability Mode: Use Razzberry when % of catching is under this value
+* *cp value* - If RazzBerryMode is cp. Use RazzBerry when Pokémon is over this value
+* *probability value* - If RazzBerryMode is probability. Use Razzberry when % of catching is under this value. Between 0 and 1.
 
 ## TransferType
 * *none* - disables transferring
@@ -79,6 +91,19 @@ Go to PokemonGo\RocketAPI\Window\App.config -> Edit the Settings you like -> Bui
 
 ## TransferCPThreshold
 * *CP* - transfers all Pokémon with less CP than this value.
+
+## TransferIVThreshold
+* *IV* - transfers all Pokémon with less IV than this value. Between 0 and 1.
+
+## TravelSpeed
+* *Speed* - Travel speed in km/h
+
+## ImageSize
+* *px* - Pixel size for Pokémon Thumbnails
+
+## CatchPokemon
+* *true* - Catch Pokémon and get Items from PokéStops
+* *false* - Don't catch Pokémon and get Items from PokéStops
 
 ## EvolveAllGivenPokemons
 * *false* - Evolves no Pokémon.
