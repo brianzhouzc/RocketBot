@@ -60,16 +60,16 @@ namespace PokemonGo.RocketAPI.Window
                     .Where(p => p != null && (int)p?.FamilyId > 0)
                     .OrderByDescending(p => (int)p.FamilyId);
 
+            
+                //listView1.ShowItemToolTips = true;
 
-
-                var imageSize = ClientSettings.ImageSize;
-
-                if ((imageSize > 96) || (imageSize < 1)) // no bigger than orig size and no smaller than 1x1
-                    imageSize = 50;
-
-                var imageList = new ImageList { ImageSize = new Size(imageSize, imageSize) };
-                //var imageList = new ImageList { ImageSize = new Size(96, 96) };
-                listView1.ShowItemToolTips = true;
+                //put data into gridview
+                this.dataGridView1.AutoGenerateColumns = false;
+                this.dataGridView1.Columns.Add("Image", "Image");
+                this.dataGridView1.Columns.Add("Name", "Name");
+                this.dataGridView1.Columns.Add("CP", "CP");
+                this.dataGridView1.Columns.Add("Candy","Candy");
+                this.dataGridView1.Columns.Add("IV", "IV");
 
                 foreach (var pokemon in pokemons)
                 {
@@ -78,34 +78,30 @@ namespace PokemonGo.RocketAPI.Window
                     {
                         pokemonImage = GetPokemonImage((int)pokemon.PokemonId);
                     });
-                    imageList.Images.Add(pokemon.PokemonId.ToString(), pokemonImage);
-
-                    listView1.LargeImageList = imageList;
-                    var listViewItem = new ListViewItem();
-                    listViewItem.Tag = pokemon;
-
 
                     var currentCandy = families
                         .Where(i => (int)i.FamilyId <= (int)pokemon.PokemonId)
                         .Select(f => f.Candy)
                         .First();
                     var currIv = Math.Round(Perfect(pokemon));
-                    //listViewItem.SubItems.Add();
-                    listViewItem.ImageKey = pokemon.PokemonId.ToString();
-
+                    
+           
                     var pokemonId2 = pokemon.PokemonId;
                     var pokemonName = pokemon.Id;
 
-                    listViewItem.Text = string.Format("{0}\n{1} CP", pokemon.PokemonId, pokemon.Cp);
-                    listViewItem.ToolTipText = currentCandy + " Candy\n" + currIv + "% IV";
-
-
-                    this.listView1.Items.Add(listViewItem);
-
+                    var row = new DataGridViewRow();
+                    row.Tag = pokemon;
+                    row.HeaderCell.Value = row.Index + 1;
+                    row.Cells.Add(new DataGridViewImageCell { Value = pokemonImage  });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = pokemon.PokemonId });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = pokemon.Cp });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = currentCandy });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = currIv + "%" });
+                    this.dataGridView1.Rows.Add(row);
                 }
+
                 this.Text = "PokeUi " + pokemons.Count<PokemonData>() + "/" + profile.Profile.PokeStorage;
                 EnabledButton(true);
-
 
             }
             catch (TaskCanceledException) { Execute(); }
@@ -118,9 +114,9 @@ namespace PokemonGo.RocketAPI.Window
 
         private void EnabledButton(bool enabled)
         {
-            button1.Enabled = enabled;
-            button2.Enabled = enabled;
-            button3.Enabled = enabled;
+            btnReload.Enabled = enabled;
+            btnEvolve.Enabled = enabled;
+            btnTransfer.Enabled = enabled;
             btnUpgrade.Enabled = enabled;
         }
 
@@ -135,15 +131,23 @@ namespace PokemonGo.RocketAPI.Window
                 WebClient wc = new WebClient();
                 wc.DownloadFile("http://pokeapi.co/media/sprites/pokemon/" + pokemonId + ".png", @location);
             }
+
+            var imageSize = ClientSettings.ImageSize;
+
+            if ((imageSize > 96) || (imageSize < 1)) // no bigger than orig size and no smaller than 1x1
+                imageSize = 50;
+
             PictureBox picbox = new PictureBox();
             picbox.Image = Image.FromFile(location);
-            Bitmap bitmapRemote = (Bitmap)picbox.Image;
+            Bitmap bitmapRemote = new Bitmap(picbox.Image, imageSize, imageSize);
             return bitmapRemote;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.listView1.Clear();
+            this.dataGridView1.DataSource = null;
+            this.dataGridView1.Columns.Clear();
+            this.dataGridView1.Rows.Clear();
             Execute();
         }
 
@@ -156,52 +160,75 @@ namespace PokemonGo.RocketAPI.Window
             return ((float)(poke.IndividualAttack + poke.IndividualDefense + poke.IndividualStamina) / (3.0f * 15.0f)) * 100.0f;
         }
 
-        private void listView1_MouseClick(object sender, MouseEventArgs e)
+        /*private void listView1_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
+                this.dataGridView1.
                 if (listView1.FocusedItem.Bounds.Contains(e.Location) == true)
                 {
                     contextMenuStrip1.Show(Cursor.Position);
                 }
             }
-        }
+        }*/
 
         private async void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            var pokemon = (PokemonData)listView1.SelectedItems[0].Tag;
+            var pokemon = (PokemonData)this.dataGridView1.SelectedRows[0].Tag;
 
 
             if (MessageBox.Show(this, pokemon.PokemonId + " with " + pokemon.Cp + " CP thats " + Math.Round(Perfect(pokemon)) + "% perfect", "Are you sure you want to transfer?", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 var transfer = await client.TransferPokemon(pokemon.Id);
             }
-            listView1.Items.Remove(listView1.SelectedItems[0]);
+            this.dataGridView1.Rows.Remove(this.dataGridView1.SelectedRows[0]);
         }
 
         private async void button2_Click(object sender, EventArgs e)
         {
-            var selectedItems = this.listView1.SelectedItems;
+            IEnumerable<DataGridViewRow> selectedItems = null;
 
-            foreach (ListViewItem selectedItem in selectedItems)
+            if (this.dataGridView1.SelectedRows.Count < 1)
+            {
+                selectedItems = this.dataGridView1.SelectedCells.Cast<DataGridViewCell>().Select(cell => cell.OwningRow).Distinct();
+            }
+            else
+            {
+                selectedItems = this.dataGridView1.SelectedRows.Cast<DataGridViewRow>();
+            }
+
+            foreach (DataGridViewRow selectedItem in selectedItems)
             {
                 await evolvePokemon((PokemonData)selectedItem.Tag);
             }
 
-            this.listView1.Clear();
+            this.dataGridView1.DataSource = null;
+            this.dataGridView1.Columns.Clear();
+            this.dataGridView1.Rows.Clear();
             Execute();
         }
 
         private async void button3_Click(object sender, EventArgs e)
         {
-            var selectedItems = this.listView1.SelectedItems;
 
-            foreach (ListViewItem selectedItem in selectedItems)
+            IEnumerable<DataGridViewRow> selectedItems = null;
+
+            if (this.dataGridView1.SelectedRows.Count < 1)
+            {
+                 selectedItems = this.dataGridView1.SelectedCells.Cast<DataGridViewCell>().Select(cell => cell.OwningRow).Distinct();
+            }else
+            {
+                 selectedItems = this.dataGridView1.SelectedRows.Cast<DataGridViewRow>();
+            }
+
+            foreach (DataGridViewRow selectedItem in selectedItems)
             {
                 await transferPokemon((PokemonData)selectedItem.Tag);
             }
 
-            this.listView1.Clear();
+            this.dataGridView1.DataSource = null;
+            this.dataGridView1.Columns.Clear();
+            this.dataGridView1.Rows.Clear();
             Execute();
         }
 
@@ -269,14 +296,25 @@ namespace PokemonGo.RocketAPI.Window
 
         private async void btnUpgrade_Click(object sender, EventArgs e)
         {
-            var selectedItems = listView1.SelectedItems;
+            IEnumerable<DataGridViewRow> selectedItems = null;
 
-            foreach (ListViewItem selectedItem in selectedItems)
+            if (this.dataGridView1.SelectedRows.Count < 1)
+            {
+                selectedItems = this.dataGridView1.SelectedCells.Cast<DataGridViewCell>().Select(cell => cell.OwningRow).Distinct();
+            }
+            else
+            {
+                selectedItems = this.dataGridView1.SelectedRows.Cast<DataGridViewRow>();
+            }
+
+            foreach (DataGridViewRow selectedItem in selectedItems)
             {
                 await PowerUp((PokemonData)selectedItem.Tag);
             }
 
-            listView1.Clear();
+            this.dataGridView1.DataSource = null;
+            this.dataGridView1.Columns.Clear();
+            this.dataGridView1.Rows.Clear();
             Execute();
         }
 
@@ -310,5 +348,6 @@ namespace PokemonGo.RocketAPI.Window
             catch (NullReferenceException) { await PowerUp(pokemon); }
             catch (Exception ex) { await PowerUp(pokemon); }
         }
+
     }
 }
