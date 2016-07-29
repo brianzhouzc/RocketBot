@@ -857,11 +857,33 @@ namespace PokemonGo.RocketAPI.Window
             var inventory = await client.GetInventory();
             var stats = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PlayerStats).ToArray();
             var profile = await client.GetProfile();
+            Int16 hoursLeft = 0; Int16 minutesLeft = 0; Int32 secondsLeft = 0; double xpSec = 0;
             foreach (var v in stats)
                 if (v != null)
                 {
                     int XpDiff = GetXpDiff(client, v.Level);
-                    SetStatusText(string.Format(Username + " | Level: {0:0} - ({2:0} / {3:0}) | Runtime {1} | Stardust: {4:0}", v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount) + " | XP/Hour: " + Math.Round(TotalExperience / GetRuntime()) + " | Pokemon/Hour: " + Math.Round(TotalPokemon / GetRuntime()));
+                    //Calculating the exp needed to level up
+                    Single expNextLvl = (v.NextLevelXp - v.Experience);
+                    //Calculating the exp made per second
+                    xpSec = (Math.Round(TotalExperience / GetRuntime()) / 60) / 60;
+                    //Calculating the seconds left to level up
+                    if(xpSec!=0)
+                    secondsLeft = Convert.ToInt32((expNextLvl / xpSec));
+                    //formatting data to make an output like DateFormat
+                    while (secondsLeft > 60)
+                    {
+                        secondsLeft -= 60;
+                        if (minutesLeft < 60)
+                        {
+                            minutesLeft++;
+                        }
+                        else
+                        {
+                            minutesLeft = 0;
+                            hoursLeft++;
+                        }
+                    }
+                    SetStatusText(string.Format(Username + " | Level: {0:0} - ({2:0} / {3:0}) | Runtime {1} | Stardust: {4:0}", v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount) + " | XP/Hour: " + Math.Round(TotalExperience / GetRuntime()) + " | Pokemon/Hour: " + Math.Round(TotalPokemon / GetRuntime())+ " | NextLevel in: " + hoursLeft + ":" + minutesLeft + ":" + secondsLeft);
                 }
             await Task.Delay(1000);
             ConsoleLevelTitle(Username, client);
