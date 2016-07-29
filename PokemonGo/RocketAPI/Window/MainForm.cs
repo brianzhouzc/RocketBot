@@ -302,26 +302,24 @@ namespace PokemonGo.RocketAPI.Window
                     await Task.Delay(10000);
                     CheckVersion();
                     Execute();
-                } else
+                }
+                else
                 {
-                    ConsoleClear();
-                    ColoredConsoleWrite(Color.Red, $"Bot successfully stopped.");
-                    startStopBotToolStripMenuItem.Text = "Start";
-                    Stopping = false;
-                    bot_started = false;
+                    confirmBotStopped();
                 }
             }
-            catch (TaskCanceledException) { ColoredConsoleWrite(Color.Red, "Task Canceled Exception - Restarting"); if (!Stopping) Execute();}
-            catch (UriFormatException) { ColoredConsoleWrite(Color.Red, "System URI Format Exception - Restarting"); if (!Stopping) Execute(); }
-            catch (ArgumentOutOfRangeException) { ColoredConsoleWrite(Color.Red, "ArgumentOutOfRangeException - Restarting"); if (!Stopping) Execute(); }
-            catch (ArgumentNullException) { ColoredConsoleWrite(Color.Red, "Argument Null Refference - Restarting"); if (!Stopping) Execute(); }
-            catch (NullReferenceException) { ColoredConsoleWrite(Color.Red, "Null Refference - Restarting"); if (!Stopping) Execute(); }
-            catch (Exception ex) { ColoredConsoleWrite(Color.Red, ex.ToString()); if (!Stopping) Execute(); }
+
+            catch (TaskCanceledException) { ColoredConsoleWrite(Color.Red, "Task Canceled Exception - Restarting"); if (!Stopping) { Execute(); } else { confirmBotStopped(); }}
+            catch (UriFormatException) { ColoredConsoleWrite(Color.Red, "System URI Format Exception - Restarting"); if (!Stopping) { Execute(); } else { confirmBotStopped(); } }
+            catch (ArgumentOutOfRangeException) { ColoredConsoleWrite(Color.Red, "ArgumentOutOfRangeException - Restarting"); if (!Stopping) { Execute(); } else { confirmBotStopped(); } }
+            catch (ArgumentNullException) { ColoredConsoleWrite(Color.Red, "Argument Null Refference - Restarting"); if (!Stopping) { Execute(); } else { confirmBotStopped(); } }
+            catch (NullReferenceException) { ColoredConsoleWrite(Color.Red, "Null Refference - Restarting"); if (!Stopping) { Execute(); } else { confirmBotStopped(); } }
+            catch (Exception ex) { ColoredConsoleWrite(Color.Red, ex.ToString()); if (!Stopping) { Execute(); } else { confirmBotStopped(); } }
         }
 
         private static string CallAPI(string elem, double lat, double lon)
         {
-            using (XmlReader reader = XmlReader.Create(@"http://api.geonames.org/findNearby?lat=" + lat + "&lng=" + lon + "&username=demo"))
+            using (XmlReader reader = XmlReader.Create(@"http://api.geonames.org/findNearby?lat=" + lat + "&lng=" + lon + "&username=pokemongobot"))
             {
                 while (reader.Read())
                 {
@@ -1002,6 +1000,15 @@ namespace PokemonGo.RocketAPI.Window
                     ColoredConsoleWrite(Color.Red, $"An action is in play, please wait until it's done.");
                 }
             }
+        }
+
+        public void confirmBotStopped()
+        {
+            ConsoleClear();
+            ColoredConsoleWrite(Color.Red, $"Bot successfully stopped.");
+            startStopBotToolStripMenuItem.Text = "Start";
+            Stopping = false;
+            bot_started = false;
         }
 
         private void showAllToolStripMenuItem3_Click(object sender, EventArgs e)
