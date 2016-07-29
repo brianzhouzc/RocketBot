@@ -33,7 +33,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.startBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startStopBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.todoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pokemonToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -79,7 +79,7 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.startBotToolStripMenuItem,
+            this.startStopBotToolStripMenuItem,
             this.mapToolStripMenuItem,
             this.todoToolStripMenuItem,
             this.pokemonToolStripMenuItem2,
@@ -93,10 +93,10 @@
             // 
             // startBotToolStripMenuItem
             // 
-            this.startBotToolStripMenuItem.Name = "startBotToolStripMenuItem";
-            this.startBotToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
-            this.startBotToolStripMenuItem.Text = "Start Bot";
-            this.startBotToolStripMenuItem.Click += new System.EventHandler(this.startBotToolStripMenuItem_Click);
+            this.startStopBotToolStripMenuItem.Name = "startStopBotToolStripMenuItem";
+            this.startStopBotToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            this.startStopBotToolStripMenuItem.Text = "Start Bot";
+            this.startStopBotToolStripMenuItem.Click += new System.EventHandler(this.startStopBotToolStripMenuItem_Click);
             // 
             // mapToolStripMenuItem
             // 
@@ -173,7 +173,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem todoToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
-        private System.Windows.Forms.ToolStripMenuItem startBotToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem startStopBotToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem pokemonToolStripMenuItem2;

@@ -25,6 +25,7 @@ namespace PokemonGo.RocketAPI
         int TransferCPThreshold { get; }
         int TransferIVThreshold { get; }
         int TravelSpeed { get; }
+        int ImageSize { get; }
         bool Recycler { get; }
         ICollection<KeyValuePair<AllEnum.ItemId, int>> ItemRecycleFilter { get; }
         int RecycleItemsInterval { get; }

@@ -32,9 +32,9 @@ namespace PokemonGo.RocketAPI.Window
 
         private async void Execute()
         {
-			EnabledButton(false);
+            EnabledButton(false);
 
-			client = new Client(ClientSettings);
+            client = new Client(ClientSettings);
 
             try
             {
@@ -47,7 +47,6 @@ namespace PokemonGo.RocketAPI.Window
                         await client.DoGoogleLogin(ClientSettings.Email, ClientSettings.Password);
                         break;
                 }
-                //
                 await client.SetServer();
                 var profile = await client.GetProfile();
                 var inventory = await client.GetInventory();
@@ -63,10 +62,15 @@ namespace PokemonGo.RocketAPI.Window
 
 
 
+                var imageSize = ClientSettings.ImageSize;
 
-                var imageList = new ImageList { ImageSize = new Size(50, 50) };
+                if ((imageSize > 96) || (imageSize < 1)) // no bigger than orig size and no smaller than 1x1
+                    imageSize = 50;
+
+                var imageList = new ImageList { ImageSize = new Size(imageSize, imageSize) };
+                //var imageList = new ImageList { ImageSize = new Size(96, 96) };
                 listView1.ShowItemToolTips = true;
-                
+
                 foreach (var pokemon in pokemons)
                 {
                     Bitmap pokemonImage = null;
@@ -97,13 +101,13 @@ namespace PokemonGo.RocketAPI.Window
 
 
                     this.listView1.Items.Add(listViewItem);
-		    
+
                 }
-		this.Text = "PokeUi " + pokemons.Count<PokemonData>() + "/" + profile.Profile.PokeStorage;
-		EnabledButton(true);
+                this.Text = "PokeUi " + pokemons.Count<PokemonData>() + "/" + profile.Profile.PokeStorage;
+                EnabledButton(true);
 
 
-			}
+            }
             catch (TaskCanceledException) { Execute(); }
             catch (UriFormatException) { Execute(); }
             catch (ArgumentOutOfRangeException) { Execute(); }
@@ -112,13 +116,13 @@ namespace PokemonGo.RocketAPI.Window
             catch (Exception ex) { Execute(); }
         }
 
-		private void EnabledButton(bool enabled)
-		{
-			button1.Enabled = enabled;
-			button2.Enabled = enabled;
-			button3.Enabled = enabled;
-			btnUpgrade.Enabled = enabled;
-		}
+        private void EnabledButton(bool enabled)
+        {
+            button1.Enabled = enabled;
+            button2.Enabled = enabled;
+            button3.Enabled = enabled;
+            btnUpgrade.Enabled = enabled;
+        }
 
         private static Bitmap GetPokemonImage(int pokemonId)
         {
@@ -263,48 +267,48 @@ namespace PokemonGo.RocketAPI.Window
             catch (Exception ex) { await transferPokemon(pokemon); }
         }
 
-		private async void btnUpgrade_Click(object sender, EventArgs e)
-		{
-			var selectedItems = listView1.SelectedItems;
+        private async void btnUpgrade_Click(object sender, EventArgs e)
+        {
+            var selectedItems = listView1.SelectedItems;
 
-			foreach (ListViewItem selectedItem in selectedItems)
-			{
-				await PowerUp((PokemonData)selectedItem.Tag);
-			}
+            foreach (ListViewItem selectedItem in selectedItems)
+            {
+                await PowerUp((PokemonData)selectedItem.Tag);
+            }
 
-			listView1.Clear();
-			Execute();
-		}
+            listView1.Clear();
+            Execute();
+        }
 
-		private static async Task PowerUp(PokemonData pokemon)
-		{
-			try
-			{
-				var evolvePokemonResponse = await client.PowerUp(pokemon.Id);
-				string message = "";
-				string caption = "";
-				MessageBoxButtons buttons = MessageBoxButtons.OK;
-				DialogResult result;
+        private static async Task PowerUp(PokemonData pokemon)
+        {
+            try
+            {
+                var evolvePokemonResponse = await client.PowerUp(pokemon.Id);
+                string message = "";
+                string caption = "";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                DialogResult result;
 
-				if (evolvePokemonResponse.Result == 1)
-				{
-					message = $"{pokemon.PokemonId} successfully upgraded.";
-					caption = $"{pokemon.PokemonId} upgraded";
-				}
-				else
-				{
-					message = $"{pokemon.PokemonId} could not be upgraded";
-					caption = $"Upgrade {pokemon.PokemonId} failed";
-				}
+                if (evolvePokemonResponse.Result == 1)
+                {
+                    message = $"{pokemon.PokemonId} successfully upgraded.";
+                    caption = $"{pokemon.PokemonId} upgraded";
+                }
+                else
+                {
+                    message = $"{pokemon.PokemonId} could not be upgraded";
+                    caption = $"Upgrade {pokemon.PokemonId} failed";
+                }
 
-				result = MessageBox.Show(message, caption, buttons, MessageBoxIcon.Information);
-			}
-			catch (TaskCanceledException) { await PowerUp(pokemon); }
-			catch (UriFormatException) { await PowerUp(pokemon); }
-			catch (ArgumentOutOfRangeException) { await PowerUp(pokemon); }
-			catch (ArgumentNullException) { await PowerUp(pokemon); }
-			catch (NullReferenceException) { await PowerUp(pokemon); }
-			catch (Exception ex) { await PowerUp(pokemon); }
-		}
-	}
+                result = MessageBox.Show(message, caption, buttons, MessageBoxIcon.Information);
+            }
+            catch (TaskCanceledException) { await PowerUp(pokemon); }
+            catch (UriFormatException) { await PowerUp(pokemon); }
+            catch (ArgumentOutOfRangeException) { await PowerUp(pokemon); }
+            catch (ArgumentNullException) { await PowerUp(pokemon); }
+            catch (NullReferenceException) { await PowerUp(pokemon); }
+            catch (Exception ex) { await PowerUp(pokemon); }
+        }
+    }
 }
