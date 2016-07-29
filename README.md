@@ -5,9 +5,6 @@
 ![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/MainPokeUi.png)
 ![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/MainSettings2.png)
 
-#Console
-![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/screenshot.png)
-
 
 A Pokémon Go bot in C#
 
@@ -31,19 +28,16 @@ A Pokémon Go bot in C#
 
 ## Getting Started
 
-Go to PokemonGo\RocketAPI\Console\App.config -> Edit the Settings you like -> Build and Run (CTRL+F5)
+Go to PokemonGo\RocketAPI\Window\App.config -> Edit the Settings you like -> Build and Run (CTRL+F5)
 
 # Settings
 ## AuthType
-* *Google* - Google login via oauth2
+* *Google* - Google login
 * *Ptc* - Pokémon Trainer Club login with username/password combination
 
 ## PtcUsername
 * *username* for PTC account. No need for when using Google.
 * *password* for PTC account. No need for when using Google.
-
-## GoogleRefreshToken
-* *GoogleRefreshToken* - You get this code when you connect the application with your Google account. You do not need to enter it.
 
 ## DefaultLatitude
 * *12.345678* - Latitude of your location you want to use the bot in. Number between -90 and +90. Doesn't matter how many numbers stand after the comma.
