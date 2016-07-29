@@ -34,13 +34,13 @@
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.startBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.todoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pokemonToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.useLuckyEggToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.forceUnbanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.mapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -51,8 +51,10 @@
             this.logTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.logTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.logTextBox.ForeColor = System.Drawing.Color.White;
+            this.logTextBox.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.logTextBox.Location = new System.Drawing.Point(0, 24);
             this.logTextBox.Name = "logTextBox";
+            this.logTextBox.ReadOnly = true;
             this.logTextBox.Size = new System.Drawing.Size(905, 471);
             this.logTextBox.TabIndex = 0;
             this.logTextBox.Text = "";
@@ -96,6 +98,13 @@
             this.startBotToolStripMenuItem.Text = "Start Bot";
             this.startBotToolStripMenuItem.Click += new System.EventHandler(this.startBotToolStripMenuItem_Click);
             // 
+            // mapToolStripMenuItem
+            // 
+            this.mapToolStripMenuItem.Name = "mapToolStripMenuItem";
+            this.mapToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
+            this.mapToolStripMenuItem.Text = "Map";
+            this.mapToolStripMenuItem.Click += new System.EventHandler(this.mapToolStripMenuItem_Click);
+            // 
             // todoToolStripMenuItem
             // 
             this.todoToolStripMenuItem.Name = "todoToolStripMenuItem";
@@ -133,13 +142,6 @@
             // 
             this.showAllToolStripMenuItem1.Name = "showAllToolStripMenuItem1";
             this.showAllToolStripMenuItem1.Size = new System.Drawing.Size(32, 19);
-            // 
-            // mapToolStripMenuItem
-            // 
-            this.mapToolStripMenuItem.Name = "mapToolStripMenuItem";
-            this.mapToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
-            this.mapToolStripMenuItem.Text = "Map";
-            this.mapToolStripMenuItem.Click += new System.EventHandler(this.mapToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -180,4 +182,3 @@
         private System.Windows.Forms.ToolStripMenuItem mapToolStripMenuItem;
     }
 }
-

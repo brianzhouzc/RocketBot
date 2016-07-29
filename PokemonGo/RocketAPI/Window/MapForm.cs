@@ -39,7 +39,7 @@ namespace PokemonGo.RocketAPI.Window
             gMapControl1.MaxZoom = trackBar.Maximum = 20;
 
             // Set zoom
-            trackBar.Value = 10;
+            trackBar.Value = 17;
             gMapControl1.Zoom = trackBar.Value;
         }
 
