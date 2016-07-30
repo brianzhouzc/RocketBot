@@ -37,7 +37,6 @@ namespace PokemonGo.RocketAPI.Window
             this.startStopBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.todoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.useLuckyEggToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.forceUnbanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
@@ -99,8 +98,7 @@ namespace PokemonGo.RocketAPI.Window
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startStopBotToolStripMenuItem,
             this.todoToolStripMenuItem,
-            this.useLuckyEggToolStripMenuItem,
-            this.forceUnbanToolStripMenuItem});
+            this.useLuckyEggToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
@@ -128,13 +126,6 @@ namespace PokemonGo.RocketAPI.Window
             this.useLuckyEggToolStripMenuItem.Size = new System.Drawing.Size(115, 24);
             this.useLuckyEggToolStripMenuItem.Text = "Use Lucky Egg";
             this.useLuckyEggToolStripMenuItem.Click += new System.EventHandler(this.useLuckyEggToolStripMenuItem_Click);
-            // 
-            // forceUnbanToolStripMenuItem
-            // 
-            this.forceUnbanToolStripMenuItem.Name = "forceUnbanToolStripMenuItem";
-            this.forceUnbanToolStripMenuItem.Size = new System.Drawing.Size(104, 24);
-            this.forceUnbanToolStripMenuItem.Text = "Force Unban";
-            this.forceUnbanToolStripMenuItem.Click += new System.EventHandler(this.forceUnbanToolStripMenuItem_Click);
             // 
             // showAllToolStripMenuItem
             // 
@@ -341,7 +332,6 @@ namespace PokemonGo.RocketAPI.Window
         private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem useLuckyEggToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem forceUnbanToolStripMenuItem;
         private GMap.NET.WindowsForms.GMapControl gMapControl1;
         private BrightIdeasSoftware.ObjectListView objectListView1;
         private BrightIdeasSoftware.OLVColumn pkmnName;

@@ -590,6 +590,9 @@ namespace PokemonGo.RocketAPI.Window
                 if (ForceUnbanning || Stopping)
                     break;
 
+                if (pokeStop.CooldownCompleteTimestampMs > DateTime.UtcNow.ToUnixTime())
+                    continue;
+
                 FarmingStops = true;
                 await locationManager.update(pokeStop.Latitude, pokeStop.Longitude);
                 UpdatePlayerLocation(pokeStop.Latitude, pokeStop.Longitude);
@@ -597,6 +600,29 @@ namespace PokemonGo.RocketAPI.Window
 
                 var fortInfo = await client.GetFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
                 var fortSearch = await client.SearchFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
+                if (fortSearch.ExperienceAwarded == 0)
+                {
+                    ColoredConsoleWrite(Color.Pink, "You get softbanned. Starting attemp to unban...");
+                    await Task.Delay(1000);
+                    for (int i=1; i<=50; i++)
+                    {
+                        fortSearch = await client.SearchFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
+                        if (fortSearch.ExperienceAwarded == 0)
+                        {
+                            ColoredConsoleWrite(Color.Pink, "Attempt: " + i);
+                        }
+                        else
+                        {
+                            ColoredConsoleWrite(Color.Pink, "Yeah! You are now unbanned! Total attempts: " + i);
+                            break;
+                        }
+                    }
+                    if (fortSearch.ExperienceAwarded == 0)
+                    {
+                        ColoredConsoleWrite(Color.Pink, "Failed. Will try again on the next PokeStop.");
+                    }
+                }
+
                 StringWriter PokeStopOutput = new StringWriter();
                 PokeStopOutput.Write($"");
                 if (fortInfo.Name != string.Empty)
@@ -621,71 +647,13 @@ namespace PokemonGo.RocketAPI.Window
             }
             FarmingStops = false;
 
-            client.RecycleItems(client);
-            await ExecuteFarmingPokestopsAndPokemons(client);
-        }
-
-        private async Task ForceUnban(Client client)
-        {
-            if (!ForceUnbanning && !Stopping)
+            if (!Stopping)
             {
-                ColoredConsoleWrite(Color.LightGreen, "Waiting for last farming action to be complete...");
-                ForceUnbanning = true;
-
-                while (FarmingStops || FarmingPokemons)
-                {
-                    await Task.Delay(25);
-                }
-
-                ColoredConsoleWrite(Color.LightGreen, "Starting force unban...");
-
-                var mapObjects = await client.GetMapObjects();
-                var pokeStops = mapObjects.MapCells.SelectMany(i => i.Forts).Where(i => i.Type == FortType.Checkpoint && i.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime());
-
-                await Task.Delay(10000);
-                bool done = false;
-
-                foreach (var pokeStop in pokeStops)
-                {
-
-                    double pokeStopDistance = locationManager.getDistance(pokeStop.Latitude, pokeStop.Longitude);
-                    await locationManager.update(pokeStop.Latitude, pokeStop.Longitude);
-                    var fortInfo = await client.GetFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
-
-                    if (fortInfo.Name != string.Empty)
-                    {
-                        ColoredConsoleWrite(Color.LightGreen, "Chosen PokeStop " + fortInfo.Name + " for force unban");
-                        for (int i = 1; i <= 50; i++)
-                        {
-                            var fortSearch = await client.SearchFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
-                            if (fortSearch.ExperienceAwarded == 0)
-                            {
-                                ColoredConsoleWrite(Color.LightGreen, "Attempt: " + i);
-                            }
-                            else
-                            {
-                                ColoredConsoleWrite(Color.LightGreen, "Fuck yes, you are now unbanned! Total attempts: " + i);
-                                done = true;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (!done)
-                        ColoredConsoleWrite(Color.LightGreen, "Force unban failed, please try again.");
-
-                    ForceUnbanning = false;
-                    break;
-                }
+                client.RecycleItems(client);
+                await ExecuteFarmingPokestopsAndPokemons(client);
             }
-            else
-            {
-                ColoredConsoleWrite(Color.Red, "A action is in play... Please wait.");
-            }
-
-
         }
-
+        
         private string GetFriendlyItemsString(IEnumerable<FortSearchResponse.Types.ItemAward> items)
         {
             var enumerable = items as IList<FortSearchResponse.Types.ItemAward> ?? items.ToList();
@@ -698,8 +666,7 @@ namespace PokemonGo.RocketAPI.Window
                     .Select(y => $"{y.Amount}x {y.ItemName}")
                     .Aggregate((a, b) => $"{a}, {b}");
         }
-
-
+        
         private async Task TransferAllButStrongestUnwantedPokemon(Client client)
         {
             var unwantedPokemonTypes = new List<PokemonId>();
@@ -1147,25 +1114,6 @@ namespace PokemonGo.RocketAPI.Window
             else
             {
                 ColoredConsoleWrite(Color.Red, "Please start the bot before trying to use a lucky egg.");
-            }
-        }
-
-        private async void forceUnbanToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (client != null)
-            {
-                if (ForceUnbanning)
-                {
-                    ColoredConsoleWrite(Color.Red, "A force unban attempt is in action... Please wait.");
-                }
-                else
-                {
-                    await ForceUnban(client);
-                }
-            }
-            else
-            {
-                ColoredConsoleWrite(Color.Red, "Please start the bot before trying to force unban");
             }
         }
 
