@@ -1189,7 +1189,7 @@ namespace PokemonGo.RocketAPI.Window
 
 
         #region POKEMON LIST
-        IEnumerable<PokemonFamily> families;
+        private IEnumerable<PokemonFamily> families;
 
         private void InitializePokemonForm()
         {
@@ -1277,10 +1277,10 @@ namespace PokemonGo.RocketAPI.Window
                     .Select(i => i.InventoryItemData?.PokemonFamily)
                     .Where(p => p != null && (int)p?.FamilyId > 0)
                     .OrderByDescending(p => (int)p.FamilyId);
-
-                var currentScrollPosition = objectListView1.LowLevelScrollPosition;
+                
+                int prevTopItem = objectListView1.TopItemIndex;
                 objectListView1.SetObjects(pokemons);
-                objectListView1.LowLevelScroll(currentScrollPosition.X, currentScrollPosition.Y);
+                objectListView1.TopItemIndex = prevTopItem;
             }
             catch (Exception ex) { ColoredConsoleWrite(Color.Red, ex.ToString()); client2 = null; ReloadPokemonList(); }
 
