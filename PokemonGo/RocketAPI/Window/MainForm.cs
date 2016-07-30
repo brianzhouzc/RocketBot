@@ -43,7 +43,7 @@ namespace PokemonGo.RocketAPI.Window
         GMarkerGoogle playerMarker;
 
         IEnumerable<FortData> pokeStops;
-        IEnumerable<WildPokemon> wildPokemons;
+        IEnumerable<MapPokemon> wildPokemons;
 
         public MainForm()
         {
@@ -427,14 +427,14 @@ namespace PokemonGo.RocketAPI.Window
         {
             var mapObjects = await client.GetMapObjects();
 
-            var pokemons = mapObjects.MapCells.SelectMany(i => i.CatchablePokemons);
+            wildPokemons = mapObjects.MapCells.SelectMany(i => i.CatchablePokemons);
             var inventory2 = await client.GetInventory();
             var pokemons2 = inventory2.InventoryDelta.InventoryItems
                 .Select(i => i.InventoryItemData?.Pokemon)
                 .Where(p => p != null && p?.PokemonId > 0)
                 .ToArray();
 
-            foreach (var pokemon in pokemons)
+            foreach (var pokemon in wildPokemons)
             {
                 if (ForceUnbanning || Stopping)
                     break;
@@ -455,7 +455,7 @@ namespace PokemonGo.RocketAPI.Window
                     pokemonName = Convert.ToString(pokemon.PokemonId);
 
                 await client.UpdatePlayerLocation(pokemon.Latitude, pokemon.Longitude);
-                UpdatePlayerLocation(pokemon.Latitude, pokemon.Longitude);
+                UpdatePlayerLocationOnMap(pokemon.Latitude, pokemon.Longitude);
                 UpdateMap();
                 var encounterPokemonResponse = await client.EncounterPokemon(pokemon.EncounterId, pokemon.SpawnpointId);
                 var pokemonCP = encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp;
@@ -518,10 +518,10 @@ namespace PokemonGo.RocketAPI.Window
                 FarmingPokemons = false;
                 await Task.Delay(3000);
             }
-            pokemons = null;
+            wildPokemons = null;
         }
 
-        private void UpdatePlayerLocation(double latitude, double longitude)
+        private void UpdatePlayerLocationOnMap(double latitude, double longitude)
         {
             synchronizationContext.Post(new SendOrPostCallback(o =>
             {
@@ -531,7 +531,7 @@ namespace PokemonGo.RocketAPI.Window
 
             }), new PointLatLng(latitude, longitude));
 
-            ColoredConsoleWrite(Color.Cyan, $"Moving player location to Lat: {latitude}, Lng: {longitude}");
+            ColoredConsoleWrite(Color.DarkGray, $"Moving player location to Lat: {latitude}, Lng: {longitude}");
         }
 
         private void UpdateMap()
@@ -578,9 +578,10 @@ namespace PokemonGo.RocketAPI.Window
         {
             var mapObjects = await client.GetMapObjects();
 
+            
             FortData[] rawPokeStops = mapObjects.MapCells.SelectMany(i => i.Forts).Where(i => i.Type == FortType.Checkpoint).ToArray();
             pokeStops = PokeStopOptimizer.Optimize(rawPokeStops, ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude, pokestopsOverlay);
-            wildPokemons = mapObjects.MapCells.SelectMany(i => i.WildPokemons);
+            wildPokemons = mapObjects.MapCells.SelectMany(i => i.CatchablePokemons);
             if (!ForceUnbanning && !Stopping)
                 ColoredConsoleWrite(Color.Cyan, $"Visiting {pokeStops.Count()} PokeStops");
             UpdateMap();
@@ -595,7 +596,7 @@ namespace PokemonGo.RocketAPI.Window
 
                 FarmingStops = true;
                 await locationManager.update(pokeStop.Latitude, pokeStop.Longitude);
-                UpdatePlayerLocation(pokeStop.Latitude, pokeStop.Longitude);
+                UpdatePlayerLocationOnMap(pokeStop.Latitude, pokeStop.Longitude);
                 UpdateMap();
 
                 var fortInfo = await client.GetFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
@@ -1262,65 +1263,47 @@ namespace PokemonGo.RocketAPI.Window
             if (MessageBox.Show($"Are you sure you want to transfer {pokemon.PokemonId.ToString()} with {pokemon.Cp} CP?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 var transferPokemonResponse = await client2.TransferPokemon(pokemon.Id);
-                string message = "";
-                string caption = "";
 
                 if (transferPokemonResponse.Status == 1)
                 {
-                    message = $"{pokemon.PokemonId} was transferred\n{transferPokemonResponse.CandyAwarded} candy awarded";
-                    caption = $"{pokemon.PokemonId} transferred";
+                    ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} was transferred. {transferPokemonResponse.CandyAwarded} candy awarded");
                     ReloadPokemonList();
                 }
                 else
                 {
-                    message = $"{pokemon.PokemonId} could not be transferred";
-                    caption = $"Transfer {pokemon.PokemonId} failed";
+                    ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} could not be transferred");
                 }
-
-                MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
         private async void PowerUpPokemon(PokemonData pokemon)
         {
             var evolvePokemonResponse = await client2.PowerUp(pokemon.Id);
-            string message = "";
-            string caption = "";
 
             if (evolvePokemonResponse.Result == 1)
             {
-                message = $"{pokemon.PokemonId} successfully upgraded.";
-                caption = $"{pokemon.PokemonId} upgraded";
+                ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} successfully upgraded.");
                 ReloadPokemonList();
             }
             else
             {
-                message = $"{pokemon.PokemonId} could not be upgraded";
-                caption = $"Upgrade {pokemon.PokemonId} failed";
+                ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} could not be upgraded");
             }
-
-            MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private async void EvolvePokemon(PokemonData pokemon)
         {
             var evolvePokemonResponse = await client2.EvolvePokemon(pokemon.Id);
-            string message = "";
-            string caption = "";
 
             if (evolvePokemonResponse.Result == 1)
             {
-                message = $"{pokemon.PokemonId} successfully evolved into {evolvePokemonResponse.EvolvedPokemon.PokemonType}\n{evolvePokemonResponse.ExpAwarded} experience awarded\n{evolvePokemonResponse.CandyAwarded} candy awarded";
-                caption = $"{pokemon.PokemonId} evolved into {evolvePokemonResponse.EvolvedPokemon.PokemonType}";
+                ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} successfully evolved into {evolvePokemonResponse.EvolvedPokemon.PokemonType}\n{evolvePokemonResponse.ExpAwarded} experience awarded\n{evolvePokemonResponse.CandyAwarded} candy awarded");
                 ReloadPokemonList();
             }
             else
             {
-                message = $"{pokemon.PokemonId} could not be evolved";
-                caption = $"Evolve {pokemon.PokemonId} failed";
+                ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} could not be evolved");
             }
-
-            MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button1_Click(object sender, EventArgs e)
