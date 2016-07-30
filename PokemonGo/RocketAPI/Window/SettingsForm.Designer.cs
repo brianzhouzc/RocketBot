@@ -82,11 +82,11 @@
             // 
             // authTypeCb
             // 
-            resources.ApplyResources(this.authTypeCb, "authTypeCb");
             this.authTypeCb.FormattingEnabled = true;
             this.authTypeCb.Items.AddRange(new object[] {
             resources.GetString("authTypeCb.Items"),
             resources.GetString("authTypeCb.Items1")});
+            resources.ApplyResources(this.authTypeCb, "authTypeCb");
             this.authTypeCb.Name = "authTypeCb";
             this.authTypeCb.SelectedIndexChanged += new System.EventHandler(this.authTypeCb_SelectedIndexChanged);
             // 
@@ -160,11 +160,11 @@
             // 
             // razzmodeCb
             // 
-            resources.ApplyResources(this.razzmodeCb, "razzmodeCb");
             this.razzmodeCb.FormattingEnabled = true;
             this.razzmodeCb.Items.AddRange(new object[] {
             resources.GetString("razzmodeCb.Items"),
             resources.GetString("razzmodeCb.Items1")});
+            resources.ApplyResources(this.razzmodeCb, "razzmodeCb");
             this.razzmodeCb.Name = "razzmodeCb";
             // 
             // razzSettingText
@@ -174,7 +174,6 @@
             // 
             // transferTypeCb
             // 
-            resources.ApplyResources(this.transferTypeCb, "transferTypeCb");
             this.transferTypeCb.FormattingEnabled = true;
             this.transferTypeCb.Items.AddRange(new object[] {
             resources.GetString("transferTypeCb.Items"),
@@ -184,6 +183,7 @@
             resources.GetString("transferTypeCb.Items4"),
             resources.GetString("transferTypeCb.Items5"),
             resources.GetString("transferTypeCb.Items6")});
+            resources.ApplyResources(this.transferTypeCb, "transferTypeCb");
             this.transferTypeCb.Name = "transferTypeCb";
             this.transferTypeCb.SelectedIndexChanged += new System.EventHandler(this.transferTypeCb_SelectedIndexChanged);
             // 
@@ -235,11 +235,11 @@
             // 
             // groupBox1
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.FindAdressButton);
             this.groupBox1.Controls.Add(this.AdressBox);
             this.groupBox1.Controls.Add(this.trackBar);
             this.groupBox1.Controls.Add(this.gMapControl1);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
@@ -265,7 +265,6 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Controls.Add(this.language);
             this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.label7);
@@ -301,17 +300,19 @@
             this.panel1.Controls.Add(this.latitudeText);
             this.panel1.Controls.Add(this.ptcUserText);
             this.panel1.Controls.Add(this.ptcPassText);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // language
             // 
-            resources.ApplyResources(this.language, "language");
             this.language.FormattingEnabled = true;
             this.language.Items.AddRange(new object[] {
             resources.GetString("language.Items"),
             resources.GetString("language.Items1"),
-            resources.GetString("language.Items2")});
+            resources.GetString("language.Items2"),
+            resources.GetString("language.Items3")});
+            resources.ApplyResources(this.language, "language");
             this.language.Name = "language";
             // 
             // label8
