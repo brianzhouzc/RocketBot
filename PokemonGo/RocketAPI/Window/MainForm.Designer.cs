@@ -38,7 +38,6 @@ namespace PokemonGo.RocketAPI.Window
             this.todoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.useLuckyEggToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.forceUnbanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pokeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
@@ -103,8 +102,7 @@ namespace PokemonGo.RocketAPI.Window
             this.startStopBotToolStripMenuItem,
             this.todoToolStripMenuItem,
             this.useLuckyEggToolStripMenuItem,
-            this.forceUnbanToolStripMenuItem,
-            this.pokeToolStripMenuItem});
+            this.forceUnbanToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1012, 25);
@@ -138,13 +136,6 @@ namespace PokemonGo.RocketAPI.Window
             this.forceUnbanToolStripMenuItem.Size = new System.Drawing.Size(94, 21);
             this.forceUnbanToolStripMenuItem.Text = "Force Unban";
             this.forceUnbanToolStripMenuItem.Click += new System.EventHandler(this.forceUnbanToolStripMenuItem_Click);
-            // 
-            // pokeToolStripMenuItem
-            // 
-            this.pokeToolStripMenuItem.Name = "pokeToolStripMenuItem";
-            this.pokeToolStripMenuItem.Size = new System.Drawing.Size(50, 21);
-            this.pokeToolStripMenuItem.Text = "poke";
-            this.pokeToolStripMenuItem.Click += new System.EventHandler(this.pokeToolStripMenuItem_Click);
             // 
             // showAllToolStripMenuItem
             // 
@@ -400,7 +391,6 @@ namespace PokemonGo.RocketAPI.Window
         private System.Windows.Forms.ImageList largePokemonImageList;
         private BrightIdeasSoftware.OLVColumn pkmnPowerUpButton;
         private BrightIdeasSoftware.OLVColumn pkmnEvolveButton;
-        private System.Windows.Forms.ToolStripMenuItem pokeToolStripMenuItem;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
