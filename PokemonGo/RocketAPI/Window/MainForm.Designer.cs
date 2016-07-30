@@ -209,7 +209,7 @@ namespace PokemonGo.RocketAPI.Window
             this.objectListView1.RowHeight = 32;
             this.objectListView1.SelectAllOnControlA = false;
             this.objectListView1.ShowGroups = false;
-            this.objectListView1.Size = new System.Drawing.Size(1012, 215);
+            this.objectListView1.Size = new System.Drawing.Size(668, 215);
             this.objectListView1.SmallImageList = this.smallPokemonImageList;
             this.objectListView1.TabIndex = 25;
             this.objectListView1.UseCompatibleStateImageBehavior = false;
@@ -292,9 +292,10 @@ namespace PokemonGo.RocketAPI.Window
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(0, 588);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(1012, 26);
+            this.button1.Size = new System.Drawing.Size(668, 26);
             this.button1.TabIndex = 26;
             this.button1.Text = "Refresh";
             this.button1.UseVisualStyleBackColor = true;
@@ -305,20 +306,20 @@ namespace PokemonGo.RocketAPI.Window
             this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(674, 368);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(338, 246);
+            this.tabControl1.Size = new System.Drawing.Size(338, 244);
             this.tabControl1.TabIndex = 27;
-            this.tabControl1.Visible = false;
             // 
             // tabPage1
             // 
             this.tabPage1.Location = new System.Drawing.Point(4, 4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(330, 220);
+            this.tabPage1.Size = new System.Drawing.Size(330, 216);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
