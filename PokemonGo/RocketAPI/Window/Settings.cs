@@ -20,6 +20,7 @@ namespace PokemonGo.RocketAPI.Window
 
         public static Settings Instance
         {
+
             get
             {
                 if (_instance != null)
@@ -44,6 +45,7 @@ namespace PokemonGo.RocketAPI.Window
         ///     Don't touch. User settings are in Console/App.config
         /// </summary>
         public string TransferType => GetSetting() != string.Empty ? GetSetting() : "none";
+        public string Language => GetSetting() != string.Empty ? GetSetting() : "System";
         public int TransferCPThreshold => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 0;
         public int TransferIVThreshold => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 0;
         public int TravelSpeed => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 60;
@@ -112,8 +114,6 @@ namespace PokemonGo.RocketAPI.Window
         };
 
         public int RecycleItemsInterval => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 60;
-
-        public string Language => GetSetting() != string.Empty ? GetSetting() : "english";
 
         public string RazzBerryMode => GetSetting() != string.Empty ? GetSetting() : "cp";
 

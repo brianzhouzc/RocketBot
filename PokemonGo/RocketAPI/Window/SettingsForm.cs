@@ -24,7 +24,7 @@ namespace PokemonGo.RocketAPI.Window
         {
 
             authTypeCb.Text = Settings.Instance.AuthType.ToString();
-            if (authTypeCb.Text == "google")
+            if (authTypeCb.Text == Properties.Strings.google)
             {
                 UserLoginBox.Text = Settings.Instance.Email.ToString();
                 UserPasswordBox.Text = Settings.Instance.Password.ToString();
@@ -43,6 +43,7 @@ namespace PokemonGo.RocketAPI.Window
             evolveAllChk.Checked = Settings.Instance.EvolveAllGivenPokemons;
             CatchPokemonBox.Checked = Settings.Instance.CatchPokemon;
             TravelSpeedBox.Text = Settings.Instance.TravelSpeed.ToString();
+            language.Text = Settings.Instance.Language.ToString();
            // ImageSizeBox.Text = Settings.Instance.ImageSize.ToString();
             // Initialize map:
             //use google provider
@@ -75,7 +76,7 @@ namespace PokemonGo.RocketAPI.Window
         private void saveBtn_Click(object sender, EventArgs e)
         {
             Settings.Instance.SetSetting(authTypeCb.Text, "AuthType");
-            if (authTypeCb.Text == "google")
+            if (authTypeCb.Text == Properties.Strings.google)
             {
                 Settings.Instance.SetSetting(UserLoginBox.Text, "Email");
                 Settings.Instance.SetSetting(UserPasswordBox.Text, "Password");
@@ -86,7 +87,6 @@ namespace PokemonGo.RocketAPI.Window
             }
             Settings.Instance.SetSetting(latitudeText.Text.Replace(',', '.'), "DefaultLatitude");
             Settings.Instance.SetSetting(longitudeText.Text.Replace(',', '.'), "DefaultLongitude");
-
             string lat = ConfigurationManager.AppSettings["DefaultLatitude"];
             string longit = ConfigurationManager.AppSettings["DefaultLongitude"];
             lat.Replace(',', '.');
@@ -103,18 +103,24 @@ namespace PokemonGo.RocketAPI.Window
             Settings.Instance.SetSetting(evolveAllChk.Checked ? "true" : "false", "EvolveAllGivenPokemons");
             Settings.Instance.SetSetting(CatchPokemonBox.Checked ? "true" : "false", "CatchPokemon");
             Settings.Instance.Reload();
+
+            if (Settings.Instance.Language != language.Text)
+            {
+                Settings.Instance.SetSetting(language.Text, "Language");
+                MessageBox.Show("To set the language, please restart the application !");
+            }
             Close();
         }
 
         private void authTypeCb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (authTypeCb.Text == "google")
+            if (authTypeCb.SelectedIndex == 0)
             {
-                UserLabel.Text = "Email:";
+                UserLabel.Text = Properties.Strings.email;
             }
             else
             {
-                UserLabel.Text = "Username:";
+                UserLabel.Text = Properties.Strings.username;
             }
         }
 
@@ -168,7 +174,7 @@ namespace PokemonGo.RocketAPI.Window
 
         private void transferTypeCb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (transferTypeCb.Text == "CP")
+            if (transferTypeCb.SelectedIndex == 1)
             {
                 label4.Visible = true;
                 transferCpThresText.Visible = true;
@@ -180,7 +186,7 @@ namespace PokemonGo.RocketAPI.Window
 
             }
 
-            if (transferTypeCb.Text == "IV")
+            if (transferTypeCb.SelectedIndex == 2)
             {
                 label6.Visible = true;
                 transferIVThresText.Visible = true;

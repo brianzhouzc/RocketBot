@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="account" xml:space="preserve">
+    <value>Compte : {0}</value>
+  </data>
+  <data name="action_in_play" xml:space="preserve">
+    <value>Une action est en cours... Veuillez patienter.</value>
+  </data>
+  <data name="action_in_play_unban" xml:space="preserve">
+    <value>Une action est en cours, attendez qu'elle soit terminée.</value>
+  </data>
+  <data name="area" xml:space="preserve">
+    <value>Zone : </value>
+  </data>
+  <data name="argument_null" xml:space="preserve">
+    <value>Référence d'argument nulle - Redémarrage</value>
+  </data>
+  <data name="attempt" xml:space="preserve">
+    <value>Essai : </value>
+  </data>
+  <data name="bot_stop" xml:space="preserve">
+    <value>Le bot s'est bien arrêté.</value>
+  </data>
+  <data name="check_update_failed" xml:space="preserve">
+    <value>Impossible de vérifier les mises à jour...</value>
+  </data>
+  <data name="chose_pokestop" xml:space="preserve">
+    <value>Le PokeStop {0} a été choisi pour effectuer le débannissement.</value>
+  </data>
+  <data name="country" xml:space="preserve">
+    <value>Pays :</value>
+  </data>
+  <data name="current_lvl" xml:space="preserve">
+    <value>Niveau actuel : {0} ({1}/{2})</value>
+  </data>
+  <data name="eggs" xml:space="preserve">
+    <value>, Œufs: {0}</value>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="error_country" xml:space="preserve">
+    <value>Impossible de connaître le pays</value>
+  </data>
+  <data name="evolve_pieces" xml:space="preserve">
+    <value>Evolved {0} pieces of {1} for {2}xp</value>
+  </data>
+  <data name="evolve_success" xml:space="preserve">
+    <value>{0} a bien évolué pour {1}xp</value>
+  </data>
+  <data name="force_unban_in_action" xml:space="preserve">
+    <value>Un débannissement est en cours... Veuillez patienter.</value>
+  </data>
+  <data name="force_unban_start_before" xml:space="preserve">
+    <value>Démarrez le bot avant d'essayer d'être débanni</value>
+  </data>
+  <data name="gems" xml:space="preserve">
+    <value>, Gemmes : {0}</value>
+  </data>
+  <data name="github_link" xml:space="preserve">
+    <value>Vous pouvez trouver la dernière version sur www.github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API</value>
+  </data>
+  <data name="github_version" xml:space="preserve">
+    <value>La version de GitHub est la </value>
+  </data>
+  <data name="grinding_finished" xml:space="preserve">
+    <value>Fin du transfert des Pokémons</value>
+  </data>
+  <data name="grinding_start" xml:space="preserve">
+    <value>Transfert de {pokemonToDiscard.Count} Pokémon en dessous de {cpThreshold} CP.</value>
+  </data>
+  <data name="items" xml:space="preserve">
+    <value>, Objets : {0}</value>
+  </data>
+  <data name="IV_less" xml:space="preserve">
+    <value>Le Pokémon {0} avec {1} CP a un IV plus petit que {2}%</value>
+  </data>
+  <data name="latitude" xml:space="preserve">
+    <value>Latitude : {0}</value>
+  </data>
+  <data name="login_type_Google" xml:space="preserve">
+    <value>Type de login : Google</value>
+  </data>
+  <data name="login_type_PTC" xml:space="preserve">
+    <value>Type de login : Pokemon Trainers Club</value>
+  </data>
+  <data name="longitude" xml:space="preserve">
+    <value>Longitude : {0}</value>
+  </data>
+  <data name="lucky_egg_error" xml:space="preserve">
+    <value>Erreur pendant l'utilisation d'un œuf chance : {0}</value>
+  </data>
+  <data name="lucky_egg_start_before" xml:space="preserve">
+    <value>Démarrez le bot avant d'utiliser un œuf chance.</value>
+  </data>
+  <data name="lucky_egg_validity" xml:space="preserve">
+    <value>Temps restant de l'œuf chance : {0}</value>
+  </data>
+  <data name="lvlup" xml:space="preserve">
+    <value>Niveau actuel : {0}. XP nécessaire pour le prochain niveau : {1}</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Nom : {0}</value>
+  </data>
+  <data name="no_location" xml:space="preserve">
+    <value>Aucun emplacement utile trouvé. Veuillez attendre 10 secondes.</value>
+  </data>
+  <data name="no_lucky_egg" xml:space="preserve">
+    <value>Vous n'avez aucun œuf chance.</value>
+  </data>
+  <data name="null_reference" xml:space="preserve">
+    <value>Référence nulle - Redémarrage</value>
+  </data>
+  <data name="opening_Google" xml:space="preserve">
+    <value>Overture de www.google.com/device et copie du code à 8 caractères dans votre presse-papier</value>
+  </data>
+  <data name="out_of_range" xml:space="preserve">
+    <value>ArgumentOutOfRangeException -  Redémarrage</value>
+  </data>
+  <data name="password" xml:space="preserve">
+    <value>Mot de passe : {0}</value>
+  </data>
+  <data name="pokecoin" xml:space="preserve">
+    <value>Pokecoins : {0}</value>
+  </data>
+  <data name="pokemon_caught" xml:space="preserve">
+    <value>Nous avons capturé un {0} avec {1} CP et {2}% IV</value>
+  </data>
+  <data name="pokemon_got_away" xml:space="preserve">
+    <value>{0} avec {1} CP et {2}% IV s'est enfui...</value>
+  </data>
+  <data name="pokestop" xml:space="preserve">
+    <value>PokéStop : </value>
+  </data>
+  <data name="ptc_error" xml:space="preserve">
+    <value>Les serveurs PTC sont probablement indisponibles OU vos identifiants sont invalides. Essayez avec un compte Google.</value>
+  </data>
+  <data name="RazzBerryMode_CP" xml:space="preserve">
+    <value>CP</value>
+  </data>
+  <data name="RazzBerryMode_probability" xml:space="preserve">
+    <value>Probabilité</value>
+  </data>
+  <data name="stardust" xml:space="preserve">
+    <value>Poussières étoile : {0}</value>
+  </data>
+  <data name="start" xml:space="preserve">
+    <value>Démarrer</value>
+  </data>
+  <data name="start_unban" xml:space="preserve">
+    <value>Démarrage du débannissement...</value>
+  </data>
+  <data name="status" xml:space="preserve">
+    <value>{0} | Niveau : {1:0} - ({3:0}/{4:0}) | Temps d'exécution : {2} | Poussières étoile : {5:0} | XP par heure : {6} | Pokémons par heure : {7} | Prochain niveau dans {8}:{9}:{10}</value>
+  </data>
+  <data name="stopping_bot" xml:space="preserve">
+    <value>Le bot est en train de s'arrêter... Attendez que la dernière action soit terminée.</value>
+  </data>
+  <data name="stop_bot" xml:space="preserve">
+    <value>Arrêter le bot</value>
+  </data>
+  <data name="task_canceled" xml:space="preserve">
+    <value>Excéption d'une tâche annuleé - Redémarrage</value>
+  </data>
+  <data name="team" xml:space="preserve">
+    <value>Équipe : {0}</value>
+  </data>
+  <data name="transfer" xml:space="preserve">
+    <value>Transfert de {0} avec {1} CP</value>
+  </data>
+  <data name="transfering_disabled" xml:space="preserve">
+    <value>Transfert de Pokémon désactivé</value>
+  </data>
+  <data name="TransferType_All" xml:space="preserve">
+    <value>Tous</value>
+  </data>
+  <data name="TransferType_CP" xml:space="preserve">
+    <value>CP</value>
+  </data>
+  <data name="TransferType_Duplicate" xml:space="preserve">
+    <value>À double</value>
+  </data>
+  <data name="TransferType_IV" xml:space="preserve">
+    <value>IV</value>
+  </data>
+  <data name="TransferType_IV_Duplicate" xml:space="preserve">
+    <value>IV à double</value>
+  </data>
+  <data name="TransferType_Strongest" xml:space="preserve">
+    <value>Garder les plus forts</value>
+  </data>
+  <data name="transfer_failed" xml:space="preserve">
+    <value>Une erreur est survenue pendant le transfert de {0} avec {1} CP. ReleasePokemonOutProto.Status est de {2}</value>
+  </data>
+  <data name="transfer_highest_CP" xml:space="preserve">
+    <value>Transfert de {0} avec {1} CP (Le meilleur CP est {2})</value>
+  </data>
+  <data name="transfer_highest_IV" xml:space="preserve">
+    <value>Transfert de {0} avec {1}% IV (Le meilleur IV est {2}%)</value>
+  </data>
+  <data name="unbanned" xml:space="preserve">
+    <value>Putain ! Tu as été débanni ! Essais totaux : </value>
+  </data>
+  <data name="unban_failed" xml:space="preserve">
+    <value>Le débannissement a échoué, veuillez réessayer.</value>
+  </data>
+  <data name="unhandled_exception" xml:space="preserve">
+    <value>Exception non gérée : {0}</value>
+  </data>
+  <data name="uri_exception" xml:space="preserve">
+    <value>Format d'URI incorrect - Redémarrage</value>
+  </data>
+  <data name="using_lucky_egg" xml:space="preserve">
+    <value>Utilisation d'un œuf chance, il nous en reste {0}.</value>
+  </data>
+  <data name="visiting_pokestops" xml:space="preserve">
+    <value>Visite de {0} PokéStops.</value>
+  </data>
+  <data name="waiting_farming" xml:space="preserve">
+    <value>En attente de la fin de la dernière action...</value>
+  </data>
+  <data name="xp" xml:space="preserve">
+    <value>, XP : {0}</value>
+  </data>
+  <data name="your_version" xml:space="preserve">
+    <value>Votre version est la </value>
+  </data>
+  <data name="email" xml:space="preserve">
+    <value>E-mail : </value>
+  </data>
+  <data name="encounter_pokemon" xml:space="preserve">
+    <value>Un {0} avec {1} CP et {2}% IV a été rencontré</value>
+  </data>
+  <data name="evolved_failed" xml:space="preserve">
+    <value>{0} ne peut pas évoluer</value>
+  </data>
+  <data name="evolved_failed_title" xml:space="preserve">
+    <value>Échec de l'évolution de {0}</value>
+  </data>
+  <data name="evolved_success" xml:space="preserve">
+    <value>{0} a évolué en {1}\n{2} XP acquises\n{3} bonbon récupéré</value>
+  </data>
+  <data name="evolved_success_title" xml:space="preserve">
+    <value>{0} a évolué en {1}</value>
+  </data>
+  <data name="google" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="moving_player" xml:space="preserve">
+    <value>Déplacement du joueur à l'emplacement Lat: {0}, Lng: {1}</value>
+  </data>
+  <data name="transfer_candy" xml:space="preserve">
+    <value>{0} a été transféré ! Vous avez reçu {1} bonbon</value>
+  </data>
+  <data name="transfer_candy_title" xml:space="preserve">
+    <value>{0} transféré</value>
+  </data>
+  <data name="transfer_error" xml:space="preserve">
+    <value>{0} n'a pas pu être transféré</value>
+  </data>
+  <data name="transfer_error_title" xml:space="preserve">
+    <value>Le transfert de {0} a échoué</value>
+  </data>
+  <data name="transfer_question" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir transférer {0} avec {1} CP?</value>
+  </data>
+  <data name="transfer_title" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="upgrade_error" xml:space="preserve">
+    <value>{0} ne peut pas être rechargé</value>
+  </data>
+  <data name="upgrade_error_title" xml:space="preserve">
+    <value>Recharge de {0} échouée</value>
+  </data>
+  <data name="upgrade_success" xml:space="preserve">
+    <value>{0} a bien été rechargé.</value>
+  </data>
+  <data name="upgrade_success_title" xml:space="preserve">
+    <value>{0} rechargé</value>
+  </data>
+  <data name="username" xml:space="preserve">
+    <value>Nom d'utilisateur : </value>
+  </data>
+</root>

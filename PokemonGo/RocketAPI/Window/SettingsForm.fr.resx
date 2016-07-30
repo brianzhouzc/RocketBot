@@ -117,485 +117,238 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="AdressBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="FindAdressButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 26</value>
-  </data>
-  <data name="&gt;&gt;transferIVThresText.Name" xml:space="preserve">
-    <value>transferIVThresText</value>
-  </data>
-  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>Language:</value>
-  </data>
-  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>25</value>
-  </data>
-  <data name="saveBtn.Text" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="evolveAllChk.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
-  <data name="&gt;&gt;TravelSpeedText.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="label4.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="language.Items3" xml:space="preserve">
-    <value>de</value>
-  </data>
-  <data name="transferTypeCb.Items" xml:space="preserve">
-    <value>None</value>
-  </data>
-  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Left</value>
-  </data>
-  <data name="CatchPokemonText.Text" xml:space="preserve">
-    <value>Catch Pokemon:</value>
-  </data>
-  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>25</value>
-  </data>
-  <data name="&gt;&gt;TravelSpeedBox.Name" xml:space="preserve">
-    <value>TravelSpeedBox</value>
-  </data>
-  <data name="razzSettingText.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="CatchPokemonText.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;CatchPokemonText.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="razzSettingText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>118, 165</value>
-  </data>
-  <data name="&gt;&gt;longiLabel.Name" xml:space="preserve">
-    <value>longiLabel</value>
-  </data>
-  <data name="&gt;&gt;TravelSpeedBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;latLabel.Name" xml:space="preserve">
-    <value>latLabel</value>
-  </data>
-  <data name="&gt;&gt;UserPasswordBox.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;PasswordLabel.Name" xml:space="preserve">
-    <value>PasswordLabel</value>
-  </data>
-  <data name="&gt;&gt;AdressBox.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;razzmodeCb.Name" xml:space="preserve">
-    <value>razzmodeCb</value>
-  </data>
-  <data name="&gt;&gt;language.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;PasswordLabel.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="groupBox1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="&gt;&gt;gMapControl1.Name" xml:space="preserve">
-    <value>gMapControl1</value>
-  </data>
-  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>604, 523</value>
-  </data>
-  <data name="&gt;&gt;saveBtn.Name" xml:space="preserve">
-    <value>saveBtn</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 321</value>
-  </data>
-  <data name="&gt;&gt;longitudeText.Name" xml:space="preserve">
-    <value>longitudeText</value>
-  </data>
-  <data name="&gt;&gt;razzmodeCb.ZOrder" xml:space="preserve">
-    <value>22</value>
-  </data>
-  <data name="&gt;&gt;CatchPokemonBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="transferCpThresText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="authTypeCb.Items1" xml:space="preserve">
-    <value>Ptc</value>
-  </data>
-  <data name="latitudeText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;gMapControl1.Type" xml:space="preserve">
-    <value>GMap.NET.WindowsForms.GMapControl, GMap.NET.WindowsForms, Version=1.7.0.0, Culture=neutral, PublicKeyToken=b85b9027b614afef</value>
-  </data>
-  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 220</value>
-  </data>
-  <data name="&gt;&gt;razzSettingText.Name" xml:space="preserve">
-    <value>razzSettingText</value>
-  </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;UserLoginBox.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Transfer Type:</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="authTypeLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 8</value>
-  </data>
-  <data name="&gt;&gt;FindAdressButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CatchPokemonBox.Name" xml:space="preserve">
-    <value>CatchPokemonBox</value>
-  </data>
-  <data name="&gt;&gt;razzSettingText.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;authTypeLabel.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="razzmodeCb.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 21</value>
-  </data>
-  <data name="&gt;&gt;TravelSpeedText.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;evolveAllChk.Name" xml:space="preserve">
-    <value>evolveAllChk</value>
-  </data>
-  <data name="TravelSpeedBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="&gt;&gt;authTypeLabel.Name" xml:space="preserve">
-    <value>authTypeLabel</value>
-  </data>
-  <data name="&gt;&gt;label7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;longiLabel.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;gMapControl1.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;authTypeCb.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 13</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>19</value>
-  </data>
-  <data name="&gt;&gt;UserPasswordBox.Name" xml:space="preserve">
-    <value>UserPasswordBox</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="latitudeText.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="PasswordLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 13</value>
-  </data>
-  <data name="gMapControl1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+  <data name="authTypeLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 13</value>
+  </data>
+  <data name="authTypeLabel.Text" xml:space="preserve">
+    <value>Mode de login :</value>
   </data>
   <data name="authTypeCb.Items" xml:space="preserve">
-    <value>google</value>
+    <value>Google</value>
   </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 193</value>
+  <data name="authTypeCb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 4</value>
   </data>
-  <data name="saveBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 425</value>
-  </data>
-  <data name="transferIVThresText.TabIndex" type="System.Int32, mscorlib">
-    <value>24</value>
-  </data>
-  <data name="&gt;&gt;PasswordLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 13</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="UserLoginBox.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="TravelSpeedText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 275</value>
-  </data>
-  <data name="UserLoginBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 20</value>
-  </data>
-  <data name="&gt;&gt;evolveAllChk.ZOrder" xml:space="preserve">
-    <value>14</value>
-  </data>
-  <data name="evolveAllChk.Location" type="System.Drawing.Point, System.Drawing">
-    <value>118, 321</value>
-  </data>
-  <data name="&gt;&gt;trackBar.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;transferIVThresText.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="CatchPokemonBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="transferIVThresText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>118, 220</value>
-  </data>
-  <data name="&gt;&gt;UserLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;longiLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="UserLoginBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>82, 34</value>
-  </data>
-  <data name="&gt;&gt;latitudeText.ZOrder" xml:space="preserve">
-    <value>26</value>
-  </data>
-  <data name="TravelSpeedText.Text" xml:space="preserve">
-    <value>Travel Speed km/h:</value>
-  </data>
-  <data name="saveBtn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;longitudeText.ZOrder" xml:space="preserve">
-    <value>24</value>
-  </data>
-  <data name="gMapControl1.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
-  </data>
-  <data name="&gt;&gt;latLabel.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>CP Threshold:</value>
-  </data>
-  <data name="trackBar.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="&gt;&gt;UserLabel.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="longitudeText.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;language.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>630, 359</value>
-  </data>
-  <data name="latLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 13</value>
-  </data>
-  <data name="$this.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>9, 9, 9, 9</value>
-  </data>
-  <data name="&gt;&gt;authTypeCb.Name" xml:space="preserve">
-    <value>authTypeCb</value>
-  </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 13</value>
-  </data>
-  <data name="&gt;&gt;UserLabel.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="latLabel.Text" xml:space="preserve">
-    <value>Latitude:</value>
-  </data>
-  <data name="&gt;&gt;language.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;FindAdressButton.Name" xml:space="preserve">
-    <value>FindAdressButton</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="label7.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="language.Items" xml:space="preserve">
-    <value>System</value>
-  </data>
-  <data name="transferTypeCb.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 21</value>
-  </data>
-  <data name="&gt;&gt;label7.Name" xml:space="preserve">
-    <value>label7</value>
-  </data>
-  <data name="TravelSpeedText.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterParent</value>
-  </data>
-  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Razzberry Mode:</value>
-  </data>
-  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 13</value>
-  </data>
-  <data name="&gt;&gt;trackBar.Name" xml:space="preserve">
-    <value>trackBar</value>
-  </data>
-  <data name="FindAdressButton.Text" xml:space="preserve">
-    <value>Find Location</value>
-  </data>
-  <data name="&gt;&gt;authTypeLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>233, 9</value>
-  </data>
-  <data name="transferCpThresText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>118, 219</value>
-  </data>
-  <data name="language.Location" type="System.Drawing.Point, System.Drawing">
-    <value>118, 348</value>
-  </data>
-  <data name="&gt;&gt;razzmodeCb.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="authTypeCb.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 21</value>
-  </data>
-  <data name="longiLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 114</value>
-  </data>
-  <data name="UserPasswordBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 20</value>
-  </data>
-  <data name="TravelSpeedText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 13</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>91, 13</value>
-  </data>
-  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 167</value>
+  <data name="UserLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 13</value>
   </data>
   <data name="UserLabel.Text" xml:space="preserve">
-    <value>Username:</value>
+    <value>Nom d'utilisateur :</value>
   </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
+  <data name="PasswordLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 13</value>
   </data>
-  <data name="trackBar.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
-    <value>Vertical</value>
+  <data name="PasswordLabel.Text" xml:space="preserve">
+    <value>Mot de passe :</value>
   </data>
-  <data name="&gt;&gt;evolveAllChk.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="latLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 13</value>
   </data>
-  <data name="&gt;&gt;UserLoginBox.ZOrder" xml:space="preserve">
-    <value>27</value>
+  <data name="latLabel.Text" xml:space="preserve">
+    <value>Latitude :</value>
   </data>
-  <data name="&gt;&gt;saveBtn.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;FindAdressButton.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="transferTypeCb.Items1" xml:space="preserve">
-    <value>CP</value>
-  </data>
-  <data name="transferTypeCb.Items2" xml:space="preserve">
-    <value>IV</value>
-  </data>
-  <data name="transferTypeCb.Items3" xml:space="preserve">
-    <value>Leave Strongest</value>
-  </data>
-  <data name="transferTypeCb.Items4" xml:space="preserve">
-    <value>Duplicate</value>
-  </data>
-  <data name="transferTypeCb.Items5" xml:space="preserve">
-    <value>IV Duplicate</value>
-  </data>
-  <data name="transferTypeCb.Items6" xml:space="preserve">
-    <value>All</value>
-  </data>
-  <data name="&gt;&gt;UserPasswordBox.ZOrder" xml:space="preserve">
-    <value>28</value>
+  <data name="longiLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 13</value>
   </data>
   <data name="longiLabel.Text" xml:space="preserve">
-    <value>Longitude:</value>
+    <value>Longitude :</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>91, 13</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Mode baie framby</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 13</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Mode de transfert :</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>146, 13</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Faire évoluer les Pokémons ?</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>68, 13</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Seuil de CP :</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>117, 13</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Paramètre baie flamby :</value>
+  </data>
+  <data name="UserLoginBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 33</value>
+  </data>
+  <data name="UserPasswordBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 62</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="latitudeText.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="latitudeText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>118, 86</value>
+    <value>184, 85</value>
+  </data>
+  <data name="longitudeText.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="longitudeText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 111</value>
+  </data>
+  <data name="razzmodeCb.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="razzmodeCb.Items" xml:space="preserve">
+    <value>Probabilité</value>
+  </data>
+  <data name="razzmodeCb.Items1" xml:space="preserve">
+    <value>CP</value>
+  </data>
+  <data name="razzmodeCb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 137</value>
+  </data>
+  <data name="razzSettingText.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="razzSettingText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 164</value>
+  </data>
+  <data name="transferTypeCb.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="transferTypeCb.Items" xml:space="preserve">
+    <value>Aucun</value>
+  </data>
+  <data name="transferTypeCb.Items3" xml:space="preserve">
+    <value>Garder les plus forts</value>
+  </data>
+  <data name="transferTypeCb.Items4" xml:space="preserve">
+    <value>À double</value>
+  </data>
+  <data name="transferTypeCb.Items5" xml:space="preserve">
+    <value>IV à double</value>
+  </data>
+  <data name="transferTypeCb.Items6" xml:space="preserve">
+    <value>Tous</value>
+  </data>
+  <data name="transferTypeCb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 190</value>
+  </data>
+  <data name="transferCpThresText.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="transferCpThresText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 220</value>
+  </data>
+  <data name="evolveAllChk.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="evolveAllChk.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 321</value>
+  </data>
+  <data name="saveBtn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 384</value>
+  </data>
+  <data name="saveBtn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>320, 95</value>
+  </data>
+  <data name="saveBtn.Text" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="gMapControl1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 16</value>
+  </data>
+  <data name="gMapControl1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>531, 431</value>
+  </data>
+  <data name="FindAdressButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>360, 453</value>
+  </data>
+  <data name="FindAdressButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>181, 26</value>
+  </data>
+  <data name="FindAdressButton.Text" xml:space="preserve">
+    <value>Rechercher l'emplacement</value>
+  </data>
+  <data name="AdressBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="AdressBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 456</value>
+  </data>
+  <data name="AdressBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>344, 20</value>
+  </data>
+  <data name="trackBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>499, 16</value>
+  </data>
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>343, 9</value>
+  </data>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>547, 485</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Emplacement</value>
+  </data>
+  <data name="language.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 348</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>49, 13</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>Langue :</value>
+  </data>
+  <data name="TravelSpeedBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="TravelSpeedBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 272</value>
+  </data>
+  <data name="CatchPokemonBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="CatchPokemonBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 298</value>
+  </data>
+  <data name="CatchPokemonText.Size" type="System.Drawing.Size, System.Drawing">
+    <value>129, 13</value>
+  </data>
+  <data name="CatchPokemonText.Text" xml:space="preserve">
+    <value>Capturer des Pokémons ?</value>
+  </data>
+  <data name="transferIVThresText.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="transferIVThresText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 220</value>
+  </data>
+  <data name="TravelSpeedText.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 13</value>
+  </data>
+  <data name="TravelSpeedText.Text" xml:space="preserve">
+    <value>Vitesse de déplacement (km/h) :</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 13</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Seuil d'IV : </value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>334, 485</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>899, 503</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2021,466 +1774,7 @@
         ////////////////////////////////////////////////////////
 </value>
   </data>
-  <data name="&gt;&gt;TravelSpeedBox.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Paramètres</value>
   </data>
-  <data name="&gt;&gt;longitudeText.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;transferTypeCb.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;transferIVThresText.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="CatchPokemonText.TabIndex" type="System.Int32, mscorlib">
-    <value>25</value>
-  </data>
-  <data name="CatchPokemonBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>118, 298</value>
-  </data>
-  <data name="authTypeLabel.Text" xml:space="preserve">
-    <value>Login Type:</value>
-  </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;longiLabel.ZOrder" xml:space="preserve">
-    <value>15</value>
-  </data>
-  <data name="&gt;&gt;TravelSpeedText.Name" xml:space="preserve">
-    <value>TravelSpeedText</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="CatchPokemonText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 13</value>
-  </data>
-  <data name="UserPasswordBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>82, 62</value>
-  </data>
-  <data name="&gt;&gt;latLabel.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="latLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>48, 13</value>
-  </data>
-  <data name="&gt;&gt;CatchPokemonBox.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;TravelSpeedText.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="trackBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>556, 16</value>
-  </data>
-  <data name="razzmodeCb.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="authTypeCb.Location" type="System.Drawing.Point, System.Drawing">
-    <value>82, 4</value>
-  </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="FindAdressButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>479, 491</value>
-  </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>93, 13</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 523</value>
-  </data>
-  <data name="authTypeCb.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 140</value>
-  </data>
-  <data name="CatchPokemonBox.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="language.Items1" xml:space="preserve">
-    <value>fr</value>
-  </data>
-  <data name="&gt;&gt;AdressBox.Name" xml:space="preserve">
-    <value>AdressBox</value>
-  </data>
-  <data name="latLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="saveBtn.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
-  </data>
-  <data name="trackBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>45, 104</value>
-  </data>
-  <data name="UserLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 36</value>
-  </data>
-  <data name="&gt;&gt;CatchPokemonText.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;latitudeText.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;latitudeText.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="UserLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>SettingsForm</value>
-  </data>
-  <data name="&gt;&gt;razzSettingText.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;transferTypeCb.ZOrder" xml:space="preserve">
-    <value>18</value>
-  </data>
-  <data name="&gt;&gt;razzSettingText.ZOrder" xml:space="preserve">
-    <value>20</value>
-  </data>
-  <data name="&gt;&gt;saveBtn.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="saveBtn.Size" type="System.Drawing.Size, System.Drawing">
-    <value>218, 95</value>
-  </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Location</value>
-  </data>
-  <data name="AdressBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 495</value>
-  </data>
-  <data name="transferTypeCb.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="language.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 21</value>
-  </data>
-  <data name="FindAdressButton.TabIndex" type="System.Int32, mscorlib">
-    <value>25</value>
-  </data>
-  <data name="PasswordLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="longiLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="authTypeLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 13</value>
-  </data>
-  <data name="language.TabIndex" type="System.Int32, mscorlib">
-    <value>28</value>
-  </data>
-  <data name="TravelSpeedBox.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
-  </data>
-  <data name="&gt;&gt;razzmodeCb.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label5.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;saveBtn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="TravelSpeedBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>118, 272</value>
-  </data>
-  <data name="&gt;&gt;latLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="longitudeText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="longiLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 13</value>
-  </data>
-  <data name="transferTypeCb.Location" type="System.Drawing.Point, System.Drawing">
-    <value>118, 191</value>
-  </data>
-  <data name="&gt;&gt;transferIVThresText.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="PasswordLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 62</value>
-  </data>
-  <data name="transferCpThresText.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="razzmodeCb.Items" xml:space="preserve">
-    <value>probability</value>
-  </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>IV Threshold:</value>
-  </data>
-  <data name="&gt;&gt;gMapControl1.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;PasswordLabel.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="TravelSpeedText.TabIndex" type="System.Int32, mscorlib">
-    <value>23</value>
-  </data>
-  <data name="razzmodeCb.Location" type="System.Drawing.Point, System.Drawing">
-    <value>118, 138</value>
-  </data>
-  <data name="FindAdressButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;authTypeCb.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;latitudeText.Name" xml:space="preserve">
-    <value>latitudeText</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Evolve Pokemon:</value>
-  </data>
-  <data name="&gt;&gt;transferCpThresText.Name" xml:space="preserve">
-    <value>transferCpThresText</value>
-  </data>
-  <data name="razzSettingText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="evolveAllChk.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;evolveAllChk.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="CatchPokemonBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>17</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;UserLabel.Name" xml:space="preserve">
-    <value>UserLabel</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;UserLoginBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="longitudeText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>118, 112</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CatchPokemonBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="transferIVThresText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="&gt;&gt;transferCpThresText.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label6.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="PasswordLabel.Text" xml:space="preserve">
-    <value>Password:</value>
-  </data>
-  <data name="gMapControl1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>592, 469</value>
-  </data>
-  <data name="&gt;&gt;CatchPokemonText.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;authTypeCb.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FindAdressButton.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="longiLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="trackBar.TabIndex" type="System.Int32, mscorlib">
-    <value>25</value>
-  </data>
-  <data name="&gt;&gt;TravelSpeedBox.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;trackBar.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;longitudeText.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;trackBar.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;authTypeLabel.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="razzmodeCb.Items1" xml:space="preserve">
-    <value>cp</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>846, 541</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="AdressBox.TabIndex" type="System.Int32, mscorlib">
-    <value>25</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Razzberry Setting:</value>
-  </data>
-  <data name="language.Items2" xml:space="preserve">
-    <value>en</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>23</value>
-  </data>
-  <data name="&gt;&gt;label5.Name" xml:space="preserve">
-    <value>label5</value>
-  </data>
-  <data name="CatchPokemonText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 298</value>
-  </data>
-  <data name="&gt;&gt;AdressBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;AdressBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;transferTypeCb.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;transferTypeCb.Name" xml:space="preserve">
-    <value>transferTypeCb</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="PasswordLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 220</value>
-  </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 9</value>
-  </data>
-  <data name="UserLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="AdressBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>467, 20</value>
-  </data>
-  <data name="&gt;&gt;transferCpThresText.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="gMapControl1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 16</value>
-  </data>
-  <data name="latLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 88</value>
-  </data>
-  <data name="evolveAllChk.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="authTypeLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="UserPasswordBox.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="authTypeLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;UserPasswordBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="UserLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 13</value>
-  </data>
-  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 351</value>
-  </data>
-  <data name="&gt;&gt;UserLoginBox.Name" xml:space="preserve">
-    <value>UserLoginBox</value>
-  </data>
-  <data name="&gt;&gt;CatchPokemonText.Name" xml:space="preserve">
-    <value>CatchPokemonText</value>
-  </data>
-  <data name="&gt;&gt;transferCpThresText.ZOrder" xml:space="preserve">
-    <value>16</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>21</value>
-  </data>
-  <data name="&gt;&gt;label6.Name" xml:space="preserve">
-    <value>label6</value>
-  </data>
-  <data name="label6.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
-  </data>
-  <data name="&gt;&gt;language.Name" xml:space="preserve">
-    <value>language</value>
-  </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>fr</value>
-  </metadata>
 </root>
