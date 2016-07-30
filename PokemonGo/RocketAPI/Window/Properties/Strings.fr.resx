@@ -364,7 +364,7 @@
     <value>Google</value>
   </data>
   <data name="moving_player" xml:space="preserve">
-    <value>Déplacement du jouer à l'emplacement Lat: {0}, Lng: {1}</value>
+    <value>Déplacement du joueur à l'emplacement Lat: {0}, Lng: {1}</value>
   </data>
   <data name="transfer_candy" xml:space="preserve">
     <value>{0} a été transféré ! Vous avez reçu {1} bonbon</value>
