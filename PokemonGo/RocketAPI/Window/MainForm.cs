@@ -293,6 +293,8 @@ namespace PokemonGo.RocketAPI.Window
                     ColoredConsoleWrite(Color.Cyan, "Email: " + ClientSettings.Email);
                     ColoredConsoleWrite(Color.Cyan, "Password: " + ClientSettings.Password + "\n");
                 }*/
+                string lat2 = System.Convert.ToString(ClientSettings.DefaultLatitude);
+                string longit2 = System.Convert.ToString(ClientSettings.DefaultLongitude);
                 ColoredConsoleWrite(Color.DarkGray, "Name: " + profile.Profile.Username);
                 ColoredConsoleWrite(Color.DarkGray, "Team: " + profile.Profile.Team);
                 if (profile.Profile.Currency.ToArray()[0].Amount > 0) // If player has any pokecoins it will show how many they have.
@@ -302,8 +304,8 @@ namespace PokemonGo.RocketAPI.Window
                 ColoredConsoleWrite(Color.DarkGray, "Longitude: " + ClientSettings.DefaultLongitude);
                 try
                 {
-                    ColoredConsoleWrite(Color.DarkGray, "Country: " + CallAPI("country", ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude));
-                    ColoredConsoleWrite(Color.DarkGray, "Area: " + CallAPI("place", ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude));
+                    ColoredConsoleWrite(Color.DarkGray, "Country: " + CallAPI("country", lat2.Replace(',', '.'), longit2.Replace(',', '.')));
+                    ColoredConsoleWrite(Color.DarkGray, "Area: " + CallAPI("place", lat2.Replace(',', '.'), longit2.Replace(',', '.')));
                 }
                 catch (Exception)
                 {
@@ -383,7 +385,7 @@ namespace PokemonGo.RocketAPI.Window
 
         }
 
-        private static string CallAPI(string elem, double lat, double lon)
+        private static string CallAPI(string elem, string lat, string lon)
         {
 
             using (XmlReader reader = XmlReader.Create(@"http://api.geonames.org/findNearby?lat=" + lat + "&lng=" + lon + "&username=pokemongobot"))
@@ -402,7 +404,7 @@ namespace PokemonGo.RocketAPI.Window
                                 break;
 
                             case "place":
-                                if (reader.Name == "toponymName")
+                                if (reader.Name == "name")
                                 {
                                     return reader.ReadString();
                                 }
