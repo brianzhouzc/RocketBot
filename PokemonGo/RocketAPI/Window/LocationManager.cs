@@ -25,7 +25,7 @@ namespace PokemonGo.RocketAPI.Window
 
         public async Task update(double lat, double lng)
         {
-            double waitTime = getDistance(lat, lng)/this.kilometersPerMillisecond;
+            double waitTime = getDistance(lat, lng) / this.kilometersPerMillisecond;
             await Task.Delay((int)Math.Ceiling(waitTime));
             await client.UpdatePlayerLocation(lat, lng);
         }
