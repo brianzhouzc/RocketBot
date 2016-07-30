@@ -70,7 +70,7 @@ namespace PokemonGo.RocketAPI.Window
             this.logTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.logTextBox.Name = "logTextBox";
             this.logTextBox.ReadOnly = true;
-            this.logTextBox.Size = new System.Drawing.Size(720, 450);
+            this.logTextBox.Size = new System.Drawing.Size(769, 400);
             this.logTextBox.TabIndex = 0;
             this.logTextBox.Text = "";
             this.logTextBox.TextChanged += new System.EventHandler(this.logTextBox_TextChanged);
@@ -80,7 +80,7 @@ namespace PokemonGo.RocketAPI.Window
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 824);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 794);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
             this.statusStrip1.Size = new System.Drawing.Size(1178, 25);
@@ -155,7 +155,7 @@ namespace PokemonGo.RocketAPI.Window
             this.gMapControl1.GrayScaleMode = false;
             this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMapControl1.LevelsKeepInMemmory = 5;
-            this.gMapControl1.Location = new System.Drawing.Point(728, 32);
+            this.gMapControl1.Location = new System.Drawing.Point(777, 32);
             this.gMapControl1.Margin = new System.Windows.Forms.Padding(4);
             this.gMapControl1.MarkersEnabled = true;
             this.gMapControl1.MaxZoom = 2;
@@ -169,7 +169,7 @@ namespace PokemonGo.RocketAPI.Window
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(450, 450);
+            this.gMapControl1.Size = new System.Drawing.Size(400, 400);
             this.gMapControl1.TabIndex = 23;
             this.gMapControl1.Zoom = 0D;
             // 
@@ -202,13 +202,13 @@ namespace PokemonGo.RocketAPI.Window
             this.objectListView1.FullRowSelect = true;
             this.objectListView1.GridLines = true;
             this.objectListView1.LargeImageList = this.largePokemonImageList;
-            this.objectListView1.Location = new System.Drawing.Point(0, 490);
+            this.objectListView1.Location = new System.Drawing.Point(0, 440);
             this.objectListView1.Margin = new System.Windows.Forms.Padding(4);
             this.objectListView1.MultiSelect = false;
             this.objectListView1.Name = "objectListView1";
             this.objectListView1.RowHeight = 32;
             this.objectListView1.ShowGroups = false;
-            this.objectListView1.Size = new System.Drawing.Size(1177, 285);
+            this.objectListView1.Size = new System.Drawing.Size(1177, 305);
             this.objectListView1.SmallImageList = this.smallPokemonImageList;
             this.objectListView1.TabIndex = 25;
             this.objectListView1.UseCompatibleStateImageBehavior = false;
@@ -290,7 +290,7 @@ namespace PokemonGo.RocketAPI.Window
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button1.Location = new System.Drawing.Point(0, 784);
+            this.button1.Location = new System.Drawing.Point(0, 754);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(1178, 34);
@@ -303,7 +303,7 @@ namespace PokemonGo.RocketAPI.Window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1178, 849);
+            this.ClientSize = new System.Drawing.Size(1178, 819);
             this.Controls.Add(this.gMapControl1);
             this.Controls.Add(this.logTextBox);
             this.Controls.Add(this.button1);
