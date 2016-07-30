@@ -60,18 +60,33 @@ namespace PokemonGo.RocketAPI.Window
                     .Where(p => p != null && (int)p?.FamilyId > 0)
                     .OrderByDescending(p => (int)p.FamilyId);
 
-            
+
                 //listView1.ShowItemToolTips = true;
 
                 //put data into gridview
                 this.dataGridView1.AutoGenerateColumns = false;
+                DataGridViewCheckBoxColumn checkbox = new DataGridViewCheckBoxColumn()
+                {
+                    HeaderText = "Checkbox",
+                    Name = "Checkbox",
+                    Visible = true
+                };
+                // add the new column to your dataGridView 
+                this.dataGridView1.Columns.Insert(0, checkbox);
                 this.dataGridView1.Columns.Add("Image", "Image");
+                this.dataGridView1.Columns.Add("Number", "Number");
                 this.dataGridView1.Columns.Add("Name", "Name");
                 this.dataGridView1.Columns.Add("CP", "CP");
-                this.dataGridView1.Columns.Add("Candy","Candy");
-                this.dataGridView1.Columns.Add("IV", "IV");
+                this.dataGridView1.Columns.Add("Candy", "Candy");
+                this.dataGridView1.Columns.Add("IV %", "IV %");
                 this.dataGridView1.Columns.Add("WeightKg", "WeightKg");
                 this.dataGridView1.Columns.Add("HeightM", "HeightM");
+
+                this.dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                for (int i = 1; i < this.dataGridView1.Columns.Count; i++)
+                {
+                    this.dataGridView1.Columns[i].ReadOnly = true;
+                }
 
                 foreach (var pokemon in pokemons)
                 {
@@ -86,20 +101,23 @@ namespace PokemonGo.RocketAPI.Window
                         .Select(f => f.Candy)
                         .First();
                     var currIv = Math.Round(Perfect(pokemon));
-                    
-           
+
+
                     var pokemonId2 = pokemon.PokemonId;
                     var pokemonName = pokemon.Id;
 
                     var row = new DataGridViewRow();
                     //row.HeaderCell.Value = row.Index + 1 + "";
-                    row.Cells.Add(new DataGridViewImageCell { Value = pokemonImage  });
+                    row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                    row.Cells.Add(new DataGridViewImageCell { Value = pokemonImage });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = (int)pokemon.PokemonId });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = pokemon.PokemonId });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = pokemon.Cp });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = currentCandy });
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = currIv + "%" });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = currIv });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = pokemon.WeightKg });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = pokemon.HeightM });
+                    row.Tag = pokemon;
                     this.dataGridView1.Rows.Add(row);
                 }
 
@@ -189,16 +207,10 @@ namespace PokemonGo.RocketAPI.Window
 
         private async void button2_Click(object sender, EventArgs e)
         {
-            IEnumerable<DataGridViewRow> selectedItems = null;
 
-            if (this.dataGridView1.SelectedRows.Count < 1)
-            {
-                selectedItems = this.dataGridView1.SelectedCells.Cast<DataGridViewCell>().Select(cell => cell.OwningRow).Distinct();
-            }
-            else
-            {
-                selectedItems = this.dataGridView1.SelectedRows.Cast<DataGridViewRow>();
-            }
+            IEnumerable<DataGridViewRow> selectedItems = (from row in dataGridView1.Rows.Cast<DataGridViewRow>()
+                                                          where Convert.ToBoolean(((DataGridViewCheckBoxCell)row.Cells["Checkbox"]).EditedFormattedValue)
+                                                          select row).ToList();
 
             foreach (DataGridViewRow selectedItem in selectedItems)
             {
@@ -213,16 +225,9 @@ namespace PokemonGo.RocketAPI.Window
 
         private async void button3_Click(object sender, EventArgs e)
         {
-
-            IEnumerable<DataGridViewRow> selectedItems = null;
-
-            if (this.dataGridView1.SelectedRows.Count < 1)
-            {
-                 selectedItems = this.dataGridView1.SelectedCells.Cast<DataGridViewCell>().Select(cell => cell.OwningRow).Distinct();
-            }else
-            {
-                 selectedItems = this.dataGridView1.SelectedRows.Cast<DataGridViewRow>();
-            }
+            IEnumerable<DataGridViewRow> selectedItems = (from row in dataGridView1.Rows.Cast<DataGridViewRow>()
+                                                          where Convert.ToBoolean(((DataGridViewCheckBoxCell)row.Cells["Checkbox"]).EditedFormattedValue)
+                                                          select row).ToList();
 
             foreach (DataGridViewRow selectedItem in selectedItems)
             {
@@ -299,16 +304,9 @@ namespace PokemonGo.RocketAPI.Window
 
         private async void btnUpgrade_Click(object sender, EventArgs e)
         {
-            IEnumerable<DataGridViewRow> selectedItems = null;
-
-            if (this.dataGridView1.SelectedRows.Count < 1)
-            {
-                selectedItems = this.dataGridView1.SelectedCells.Cast<DataGridViewCell>().Select(cell => cell.OwningRow).Distinct();
-            }
-            else
-            {
-                selectedItems = this.dataGridView1.SelectedRows.Cast<DataGridViewRow>();
-            }
+            IEnumerable<DataGridViewRow> selectedItems = (from row in dataGridView1.Rows.Cast<DataGridViewRow>()
+                                                          where Convert.ToBoolean(((DataGridViewCheckBoxCell)row.Cells["Checkbox"]).EditedFormattedValue)
+                                                          select row).ToList();
 
             foreach (DataGridViewRow selectedItem in selectedItems)
             {
@@ -352,5 +350,42 @@ namespace PokemonGo.RocketAPI.Window
             catch (Exception ex) { await PowerUp(pokemon); }
         }
 
+        private void dataGridView1_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
+        {
+            //sort the numeric column
+            if (!e.Column.Name.Equals("Name") && !e.Column.Name.Equals("Image"))
+            {
+                e.SortResult = (Convert.ToDouble(e.CellValue1) - Convert.ToDouble(e.CellValue2) > 0) ? 1 : (Convert.ToDouble(e.CellValue1) - Convert.ToDouble(e.CellValue2) < 0) ? -1 : 0;
+            }
+
+            // if the value is same, then sort by IV
+            if (e.SortResult == 0 && e.Column.Name.Equals("IV %"))
+            {
+                e.SortResult = Convert.ToInt32(this.dataGridView1.Rows[e.RowIndex1].Cells["IV %"].Value.ToString()) -
+                        Convert.ToInt32(this.dataGridView1.Rows[e.RowIndex2].Cells["IV %"].Value.ToString());
+            }
+
+            e.Handled = true;
+        }
+
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex != 0)
+                return;
+
+            bool isChecked = Convert.ToBoolean(this.dataGridView1.Rows[e.RowIndex].Cells["Checkbox"].EditedFormattedValue);
+
+            if (isChecked)
+            {
+                this.dataGridView1.Rows[e.RowIndex].Cells["Checkbox"].Value = true;
+                this.dataGridView1.Rows[e.RowIndex].Selected = true;
+            }
+            else
+            {
+                this.dataGridView1.Rows[e.RowIndex].Cells["Checkbox"].Value = false;
+                this.dataGridView1.Rows[e.RowIndex].Selected = false;
+            }
+        }
     }
 }
