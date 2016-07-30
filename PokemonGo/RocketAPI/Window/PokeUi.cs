@@ -38,7 +38,9 @@ namespace PokemonGo.RocketAPI.Window
 
             try
             {
+
                 await client.Login();
+
                 await client.SetServer();
                 var profile = await client.GetProfile();
                 var inventory = await client.GetInventory();
@@ -54,6 +56,7 @@ namespace PokemonGo.RocketAPI.Window
 
 
                 //listView1.ShowItemToolTips = true;
+
 
                 //put data into gridview
                 this.dataGridView1.AutoGenerateColumns = false;
