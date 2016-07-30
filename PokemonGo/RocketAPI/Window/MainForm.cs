@@ -218,6 +218,7 @@ namespace PokemonGo.RocketAPI.Window
                         break;
                 }
 
+                await client.Login();
                 await client.SetServer();
                 var profile = await client.GetProfile();
                 var settings = await client.GetSettings();
@@ -298,13 +299,10 @@ namespace PokemonGo.RocketAPI.Window
                     await Task.Delay(10000);
                     CheckVersion();
                     Execute();
-                } else
+                }
+                else
                 {
-                    ConsoleClear();
-                    ColoredConsoleWrite(Color.Red, Properties.Strings.bot_stop);
-                    startStopBotToolStripMenuItem.Text = Properties.Strings.start;
-                    Stopping = false;
-                    bot_started = false;
+                    confirmBotStopped();
                 }
             }
             catch (TaskCanceledException) { ColoredConsoleWrite(Color.Red, Properties.Strings.task_canceled); if (!Stopping) Execute(); }
@@ -317,7 +315,7 @@ namespace PokemonGo.RocketAPI.Window
 
         private static string CallAPI(string elem, double lat, double lon)
         {
-            using (XmlReader reader = XmlReader.Create(@"http://api.geonames.org/findNearby?lat=" + lat + "&lng=" + lon + "&username=demo"))
+            using (XmlReader reader = XmlReader.Create(@"http://api.geonames.org/findNearby?lat=" + lat + "&lng=" + lon + "&username=pokemongobot"))
             {
                 while (reader.Read())
                 {
@@ -347,6 +345,7 @@ namespace PokemonGo.RocketAPI.Window
             }
             return Properties.Strings.error;
         }
+
         private async Task ExecuteCatchAllNearbyPokemons(Client client)
         {
             var mapObjects = await client.GetMapObjects();
@@ -841,11 +840,33 @@ namespace PokemonGo.RocketAPI.Window
             var inventory = await client.GetInventory();
             var stats = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PlayerStats).ToArray();
             var profile = await client.GetProfile();
+            Int16 hoursLeft = 0; Int16 minutesLeft = 0; Int32 secondsLeft = 0; double xpSec = 0;
             foreach (var v in stats)
                 if (v != null)
                 {
                     int XpDiff = GetXpDiff(client, v.Level);
-                    SetStatusText(string.Format(Properties.Strings.status, Username, v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount, Math.Round(TotalExperience / GetRuntime()), Math.Round(TotalPokemon / GetRuntime())));
+                    //Calculating the exp needed to level up
+                    Single expNextLvl = (v.NextLevelXp - v.Experience);
+                    //Calculating the exp made per second
+                    xpSec = (Math.Round(TotalExperience / GetRuntime()) / 60) / 60;
+                    //Calculating the seconds left to level up
+                    if(xpSec!=0)
+                    secondsLeft = Convert.ToInt32((expNextLvl / xpSec));
+                    //formatting data to make an output like DateFormat
+                    while (secondsLeft > 60)
+                    {
+                        secondsLeft -= 60;
+                        if (minutesLeft < 60)
+                        {
+                            minutesLeft++;
+                        }
+                        else
+                        {
+                            minutesLeft = 0;
+                            hoursLeft++;
+                        }
+                    }
+                    SetStatusText(string.Format(Properties.Strings.status, Username, v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount, Math.Round(TotalExperience / GetRuntime()), Math.Round(TotalPokemon / GetRuntime(), hoursLeft, minutesLeft, secondsLeft)));
                 }
             await Task.Delay(1000);
             ConsoleLevelTitle(Username, client);
@@ -937,6 +958,15 @@ namespace PokemonGo.RocketAPI.Window
                     return 1000000;
             }
             return 0;
+        }
+
+        public void confirmBotStopped()
+        {
+            //ConsoleClear(); // dont really want the console to be wipped on bot stop, unnecessary
+            ColoredConsoleWrite(Color.Red, Properties.Strings.bot_stop);
+            startStopBotToolStripMenuItem.Text = Properties.Strings.start;
+            Stopping = false;
+            bot_started = false;
         }
 
         private void logTextBox_TextChanged(object sender, EventArgs e)
