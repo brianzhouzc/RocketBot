@@ -511,7 +511,7 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à {0} | Level: {1:0} - ({3:0}/{4:0}) | Runtime {2} | Stardust: {5:0} | XP/Hour: {6} | Pokemon/Hour: {7}.
+        ///   Recherche une chaîne localisée semblable à {0} | Level: {1:0} - ({3:0}/{4:0}) | Runtime {2} | Stardust: {5:0} | XP/Hour: {6} | Pokemon/Hour: {7}  | NextLevel in: {8}:{9}:{10}.
         /// </summary>
         internal static string status {
             get {

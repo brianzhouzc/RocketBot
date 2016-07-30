@@ -268,7 +268,7 @@
     <value>Starting force unban...</value>
   </data>
   <data name="status" xml:space="preserve">
-    <value>{0} | Level: {1:0} - ({3:0}/{4:0}) | Runtime {2} | Stardust: {5:0} | XP/Hour: {6} | Pokemon/Hour: {7}</value>
+    <value>{0} | Level: {1:0} - ({3:0}/{4:0}) | Runtime {2} | Stardust: {5:0} | XP/Hour: {6} | Pokemon/Hour: {7}  | NextLevel in: {8}:{9}:{10}</value>
   </data>
   <data name="stopping_bot" xml:space="preserve">
     <value>Stopping the bot.. Waiting for the last action to be complete.</value>

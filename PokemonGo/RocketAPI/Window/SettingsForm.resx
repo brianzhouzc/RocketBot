@@ -128,6 +128,10 @@
   <data name="&gt;&gt;transferIVThresText.Name" xml:space="preserve">
     <value>transferIVThresText</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ImageSizeBox.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
     <value>13</value>
   </data>
@@ -143,15 +147,11 @@
   <data name="saveBtn.Text" xml:space="preserve">
     <value>Save</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="evolveAllChk.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
   </data>
   <data name="EmailLoginBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>136, 20</value>
-  </data>
-  <data name="&gt;&gt;TravelSpeedText.ZOrder" xml:space="preserve">
-    <value>11</value>
   </data>
   <data name="label4.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -171,11 +171,11 @@
   <data name="&gt;&gt;TravelSpeedBox.Name" xml:space="preserve">
     <value>TravelSpeedBox</value>
   </data>
-  <data name="&gt;&gt;trackBar.Parent" xml:space="preserve">
-    <value>groupBox1</value>
+  <data name="razzSettingText.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
   </data>
-  <data name="&gt;&gt;label8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="CatchPokemonText.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="&gt;&gt;CatchPokemonText.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -183,8 +183,8 @@
   <data name="&gt;&gt;ptcUserText.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="razzSettingText.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
+  <data name="razzSettingText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>104, 164</value>
   </data>
   <data name="&gt;&gt;longiLabel.Name" xml:space="preserve">
     <value>longiLabel</value>
@@ -234,6 +234,9 @@
   <data name="&gt;&gt;razzmodeCb.ZOrder" xml:space="preserve">
     <value>28</value>
   </data>
+  <data name="&gt;&gt;razzSettingText.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
   <data name="transferCpThresText.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 20</value>
   </data>
@@ -249,8 +252,8 @@
   <data name="&gt;&gt;gMapControl1.Type" xml:space="preserve">
     <value>GMap.NET.WindowsForms.GMapControl, GMap.NET.WindowsForms, Version=1.7.0.0, Culture=neutral, PublicKeyToken=b85b9027b614afef</value>
   </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 220</value>
   </data>
   <data name="&gt;&gt;ptcPassText.Name" xml:space="preserve">
     <value>ptcPassText</value>
@@ -282,26 +285,23 @@
   <data name="razzSettingText.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 20</value>
   </data>
-  <data name="&gt;&gt;transferIVThresText.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ptcPasswordLabel.Parent" xml:space="preserve">
-    <value>panel1</value>
+  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 341</value>
   </data>
   <data name="&gt;&gt;CatchPokemonBox.Name" xml:space="preserve">
     <value>CatchPokemonBox</value>
   </data>
-  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
-    <value>panel1</value>
+  <data name="language.Items2" xml:space="preserve">
+    <value>fr</value>
   </data>
-  <data name="TravelSpeedBox.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
-  </data>
-  <data name="&gt;&gt;razzSettingText.Parent" xml:space="preserve">
-    <value>panel1</value>
+  <data name="authTypeLabel.Text" xml:space="preserve">
+    <value>Login Type:</value>
   </data>
   <data name="&gt;&gt;authTypeLabel.Parent" xml:space="preserve">
     <value>panel1</value>
+  </data>
+  <data name="ptcPasswordLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 13</value>
   </data>
   <data name="razzmodeCb.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 21</value>
@@ -315,9 +315,6 @@
   <data name="TravelSpeedBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 20</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>797, 496</value>
-  </data>
   <data name="&gt;&gt;authTypeLabel.Name" xml:space="preserve">
     <value>authTypeLabel</value>
   </data>
@@ -330,8 +327,8 @@
   <data name="&gt;&gt;longiLabel.Parent" xml:space="preserve">
     <value>panel1</value>
   </data>
-  <data name="gMapControl1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
+    <value>panel1</value>
   </data>
   <data name="ImageSizeBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>104, 246</value>
@@ -354,17 +351,17 @@
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>76, 13</value>
   </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>25</value>
-  </data>
-  <data name="gMapControl1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
+  <data name="EmailPasswordBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>68, 62</value>
   </data>
   <data name="ptcUserLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 13</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>23</value>
+  </data>
+  <data name="&gt;&gt;FindAdressButton.Parent" xml:space="preserve">
+    <value>groupBox1</value>
   </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
@@ -381,8 +378,11 @@
   <data name="EmailPasswordText.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 62</value>
   </data>
-  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
-    <value>panel1</value>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="gMapControl1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="authTypeCb.Items" xml:space="preserve">
     <value>google</value>
@@ -411,6 +411,12 @@
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="TravelSpeedText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 275</value>
+  </data>
+  <data name="&gt;&gt;evolveAllChk.ZOrder" xml:space="preserve">
+    <value>20</value>
+  </data>
   <data name="evolveAllChk.Location" type="System.Drawing.Point, System.Drawing">
     <value>104, 321</value>
   </data>
@@ -426,8 +432,11 @@
   <data name="EmailLoginText.TabIndex" type="System.Int32, mscorlib">
     <value>27</value>
   </data>
-  <data name="&gt;&gt;CatchPokemonBox.Parent" xml:space="preserve">
-    <value>panel1</value>
+  <data name="&gt;&gt;AdressBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="transferIVThresText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>104, 220</value>
   </data>
   <data name="EmailPasswordBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>136, 20</value>
@@ -438,8 +447,8 @@
   <data name="&gt;&gt;longiLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;TravelSpeedBox.Parent" xml:space="preserve">
-    <value>panel1</value>
+  <data name="&gt;&gt;TravelSpeedText.ZOrder" xml:space="preserve">
+    <value>11</value>
   </data>
   <data name="TravelSpeedText.Text" xml:space="preserve">
     <value>Travel Speed km/h:</value>
@@ -492,11 +501,14 @@
   <data name="longitudeText.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
   </data>
+  <data name="&gt;&gt;label8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;language.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;EmailPasswordBox.Parent" xml:space="preserve">
+    <value>panel1</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>630, 360</value>
@@ -516,6 +528,12 @@
   <data name="&gt;&gt;label8.Name" xml:space="preserve">
     <value>label8</value>
   </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 249</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 13</value>
+  </data>
   <data name="ptcPasswordLabel.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
@@ -528,14 +546,14 @@
   <data name="&gt;&gt;FindAdressButton.Name" xml:space="preserve">
     <value>FindAdressButton</value>
   </data>
-  <data name="&gt;&gt;language.Name" xml:space="preserve">
-    <value>language</value>
-  </data>
   <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="TravelSpeedText.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="&gt;&gt;latitudeText.ZOrder" xml:space="preserve">
+    <value>32</value>
   </data>
   <data name="&gt;&gt;ptcPasswordLabel.Name" xml:space="preserve">
     <value>ptcPasswordLabel</value>
@@ -1985,8 +2003,8 @@
   <data name="&gt;&gt;EmailLoginBox.Parent" xml:space="preserve">
     <value>panel1</value>
   </data>
-  <data name="&gt;&gt;evolveAllChk.ZOrder" xml:space="preserve">
-    <value>20</value>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
   </data>
   <data name="&gt;&gt;ptcUserLabel.Name" xml:space="preserve">
     <value>ptcUserLabel</value>
@@ -2017,9 +2035,6 @@
   </data>
   <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>221, 9</value>
-  </data>
-  <data name="CatchPokemonText.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="transferCpThresText.Location" type="System.Drawing.Point, System.Drawing">
     <value>104, 220</value>
@@ -2066,14 +2081,14 @@
   <data name="&gt;&gt;evolveAllChk.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="ptcPassText.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 20</value>
+  </data>
   <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
     <value>61, 13</value>
   </data>
-  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 220</value>
-  </data>
-  <data name="&gt;&gt;FindAdressButton.Parent" xml:space="preserve">
-    <value>groupBox1</value>
+  <data name="EmailPasswordText.Text" xml:space="preserve">
+    <value>Password:</value>
   </data>
   <data name="transferTypeCb.Items1" xml:space="preserve">
     <value>CP</value>
@@ -2095,9 +2110,6 @@
   </data>
   <data name="longiLabel.Text" xml:space="preserve">
     <value>Longitude:</value>
-  </data>
-  <data name="latitudeText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>104, 85</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
     <value>Transfer Type:</value>
@@ -2122,9 +2134,6 @@
   </data>
   <data name="CatchPokemonBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>104, 298</value>
-  </data>
-  <data name="authTypeLabel.Text" xml:space="preserve">
-    <value>Login Type:</value>
   </data>
   <data name="ptcUserLabel.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -2153,8 +2162,8 @@
   <data name="latLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>48, 13</value>
   </data>
-  <data name="ptcPassText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>68, 62</value>
+  <data name="&gt;&gt;CatchPokemonBox.Parent" xml:space="preserve">
+    <value>panel1</value>
   </data>
   <data name="&gt;&gt;TravelSpeedText.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -2180,6 +2189,9 @@
   <data name="label8.TabIndex" type="System.Int32, mscorlib">
     <value>33</value>
   </data>
+  <data name="&gt;&gt;trackBar.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="FindAdressButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>431, 446</value>
   </data>
@@ -2191,9 +2203,6 @@
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>212, 478</value>
-  </data>
-  <data name="language.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 21</value>
   </data>
   <data name="authTypeCb.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -2207,9 +2216,6 @@
   <data name="ptcPasswordLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="EmailPasswordText.Text" xml:space="preserve">
-    <value>Password:</value>
-  </data>
   <data name="language.Items1" xml:space="preserve">
     <value>en</value>
   </data>
@@ -2219,14 +2225,14 @@
   <data name="latLabel.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
+  <data name="&gt;&gt;AdressBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="saveBtn.TabIndex" type="System.Int32, mscorlib">
     <value>20</value>
   </data>
   <data name="trackBar.Size" type="System.Drawing.Size, System.Drawing">
     <value>45, 104</value>
-  </data>
-  <data name="TravelSpeedText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 275</value>
   </data>
   <data name="&gt;&gt;EmailLoginText.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -2249,14 +2255,8 @@
   <data name="&gt;&gt;label2.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Evolve Pokemon:</value>
-  </data>
   <data name="label7.TabIndex" type="System.Int32, mscorlib">
     <value>32</value>
-  </data>
-  <data name="razzSettingText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>104, 164</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>SettingsForm</value>
@@ -2266,9 +2266,6 @@
   </data>
   <data name="&gt;&gt;transferTypeCb.ZOrder" xml:space="preserve">
     <value>24</value>
-  </data>
-  <data name="transferIVThresText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>104, 220</value>
   </data>
   <data name="&gt;&gt;razzSettingText.ZOrder" xml:space="preserve">
     <value>26</value>
@@ -2291,8 +2288,8 @@
   <data name="transferTypeCb.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
   </data>
-  <data name="ImageSizeBox.TabIndex" type="System.Int32, mscorlib">
-    <value>31</value>
+  <data name="language.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 21</value>
   </data>
   <data name="FindAdressButton.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
@@ -2315,8 +2312,8 @@
   <data name="language.TabIndex" type="System.Int32, mscorlib">
     <value>34</value>
   </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 13</value>
+  <data name="TravelSpeedBox.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
   </data>
   <data name="&gt;&gt;razzmodeCb.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -2330,11 +2327,11 @@
   <data name="ptcUserLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;EmailPasswordBox.Parent" xml:space="preserve">
-    <value>panel1</value>
+  <data name="TravelSpeedBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>104, 272</value>
   </data>
-  <data name="&gt;&gt;latLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;evolveAllChk.Parent" xml:space="preserve">
+    <value>panel1</value>
   </data>
   <data name="longitudeText.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 20</value>
@@ -2348,8 +2345,8 @@
   <data name="label5.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
   </data>
-  <data name="razzmodeCb.Items1" xml:space="preserve">
-    <value>cp</value>
+  <data name="&gt;&gt;transferIVThresText.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="transferCpThresText.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -2375,12 +2372,6 @@
   <data name="razzmodeCb.Location" type="System.Drawing.Point, System.Drawing">
     <value>104, 137</value>
   </data>
-  <data name="EmailPasswordBox.TabIndex" type="System.Int32, mscorlib">
-    <value>30</value>
-  </data>
-  <data name="EmailPasswordBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>68, 62</value>
-  </data>
   <data name="FindAdressButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
@@ -2396,8 +2387,8 @@
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 341</value>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Evolve Pokemon:</value>
   </data>
   <data name="&gt;&gt;transferCpThresText.Name" xml:space="preserve">
     <value>transferCpThresText</value>
@@ -2408,17 +2399,20 @@
   <data name="evolveAllChk.Size" type="System.Drawing.Size, System.Drawing">
     <value>15, 14</value>
   </data>
-  <data name="&gt;&gt;CatchPokemonBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;latLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;evolveAllChk.Parent" xml:space="preserve">
-    <value>panel1</value>
+  <data name="&gt;&gt;language.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="CatchPokemonBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="&gt;&gt;ptcUserLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2428,6 +2422,9 @@
   </data>
   <data name="&gt;&gt;panel1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>25</value>
   </data>
   <data name="&gt;&gt;label6.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -2450,9 +2447,6 @@
   <data name="label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterParent</value>
-  </data>
   <data name="gMapControl1.Size" type="System.Drawing.Size, System.Drawing">
     <value>561, 424</value>
   </data>
@@ -2471,14 +2465,20 @@
   <data name="&gt;&gt;ptcPassText.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TravelSpeedBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>104, 272</value>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
   </data>
   <data name="trackBar.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
   </data>
-  <data name="ptcPassText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 20</value>
+  <data name="&gt;&gt;TravelSpeedBox.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="ptcPassText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>68, 62</value>
+  </data>
+  <data name="&gt;&gt;trackBar.Parent" xml:space="preserve">
+    <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;longitudeText.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -2486,8 +2486,8 @@
   <data name="&gt;&gt;label1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;trackBar.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="&gt;&gt;CatchPokemonBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="ptcPasswordLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 62</value>
@@ -2495,8 +2495,11 @@
   <data name="&gt;&gt;authTypeLabel.ZOrder" xml:space="preserve">
     <value>14</value>
   </data>
-  <data name="&gt;&gt;latitudeText.ZOrder" xml:space="preserve">
-    <value>32</value>
+  <data name="razzmodeCb.Items1" xml:space="preserve">
+    <value>cp</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>797, 496</value>
   </data>
   <data name="&gt;&gt;label4.Name" xml:space="preserve">
     <value>label4</value>
@@ -2504,8 +2507,8 @@
   <data name="AdressBox.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
   </data>
-  <data name="language.Items2" xml:space="preserve">
-    <value>fr</value>
+  <data name="latitudeText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>104, 85</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
     <value>29</value>
@@ -2519,11 +2522,11 @@
   <data name="CatchPokemonText.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 298</value>
   </data>
-  <data name="&gt;&gt;AdressBox.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="EmailPasswordBox.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
   </data>
-  <data name="&gt;&gt;AdressBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
+    <value>panel1</value>
   </data>
   <data name="&gt;&gt;EmailPasswordBox.Name" xml:space="preserve">
     <value>EmailPasswordBox</value>
@@ -2533,9 +2536,6 @@
   </data>
   <data name="&gt;&gt;transferTypeCb.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;transferTypeCb.Name" xml:space="preserve">
-    <value>transferTypeCb</value>
   </data>
   <data name="&gt;&gt;label3.Name" xml:space="preserve">
     <value>label3</value>
@@ -2558,8 +2558,8 @@
   <data name="&gt;&gt;transferCpThresText.Parent" xml:space="preserve">
     <value>panel1</value>
   </data>
-  <data name="ptcPasswordLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 13</value>
+  <data name="gMapControl1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
   </data>
   <data name="latLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 88</value>
@@ -2579,11 +2579,11 @@
   <data name="ptcUserText.Size" type="System.Drawing.Size, System.Drawing">
     <value>136, 20</value>
   </data>
-  <data name="&gt;&gt;ptcUserLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;ptcPasswordLabel.Parent" xml:space="preserve">
+    <value>panel1</value>
   </data>
-  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 249</value>
+  <data name="&gt;&gt;transferTypeCb.Name" xml:space="preserve">
+    <value>transferTypeCb</value>
   </data>
   <data name="&gt;&gt;CatchPokemonText.Name" xml:space="preserve">
     <value>CatchPokemonText</value>
@@ -2609,13 +2609,10 @@
   <data name="&gt;&gt;ptcUserText.ZOrder" xml:space="preserve">
     <value>33</value>
   </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;language.Name" xml:space="preserve">
+    <value>language</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
-  </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>fr</value>
   </metadata>
 </root>

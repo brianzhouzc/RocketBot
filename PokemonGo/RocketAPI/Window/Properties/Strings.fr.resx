@@ -268,7 +268,7 @@
     <value>Démarrage du débannissement...</value>
   </data>
   <data name="status" xml:space="preserve">
-    <value>{0} | Niveau : {1:0} - ({3:0}/{4:0}) | Temps d'exécution : {2} | Poussières étoile : {5:0} | XP par heure : {6} | Pokémons par heure : {7}</value>
+    <value>{0} | Niveau : {1:0} - ({3:0}/{4:0}) | Temps d'exécution : {2} | Poussières étoile : {5:0} | XP par heure : {6} | Pokémons par heure : {7} | Prochain niveau dans {8}:{9}:{10}</value>
   </data>
   <data name="stopping_bot" xml:space="preserve">
     <value>Le bot est en train de s'arrêter... Attendez que la dernière action soit terminée.</value>
@@ -280,9 +280,6 @@
     <value>Excéption d'une tâche annuleé - Redémarrage</value>
   </data>
   <data name="team" xml:space="preserve">
-    <value>Équipe : {0}</value>
-  </data>
-  <data name="team1" xml:space="preserve">
     <value>Équipe : {0}</value>
   </data>
   <data name="transfer" xml:space="preserve">

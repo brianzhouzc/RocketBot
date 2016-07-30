@@ -30,6 +30,7 @@ namespace PokemonGo.RocketAPI.Window
             CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(Settings.Instance.Language == "System" ? CultureInfo.InstalledUICulture.Name : Settings.Instance.Language);
             Thread.CurrentThread.CurrentCulture =  new CultureInfo(Settings.Instance.Language == "System" ? CultureInfo.InstalledUICulture.Name : Settings.Instance.Language);
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(Settings.Instance.Language == "System" ? CultureInfo.InstalledUICulture.Name : Settings.Instance.Language);
+            //MessageBox.Show(CultureInfo.DefaultThreadCurrentCulture.Name + " " + Thread.CurrentThread.CurrentCulture.Name + " " + Thread.CurrentThread.CurrentUICulture.Name);
             InitializeComponent();
             ClientSettings = Settings.Instance;
         }
@@ -210,11 +211,9 @@ namespace PokemonGo.RocketAPI.Window
                 {
                     case AuthType.Ptc:
                         ColoredConsoleWrite(Color.Green, Properties.Strings.login_type_PTC);
-                        await client.DoPtcLogin(ClientSettings.PtcUsername, ClientSettings.PtcPassword);
                         break;
                     case AuthType.Google:
                         ColoredConsoleWrite(Color.Green, Properties.Strings.login_type_Google);
-                        await client.DoGoogleLogin(ClientSettings.Email, ClientSettings.Password);
                         break;
                 }
 
@@ -866,7 +865,8 @@ namespace PokemonGo.RocketAPI.Window
                             hoursLeft++;
                         }
                     }
-                    SetStatusText(string.Format(Properties.Strings.status, Username, v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount, Math.Round(TotalExperience / GetRuntime()), Math.Round(TotalPokemon / GetRuntime(), hoursLeft, minutesLeft, secondsLeft)));
+                    //SetStatusText(string.Format(Username + " | Level: {0:0} - ({2:0} / {3:0}) | Runtime {1} | Stardust: {4:0}", v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount) + " | XP/Hour: " + Math.Round(TotalExperience / GetRuntime()) + " | Pokemon/Hour: " + Math.Round(TotalPokemon / GetRuntime()) + " | NextLevel in: " + hoursLeft + ":" + minutesLeft + ":" + secondsLeft);
+                    SetStatusText(string.Format(Properties.Strings.status, Username, v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount, Math.Round(TotalExperience / GetRuntime()), Math.Round(TotalPokemon / GetRuntime()), hoursLeft, minutesLeft, secondsLeft));
                 }
             await Task.Delay(1000);
             ConsoleLevelTitle(Username, client);
