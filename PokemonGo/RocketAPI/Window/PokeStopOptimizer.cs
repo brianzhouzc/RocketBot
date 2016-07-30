@@ -25,7 +25,7 @@ namespace PokemonGo.RocketAPI.Window
                 NN = FindNN(optimizedRoute.Skip(i), NN.Latitude, NN.Longitude);
                 optimizedRoute.Remove(NN);
                 optimizedRoute.Insert(i, NN);
-                Visualize(optimizedRoute, routeOverlay);
+                //Visualize(optimizedRoute, routeOverlay);
             }
 
             // 2-Opt
@@ -33,7 +33,7 @@ namespace PokemonGo.RocketAPI.Window
             do
             {
                 optimizedRoute = Optimize2Opt(optimizedRoute, out isOptimized);
-                Visualize(optimizedRoute, routeOverlay);
+                //Visualize(optimizedRoute, routeOverlay);
             }
             while (isOptimized);
 

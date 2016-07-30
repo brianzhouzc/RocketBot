@@ -98,7 +98,6 @@ namespace PokemonGo.RocketAPI.Window
         private static int TotalExperience = 0;
         private static int TotalPokemon = 0;
         private static bool Stopping = false;
-        private static bool ForceUnbanning = false;
         private static bool FarmingStops = false;
         private static bool FarmingPokemons = false;
         private static DateTime TimeStarted = DateTime.Now;
@@ -359,11 +358,7 @@ namespace PokemonGo.RocketAPI.Window
                 await Task.Delay(5000);
                 PrintLevel(client);
                 await ExecuteFarmingPokestopsAndPokemons(client);
-
-                while (ForceUnbanning)
-                    await Task.Delay(25);
-
-                // await ForceUnban(client);
+                
                 if (!Stopping)
                 {
                     ColoredConsoleWrite(Color.Red, $"No nearby useful locations found. Please wait 10 seconds.");
@@ -378,6 +373,7 @@ namespace PokemonGo.RocketAPI.Window
                     startStopBotToolStripMenuItem.Text = "Start";
                     Stopping = false;
                     bot_started = false;
+                    pokeStops = null;
                 }
             }
             catch (Exception ex)
@@ -436,7 +432,7 @@ namespace PokemonGo.RocketAPI.Window
 
             foreach (var pokemon in wildPokemons)
             {
-                if (ForceUnbanning || Stopping)
+                if (Stopping)
                     break;
 
                 FarmingPokemons = true;
@@ -570,6 +566,7 @@ namespace PokemonGo.RocketAPI.Window
                     }
                 }
 
+                searchAreaOverlay.Polygons.Clear();
                 S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(ClientSettings.DefaultLongitude, ClientSettings.DefaultLatitude), searchAreaOverlay);
             }), null);
         }
@@ -578,71 +575,73 @@ namespace PokemonGo.RocketAPI.Window
         {
             var mapObjects = await client.GetMapObjects();
 
-            
-            FortData[] rawPokeStops = mapObjects.MapCells.SelectMany(i => i.Forts).Where(i => i.Type == FortType.Checkpoint).ToArray();
-            pokeStops = PokeStopOptimizer.Optimize(rawPokeStops, ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude, pokestopsOverlay);
-            wildPokemons = mapObjects.MapCells.SelectMany(i => i.CatchablePokemons);
-            if (!ForceUnbanning && !Stopping)
+            if (pokeStops == null)
+            { 
+                FortData[] rawPokeStops = mapObjects.MapCells.SelectMany(i => i.Forts).Where(i => i.Type == FortType.Checkpoint).ToArray();
+                pokeStops = PokeStopOptimizer.Optimize(rawPokeStops, ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude, pokestopsOverlay);
+                wildPokemons = mapObjects.MapCells.SelectMany(i => i.CatchablePokemons);
+            }
+            if (!Stopping)
                 ColoredConsoleWrite(Color.Cyan, $"Visiting {pokeStops.Count()} PokeStops");
             UpdateMap();
 
             foreach (var pokeStop in pokeStops)
             {
-                if (ForceUnbanning || Stopping)
+                if (Stopping)
                     break;
-
-                if (pokeStop.CooldownCompleteTimestampMs > DateTime.UtcNow.ToUnixTime())
-                    continue;
-
+                
                 FarmingStops = true;
                 await locationManager.update(pokeStop.Latitude, pokeStop.Longitude);
                 UpdatePlayerLocationOnMap(pokeStop.Latitude, pokeStop.Longitude);
                 UpdateMap();
 
-                var fortInfo = await client.GetFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
-                var fortSearch = await client.SearchFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
-                if (fortSearch.ExperienceAwarded == 0)
+                if (pokeStop.CooldownCompleteTimestampMs <= DateTime.UtcNow.ToUnixTime())
                 {
-                    ColoredConsoleWrite(Color.Pink, "You get softbanned. Starting attemp to unban...");
-                    await Task.Delay(1000);
-                    for (int i=1; i<=50; i++)
-                    {
-                        fortSearch = await client.SearchFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
-                        if (fortSearch.ExperienceAwarded == 0)
-                        {
-                            ColoredConsoleWrite(Color.Pink, "Attempt: " + i);
-                        }
-                        else
-                        {
-                            ColoredConsoleWrite(Color.Pink, "Yeah! You are now unbanned! Total attempts: " + i);
-                            break;
-                        }
-                    }
+                    var fortInfo = await client.GetFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
+                    var fortSearch = await client.SearchFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
                     if (fortSearch.ExperienceAwarded == 0)
                     {
-                        ColoredConsoleWrite(Color.Pink, "Failed. Will try again on the next PokeStop.");
+                        ColoredConsoleWrite(Color.Pink, "You get softbanned. Starting attemp to unban...");
+                        await Task.Delay(1000);
+                        for (int i = 1; i <= 50; i++)
+                        {
+                            fortSearch = await client.SearchFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
+                            if (fortSearch.ExperienceAwarded == 0)
+                            {
+                                ColoredConsoleWrite(Color.Pink, "Attempt: " + i);
+                            }
+                            else
+                            {
+                                ColoredConsoleWrite(Color.Pink, "Yeah! You are now unbanned! Total attempts: " + i);
+                                break;
+                            }
+                        }
+                        if (fortSearch.ExperienceAwarded == 0)
+                        {
+                            ColoredConsoleWrite(Color.Pink, "Failed. Will try again on the next PokeStop.");
+                        }
                     }
+
+                    StringWriter PokeStopOutput = new StringWriter();
+                    PokeStopOutput.Write($"");
+                    if (fortInfo.Name != string.Empty)
+                        PokeStopOutput.Write("PokeStop: " + fortInfo.Name);
+                    if (fortSearch.ExperienceAwarded != 0)
+                        PokeStopOutput.Write($", XP: {fortSearch.ExperienceAwarded}");
+                    if (fortSearch.GemsAwarded != 0)
+                        PokeStopOutput.Write($", Gems: {fortSearch.GemsAwarded}");
+                    if (fortSearch.PokemonDataEgg != null)
+                        PokeStopOutput.Write($", Eggs: {fortSearch.PokemonDataEgg}");
+                    if (GetFriendlyItemsString(fortSearch.ItemsAwarded) != string.Empty)
+                        PokeStopOutput.Write($", Items: {GetFriendlyItemsString(fortSearch.ItemsAwarded)} ");
+                    ColoredConsoleWrite(Color.Cyan, PokeStopOutput.ToString());
+
+                    if (fortSearch.ExperienceAwarded != 0)
+                        TotalExperience += (fortSearch.ExperienceAwarded);
+
+                    pokeStop.CooldownCompleteTimestampMs = DateTime.UtcNow.ToUnixTime() + 300000;
                 }
 
-                StringWriter PokeStopOutput = new StringWriter();
-                PokeStopOutput.Write($"");
-                if (fortInfo.Name != string.Empty)
-                    PokeStopOutput.Write("PokeStop: " + fortInfo.Name);
-                if (fortSearch.ExperienceAwarded != 0)
-                    PokeStopOutput.Write($", XP: {fortSearch.ExperienceAwarded}");
-                if (fortSearch.GemsAwarded != 0)
-                    PokeStopOutput.Write($", Gems: {fortSearch.GemsAwarded}");
-                if (fortSearch.PokemonDataEgg != null)
-                    PokeStopOutput.Write($", Eggs: {fortSearch.PokemonDataEgg}");
-                if (GetFriendlyItemsString(fortSearch.ItemsAwarded) != string.Empty)
-                    PokeStopOutput.Write($", Items: {GetFriendlyItemsString(fortSearch.ItemsAwarded)} ");
-                ColoredConsoleWrite(Color.Cyan, PokeStopOutput.ToString());
-
-                if (fortSearch.ExperienceAwarded != 0)
-                    TotalExperience += (fortSearch.ExperienceAwarded);
-
-                pokeStop.CooldownCompleteTimestampMs = DateTime.UtcNow.ToUnixTime() + 300000;
-                
                 if (ClientSettings.CatchPokemon)
                     await ExecuteCatchAllNearbyPokemons(client);
             }
@@ -1046,15 +1045,8 @@ namespace PokemonGo.RocketAPI.Window
             }
             else
             {
-                if (!ForceUnbanning)
-                {
-                    Stopping = true;
-                    ColoredConsoleWrite(Color.Red, $"Stopping the bot.. Waiting for the last action to be complete.");
-                }
-                else
-                {
-                    ColoredConsoleWrite(Color.Red, $"An action is in play, please wait until it's done.");
-                }
+                Stopping = true;
+                ColoredConsoleWrite(Color.Red, $"Stopping the bot.. Waiting for the last action to be complete.");
             }
         }
 
@@ -1128,14 +1120,7 @@ namespace PokemonGo.RocketAPI.Window
             SettingsForm settingsForm = new SettingsForm();
             settingsForm.Show();
         }
-
-        private void pokemonToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            var pForm = new PokeUi();
-            pForm.Show();
-        }
-
-
+        
 
         #region POKEMON LIST
         private IEnumerable<PokemonFamily> families;
