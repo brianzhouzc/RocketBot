@@ -963,6 +963,7 @@ namespace PokemonGo.RocketAPI.Window
         public void confirmBotStopped()
         {
             //ConsoleClear(); // dont really want the console to be wipped on bot stop, unnecessary
+            ConsoleClear();
             ColoredConsoleWrite(Color.Red, Properties.Strings.bot_stop);
             startStopBotToolStripMenuItem.Text = Properties.Strings.start;
             Stopping = false;
