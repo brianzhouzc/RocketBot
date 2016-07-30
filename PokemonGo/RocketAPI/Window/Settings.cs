@@ -20,6 +20,7 @@ namespace PokemonGo.RocketAPI.Window
 
         public static Settings Instance
         {
+
             get
             {
                 if (_instance != null)

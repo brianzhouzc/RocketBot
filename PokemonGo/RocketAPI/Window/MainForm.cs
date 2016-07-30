@@ -47,10 +47,7 @@ namespace PokemonGo.RocketAPI.Window
 
         public MainForm()
         {
-            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(Settings.Instance.Language == "System" ? CultureInfo.InstalledUICulture.Name : Settings.Instance.Language);
-            Thread.CurrentThread.CurrentCulture =  new CultureInfo(Settings.Instance.Language == "System" ? CultureInfo.InstalledUICulture.Name : Settings.Instance.Language);
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(Settings.Instance.Language == "System" ? CultureInfo.InstalledUICulture.Name : Settings.Instance.Language);
-            MessageBox.Show(CultureInfo.DefaultThreadCurrentCulture.Name + " " + Thread.CurrentThread.CurrentCulture.Name + " " + Thread.CurrentThread.CurrentUICulture.Name);
+            //MessageBox.Show(CultureInfo.DefaultThreadCurrentCulture.Name + " " + Thread.CurrentThread.CurrentCulture.Name + " " + Thread.CurrentThread.CurrentUICulture.Name);
             synchronizationContext = SynchronizationContext.Current;
             InitializeComponent();
             ClientSettings = Settings.Instance;
