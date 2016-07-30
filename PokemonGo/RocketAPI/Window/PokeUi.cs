@@ -38,9 +38,15 @@ namespace PokemonGo.RocketAPI.Window
 
             try
             {
-
-                await client.Login();
-
+                switch (ClientSettings.AuthType)
+                {
+                    case AuthType.Ptc:
+                        await client.DoPtcLogin(ClientSettings.PtcUsername, ClientSettings.PtcPassword);
+                        break;
+                    case AuthType.Google:
+                        await client.DoGoogleLogin(ClientSettings.Email, ClientSettings.Password);
+                        break;
+                }
                 await client.SetServer();
                 var profile = await client.GetProfile();
                 var inventory = await client.GetInventory();
@@ -57,7 +63,6 @@ namespace PokemonGo.RocketAPI.Window
 
                 //listView1.ShowItemToolTips = true;
 
-
                 //put data into gridview
                 this.dataGridView1.AutoGenerateColumns = false;
                 DataGridViewCheckBoxColumn checkbox = new DataGridViewCheckBoxColumn()
@@ -69,11 +74,11 @@ namespace PokemonGo.RocketAPI.Window
                 // add the new column to your dataGridView 
                 this.dataGridView1.Columns.Insert(0, checkbox);
                 this.dataGridView1.Columns.Add("Image", "Image");
+                this.dataGridView1.Columns.Add("Number", "Number");
                 this.dataGridView1.Columns.Add("Name", "Name");
                 this.dataGridView1.Columns.Add("CP", "CP");
-                this.dataGridView1.Columns.Add("IV %", "IV %");
                 this.dataGridView1.Columns.Add("Candy", "Candy");
-                this.dataGridView1.Columns.Add("Number", "Number");
+                this.dataGridView1.Columns.Add("IV %", "IV %");
                 this.dataGridView1.Columns.Add("WeightKg", "WeightKg");
                 this.dataGridView1.Columns.Add("HeightM", "HeightM");
 
@@ -105,11 +110,11 @@ namespace PokemonGo.RocketAPI.Window
                     //row.HeaderCell.Value = row.Index + 1 + "";
                     row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
                     row.Cells.Add(new DataGridViewImageCell { Value = pokemonImage });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = (int)pokemon.PokemonId });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = pokemon.PokemonId });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = pokemon.Cp });
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = currIv });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = currentCandy });
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = (int)pokemon.PokemonId });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = currIv });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = pokemon.WeightKg });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = pokemon.HeightM });
                     row.Tag = pokemon;

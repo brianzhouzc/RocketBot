@@ -32,15 +32,22 @@ namespace PokemonGo.RocketAPI.Window
 
             try
             {
-
-                await client.Login();
+                switch (ClientSettings.AuthType)
+                {
+                    case AuthType.Ptc:
+                        await client.DoPtcLogin(ClientSettings.PtcUsername, ClientSettings.PtcPassword);
+                        break;
+                    case AuthType.Google:
+                        await client.DoGoogleLogin(ClientSettings.Email, ClientSettings.Password);
+                        break;
+                }
 
                 await client.SetServer();
                 var inventory = await client.GetInventory();
                 var pokemons =
                     inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon)
                         .Where(p => p != null && p?.PokemonId > 0).OrderByDescending(key => key.Cp);
-
+                
 
                 foreach (var pokemon in pokemons)
                 {

@@ -24,15 +24,10 @@ namespace PokemonGo.RocketAPI.Window
         {
 
             authTypeCb.Text = Settings.Instance.AuthType.ToString();
-            if (authTypeCb.Text == "google")
-            {
-                UserLoginBox.Text = Settings.Instance.Email.ToString();
-                UserPasswordBox.Text = Settings.Instance.Password.ToString();
-            } else
-            {
-                UserLoginBox.Text = Settings.Instance.PtcUsername.ToString();
-                UserPasswordBox.Text = Settings.Instance.PtcPassword.ToString();
-            }
+            ptcUserText.Text = Settings.Instance.PtcUsername.ToString();
+            ptcPassText.Text = Settings.Instance.PtcPassword.ToString();
+            EmailLoginBox.Text = Settings.Instance.Email.ToString();
+            EmailPasswordBox.Text = Settings.Instance.Password.ToString();
             latitudeText.Text = Settings.Instance.DefaultLatitude.ToString();
             longitudeText.Text = Settings.Instance.DefaultLongitude.ToString();
             razzmodeCb.Text = Settings.Instance.RazzBerryMode;
@@ -43,7 +38,7 @@ namespace PokemonGo.RocketAPI.Window
             evolveAllChk.Checked = Settings.Instance.EvolveAllGivenPokemons;
             CatchPokemonBox.Checked = Settings.Instance.CatchPokemon;
             TravelSpeedBox.Text = Settings.Instance.TravelSpeed.ToString();
-           // ImageSizeBox.Text = Settings.Instance.ImageSize.ToString();
+            ImageSizeBox.Text = Settings.Instance.ImageSize.ToString();
             // Initialize map:
             //use google provider
             gMapControl1.MapProvider = GoogleMapProvider.Instance;
@@ -75,15 +70,10 @@ namespace PokemonGo.RocketAPI.Window
         private void saveBtn_Click(object sender, EventArgs e)
         {
             Settings.Instance.SetSetting(authTypeCb.Text, "AuthType");
-            if (authTypeCb.Text == "google")
-            {
-                Settings.Instance.SetSetting(UserLoginBox.Text, "Email");
-                Settings.Instance.SetSetting(UserPasswordBox.Text, "Password");
-            } else
-            {
-                Settings.Instance.SetSetting(UserLoginBox.Text, "PtcUsername");
-                Settings.Instance.SetSetting(UserPasswordBox.Text, "PtcPassword");
-            }
+            Settings.Instance.SetSetting(EmailLoginBox.Text, "Email");
+            Settings.Instance.SetSetting(EmailPasswordBox.Text, "Password");
+            Settings.Instance.SetSetting(ptcUserText.Text, "PtcUsername");
+            Settings.Instance.SetSetting(ptcPassText.Text, "PtcPassword");
             Settings.Instance.SetSetting(latitudeText.Text.Replace(',', '.'), "DefaultLatitude");
             Settings.Instance.SetSetting(longitudeText.Text.Replace(',', '.'), "DefaultLongitude");
 
@@ -99,7 +89,7 @@ namespace PokemonGo.RocketAPI.Window
             Settings.Instance.SetSetting(transferCpThresText.Text, "TransferCPThreshold");
             Settings.Instance.SetSetting(transferIVThresText.Text, "TransferIVThreshold");
             Settings.Instance.SetSetting(TravelSpeedBox.Text, "TravelSpeed");
-            //Settings.Instance.SetSetting(ImageSizeBox.Text, "ImageSize");
+            Settings.Instance.SetSetting(ImageSizeBox.Text, "ImageSize");
             Settings.Instance.SetSetting(evolveAllChk.Checked ? "true" : "false", "EvolveAllGivenPokemons");
             Settings.Instance.SetSetting(CatchPokemonBox.Checked ? "true" : "false", "CatchPokemon");
             Settings.Instance.Reload();
@@ -110,11 +100,25 @@ namespace PokemonGo.RocketAPI.Window
         {
             if (authTypeCb.Text == "google")
             {
-                UserLabel.Text = "Email:";
+                EmailLoginBox.Visible = true;
+                EmailLoginText.Visible = true;
+                EmailPasswordBox.Visible = true;
+                EmailPasswordText.Visible = true;
+                ptcUserText.Visible = false;
+                ptcPassText.Visible = false;
+                ptcUserLabel.Visible = false;
+                ptcPasswordLabel.Visible = false;
             }
             else
             {
-                UserLabel.Text = "Username:";
+                EmailLoginBox.Visible = false;
+                EmailLoginText.Visible = false;
+                EmailPasswordBox.Visible = false;
+                EmailPasswordText.Visible = false;
+                ptcUserText.Visible = true;
+                ptcPassText.Visible = true;
+                ptcUserLabel.Visible = true;
+                ptcPasswordLabel.Visible = true;
             }
         }
 
