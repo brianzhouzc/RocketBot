@@ -575,11 +575,15 @@ namespace PokemonGo.RocketAPI.Window
             var mapObjects = await client.GetMapObjects();
 
             FortData[] rawPokeStops = mapObjects.MapCells.SelectMany(i => i.Forts).Where(i => i.Type == FortType.Checkpoint && i.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime()).ToArray();
-            pokeStops = PokeStopOptimizer.Optimize(rawPokeStops, ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude, pokestopsOverlay);
+            pokeStops = rawPokeStops;
+            UpdateMap();
+            ColoredConsoleWrite(Color.Cyan, $"Finding fastest route through all PokeStops..");
+            LatLong startingLatLong = new LatLong(ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude);
+            pokeStops = RouteOptimizer<FortData>.Optimize(rawPokeStops, startingLatLong, pokestopsOverlay);
             wildPokemons = mapObjects.MapCells.SelectMany(i => i.WildPokemons);
             if (!ForceUnbanning && !Stopping)
                 ColoredConsoleWrite(Color.Cyan, $"Visiting {pokeStops.Count()} PokeStops");
-            pokeStops = (IEnumerable<FortData>)TSP<ICoordinate>.getMinimumTour(pokeStops, (new CoordinateMetric()).distance);
+
             UpdateMap();
             foreach (var pokeStop in pokeStops)
             {

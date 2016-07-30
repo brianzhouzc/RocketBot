@@ -68,7 +68,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ICoordinate.cs" />
+    <Compile Include="Extensions\LatLongExtensions.cs" />
+    <Compile Include="ILatLong.cs" />
     <Compile Include="Enums\AuthType.cs" />
     <Compile Include="Enums\MiscEnums.cs" />
     <Compile Include="Enums\RequestType.cs" />

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace PokemonGo.RocketAPI.GeneratedCode
 {
-    public partial class FortData : ICoordinate { }
+    public partial class FortData : ILatLong { }
 
-    public partial class MapPokemon : ICoordinate { }
+    public partial class MapPokemon : ILatLong { }
     
-    public partial class WildPokemon : ICoordinate { }
+    public partial class WildPokemon : ILatLong { }
 
-    public partial class SpawnPoint : ICoordinate { }
+    public partial class SpawnPoint : ILatLong { }
 
 }
