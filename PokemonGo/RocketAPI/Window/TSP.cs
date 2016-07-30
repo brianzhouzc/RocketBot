@@ -13,6 +13,9 @@ namespace PokemonGo.RocketAPI.Window
         public static IEnumerable<T> getMinimumTour(IEnumerable<T> nodes, Func<T,T,double> distance)
         {
             TSP<T>.distance = distance;
+            if (nodes.Count() < 2)
+                return nodes;
+
             //create an initial tour out of nearest neighbors
             var stops = nodes
                         .Select(i => new Stop(i))

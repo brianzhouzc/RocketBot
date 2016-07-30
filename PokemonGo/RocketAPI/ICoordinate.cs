@@ -22,7 +22,7 @@ namespace PokemonGo.RocketAPI
             double R = 6371;
             Func<double, double> toRad = x => x * (Math.PI / 180);
             double dLat = toRad(c2.Latitude - c1.Latitude);
-            double dLong = toRad(c2.Latitude - c2.Longitude);
+            double dLong = toRad(c2.Longitude - c2.Longitude);
             double lat1 = toRad(c1.Latitude);
             double lat2 = toRad(c2.Latitude);
             double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
