@@ -39,9 +39,6 @@ namespace PokemonGo.RocketAPI
         private Request.Types.UnknownAuth _unknownAuth;
         public static string AccessToken { get; set; } = string.Empty;
 
-        public delegate void ConsoleWriteDelegate(ConsoleColor color, string message);
-        public static event ConsoleWriteDelegate OnConsoleWrite;
-
         public Client(ISettings settings)
         {
             _settings = settings;
@@ -61,12 +58,6 @@ namespace PokemonGo.RocketAPI
             _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "*/*");
             _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type",
                 "application/x-www-form-urlencoded");
-        }
-
-        public bool HasServerSet()
-        {
-            Console.WriteLine(_apiUrl);
-            return _apiUrl != null;
         }
 
         public async Task<CatchPokemonResponse> CatchPokemon(ulong encounterId, string spawnPointGuid, double pokemonLat,
@@ -95,26 +86,24 @@ namespace PokemonGo.RocketAPI
                         catchPokemonRequest);
         }
 
-        public async Task DoGoogleLogin()
+        public async Task DoGoogleLogin(string email, string password)
         {
-            GoogleLogin.TokenResponseModel tokenResponse = null;
-
-            if (string.IsNullOrEmpty(_settings.GoogleRefreshToken) && string.IsNullOrEmpty(AccessToken))
+            _authType = AuthType.Google;
+            GPSOAuthClient _GPSOclient = new GPSOAuthClient(email, password);
+            Dictionary<string, string> _GPSOresponse = _GPSOclient.PerformMasterLogin();
+            /* string json = JsonConvert.SerializeObject(_GPSOresponse, Formatting.Indented);
+               Console.WriteLine(json); */
+            if (_GPSOresponse.ContainsKey("Token"))
             {
-                var deviceCode = await GoogleLogin.GetDeviceCode();
-                tokenResponse = await GoogleLogin.GetAccessToken(deviceCode);
-                _accessToken = tokenResponse.id_token;
-                ColoredConsoleWrite(ConsoleColor.White, $"Put RefreshToken in settings for direct login: {tokenResponse.refresh_token}");
-                _settings.GoogleRefreshToken = tokenResponse.refresh_token;
-                AccessToken = tokenResponse.refresh_token;
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(_settings.GoogleRefreshToken))
-                    tokenResponse = await GoogleLogin.GetAccessToken(_settings.GoogleRefreshToken);
-                else
-                    tokenResponse = await GoogleLogin.GetAccessToken(AccessToken);
-                _accessToken = tokenResponse.id_token;
+                string token = _GPSOresponse["Token"];
+                Dictionary<string, string> oauthResponse = _GPSOclient.PerformOAuth(
+                token,
+                "audience:server:client_id:848232511240-7so421jotr2609rmqakceuu1luuq0ptb.apps.googleusercontent.com",
+                "com.nianticlabs.pokemongo",
+                "321187995bc7cdc2b5fc91b11a96e2baa8602c62");
+                /* string oauthJson = JsonConvert.SerializeObject(oauthResponse, Formatting.Indented);
+                  Console.WriteLine(oauthJson); */
+                _accessToken = oauthResponse["Auth"];
             }
         }
 
@@ -252,7 +241,6 @@ namespace PokemonGo.RocketAPI
                 return MiscEnums.Item.ITEM_MASTER_BALL;
             }
 
-            ColoredConsoleWrite(ConsoleColor.Green, $"Poke Ball is being used");
             return MiscEnums.Item.ITEM_POKE_BALL;
         }
 
@@ -263,11 +251,6 @@ namespace PokemonGo.RocketAPI
             System.Console.WriteLine("[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text);
             File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + @"\Logs.txt", "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\n");
             System.Console.ForegroundColor = originalColor;
-
-            if (OnConsoleWrite != null)
-            {
-                OnConsoleWrite(color, text);
-            }
         }
 
         public async Task<FortDetailsResponse> GetFort(string fortId, double fortLat, double fortLng)

@@ -10,18 +10,11 @@ using GMap.NET.MapProviders;
 using GMap.NET;
 using System.Configuration;
 using System.Globalization;
-using GMap.NET.WindowsForms;
-using PokemonGo.RocketAPI.Helpers;
-using GMap.NET.WindowsForms.Markers;
 
 namespace PokemonGo.RocketAPI.Window
 {
     partial class SettingsForm : Form
     {
-        GMapOverlay searchAreaOverlay = new GMapOverlay("areas");
-        GMapOverlay playerOverlay = new GMapOverlay("players");
-        GMarkerGoogle playerMarker;
-
         public SettingsForm()
         {
             InitializeComponent();
@@ -31,8 +24,15 @@ namespace PokemonGo.RocketAPI.Window
         {
 
             authTypeCb.Text = Settings.Instance.AuthType.ToString();
-            ptcUserText.Text = Settings.Instance.PtcUsername.ToString();
-            ptcPassText.Text = Settings.Instance.PtcPassword.ToString();
+            if (authTypeCb.Text == "google")
+            {
+                UserLoginBox.Text = Settings.Instance.Email.ToString();
+                UserPasswordBox.Text = Settings.Instance.Password.ToString();
+            } else
+            {
+                UserLoginBox.Text = Settings.Instance.PtcUsername.ToString();
+                UserPasswordBox.Text = Settings.Instance.PtcPassword.ToString();
+            }
             latitudeText.Text = Settings.Instance.DefaultLatitude.ToString();
             longitudeText.Text = Settings.Instance.DefaultLongitude.ToString();
             razzmodeCb.Text = Settings.Instance.RazzBerryMode;
@@ -43,6 +43,7 @@ namespace PokemonGo.RocketAPI.Window
             evolveAllChk.Checked = Settings.Instance.EvolveAllGivenPokemons;
             CatchPokemonBox.Checked = Settings.Instance.CatchPokemon;
             TravelSpeedBox.Text = Settings.Instance.TravelSpeed.ToString();
+           // ImageSizeBox.Text = Settings.Instance.ImageSize.ToString();
             // Initialize map:
             //use google provider
             gMapControl1.MapProvider = GoogleMapProvider.Instance;
@@ -60,30 +61,29 @@ namespace PokemonGo.RocketAPI.Window
 
 
             //zoom min/max; default both = 2
-            gMapControl1.DragButton = MouseButtons.Right;
+            gMapControl1.DragButton = MouseButtons.Left;
 
             gMapControl1.CenterPen = new Pen(Color.Red, 2);
             gMapControl1.MinZoom = trackBar.Maximum = 1;
             gMapControl1.MaxZoom = trackBar.Maximum = 20;
             trackBar.Value = 10;
 
-            gMapControl1.Overlays.Add(searchAreaOverlay);
-            gMapControl1.Overlays.Add(playerOverlay);
-
-            playerMarker = new GMarkerGoogle(gMapControl1.Position, GMarkerGoogleType.orange_small);
-            playerOverlay.Markers.Add(playerMarker);
-
-            S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(gMapControl1.Position.Lng, gMapControl1.Position.Lat), searchAreaOverlay);
-
             //set zoom
-            gMapControl1.Zoom = trackBar.Value;          
+            gMapControl1.Zoom = trackBar.Value;
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
             Settings.Instance.SetSetting(authTypeCb.Text, "AuthType");
-                Settings.Instance.SetSetting(ptcUserText.Text, "PtcUsername");
-                Settings.Instance.SetSetting(ptcPassText.Text, "PtcPassword");
+            if (authTypeCb.Text == "google")
+            {
+                Settings.Instance.SetSetting(UserLoginBox.Text, "Email");
+                Settings.Instance.SetSetting(UserPasswordBox.Text, "Password");
+            } else
+            {
+                Settings.Instance.SetSetting(UserLoginBox.Text, "PtcUsername");
+                Settings.Instance.SetSetting(UserPasswordBox.Text, "PtcPassword");
+            }
             Settings.Instance.SetSetting(latitudeText.Text.Replace(',', '.'), "DefaultLatitude");
             Settings.Instance.SetSetting(longitudeText.Text.Replace(',', '.'), "DefaultLongitude");
 
@@ -99,12 +99,10 @@ namespace PokemonGo.RocketAPI.Window
             Settings.Instance.SetSetting(transferCpThresText.Text, "TransferCPThreshold");
             Settings.Instance.SetSetting(transferIVThresText.Text, "TransferIVThreshold");
             Settings.Instance.SetSetting(TravelSpeedBox.Text, "TravelSpeed");
+            //Settings.Instance.SetSetting(ImageSizeBox.Text, "ImageSize");
             Settings.Instance.SetSetting(evolveAllChk.Checked ? "true" : "false", "EvolveAllGivenPokemons");
             Settings.Instance.SetSetting(CatchPokemonBox.Checked ? "true" : "false", "CatchPokemon");
             Settings.Instance.Reload();
-
-            MainForm.Instance.Restart();
-
             Close();
         }
 
@@ -112,39 +110,30 @@ namespace PokemonGo.RocketAPI.Window
         {
             if (authTypeCb.Text == "google")
             {
-                ptcUserText.Visible = false;
-                ptcPassText.Visible = false;
-                ptcUserLabel.Visible = false;
-                ptcPasswordLabel.Visible = false;
+                UserLabel.Text = "Email:";
             }
             else
             {
-                ptcUserText.Visible = true;
-                ptcPassText.Visible = true;
-                ptcUserLabel.Visible = true;
-                ptcPasswordLabel.Visible = true;
+                UserLabel.Text = "Username:";
             }
         }
 
         private void gMapControl1_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            Point localCoordinates = e.Location;
+            gMapControl1.Position = gMapControl1.FromLocalToLatLng(localCoordinates.X, localCoordinates.Y);
+
+            if (e.Clicks >= 2)
             {
-                Point localCoordinates = e.Location;
-                PointLatLng clickedCoord = gMapControl1.FromLocalToLatLng(localCoordinates.X, localCoordinates.Y);
-                
-                double X = Math.Round(clickedCoord.Lng, 6);
-                double Y = Math.Round(clickedCoord.Lat, 6);
-                string longitude = X.ToString();
-                string latitude = Y.ToString();
-                latitudeText.Text = latitude;
-                longitudeText.Text = longitude;
-
-                playerMarker.Position = clickedCoord;
-
-                searchAreaOverlay.Polygons.Clear();
-                S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(X, Y), searchAreaOverlay);
+                gMapControl1.Zoom += 5;
             }
+
+            double X = Math.Round(gMapControl1.Position.Lng, 6);
+            double Y = Math.Round(gMapControl1.Position.Lat, 6);
+            string longitude = X.ToString();
+            string latitude = Y.ToString();
+            latitudeText.Text = latitude;
+            longitudeText.Text = longitude;
         }
 
         private void trackBar_Scroll(object sender, EventArgs e)

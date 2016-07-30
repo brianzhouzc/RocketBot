@@ -25,7 +25,7 @@ namespace PokemonGo.RocketAPI.Window
 
         public async Task update(double lat, double lng)
         {
-            double waitTime = getDistance(lat, lng)/this.kilometersPerMillisecond;
+            double waitTime = getDistance(lat, lng) / this.kilometersPerMillisecond;
             await Task.Delay((int)Math.Ceiling(waitTime));
             await client.UpdatePlayerLocation(lat, lng);
         }
@@ -46,12 +46,14 @@ namespace PokemonGo.RocketAPI.Window
             {
                 double R = 6371;
                 Func<double, double> toRad = x => x * (Math.PI / 180);
-
+                double dLat = toRad(c2.latitude - this.latitude);
+                double dLong = toRad(c2.longitude - c2.longitude);
                 double lat1 = toRad(this.latitude);
                 double lat2 = toRad(c2.latitude);
-                double dLng = toRad(c2.longitude - c2.longitude);
-
-                return Math.Acos(Math.Sin(lat1) * Math.Sin(lat2) + Math.Cos(lat1) * Math.Cos(lat2) * Math.Cos(dLng)) * R;
+                double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                    Math.Sin(dLong / 2) * Math.Sin(dLong / 2) * Math.Cos(lat1) * Math.Cos(lat2);
+                double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+                return R * c;
             }
         }
     }
