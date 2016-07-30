@@ -38,6 +38,7 @@ namespace PokemonGo.RocketAPI.Window
         private static int Currentlevel = -1;
         private static int TotalExperience = 0;
         private static int TotalPokemon = 0;
+        private static bool Stopping = false;
         private static bool ForceUnbanning = false;
         private static bool FarmingStops = false;
         private static bool FarmingPokemons = false;
@@ -108,6 +109,17 @@ namespace PokemonGo.RocketAPI.Window
             {
                 File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + @"\Logs.txt", "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\n");
             }
+        }
+
+        public void ConsoleClear()
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(ConsoleClear));
+                return;
+            }
+
+            logTextBox.Clear();
         }
 
         public void SetStatusText(string text)
@@ -192,15 +204,13 @@ namespace PokemonGo.RocketAPI.Window
                 {
                     case AuthType.Ptc:
                         ColoredConsoleWrite(Color.Green, "Login Type: Pokemon Trainers Club");
-                        await client.DoPtcLogin(ClientSettings.PtcUsername, ClientSettings.PtcPassword);
                         break;
                     case AuthType.Google:
                         ColoredConsoleWrite(Color.Green, "Login Type: Google");
-                        await client.DoGoogleLogin(ClientSettings.Email, ClientSettings.Password);
-
                         break;
                 }
 
+                await client.Login();
                 await client.SetServer();
                 var profile = await client.GetProfile();
                 var settings = await client.GetSettings();
@@ -284,22 +294,30 @@ namespace PokemonGo.RocketAPI.Window
                     await Task.Delay(25);
 
                 // await ForceUnban(client);
-                ColoredConsoleWrite(Color.Red, $"No nearby useful locations found. Please wait 10 seconds.");
-                await Task.Delay(10000);
-                CheckVersion();
-                Execute();
+                if (!Stopping)
+                {
+                    ColoredConsoleWrite(Color.Red, $"No nearby useful locations found. Please wait 10 seconds.");
+                    await Task.Delay(10000);
+                    CheckVersion();
+                    Execute();
+                }
+                else
+                {
+                    confirmBotStopped();
+                }
             }
-            catch (TaskCanceledException) { ColoredConsoleWrite(Color.Red, "Task Canceled Exception - Restarting"); Execute(); }
-            catch (UriFormatException) { ColoredConsoleWrite(Color.Red, "System URI Format Exception - Restarting"); Execute(); }
-            catch (ArgumentOutOfRangeException) { ColoredConsoleWrite(Color.Red, "ArgumentOutOfRangeException - Restarting"); Execute(); }
-            catch (ArgumentNullException) { ColoredConsoleWrite(Color.Red, "Argument Null Refference - Restarting"); Execute(); }
-            catch (NullReferenceException) { ColoredConsoleWrite(Color.Red, "Null Refference - Restarting"); Execute(); }
-            catch (Exception ex) { ColoredConsoleWrite(Color.Red, ex.ToString()); Execute(); }
+
+            catch (TaskCanceledException) { ColoredConsoleWrite(Color.Red, "Task Canceled Exception - Restarting"); if (!Stopping) { Execute(); } else { confirmBotStopped(); } }
+            catch (UriFormatException) { ColoredConsoleWrite(Color.Red, "System URI Format Exception - Restarting"); if (!Stopping) { Execute(); } else { confirmBotStopped(); } }
+            catch (ArgumentOutOfRangeException) { ColoredConsoleWrite(Color.Red, "ArgumentOutOfRangeException - Restarting"); if (!Stopping) { Execute(); } else { confirmBotStopped(); } }
+            catch (ArgumentNullException) { ColoredConsoleWrite(Color.Red, "Argument Null Refference - Restarting"); if (!Stopping) { Execute(); } else { confirmBotStopped(); } }
+            catch (NullReferenceException) { ColoredConsoleWrite(Color.Red, "Null Refference - Restarting"); if (!Stopping) { Execute(); } else { confirmBotStopped(); } }
+            catch (Exception ex) { ColoredConsoleWrite(Color.Red, ex.ToString()); if (!Stopping) { Execute(); } else { confirmBotStopped(); } }
         }
 
         private static string CallAPI(string elem, double lat, double lon)
         {
-            using (XmlReader reader = XmlReader.Create(@"http://api.geonames.org/findNearby?lat=" + lat + "&lng=" + lon + "&username=demo"))
+            using (XmlReader reader = XmlReader.Create(@"http://api.geonames.org/findNearby?lat=" + lat + "&lng=" + lon + "&username=pokemongobot"))
             {
                 while (reader.Read())
                 {
@@ -329,6 +347,7 @@ namespace PokemonGo.RocketAPI.Window
             }
             return "Error";
         }
+
         private async Task ExecuteCatchAllNearbyPokemons(Client client)
         {
             var mapObjects = await client.GetMapObjects();
@@ -342,7 +361,7 @@ namespace PokemonGo.RocketAPI.Window
 
             foreach (var pokemon in pokemons)
             {
-                if (ForceUnbanning)
+                if (ForceUnbanning || Stopping)
                     break;
 
                 FarmingPokemons = true;
@@ -425,11 +444,11 @@ namespace PokemonGo.RocketAPI.Window
             }
             HashSet<FortData> pokeStopSet = new HashSet<FortData>(pokeStops);
             IEnumerable<FortData> nextPokeStopList = null;
-            if (!ForceUnbanning)
+            if (!ForceUnbanning && !Stopping)
                 ColoredConsoleWrite(Color.Cyan, $"Visiting {pokeStops.Count()} PokeStops");
             foreach (var pokeStop in pokeStops)
             {
-                if (ForceUnbanning)
+                if (ForceUnbanning || Stopping)
                     break;
 
                 FarmingStops = true;
@@ -486,7 +505,7 @@ namespace PokemonGo.RocketAPI.Window
 
         private async Task ForceUnban(Client client)
         {
-            if (!ForceUnbanning)
+            if (!ForceUnbanning && !Stopping)
             {
                 ColoredConsoleWrite(Color.LightGreen, "Waiting for last farming action to be complete...");
                 ForceUnbanning = true;
@@ -539,7 +558,7 @@ namespace PokemonGo.RocketAPI.Window
             }
             else
             {
-                ColoredConsoleWrite(Color.Red, "A force unban attempt is in action... Please wait.");
+                ColoredConsoleWrite(Color.Red, "A action is in play... Please wait.");
             }
 
 
@@ -835,11 +854,33 @@ namespace PokemonGo.RocketAPI.Window
             var inventory = await client.GetInventory();
             var stats = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PlayerStats).ToArray();
             var profile = await client.GetProfile();
+            Int16 hoursLeft = 0; Int16 minutesLeft = 0; Int32 secondsLeft = 0; double xpSec = 0;
             foreach (var v in stats)
                 if (v != null)
                 {
                     int XpDiff = GetXpDiff(client, v.Level);
-                    SetStatusText(string.Format(Username + " | Level: {0:0} - ({2:0} / {3:0}) | Runtime {1} | Stardust: {4:0}", v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount) + " | XP/Hour: " + Math.Round(TotalExperience / GetRuntime()) + " | Pokemon/Hour: " + Math.Round(TotalPokemon / GetRuntime()));
+                    //Calculating the exp needed to level up
+                    Single expNextLvl = (v.NextLevelXp - v.Experience);
+                    //Calculating the exp made per second
+                    xpSec = (Math.Round(TotalExperience / GetRuntime()) / 60) / 60;
+                    //Calculating the seconds left to level up
+                    if(xpSec!=0)
+                    secondsLeft = Convert.ToInt32((expNextLvl / xpSec));
+                    //formatting data to make an output like DateFormat
+                    while (secondsLeft > 60)
+                    {
+                        secondsLeft -= 60;
+                        if (minutesLeft < 60)
+                        {
+                            minutesLeft++;
+                        }
+                        else
+                        {
+                            minutesLeft = 0;
+                            hoursLeft++;
+                        }
+                    }
+                    SetStatusText(string.Format(Username + " | Level: {0:0} - ({2:0} / {3:0}) | Runtime {1} | Stardust: {4:0}", v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount) + " | XP/Hour: " + Math.Round(TotalExperience / GetRuntime()) + " | Pokemon/Hour: " + Math.Round(TotalPokemon / GetRuntime())+ " | NextLevel in: " + hoursLeft + ":" + minutesLeft + ":" + secondsLeft);
                 }
             await Task.Delay(1000);
             ConsoleLevelTitle(Username, client);
@@ -933,6 +974,15 @@ namespace PokemonGo.RocketAPI.Window
             return 0;
         }
 
+        public void confirmBotStopped()
+        {
+            //ConsoleClear(); // dont really want the console to be wipped on bot stop, unnecessary
+            ColoredConsoleWrite(Color.Red, $"Bot successfully stopped.");
+            startStopBotToolStripMenuItem.Text = "Start Bot";
+            Stopping = false;
+            bot_started = false;
+        }
+
         private void logTextBox_TextChanged(object sender, EventArgs e)
         {
             logTextBox.SelectionStart = logTextBox.Text.Length;
@@ -945,26 +995,41 @@ namespace PokemonGo.RocketAPI.Window
             settingsForm.Show();
         }
 
-        private void startBotToolStripMenuItem_Click(object sender, EventArgs e)
+        private static bool bot_started = false;
+        private void startStopBotToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            startBotToolStripMenuItem.Enabled = false;
-            Task.Run(() =>
+            if (!bot_started)
             {
-                try
+                bot_started = true;
+                startStopBotToolStripMenuItem.Text = "Stop Bot";
+                Task.Run(() =>
                 {
-                    //ColoredConsoleWrite(ConsoleColor.White, "Coded by Ferox - edited by NecronomiconCoding");
-                    CheckVersion();
-                    Execute();
-                }
-                catch (PtcOfflineException)
+                    try
+                    {
+                        //ColoredConsoleWrite(ConsoleColor.White, "Coded by Ferox - edited by NecronomiconCoding");
+                        CheckVersion();
+                        Execute();
+                    }
+                    catch (PtcOfflineException)
+                    {
+                        ColoredConsoleWrite(Color.Red, "PTC Servers are probably down OR your credentials are wrong. Try google");
+                    }
+                    catch (Exception ex)
+                    {
+                        ColoredConsoleWrite(Color.Red, $"Unhandled exception: {ex}");
+                    }
+                });
+            } else
+            {
+                if (!ForceUnbanning)
                 {
-                    ColoredConsoleWrite(Color.Red, "PTC Servers are probably down OR your credentials are wrong. Try google");
-                }
-                catch (Exception ex)
+                    Stopping = true;
+                    ColoredConsoleWrite(Color.Red, $"Stopping the bot.. Waiting for the last action to be complete.");
+                } else
                 {
-                    ColoredConsoleWrite(Color.Red, $"Unhandled exception: {ex}");
+                    ColoredConsoleWrite(Color.Red, $"An action is in play, please wait until it's done.");
                 }
-            });
+            }
         }
 
         private void showAllToolStripMenuItem3_Click(object sender, EventArgs e)
