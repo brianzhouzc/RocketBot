@@ -427,6 +427,7 @@ namespace PokemonGo.RocketAPI.Window
             IEnumerable<FortData> nextPokeStopList = null;
             if (!ForceUnbanning)
                 ColoredConsoleWrite(Color.Cyan, $"Visiting {pokeStops.Count()} PokeStops");
+            pokeStops = (IEnumerable<FortData>)TSP<ICoordinate>.getMinimumTour(pokeStops, (new CoordinateMetric()).distance);
             foreach (var pokeStop in pokeStops)
             {
                 if (ForceUnbanning)
