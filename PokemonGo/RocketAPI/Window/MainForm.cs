@@ -101,7 +101,8 @@ namespace PokemonGo.RocketAPI.Window
         private static bool FarmingPokemons = false;
         private static DateTime TimeStarted = DateTime.Now;
         public static DateTime InitSessionDateTime = DateTime.Now;
-
+	private static string pokemonInBag = "";
+	
         Client client;
         Client client2;
         LocationManager locationManager;
@@ -972,7 +973,7 @@ namespace PokemonGo.RocketAPI.Window
                             hoursLeft++;
                         }
                     }
-                    SetStatusText(string.Format(profile.Profile.Username + " | Level: {0:0} - ({2:0} / {3:0}) | Runtime {1} | Stardust: {4:0}", v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount) + " | XP/Hour: " + Math.Round(TotalExperience / GetRuntime()) + " | Pokemon/Hour: " + Math.Round(TotalPokemon / GetRuntime()) + " | NextLevel in: " + hoursLeft + ":" + minutesLeft + ":" + secondsLeft);
+                    SetStatusText(string.Format(profile.Profile.Username + " | Level: {0:0} - ({2:0} / {3:0}) | Runtime {1} | Stardust: {4:0}", v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount) + " | XP/Hour: " + Math.Round(TotalExperience / GetRuntime()) + " | Pokemon/Hour: " + Math.Round(TotalPokemon / GetRuntime()) + " | NextLevel in: " + hoursLeft + ":" + minutesLeft + ":" + secondsLeft + pokemonInBag);
                 }
             await Task.Delay(1000);
             updateUserStatusBar(client);
@@ -1295,6 +1296,7 @@ namespace PokemonGo.RocketAPI.Window
                 var currentScrollPosition = objectListView1.LowLevelScrollPosition;
                 objectListView1.SetObjects(pokemons);
                 objectListView1.LowLevelScroll(currentScrollPosition.X, currentScrollPosition.Y);
+                pokemonInBag = " | PokemonBag: " + +pokemons.Count<PokemonData>() + "/" + profile.Profile.PokeStorage;
             }
             catch (Exception ex) { ColoredConsoleWrite(Color.Red, ex.ToString()); client2 = null; }
 
