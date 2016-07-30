@@ -27,7 +27,6 @@ using GMap.NET.WindowsForms.ToolTips;
 using System.Threading;
 using BrightIdeasSoftware;
 using PokemonGo.RocketAPI.Helpers;
-using System.Threading;
 
 namespace PokemonGo.RocketAPI.Window
 {
@@ -303,8 +302,6 @@ namespace PokemonGo.RocketAPI.Window
                 string longit2 = System.Convert.ToString(ClientSettings.DefaultLongitude);
                 ColoredConsoleWrite(Color.DarkGray, string.Format(Properties.Strings.name, profile.Profile.Username));
                 ColoredConsoleWrite(Color.DarkGray, string.Format(Properties.Strings.team, profile.Profile.Team));
-                ColoredConsoleWrite(Color.DarkGray, "Name: " + profile.Profile.Username);
-                ColoredConsoleWrite(Color.DarkGray, "Team: " + profile.Profile.Team);
                 if (profile.Profile.Currency.ToArray()[0].Amount > 0) // If player has any pokecoins it will show how many they have.
                     ColoredConsoleWrite(Color.DarkGray, string.Format(Properties.Strings.pokecoin, profile.Profile.Currency.ToArray()[0].Amount));
                 ColoredConsoleWrite(Color.DarkGray, string.Format(Properties.Strings.stardust, profile.Profile.Currency.ToArray()[1].Amount));
@@ -366,8 +363,8 @@ namespace PokemonGo.RocketAPI.Window
                     ConsoleClear();
                     pokestopsOverlay.Routes.Clear();
                     pokestopsOverlay.Markers.Clear();
-                    ColoredConsoleWrite(Color.Red, $"Bot successfully stopped.");
-                    startStopBotToolStripMenuItem.Text = "Start";
+                    ColoredConsoleWrite(Color.Red, Properties.Strings.bot_stop);
+                    startStopBotToolStripMenuItem.Text = Properties.Strings.start;
                     Stopping = false;
                     bot_started = false;
                 }
@@ -439,7 +436,7 @@ namespace PokemonGo.RocketAPI.Window
                 await locationManager.update(pokemon.Latitude, pokemon.Longitude);
 
                 string pokemonName;
-                if (ClientSettings.Language == "german")
+                if (ClientSettings.Language == "de")
                 {
                     string name_english = Convert.ToString(pokemon.PokemonId);
                     var request = (HttpWebRequest)WebRequest.Create("http://boosting-service.de/pokemon/index.php?pokeName=" + name_english);
@@ -456,7 +453,7 @@ namespace PokemonGo.RocketAPI.Window
                 var pokemonCP = encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp;
                 var pokemonIV = Math.Round(Perfect(encounterPokemonResponse?.WildPokemon?.PokemonData));
                 CatchPokemonResponse caughtPokemonResponse;
-                ColoredConsoleWrite(Color.Green, $"Encounter a {pokemonName} with {pokemonCP} CP and {pokemonIV}% IV");
+                ColoredConsoleWrite(Color.Green, string.Format(Properties.Strings.encounter_pokemon, pokemonName, pokemonCP, pokemonIV));
                 do
                 {
                     if (ClientSettings.RazzBerryMode == Properties.Strings.RazzBerryMode_CP)
@@ -515,7 +512,7 @@ namespace PokemonGo.RocketAPI.Window
 
             }), new PointLatLng(latitude, longitude));
 
-            ColoredConsoleWrite(Color.Gray, $"Moving player location to Lat: {latitude}, Lng: {longitude}");
+            ColoredConsoleWrite(Color.Gray, string.Format(Properties.Strings.moving_player, latitude, longitude));
         }
 
         private void UpdateMap()
@@ -1310,7 +1307,7 @@ namespace PokemonGo.RocketAPI.Window
 
         private async void TransferPokemon(PokemonData pokemon)
         {
-            if (MessageBox.Show($"Are you sure you want to transfer {pokemon.PokemonId.ToString()} with {pokemon.Cp} CP?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show(string.Format(Properties.Strings.transfer_question, pokemon.PokemonId.ToString(), pokemon.Cp), Properties.Strings.transfer_title, MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 var transferPokemonResponse = await client2.TransferPokemon(pokemon.Id);
                 string message = "";
@@ -1318,14 +1315,14 @@ namespace PokemonGo.RocketAPI.Window
 
                 if (transferPokemonResponse.Status == 1)
                 {
-                    message = $"{pokemon.PokemonId} was transferred\n{transferPokemonResponse.CandyAwarded} candy awarded";
-                    caption = $"{pokemon.PokemonId} transferred";
+                    message = string.Format(Properties.Strings.transfer_candy, pokemon.PokemonId, transferPokemonResponse.CandyAwarded);
+                    caption = string.Format(Properties.Strings.transfer_candy_title, pokemon.PokemonId);
                     ReloadPokemonList();
                 }
                 else
                 {
-                    message = $"{pokemon.PokemonId} could not be transferred";
-                    caption = $"Transfer {pokemon.PokemonId} failed";
+                    message = string.Format(Properties.Strings.transfer_error, pokemon.PokemonId);
+                    caption = string.Format(Properties.Strings.transfer_error_title, pokemon.PokemonId);
                 }
 
                 MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1340,14 +1337,14 @@ namespace PokemonGo.RocketAPI.Window
 
             if (evolvePokemonResponse.Result == 1)
             {
-                message = $"{pokemon.PokemonId} successfully upgraded.";
-                caption = $"{pokemon.PokemonId} upgraded";
+                message = string.Format(Properties.Strings.upgrade_success, pokemon.PokemonId);
+                caption = string.Format(Properties.Strings.upgrade_success_title, pokemon.PokemonId);
                 ReloadPokemonList();
             }
             else
             {
-                message = $"{pokemon.PokemonId} could not be upgraded";
-                caption = $"Upgrade {pokemon.PokemonId} failed";
+                message = string.Format(Properties.Strings.upgrade_error, pokemon.PokemonId);
+                caption = string.Format(Properties.Strings.upgrade_error_title, pokemon.PokemonId);
             }
 
             MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1361,14 +1358,14 @@ namespace PokemonGo.RocketAPI.Window
 
             if (evolvePokemonResponse.Result == 1)
             {
-                message = $"{pokemon.PokemonId} successfully evolved into {evolvePokemonResponse.EvolvedPokemon.PokemonType}\n{evolvePokemonResponse.ExpAwarded} experience awarded\n{evolvePokemonResponse.CandyAwarded} candy awarded";
-                caption = $"{pokemon.PokemonId} evolved into {evolvePokemonResponse.EvolvedPokemon.PokemonType}";
+                message = string.Format(Properties.Strings.evolved_success ,pokemon.PokemonId, evolvePokemonResponse.EvolvedPokemon.PokemonType, evolvePokemonResponse.ExpAwarded, evolvePokemonResponse.CandyAwarded);
+                caption = string.Format(Properties.Strings.evolved_success_title, pokemon.PokemonId, evolvePokemonResponse.EvolvedPokemon.PokemonType);
                 ReloadPokemonList();
             }
             else
             {
-                message = $"{pokemon.PokemonId} could not be evolved";
-                caption = $"Evolve {pokemon.PokemonId} failed";
+                message = string.Format(Properties.Strings.evolved_failed, pokemon.PokemonId);
+                caption = string.Format(Properties.Strings.evolved_failed_title, pokemon.PokemonId);
             }
 
             MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);

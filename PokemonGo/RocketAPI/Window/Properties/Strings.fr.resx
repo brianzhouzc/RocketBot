@@ -175,7 +175,7 @@
     <value>, Gemmes : {0}</value>
   </data>
   <data name="github_link" xml:space="preserve">
-    <value>Vous pouver trouver la dernière version sur www.github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API</value>
+    <value>Vous pouvez trouver la dernière version sur www.github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API</value>
   </data>
   <data name="github_version" xml:space="preserve">
     <value>La version de GitHub est la </value>
@@ -241,7 +241,7 @@
     <value>Pokecoins : {0}</value>
   </data>
   <data name="pokemon_caught" xml:space="preserve">
-    <value>Nous avons capturé un {0} avec {1} CP et {2}% IV"</value>
+    <value>Nous avons capturé un {0} avec {1} CP et {2}% IV</value>
   </data>
   <data name="pokemon_got_away" xml:space="preserve">
     <value>{0} avec {1} CP et {2}% IV s'est enfui...</value>
@@ -341,5 +341,62 @@
   </data>
   <data name="your_version" xml:space="preserve">
     <value>Votre version est la </value>
+  </data>
+  <data name="email" xml:space="preserve">
+    <value>E-mail : </value>
+  </data>
+  <data name="encounter_pokemon" xml:space="preserve">
+    <value>Un {0} avec {1} CP et {2}% IV a été rencontré</value>
+  </data>
+  <data name="evolved_failed" xml:space="preserve">
+    <value>{0} ne peut pas évoluer</value>
+  </data>
+  <data name="evolved_failed_title" xml:space="preserve">
+    <value>Échec de l'évolution de {0}</value>
+  </data>
+  <data name="evolved_success" xml:space="preserve">
+    <value>{0} a évolué en {1}\n{2} XP acquises\n{3} bonbon récupéré</value>
+  </data>
+  <data name="evolved_success_title" xml:space="preserve">
+    <value>{0} a évolué en {1}</value>
+  </data>
+  <data name="google" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="moving_player" xml:space="preserve">
+    <value>Déplacement du jouer à l'emplacement Lat: {0}, Lng: {1}</value>
+  </data>
+  <data name="transfer_candy" xml:space="preserve">
+    <value>{0} a été transféré ! Vous avez reçu {1} bonbon</value>
+  </data>
+  <data name="transfer_candy_title" xml:space="preserve">
+    <value>{0} transféré</value>
+  </data>
+  <data name="transfer_error" xml:space="preserve">
+    <value>{0} n'a pas pu être transféré</value>
+  </data>
+  <data name="transfer_error_title" xml:space="preserve">
+    <value>Le transfert de {0} a échoué</value>
+  </data>
+  <data name="transfer_question" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir transférer {0} avec {1} CP?</value>
+  </data>
+  <data name="transfer_title" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="upgrade_error" xml:space="preserve">
+    <value>{0} ne peut pas être rechargé</value>
+  </data>
+  <data name="upgrade_error_title" xml:space="preserve">
+    <value>Recharge de {0} échouée</value>
+  </data>
+  <data name="upgrade_success" xml:space="preserve">
+    <value>{0} a bien été rechargé.</value>
+  </data>
+  <data name="upgrade_success_title" xml:space="preserve">
+    <value>{0} rechargé</value>
+  </data>
+  <data name="username" xml:space="preserve">
+    <value>Nom d'utilisateur : </value>
   </data>
 </root>

@@ -24,7 +24,7 @@ namespace PokemonGo.RocketAPI.Window
         {
 
             authTypeCb.Text = Settings.Instance.AuthType.ToString();
-            if (authTypeCb.Text == "google")
+            if (authTypeCb.Text == Properties.Strings.google)
             {
                 UserLoginBox.Text = Settings.Instance.Email.ToString();
                 UserPasswordBox.Text = Settings.Instance.Password.ToString();
@@ -76,7 +76,7 @@ namespace PokemonGo.RocketAPI.Window
         private void saveBtn_Click(object sender, EventArgs e)
         {
             Settings.Instance.SetSetting(authTypeCb.Text, "AuthType");
-            if (authTypeCb.Text == "google")
+            if (authTypeCb.Text == Properties.Strings.google)
             {
                 Settings.Instance.SetSetting(UserLoginBox.Text, "Email");
                 Settings.Instance.SetSetting(UserPasswordBox.Text, "Password");
@@ -116,11 +116,11 @@ namespace PokemonGo.RocketAPI.Window
         {
             if (authTypeCb.SelectedIndex == 0)
             {
-                UserLabel.Text = "Email:";
+                UserLabel.Text = Properties.Strings.email;
             }
             else
             {
-                UserLabel.Text = "Username:";
+                UserLabel.Text = Properties.Strings.username;
             }
         }
 

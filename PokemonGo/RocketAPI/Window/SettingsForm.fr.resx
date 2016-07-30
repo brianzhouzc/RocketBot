@@ -117,23 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="authTypeLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 13</value>
+  </data>
+  <data name="authTypeLabel.Text" xml:space="preserve">
+    <value>Mode de login :</value>
+  </data>
   <data name="authTypeCb.Items" xml:space="preserve">
     <value>Google</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="authTypeCb.Location" type="System.Drawing.Point, System.Drawing">
     <value>184, 4</value>
   </data>
-  <data name="ptcUserLabel.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="UserLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>90, 13</value>
   </data>
-  <data name="ptcUserLabel.Text" xml:space="preserve">
+  <data name="UserLabel.Text" xml:space="preserve">
     <value>Nom d'utilisateur :</value>
   </data>
-  <data name="ptcPasswordLabel.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="PasswordLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>77, 13</value>
   </data>
-  <data name="ptcPasswordLabel.Text" xml:space="preserve">
+  <data name="PasswordLabel.Text" xml:space="preserve">
     <value>Mot de passe :</value>
   </data>
   <data name="latLabel.Size" type="System.Drawing.Size, System.Drawing">
@@ -178,19 +184,13 @@
   <data name="label5.Text" xml:space="preserve">
     <value>Paramètre baie flamby :</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="ptcUserText.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="ptcUserText.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="UserLoginBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>184, 33</value>
   </data>
-  <data name="ptcPassText.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="ptcPassText.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="UserPasswordBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>184, 62</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="latitudeText.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -255,7 +255,7 @@
     <value>184, 321</value>
   </data>
   <data name="saveBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 360</value>
+    <value>0, 384</value>
   </data>
   <data name="saveBtn.Size" type="System.Drawing.Size, System.Drawing">
     <value>320, 95</value>
@@ -267,13 +267,13 @@
     <value>10, 16</value>
   </data>
   <data name="gMapControl1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>483, 407</value>
+    <value>531, 431</value>
   </data>
   <data name="FindAdressButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>341, 429</value>
+    <value>360, 453</value>
   </data>
   <data name="FindAdressButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 26</value>
+    <value>181, 26</value>
   </data>
   <data name="FindAdressButton.Text" xml:space="preserve">
     <value>Rechercher l'emplacement</value>
@@ -282,7 +282,10 @@
     <value>Bottom, Right</value>
   </data>
   <data name="AdressBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 432</value>
+    <value>10, 456</value>
+  </data>
+  <data name="AdressBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>344, 20</value>
   </data>
   <data name="trackBar.Location" type="System.Drawing.Point, System.Drawing">
     <value>499, 16</value>
@@ -291,37 +294,25 @@
     <value>343, 9</value>
   </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>547, 461</value>
+    <value>547, 485</value>
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
     <value>Emplacement</value>
   </data>
   <data name="language.Location" type="System.Drawing.Point, System.Drawing">
-    <value>184, 338</value>
-  </data>
-  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 13</value>
-  </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>Langage :</value>
+    <value>184, 348</value>
   </data>
   <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>132, 13</value>
+    <value>49, 13</value>
   </data>
   <data name="label7.Text" xml:space="preserve">
-    <value>Taille des images PokeUi :</value>
+    <value>Langue :</value>
   </data>
-  <data name="ImageSizeBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="TravelSpeedBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
-  <data name="ImageSizeBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>184, 246</value>
-  </data>
-  <data name="EmailLoginText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>41, 13</value>
-  </data>
-  <data name="EmailLoginText.Text" xml:space="preserve">
-    <value>E-mail :</value>
+  <data name="TravelSpeedBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 272</value>
   </data>
   <data name="CatchPokemonBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -329,29 +320,11 @@
   <data name="CatchPokemonBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>184, 298</value>
   </data>
-  <data name="EmailPasswordText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 13</value>
-  </data>
-  <data name="EmailPasswordText.Text" xml:space="preserve">
-    <value>Mot de passe :</value>
-  </data>
   <data name="CatchPokemonText.Size" type="System.Drawing.Size, System.Drawing">
     <value>129, 13</value>
   </data>
   <data name="CatchPokemonText.Text" xml:space="preserve">
     <value>Capturer des Pokémons ?</value>
-  </data>
-  <data name="EmailPasswordBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="EmailPasswordBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>184, 62</value>
-  </data>
-  <data name="EmailLoginBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="EmailLoginBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>184, 33</value>
   </data>
   <data name="transferIVThresText.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -365,12 +338,6 @@
   <data name="TravelSpeedText.Text" xml:space="preserve">
     <value>Vitesse de déplacement (km/h) :</value>
   </data>
-  <data name="TravelSpeedBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="TravelSpeedBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>184, 272</value>
-  </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 13</value>
   </data>
@@ -378,10 +345,10 @@
     <value>Seuil d'IV : </value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>334, 461</value>
+    <value>334, 485</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>899, 479</value>
+    <value>899, 503</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

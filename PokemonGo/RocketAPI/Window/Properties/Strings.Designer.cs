@@ -169,6 +169,24 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Email: .
+        /// </summary>
+        internal static string email {
+            get {
+                return ResourceManager.GetString("email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Encounter a {0} with {1} CP and {2}% IV.
+        /// </summary>
+        internal static string encounter_pokemon {
+            get {
+                return ResourceManager.GetString("encounter_pokemon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Error.
         /// </summary>
         internal static string error {
@@ -201,6 +219,42 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         internal static string evolve_success {
             get {
                 return ResourceManager.GetString("evolve_success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à {0} could not be evolved.
+        /// </summary>
+        internal static string evolved_failed {
+            get {
+                return ResourceManager.GetString("evolved_failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Evolve {0} failed.
+        /// </summary>
+        internal static string evolved_failed_title {
+            get {
+                return ResourceManager.GetString("evolved_failed_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à {0} successfully evolved into {1}\n{2} experience awarded\n{3} candy awarded.
+        /// </summary>
+        internal static string evolved_success {
+            get {
+                return ResourceManager.GetString("evolved_success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à {0} evolved into {1}.
+        /// </summary>
+        internal static string evolved_success_title {
+            get {
+                return ResourceManager.GetString("evolved_success_title", resourceCulture);
             }
         }
         
@@ -246,6 +300,15 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         internal static string github_version {
             get {
                 return ResourceManager.GetString("github_version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à google.
+        /// </summary>
+        internal static string google {
+            get {
+                return ResourceManager.GetString("google", resourceCulture);
             }
         }
         
@@ -358,6 +421,15 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Moving player location to Lat: {0}, Lng: {1}.
+        /// </summary>
+        internal static string moving_player {
+            get {
+                return ResourceManager.GetString("moving_player", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Name: {0}.
         /// </summary>
         internal static string name {
@@ -430,7 +502,7 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à We caught a {0} with {1} CP and {2}% IV&quot;.
+        ///   Recherche une chaîne localisée semblable à We caught a {0} with {1} CP and {2}% IV.
         /// </summary>
         internal static string pokemon_caught {
             get {
@@ -565,6 +637,42 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à {0} was transferred ! {1} candy awarded.
+        /// </summary>
+        internal static string transfer_candy {
+            get {
+                return ResourceManager.GetString("transfer_candy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à {0} transferred.
+        /// </summary>
+        internal static string transfer_candy_title {
+            get {
+                return ResourceManager.GetString("transfer_candy_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à {0} could not be transferred.
+        /// </summary>
+        internal static string transfer_error {
+            get {
+                return ResourceManager.GetString("transfer_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Transfer {0} failed.
+        /// </summary>
+        internal static string transfer_error_title {
+            get {
+                return ResourceManager.GetString("transfer_error_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Somehow failed to transfer {0} with {1} CP. ReleasePokemonOutProto.Status was {2}.
         /// </summary>
         internal static string transfer_failed {
@@ -588,6 +696,24 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         internal static string transfer_highest_IV {
             get {
                 return ResourceManager.GetString("transfer_highest_IV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Are you sure you want to transfer {0} with {1} CP?.
+        /// </summary>
+        internal static string transfer_question {
+            get {
+                return ResourceManager.GetString("transfer_question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Confirmation.
+        /// </summary>
+        internal static string transfer_title {
+            get {
+                return ResourceManager.GetString("transfer_title", resourceCulture);
             }
         }
         
@@ -682,11 +808,56 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à {0} could not be upgraded.
+        /// </summary>
+        internal static string upgrade_error {
+            get {
+                return ResourceManager.GetString("upgrade_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Upgrade {0} failed.
+        /// </summary>
+        internal static string upgrade_error_title {
+            get {
+                return ResourceManager.GetString("upgrade_error_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à {0} successfully upgraded..
+        /// </summary>
+        internal static string upgrade_success {
+            get {
+                return ResourceManager.GetString("upgrade_success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à {0} upgraded.
+        /// </summary>
+        internal static string upgrade_success_title {
+            get {
+                return ResourceManager.GetString("upgrade_success_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à System URI Format Exception - Restarting.
         /// </summary>
         internal static string uri_exception {
             get {
                 return ResourceManager.GetString("uri_exception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Username: .
+        /// </summary>
+        internal static string username {
+            get {
+                return ResourceManager.GetString("username", resourceCulture);
             }
         }
         

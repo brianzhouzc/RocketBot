@@ -241,7 +241,7 @@
     <value>Pokecoins: {0}</value>
   </data>
   <data name="pokemon_caught" xml:space="preserve">
-    <value>We caught a {0} with {1} CP and {2}% IV"</value>
+    <value>We caught a {0} with {1} CP and {2}% IV</value>
   </data>
   <data name="pokemon_got_away" xml:space="preserve">
     <value>{0} with {1} CP and {2}% IV got away...</value>
@@ -341,5 +341,62 @@
   </data>
   <data name="your_version" xml:space="preserve">
     <value>Your version is </value>
+  </data>
+  <data name="email" xml:space="preserve">
+    <value>Email: </value>
+  </data>
+  <data name="encounter_pokemon" xml:space="preserve">
+    <value>Encounter a {0} with {1} CP and {2}% IV</value>
+  </data>
+  <data name="evolved_failed" xml:space="preserve">
+    <value>{0} could not be evolved</value>
+  </data>
+  <data name="evolved_failed_title" xml:space="preserve">
+    <value>Evolve {0} failed</value>
+  </data>
+  <data name="evolved_success" xml:space="preserve">
+    <value>{0} successfully evolved into {1}\n{2} experience awarded\n{3} candy awarded</value>
+  </data>
+  <data name="evolved_success_title" xml:space="preserve">
+    <value>{0} evolved into {1}</value>
+  </data>
+  <data name="google" xml:space="preserve">
+    <value>google</value>
+  </data>
+  <data name="moving_player" xml:space="preserve">
+    <value>Moving player location to Lat: {0}, Lng: {1}</value>
+  </data>
+  <data name="transfer_candy" xml:space="preserve">
+    <value>{0} was transferred ! {1} candy awarded</value>
+  </data>
+  <data name="transfer_candy_title" xml:space="preserve">
+    <value>{0} transferred</value>
+  </data>
+  <data name="transfer_error" xml:space="preserve">
+    <value>{0} could not be transferred</value>
+  </data>
+  <data name="transfer_error_title" xml:space="preserve">
+    <value>Transfer {0} failed</value>
+  </data>
+  <data name="transfer_question" xml:space="preserve">
+    <value>Are you sure you want to transfer {0} with {1} CP?</value>
+  </data>
+  <data name="transfer_title" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="upgrade_error" xml:space="preserve">
+    <value>{0} could not be upgraded</value>
+  </data>
+  <data name="upgrade_error_title" xml:space="preserve">
+    <value>Upgrade {0} failed</value>
+  </data>
+  <data name="upgrade_success" xml:space="preserve">
+    <value>{0} successfully upgraded.</value>
+  </data>
+  <data name="upgrade_success_title" xml:space="preserve">
+    <value>{0} upgraded</value>
+  </data>
+  <data name="username" xml:space="preserve">
+    <value>Username: </value>
   </data>
 </root>

@@ -117,10 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="logTextBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>Off</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="statusLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>27, 17</value>
@@ -134,20 +130,11 @@
   <data name="startStopBotToolStripMenuItem.Text" xml:space="preserve">
     <value>Démarrer le bot</value>
   </data>
-  <data name="mapToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 20</value>
-  </data>
-  <data name="mapToolStripMenuItem.Text" xml:space="preserve">
-    <value>Carte</value>
-  </data>
   <data name="todoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>82, 20</value>
   </data>
   <data name="todoToolStripMenuItem.Text" xml:space="preserve">
     <value>Praramètres</value>
-  </data>
-  <data name="pokemonToolStripMenuItem2.Text" xml:space="preserve">
-    <value>Pokémon</value>
   </data>
   <data name="useLuckyEggToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>138, 20</value>
@@ -160,6 +147,25 @@
   </data>
   <data name="forceUnbanToolStripMenuItem.Text" xml:space="preserve">
     <value>Forcer le débannissement</value>
+  </data>
+  <data name="pkmnName.Text" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="pkmnAtkIV.Text" xml:space="preserve">
+    <value>IV d'attaque</value>
+  </data>
+  <data name="pkmnDefIV.Text" xml:space="preserve">
+    <value>IV de défence</value>
+  </data>
+  <data name="pkmnStaIV.Text" xml:space="preserve">
+    <value>IV d'endurance</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="resource.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="button1.Text" xml:space="preserve">
+    <value>Rafraichir</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
