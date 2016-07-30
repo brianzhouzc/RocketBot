@@ -82,7 +82,7 @@
             this.authTypeCb.Items.AddRange(new object[] {
             "google",
             "Ptc"});
-            this.authTypeCb.Location = new System.Drawing.Point(68, 4);
+            this.authTypeCb.Location = new System.Drawing.Point(82, 4);
             this.authTypeCb.Name = "authTypeCb";
             this.authTypeCb.Size = new System.Drawing.Size(136, 20);
             this.authTypeCb.TabIndex = 1;
@@ -172,21 +172,21 @@
             // 
             // UserLoginBox
             // 
-            this.UserLoginBox.Location = new System.Drawing.Point(68, 31);
+            this.UserLoginBox.Location = new System.Drawing.Point(82, 31);
             this.UserLoginBox.Name = "UserLoginBox";
             this.UserLoginBox.Size = new System.Drawing.Size(136, 21);
             this.UserLoginBox.TabIndex = 11;
             // 
             // UserPasswordBox
             // 
-            this.UserPasswordBox.Location = new System.Drawing.Point(68, 57);
+            this.UserPasswordBox.Location = new System.Drawing.Point(82, 57);
             this.UserPasswordBox.Name = "UserPasswordBox";
             this.UserPasswordBox.Size = new System.Drawing.Size(136, 21);
             this.UserPasswordBox.TabIndex = 12;
             // 
             // latitudeText
             // 
-            this.latitudeText.Location = new System.Drawing.Point(104, 79);
+            this.latitudeText.Location = new System.Drawing.Point(118, 79);
             this.latitudeText.Name = "latitudeText";
             this.latitudeText.ReadOnly = true;
             this.latitudeText.Size = new System.Drawing.Size(100, 21);
@@ -194,7 +194,7 @@
             // 
             // longitudeText
             // 
-            this.longitudeText.Location = new System.Drawing.Point(104, 103);
+            this.longitudeText.Location = new System.Drawing.Point(118, 103);
             this.longitudeText.Name = "longitudeText";
             this.longitudeText.ReadOnly = true;
             this.longitudeText.Size = new System.Drawing.Size(100, 21);
@@ -206,14 +206,14 @@
             this.razzmodeCb.Items.AddRange(new object[] {
             "probability",
             "cp"});
-            this.razzmodeCb.Location = new System.Drawing.Point(104, 127);
+            this.razzmodeCb.Location = new System.Drawing.Point(118, 127);
             this.razzmodeCb.Name = "razzmodeCb";
             this.razzmodeCb.Size = new System.Drawing.Size(100, 20);
             this.razzmodeCb.TabIndex = 15;
             // 
             // razzSettingText
             // 
-            this.razzSettingText.Location = new System.Drawing.Point(104, 152);
+            this.razzSettingText.Location = new System.Drawing.Point(118, 152);
             this.razzSettingText.Name = "razzSettingText";
             this.razzSettingText.Size = new System.Drawing.Size(100, 21);
             this.razzSettingText.TabIndex = 16;
@@ -229,7 +229,7 @@
             "Duplicate",
             "IV Duplicate",
             "All"});
-            this.transferTypeCb.Location = new System.Drawing.Point(104, 176);
+            this.transferTypeCb.Location = new System.Drawing.Point(118, 176);
             this.transferTypeCb.Name = "transferTypeCb";
             this.transferTypeCb.Size = new System.Drawing.Size(100, 20);
             this.transferTypeCb.TabIndex = 17;
@@ -237,7 +237,7 @@
             // 
             // transferCpThresText
             // 
-            this.transferCpThresText.Location = new System.Drawing.Point(104, 203);
+            this.transferCpThresText.Location = new System.Drawing.Point(118, 202);
             this.transferCpThresText.Name = "transferCpThresText";
             this.transferCpThresText.Size = new System.Drawing.Size(100, 21);
             this.transferCpThresText.TabIndex = 18;
@@ -246,7 +246,7 @@
             // evolveAllChk
             // 
             this.evolveAllChk.AutoSize = true;
-            this.evolveAllChk.Location = new System.Drawing.Point(104, 296);
+            this.evolveAllChk.Location = new System.Drawing.Point(118, 296);
             this.evolveAllChk.Name = "evolveAllChk";
             this.evolveAllChk.Size = new System.Drawing.Size(15, 14);
             this.evolveAllChk.TabIndex = 19;
@@ -259,7 +259,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.saveBtn.Location = new System.Drawing.Point(0, 315);
             this.saveBtn.Name = "saveBtn";
-            this.saveBtn.Size = new System.Drawing.Size(198, 88);
+            this.saveBtn.Size = new System.Drawing.Size(218, 88);
             this.saveBtn.TabIndex = 20;
             this.saveBtn.Text = "Save";
             this.saveBtn.UseVisualStyleBackColor = true;
@@ -274,7 +274,7 @@
             this.gMapControl1.GrayScaleMode = false;
             this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMapControl1.LevelsKeepInMemmory = 5;
-            this.gMapControl1.Location = new System.Drawing.Point(3, 15);
+            this.gMapControl1.Location = new System.Drawing.Point(18, 15);
             this.gMapControl1.MarkersEnabled = true;
             this.gMapControl1.MaxZoom = 2;
             this.gMapControl1.MinZoom = 2;
@@ -300,9 +300,9 @@
             this.groupBox1.Controls.Add(this.trackBar);
             this.groupBox1.Controls.Add(this.gMapControl1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(221, 8);
+            this.groupBox1.Location = new System.Drawing.Point(233, 8);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(474, 408);
+            this.groupBox1.Size = new System.Drawing.Size(480, 408);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Location";
@@ -311,9 +311,9 @@
             // 
             this.FindAdressButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.FindAdressButton.Location = new System.Drawing.Point(338, 379);
+            this.FindAdressButton.Location = new System.Drawing.Point(355, 379);
             this.FindAdressButton.Name = "FindAdressButton";
-            this.FindAdressButton.Size = new System.Drawing.Size(130, 24);
+            this.FindAdressButton.Size = new System.Drawing.Size(119, 24);
             this.FindAdressButton.TabIndex = 25;
             this.FindAdressButton.Text = "Find Location";
             this.FindAdressButton.UseVisualStyleBackColor = true;
@@ -321,16 +321,16 @@
             // 
             // AdressBox
             // 
-            this.AdressBox.Location = new System.Drawing.Point(6, 384);
+            this.AdressBox.Location = new System.Drawing.Point(18, 379);
             this.AdressBox.Name = "AdressBox";
-            this.AdressBox.Size = new System.Drawing.Size(326, 21);
+            this.AdressBox.Size = new System.Drawing.Size(331, 21);
             this.AdressBox.TabIndex = 25;
             // 
             // trackBar
             // 
             this.trackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBar.BackColor = System.Drawing.SystemColors.Info;
-            this.trackBar.Location = new System.Drawing.Point(426, 15);
+            this.trackBar.Location = new System.Drawing.Point(432, 15);
             this.trackBar.Name = "trackBar";
             this.trackBar.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.trackBar.Size = new System.Drawing.Size(45, 96);
@@ -370,13 +370,13 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(9, 8);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(212, 408);
+            this.panel1.Size = new System.Drawing.Size(224, 408);
             this.panel1.TabIndex = 26;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // TravelSpeedBox
             // 
-            this.TravelSpeedBox.Location = new System.Drawing.Point(104, 251);
+            this.TravelSpeedBox.Location = new System.Drawing.Point(118, 251);
             this.TravelSpeedBox.Name = "TravelSpeedBox";
             this.TravelSpeedBox.Size = new System.Drawing.Size(100, 21);
             this.TravelSpeedBox.TabIndex = 22;
@@ -385,7 +385,7 @@
             // CatchPokemonBox
             // 
             this.CatchPokemonBox.AutoSize = true;
-            this.CatchPokemonBox.Location = new System.Drawing.Point(104, 275);
+            this.CatchPokemonBox.Location = new System.Drawing.Point(118, 275);
             this.CatchPokemonBox.Name = "CatchPokemonBox";
             this.CatchPokemonBox.Size = new System.Drawing.Size(15, 14);
             this.CatchPokemonBox.TabIndex = 26;
@@ -404,7 +404,7 @@
             // 
             // transferIVThresText
             // 
-            this.transferIVThresText.Location = new System.Drawing.Point(104, 203);
+            this.transferIVThresText.Location = new System.Drawing.Point(118, 203);
             this.transferIVThresText.Name = "transferIVThresText";
             this.transferIVThresText.Size = new System.Drawing.Size(100, 21);
             this.transferIVThresText.TabIndex = 24;
@@ -433,7 +433,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(704, 424);
+            this.ClientSize = new System.Drawing.Size(722, 424);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

@@ -38,6 +38,7 @@ namespace PokemonGo.RocketAPI.Window
             this.todoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.useLuckyEggToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.forceUnbanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pokeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
@@ -54,7 +55,6 @@ namespace PokemonGo.RocketAPI.Window
             this.largePokemonImageList = new System.Windows.Forms.ImageList(this.components);
             this.smallPokemonImageList = new System.Windows.Forms.ImageList(this.components);
             this.button1 = new System.Windows.Forms.Button();
-            this.pokeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -139,6 +139,13 @@ namespace PokemonGo.RocketAPI.Window
             this.forceUnbanToolStripMenuItem.Text = "Force Unban";
             this.forceUnbanToolStripMenuItem.Click += new System.EventHandler(this.forceUnbanToolStripMenuItem_Click);
             // 
+            // pokeToolStripMenuItem
+            // 
+            this.pokeToolStripMenuItem.Name = "pokeToolStripMenuItem";
+            this.pokeToolStripMenuItem.Size = new System.Drawing.Size(50, 21);
+            this.pokeToolStripMenuItem.Text = "poke";
+            this.pokeToolStripMenuItem.Click += new System.EventHandler(this.pokeToolStripMenuItem_Click);
+            // 
             // showAllToolStripMenuItem
             // 
             this.showAllToolStripMenuItem.Name = "showAllToolStripMenuItem";
@@ -211,7 +218,7 @@ namespace PokemonGo.RocketAPI.Window
             this.objectListView1.RowHeight = 32;
             this.objectListView1.SelectAllOnControlA = false;
             this.objectListView1.ShowGroups = false;
-            this.objectListView1.Size = new System.Drawing.Size(668, 215);
+            this.objectListView1.Size = new System.Drawing.Size(1012, 215);
             this.objectListView1.SmallImageList = this.smallPokemonImageList;
             this.objectListView1.TabIndex = 25;
             this.objectListView1.UseCompatibleStateImageBehavior = false;
@@ -296,18 +303,11 @@ namespace PokemonGo.RocketAPI.Window
             this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.button1.Location = new System.Drawing.Point(0, 588);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(668, 26);
+            this.button1.Size = new System.Drawing.Size(1012, 26);
             this.button1.TabIndex = 26;
             this.button1.Text = "Refresh";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // pokeToolStripMenuItem
-            // 
-            this.pokeToolStripMenuItem.Name = "pokeToolStripMenuItem";
-            this.pokeToolStripMenuItem.Size = new System.Drawing.Size(50, 21);
-            this.pokeToolStripMenuItem.Text = "poke";
-            this.pokeToolStripMenuItem.Click += new System.EventHandler(this.pokeToolStripMenuItem_Click);
             // 
             // tabControl1
             // 
@@ -320,6 +320,7 @@ namespace PokemonGo.RocketAPI.Window
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(338, 246);
             this.tabControl1.TabIndex = 27;
+            this.tabControl1.Visible = false;
             // 
             // tabPage1
             // 
@@ -346,13 +347,13 @@ namespace PokemonGo.RocketAPI.Window
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1012, 637);
-            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.gMapControl1);
             this.Controls.Add(this.logTextBox);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.objectListView1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.tabControl1);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
