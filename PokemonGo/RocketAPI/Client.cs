@@ -117,7 +117,7 @@ namespace PokemonGo.RocketAPI
                 catch (JsonReaderException) { errorMessage = "Json Reader Exception - Server down? - Restarting"; }
                 catch (Exception ex) { errorMessage = ex.ToString() + "Exception - Please report - Restarting"; }
 
-                if(errorMessage != null)
+                if (errorMessage != null)
                     ColoredConsoleWrite(ConsoleColor.White, errorMessage);
 
             } while (errorMessage != null);

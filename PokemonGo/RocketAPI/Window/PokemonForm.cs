@@ -32,7 +32,9 @@ namespace PokemonGo.RocketAPI.Window
 
             try
             {
+
                 await client.Login();
+
                 await client.SetServer();
                 var inventory = await client.GetInventory();
                 var pokemons =
