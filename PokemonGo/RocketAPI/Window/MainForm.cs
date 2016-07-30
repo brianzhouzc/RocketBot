@@ -857,7 +857,14 @@ namespace PokemonGo.RocketAPI.Window
        
         public async Task ConsoleLevelTitle(string Username, Client client)
         {
+           
             var inventory = await client.GetInventory();
+            var pokemons =
+                    inventory.InventoryDelta.InventoryItems
+                    .Select(i => i.InventoryItemData?.Pokemon)
+                        .Where(p => p != null && p?.PokemonId > 0)
+                        .OrderByDescending(key => key.Cp);
+            
             var items = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Item)
                        .Where(p => p != null && p?.Count > 1).OrderByDescending(key => key.Item_);
             int counter = 0;
@@ -868,9 +875,11 @@ namespace PokemonGo.RocketAPI.Window
                       counter += item.Count;
                lvi.SubItems.Add(item.Count.ToString());
                            }
-            pokemonInBag = " | Items : " + counter.ToString() + ")";
+            pokemonInBag = " | Items: " + counter.ToString() + ")";
             var stats = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PlayerStats).ToArray();
             var profile = await client.GetProfile();
+            var pokemonsc = " | Catched: " + pokemons.Count<PokemonData>() + " / " + profile.Profile.PokeStorage;
+
             Int16 hoursLeft = 0; Int16 minutesLeft = 0; Int32 secondsLeft = 0; double xpSec = 0;
             foreach (var v in stats)
                 if (v != null)
@@ -897,7 +906,7 @@ namespace PokemonGo.RocketAPI.Window
                             hoursLeft++;
                         }
                     }
-                    SetStatusText(string.Format(profile.Profile.Username + " | Level: {0:0} - ({2:0} / {3:0}) | Runtime {1} | Stardust: {4:0}", v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount) + " | XP/Hour: " + Math.Round(TotalExperience / GetRuntime()) + " | Pokemon/Hour: " + Math.Round(TotalPokemon / GetRuntime()) + " | NextLevel in: " + hoursLeft + ":" + minutesLeft + ":" + secondsLeft + pokemonInBag);
+                    SetStatusText(string.Format(profile.Profile.Username + " | Level: {0:0} - ({2:0} / {3:0}) | Runtime {1} | Stardust: {4:0}", v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount) + " | XP/Hour: " + Math.Round(TotalExperience / GetRuntime()) + " | Pokemon/Hour: " + Math.Round(TotalPokemon / GetRuntime()) + " | NextLevel in: " + hoursLeft + ":" + minutesLeft + ":" + secondsLeft + pokemonInBag + pokemonsc);
                 }
             await Task.Delay(1000);
             ConsoleLevelTitle(Username,client);
@@ -1126,6 +1135,12 @@ namespace PokemonGo.RocketAPI.Window
         {
             var mForm = new MapForm(ref client);
             mForm.Show();
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var pForm = new BagUI();
+            pForm.Show();
         }
     }
 }
