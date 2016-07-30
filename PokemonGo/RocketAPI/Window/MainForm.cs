@@ -1084,7 +1084,7 @@ namespace PokemonGo.RocketAPI.Window
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SettingsForm settingsForm = new SettingsForm();
-            settingsForm.Show();
+            settingsForm.ShowDialog();
         }
 
         private static bool bot_started = false;
@@ -1213,7 +1213,7 @@ namespace PokemonGo.RocketAPI.Window
         private void todoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SettingsForm settingsForm = new SettingsForm();
-            settingsForm.Show();
+            settingsForm.ShowDialog();
         }
 
         private void pokemonToolStripMenuItem2_Click(object sender, EventArgs e)
