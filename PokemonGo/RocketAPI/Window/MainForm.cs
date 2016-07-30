@@ -398,7 +398,7 @@ namespace PokemonGo.RocketAPI.Window
 
                 if (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchSuccess)
                 {
-                    ColoredConsoleWrite(Color.Green, $"We caught a {pokemonName} with {pokemonCP} CP and {pokemonIV}% IV");
+                    ColoredConsoleWrite(Color.LightGreen, $"We caught a {pokemonName} with {pokemonCP} CP and {pokemonIV}% IV");
                     foreach (int xp in caughtPokemonResponse.Scores.Xp)
                         TotalExperience += xp;
                     TotalPokemon += 1;
@@ -861,7 +861,7 @@ namespace PokemonGo.RocketAPI.Window
                 if (v != null)
                 {
                     int XpDiff = GetXpDiff(client, v.Level);
-                    SetStatusText(string.Format(Username + " | Level: {0:0} - ({2:0} / {3:0}) | Runtime {1} | Stardust: {4:0}", v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount) + " | XP/Hour: " + Math.Round(TotalExperience / GetRuntime()) + " | Pokemon/Hour: " + Math.Round(TotalPokemon / GetRuntime()));
+                    SetStatusText(string.Format(Username + " | Level: {0:0} - ({2:0}/{3:0}) | Runtime {1} | Stardust: {4:0}", v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount) + " | XP/Hour: " + Math.Round(TotalExperience / GetRuntime()) + " | Pokémon/Hour: " + Math.Round(TotalPokemon / GetRuntime()));
                 }
             await Task.Delay(1000);
             ConsoleLevelTitle(Username, client);
@@ -973,7 +973,7 @@ namespace PokemonGo.RocketAPI.Window
             if (!bot_started)
             {
                 bot_started = true;
-                startStopBotToolStripMenuItem.Text = "Stop Bot";
+                startStopBotToolStripMenuItem.Text = "Stop Farming";
                 Task.Run(() =>
                 {
                     try
@@ -1026,7 +1026,7 @@ namespace PokemonGo.RocketAPI.Window
                     {
                         var useItemXpBoostRequest = await client.UseItemXpBoost(ItemId.ItemLuckyEgg);
                         ColoredConsoleWrite(Color.Green, $"Using a Lucky Egg, we have {LuckyEgg.Count} left.");
-                        ColoredConsoleWrite(Color.Yellow, $"Lucky Egg Valid until: {DateTime.Now.AddMinutes(30).ToString()}");
+                        ColoredConsoleWrite(Color.Yellow, $"Lucky Egg valid until: {DateTime.Now.AddMinutes(30).ToString()}");
 
                         var stripItem = sender as ToolStripMenuItem;
                         stripItem.Enabled = false;
@@ -1040,12 +1040,48 @@ namespace PokemonGo.RocketAPI.Window
                 }
                 catch (Exception ex)
                 {
-                    ColoredConsoleWrite(Color.Red, $"Unhandled exception in using lucky egg: {ex}");
+                    ColoredConsoleWrite(Color.Red, $"Unhandled exception in using Lucky Egg: {ex}");
                 }
             }
             else
             {
-                ColoredConsoleWrite(Color.Red, "Please start the bot before trying to use a lucky egg.");
+                ColoredConsoleWrite(Color.Red, "Please start the bot before trying to use a Lucky Egg.");
+            }
+        }
+
+        private async void useIncenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (client != null)
+            {
+                try
+                {
+                    IEnumerable<Item> myItems = await client.GetItems(client);
+                    IEnumerable<Item> Incenses = myItems.Where(i => (ItemId)i.Item_ == ItemId.ItemIncenseOrdinary);
+                    Item Incense = Incenses.FirstOrDefault();
+                    if (Incense != null)
+                    {
+                        var useIncenseRequest = await client.UseIncense(ItemId.ItemIncenseOrdinary);
+                        ColoredConsoleWrite(Color.Green, $"Using an Incense, we have {Incense.Count} left.");
+                        ColoredConsoleWrite(Color.Yellow, $"Incense valid until: {DateTime.Now.AddMinutes(30).ToString()}");
+
+                        var stripItem = sender as ToolStripMenuItem;
+                        stripItem.Enabled = false;
+                        await Task.Delay(30000);
+                        stripItem.Enabled = true;
+                    }
+                    else
+                    {
+                        ColoredConsoleWrite(Color.Red, $"You don't have any Incense to use.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ColoredConsoleWrite(Color.Red, $"Unhandled exception in using Incense: {ex}");
+                }
+            }
+            else
+            {
+                ColoredConsoleWrite(Color.Red, "Please start the bot before trying to use a Incense.");
             }
         }
 
