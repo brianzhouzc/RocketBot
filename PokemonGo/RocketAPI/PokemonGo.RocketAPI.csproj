@@ -44,12 +44,13 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="S2Geometry, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\S2Geometry.1.0.1\lib\portable-net45+wp8+win8\S2Geometry.dll</HintPath>
+      <HintPath>..\..\packages\S2Geometry.1.0.3\lib\portable-net45+wp8+win8\S2Geometry.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
@@ -68,30 +69,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\LatLongExtensions.cs" />
+    <Compile Include="ILatLong.cs" />
     <Compile Include="Enums\AuthType.cs" />
     <Compile Include="Enums\MiscEnums.cs" />
     <Compile Include="Enums\RequestType.cs" />
+    <Compile Include="Exceptions\LoginFailedException.cs" />
     <Compile Include="Exceptions\PtcOfflineException.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="GeneratedCode\AllEnum.cs" />
     <Compile Include="GeneratedCode\Payloads.cs" />
     <Compile Include="GeneratedCode\Request.cs" />
     <Compile Include="GeneratedCode\Response.cs" />
-    <Compile Include="GPSOAuthSharp.cs" />
     <Compile Include="Helpers\HttpClientHelper.cs" />
-    <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Helpers\ProtoHelper.cs" />
     <Compile Include="Helpers\RetryHandler.cs" />
     <Compile Include="Helpers\S2Helper.cs" />
     <Compile Include="Helpers\Utils.cs" />
     <Compile Include="ISettings.cs" />
     <Compile Include="Login\GoogleLogin.cs" />
+    <Compile Include="Login\ILoginType.cs" />
     <Compile Include="Login\PtcLogin.cs" />
     <None Include="app.config" />
     <Compile Include="Client.cs" />
     <Compile Include="Extensions\HttpClientExtensions.cs" />
     <Compile Include="Helpers\RandomHelper.cs" />
     <Compile Include="Helpers\RequestBuilder.cs" />
+    <Compile Include="ProtoAdditions.cs" />
     <Compile Include="Resources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -103,7 +107,6 @@
     <None Include="Proto\Response.proto" />
     <None Include="Proto\Request.proto" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
