@@ -34,8 +34,8 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.startStopBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.todoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startStopBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.useLuckyEggToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.forceUnbanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -233,7 +233,7 @@
             // 
             this.pkmnName.AspectName = "PokemonId";
             this.pkmnName.AspectToStringFormat = "";
-            this.pkmnName.Text = "Name";
+            this.pkmnName.Text = "Pokémon ID";
             this.pkmnName.Width = 149;
             // 
             // pkmnCP
@@ -269,6 +269,7 @@
             // 
             // pkmnCandys
             // 
+            this.pkmnCandys.AspectName = "CandyOwned";
             this.pkmnCandys.Text = "Candy\'s";
             this.pkmnCandys.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -296,6 +297,7 @@
             // 
             this.pkmnEvolveButton.AspectName = "Id";
             this.pkmnEvolveButton.AspectToStringFormat = "Evolve";
+            this.pkmnEvolveButton.ButtonSizing = BrightIdeasSoftware.OLVColumn.ButtonSizingMode.CellBounds;
             this.pkmnEvolveButton.IsButton = true;
             this.pkmnEvolveButton.Text = "";
             this.pkmnEvolveButton.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -392,7 +394,7 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PokémonGo Rocket API";
+            this.Text = "Pokémon Go Rocket";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
