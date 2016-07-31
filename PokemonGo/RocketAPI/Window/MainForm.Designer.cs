@@ -58,6 +58,8 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.pkmnCandys = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.objectListView1)).BeginInit();
@@ -69,13 +71,13 @@
             // 
             this.logTextBox.BackColor = System.Drawing.Color.Black;
             this.logTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.logTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.logTextBox.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.logTextBox.ForeColor = System.Drawing.Color.White;
             this.logTextBox.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.logTextBox.Location = new System.Drawing.Point(0, 24);
+            this.logTextBox.Location = new System.Drawing.Point(0, 27);
             this.logTextBox.Name = "logTextBox";
             this.logTextBox.ReadOnly = true;
-            this.logTextBox.Size = new System.Drawing.Size(668, 338);
+            this.logTextBox.Size = new System.Drawing.Size(740, 366);
             this.logTextBox.TabIndex = 0;
             this.logTextBox.Text = "";
             this.logTextBox.TextChanged += new System.EventHandler(this.logTextBox_TextChanged);
@@ -85,16 +87,16 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 615);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 668);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1012, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1084, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // statusLabel
             // 
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(43, 17);
+            this.statusLabel.Size = new System.Drawing.Size(39, 17);
             this.statusLabel.Text = "Status";
             // 
             // menuStrip1
@@ -103,39 +105,40 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startStopBotToolStripMenuItem,
             this.todoToolStripMenuItem,
+            this.toolStripMenuItem1,
             this.useLuckyEggToolStripMenuItem,
             this.forceUnbanToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1012, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(1084, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // startStopBotToolStripMenuItem
             // 
             this.startStopBotToolStripMenuItem.Name = "startStopBotToolStripMenuItem";
-            this.startStopBotToolStripMenuItem.Size = new System.Drawing.Size(85, 21);
-            this.startStopBotToolStripMenuItem.Text = "▶ Start Bot";
+            this.startStopBotToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
+            this.startStopBotToolStripMenuItem.Text = "Start Farming";
             this.startStopBotToolStripMenuItem.Click += new System.EventHandler(this.startStopBotToolStripMenuItem_Click);
             // 
             // todoToolStripMenuItem
             // 
             this.todoToolStripMenuItem.Name = "todoToolStripMenuItem";
-            this.todoToolStripMenuItem.Size = new System.Drawing.Size(66, 21);
+            this.todoToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.todoToolStripMenuItem.Text = "Settings";
             this.todoToolStripMenuItem.Click += new System.EventHandler(this.todoToolStripMenuItem_Click);
             // 
             // useLuckyEggToolStripMenuItem
             // 
             this.useLuckyEggToolStripMenuItem.Name = "useLuckyEggToolStripMenuItem";
-            this.useLuckyEggToolStripMenuItem.Size = new System.Drawing.Size(105, 21);
+            this.useLuckyEggToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
             this.useLuckyEggToolStripMenuItem.Text = "Use Lucky Egg";
             this.useLuckyEggToolStripMenuItem.Click += new System.EventHandler(this.useLuckyEggToolStripMenuItem_Click);
             // 
             // forceUnbanToolStripMenuItem
             // 
             this.forceUnbanToolStripMenuItem.Name = "forceUnbanToolStripMenuItem";
-            this.forceUnbanToolStripMenuItem.Size = new System.Drawing.Size(94, 21);
+            this.forceUnbanToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
             this.forceUnbanToolStripMenuItem.Text = "Force Unban";
             this.forceUnbanToolStripMenuItem.Click += new System.EventHandler(this.forceUnbanToolStripMenuItem_Click);
             // 
@@ -158,7 +161,7 @@
             this.gMapControl1.GrayScaleMode = false;
             this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMapControl1.LevelsKeepInMemmory = 5;
-            this.gMapControl1.Location = new System.Drawing.Point(674, 24);
+            this.gMapControl1.Location = new System.Drawing.Point(746, 27);
             this.gMapControl1.MarkersEnabled = true;
             this.gMapControl1.MaxZoom = 2;
             this.gMapControl1.MinZoom = 2;
@@ -171,7 +174,7 @@
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(338, 338);
+            this.gMapControl1.Size = new System.Drawing.Size(338, 366);
             this.gMapControl1.TabIndex = 23;
             this.gMapControl1.Zoom = 0D;
             // 
@@ -183,6 +186,7 @@
             this.objectListView1.AllColumns.Add(this.pkmnDefIV);
             this.objectListView1.AllColumns.Add(this.pkmnStaIV);
             this.objectListView1.AllColumns.Add(this.pkmnIV);
+            this.objectListView1.AllColumns.Add(this.pkmnCandys);
             this.objectListView1.AllColumns.Add(this.pkmnTransferButton);
             this.objectListView1.AllColumns.Add(this.pkmnPowerUpButton);
             this.objectListView1.AllColumns.Add(this.pkmnEvolveButton);
@@ -197,6 +201,7 @@
             this.pkmnDefIV,
             this.pkmnStaIV,
             this.pkmnIV,
+            this.pkmnCandys,
             this.pkmnTransferButton,
             this.pkmnPowerUpButton,
             this.pkmnEvolveButton});
@@ -205,13 +210,13 @@
             this.objectListView1.FullRowSelect = true;
             this.objectListView1.GridLines = true;
             this.objectListView1.LargeImageList = this.largePokemonImageList;
-            this.objectListView1.Location = new System.Drawing.Point(0, 368);
+            this.objectListView1.Location = new System.Drawing.Point(0, 399);
             this.objectListView1.MultiSelect = false;
             this.objectListView1.Name = "objectListView1";
             this.objectListView1.RowHeight = 32;
             this.objectListView1.SelectAllOnControlA = false;
             this.objectListView1.ShowGroups = false;
-            this.objectListView1.Size = new System.Drawing.Size(668, 215);
+            this.objectListView1.Size = new System.Drawing.Size(740, 233);
             this.objectListView1.SmallImageList = this.smallPokemonImageList;
             this.objectListView1.TabIndex = 25;
             this.objectListView1.UseCompatibleStateImageBehavior = false;
@@ -223,36 +228,39 @@
             this.pkmnName.AspectName = "PokemonId";
             this.pkmnName.AspectToStringFormat = "";
             this.pkmnName.Text = "Name";
-            this.pkmnName.Width = 130;
+            this.pkmnName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.pkmnName.Width = 150;
             // 
             // pkmnCP
             // 
             this.pkmnCP.AspectName = "Cp";
             this.pkmnCP.Text = "CP";
+            this.pkmnCP.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // pkmnAtkIV
             // 
             this.pkmnAtkIV.AspectName = "IndividualAttack";
-            this.pkmnAtkIV.Text = "Attack IV";
-            this.pkmnAtkIV.Width = 70;
+            this.pkmnAtkIV.Text = "Attack";
+            this.pkmnAtkIV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // pkmnDefIV
             // 
             this.pkmnDefIV.AspectName = "IndividualDefense";
-            this.pkmnDefIV.Text = "Defense IV";
-            this.pkmnDefIV.Width = 70;
+            this.pkmnDefIV.Text = "Defense";
+            this.pkmnDefIV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // pkmnStaIV
             // 
             this.pkmnStaIV.AspectName = "IndividualStamina";
-            this.pkmnStaIV.Text = "Stamina IV";
-            this.pkmnStaIV.Width = 70;
+            this.pkmnStaIV.Text = "Stamina";
+            this.pkmnStaIV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // pkmnIV
             // 
             this.pkmnIV.AspectName = "GetIV";
             this.pkmnIV.AspectToStringFormat = "{0:P2}";
-            this.pkmnIV.Text = "Perfection";
+            this.pkmnIV.Text = "IV%";
+            this.pkmnIV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // pkmnTransferButton
             // 
@@ -261,6 +269,8 @@
             this.pkmnTransferButton.ButtonSizing = BrightIdeasSoftware.OLVColumn.ButtonSizingMode.CellBounds;
             this.pkmnTransferButton.IsButton = true;
             this.pkmnTransferButton.Text = "";
+            this.pkmnTransferButton.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.pkmnTransferButton.Width = 70;
             // 
             // pkmnPowerUpButton
             // 
@@ -269,6 +279,8 @@
             this.pkmnPowerUpButton.ButtonSizing = BrightIdeasSoftware.OLVColumn.ButtonSizingMode.CellBounds;
             this.pkmnPowerUpButton.IsButton = true;
             this.pkmnPowerUpButton.Text = "";
+            this.pkmnPowerUpButton.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.pkmnPowerUpButton.Width = 70;
             // 
             // pkmnEvolveButton
             // 
@@ -276,6 +288,8 @@
             this.pkmnEvolveButton.AspectToStringFormat = "Evolve";
             this.pkmnEvolveButton.IsButton = true;
             this.pkmnEvolveButton.Text = "";
+            this.pkmnEvolveButton.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.pkmnEvolveButton.Width = 70;
             // 
             // largePokemonImageList
             // 
@@ -295,9 +309,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(0, 588);
+            this.button1.Location = new System.Drawing.Point(0, 637);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(668, 26);
+            this.button1.Size = new System.Drawing.Size(740, 28);
             this.button1.TabIndex = 26;
             this.button1.Text = "Refresh";
             this.button1.UseVisualStyleBackColor = true;
@@ -310,11 +324,11 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Enabled = false;
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(674, 368);
+            this.tabControl1.Location = new System.Drawing.Point(746, 399);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(338, 244);
+            this.tabControl1.Size = new System.Drawing.Size(338, 264);
             this.tabControl1.TabIndex = 27;
             // 
             // tabPage1
@@ -323,7 +337,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(330, 216);
+            this.tabPage1.Size = new System.Drawing.Size(330, 236);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Incoming Feature";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -332,27 +346,39 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(67, 102);
+            this.label1.Location = new System.Drawing.Point(71, 111);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(189, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "Incoming Features";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // tabPage2
             // 
             this.tabPage2.Location = new System.Drawing.Point(4, 4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(330, 216);
+            this.tabPage2.Size = new System.Drawing.Size(330, 236);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = ":3";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(81, 20);
+            this.toolStripMenuItem1.Text = "Use Incense";
+            // 
+            // pkmnCandys
+            // 
+            this.pkmnCandys.Text = "Candy\'s";
+            this.pkmnCandys.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1012, 637);
+            this.ClientSize = new System.Drawing.Size(1084, 690);
             this.Controls.Add(this.gMapControl1);
             this.Controls.Add(this.logTextBox);
             this.Controls.Add(this.button1);
@@ -361,13 +387,13 @@
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.tabControl1);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PokemonGo Rocket API";
+            this.Text = "PokémonGo Rocket API";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -412,5 +438,7 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private BrightIdeasSoftware.OLVColumn pkmnCandys;
     }
 }
