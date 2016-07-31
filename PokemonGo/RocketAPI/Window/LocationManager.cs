@@ -23,13 +23,20 @@ namespace PokemonGo.RocketAPI.Window
             return currentLoc.distanceFrom(new Coordinate(lat, lng));
         }
 
-        public async Task update(double lat, double lng)
+        public async Task<int> update(double lat, double lng)
         {
-            double waitTime = getDistance(lat, lng)/this.kilometersPerMillisecond;
-            await Task.Delay((int)Math.Ceiling(waitTime));
+            double waitTime = getDistance(lat, lng) * 1200000f;
             await client.UpdatePlayerLocation(lat, lng);
+            return (int)Math.Ceiling(waitTime);
         }
 
+
+        public double BasicDist(double lat, double lng)
+        {
+
+            return (float)Math.Sqrt(Math.Pow(lat - lng, 2) + Math.Pow(client.getCurrentLat() - client.getCurrentLong(), 2));
+
+         }
         public struct Coordinate
         {
 
@@ -41,18 +48,27 @@ namespace PokemonGo.RocketAPI.Window
             public double latitude;
             public double longitude;
 
+     
+
             //returns distance in kilometers 
             public double distanceFrom(Coordinate c2)
             {
-                double R = 6371;
-                Func<double, double> toRad = x => x * (Math.PI / 180);
-                double dLat = toRad(c2.latitude - this.latitude);
-                double dLong = toRad(c2.longitude - c2.longitude);
-                double lat1 = toRad(this.latitude);
-                double lat2 = toRad(c2.latitude);
-                double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
-                    Math.Sin(dLong / 2) * Math.Sin(dLong / 2) * Math.Cos(lat1) * Math.Cos(lat2);
-                double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+
+                var lat2 = c2.latitude;
+                var lon2 = c2.longitude; 
+
+                var lat1 = this.latitude;
+                var lon1 = this.longitude;
+
+                var R = 600371; // km
+                var dLat = (lat2 - lat1) * Math.PI / 180;
+                var dLon = (lon2 - lon1) * Math.PI / 180;
+                lat1 = lat1 * Math.PI / 180;
+                lat2 = lat2 * Math.PI / 180;
+
+                var a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                        Math.Sin(dLon / 2) * Math.Sin(dLon / 2) * Math.Cos(lat1) * Math.Cos(lat2);
+                var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
                 return R * c;
             }
         }

@@ -37,6 +37,7 @@
             this.mapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.todoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pokemonToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.useLuckyEggToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.forceUnbanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,7 +56,7 @@
             this.logTextBox.Location = new System.Drawing.Point(0, 24);
             this.logTextBox.Name = "logTextBox";
             this.logTextBox.ReadOnly = true;
-            this.logTextBox.Size = new System.Drawing.Size(905, 471);
+            this.logTextBox.Size = new System.Drawing.Size(1014, 471);
             this.logTextBox.TabIndex = 0;
             this.logTextBox.Text = "";
             this.logTextBox.TextChanged += new System.EventHandler(this.logTextBox_TextChanged);
@@ -66,7 +67,7 @@
             this.statusLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 495);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(905, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1014, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -83,15 +84,16 @@
             this.mapToolStripMenuItem,
             this.todoToolStripMenuItem,
             this.pokemonToolStripMenuItem2,
+            this.toolStripMenuItem1,
             this.useLuckyEggToolStripMenuItem,
             this.forceUnbanToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(905, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1014, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // startBotToolStripMenuItem
+            // startStopBotToolStripMenuItem
             // 
             this.startStopBotToolStripMenuItem.Name = "startStopBotToolStripMenuItem";
             this.startStopBotToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
@@ -118,6 +120,13 @@
             this.pokemonToolStripMenuItem2.Size = new System.Drawing.Size(70, 20);
             this.pokemonToolStripMenuItem2.Text = "Pokemon";
             this.pokemonToolStripMenuItem2.Click += new System.EventHandler(this.pokemonToolStripMenuItem2_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(74, 20);
+            this.toolStripMenuItem1.Text = "Bag\'s Item";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // useLuckyEggToolStripMenuItem
             // 
@@ -147,7 +156,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(905, 517);
+            this.ClientSize = new System.Drawing.Size(1014, 517);
             this.Controls.Add(this.logTextBox);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -180,5 +189,6 @@
         private System.Windows.Forms.ToolStripMenuItem useLuckyEggToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem forceUnbanToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mapToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
     }
 }
