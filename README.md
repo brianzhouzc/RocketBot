@@ -5,7 +5,6 @@
 
 #Window
 ![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/MainWindow.png)
-![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/MainPokeUi.png)
 ![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/MainSettings2.png)
 
 
@@ -14,20 +13,23 @@ A Pokémon Go bot in C#
 ## Features
 * PTC / Google Login
 * Get Map Objects and Inventory
+* Live map showing Pokéstops and farming path
 * Search for Gyms / Pokéstops / Spawns
 * Farm Pokéstops
 * Farm all Pokémon in the neighbourhood
 * Evolve Pokémon
 * Transfer Pokémon
+* Powerup Pokémon
+* Force unban
+* Use LuckyEgg
 * Auto-Recycle uneeded items
 * View all Pokémon CP/IV %
 * Transfer/Powerup/Evolve Pokémon
 * Output level and needed XP for levelup
 * Output Username, Level, Stardust, XP/hour, Pokémon/hour in Console Title
-* German/English Pokémon names
 * Automatic use of Razzberries
 * Automatic Update checker
-* Logs everything into Logs.txt
+* Logs everything into Logs folder
 
 ## Getting Started
 Build and Run (CTRL+F5)
