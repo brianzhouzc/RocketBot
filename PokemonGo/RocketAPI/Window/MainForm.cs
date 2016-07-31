@@ -50,6 +50,7 @@ namespace PokemonGo.RocketAPI.Window
             synchronizationContext = SynchronizationContext.Current;
             InitializeComponent();
             ClientSettings = Settings.Instance;
+            Client.OnConsoleWrite += Client_OnConsoleWrite;
             Instance = this;
         }
 
@@ -574,6 +575,11 @@ namespace PokemonGo.RocketAPI.Window
             var mapObjects = await client.GetMapObjects();
 
             FortData[] rawPokeStops = mapObjects.MapCells.SelectMany(i => i.Forts).Where(i => i.Type == FortType.Checkpoint && i.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime()).ToArray();
+            if (rawPokeStops == null || rawPokeStops.Count() <= 0)
+            {
+                ColoredConsoleWrite(Color.Red, $"No PokeStops to visit here, please stop the bot and change your location.");
+                return;
+            }
             pokeStops = rawPokeStops;
             UpdateMap();
             ColoredConsoleWrite(Color.Cyan, $"Finding fastest route through all PokeStops..");

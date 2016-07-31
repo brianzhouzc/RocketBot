@@ -40,6 +40,9 @@ namespace PokemonGo.RocketAPI
 
         private readonly ILoginType login;
 
+        public delegate void ConsoleWriteDelegate(ConsoleColor color, string message);
+        public static event ConsoleWriteDelegate OnConsoleWrite;
+
         public Client(ISettings settings)
         {
             _settings = settings;
@@ -254,14 +257,12 @@ namespace PokemonGo.RocketAPI
         {
             ConsoleColor originalColor = System.Console.ForegroundColor;
             System.Console.ForegroundColor = color;
-            System.Console.WriteLine("[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text);
-
-            var dir = AppDomain.CurrentDomain.BaseDirectory + @"\Logs";
-            if (!Directory.Exists(dir))
-                Directory.CreateDirectory(dir);
-            File.AppendAllText(dir + @"\" + DateTime.Today.ToString("yyyyMMdd") + ".txt", "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\r\n");
-
+            System.Console.WriteLine(text);
             System.Console.ForegroundColor = originalColor;
+            if (OnConsoleWrite != null)
+            {
+                OnConsoleWrite(color, text);
+            }
         }
 
         public async Task<FortDetailsResponse> GetFort(string fortId, double fortLat, double fortLng)
