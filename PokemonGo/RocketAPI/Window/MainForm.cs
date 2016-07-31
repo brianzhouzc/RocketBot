@@ -50,6 +50,7 @@ namespace PokemonGo.RocketAPI.Window
             synchronizationContext = SynchronizationContext.Current;
             InitializeComponent();
             ClientSettings = Settings.Instance;
+            Instance = this;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -148,19 +149,19 @@ namespace PokemonGo.RocketAPI.Window
                         "https://raw.githubusercontent.com/1461748123/Pokemon-Go-Rocket-API/master/PokemonGo/RocketAPI/Window/Properties/AssemblyInfo.cs");
         }
 
-        public void ColoredConsoleWrite(Color color, string text)
+        public static void ColoredConsoleWrite(Color color, string text)
         {
-            if (InvokeRequired)
+            if (MainForm.Instance.InvokeRequired)
             {
-                Invoke(new Action<Color, string>(ColoredConsoleWrite), color, text);
+                MainForm.Instance.Invoke(new Action<Color, string>(ColoredConsoleWrite), color, text);
                 return;
             }
 
-            logTextBox.Select(logTextBox.Text.Length, 1); // Reset cursor to last
+            MainForm.Instance.logTextBox.Select(MainForm.Instance.logTextBox.Text.Length, 1); // Reset cursor to last
 
             string textToAppend = "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\r\n";
-            logTextBox.SelectionColor = color;
-            logTextBox.AppendText(textToAppend);
+            MainForm.Instance.logTextBox.SelectionColor = color;
+            MainForm.Instance.logTextBox.AppendText(textToAppend);
 
             object syncRoot = new object();
             lock (syncRoot) // Added locking to prevent text file trying to be accessed by two things at the same time
@@ -381,8 +382,6 @@ namespace PokemonGo.RocketAPI.Window
             catch (ArgumentNullException) { ColoredConsoleWrite(Color.Red, "Argument Null Refference - Restarting"); if (!Stopping) Execute(); }
             catch (NullReferenceException) { ColoredConsoleWrite(Color.Red, "Null Refference - Restarting"); if (!Stopping) Execute(); }
             catch (Exception ex) { ColoredConsoleWrite(Color.Red, ex.ToString()); if (!Stopping) Execute(); }
-            finally { client = null; }
-
         }
 
         private static string CallAPI(string elem, string lat, string lon)
