@@ -47,7 +47,7 @@
             this.btnReload.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnReload.Location = new System.Drawing.Point(0, 573);
             this.btnReload.Name = "btnReload";
-            this.btnReload.Size = new System.Drawing.Size(622, 26);
+            this.btnReload.Size = new System.Drawing.Size(922, 26);
             this.btnReload.TabIndex = 3;
             this.btnReload.Text = "Reload";
             this.btnReload.UseVisualStyleBackColor = true;
@@ -74,7 +74,7 @@
             this.btnEvolve.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnEvolve.Location = new System.Drawing.Point(0, 547);
             this.btnEvolve.Name = "btnEvolve";
-            this.btnEvolve.Size = new System.Drawing.Size(622, 26);
+            this.btnEvolve.Size = new System.Drawing.Size(922, 26);
             this.btnEvolve.TabIndex = 4;
             this.btnEvolve.Text = "Evolve Selected";
             this.btnEvolve.UseVisualStyleBackColor = true;
@@ -86,7 +86,7 @@
             this.btnTransfer.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnTransfer.Location = new System.Drawing.Point(0, 521);
             this.btnTransfer.Name = "btnTransfer";
-            this.btnTransfer.Size = new System.Drawing.Size(622, 26);
+            this.btnTransfer.Size = new System.Drawing.Size(922, 26);
             this.btnTransfer.TabIndex = 5;
             this.btnTransfer.Text = "Transfer Selected";
             this.btnTransfer.UseVisualStyleBackColor = true;
@@ -97,7 +97,7 @@
             this.btnUpgrade.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnUpgrade.Location = new System.Drawing.Point(0, 495);
             this.btnUpgrade.Name = "btnUpgrade";
-            this.btnUpgrade.Size = new System.Drawing.Size(622, 26);
+            this.btnUpgrade.Size = new System.Drawing.Size(922, 26);
             this.btnUpgrade.TabIndex = 6;
             this.btnUpgrade.Text = "Upgrade Selected";
             this.btnUpgrade.UseVisualStyleBackColor = true;
@@ -114,7 +114,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 12);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(596, 477);
+            this.dataGridView1.Size = new System.Drawing.Size(896, 477);
             this.dataGridView1.TabIndex = 7;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dataGridView1_SortCompare);
@@ -123,7 +123,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(622, 599);
+            this.ClientSize = new System.Drawing.Size(922, 599);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnUpgrade);
             this.Controls.Add(this.btnTransfer);
