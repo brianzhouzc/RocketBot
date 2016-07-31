@@ -62,6 +62,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BagUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BagUI.designer.cs">
+      <DependentUpon>BagUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="CueTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -84,12 +90,6 @@
     <Compile Include="PokemonForm.Designer.cs">
       <DependentUpon>PokemonForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="BagUI.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BagUI.Designer.cs">
-      <DependentUpon>BagUI.cs</DependentUpon>
-    </Compile>
     <Compile Include="PokeUi.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,6 +105,9 @@
     <Compile Include="SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BagUI.resx">
+      <DependentUpon>BagUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -113,9 +116,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PokemonForm.resx">
       <DependentUpon>PokemonForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BagUI.resx">
-      <DependentUpon>BagUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PokeUi.resx">
       <DependentUpon>PokeUi.cs</DependentUpon>
