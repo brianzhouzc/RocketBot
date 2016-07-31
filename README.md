@@ -4,8 +4,8 @@
 * https://discord.gg/y6EU2qY
 
 #Window
-![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/MainWindow.png)  
-![alt tag](https://github.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/blob/master/MainSettings2.png)
+![alt tag](https://github.com/1461748123/Pokemon-Go-Rocket-API/blob/master/MainWindow.png)  
+![alt tag](https://github.com/1461748123/Pokemon-Go-Rocket-API/blob/master/MainSettings2.png)
 
 
 A Pokémon Go bot in C#
