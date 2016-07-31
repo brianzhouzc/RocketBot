@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -145,7 +145,7 @@ namespace PokemonGo.RocketAPI.Window
             using (var wC = new WebClient())
                 return
                     wC.DownloadString(
-                        "https://raw.githubusercontent.com/DetectiveSquirrel/Pokemon-Go-Rocket-API/master/PokemonGo/RocketAPI/Window/Properties/AssemblyInfo.cs");
+                        "https://raw.githubusercontent.com/1461748123/Pokemon-Go-Rocket-API/master/PokemonGo/RocketAPI/Window/Properties/AssemblyInfo.cs");
         }
 
         public void ColoredConsoleWrite(Color color, string text)
@@ -359,7 +359,6 @@ namespace PokemonGo.RocketAPI.Window
                 {
                     ColoredConsoleWrite(Color.Red, $"No nearby useful locations found. Please wait 10 seconds.");
                     await Task.Delay(10000);
-                    CheckVersion();
                     Execute();
                 }
                 else
@@ -373,15 +372,13 @@ namespace PokemonGo.RocketAPI.Window
                     bot_started = false;
                 }
             }
-            catch (Exception ex)
-            {
-                ColoredConsoleWrite(Color.Red, ex.ToString());
-                if (!Stopping)
-                {
-                    client = null;
-                    Execute();
-                }
-            }
+            catch (TaskCanceledException) { ColoredConsoleWrite(Color.Red, "Task Canceled Exception - Restarting"); if (!Stopping) Execute(); }
+            catch (UriFormatException) { ColoredConsoleWrite(Color.Red, "System URI Format Exception - Restarting"); if (!Stopping) Execute(); }
+            catch (ArgumentOutOfRangeException) { ColoredConsoleWrite(Color.Red, "ArgumentOutOfRangeException - Restarting"); if (!Stopping) Execute(); }
+            catch (ArgumentNullException) { ColoredConsoleWrite(Color.Red, "Argument Null Refference - Restarting"); if (!Stopping) Execute(); }
+            catch (NullReferenceException) { ColoredConsoleWrite(Color.Red, "Null Refference - Restarting"); if (!Stopping) Execute(); }
+            catch (Exception ex) { ColoredConsoleWrite(Color.Red, ex.ToString()); if (!Stopping) Execute(); }
+            finally { client = null;}
 
         }
 
@@ -579,7 +576,7 @@ namespace PokemonGo.RocketAPI.Window
             UpdateMap();
             ColoredConsoleWrite(Color.Cyan, $"Finding fastest route through all PokeStops..");
             LatLong startingLatLong = new LatLong(ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude);
-            pokeStops = RouteOptimizer<FortData>.Optimize(rawPokeStops, startingLatLong, pokestopsOverlay);
+            pokeStops = RouteOptimizer.Optimize(rawPokeStops, startingLatLong, pokestopsOverlay);
             wildPokemons = mapObjects.MapCells.SelectMany(i => i.WildPokemons);
             if (!ForceUnbanning && !Stopping)
                 ColoredConsoleWrite(Color.Cyan, $"Visiting {pokeStops.Count()} PokeStops");
@@ -1073,7 +1070,7 @@ namespace PokemonGo.RocketAPI.Window
         {
             //ConsoleClear(); // dont really want the console to be wipped on bot stop, unnecessary
             ColoredConsoleWrite(Color.Red, $"Bot successfully stopped.");
-            startStopBotToolStripMenuItem.Text = "Start Bot";
+            startStopBotToolStripMenuItem.Text = "▶ Start Bot";
             Stopping = false;
             bot_started = false;
         }
@@ -1096,7 +1093,7 @@ namespace PokemonGo.RocketAPI.Window
             if (!bot_started)
             {
                 bot_started = true;
-                startStopBotToolStripMenuItem.Text = "Stop Bot";
+                startStopBotToolStripMenuItem.Text = "■ Stop Bot";
                 Task.Run(() =>
                 {
                     try

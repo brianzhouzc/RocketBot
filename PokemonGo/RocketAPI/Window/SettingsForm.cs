@@ -103,6 +103,7 @@ namespace PokemonGo.RocketAPI.Window
             Settings.Instance.SetSetting(evolveAllChk.Checked ? "true" : "false", "EvolveAllGivenPokemons");
             Settings.Instance.SetSetting(CatchPokemonBox.Checked ? "true" : "false", "CatchPokemon");
             Settings.Instance.Reload();
+
             Close();
         }
 

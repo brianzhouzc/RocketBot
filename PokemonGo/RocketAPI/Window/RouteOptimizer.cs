@@ -1,93 +1,150 @@
-﻿using GMap.NET.WindowsForms;
+﻿using GMap.NET;
+using GMap.NET.WindowsForms;
 using PokemonGo.RocketAPI.GeneratedCode;
-using PokemonGo.RocketAPI.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PokemonGo.RocketAPI.Window
 {
-    public static class RouteOptimizer<T> where T: ILatLong
+    public static class RouteOptimizer
     {
-        public static List<T> Optimize(T[] stops, ILatLong startingPosition, GMapOverlay routeOverlay)
+        public static List<FortData> Optimize(FortData[] pokeStops, LatLong latlng, GMapOverlay routeOverlay)
         {
-            List<T> optimizedRoute = new List<T>(stops);
+            List<FortData> optimizedRoute = new List<FortData>(pokeStops);
 
             // NN
-            T NN = FindNN(optimizedRoute, startingPosition);
+            FortData NN = FindNN(optimizedRoute, latlng.Latitude, latlng.Longitude);
             optimizedRoute.Remove(NN);
             optimizedRoute.Insert(0, NN);
-            for (int i=1; i< stops.Length; i++)
+            for (int i = 1; i < pokeStops.Length; i++)
             {
-                NN = FindNN(optimizedRoute.Skip(i), NN);
+                NN = FindNN(optimizedRoute.Skip(i), NN.Latitude, NN.Longitude);
                 optimizedRoute.Remove(NN);
                 optimizedRoute.Insert(i, NN);
+                Visualize(optimizedRoute, routeOverlay);
             }
 
             // 2-Opt
-            optimizedRoute = Optimize2Opt(optimizedRoute);
-
-            return optimizedRoute;
-        }
-
-        public static float routeCost(List<T> stops)
-        {
-            return Enumerable.Range(0, stops.Count - 1).Aggregate<int, float>(0, (sum,i) =>
-            {
-                return sum + (float)stops[i].distanceFrom(stops[i + 1]);
-            });
-        }
-
-        private static List<T> reverseSublist(List<T> stops, int startIndex, int endIndex)
-        {
-            return stops
-                .Take(startIndex)
-                .Concat(
-                    stops
-                    .Skip(startIndex)
-                    .Take(endIndex - startIndex)
-                    .Reverse()
-                ).Concat(stops.Skip(endIndex)).ToList();
-        }
-
-        private static List<T> Optimize2Opt(List<T> stops)
-        {
-            List<T> optimizedRoute = stops;
-
-            int n = stops.Count;
-            bool foundCheaperRoute;
-            float minCost = routeCost(optimizedRoute);
+            bool isOptimized;
             do
             {
-                foundCheaperRoute = false;
-                for (int i = 0; i < n - 1; i++)
-                {
-                    for (int j = i + 1; j < n ; j++)
-                    {
-                        List<T> newRoute = reverseSublist(optimizedRoute, i, j);
-                        float newCost = routeCost(newRoute);
-                        if (newCost < minCost)
-                        {
-                            minCost = newCost;
-                            optimizedRoute = newRoute;
-                            foundCheaperRoute = true;
-                            break;
-                        }
-                    }
-                    if (foundCheaperRoute)
-                        break;
-                }
+                optimizedRoute = Optimize2Opt(optimizedRoute, out isOptimized);
+                Visualize(optimizedRoute, routeOverlay);
             }
-            while (foundCheaperRoute);
+            while (isOptimized);
+
             return optimizedRoute;
         }
 
-        private static T FindNN(IEnumerable<T> stops, ILatLong fromPosition)
+        private static void Visualize(List<FortData> pokeStops, GMapOverlay routeOverlay)
         {
-            return stops.OrderBy(p => fromPosition.distanceFrom(p)).First();
+            MainForm.synchronizationContext.Post(new SendOrPostCallback(o =>
+            {
+                List<FortData> p = new List<FortData>((List<FortData>)o);
+                routeOverlay.Markers.Clear();
+                List<PointLatLng> routePoint = new List<PointLatLng>();
+                foreach (var pokeStop in p)
+                {
+                    var pokeStopLoc = new PointLatLng(pokeStop.Latitude, pokeStop.Longitude);
+
+                    routePoint.Add(pokeStopLoc);
+                }
+                routeOverlay.Routes.Clear();
+                routeOverlay.Routes.Add(new GMapRoute(routePoint, "Walking Path"));
+            }), pokeStops);
         }
 
+        private static List<FortData> Optimize2Opt(List<FortData> pokeStops, out bool isOptimized)
+        {
+            int n = pokeStops.Count;
+            float bestGain = 0;
+            int bestI = -1;
+            int bestJ = -1;
+
+            for (int ai = 0; ai < n; ai++)
+            {
+                for (int ci = 0; ci < n; ci++)
+                {
+                    int bi = (ai + 1) % n;
+                    int di = (ci + 1) % n;
+
+                    FortData a = pokeStops[ai];
+                    FortData b = pokeStops[bi];
+                    FortData c = pokeStops[ci];
+                    FortData d = pokeStops[di];
+
+                    float ab = GetDistance(a, b);
+                    float cd = GetDistance(c, d);
+                    float ac = GetDistance(a, c);
+                    float bd = GetDistance(b, d);
+
+                    if (ci != ai && ci != bi)
+                    {
+                        float gain = (ab + cd) - (ac + bd);
+                        if (gain > bestGain)
+                        {
+                            bestGain = gain;
+                            bestI = bi;
+                            bestJ = ci;
+                        }
+                    }
+                }
+            }
+
+            if (bestI != -1)
+            {
+                List<FortData> optimizedRoute;
+                if (bestI > bestJ)
+                {
+                    optimizedRoute = new List<FortData>();
+                    optimizedRoute.Add(pokeStops[0]);
+                    optimizedRoute.AddRange(pokeStops.Skip(bestI));
+                    optimizedRoute.Reverse(1, n - bestI);
+                    optimizedRoute.AddRange(pokeStops.GetRange(bestJ + 1, bestI - bestJ - 1));
+                    optimizedRoute.AddRange(pokeStops.GetRange(1, bestJ));
+                    optimizedRoute.Reverse(n - bestJ, bestJ);
+                }
+                else if (bestI == 0)
+                {
+                    optimizedRoute = new List<FortData>(pokeStops);
+                    optimizedRoute.Reverse(bestJ + 1, n - bestJ - 1);
+                }
+                else
+                {
+                    optimizedRoute = new List<FortData>(pokeStops);
+                    optimizedRoute.Reverse(bestI, bestJ - bestI + 1);
+                }
+
+                isOptimized = true;
+                return optimizedRoute;
+            }
+            isOptimized = false;
+            return pokeStops;
+        }
+
+        private static FortData FindNN(IEnumerable<FortData> pokeStops, double cLatitude, double cLongitude)
+        {
+            return pokeStops.OrderBy(p => GetDistance(cLatitude, cLongitude, p.Latitude, p.Longitude)).First();
+        }
+
+        private static float GetDistance(FortData a, FortData b)
+        {
+            return GetDistance(a.Latitude, a.Longitude, b.Latitude, b.Longitude);
+        }
+
+        private static float GetDistance(double lat1, double lng1, double lat2, double lng2)
+        {
+            double R = 6371e3;
+            Func<double, float> toRad = x => (float)(x * (Math.PI / 180));
+            lat1 = toRad(lat1);
+            lat2 = toRad(lat2);
+            float dLng = toRad(lng2 - lng1);
+
+            return (float)(Math.Acos(Math.Sin(lat1) * Math.Sin(lat2) + Math.Cos(lat1) * Math.Cos(lat2) * Math.Cos(dLng)) * R);
+        }
     }
 }

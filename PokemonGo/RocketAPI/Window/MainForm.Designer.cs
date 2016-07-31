@@ -1,4 +1,4 @@
-namespace PokemonGo.RocketAPI.Window
+﻿namespace PokemonGo.RocketAPI.Window
 {
     partial class MainForm
     {
@@ -57,10 +57,12 @@ namespace PokemonGo.RocketAPI.Window
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.objectListView1)).BeginInit();
             this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // logTextBox
@@ -112,8 +114,8 @@ namespace PokemonGo.RocketAPI.Window
             // startStopBotToolStripMenuItem
             // 
             this.startStopBotToolStripMenuItem.Name = "startStopBotToolStripMenuItem";
-            this.startStopBotToolStripMenuItem.Size = new System.Drawing.Size(71, 21);
-            this.startStopBotToolStripMenuItem.Text = "Start Bot";
+            this.startStopBotToolStripMenuItem.Size = new System.Drawing.Size(85, 21);
+            this.startStopBotToolStripMenuItem.Text = "▶ Start Bot";
             this.startStopBotToolStripMenuItem.Click += new System.EventHandler(this.startStopBotToolStripMenuItem_Click);
             // 
             // todoToolStripMenuItem
@@ -306,6 +308,7 @@ namespace PokemonGo.RocketAPI.Window
             this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Enabled = false;
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(674, 368);
             this.tabControl1.Name = "tabControl1";
@@ -316,12 +319,13 @@ namespace PokemonGo.RocketAPI.Window
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(330, 216);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.Text = "Incomming Feature";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
@@ -329,10 +333,20 @@ namespace PokemonGo.RocketAPI.Window
             this.tabPage2.Location = new System.Drawing.Point(4, 4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(330, 220);
+            this.tabPage2.Size = new System.Drawing.Size(330, 216);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = ":3";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(58, 105);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(206, 25);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Incomming Features";
             // 
             // MainForm
             // 
@@ -361,6 +375,8 @@ namespace PokemonGo.RocketAPI.Window
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.objectListView1)).EndInit();
             this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -395,5 +411,6 @@ namespace PokemonGo.RocketAPI.Window
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Label label1;
     }
 }
