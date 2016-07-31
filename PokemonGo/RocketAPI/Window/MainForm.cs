@@ -222,7 +222,7 @@ namespace PokemonGo.RocketAPI.Window
                     inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon)
                         .Where(p => p != null && p?.PokemonId > 0);
 
-                await ConsoleLevelTitle(profile.Profile.Username, client);
+                ConsoleLevelTitle(profile.Profile.Username, client);
 
                 // Write the players ingame details
                 ColoredConsoleWrite(Color.Yellow, "----------------------------");
@@ -973,7 +973,7 @@ namespace PokemonGo.RocketAPI.Window
             if (!bot_started)
             {
                 bot_started = true;
-                startStopBotToolStripMenuItem.Text = "&Stop Bot";
+                startStopBotToolStripMenuItem.Text = "Stop Bot";
                 Task.Run(() =>
                 {
                     try
@@ -1075,9 +1075,8 @@ namespace PokemonGo.RocketAPI.Window
 
         private void todoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SettingsForm settingsForm = new SettingsForm();            
+            SettingsForm settingsForm = new SettingsForm();
             settingsForm.Show();
-            settingsForm.Focus();
         }
 
         private void pokemonToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -1088,15 +1087,8 @@ namespace PokemonGo.RocketAPI.Window
 
         private void mapToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (client != null)
-            {
-                var mForm = new MapForm(ref client);
-                mForm.Show();
-            }
-            else
-            {
-                ColoredConsoleWrite(Color.Red, "Please start the bot before...");
-            }
+            var mForm = new MapForm(ref client);
+            mForm.Show();
         }
     }
 }
