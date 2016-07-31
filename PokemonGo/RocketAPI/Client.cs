@@ -20,7 +20,7 @@ using System.Threading;
 using PokemonGo.RocketAPI.Exceptions;
 using System.Text;
 using System.IO;
-using DankMemes.GPSOAuthSharp;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -32,12 +32,13 @@ namespace PokemonGo.RocketAPI
         private ISettings _settings;
         private string _accessToken;
         private string _apiUrl;
-        private AuthType _authType = AuthType.Google;
 
         private double _currentLat;
         private double _currentLng;
         private Request.Types.UnknownAuth _unknownAuth;
         public static string AccessToken { get; set; } = string.Empty;
+
+        private readonly ILoginType login;
 
         public Client(ISettings settings)
         {
@@ -58,6 +59,20 @@ namespace PokemonGo.RocketAPI
             _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "*/*");
             _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type",
                 "application/x-www-form-urlencoded");
+
+            login = CreateLoginType(settings);
+        }
+
+        static ILoginType CreateLoginType(ISettings settings)
+        {
+            switch (settings.AuthType)
+            {
+                case AuthType.Google:
+                    return new GoogleLogin(settings.Email, settings.Password);
+                case AuthType.Ptc:
+                    return new PtcLogin(settings.PtcUsername, settings.PtcPassword);
+            }
+            throw new ArgumentOutOfRangeException(nameof(settings.AuthType), "unknown auth type");
         }
 
         public async Task<CatchPokemonResponse> CatchPokemon(ulong encounterId, string spawnPointGuid, double pokemonLat,
@@ -86,36 +101,27 @@ namespace PokemonGo.RocketAPI
                         catchPokemonRequest);
         }
 
-        public async Task DoGoogleLogin(string email, string password)
+        public async Task Login()
         {
-            _authType = AuthType.Google;
-            GPSOAuthClient _GPSOclient = new GPSOAuthClient(email, password);
-            Dictionary<string, string> _GPSOresponse = _GPSOclient.PerformMasterLogin();
-            /* string json = JsonConvert.SerializeObject(_GPSOresponse, Formatting.Indented);
-               Console.WriteLine(json); */
-            if (_GPSOresponse.ContainsKey("Token"))
+            string errorMessage;
+            do
             {
-                string token = _GPSOresponse["Token"];
-                Dictionary<string, string> oauthResponse = _GPSOclient.PerformOAuth(
-                token,
-                "audience:server:client_id:848232511240-7so421jotr2609rmqakceuu1luuq0ptb.apps.googleusercontent.com",
-                "com.nianticlabs.pokemongo",
-                "321187995bc7cdc2b5fc91b11a96e2baa8602c62");
-                /* string oauthJson = JsonConvert.SerializeObject(oauthResponse, Formatting.Indented);
-                  Console.WriteLine(oauthJson); */
-                _accessToken = oauthResponse["Auth"];
-            }
-        }
+                errorMessage = null;
 
-        public async Task DoPtcLogin(string username, string password)
-        {
-            try
-            {
-                _accessToken = await PtcLogin.GetAccessToken(username, password);
-                _authType = AuthType.Ptc;
-            }
-            catch (Newtonsoft.Json.JsonReaderException) { ColoredConsoleWrite(ConsoleColor.White, "Json Reader Exception - Server down? - Restarting"); DoPtcLogin(username, password); }
-            catch (Exception ex) { ColoredConsoleWrite(ConsoleColor.White, ex.ToString() + "Exception - Please report - Restarting"); DoPtcLogin(username, password); }
+                try
+                {
+                    _accessToken = await login.GetAccessToken().ConfigureAwait(false);
+                }
+                catch (LoginFailedException) { errorMessage = "Login failed - wrong username or password? - Restarting"; }
+                catch (PtcOfflineException) { errorMessage = "PTC login server is down - Restarting"; }
+                catch (JsonReaderException) { errorMessage = "Json Reader Exception - Server down? - Restarting"; }
+                catch (Exception ex) { errorMessage = ex.ToString() + "Exception - Please report - Restarting"; }
+
+                if (errorMessage != null)
+                    ColoredConsoleWrite(ConsoleColor.White, errorMessage);
+
+            } while (errorMessage != null);
+
         }
 
         public async Task<EncounterResponse> EncounterPokemon(ulong encounterId, string spawnPointGuid)
@@ -249,7 +255,12 @@ namespace PokemonGo.RocketAPI
             ConsoleColor originalColor = System.Console.ForegroundColor;
             System.Console.ForegroundColor = color;
             System.Console.WriteLine("[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text);
-            File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + @"\Logs.txt", "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\n");
+
+            var dir = AppDomain.CurrentDomain.BaseDirectory + @"\Logs";
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
+            File.AppendAllText(dir + @"\" + DateTime.Today.ToString("yyyyMMdd") + ".txt", "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\r\n");
+
             System.Console.ForegroundColor = originalColor;
         }
 
@@ -326,7 +337,7 @@ namespace PokemonGo.RocketAPI
 
         public async Task<GetPlayerResponse> GetProfile()
         {
-            var profileRequest = RequestBuilder.GetInitialRequest(_accessToken, _authType, _currentLat, _currentLng, 10,
+            var profileRequest = RequestBuilder.GetInitialRequest(_accessToken, _settings.AuthType, _currentLat, _currentLng, 10,
                 new Request.Types.Requests { Type = (int)RequestType.GET_PLAYER });
             return
                 await _httpClient.PostProtoPayload<Request, GetPlayerResponse>($"https://{_apiUrl}/rpc", profileRequest);
@@ -383,7 +394,7 @@ namespace PokemonGo.RocketAPI
 
         public async Task SetServer()
         {
-            var serverRequest = RequestBuilder.GetInitialRequest(_accessToken, _authType, _currentLat, _currentLng, 10,
+            var serverRequest = RequestBuilder.GetInitialRequest(_accessToken, _settings.AuthType, _currentLat, _currentLng, 10,
                 RequestType.GET_PLAYER, RequestType.GET_HATCHED_OBJECTS, RequestType.GET_INVENTORY,
                 RequestType.CHECK_AWARDED_BADGES, RequestType.DOWNLOAD_SETTINGS);
             var serverResponse = await _httpClient.PostProto(Resources.RpcUrl, serverRequest);
@@ -416,14 +427,20 @@ namespace PokemonGo.RocketAPI
                         releasePokemonRequest);
         }
 
-        public double getCurrentLat()
+        public double CurrentLatitude
         {
-            return this._currentLat;
+            get
+            {
+                return this._currentLat;
+            }
         }
 
-        public double getCurrentLong()
+        public double CurrentLongitude
         {
-            return this._currentLng;
+            get
+            {
+                return this._currentLng;
+            }
         }
 
         public async Task<PlayerUpdateResponse> UpdatePlayerLocation(double lat, double lng)
