@@ -1286,7 +1286,7 @@ namespace PokemonGo.RocketAPI.Window
             objectListView1.CellToolTipShowing += delegate (object sender, ToolTipShowingEventArgs args)
             {
                 PokemonData pokemon = (PokemonData)args.Model;
-                if (args.ColumnIndex == 8)
+                if (args.ColumnIndex == 9)
                 {
                     int candyOwned = families
                             .Where(i => (int)i.FamilyId <= (int)pokemon.PokemonId)
@@ -1343,15 +1343,15 @@ namespace PokemonGo.RocketAPI.Window
             try
             {
                 PokemonData pokemon = (PokemonData)e.Model;
-                if (e.ColumnIndex == 6)
+                if (e.ColumnIndex == 7)
                 {
                     TransferPokemon(pokemon);
                 }
-                else if (e.ColumnIndex == 7)
+                else if (e.ColumnIndex == 8)
                 {
                     PowerUpPokemon(pokemon);
                 }
-                else if (e.ColumnIndex == 8)
+                else if (e.ColumnIndex == 9)
                 {
                     EvolvePokemon(pokemon);
                 }
