@@ -319,9 +319,10 @@ namespace PokemonGo.RocketAPI
                             Guid = ByteString.CopyFromUtf8("4a2e9bc330dae60e7b74fc85b98868ab4700802e")
                         }.ToByteString()
                 });
-
+            await Task.Delay(8000);
             return
-                await _httpClient.PostProtoPayload<Request, GetMapObjectsResponse>($"https://{_apiUrl}/rpc", mapRequest);
+                
+            await _httpClient.PostProtoPayload<Request, GetMapObjectsResponse>($"https://{_apiUrl}/rpc", mapRequest);
         }
 
         public async Task<GetPlayerResponse> GetProfile()
