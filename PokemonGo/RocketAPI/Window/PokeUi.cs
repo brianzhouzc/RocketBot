@@ -70,7 +70,7 @@ namespace PokemonGo.RocketAPI.Window
                 var imageList = new ImageList { ImageSize = new Size(imageSize, imageSize) };
                 //var imageList = new ImageList { ImageSize = new Size(96, 96) };
                 listView1.ShowItemToolTips = true;
-                listView1.BeginUpdate();
+
                 foreach (var pokemon in pokemons)
                 {
                     Bitmap pokemonImage = null;
@@ -103,7 +103,6 @@ namespace PokemonGo.RocketAPI.Window
                     this.listView1.Items.Add(listViewItem);
 
                 }
-                listView1.EndUpdate();
                 this.Text = "PokeUi " + pokemons.Count<PokemonData>() + "/" + profile.Profile.PokeStorage;
                 EnabledButton(true);
 
@@ -119,7 +118,7 @@ namespace PokemonGo.RocketAPI.Window
 
         private void EnabledButton(bool enabled)
         {
-            reloadToolStripMenuItem.Enabled = enabled;
+            button1.Enabled = enabled;
             button2.Enabled = enabled;
             button3.Enabled = enabled;
             btnUpgrade.Enabled = enabled;
@@ -142,6 +141,11 @@ namespace PokemonGo.RocketAPI.Window
             return bitmapRemote;
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.listView1.Clear();
+            Execute();
+        }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -305,12 +309,6 @@ namespace PokemonGo.RocketAPI.Window
             catch (ArgumentNullException) { await PowerUp(pokemon); }
             catch (NullReferenceException) { await PowerUp(pokemon); }
             catch (Exception ex) { await PowerUp(pokemon); }
-        }
-
-        private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.listView1.Clear();
-            Execute();
         }
     }
 }

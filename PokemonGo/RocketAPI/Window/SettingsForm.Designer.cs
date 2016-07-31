@@ -55,18 +55,18 @@
             this.AdressBox = new System.Windows.Forms.TextBox();
             this.trackBar = new System.Windows.Forms.TrackBar();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label7 = new System.Windows.Forms.Label();
-            this.ImageSizeBox = new System.Windows.Forms.TextBox();
-            this.EmailLoginText = new System.Windows.Forms.Label();
             this.CatchPokemonBox = new System.Windows.Forms.CheckBox();
-            this.EmailPasswordText = new System.Windows.Forms.Label();
             this.CatchPokemonText = new System.Windows.Forms.Label();
-            this.EmailPasswordBox = new System.Windows.Forms.TextBox();
-            this.EmailLoginBox = new System.Windows.Forms.TextBox();
             this.transferIVThresText = new System.Windows.Forms.TextBox();
             this.TravelSpeedText = new System.Windows.Forms.Label();
             this.TravelSpeedBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.EmailLoginText = new System.Windows.Forms.Label();
+            this.EmailPasswordText = new System.Windows.Forms.Label();
+            this.EmailLoginBox = new System.Windows.Forms.TextBox();
+            this.EmailPasswordBox = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.ImageSizeBox = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.panel1.SuspendLayout();
@@ -75,9 +75,9 @@
             // authTypeLabel
             // 
             this.authTypeLabel.AutoSize = true;
-            this.authTypeLabel.Location = new System.Drawing.Point(3, 6);
+            this.authTypeLabel.Location = new System.Drawing.Point(3, 7);
             this.authTypeLabel.Name = "authTypeLabel";
-            this.authTypeLabel.Size = new System.Drawing.Size(71, 12);
+            this.authTypeLabel.Size = new System.Drawing.Size(63, 13);
             this.authTypeLabel.TabIndex = 0;
             this.authTypeLabel.Text = "Login Type:";
             this.authTypeLabel.Click += new System.EventHandler(this.authTypeLabel_Click);
@@ -88,72 +88,72 @@
             this.authTypeCb.Items.AddRange(new object[] {
             "google",
             "Ptc"});
-            this.authTypeCb.Location = new System.Drawing.Point(85, 4);
+            this.authTypeCb.Location = new System.Drawing.Point(68, 4);
             this.authTypeCb.Name = "authTypeCb";
-            this.authTypeCb.Size = new System.Drawing.Size(136, 20);
+            this.authTypeCb.Size = new System.Drawing.Size(136, 21);
             this.authTypeCb.TabIndex = 1;
             this.authTypeCb.SelectedIndexChanged += new System.EventHandler(this.authTypeCb_SelectedIndexChanged);
             // 
             // ptcUserLabel
             // 
             this.ptcUserLabel.AutoSize = true;
-            this.ptcUserLabel.Location = new System.Drawing.Point(3, 33);
+            this.ptcUserLabel.Location = new System.Drawing.Point(3, 36);
             this.ptcUserLabel.Name = "ptcUserLabel";
-            this.ptcUserLabel.Size = new System.Drawing.Size(59, 12);
+            this.ptcUserLabel.Size = new System.Drawing.Size(58, 13);
             this.ptcUserLabel.TabIndex = 2;
             this.ptcUserLabel.Text = "Username:";
             // 
             // ptcPasswordLabel
             // 
             this.ptcPasswordLabel.AutoSize = true;
-            this.ptcPasswordLabel.Location = new System.Drawing.Point(3, 57);
+            this.ptcPasswordLabel.Location = new System.Drawing.Point(3, 62);
             this.ptcPasswordLabel.Name = "ptcPasswordLabel";
-            this.ptcPasswordLabel.Size = new System.Drawing.Size(59, 12);
+            this.ptcPasswordLabel.Size = new System.Drawing.Size(56, 13);
             this.ptcPasswordLabel.TabIndex = 3;
             this.ptcPasswordLabel.Text = "Password:";
             // 
             // latLabel
             // 
             this.latLabel.AutoSize = true;
-            this.latLabel.Location = new System.Drawing.Point(3, 81);
+            this.latLabel.Location = new System.Drawing.Point(3, 88);
             this.latLabel.Name = "latLabel";
-            this.latLabel.Size = new System.Drawing.Size(59, 12);
+            this.latLabel.Size = new System.Drawing.Size(48, 13);
             this.latLabel.TabIndex = 4;
             this.latLabel.Text = "Latitude:";
             // 
             // longiLabel
             // 
             this.longiLabel.AutoSize = true;
-            this.longiLabel.Location = new System.Drawing.Point(3, 105);
+            this.longiLabel.Location = new System.Drawing.Point(3, 114);
             this.longiLabel.Name = "longiLabel";
-            this.longiLabel.Size = new System.Drawing.Size(65, 12);
+            this.longiLabel.Size = new System.Drawing.Size(57, 13);
             this.longiLabel.TabIndex = 5;
             this.longiLabel.Text = "Longitude:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 129);
+            this.label1.Location = new System.Drawing.Point(3, 140);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 12);
+            this.label1.Size = new System.Drawing.Size(87, 13);
             this.label1.TabIndex = 6;
             this.label1.Text = "Razzberry Mode:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 178);
+            this.label2.Location = new System.Drawing.Point(3, 193);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 12);
+            this.label2.Size = new System.Drawing.Size(76, 13);
             this.label2.TabIndex = 7;
             this.label2.Text = "Transfer Type:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 296);
+            this.label3.Location = new System.Drawing.Point(3, 321);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(95, 12);
+            this.label3.Size = new System.Drawing.Size(91, 13);
             this.label3.TabIndex = 8;
             this.label3.Text = "Evolve Pokemon:";
             this.label3.Click += new System.EventHandler(this.label3_Click);
@@ -161,49 +161,49 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 203);
+            this.label4.Location = new System.Drawing.Point(3, 220);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(83, 12);
+            this.label4.Size = new System.Drawing.Size(74, 13);
             this.label4.TabIndex = 9;
             this.label4.Text = "CP Threshold:";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 154);
+            this.label5.Location = new System.Drawing.Point(3, 167);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(113, 12);
+            this.label5.Size = new System.Drawing.Size(93, 13);
             this.label5.TabIndex = 10;
             this.label5.Text = "Razzberry Setting:";
             // 
             // ptcUserText
             // 
-            this.ptcUserText.Location = new System.Drawing.Point(85, 30);
+            this.ptcUserText.Location = new System.Drawing.Point(68, 33);
             this.ptcUserText.Name = "ptcUserText";
-            this.ptcUserText.Size = new System.Drawing.Size(136, 21);
+            this.ptcUserText.Size = new System.Drawing.Size(136, 20);
             this.ptcUserText.TabIndex = 11;
             // 
             // ptcPassText
             // 
-            this.ptcPassText.Location = new System.Drawing.Point(85, 57);
+            this.ptcPassText.Location = new System.Drawing.Point(68, 62);
             this.ptcPassText.Name = "ptcPassText";
-            this.ptcPassText.Size = new System.Drawing.Size(136, 21);
+            this.ptcPassText.Size = new System.Drawing.Size(136, 20);
             this.ptcPassText.TabIndex = 12;
             // 
             // latitudeText
             // 
-            this.latitudeText.Location = new System.Drawing.Point(121, 78);
+            this.latitudeText.Location = new System.Drawing.Point(104, 85);
             this.latitudeText.Name = "latitudeText";
             this.latitudeText.ReadOnly = true;
-            this.latitudeText.Size = new System.Drawing.Size(100, 21);
+            this.latitudeText.Size = new System.Drawing.Size(100, 20);
             this.latitudeText.TabIndex = 13;
             // 
             // longitudeText
             // 
-            this.longitudeText.Location = new System.Drawing.Point(121, 102);
+            this.longitudeText.Location = new System.Drawing.Point(104, 111);
             this.longitudeText.Name = "longitudeText";
             this.longitudeText.ReadOnly = true;
-            this.longitudeText.Size = new System.Drawing.Size(100, 21);
+            this.longitudeText.Size = new System.Drawing.Size(100, 20);
             this.longitudeText.TabIndex = 14;
             // 
             // razzmodeCb
@@ -212,16 +212,16 @@
             this.razzmodeCb.Items.AddRange(new object[] {
             "probability",
             "cp"});
-            this.razzmodeCb.Location = new System.Drawing.Point(121, 126);
+            this.razzmodeCb.Location = new System.Drawing.Point(104, 137);
             this.razzmodeCb.Name = "razzmodeCb";
-            this.razzmodeCb.Size = new System.Drawing.Size(100, 20);
+            this.razzmodeCb.Size = new System.Drawing.Size(100, 21);
             this.razzmodeCb.TabIndex = 15;
             // 
             // razzSettingText
             // 
-            this.razzSettingText.Location = new System.Drawing.Point(121, 151);
+            this.razzSettingText.Location = new System.Drawing.Point(104, 164);
             this.razzSettingText.Name = "razzSettingText";
-            this.razzSettingText.Size = new System.Drawing.Size(100, 21);
+            this.razzSettingText.Size = new System.Drawing.Size(100, 20);
             this.razzSettingText.TabIndex = 16;
             // 
             // transferTypeCb
@@ -235,24 +235,24 @@
             "Duplicate",
             "IV Duplicate",
             "All"});
-            this.transferTypeCb.Location = new System.Drawing.Point(121, 175);
+            this.transferTypeCb.Location = new System.Drawing.Point(104, 190);
             this.transferTypeCb.Name = "transferTypeCb";
-            this.transferTypeCb.Size = new System.Drawing.Size(100, 20);
+            this.transferTypeCb.Size = new System.Drawing.Size(100, 21);
             this.transferTypeCb.TabIndex = 17;
             this.transferTypeCb.SelectedIndexChanged += new System.EventHandler(this.transferTypeCb_SelectedIndexChanged);
             // 
             // transferCpThresText
             // 
-            this.transferCpThresText.Location = new System.Drawing.Point(121, 203);
+            this.transferCpThresText.Location = new System.Drawing.Point(104, 220);
             this.transferCpThresText.Name = "transferCpThresText";
-            this.transferCpThresText.Size = new System.Drawing.Size(100, 21);
+            this.transferCpThresText.Size = new System.Drawing.Size(100, 20);
             this.transferCpThresText.TabIndex = 18;
             this.transferCpThresText.TextChanged += new System.EventHandler(this.transferCpThresText_TextChanged);
             // 
             // evolveAllChk
             // 
             this.evolveAllChk.AutoSize = true;
-            this.evolveAllChk.Location = new System.Drawing.Point(122, 296);
+            this.evolveAllChk.Location = new System.Drawing.Point(104, 321);
             this.evolveAllChk.Name = "evolveAllChk";
             this.evolveAllChk.Size = new System.Drawing.Size(15, 14);
             this.evolveAllChk.TabIndex = 19;
@@ -263,9 +263,9 @@
             // 
             this.saveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveBtn.Location = new System.Drawing.Point(0, 316);
+            this.saveBtn.Location = new System.Drawing.Point(0, 341);
             this.saveBtn.Name = "saveBtn";
-            this.saveBtn.Size = new System.Drawing.Size(211, 88);
+            this.saveBtn.Size = new System.Drawing.Size(198, 95);
             this.saveBtn.TabIndex = 20;
             this.saveBtn.Text = "Save";
             this.saveBtn.UseVisualStyleBackColor = true;
@@ -280,7 +280,7 @@
             this.gMapControl1.GrayScaleMode = false;
             this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMapControl1.LevelsKeepInMemmory = 5;
-            this.gMapControl1.Location = new System.Drawing.Point(3, 15);
+            this.gMapControl1.Location = new System.Drawing.Point(3, 16);
             this.gMapControl1.MarkersEnabled = true;
             this.gMapControl1.MaxZoom = 2;
             this.gMapControl1.MinZoom = 2;
@@ -293,7 +293,7 @@
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(468, 358);
+            this.gMapControl1.Size = new System.Drawing.Size(468, 388);
             this.gMapControl1.TabIndex = 22;
             this.gMapControl1.Zoom = 0D;
             this.gMapControl1.Load += new System.EventHandler(this.gMapControl1_Load);
@@ -306,9 +306,9 @@
             this.groupBox1.Controls.Add(this.trackBar);
             this.groupBox1.Controls.Add(this.gMapControl1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(234, 8);
+            this.groupBox1.Location = new System.Drawing.Point(221, 9);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(461, 409);
+            this.groupBox1.Size = new System.Drawing.Size(474, 442);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Location";
@@ -317,9 +317,9 @@
             // 
             this.FindAdressButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.FindAdressButton.Location = new System.Drawing.Point(338, 379);
+            this.FindAdressButton.Location = new System.Drawing.Point(338, 410);
             this.FindAdressButton.Name = "FindAdressButton";
-            this.FindAdressButton.Size = new System.Drawing.Size(117, 24);
+            this.FindAdressButton.Size = new System.Drawing.Size(130, 26);
             this.FindAdressButton.TabIndex = 25;
             this.FindAdressButton.Text = "Find Location";
             this.FindAdressButton.UseVisualStyleBackColor = true;
@@ -327,19 +327,19 @@
             // 
             // AdressBox
             // 
-            this.AdressBox.Location = new System.Drawing.Point(6, 384);
+            this.AdressBox.Location = new System.Drawing.Point(6, 416);
             this.AdressBox.Name = "AdressBox";
-            this.AdressBox.Size = new System.Drawing.Size(326, 21);
+            this.AdressBox.Size = new System.Drawing.Size(326, 20);
             this.AdressBox.TabIndex = 25;
             // 
             // trackBar
             // 
             this.trackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBar.BackColor = System.Drawing.SystemColors.Info;
-            this.trackBar.Location = new System.Drawing.Point(413, 15);
+            this.trackBar.Location = new System.Drawing.Point(426, 16);
             this.trackBar.Name = "trackBar";
             this.trackBar.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar.Size = new System.Drawing.Size(45, 96);
+            this.trackBar.Size = new System.Drawing.Size(45, 104);
             this.trackBar.TabIndex = 25;
             this.trackBar.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
             this.trackBar.Scroll += new System.EventHandler(this.trackBar_Scroll);
@@ -380,126 +380,126 @@
             this.panel1.Controls.Add(this.ptcUserText);
             this.panel1.Controls.Add(this.ptcPassText);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(9, 8);
+            this.panel1.Location = new System.Drawing.Point(9, 9);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(225, 409);
+            this.panel1.Size = new System.Drawing.Size(212, 442);
             this.panel1.TabIndex = 26;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 230);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(113, 12);
-            this.label7.TabIndex = 32;
-            this.label7.Text = "PokeUi Image Size:";
-            // 
-            // ImageSizeBox
-            // 
-            this.ImageSizeBox.Location = new System.Drawing.Point(121, 227);
-            this.ImageSizeBox.Name = "ImageSizeBox";
-            this.ImageSizeBox.Size = new System.Drawing.Size(100, 21);
-            this.ImageSizeBox.TabIndex = 31;
-            // 
-            // EmailLoginText
-            // 
-            this.EmailLoginText.AutoSize = true;
-            this.EmailLoginText.Location = new System.Drawing.Point(3, 33);
-            this.EmailLoginText.Name = "EmailLoginText";
-            this.EmailLoginText.Size = new System.Drawing.Size(41, 12);
-            this.EmailLoginText.TabIndex = 27;
-            this.EmailLoginText.Text = "Email:";
             // 
             // CatchPokemonBox
             // 
             this.CatchPokemonBox.AutoSize = true;
-            this.CatchPokemonBox.Location = new System.Drawing.Point(122, 275);
+            this.CatchPokemonBox.Location = new System.Drawing.Point(104, 298);
             this.CatchPokemonBox.Name = "CatchPokemonBox";
             this.CatchPokemonBox.Size = new System.Drawing.Size(15, 14);
             this.CatchPokemonBox.TabIndex = 26;
             this.CatchPokemonBox.UseVisualStyleBackColor = true;
             this.CatchPokemonBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
-            // EmailPasswordText
-            // 
-            this.EmailPasswordText.AutoSize = true;
-            this.EmailPasswordText.Location = new System.Drawing.Point(3, 57);
-            this.EmailPasswordText.Name = "EmailPasswordText";
-            this.EmailPasswordText.Size = new System.Drawing.Size(59, 12);
-            this.EmailPasswordText.TabIndex = 28;
-            this.EmailPasswordText.Text = "Password:";
-            // 
             // CatchPokemonText
             // 
             this.CatchPokemonText.AutoSize = true;
-            this.CatchPokemonText.Location = new System.Drawing.Point(3, 275);
+            this.CatchPokemonText.Location = new System.Drawing.Point(3, 298);
             this.CatchPokemonText.Name = "CatchPokemonText";
-            this.CatchPokemonText.Size = new System.Drawing.Size(89, 12);
+            this.CatchPokemonText.Size = new System.Drawing.Size(86, 13);
             this.CatchPokemonText.TabIndex = 25;
             this.CatchPokemonText.Text = "Catch Pokemon:";
             this.CatchPokemonText.Click += new System.EventHandler(this.label7_Click);
             // 
-            // EmailPasswordBox
-            // 
-            this.EmailPasswordBox.Location = new System.Drawing.Point(85, 57);
-            this.EmailPasswordBox.Name = "EmailPasswordBox";
-            this.EmailPasswordBox.Size = new System.Drawing.Size(136, 21);
-            this.EmailPasswordBox.TabIndex = 30;
-            // 
-            // EmailLoginBox
-            // 
-            this.EmailLoginBox.Location = new System.Drawing.Point(85, 30);
-            this.EmailLoginBox.Name = "EmailLoginBox";
-            this.EmailLoginBox.Size = new System.Drawing.Size(136, 21);
-            this.EmailLoginBox.TabIndex = 29;
-            // 
             // transferIVThresText
             // 
-            this.transferIVThresText.Location = new System.Drawing.Point(121, 203);
+            this.transferIVThresText.Location = new System.Drawing.Point(104, 220);
             this.transferIVThresText.Name = "transferIVThresText";
-            this.transferIVThresText.Size = new System.Drawing.Size(100, 21);
+            this.transferIVThresText.Size = new System.Drawing.Size(100, 20);
             this.transferIVThresText.TabIndex = 24;
             this.transferIVThresText.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // TravelSpeedText
             // 
             this.TravelSpeedText.AutoSize = true;
-            this.TravelSpeedText.Location = new System.Drawing.Point(3, 254);
+            this.TravelSpeedText.Location = new System.Drawing.Point(3, 275);
             this.TravelSpeedText.Name = "TravelSpeedText";
-            this.TravelSpeedText.Size = new System.Drawing.Size(113, 12);
+            this.TravelSpeedText.Size = new System.Drawing.Size(102, 13);
             this.TravelSpeedText.TabIndex = 23;
             this.TravelSpeedText.Text = "Travel Speed km/h:";
             // 
             // TravelSpeedBox
             // 
-            this.TravelSpeedBox.Location = new System.Drawing.Point(121, 251);
+            this.TravelSpeedBox.Location = new System.Drawing.Point(104, 272);
             this.TravelSpeedBox.Name = "TravelSpeedBox";
-            this.TravelSpeedBox.Size = new System.Drawing.Size(100, 21);
+            this.TravelSpeedBox.Size = new System.Drawing.Size(100, 20);
             this.TravelSpeedBox.TabIndex = 22;
             this.TravelSpeedBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 203);
+            this.label6.Location = new System.Drawing.Point(3, 220);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(83, 12);
+            this.label6.Size = new System.Drawing.Size(70, 13);
             this.label6.TabIndex = 21;
             this.label6.Text = "IV Threshold:";
             this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
+            // EmailLoginText
+            // 
+            this.EmailLoginText.AutoSize = true;
+            this.EmailLoginText.Location = new System.Drawing.Point(3, 36);
+            this.EmailLoginText.Name = "EmailLoginText";
+            this.EmailLoginText.Size = new System.Drawing.Size(35, 13);
+            this.EmailLoginText.TabIndex = 27;
+            this.EmailLoginText.Text = "Email:";
+            // 
+            // EmailPasswordText
+            // 
+            this.EmailPasswordText.AutoSize = true;
+            this.EmailPasswordText.Location = new System.Drawing.Point(3, 62);
+            this.EmailPasswordText.Name = "EmailPasswordText";
+            this.EmailPasswordText.Size = new System.Drawing.Size(56, 13);
+            this.EmailPasswordText.TabIndex = 28;
+            this.EmailPasswordText.Text = "Password:";
+            // 
+            // EmailLoginBox
+            // 
+            this.EmailLoginBox.Location = new System.Drawing.Point(68, 33);
+            this.EmailLoginBox.Name = "EmailLoginBox";
+            this.EmailLoginBox.Size = new System.Drawing.Size(136, 20);
+            this.EmailLoginBox.TabIndex = 29;
+            // 
+            // EmailPasswordBox
+            // 
+            this.EmailPasswordBox.Location = new System.Drawing.Point(68, 62);
+            this.EmailPasswordBox.Name = "EmailPasswordBox";
+            this.EmailPasswordBox.Size = new System.Drawing.Size(136, 20);
+            this.EmailPasswordBox.TabIndex = 30;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(3, 249);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(100, 13);
+            this.label7.TabIndex = 32;
+            this.label7.Text = "PokeUi Image Size:";
+            // 
+            // ImageSizeBox
+            // 
+            this.ImageSizeBox.Location = new System.Drawing.Point(104, 246);
+            this.ImageSizeBox.Name = "ImageSizeBox";
+            this.ImageSizeBox.Size = new System.Drawing.Size(100, 20);
+            this.ImageSizeBox.TabIndex = 31;
+            // 
             // SettingsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(704, 425);
+            this.ClientSize = new System.Drawing.Size(704, 460);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(630, 335);
+            this.MinimumSize = new System.Drawing.Size(630, 360);
             this.Name = "SettingsForm";
-            this.Padding = new System.Windows.Forms.Padding(9, 8, 9, 8);
+            this.Padding = new System.Windows.Forms.Padding(9);
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Settings";
