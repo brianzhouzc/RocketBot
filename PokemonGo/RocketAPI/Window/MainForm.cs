@@ -132,7 +132,7 @@ namespace PokemonGo.RocketAPI.Window
                 // makes sense to display your version and say what the current one is on github
                 ColoredConsoleWrite(Color.Green, "Your version is " + Assembly.GetExecutingAssembly().GetName().Version);
                 ColoredConsoleWrite(Color.Green, "Github version is " + gitVersion);
-                ColoredConsoleWrite(Color.Green, "You can find it at www.GitHub.com/DetectiveSquirrel/Pokemon-Go-Rocket-API");
+                ColoredConsoleWrite(Color.Green, "You can find it at www.GitHub.com/1461748123/Pokemon-Go-Rocket-API");
             }
             catch (Exception)
             {
@@ -165,7 +165,10 @@ namespace PokemonGo.RocketAPI.Window
             object syncRoot = new object();
             lock (syncRoot) // Added locking to prevent text file trying to be accessed by two things at the same time
             {
-                File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + @"\Logs.txt", "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\n");
+                var dir = AppDomain.CurrentDomain.BaseDirectory + @"\Logs";
+                if (!Directory.Exists(dir))
+                    Directory.CreateDirectory(dir);
+                File.AppendAllText(dir + @"\" + DateTime.Today.ToString("yyyyMMdd") + ".txt", "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\r\n");
             }
         }
 
@@ -378,7 +381,7 @@ namespace PokemonGo.RocketAPI.Window
             catch (ArgumentNullException) { ColoredConsoleWrite(Color.Red, "Argument Null Refference - Restarting"); if (!Stopping) Execute(); }
             catch (NullReferenceException) { ColoredConsoleWrite(Color.Red, "Null Refference - Restarting"); if (!Stopping) Execute(); }
             catch (Exception ex) { ColoredConsoleWrite(Color.Red, ex.ToString()); if (!Stopping) Execute(); }
-            finally { client = null;}
+            finally { client = null; }
 
         }
 
@@ -1232,18 +1235,18 @@ namespace PokemonGo.RocketAPI.Window
         {
             objectListView1.ButtonClick += PokemonListButton_Click;
 
-             pkmnName.ImageGetter = delegate (object rowObject)
-            {
-                PokemonData pokemon = (PokemonData)rowObject;
+            pkmnName.ImageGetter = delegate (object rowObject)
+           {
+               PokemonData pokemon = (PokemonData)rowObject;
 
-                String key = pokemon.PokemonId.ToString();
-                if (!objectListView1.SmallImageList.Images.ContainsKey(key))
-                {
-                    Image img = GetPokemonImage((int)pokemon.PokemonId);
-                    objectListView1.SmallImageList.Images.Add(key, img);
-                }
-                return key;
-            };  
+               String key = pokemon.PokemonId.ToString();
+               if (!objectListView1.SmallImageList.Images.ContainsKey(key))
+               {
+                   Image img = GetPokemonImage((int)pokemon.PokemonId);
+                   objectListView1.SmallImageList.Images.Add(key, img);
+               }
+               return key;
+           };
 
             objectListView1.CellToolTipShowing += delegate (object sender, ToolTipShowingEventArgs args)
             {
