@@ -114,19 +114,19 @@
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // startStopBotToolStripMenuItem
-            // 
-            this.startStopBotToolStripMenuItem.Name = "startStopBotToolStripMenuItem";
-            this.startStopBotToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
-            this.startStopBotToolStripMenuItem.Text = "Start Farming";
-            this.startStopBotToolStripMenuItem.Click += new System.EventHandler(this.startStopBotToolStripMenuItem_Click);
-            // 
             // todoToolStripMenuItem
             // 
             this.todoToolStripMenuItem.Name = "todoToolStripMenuItem";
             this.todoToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.todoToolStripMenuItem.Text = "Settings";
             this.todoToolStripMenuItem.Click += new System.EventHandler(this.todoToolStripMenuItem_Click);
+            // 
+            // startStopBotToolStripMenuItem
+            // 
+            this.startStopBotToolStripMenuItem.Name = "startStopBotToolStripMenuItem";
+            this.startStopBotToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
+            this.startStopBotToolStripMenuItem.Text = "Start Farming";
+            this.startStopBotToolStripMenuItem.Click += new System.EventHandler(this.startStopBotToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -234,8 +234,7 @@
             this.pkmnName.AspectName = "PokemonId";
             this.pkmnName.AspectToStringFormat = "";
             this.pkmnName.Text = "Name";
-            this.pkmnName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.pkmnName.Width = 150;
+            this.pkmnName.Width = 149;
             // 
             // pkmnCP
             // 
