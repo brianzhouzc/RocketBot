@@ -50,7 +50,6 @@ namespace PokemonGo.RocketAPI.Window
             synchronizationContext = SynchronizationContext.Current;
             InitializeComponent();
             ClientSettings = Settings.Instance;
-            Client.OnConsoleWrite += Client_OnConsoleWrite;
             Instance = this;
         }
 
@@ -244,7 +243,6 @@ namespace PokemonGo.RocketAPI.Window
                         /*
                         ColoredConsoleWrite(ConsoleColor.White, $"Failed to evolve {pokemon.PokemonId}. " +
                                                  $"EvolvePokemonOutProto.Result was {result}");
-
                         ColoredConsoleWrite(ConsoleColor.White, $"Due to above error, stopping evolving {pokemon.PokemonId}");
                         */
                     }
@@ -575,11 +573,6 @@ namespace PokemonGo.RocketAPI.Window
             var mapObjects = await client.GetMapObjects();
 
             FortData[] rawPokeStops = mapObjects.MapCells.SelectMany(i => i.Forts).Where(i => i.Type == FortType.Checkpoint && i.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime()).ToArray();
-            if (rawPokeStops == null || rawPokeStops.Count() <= 0)
-            {
-                ColoredConsoleWrite(Color.Red, $"No PokeStops to visit here, please stop the bot and change your location.");
-                return;
-            }
             pokeStops = rawPokeStops;
             UpdateMap();
             ColoredConsoleWrite(Color.Cyan, $"Finding fastest route through all PokeStops..");
@@ -630,7 +623,8 @@ namespace PokemonGo.RocketAPI.Window
                 client.RecycleItems(client);
                 await ExecuteFarmingPokestopsAndPokemons(client);
             }
-        }
+        
+    }
 
         private async Task ForceUnban(Client client)
         {
@@ -1398,6 +1392,7 @@ namespace PokemonGo.RocketAPI.Window
         private void button1_Click(object sender, EventArgs e)
         {
             ReloadPokemonList();
+            ItemList();
         }
         #endregion
 
@@ -1410,5 +1405,62 @@ namespace PokemonGo.RocketAPI.Window
         {
 
         }
+       
+          
+       
+
+        private async void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            var item = (Item)dataGridView1.Rows[e.RowIndex].Tag;
+            if (item.Count - Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[1].Value) >= 1)
+            {
+                if (MessageBox.Show(this, $"Do you want to discard  {item.Count - Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[1].Value)}x{(AllEnum.ItemId)item.Item_} ?", "Discard?", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    dataGridView1.Rows[e.RowIndex].Selected = true;
+                    var transfer = await client.RecycleItem((AllEnum.ItemId)item.Item_, item.Count - Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[1].Value));
+                   
+                }
+            }
+        }
+        private async void ItemList()
+        {
+            dataGridView1.Enabled = false;
+            dataGridView1.Rows.Clear();
+            client = new Client(ClientSettings);
+            try
+            {
+                await client.Login();
+                await client.SetServer();
+                var inventory = await client.GetInventory();
+                var pokemons = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon).Where(p => p != null && p?.PokemonId > 0).OrderByDescending(key => key.Cp);
+                families = inventory.InventoryDelta.InventoryItems
+                   .Select(i => i.InventoryItemData?.PokemonFamily)
+                   .Where(p => p != null && (int)p?.FamilyId > 0)
+                   .OrderByDescending(p => (int)p.FamilyId);
+                var items = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Item).Where(p => p != null && p?.Count > 1);
+
+                foreach (Item item in items)
+                {
+                    dataGridView1.Invoke(new MethodInvoker(() => { dataGridView1.Rows[dataGridView1.Rows.Add(Convert.ToString((ItemId)item.Item_), item.Count)].Tag = item; }));
+
+                }
+            }
+            catch (Exception ex) { ColoredConsoleWrite(Color.Red, ex.ToString());  }
+            dataGridView1.Enabled = true;
+            await Task.Delay(300000);
+            ItemList();
+
+        }
+        private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Tab && dataGridView1.CurrentCell.ColumnIndex == 2)
+            {
+                e.Handled = true;
+
+                dataGridView1.BeginEdit(true);
+            }
+        }
+
+      
     }
 }

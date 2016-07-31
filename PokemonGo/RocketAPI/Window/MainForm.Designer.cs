@@ -56,13 +56,16 @@
             this.button1 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Item = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.objectListView1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // logTextBox
@@ -72,10 +75,11 @@
             this.logTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.logTextBox.ForeColor = System.Drawing.Color.White;
             this.logTextBox.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.logTextBox.Location = new System.Drawing.Point(0, 24);
+            this.logTextBox.Location = new System.Drawing.Point(0, 32);
+            this.logTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.logTextBox.Name = "logTextBox";
             this.logTextBox.ReadOnly = true;
-            this.logTextBox.Size = new System.Drawing.Size(668, 338);
+            this.logTextBox.Size = new System.Drawing.Size(889, 449);
             this.logTextBox.TabIndex = 0;
             this.logTextBox.Text = "";
             this.logTextBox.TextChanged += new System.EventHandler(this.logTextBox_TextChanged);
@@ -85,16 +89,17 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 615);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 824);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1012, 22);
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(1349, 25);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // statusLabel
             // 
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(43, 17);
+            this.statusLabel.Size = new System.Drawing.Size(49, 20);
             this.statusLabel.Text = "Status";
             // 
             // menuStrip1
@@ -107,35 +112,36 @@
             this.forceUnbanToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1012, 25);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 3, 0, 3);
+            this.menuStrip1.Size = new System.Drawing.Size(1349, 30);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // startStopBotToolStripMenuItem
             // 
             this.startStopBotToolStripMenuItem.Name = "startStopBotToolStripMenuItem";
-            this.startStopBotToolStripMenuItem.Size = new System.Drawing.Size(85, 21);
+            this.startStopBotToolStripMenuItem.Size = new System.Drawing.Size(96, 24);
             this.startStopBotToolStripMenuItem.Text = "▶ Start Bot";
             this.startStopBotToolStripMenuItem.Click += new System.EventHandler(this.startStopBotToolStripMenuItem_Click);
             // 
             // todoToolStripMenuItem
             // 
             this.todoToolStripMenuItem.Name = "todoToolStripMenuItem";
-            this.todoToolStripMenuItem.Size = new System.Drawing.Size(66, 21);
+            this.todoToolStripMenuItem.Size = new System.Drawing.Size(74, 24);
             this.todoToolStripMenuItem.Text = "Settings";
             this.todoToolStripMenuItem.Click += new System.EventHandler(this.todoToolStripMenuItem_Click);
             // 
             // useLuckyEggToolStripMenuItem
             // 
             this.useLuckyEggToolStripMenuItem.Name = "useLuckyEggToolStripMenuItem";
-            this.useLuckyEggToolStripMenuItem.Size = new System.Drawing.Size(105, 21);
+            this.useLuckyEggToolStripMenuItem.Size = new System.Drawing.Size(115, 24);
             this.useLuckyEggToolStripMenuItem.Text = "Use Lucky Egg";
             this.useLuckyEggToolStripMenuItem.Click += new System.EventHandler(this.useLuckyEggToolStripMenuItem_Click);
             // 
             // forceUnbanToolStripMenuItem
             // 
             this.forceUnbanToolStripMenuItem.Name = "forceUnbanToolStripMenuItem";
-            this.forceUnbanToolStripMenuItem.Size = new System.Drawing.Size(94, 21);
+            this.forceUnbanToolStripMenuItem.Size = new System.Drawing.Size(104, 24);
             this.forceUnbanToolStripMenuItem.Text = "Force Unban";
             this.forceUnbanToolStripMenuItem.Click += new System.EventHandler(this.forceUnbanToolStripMenuItem_Click);
             // 
@@ -158,7 +164,8 @@
             this.gMapControl1.GrayScaleMode = false;
             this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMapControl1.LevelsKeepInMemmory = 5;
-            this.gMapControl1.Location = new System.Drawing.Point(674, 24);
+            this.gMapControl1.Location = new System.Drawing.Point(899, 32);
+            this.gMapControl1.Margin = new System.Windows.Forms.Padding(4);
             this.gMapControl1.MarkersEnabled = true;
             this.gMapControl1.MaxZoom = 2;
             this.gMapControl1.MinZoom = 2;
@@ -171,7 +178,7 @@
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(338, 338);
+            this.gMapControl1.Size = new System.Drawing.Size(451, 451);
             this.gMapControl1.TabIndex = 23;
             this.gMapControl1.Zoom = 0D;
             // 
@@ -205,13 +212,14 @@
             this.objectListView1.FullRowSelect = true;
             this.objectListView1.GridLines = true;
             this.objectListView1.LargeImageList = this.largePokemonImageList;
-            this.objectListView1.Location = new System.Drawing.Point(0, 368);
+            this.objectListView1.Location = new System.Drawing.Point(0, 491);
+            this.objectListView1.Margin = new System.Windows.Forms.Padding(4);
             this.objectListView1.MultiSelect = false;
             this.objectListView1.Name = "objectListView1";
             this.objectListView1.RowHeight = 32;
             this.objectListView1.SelectAllOnControlA = false;
             this.objectListView1.ShowGroups = false;
-            this.objectListView1.Size = new System.Drawing.Size(668, 215);
+            this.objectListView1.Size = new System.Drawing.Size(889, 285);
             this.objectListView1.SmallImageList = this.smallPokemonImageList;
             this.objectListView1.TabIndex = 25;
             this.objectListView1.UseCompatibleStateImageBehavior = false;
@@ -295,9 +303,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(0, 588);
+            this.button1.Location = new System.Drawing.Point(0, 771);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(668, 26);
+            this.button1.Size = new System.Drawing.Size(891, 35);
             this.button1.TabIndex = 26;
             this.button1.Text = "Refresh";
             this.button1.UseVisualStyleBackColor = true;
@@ -308,51 +317,72 @@
             this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Enabled = false;
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(674, 368);
+            this.tabControl1.Location = new System.Drawing.Point(899, 491);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(338, 244);
+            this.tabControl1.Size = new System.Drawing.Size(451, 315);
             this.tabControl1.TabIndex = 27;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.dataGridView1);
             this.tabPage1.Location = new System.Drawing.Point(4, 4);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(330, 216);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage1.Size = new System.Drawing.Size(443, 284);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Incoming Feature";
+            this.tabPage1.Text = "Item List";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // dataGridView1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(67, 102);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(189, 25);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Incoming Features";
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Item,
+            this.Count});
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.Size = new System.Drawing.Size(443, 287);
+            this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
+            this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);
+            // 
+            // Item
+            // 
+            this.Item.HeaderText = "Item";
+            this.Item.Name = "Item";
+            this.Item.ReadOnly = true;
+            // 
+            // Count
+            // 
+            this.Count.HeaderText = "Count";
+            this.Count.Name = "Count";
             // 
             // tabPage2
             // 
             this.tabPage2.Location = new System.Drawing.Point(4, 4);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(330, 216);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage2.Size = new System.Drawing.Size(443, 284);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = ":3";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1012, 637);
+            this.ClientSize = new System.Drawing.Size(1349, 849);
             this.Controls.Add(this.gMapControl1);
             this.Controls.Add(this.logTextBox);
             this.Controls.Add(this.button1);
@@ -364,6 +394,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -376,7 +407,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.objectListView1)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -411,6 +442,8 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Item;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Count;
     }
 }
