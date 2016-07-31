@@ -68,6 +68,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\LatLongExtensions.cs" />
+    <Compile Include="ILatLong.cs" />
     <Compile Include="Enums\AuthType.cs" />
     <Compile Include="Enums\MiscEnums.cs" />
     <Compile Include="Enums\RequestType.cs" />
@@ -92,6 +94,7 @@
     <Compile Include="Extensions\HttpClientExtensions.cs" />
     <Compile Include="Helpers\RandomHelper.cs" />
     <Compile Include="Helpers\RequestBuilder.cs" />
+    <Compile Include="ProtoAdditions.cs" />
     <Compile Include="Resources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
