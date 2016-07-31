@@ -50,7 +50,7 @@ namespace PokemonGo.RocketAPI.Window
 
         private void tmrUpdate_Tick(object sender, EventArgs e)
         {
-            gMapControl1.Position = new PointLatLng(Client.getCurrentLat(), Client.getCurrentLong());
+            gMapControl1.Position = new PointLatLng(Client.CurrentLatitude, Client.CurrentLongitude);
         }
     }
 }
