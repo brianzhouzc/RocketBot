@@ -1,3 +1,5 @@
+# I will be discontinuing the development of this bot as of today its taking up too much of my time
+
 # Pokemon-Go-Rocket-API
 
 # Discusion not controlled by me but by user 1461748123
