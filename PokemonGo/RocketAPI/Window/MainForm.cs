@@ -980,7 +980,7 @@ namespace PokemonGo.RocketAPI.Window
                             hoursLeft++;
                         }
                     }
-                    SetStatusText(string.Format(profile.Profile.Username + " | Level: {0:0} - ({2:0} / {3:0}) | Runtime {1} | Stardust: {4:0}", v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount) + " | XP/Hour: " + Math.Round(TotalExperience / GetRuntime()) + " | Pokemon/Hour: " + Math.Round(TotalPokemon / GetRuntime()) + " | NextLevel in: " + hoursLeft + ":" + minutesLeft + ":" + secondsLeft);
+                    SetStatusText(string.Format(profile.Profile.Username + " | Level: {0:0} - ({2:0}/{3:0}) | Runtime {1} | Stardust: {4:0}", v.Level, _getSessionRuntimeInTimeFormat(), (v.Experience - v.PrevLevelXp - XpDiff), (v.NextLevelXp - v.PrevLevelXp - XpDiff), profile.Profile.Currency.ToArray()[1].Amount) + " | XP/Hour: " + Math.Round(TotalExperience / GetRuntime()) + " | Pokémon/Hour: " + Math.Round(TotalPokemon / GetRuntime()) + " | Next level in: " + hoursLeft + ":" + minutesLeft + ":" + secondsLeft);
                 }
             await Task.Delay(1000);
             updateUserStatusBar(client);
@@ -1078,7 +1078,7 @@ namespace PokemonGo.RocketAPI.Window
         {
             //ConsoleClear(); // dont really want the console to be wipped on bot stop, unnecessary
             ColoredConsoleWrite(Color.Red, $"Bot successfully stopped.");
-            startStopBotToolStripMenuItem.Text = "▶ Start Bot";
+            startStopBotToolStripMenuItem.Text = "Start Farming";
             Stopping = false;
             bot_started = false;
         }
@@ -1101,7 +1101,7 @@ namespace PokemonGo.RocketAPI.Window
             if (!bot_started)
             {
                 bot_started = true;
-                startStopBotToolStripMenuItem.Text = "■ Stop Bot";
+                startStopBotToolStripMenuItem.Text = "Stop Farming";
                 Task.Run(() =>
                 {
                     try
@@ -1194,6 +1194,42 @@ namespace PokemonGo.RocketAPI.Window
             }
         }
 
+        private async void useIncenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (client != null)
+            {
+                try
+                {
+                    IEnumerable<Item> myItems = await client.GetItems(client);
+                    IEnumerable<Item> Incenses = myItems.Where(i => (ItemId)i.Item_ == ItemId.ItemIncenseOrdinary);
+                    Item Incense = Incenses.FirstOrDefault();
+                    if (Incense != null)
+                    {
+                        var useIncenseRequest = await client.UseIncense(ItemId.ItemIncenseOrdinary);
+                        ColoredConsoleWrite(Color.Green, $"Using an Incense, we have {Incense.Count} left.");
+                        ColoredConsoleWrite(Color.Yellow, $"Incense valid until: {DateTime.Now.AddMinutes(30).ToString()}");
+
+                        var stripItem = sender as ToolStripMenuItem;
+                        stripItem.Enabled = false;
+                        await Task.Delay(30000);
+                        stripItem.Enabled = true;
+                    }
+                    else
+                    {
+                        ColoredConsoleWrite(Color.Red, $"You don't have any Incense to use.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ColoredConsoleWrite(Color.Red, $"Unhandled exception in using Incense: {ex}");
+                }
+            }
+            else
+            {
+                ColoredConsoleWrite(Color.Red, "Please start the bot before trying to use a Incense.");
+            }
+        }
+
         private async void forceUnbanToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (client != null && pokeStops != null)
@@ -1256,7 +1292,7 @@ namespace PokemonGo.RocketAPI.Window
             objectListView1.CellToolTipShowing += delegate (object sender, ToolTipShowingEventArgs args)
             {
                 PokemonData pokemon = (PokemonData)args.Model;
-                if (args.ColumnIndex == 8)
+                if (args.ColumnIndex == 9)
                 {
                     int candyOwned = families
                             .Where(i => (int)i.FamilyId <= (int)pokemon.PokemonId)
@@ -1313,15 +1349,15 @@ namespace PokemonGo.RocketAPI.Window
             try
             {
                 PokemonData pokemon = (PokemonData)e.Model;
-                if (e.ColumnIndex == 6)
+                if (e.ColumnIndex == 7)
                 {
                     TransferPokemon(pokemon);
                 }
-                else if (e.ColumnIndex == 7)
+                else if (e.ColumnIndex == 8)
                 {
                     PowerUpPokemon(pokemon);
                 }
-                else if (e.ColumnIndex == 8)
+                else if (e.ColumnIndex == 9)
                 {
                     EvolvePokemon(pokemon);
                 }
@@ -1407,6 +1443,11 @@ namespace PokemonGo.RocketAPI.Window
         }
 
         private void objectListView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }
