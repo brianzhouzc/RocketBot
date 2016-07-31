@@ -325,6 +325,47 @@ namespace PokemonGo.RocketAPI
             await _httpClient.PostProtoPayload<Request, GetMapObjectsResponse>($"https://{_apiUrl}/rpc", mapRequest);
         }
 
+        public async Task<GetMapObjectsResponse> GetMapObjectstounban()
+        {
+            var customRequest = new Request.Types.MapObjectsRequest
+            {
+                CellIds =
+                    ByteString.CopyFrom(
+                        ProtoHelper.EncodeUlongList(S2Helper.GetNearbyCellIds(_currentLng,
+                            _currentLat))),
+                Latitude = Utils.FloatAsUlong(_currentLat),
+                Longitude = Utils.FloatAsUlong(_currentLng),
+                Unknown14 = ByteString.CopyFromUtf8("\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0")
+            };
+
+            var mapRequest = RequestBuilder.GetRequest(_unknownAuth, _currentLat, _currentLng, 10,
+                new Request.Types.Requests
+                {
+                    Type = (int)RequestType.GET_MAP_OBJECTS,
+                    Message = customRequest.ToByteString()
+                },
+                new Request.Types.Requests { Type = (int)RequestType.GET_HATCHED_OBJECTS },
+                new Request.Types.Requests
+                {
+                    Type = (int)RequestType.GET_INVENTORY,
+                    Message = new Request.Types.Time { Time_ = DateTime.UtcNow.ToUnixTime() }.ToByteString()
+                },
+                new Request.Types.Requests { Type = (int)RequestType.CHECK_AWARDED_BADGES },
+                new Request.Types.Requests
+                {
+                    Type = (int)RequestType.DOWNLOAD_SETTINGS,
+                    Message =
+                        new Request.Types.SettingsGuid
+                        {
+                            Guid = ByteString.CopyFromUtf8("4a2e9bc330dae60e7b74fc85b98868ab4700802e")
+                        }.ToByteString()
+                });
+            await Task.Delay(1000);
+            return
+
+            await _httpClient.PostProtoPayload<Request, GetMapObjectsResponse>($"https://{_apiUrl}/rpc", mapRequest);
+        }
+
         public async Task<GetPlayerResponse> GetProfile()
         {
             var profileRequest = RequestBuilder.GetInitialRequest(_accessToken, _authType, _currentLat, _currentLng, 10,
