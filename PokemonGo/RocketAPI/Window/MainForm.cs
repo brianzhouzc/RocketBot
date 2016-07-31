@@ -1232,20 +1232,18 @@ namespace PokemonGo.RocketAPI.Window
         {
             objectListView1.ButtonClick += PokemonListButton_Click;
 
-            /* pkmnName.ImageGetter = delegate (object rowObject)
+             pkmnName.ImageGetter = delegate (object rowObject)
             {
                 PokemonData pokemon = (PokemonData)rowObject;
 
                 String key = pokemon.PokemonId.ToString();
-
                 if (!objectListView1.SmallImageList.Images.ContainsKey(key))
                 {
-                    Image largeImage = GetPokemonImage((int)pokemon.PokemonId);
-                    objectListView1.SmallImageList.Images.Add(key, largeImage);
-                    objectListView1.LargeImageList.Images.Add(key, largeImage);
+                    Image img = GetPokemonImage((int)pokemon.PokemonId);
+                    objectListView1.SmallImageList.Images.Add(key, img);
                 }
                 return key;
-            };  */
+            };  
 
             objectListView1.CellToolTipShowing += delegate (object sender, ToolTipShowingEventArgs args)
             {
