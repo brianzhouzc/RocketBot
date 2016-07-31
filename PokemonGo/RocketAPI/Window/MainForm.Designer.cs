@@ -41,6 +41,7 @@
             this.forceUnbanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -83,6 +84,7 @@
             this.mapToolStripMenuItem,
             this.todoToolStripMenuItem,
             this.pokemonToolStripMenuItem2,
+            this.toolStripMenuItem1,
             this.useLuckyEggToolStripMenuItem,
             this.forceUnbanToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -91,7 +93,7 @@
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // startBotToolStripMenuItem
+            // startStopBotToolStripMenuItem
             // 
             this.startStopBotToolStripMenuItem.Name = "startStopBotToolStripMenuItem";
             this.startStopBotToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
@@ -143,6 +145,13 @@
             this.showAllToolStripMenuItem1.Name = "showAllToolStripMenuItem1";
             this.showAllToolStripMenuItem1.Size = new System.Drawing.Size(32, 19);
             // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(74, 20);
+            this.toolStripMenuItem1.Text = "Bag\'s Item";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -180,5 +189,6 @@
         private System.Windows.Forms.ToolStripMenuItem useLuckyEggToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem forceUnbanToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mapToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
     }
 }
