@@ -587,3 +587,4 @@ namespace PokemonGo.RocketAPI
                         useItemRequest);
         }
     }
+}

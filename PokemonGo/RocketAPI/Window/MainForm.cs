@@ -1072,7 +1072,7 @@ namespace PokemonGo.RocketAPI.Window
         {
             //ConsoleClear(); // dont really want the console to be wipped on bot stop, unnecessary
             ColoredConsoleWrite(Color.Red, $"Bot successfully stopped.");
-            startStopBotToolStripMenuItem.Text = "▶ Start Bot";
+            startStopBotToolStripMenuItem.Text = "Start Farming";
             Stopping = false;
             bot_started = false;
         }
@@ -1095,7 +1095,7 @@ namespace PokemonGo.RocketAPI.Window
             if (!bot_started)
             {
                 bot_started = true;
-                startStopBotToolStripMenuItem.Text = "■ Stop Bot";
+                startStopBotToolStripMenuItem.Text = "Stop Farming";
                 Task.Run(() =>
                 {
                     try

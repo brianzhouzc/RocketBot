@@ -36,6 +36,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.startStopBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.todoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.useLuckyEggToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.forceUnbanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,6 +49,7 @@
             this.pkmnDefIV = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnStaIV = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnIV = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.pkmnCandys = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnTransferButton = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnPowerUpButton = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnEvolveButton = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -58,8 +60,6 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.pkmnCandys = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.objectListView1)).BeginInit();
@@ -103,8 +103,8 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.startStopBotToolStripMenuItem,
             this.todoToolStripMenuItem,
+            this.startStopBotToolStripMenuItem,
             this.toolStripMenuItem1,
             this.useLuckyEggToolStripMenuItem,
             this.forceUnbanToolStripMenuItem});
@@ -127,6 +127,12 @@
             this.todoToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.todoToolStripMenuItem.Text = "Settings";
             this.todoToolStripMenuItem.Click += new System.EventHandler(this.todoToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(81, 20);
+            this.toolStripMenuItem1.Text = "Use Incense";
             // 
             // useLuckyEggToolStripMenuItem
             // 
@@ -262,6 +268,11 @@
             this.pkmnIV.Text = "IV%";
             this.pkmnIV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // pkmnCandys
+            // 
+            this.pkmnCandys.Text = "Candy\'s";
+            this.pkmnCandys.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // pkmnTransferButton
             // 
             this.pkmnTransferButton.AspectName = "Id";
@@ -362,17 +373,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = ":3";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(81, 20);
-            this.toolStripMenuItem1.Text = "Use Incense";
-            // 
-            // pkmnCandys
-            // 
-            this.pkmnCandys.Text = "Candy\'s";
-            this.pkmnCandys.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // MainForm
             // 
