@@ -50,6 +50,7 @@ namespace PokemonGo.RocketAPI.Window
             synchronizationContext = SynchronizationContext.Current;
             InitializeComponent();
             ClientSettings = Settings.Instance;
+            Client.OnConsoleWrite += Client_OnConsoleWrite;
             Instance = this;
         }
 
