@@ -544,9 +544,12 @@ namespace PokemonGo.RocketAPI
             Item RazzBerry = RazzBerries.FirstOrDefault();
             if (RazzBerry != null)
             {
+                if (RazzBerry.Count > 0)
+                {
                 UseItemCaptureRequest useRazzBerry = await client.UseCaptureItem(encounterId, AllEnum.ItemId.ItemRazzBerry, spawnPointGuid);
                 ColoredConsoleWrite(ConsoleColor.Green, $"Using a Razz Berry, we have {RazzBerry.Count} left");
                 await Task.Delay(2000);
+                }
             }
         }
 
