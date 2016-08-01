@@ -548,6 +548,11 @@ namespace PokemonGo.RocketAPI
                 ColoredConsoleWrite(ConsoleColor.Green, $"Using a Razz Berry, we have {RazzBerry.Count} left");
                 await Task.Delay(2000);
             }
+            else
+            {
+                ColoredConsoleWrite(ConsoleColor.Red, $"You don't have any Razz Berry to use.");
+                await Task.Delay(2000);
+            }
         }
 
         public async Task<UseItemRequest> UseItemXpBoost(ItemId itemId)
