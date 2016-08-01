@@ -6,10 +6,11 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using System.Windows.Forms;
 
 namespace PokemonGo.RocketAPI.Window.Config
 {
-    static class PokemonConfig
+    public class PokemonConfig
     {
         // pokemon rare list
         public static readonly List<String> Everywhere = new List<string>
@@ -42,15 +43,16 @@ namespace PokemonGo.RocketAPI.Window.Config
 
         public static List<List<string>> PokemonRareList = new List<List<string>>();
 
-        static PokemonConfig()
+        public PokemonConfig()
         {
             InitialisePokemonRareList();
+            CachePokemonImage();
         }
 
         /// <summary>
         /// Initialise PokemonRareList
         /// </summary>
-        private static void InitialisePokemonRareList()
+        private void InitialisePokemonRareList()
         {
             PokemonRareList.Add(Everywhere);
             PokemonRareList.Add(VirtuallyEverywhere);
@@ -71,7 +73,7 @@ namespace PokemonGo.RocketAPI.Window.Config
         /// </summary>
         /// <param name="rare"> rare ranking ranges from 0 to 11. 0 means the most common, while 11 means the rarest</param>
         /// <returns></returns>
-        public static List<string> GetPokemonListByRare(int rare)
+        public List<string> GetPokemonListByRare(int rare)
         {
             if (rare < 0 || rare > 12)
                 return null;
@@ -83,7 +85,7 @@ namespace PokemonGo.RocketAPI.Window.Config
         /// <summary>
         /// cache the pokemon image when the app starts, to reduce the loading time of getting pokemon list.
         /// </summary>
-        public static void CachePokemonImage()
+        private void CachePokemonImage()
         {
             var Sprites = AppDomain.CurrentDomain.BaseDirectory + "Sprites\\";
 

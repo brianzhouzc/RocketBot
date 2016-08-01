@@ -27,6 +27,7 @@ using GMap.NET.WindowsForms.ToolTips;
 using System.Threading;
 using BrightIdeasSoftware;
 using PokemonGo.RocketAPI.Helpers;
+using PokemonGo.RocketAPI.Window.Config;
 
 namespace PokemonGo.RocketAPI.Window
 {
@@ -34,6 +35,7 @@ namespace PokemonGo.RocketAPI.Window
     {
         public static MainForm Instance;
         public static SynchronizationContext synchronizationContext;
+        public PokemonConfig config = new PokemonConfig();
 
         GMapOverlay searchAreaOverlay = new GMapOverlay("areas");
         GMapOverlay pokestopsOverlay = new GMapOverlay("pokestops");
