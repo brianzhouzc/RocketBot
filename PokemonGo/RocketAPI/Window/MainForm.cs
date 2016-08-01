@@ -102,7 +102,6 @@ namespace PokemonGo.RocketAPI.Window
         private static bool FarmingStops = false;
         private static bool FarmingPokemons = false;
         private static bool EggHatching = false;
-        private static bool WalkArriveDes = false;
         private static DateTime TimeStarted = DateTime.Now;
         public static DateTime InitSessionDateTime = DateTime.Now;
 
@@ -458,7 +457,7 @@ namespace PokemonGo.RocketAPI.Window
                 }
                 else
                 {
-                    await UpdatePlayerLocationWalk(pokemon.Latitude, pokemon.Longitude,client.CurrentLatitude,client.CurrentLongitude);
+                    await UpdatePlayerLocationWalk(pokemon.Latitude, pokemon.Longitude, client.CurrentLatitude, client.CurrentLongitude);
                     UpdatePlayerLocation(pokemon.Latitude, pokemon.Longitude);
                     ColoredConsoleWrite(Color.DarkGray, "3");
                 }
@@ -526,15 +525,16 @@ namespace PokemonGo.RocketAPI.Window
             }
             pokemons = null;
         }
-       
+
         private async Task UpdatePlayerLocationWalk(double goalLatitude, double goalLongitude, double currentLatitude, double currentLongitude)
         {
-            
+            bool WalkArriveDes = false;
+
             if (locationManager.getDistance(goalLatitude, goalLongitude) <= 0.000025)
             {
                 await client.UpdatePlayerLocation(goalLatitude, goalLongitude);
-                WalkArriveDes = true;
                 ColoredConsoleWrite(Color.Gray, $"1");
+                WalkArriveDes = true;
             }
             else if (locationManager.getDistance(goalLatitude, goalLongitude) > 0.000025)
             {
@@ -563,17 +563,27 @@ namespace PokemonGo.RocketAPI.Window
                 }
                 await client.UpdatePlayerLocation(coordinateLat, coordinateLng);
                 ColoredConsoleWrite(Color.Gray, $"Moving player location to Lat: {coordinateLat}, Lng: {coordinateLng}");
+
+                synchronizationContext.Post(new SendOrPostCallback(o =>
+                {
+                    playerMarker.Position = (PointLatLng)o;
+
+                    searchAreaOverlay.Polygons.Clear();
+
+                }), new PointLatLng(coordinateLat, coordinateLng));
             }
+
+
             if (EggHatching)
             {
-                if (WalkArriveDes)
+                if (!WalkArriveDes)
                 {
                     await Task.Delay(1000);
-                    await UpdatePlayerLocationWalk(goalLatitude, goalLongitude, currentLatitude, currentLongitude);
+                    UpdatePlayerLocationWalk(goalLatitude, goalLongitude, currentLatitude, currentLongitude);
                 }
                 else
                 {
-                    WalkArriveDes = false;
+                    WalkArriveDes = true;
                 }
 
             }
@@ -1500,7 +1510,7 @@ namespace PokemonGo.RocketAPI.Window
                 EggHatching = false;
                 eggHatchingModToolStripMenuItem.Text = "Egg Hatching Mod [Off]";
             }
-            
+
         }
     }
 }
