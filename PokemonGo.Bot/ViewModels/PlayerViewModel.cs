@@ -12,15 +12,16 @@ namespace PokemonGo.Bot.ViewModels
 {
     public class PlayerViewModel : ViewModelBase
     {
+        private readonly MapViewModel map;
         private readonly Client client;
 
         public AsyncRelayCommand Login { get; }
         public AsyncRelayCommand LoadProfile { get; }
 
         public InventoryViewModel Inventory { get; }
-        private GetPlayerResponse profile;
+        private Profile profile;
 
-        public GetPlayerResponse Profile
+        public Profile Profile
         {
             get
             {
@@ -36,9 +37,9 @@ namespace PokemonGo.Bot.ViewModels
             }
         }
 
-        private DownloadSettingsResponse settings;
+        private GlobalSettings settings;
 
-        public DownloadSettingsResponse Settings
+        public GlobalSettings Settings
         {
             get
             {
@@ -49,24 +50,6 @@ namespace PokemonGo.Bot.ViewModels
                 if (Settings != value)
                 {
                     settings = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        private GetMapObjectsResponse mapObjects;
-
-        public GetMapObjectsResponse MapObjects
-        {
-            get
-            {
-                return mapObjects;
-            }
-            set
-            {
-                if (MapObjects != value)
-                {
-                    mapObjects = value;
                     RaisePropertyChanged();
                 }
             }
@@ -110,38 +93,39 @@ namespace PokemonGo.Bot.ViewModels
 
         private double speedInmetersPerMillisecond;
 
-        AsyncRelayCommand Move { get; }
+        public AsyncRelayCommand<PositionViewModel> Move { get; }
 
-        public async Task MoveTo(double lat, double lon)
+        private async Task MoveTo(PositionViewModel newPosition)
         {
-            var newPosition = new PositionViewModel(lat, lon);
             var waitTime = Position.DistanceTo(newPosition) / speedInmetersPerMillisecond;
             await Task.Delay((int)Math.Ceiling(waitTime));
-            await client.UpdatePlayerLocation(lat, lon);
+            await map.SetPosition.ExecuteAsync(newPosition);
             Position = newPosition;
         }
 
-        public PlayerViewModel(Client client, InventoryViewModel inventory, ISettings settings)
+        public PlayerViewModel(Client client, InventoryViewModel inventory, MapViewModel map, ISettings settings)
         {
             this.client = client;
+            this.map = map;
             Inventory = inventory;
             speedInmetersPerMillisecond = settings.TravelSpeed / 3600;
 
             Position = new PositionViewModel(client.CurrentLatitude, client.CurrentLongitude);
+            LoadProfile = new AsyncRelayCommand(async () => Profile = (await client.GetProfile()).Profile);
 
             Login = new AsyncRelayCommand(async () =>
             {
                 // We do not use Task.WhenAll here because this is the order in which the android app executes these requests.
                 await client.Login();
                 await client.SetServer();
-                Profile = await client.GetProfile();
-                Settings = await client.GetSettings();
-                MapObjects = await client.GetMapObjects();
+                await LoadProfile.ExecuteAsync();
+                Settings = (await client.GetSettings()).Settings;
+                await map.GetMapObjects.ExecuteAsync();
                 await Inventory.Load.ExecuteAsync();
                 IsLoggedIn = true;
 
             });
-            LoadProfile = new AsyncRelayCommand(async () => Profile = await client.GetProfile());
+            Move = new AsyncRelayCommand<PositionViewModel>(MoveTo);
         }
     }
 }

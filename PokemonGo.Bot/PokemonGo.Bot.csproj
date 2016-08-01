@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BotActions\ActionState.cs" />
+    <Compile Include="BotActions\CatchPokemonAction.cs" />
     <Compile Include="BotActions\FarmingAction.cs" />
     <Compile Include="MVVMLightUtils\AsyncRelayCommand.cs" />
     <Compile Include="MVVMLightUtils\ObservableCollectionHelper.cs" />
@@ -79,10 +80,13 @@
     <Compile Include="Utils\RouteOptimizer.cs" />
     <Compile Include="ViewModels\BotViewModel.cs" />
     <Compile Include="ViewModels\InventoryViewModel.cs" />
+    <Compile Include="ViewModels\MapPokemonViewModel.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="ViewModels\PlayerViewModel.cs" />
     <Compile Include="BotActions\StoppedAction.cs" />
+    <Compile Include="ViewModels\PokemonViewModel.cs" />
     <Compile Include="ViewModels\PositionViewModel.cs" />
+    <Compile Include="ViewModels\WilPokemonViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

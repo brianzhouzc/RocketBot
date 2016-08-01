@@ -53,11 +53,8 @@ namespace PokemonGo.Bot.BotActions
 
             while(!shouldStop)
             {
-                await bot.Player.MoveTo(currentPokeStop.Latitude, currentPokeStop.Longitude);
-
-                var fortInfo = await client.GetFort(currentPokeStop.Id, currentPokeStop.Latitude, currentPokeStop.Longitude);
-                var fortSearch = await client.SearchFort(currentPokeStop.Id, currentPokeStop.Latitude, currentPokeStop.Longitude);
-                currentPokeStop.CooldownCompleteTimestampMs = DateTime.UtcNow.ToUnixTime() + 300000;
+                await MoveToPokestop(currentPokeStop);
+                await FarmPokestop(currentPokeStop);
 
 
 
@@ -68,6 +65,18 @@ namespace PokemonGo.Bot.BotActions
                     enumerator.MoveNext();
                 }
             }
+        }
+
+        private async Task MoveToPokestop(FortData currentPokeStop)
+        {
+            await bot.Player.Move.ExecuteAsync(new PositionViewModel(currentPokeStop.Latitude, currentPokeStop.Longitude));
+        }
+
+        private async Task FarmPokestop(FortData currentPokeStop)
+        {
+            var fortInfo = await client.GetFort(currentPokeStop.Id, currentPokeStop.Latitude, currentPokeStop.Longitude);
+            var fortSearch = await client.SearchFort(currentPokeStop.Id, currentPokeStop.Latitude, currentPokeStop.Longitude);
+            currentPokeStop.CooldownCompleteTimestampMs = DateTime.UtcNow.ToUnixTime() + 300000;
         }
     }
 }

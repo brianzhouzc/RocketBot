@@ -50,8 +50,8 @@ namespace PokemonGo.Bot.ViewModels
 
 
 
-        private GetInventoryResponse inventory;
-        private GetInventoryResponse Inventory
+        private InventoryDelta inventory;
+        private InventoryDelta Inventory
         {
             get
             {
@@ -64,10 +64,28 @@ namespace PokemonGo.Bot.ViewModels
                     inventory = value;
                     RaisePropertyChanged();
                     RaisePropertyChanged(nameof(Pokemon));
+                    PlayerStats = value.InventoryItems.Where(i => i.InventoryItemData.PlayerStats != null).Select(i => i.InventoryItemData.PlayerStats).FirstOrDefault();
                 }
             }
         }
-        public IEnumerable<PokemonData> Pokemon => Inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon).Where(p => p?.PokemonId > 0);
+        public IEnumerable<PokemonData> Pokemon => Inventory.InventoryItems.Select(i => i.InventoryItemData?.Pokemon).Where(p => p?.PokemonId > 0);
+
+        private PlayerStats playerStats;
+        private PlayerStats PlayerStats
+        {
+            get
+            {
+                return playerStats;
+            }
+            set
+            {
+                if (PlayerStats != value)
+                {
+                    playerStats = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         readonly Client client;
 
@@ -75,7 +93,7 @@ namespace PokemonGo.Bot.ViewModels
         {
             this.client = client;
 
-            Load = new AsyncRelayCommand(async () => Inventory = await client.GetInventory());
+            Load = new AsyncRelayCommand(async () => Inventory = (await client.GetInventory()).InventoryDelta);
             TransferPokemonWithAlgorithm = new AsyncRelayCommand(async () => await ExecuteTransferPokemonWithAlgorithm(TransferPokemonAlgorithm));
             TransferSinglePokemon = new AsyncRelayCommand<ulong>(async param => await ExecuteTransferSinglePokemon(param));
             Recycle = new AsyncRelayCommand(async () => await client.RecycleItems(client));

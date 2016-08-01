@@ -27,5 +27,25 @@ namespace PokemonGo.Bot.ViewModels
             var c = 2 * Math.Atan2(Math.Sqrt(h), Math.Sqrt(1 - h));
             return R * c;
         }
+
+        public override bool Equals(object obj) => Equals(obj as PositionViewModel);
+
+        public bool Equals(PositionViewModel other)
+        {
+            return other != null &&
+                Latitude == other.Latitude &&
+                Longitude == other.Longitude;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hash = 13;
+                hash = (hash * 7) + Latitude.GetHashCode();
+                hash = (hash * 7) + Longitude.GetHashCode();
+                return hash;
+            }
+        }
     }
 }
