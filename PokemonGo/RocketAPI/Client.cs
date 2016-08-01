@@ -542,7 +542,7 @@ namespace PokemonGo.RocketAPI
             IEnumerable<Item> myItems = await GetItems(client);
             IEnumerable<Item> RazzBerries = myItems.Where(i => (ItemId)i.Item_ == ItemId.ItemRazzBerry);
             Item RazzBerry = RazzBerries.FirstOrDefault();
-            if (RazzBerry.Count > 0)
+            if (RazzBerry != null)
             {
                 UseItemCaptureRequest useRazzBerry = await client.UseCaptureItem(encounterId, AllEnum.ItemId.ItemRazzBerry, spawnPointGuid);
                 ColoredConsoleWrite(ConsoleColor.Green, $"Using a Razz Berry, we have {RazzBerry.Count} left");
@@ -551,6 +551,7 @@ namespace PokemonGo.RocketAPI
             else
             {
                 ColoredConsoleWrite(ConsoleColor.Red, $"You don't have any Razz Berry to use.");
+                await Task.Delay(2000);
             }
         }
 
