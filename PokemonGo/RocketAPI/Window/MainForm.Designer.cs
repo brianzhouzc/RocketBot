@@ -58,6 +58,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.eggHatchingModToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.objectListView1)).BeginInit();
@@ -72,10 +73,10 @@
             this.logTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.logTextBox.ForeColor = System.Drawing.Color.White;
             this.logTextBox.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.logTextBox.Location = new System.Drawing.Point(0, 24);
+            this.logTextBox.Location = new System.Drawing.Point(0, 26);
             this.logTextBox.Name = "logTextBox";
             this.logTextBox.ReadOnly = true;
-            this.logTextBox.Size = new System.Drawing.Size(668, 338);
+            this.logTextBox.Size = new System.Drawing.Size(668, 366);
             this.logTextBox.TabIndex = 0;
             this.logTextBox.Text = "";
             this.logTextBox.TextChanged += new System.EventHandler(this.logTextBox_TextChanged);
@@ -85,7 +86,7 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 615);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 668);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1012, 22);
             this.statusStrip1.TabIndex = 1;
@@ -94,7 +95,7 @@
             // statusLabel
             // 
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(43, 17);
+            this.statusLabel.Size = new System.Drawing.Size(39, 17);
             this.statusLabel.Text = "Status";
             // 
             // menuStrip1
@@ -104,38 +105,39 @@
             this.startStopBotToolStripMenuItem,
             this.todoToolStripMenuItem,
             this.useLuckyEggToolStripMenuItem,
-            this.forceUnbanToolStripMenuItem});
+            this.forceUnbanToolStripMenuItem,
+            this.eggHatchingModToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1012, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(1012, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // startStopBotToolStripMenuItem
             // 
             this.startStopBotToolStripMenuItem.Name = "startStopBotToolStripMenuItem";
-            this.startStopBotToolStripMenuItem.Size = new System.Drawing.Size(85, 21);
+            this.startStopBotToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
             this.startStopBotToolStripMenuItem.Text = "▶ Start Bot";
             this.startStopBotToolStripMenuItem.Click += new System.EventHandler(this.startStopBotToolStripMenuItem_Click);
             // 
             // todoToolStripMenuItem
             // 
             this.todoToolStripMenuItem.Name = "todoToolStripMenuItem";
-            this.todoToolStripMenuItem.Size = new System.Drawing.Size(66, 21);
+            this.todoToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.todoToolStripMenuItem.Text = "Settings";
             this.todoToolStripMenuItem.Click += new System.EventHandler(this.todoToolStripMenuItem_Click);
             // 
             // useLuckyEggToolStripMenuItem
             // 
             this.useLuckyEggToolStripMenuItem.Name = "useLuckyEggToolStripMenuItem";
-            this.useLuckyEggToolStripMenuItem.Size = new System.Drawing.Size(105, 21);
+            this.useLuckyEggToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
             this.useLuckyEggToolStripMenuItem.Text = "Use Lucky Egg";
             this.useLuckyEggToolStripMenuItem.Click += new System.EventHandler(this.useLuckyEggToolStripMenuItem_Click);
             // 
             // forceUnbanToolStripMenuItem
             // 
             this.forceUnbanToolStripMenuItem.Name = "forceUnbanToolStripMenuItem";
-            this.forceUnbanToolStripMenuItem.Size = new System.Drawing.Size(94, 21);
+            this.forceUnbanToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
             this.forceUnbanToolStripMenuItem.Text = "Force Unban";
             this.forceUnbanToolStripMenuItem.Click += new System.EventHandler(this.forceUnbanToolStripMenuItem_Click);
             // 
@@ -158,7 +160,7 @@
             this.gMapControl1.GrayScaleMode = false;
             this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMapControl1.LevelsKeepInMemmory = 5;
-            this.gMapControl1.Location = new System.Drawing.Point(674, 24);
+            this.gMapControl1.Location = new System.Drawing.Point(674, 26);
             this.gMapControl1.MarkersEnabled = true;
             this.gMapControl1.MaxZoom = 2;
             this.gMapControl1.MinZoom = 2;
@@ -171,7 +173,7 @@
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(338, 338);
+            this.gMapControl1.Size = new System.Drawing.Size(338, 366);
             this.gMapControl1.TabIndex = 23;
             this.gMapControl1.Zoom = 0D;
             // 
@@ -205,13 +207,13 @@
             this.objectListView1.FullRowSelect = true;
             this.objectListView1.GridLines = true;
             this.objectListView1.LargeImageList = this.largePokemonImageList;
-            this.objectListView1.Location = new System.Drawing.Point(0, 368);
+            this.objectListView1.Location = new System.Drawing.Point(0, 399);
             this.objectListView1.MultiSelect = false;
             this.objectListView1.Name = "objectListView1";
             this.objectListView1.RowHeight = 32;
             this.objectListView1.SelectAllOnControlA = false;
             this.objectListView1.ShowGroups = false;
-            this.objectListView1.Size = new System.Drawing.Size(668, 215);
+            this.objectListView1.Size = new System.Drawing.Size(668, 233);
             this.objectListView1.SmallImageList = this.smallPokemonImageList;
             this.objectListView1.TabIndex = 25;
             this.objectListView1.UseCompatibleStateImageBehavior = false;
@@ -295,9 +297,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(0, 588);
+            this.button1.Location = new System.Drawing.Point(0, 637);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(668, 26);
+            this.button1.Size = new System.Drawing.Size(668, 28);
             this.button1.TabIndex = 26;
             this.button1.Text = "Refresh";
             this.button1.UseVisualStyleBackColor = true;
@@ -310,11 +312,11 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Enabled = false;
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(674, 368);
+            this.tabControl1.Location = new System.Drawing.Point(674, 399);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(338, 244);
+            this.tabControl1.Size = new System.Drawing.Size(338, 264);
             this.tabControl1.TabIndex = 27;
             // 
             // tabPage1
@@ -323,7 +325,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(330, 216);
+            this.tabPage1.Size = new System.Drawing.Size(330, 236);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Incoming Feature";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -332,7 +334,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(67, 102);
+            this.label1.Location = new System.Drawing.Point(67, 111);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(189, 25);
             this.label1.TabIndex = 0;
@@ -343,16 +345,23 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(330, 216);
+            this.tabPage2.Size = new System.Drawing.Size(330, 236);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = ":3";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // eggHatchingModToolStripMenuItem
+            // 
+            this.eggHatchingModToolStripMenuItem.Name = "eggHatchingModToolStripMenuItem";
+            this.eggHatchingModToolStripMenuItem.Size = new System.Drawing.Size(147, 20);
+            this.eggHatchingModToolStripMenuItem.Text = "Egg Hatching Mod [Off]";
+            this.eggHatchingModToolStripMenuItem.Click += new System.EventHandler(this.eggHatchingModToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1012, 637);
+            this.ClientSize = new System.Drawing.Size(1012, 690);
             this.Controls.Add(this.gMapControl1);
             this.Controls.Add(this.logTextBox);
             this.Controls.Add(this.button1);
@@ -412,5 +421,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem eggHatchingModToolStripMenuItem;
     }
 }

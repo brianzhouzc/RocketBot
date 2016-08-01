@@ -101,6 +101,8 @@ namespace PokemonGo.RocketAPI.Window
         private static bool ForceUnbanning = false;
         private static bool FarmingStops = false;
         private static bool FarmingPokemons = false;
+        private static bool EggHatching = false;
+        private static bool WalkArriveDes = false;
         private static DateTime TimeStarted = DateTime.Now;
         public static DateTime InitSessionDateTime = DateTime.Now;
 
@@ -449,9 +451,17 @@ namespace PokemonGo.RocketAPI.Window
                 }
                 else
                     pokemonName = Convert.ToString(pokemon.PokemonId);
-
-                await client.UpdatePlayerLocation(pokemon.Latitude, pokemon.Longitude);
-                UpdatePlayerLocation(pokemon.Latitude, pokemon.Longitude);
+                if (!EggHatching)
+                {
+                    await client.UpdatePlayerLocation(pokemon.Latitude, pokemon.Longitude);
+                    UpdatePlayerLocation(pokemon.Latitude, pokemon.Longitude);
+                }
+                else
+                {
+                    await UpdatePlayerLocationWalk(pokemon.Latitude, pokemon.Longitude,client.CurrentLatitude,client.CurrentLongitude);
+                    UpdatePlayerLocation(pokemon.Latitude, pokemon.Longitude);
+                    ColoredConsoleWrite(Color.DarkGray, "3");
+                }
                 UpdateMap();
                 var encounterPokemonResponse = await client.EncounterPokemon(pokemon.EncounterId, pokemon.SpawnpointId);
                 var pokemonCP = encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp;
@@ -516,7 +526,58 @@ namespace PokemonGo.RocketAPI.Window
             }
             pokemons = null;
         }
+       
+        private async Task UpdatePlayerLocationWalk(double goalLatitude, double goalLongitude, double currentLatitude, double currentLongitude)
+        {
+            
+            if (locationManager.getDistance(goalLatitude, goalLongitude) <= 0.000025)
+            {
+                await client.UpdatePlayerLocation(goalLatitude, goalLongitude);
+                WalkArriveDes = true;
+                ColoredConsoleWrite(Color.Gray, $"1");
+            }
+            else if (locationManager.getDistance(goalLatitude, goalLongitude) > 0.000025)
+            {
+                var slopeX = (currentLatitude - goalLatitude);
+                var slopeY = (currentLongitude - goalLongitude);
+                var X = Math.Sin(Math.Atan(slopeY / slopeX)) * 0.000025;
+                var Y = Math.Cos(Math.Atan(slopeY / slopeX)) * 0.000025;
+                var coordinateLat = 0.0;
+                var coordinateLng = 0.0;
 
+                if (currentLatitude <= goalLatitude)
+                {
+                    coordinateLat = currentLatitude + X;
+                }
+                else if (currentLatitude > goalLatitude)
+                {
+                    coordinateLat = currentLatitude - X;
+                }
+                if (currentLongitude <= goalLongitude)
+                {
+                    coordinateLng = currentLongitude + Y;
+                }
+                else if (currentLongitude > goalLongitude)
+                {
+                    coordinateLng = currentLongitude - Y;
+                }
+                await client.UpdatePlayerLocation(coordinateLat, coordinateLng);
+                ColoredConsoleWrite(Color.Gray, $"Moving player location to Lat: {coordinateLat}, Lng: {coordinateLng}");
+            }
+            if (EggHatching)
+            {
+                if (WalkArriveDes)
+                {
+                    await Task.Delay(1000);
+                    await UpdatePlayerLocationWalk(goalLatitude, goalLongitude, currentLatitude, currentLongitude);
+                }
+                else
+                {
+                    WalkArriveDes = false;
+                }
+
+            }
+        }
         private void UpdatePlayerLocation(double latitude, double longitude)
         {
             synchronizationContext.Post(new SendOrPostCallback(o =>
@@ -596,8 +657,16 @@ namespace PokemonGo.RocketAPI.Window
                     break;
 
                 FarmingStops = true;
-                await locationManager.update(pokeStop.Latitude, pokeStop.Longitude);
-                UpdatePlayerLocation(pokeStop.Latitude, pokeStop.Longitude);
+                if (!EggHatching)
+                {
+                    await client.UpdatePlayerLocation(pokeStop.Latitude, pokeStop.Longitude);
+                    UpdatePlayerLocation(pokeStop.Latitude, pokeStop.Longitude);
+                }
+                else
+                {
+                    await UpdatePlayerLocationWalk(pokeStop.Latitude, pokeStop.Longitude, client.CurrentLatitude, client.CurrentLongitude);
+                    UpdatePlayerLocation(pokeStop.Latitude, pokeStop.Longitude);
+                }
                 UpdateMap();
 
                 var fortInfo = await client.GetFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
@@ -653,8 +722,16 @@ namespace PokemonGo.RocketAPI.Window
                 {
                     if (pokeStop.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime())
                     {
-                        await locationManager.update(pokeStop.Latitude, pokeStop.Longitude);
-                        UpdatePlayerLocation(pokeStop.Latitude, pokeStop.Longitude);
+                        if (!EggHatching)
+                        {
+                            await client.UpdatePlayerLocation(pokeStop.Latitude, pokeStop.Longitude);
+                            UpdatePlayerLocation(pokeStop.Latitude, pokeStop.Longitude);
+                        }
+                        else
+                        {
+                            await UpdatePlayerLocationWalk(pokeStop.Latitude, pokeStop.Longitude, client.CurrentLatitude, client.CurrentLongitude);
+                            UpdatePlayerLocation(pokeStop.Latitude, pokeStop.Longitude);
+                        }
                         UpdateMap();
 
                         var fortInfo = await client.GetFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
@@ -1409,6 +1486,21 @@ namespace PokemonGo.RocketAPI.Window
         private void objectListView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void eggHatchingModToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (EggHatching == false)
+            {
+                EggHatching = true;
+                eggHatchingModToolStripMenuItem.Text = "Egg Hatching Mod [On]";
+            }
+            else if (EggHatching == true)
+            {
+                EggHatching = false;
+                eggHatchingModToolStripMenuItem.Text = "Egg Hatching Mod [Off]";
+            }
+            
         }
     }
 }
