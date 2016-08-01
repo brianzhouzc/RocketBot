@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/1461748123/Pokemon-Go-Rocket-API.png?label=ready&title=Ready)](https://waffle.io/1461748123/Pokemon-Go-Rocket-API)
 # Pokemon-Go-Rocket-API
 
 ## Official discord channel for user and developer discussions.
