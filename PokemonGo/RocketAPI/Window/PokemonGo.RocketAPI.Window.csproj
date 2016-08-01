@@ -74,9 +74,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CueTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="LocationManager.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

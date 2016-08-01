@@ -480,7 +480,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TrackBar trackBar;
-        private CueTextBox textBoxAddress;
         private System.Windows.Forms.TextBox TravelSpeedBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label TravelSpeedText;
