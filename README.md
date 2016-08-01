@@ -1,9 +1,9 @@
 # Pokemon-Go-Rocket-API
 
-# Official discord channel for user and developer discussions.
+## Official discord channel for user and developer discussions.
 * https://discord.gg/y6EU2qY
 
-#Window
+## Window
 ![alt tag](https://github.com/1461748123/Pokemon-Go-Rocket-API/blob/master/MainWindow.png)  
 ![alt tag](https://github.com/1461748123/Pokemon-Go-Rocket-API/blob/master/MainSettings2.png)
 
@@ -32,7 +32,18 @@ A Pokémon Go bot in C#
 * Logs everything into Logs folder
 
 ## Getting Started
-Build and Run (CTRL+F5)
+### Download
+Download the bot from the [release](https://github.com/1461748123/Pokemon-Go-Rocket-API/releases) tab.  
+If you want the latest Beta-Build, you have to download the build from the Beta-Build branch and compile them by yourself with VisualStudio 2015.   
+**Waning: Beta-Builds are unstable and might cause damage to your account, use at your own risk**
+### Login
+There are problems with google oauth login, so we have to use account and password to login for now.  
+To ensure your account's safety, we suggest you to creat an app password just for botting. This will also allows users with 2-fact-auth enable to use the bot.  
+Tutorial on how to use app password: [Google support](https://support.google.com/mail/answer/185833?hl=en)
+### Settings
+Change your settings using the settings tab on the bot. If you want more advance settings, edit the settings file under the bot's folder.
+### Wola
+Click Start Bot and enjoy!
 
 # Settings
 ## AuthType
