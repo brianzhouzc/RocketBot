@@ -1167,7 +1167,7 @@ namespace PokemonGo.RocketAPI.Window
                     IEnumerable<Item> myItems = await client.GetItems(client);
                     IEnumerable<Item> LuckyEggs = myItems.Where(i => (ItemId)i.Item_ == ItemId.ItemLuckyEgg);
                     Item LuckyEgg = LuckyEggs.FirstOrDefault();
-                    if (LuckyEgg != null)
+                    if (LuckyEgg.Count > 0)
                     {
                         var useItemXpBoostRequest = await client.UseItemXpBoost(ItemId.ItemLuckyEgg);
                         ColoredConsoleWrite(Color.Green, $"Using a Lucky Egg, we have {LuckyEgg.Count} left.");
