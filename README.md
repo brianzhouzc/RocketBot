@@ -1,6 +1,6 @@
-[![Stories in Ready](https://badge.waffle.io/1461748123/Pokemon-Go-Rocket-API.png?label=ready&title=Ready)](https://waffle.io/1461748123/Pokemon-Go-Rocket-API)
 # Pokemon-Go-Rocket-API
-
+[![Stories in Ready](https://badge.waffle.io/1461748123/Pokemon-Go-Rocket-API.svg?label=in progress&title=In Progress)](http://waffle.io/1461748123/Pokemon-Go-Rocket-API)
+[![Stories in Ready](https://badge.waffle.io/1461748123/Pokemon-Go-Rocket-API.png?label=ready&title=Ready)](https://waffle.io/1461748123/Pokemon-Go-Rocket-API)
 ## Official discord channel for user and developer discussions.
 * https://discord.gg/y6EU2qY
 
