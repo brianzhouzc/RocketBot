@@ -16,22 +16,19 @@ namespace PokemonGo.Bot.ViewModels
         public AsyncRelayCommand Load { get; }
 
         public AsyncRelayCommand<ulong> TransferSinglePokemon { get; }
-        private Task ExecuteTransferSinglePokemon(ulong pokemonId)
-        {
-            return client.TransferPokemon(pokemonId);
-        }
+        Task ExecuteTransferSinglePokemonAsync(ulong pokemonId) => client.TransferPokemon(pokemonId);
 
         public AsyncRelayCommand TransferPokemonWithAlgorithm { get; }
-        private Task ExecuteTransferPokemonWithAlgorithm(TransferPokemonAlgorithm transferAlgorithm)
+        Task ExecuteTransferPokemonWithAlgorithmAsync(TransferPokemonAlgorithm transferAlgorithm)
         {
-            var algorithm = TransferPokemonAlgorithms.TransferPokemonAlgorithms.Get(transferAlgorithm);
+            var algorithm = transferPokemonAlgorithmFactory.Get(transferAlgorithm);
             var pokemonToTransfer = algorithm.Apply(Pokemon);
             return Task.WhenAll(pokemonToTransfer.Select(p => client.TransferPokemon(p.Id)));
         }
 
         public AsyncRelayCommand Recycle { get; }
 
-        private TransferPokemonAlgorithm transferPokemonAlgorithm;
+        TransferPokemonAlgorithm transferPokemonAlgorithm;
         public TransferPokemonAlgorithm TransferPokemonAlgorithm
         {
             get
@@ -50,8 +47,8 @@ namespace PokemonGo.Bot.ViewModels
 
 
 
-        private InventoryDelta inventory;
-        private InventoryDelta Inventory
+        InventoryDelta inventory;
+        InventoryDelta Inventory
         {
             get
             {
@@ -70,8 +67,8 @@ namespace PokemonGo.Bot.ViewModels
         }
         public IEnumerable<PokemonData> Pokemon => Inventory.InventoryItems.Select(i => i.InventoryItemData?.Pokemon).Where(p => p?.PokemonId > 0);
 
-        private PlayerStats playerStats;
-        private PlayerStats PlayerStats
+        PlayerStats playerStats;
+        public PlayerStats PlayerStats
         {
             get
             {
@@ -88,14 +85,17 @@ namespace PokemonGo.Bot.ViewModels
         }
 
         readonly Client client;
+        readonly TransferPokemonAlgorithmFactory transferPokemonAlgorithmFactory;
 
-        public InventoryViewModel(Client client)
+        public InventoryViewModel(Client client, TransferPokemonAlgorithmFactory transferPokemonAlgorithmFactory)
         {
+            this.transferPokemonAlgorithmFactory = transferPokemonAlgorithmFactory;
+            TransferPokemonAlgorithm = transferPokemonAlgorithmFactory.GetDefaultFromSettings();
             this.client = client;
 
             Load = new AsyncRelayCommand(async () => Inventory = (await client.GetInventory()).InventoryDelta);
-            TransferPokemonWithAlgorithm = new AsyncRelayCommand(async () => await ExecuteTransferPokemonWithAlgorithm(TransferPokemonAlgorithm));
-            TransferSinglePokemon = new AsyncRelayCommand<ulong>(async param => await ExecuteTransferSinglePokemon(param));
+            TransferPokemonWithAlgorithm = new AsyncRelayCommand(async () => await ExecuteTransferPokemonWithAlgorithmAsync(TransferPokemonAlgorithm));
+            TransferSinglePokemon = new AsyncRelayCommand<ulong>(async param => await ExecuteTransferSinglePokemonAsync(param));
             Recycle = new AsyncRelayCommand(async () => await client.RecycleItems(client));
         }
     }

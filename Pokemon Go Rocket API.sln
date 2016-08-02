@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonGo.RocketAPI.Window"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonGo.Bot", "PokemonGo.Bot\PokemonGo.Bot.csproj", "{CC21D8B4-E64B-4D37-902F-4DDE004B6D4D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonGo.WPF", "PokemonGo.WPF\PokemonGo.WPF.csproj", "{6397D8A2-7A3E-4B35-862E-21BBA74827C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{CC21D8B4-E64B-4D37-902F-4DDE004B6D4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC21D8B4-E64B-4D37-902F-4DDE004B6D4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC21D8B4-E64B-4D37-902F-4DDE004B6D4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6397D8A2-7A3E-4B35-862E-21BBA74827C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6397D8A2-7A3E-4B35-862E-21BBA74827C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6397D8A2-7A3E-4B35-862E-21BBA74827C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6397D8A2-7A3E-4B35-862E-21BBA74827C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

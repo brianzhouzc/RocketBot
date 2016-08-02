@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PokemonGo.RocketAPI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace PokemonGo.Bot.TransferPokemonAlgorithms
 {
     public enum TransferPokemonAlgorithm
     {
-        LeaveStrongest,
+        CPDuplicate,
         All,
         Duplicate,
         IVDuplicate,

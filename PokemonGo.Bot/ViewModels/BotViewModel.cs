@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Command;
 using PokemonGo.Bot.BotActions;
 using PokemonGo.RocketAPI;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace PokemonGo.Bot.ViewModels
 {
@@ -11,36 +12,55 @@ namespace PokemonGo.Bot.ViewModels
         public PlayerViewModel Player { get; }
         readonly Client client;
         BotAction currentAction;
-        readonly Queue<BotAction> upcomingActions = new Queue<BotAction>();
+        public ObservableCollection<BotAction> UpcomingActions { get; } = new ObservableCollection<BotAction>();
+        readonly ActionFactory actionFactory;
+        public RelayCommand<BotActionType> AddAction { get; }
 
         public MapViewModel Map { get; }
 
-        public BotViewModel(Client client, PlayerViewModel player, MapViewModel map)
+        public BotViewModel(Client client, PlayerViewModel player, MapViewModel map, ISettings settings)
         {
             Map = map;
             this.client = client;
             Start = new RelayCommand(AdvanceToNextAction, HasNextAction);
             Stop = new RelayCommand(StopCurrentAction, IsExecutingAction);
             Player = player;
+            actionFactory = new ActionFactory(this, client, settings);
+            AddAction = new RelayCommand<BotActionType>(param =>
+            {
+                UpcomingActions.Add(actionFactory.Get(param));
+                Start.RaiseCanExecuteChanged();
+                Stop.RaiseCanExecuteChanged();
+            });
         }
 
         public RelayCommand Stop { get; }
 
-        private RelayCommand Start { get; }
+        public RelayCommand Start { get; }
 
-        private void AddAction(BotAction action) => upcomingActions.Enqueue(action);
-
-        private void AdvanceToNextAction()
+        void AdvanceToNextAction()
         {
-            currentAction = HasNextAction() ? upcomingActions.Dequeue() : new StoppedAction(this);
+            currentAction = DequeueAction();
+            StartCurrentAction();
         }
 
-        private bool HasNextAction() => upcomingActions.Count > 0;
+        BotAction DequeueAction()
+        {
+            if(HasNextAction())
+            {
+                var firstAction = UpcomingActions[0];
+                UpcomingActions.RemoveAt(0);
+                return firstAction;
+            }
+            return new StoppedAction(this);
+        }
 
-        private bool IsExecutingAction() => currentAction?.State == ActionState.Running;
+        bool HasNextAction() => UpcomingActions.Count > 0;
 
-        private void StartCurrentAction() => currentAction?.StartAsync();
+        bool IsExecutingAction() => currentAction?.State == ActionState.Running;
 
-        private void StopCurrentAction() => currentAction?.StopAsync();
+        void StartCurrentAction() => currentAction?.StartAsync();
+
+        void StopCurrentAction() => currentAction?.StopAsync();
     }
 }

@@ -55,7 +55,7 @@ namespace PokemonGo.RocketAPI.Bot.utils
         //    }), pokeStops);
         //}
 
-        private static List<FortData> Optimize2Opt(List<FortData> pokeStops, out bool isOptimized)
+        static List<FortData> Optimize2Opt(List<FortData> pokeStops, out bool isOptimized)
         {
             var n = pokeStops.Count;
             var bestGain = 0f;
@@ -123,17 +123,17 @@ namespace PokemonGo.RocketAPI.Bot.utils
             return pokeStops;
         }
 
-        private static FortData FindNN(IEnumerable<FortData> pokeStops, double cLatitude, double cLongitude)
+        static FortData FindNN(IEnumerable<FortData> pokeStops, double cLatitude, double cLongitude)
         {
             return pokeStops.OrderBy(p => GetDistance(cLatitude, cLongitude, p.Latitude, p.Longitude)).First();
         }
 
-        private static float GetDistance(FortData a, FortData b)
+        static float GetDistance(FortData a, FortData b)
         {
             return GetDistance(a.Latitude, a.Longitude, b.Latitude, b.Longitude);
         }
 
-        private static float GetDistance(double lat1, double lng1, double lat2, double lng2)
+        static float GetDistance(double lat1, double lng1, double lat2, double lng2)
         {
             var R = 6371e3;
             Func<double, float> toRad = x => (float)(x * (Math.PI / 180));

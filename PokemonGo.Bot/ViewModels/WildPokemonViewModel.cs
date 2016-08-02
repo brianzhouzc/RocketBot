@@ -2,9 +2,9 @@
 
 namespace PokemonGo.Bot.ViewModels
 {
-    public class WilPokemonViewModel : PokemonViewModel
+    public class WildPokemonViewModel : PokemonViewModel
     {
-        public WilPokemonViewModel(WildPokemon pokemon) : base(pokemon.PokemonData.PokemonId)
+        public WildPokemonViewModel(WildPokemon pokemon) : base(pokemon.PokemonData.PokemonId)
         {
             EncounterId = pokemon.EncounterId;
             LastModifiedTimestampMs = pokemon.LastModifiedTimestampMs;
@@ -19,6 +19,6 @@ namespace PokemonGo.Bot.ViewModels
         public string SpawnpointId { get; }
         public int TimeTillHiddenMs { get; }
         public PokemonData PokemonData { get; }
-        private PositionViewModel Position { get; }
+        PositionViewModel Position { get; }
     }
 }
