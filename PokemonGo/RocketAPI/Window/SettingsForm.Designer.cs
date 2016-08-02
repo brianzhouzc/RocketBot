@@ -217,6 +217,7 @@
             this.razzSettingText.Name = "razzSettingText";
             this.razzSettingText.Size = new System.Drawing.Size(100, 21);
             this.razzSettingText.TabIndex = 16;
+            this.razzSettingText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.razzSettingText_KeyPress);
             // 
             // transferTypeCb
             // 
@@ -321,10 +322,14 @@
             // 
             // AdressBox
             // 
+            this.AdressBox.ForeColor = System.Drawing.Color.Gray;
             this.AdressBox.Location = new System.Drawing.Point(18, 379);
             this.AdressBox.Name = "AdressBox";
             this.AdressBox.Size = new System.Drawing.Size(331, 21);
             this.AdressBox.TabIndex = 25;
+            this.AdressBox.Text = "Enter an adress or a coordinate";
+            this.AdressBox.Enter += new System.EventHandler(this.AdressBox_Enter);
+            this.AdressBox.Leave += new System.EventHandler(this.AdressBox_Leave);
             // 
             // trackBar
             // 
@@ -381,6 +386,7 @@
             this.TravelSpeedBox.Size = new System.Drawing.Size(100, 21);
             this.TravelSpeedBox.TabIndex = 22;
             this.TravelSpeedBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.TravelSpeedBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TravelSpeedBox_KeyPress);
             // 
             // CatchPokemonBox
             // 
