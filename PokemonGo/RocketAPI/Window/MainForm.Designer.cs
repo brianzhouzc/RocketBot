@@ -69,7 +69,7 @@
             // 
             this.logTextBox.BackColor = System.Drawing.Color.Black;
             this.logTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.logTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.logTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.logTextBox.ForeColor = System.Drawing.Color.White;
             this.logTextBox.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.logTextBox.Location = new System.Drawing.Point(0, 24);
@@ -209,50 +209,50 @@
             this.objectListView1.MultiSelect = false;
             this.objectListView1.Name = "objectListView1";
             this.objectListView1.RowHeight = 32;
-            this.objectListView1.SelectAllOnControlA = false;
             this.objectListView1.ShowGroups = false;
-            this.objectListView1.Size = new System.Drawing.Size(668, 215);
+            this.objectListView1.Size = new System.Drawing.Size(668, 220);
             this.objectListView1.SmallImageList = this.smallPokemonImageList;
             this.objectListView1.TabIndex = 25;
             this.objectListView1.UseCompatibleStateImageBehavior = false;
             this.objectListView1.View = System.Windows.Forms.View.Details;
-            this.objectListView1.SelectedIndexChanged += new System.EventHandler(this.objectListView1_SelectedIndexChanged);
             // 
             // pkmnName
             // 
             this.pkmnName.AspectName = "PokemonId";
             this.pkmnName.AspectToStringFormat = "";
             this.pkmnName.Text = "Name";
-            this.pkmnName.Width = 130;
+            this.pkmnName.Width = 120;
             // 
             // pkmnCP
             // 
             this.pkmnCP.AspectName = "Cp";
             this.pkmnCP.Text = "CP";
+            this.pkmnCP.Width = 50;
             // 
             // pkmnAtkIV
             // 
             this.pkmnAtkIV.AspectName = "IndividualAttack";
-            this.pkmnAtkIV.Text = "Attack IV";
-            this.pkmnAtkIV.Width = 70;
+            this.pkmnAtkIV.Text = "Atk IV";
+            this.pkmnAtkIV.Width = 50;
             // 
             // pkmnDefIV
             // 
             this.pkmnDefIV.AspectName = "IndividualDefense";
-            this.pkmnDefIV.Text = "Defense IV";
-            this.pkmnDefIV.Width = 70;
+            this.pkmnDefIV.Text = "Def IV";
+            this.pkmnDefIV.Width = 50;
             // 
             // pkmnStaIV
             // 
             this.pkmnStaIV.AspectName = "IndividualStamina";
-            this.pkmnStaIV.Text = "Stamina IV";
-            this.pkmnStaIV.Width = 70;
+            this.pkmnStaIV.Text = "Sta IV";
+            this.pkmnStaIV.Width = 50;
             // 
             // pkmnIV
             // 
             this.pkmnIV.AspectName = "GetIV";
             this.pkmnIV.AspectToStringFormat = "{0:P2}";
-            this.pkmnIV.Text = "Perfection";
+            this.pkmnIV.Text = "IV %";
+            this.pkmnIV.Width = 50;
             // 
             // pkmnTransferButton
             // 
@@ -274,6 +274,7 @@
             // 
             this.pkmnEvolveButton.AspectName = "Id";
             this.pkmnEvolveButton.AspectToStringFormat = "Evolve";
+            this.pkmnEvolveButton.ButtonSizing = BrightIdeasSoftware.OLVColumn.ButtonSizingMode.CellBounds;
             this.pkmnEvolveButton.IsButton = true;
             this.pkmnEvolveButton.Text = "";
             // 

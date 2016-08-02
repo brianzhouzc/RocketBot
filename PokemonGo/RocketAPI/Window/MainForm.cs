@@ -88,7 +88,6 @@ namespace PokemonGo.RocketAPI.Window
         private void InitializeMap()
         {
             playerMarker.Position = new PointLatLng(ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude);
-
             searchAreaOverlay.Polygons.Clear();
             S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(ClientSettings.DefaultLongitude, ClientSettings.DefaultLatitude), searchAreaOverlay);
         }
@@ -361,6 +360,7 @@ namespace PokemonGo.RocketAPI.Window
                     startStopBotToolStripMenuItem.Text = "Start";
                     Stopping = false;
                     bot_started = false;
+                    pokeStops = null;
                 }
             }
             catch (TaskCanceledException) { ColoredConsoleWrite(Color.Red, "Task Canceled Exception - Restarting"); if (!Stopping) Execute(); }
@@ -552,6 +552,7 @@ namespace PokemonGo.RocketAPI.Window
                     }
                 }
 
+                searchAreaOverlay.Polygons.Clear();
                 S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(ClientSettings.DefaultLongitude, ClientSettings.DefaultLatitude), searchAreaOverlay);
             }), null);
         }
@@ -1221,35 +1222,35 @@ namespace PokemonGo.RocketAPI.Window
         #region POKEMON LIST
         private IEnumerable<PokemonFamily> families;
 
-
         private void InitializePokemonForm()
         {
             objectListView1.ButtonClick += PokemonListButton_Click;
 
             pkmnName.ImageGetter = delegate (object rowObject)
-           {
-               PokemonData pokemon = (PokemonData)rowObject;
+            {
+                PokemonData pokemon = (PokemonData)rowObject;
 
-               String key = pokemon.PokemonId.ToString();
-               if (!objectListView1.SmallImageList.Images.ContainsKey(key))
-               {
-                   Image img = GetPokemonImage((int)pokemon.PokemonId);
-                   objectListView1.SmallImageList.Images.Add(key, img);
-               }
-               return key;
-           };
+                String key = pokemon.PokemonId.ToString();
+                if (!objectListView1.SmallImageList.Images.ContainsKey(key))
+                {
+                    Image img = GetPokemonImage((int)pokemon.PokemonId);
+                    objectListView1.SmallImageList.Images.Add(key, img);
+                }
+                return key;
+            };
 
             objectListView1.CellToolTipShowing += delegate (object sender, ToolTipShowingEventArgs args)
             {
                 PokemonData pokemon = (PokemonData)args.Model;
-                if (args.ColumnIndex == 8)
-                {
-                    int candyOwned = families
-                            .Where(i => (int)i.FamilyId <= (int)pokemon.PokemonId)
-                            .Select(f => f.Candy)
-                            .First();
-                    args.Text = candyOwned + " Candy";
-                }
+
+                var family = families
+                        .Where(i => (int)i.FamilyId <= (int)pokemon.PokemonId)
+                        .First();
+                args.Text = $"You have {family.Candy} {((PokemonId)((int)family.FamilyId)).ToString()} Candy";
+            };
+
+            objectListView1.FormatRow += delegate (object sender, FormatRowEventArgs args) {
+                args.Item.Text = args.RowIndex.ToString();
             };
         }
 
