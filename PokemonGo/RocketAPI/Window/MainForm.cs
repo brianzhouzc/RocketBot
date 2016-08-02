@@ -219,6 +219,7 @@ namespace PokemonGo.RocketAPI.Window
             foreach (var pokemon in pokemonToEvolve)
             {
                 var countOfEvolvedUnits = 0;
+                var xpCount = 0;
 
                 EvolvePokemonOut evolvePokemonOutProto;
                 do
@@ -228,25 +229,16 @@ namespace PokemonGo.RocketAPI.Window
 
                     if (evolvePokemonOutProto.Result == 1)
                     {
-                        ColoredConsoleWrite(Color.Cyan,
-                            $"Evolved {pokemon.PokemonId} successfully for {evolvePokemonOutProto.ExpAwarded}xp");
-
                         countOfEvolvedUnits++;
+                        xpCount += evolvePokemonOutProto.ExpAwarded;
                         TotalExperience += evolvePokemonOutProto.ExpAwarded;
                     }
-                    else
-                    {
-                        var result = evolvePokemonOutProto.Result;
-                        ColoredConsoleWrite(Color.White, $"Failed to evolve {pokemon.PokemonId}. " +
-                                                 $"EvolvePokemonOutProto.Result was {result}");
-                        ColoredConsoleWrite(Color.White, $"Due to above error, stopping evolving {pokemon.PokemonId}");
-                    }
                 } while (evolvePokemonOutProto.Result == 1);
-                /*
+
                 if (countOfEvolvedUnits > 0)
                     ColoredConsoleWrite(Color.Cyan,
                         $"Evolved {countOfEvolvedUnits} pieces of {pokemon.PokemonId} for {xpCount}xp");
-                        */
+
                 await Task.Delay(3000);
             }
         }
