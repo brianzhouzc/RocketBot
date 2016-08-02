@@ -47,7 +47,7 @@ namespace PokemonGo.RocketAPI.Window
                 List<FortData> p = new List<FortData>((List<FortData>)o);
                 routeOverlay.Markers.Clear();
                 List<PointLatLng> routePoint = new List<PointLatLng>();
-                foreach (var pokeStop in p)
+                foreach (var pokeStop in p.Where(pS => pS != null))
                 {
                     var pokeStopLoc = new PointLatLng(pokeStop.Latitude, pokeStop.Longitude);
 

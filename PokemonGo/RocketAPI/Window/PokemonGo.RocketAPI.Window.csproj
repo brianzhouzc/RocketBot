@@ -35,9 +35,7 @@
   <PropertyGroup>
     <ApplicationIcon>pokemonGo.ico</ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup>
-    <NoWin32Manifest>true</NoWin32Manifest>
-  </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
     <StartupObject>
     </StartupObject>
@@ -51,6 +49,10 @@
     </Reference>
     <Reference Include="Google.Protobuf">
       <HintPath>..\..\..\packages\Google.Protobuf.3.0.0-beta3\lib\dotnet\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="ObjectListView, Version=2.9.1.1072, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\ObjectListView.Official.2.9.1\lib\net20\ObjectListView.dll</HintPath>
@@ -96,6 +98,12 @@
     <Compile Include="PokemonForm.Designer.cs">
       <DependentUpon>PokemonForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PokemonLists.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PokemonLists.Designer.cs">
+      <DependentUpon>PokemonLists.cs</DependentUpon>
+    </Compile>
     <Compile Include="RouteOptimizer.cs" />
     <Compile Include="PokeUi.cs">
       <SubType>Form</SubType>
@@ -122,6 +130,9 @@
     <EmbeddedResource Include="PokemonForm.resx">
       <DependentUpon>PokemonForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PokemonLists.resx">
+      <DependentUpon>PokemonLists.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PokeUi.resx">
       <DependentUpon>PokeUi.cs</DependentUpon>
     </EmbeddedResource>
@@ -137,6 +148,7 @@
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -160,6 +172,18 @@
     <None Include="pokemonGo.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
