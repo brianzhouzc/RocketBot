@@ -490,8 +490,6 @@ namespace PokemonGo.RocketAPI
                 ColoredConsoleWrite(ConsoleColor.DarkCyan, $"Recycled {item.Count}x {((AllEnum.ItemId)item.Item_).ToString().Substring(4)}");
                 await Task.Delay(500);
             }
-            await Task.Delay(_settings.RecycleItemsInterval * 1000);
-            RecycleItems(client);
         }
 
         public async Task<Response.Types.Unknown6> RecycleItem(AllEnum.ItemId itemId, int amount)
