@@ -70,6 +70,9 @@ namespace PokemonGo.RocketAPI.Window
 
             //set zoom
             gMapControl1.Zoom = trackBar.Value;
+
+            //disable map focus
+            gMapControl1.DisableFocusOnMouseEnter = true;
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
@@ -104,6 +107,7 @@ namespace PokemonGo.RocketAPI.Window
             Settings.Instance.SetSetting(CatchPokemonBox.Checked ? "true" : "false", "CatchPokemon");
             Settings.Instance.Reload();
 
+            MainForm.ResetMap();
             Close();
         }
 
@@ -238,6 +242,47 @@ namespace PokemonGo.RocketAPI.Window
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TravelSpeedBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char ch = e.KeyChar;
+            if (!Char.IsDigit(ch) && ch != 8)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void razzSettingText_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char ch = e.KeyChar;
+            if (!Char.IsDigit(ch) && ch != 8)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void AdressBox_Leave(object sender, EventArgs e)
+        {
+            if (AdressBox.Text.Length == 0)
+            {
+                AdressBox.Text = "Enter an address or a coordinate";
+                AdressBox.ForeColor = SystemColors.GrayText;
+            }
+        }
+
+        private void AdressBox_Enter(object sender, EventArgs e)
+        {
+            if (AdressBox.Text == "Enter an address or a coordinate")
+            {
+                AdressBox.Text = "";
+                AdressBox.ForeColor = SystemColors.WindowText;
+            }
+        }
+
+        private void AdressBox_TextChanged(object sender, EventArgs e)
         {
 
         }

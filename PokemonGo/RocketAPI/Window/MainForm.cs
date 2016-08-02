@@ -93,6 +93,14 @@ namespace PokemonGo.RocketAPI.Window
             S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(ClientSettings.DefaultLongitude, ClientSettings.DefaultLatitude), searchAreaOverlay);
         }
 
+        public static void ResetMap()
+        {
+            Instance.gMapControl1.Position = new PointLatLng(ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude);
+            Instance.playerMarker.Position = new PointLatLng(ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude);
+            Instance.searchAreaOverlay.Polygons.Clear();
+            S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(ClientSettings.DefaultLongitude, ClientSettings.DefaultLatitude), Instance.searchAreaOverlay);
+        }
+
         public static ISettings ClientSettings;
         private static int Currentlevel = -1;
         private static int TotalExperience = 0;
@@ -134,7 +142,7 @@ namespace PokemonGo.RocketAPI.Window
                 // makes sense to display your version and say what the current one is on github
                 ColoredConsoleWrite(Color.Green, "Your version is " + Assembly.GetExecutingAssembly().GetName().Version);
                 ColoredConsoleWrite(Color.Green, "Github version is " + gitVersion);
-                ColoredConsoleWrite(Color.Green, "You can find it at www.GitHub.com/1461748123/Pokemon-Go-Rocket-API");
+                ColoredConsoleWrite(Color.Green, "You can find it at www.GitHub.com/1461748123/Pokemon-Go-Rocket-API/releases");
             }
             catch (Exception)
             {
@@ -210,19 +218,7 @@ namespace PokemonGo.RocketAPI.Window
         {
             foreach (var pokemon in pokemonToEvolve)
             {
-                /*
-                enum Holoholo.Rpc.Types.EvolvePokemonOutProto.Result {
-	                UNSET = 0;
-	                SUCCESS = 1;
-	                FAILED_POKEMON_MISSING = 2;
-	                FAILED_INSUFFICIENT_RESOURCES = 3;
-	                FAILED_POKEMON_CANNOT_EVOLVE = 4;
-	                FAILED_POKEMON_IS_DEPLOYED = 5;
-                }
-                }*/
-
                 var countOfEvolvedUnits = 0;
-                var xpCount = 0;
 
                 EvolvePokemonOut evolvePokemonOutProto;
                 do
@@ -236,23 +232,21 @@ namespace PokemonGo.RocketAPI.Window
                             $"Evolved {pokemon.PokemonId} successfully for {evolvePokemonOutProto.ExpAwarded}xp");
 
                         countOfEvolvedUnits++;
-                        xpCount += evolvePokemonOutProto.ExpAwarded;
+                        TotalExperience += evolvePokemonOutProto.ExpAwarded;
                     }
                     else
                     {
                         var result = evolvePokemonOutProto.Result;
-                        /*
-                        ColoredConsoleWrite(ConsoleColor.White, $"Failed to evolve {pokemon.PokemonId}. " +
+                        ColoredConsoleWrite(Color.White, $"Failed to evolve {pokemon.PokemonId}. " +
                                                  $"EvolvePokemonOutProto.Result was {result}");
-
-                        ColoredConsoleWrite(ConsoleColor.White, $"Due to above error, stopping evolving {pokemon.PokemonId}");
-                        */
+                        ColoredConsoleWrite(Color.White, $"Due to above error, stopping evolving {pokemon.PokemonId}");
                     }
                 } while (evolvePokemonOutProto.Result == 1);
+                /*
                 if (countOfEvolvedUnits > 0)
                     ColoredConsoleWrite(Color.Cyan,
                         $"Evolved {countOfEvolvedUnits} pieces of {pokemon.PokemonId} for {xpCount}xp");
-
+                        */
                 await Task.Delay(3000);
             }
         }
@@ -1269,16 +1263,7 @@ namespace PokemonGo.RocketAPI.Window
 
         private Image GetPokemonImage(int pokemonId)
         {
-            var Sprites = AppDomain.CurrentDomain.BaseDirectory + "Sprites\\";
-            string location = Sprites + pokemonId + ".png";
-            if (!Directory.Exists(Sprites))
-                Directory.CreateDirectory(Sprites);
-            if (!File.Exists(location))
-            {
-                WebClient wc = new WebClient();
-                wc.DownloadFile("http://pokeapi.co/media/sprites/pokemon/" + pokemonId + ".png", @location);
-            }
-            return Image.FromFile(location);
+            return (Image)Properties.Resources.ResourceManager.GetObject("Pokemon_" + pokemonId);
         }
 
         private async void ReloadPokemonList()
@@ -1384,6 +1369,7 @@ namespace PokemonGo.RocketAPI.Window
             {
                 message = $"{pokemon.PokemonId} successfully evolved into {evolvePokemonResponse.EvolvedPokemon.PokemonType}\n{evolvePokemonResponse.ExpAwarded} experience awarded\n{evolvePokemonResponse.CandyAwarded} candy awarded";
                 caption = $"{pokemon.PokemonId} evolved into {evolvePokemonResponse.EvolvedPokemon.PokemonType}";
+                TotalExperience += (evolvePokemonResponse.ExpAwarded);
                 ReloadPokemonList();
             }
             else
