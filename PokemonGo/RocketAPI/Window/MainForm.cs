@@ -1311,66 +1311,47 @@ namespace PokemonGo.RocketAPI.Window
             if (MessageBox.Show($"Are you sure you want to transfer {pokemon.PokemonId.ToString()} with {pokemon.Cp} CP?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 var transferPokemonResponse = await client2.TransferPokemon(pokemon.Id);
-                string message = "";
-                string caption = "";
 
                 if (transferPokemonResponse.Status == 1)
                 {
-                    message = $"{pokemon.PokemonId} was transferred\n{transferPokemonResponse.CandyAwarded} candy awarded";
-                    caption = $"{pokemon.PokemonId} transferred";
+                    ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} was transferred. {transferPokemonResponse.CandyAwarded} candy awarded");
                     ReloadPokemonList();
                 }
                 else
                 {
-                    message = $"{pokemon.PokemonId} could not be transferred";
-                    caption = $"Transfer {pokemon.PokemonId} failed";
+                    ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} could not be transferred");
                 }
-
-                MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
         private async void PowerUpPokemon(PokemonData pokemon)
         {
             var evolvePokemonResponse = await client2.PowerUp(pokemon.Id);
-            string message = "";
-            string caption = "";
 
             if (evolvePokemonResponse.Result == 1)
             {
-                message = $"{pokemon.PokemonId} successfully upgraded.";
-                caption = $"{pokemon.PokemonId} upgraded";
+                ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} successfully upgraded.");
                 ReloadPokemonList();
             }
             else
             {
-                message = $"{pokemon.PokemonId} could not be upgraded";
-                caption = $"Upgrade {pokemon.PokemonId} failed";
+                ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} could not be upgraded");
             }
-
-            MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private async void EvolvePokemon(PokemonData pokemon)
         {
             var evolvePokemonResponse = await client2.EvolvePokemon(pokemon.Id);
-            string message = "";
-            string caption = "";
 
             if (evolvePokemonResponse.Result == 1)
             {
-                message = $"{pokemon.PokemonId} successfully evolved into {evolvePokemonResponse.EvolvedPokemon.PokemonType}\n{evolvePokemonResponse.ExpAwarded} experience awarded\n{evolvePokemonResponse.CandyAwarded} candy awarded";
-                caption = $"{pokemon.PokemonId} evolved into {evolvePokemonResponse.EvolvedPokemon.PokemonType}";
-                TotalExperience += (evolvePokemonResponse.ExpAwarded);
+                ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} successfully evolved into {evolvePokemonResponse.EvolvedPokemon.PokemonType}\n{evolvePokemonResponse.ExpAwarded} experience awarded\n{evolvePokemonResponse.CandyAwarded} candy awarded");
                 ReloadPokemonList();
             }
             else
             {
-                message = $"{pokemon.PokemonId} could not be evolved";
-                caption = $"Evolve {pokemon.PokemonId} failed";
+                ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} could not be evolved");
             }
-
-            MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button1_Click(object sender, EventArgs e)
