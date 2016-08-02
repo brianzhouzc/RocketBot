@@ -27,6 +27,7 @@ using GMap.NET.WindowsForms.ToolTips;
 using System.Threading;
 using BrightIdeasSoftware;
 using PokemonGo.RocketAPI.Helpers;
+using Microsoft.Win32;
 
 namespace PokemonGo.RocketAPI.Window
 {
@@ -75,8 +76,31 @@ namespace PokemonGo.RocketAPI.Window
                 GMarkerGoogleType.orange_small);
             playerOverlay.Markers.Add(playerMarker);
 
+            RegistryKey rk = Registry.CurrentUser.OpenSubKey
+                    ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run");
+            if (rk.GetValue("Pokemon-Go-Bot") != null)
+            {
+                RunAtStartUp = true;
+                runAtStartupOffToolStripMenuItem.Text = "Run At Startup [On]";
+                startStopBotToolStripMenuItem.PerformClick();
+            }
+
             InitializeMap();
             InitializePokemonForm();
+        }
+
+        private void RegisterInStartup(bool on)
+        {
+            RegistryKey rk = Registry.CurrentUser.OpenSubKey
+                    ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            if (on)
+            {
+                rk.SetValue("Pokemon-Go-Bot", Application.ExecutablePath);
+            }
+            else
+            {
+                rk.DeleteValue("Pokemon-Go-Bot");
+            }
         }
 
         public void Restart()
@@ -109,6 +133,7 @@ namespace PokemonGo.RocketAPI.Window
         private static bool ForceUnbanning = false;
         private static bool FarmingStops = false;
         private static bool FarmingPokemons = false;
+        private static bool RunAtStartUp = false;
         private static DateTime TimeStarted = DateTime.Now;
         public static DateTime InitSessionDateTime = DateTime.Now;
 
@@ -1387,6 +1412,22 @@ namespace PokemonGo.RocketAPI.Window
         private void objectListView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void runAtStartupOffToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (RunAtStartUp == false)
+            {
+                RunAtStartUp = true;
+                RegisterInStartup(true);
+                runAtStartupOffToolStripMenuItem.Text = "Run At Startup [On]";
+            }
+            else
+            {
+                RunAtStartUp = false;
+                RegisterInStartup(false);
+                runAtStartupOffToolStripMenuItem.Text = "Run At Startup [Off]";
+            }
         }
     }
 }
