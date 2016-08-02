@@ -1248,10 +1248,6 @@ namespace PokemonGo.RocketAPI.Window
                         .First();
                 args.Text = $"You have {family.Candy} {((PokemonId)((int)family.FamilyId)).ToString()} Candy";
             };
-
-            objectListView1.FormatRow += delegate (object sender, FormatRowEventArgs args) {
-                args.Item.Text = args.RowIndex.ToString();
-            };
         }
 
         private Image GetPokemonImage(int pokemonId)
