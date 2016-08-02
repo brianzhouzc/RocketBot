@@ -8,44 +8,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PokemonGo.RocketAPI.Window.Properties {
-    
-    
+namespace PokemonGo.RocketAPI.Window.Properties
+{
+
+
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
-    public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-        
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0")]
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase
+    {
+
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
-        
-        public static Settings Default {
-            get {
+
+        public static Settings Default
+        {
+            get
+            {
                 return defaultInstance;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("[1,4,7,10,11,12,13,14,15,16,17,18,19,20,21,23,24,25,27,28,29,30,31,32,33,34,35,36" +
-            ",37,39,40,41,42,43,44,46,47,48,50,52,54,56,58,60,61,63,66,69,72,74,77,79,81,84,8" +
-            "6,102,104,111,114,116,125,128,129,138,140,147]")]
-        public string userUnwanted {
-            get {
-                return ((string)(this["userUnwanted"]));
-            }
-            set {
-                this["userUnwanted"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("[10,11,13,14,15,16,17,18,19,20,21,23,24,27,29,32,41,46,47,48,111]")]
-        public string userSkipped {
-            get {
-                return ((string)(this["userSkipped"]));
-            }
-            set {
-                this["userSkipped"] = value;
             }
         }
     }

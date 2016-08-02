@@ -27,7 +27,6 @@ using GMap.NET.WindowsForms.ToolTips;
 using System.Threading;
 using BrightIdeasSoftware;
 using PokemonGo.RocketAPI.Helpers;
-using Newtonsoft.Json;
 
 namespace PokemonGo.RocketAPI.Window
 {
@@ -45,21 +44,6 @@ namespace PokemonGo.RocketAPI.Window
 
         IEnumerable<FortData> pokeStops;
         IEnumerable<WildPokemon> wildPokemons;
-
-        private static List<PokemonId> skipList
-        {
-            get
-            {
-                return JsonConvert.DeserializeObject<List<PokemonId>>(Properties.Settings.Default["userSkipped"].ToString());
-            }
-        }
-        private static List<PokemonId> unwantedPokemonTypes
-        {
-            get
-            {
-                return JsonConvert.DeserializeObject<List<PokemonId>>(Properties.Settings.Default["userUnwanted"].ToString());
-            }
-        }
 
         public MainForm()
         {
@@ -474,14 +458,6 @@ namespace PokemonGo.RocketAPI.Window
                 var pokemonIV = Math.Round(Perfect(encounterPokemonResponse?.WildPokemon?.PokemonData));
                 CatchPokemonResponse caughtPokemonResponse;
                 ColoredConsoleWrite(Color.Green, $"Encounter a {pokemonName} with {pokemonCP} CP and {pokemonIV}% IV");
-                if (skipList.Contains(pokemon.PokemonId))
-                {
-                    ColoredConsoleWrite(Color.LightYellow, "Pokemon on skip list, moving on");
-                    FarmingPokemons = false;
-                    await Task.Delay(6000);
-                    continue;
-                }
-
                 do
                 {
                     if (ClientSettings.RazzBerryMode == "cp")
@@ -536,7 +512,7 @@ namespace PokemonGo.RocketAPI.Window
                 }
 
                 FarmingPokemons = false;
-                await Task.Delay(6000);
+                await Task.Delay(3000);
             }
             pokemons = null;
         }
@@ -727,12 +703,11 @@ namespace PokemonGo.RocketAPI.Window
 
         private async Task TransferAllButStrongestUnwantedPokemon(Client client)
         {
-            //replaced by UI
-            //var unwantedPokemonTypes = new List<PokemonId>();
-            //for (int i = 1; i <= 151; i++)
-            //{
-            //    unwantedPokemonTypes.Add((PokemonId)i);
-            //}
+            var unwantedPokemonTypes = new List<PokemonId>();
+            for (int i = 1; i <= 151; i++)
+            {
+                unwantedPokemonTypes.Add((PokemonId)i);
+            }
 
             var inventory = await client.GetInventory();
             var pokemons = inventory.InventoryDelta.InventoryItems
@@ -1429,12 +1404,6 @@ namespace PokemonGo.RocketAPI.Window
         private void objectListView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-        }
-
-        private void manageBlacklistToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var pLForm = new PokemonLists();
-            pLForm.Show();
         }
     }
 }

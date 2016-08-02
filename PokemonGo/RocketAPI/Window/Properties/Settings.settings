@@ -1,12 +1,7 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PokemonGo.RocketAPI.Window.Properties" GeneratedClassName="Settings">
-  <Profiles />
-  <Settings>
-    <Setting Name="userUnwanted" Type="System.String" Scope="User">
-      <Value Profile="(Default)">[1,4,7,10,11,12,13,14,15,16,17,18,19,20,21,23,24,25,27,28,29,30,31,32,33,34,35,36,37,39,40,41,42,43,44,46,47,48,50,52,54,56,58,60,61,63,66,69,72,74,77,79,81,84,86,102,104,111,114,116,125,128,129,138,140,147]</Value>
-    </Setting>
-    <Setting Name="userSkipped" Type="System.String" Scope="User">
-      <Value Profile="(Default)">[10,11,13,14,15,16,17,18,19,20,21,23,24,27,29,32,41,46,47,48,111]</Value>
-    </Setting>
-  </Settings>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
 </SettingsFile>
