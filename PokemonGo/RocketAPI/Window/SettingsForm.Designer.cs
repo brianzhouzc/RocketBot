@@ -327,7 +327,8 @@
             this.AdressBox.Name = "AdressBox";
             this.AdressBox.Size = new System.Drawing.Size(331, 21);
             this.AdressBox.TabIndex = 25;
-            this.AdressBox.Text = "Enter an adress or a coordinate";
+            this.AdressBox.Text = "Enter an address or a coordinate";
+            this.AdressBox.TextChanged += new System.EventHandler(this.AdressBox_TextChanged);
             this.AdressBox.Enter += new System.EventHandler(this.AdressBox_Enter);
             this.AdressBox.Leave += new System.EventHandler(this.AdressBox_Leave);
             // 

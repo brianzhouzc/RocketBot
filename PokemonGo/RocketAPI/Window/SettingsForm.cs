@@ -268,18 +268,23 @@ namespace PokemonGo.RocketAPI.Window
         {
             if (AdressBox.Text.Length == 0)
             {
-                AdressBox.Text = "Enter an adress or a coordinate";
+                AdressBox.Text = "Enter an address or a coordinate";
                 AdressBox.ForeColor = SystemColors.GrayText;
             }
         }
 
         private void AdressBox_Enter(object sender, EventArgs e)
         {
-            if (AdressBox.Text == "Enter an adress or a coordinate")
+            if (AdressBox.Text == "Enter an address or a coordinate")
             {
                 AdressBox.Text = "";
                 AdressBox.ForeColor = SystemColors.WindowText;
             }
+        }
+
+        private void AdressBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
