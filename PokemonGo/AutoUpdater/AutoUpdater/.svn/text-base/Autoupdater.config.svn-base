@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Enabled>true</Enabled>
+  <ServerUrl>http://localhost/KnightsWarriorClientService/AutoupdateService.xml</ServerUrl>
+  <UpdateFileList>
+    <LocalFile path="KnightsWarriorClient" lastver="1.0.4.17" size="11913728" />
+  </UpdateFileList>
+</Config>

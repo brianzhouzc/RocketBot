@@ -1,0 +1,81 @@
+Description
+Fixing bugs and adding new features is a part of developing software applications. From my experience, sending application updates to users is also a critical part of developing applications, especially when the user has no advanced knowledge of computers. In the Internet era today, the software developer must make application deployment and updating easier and often makes automatic application updates to do this.I already searched through the internet on this topic, but not much seems suited to my needs. So, I tried to create one myself. This sample application is developed in C# as a library with the project name °∞AutoUpdater°±. The DLL °∞AutoUpdater°± can be used in a C# Windows application(WinForm and WPF).
+
+About the features
+There are certain features about the AutoUpdater:
+1,Easy to implement and use.
+2,Application automatic re-run after checking update.
+3,Update process transparent to the user .
+4,To avoid blocking the main thread using multi-threaded download.
+5,Ability to upgrade the system and also the auto update program.
+6,A code that doesn't need change when used by different systems and could be compiled in a library.
+7,Easy for user to download the update files.
+
+How to use?
+
+In the program that you want to be auto updateable, you just need to call the AutoUpdate function in the Main procedure. The AutoUpdate  function will check the version with the one read from a file located in a Web Site/FTP. If the program version is lower than the one read the program downloads the auto update program and launches it and the function returns True, which means that an auto update will run and the current program should be closed. The auto update program receives several parameters from the program to be updated and performs the auto update necessary and after that launches the updated system.
+
+      #region check and download new version program
+      bool bHasError = false;
+      IAutoUpdater autoUpdater = new AutoUpdater();
+      try
+      {
+          autoUpdater.Update();
+      }
+      catch (WebException exp)
+      {
+          MessageBox.Show("Can not find the specified resource");
+          bHasError = true;
+      }
+      catch (XmlException exp)
+      {
+          bHasError = true;
+          MessageBox.Show("Download the upgrade file error");
+      }
+      catch (NotSupportedException exp)
+      {
+          bHasError = true;
+          MessageBox.Show("Upgrade address configuration error");
+      }
+      catch (ArgumentException exp)
+      {
+          bHasError = true;
+          MessageBox.Show("Download the upgrade file error");
+      }
+      catch (Exception exp)
+      {
+          bHasError = true;
+          MessageBox.Show("An error occurred during the upgrade process");
+      }
+      finally
+      {
+          if (bHasError == true)
+          {
+              try
+              {
+                  autoUpdater.RollBack();
+              }
+              catch (Exception)
+              {
+                 //Log the message to your file or database
+              }
+          }
+      }
+      #endregion
+that°Øs it,just enjoy it!
+
+About the solutions
+The application is pretty simple,just contains two pages and some helper classes.
+
+License
+This article has no explicit license attached to it but may contain usage terms in the article text or the download files themselves. If in doubt please contact the author via the discussion board below.
+About the Author
+
+    * Author:  •µÓ∆Ô ø£®Knights Warrior£©
+    * Email:  KnightsWarrior@msn.com
+    * Website:  http://www.cnblogs.com/KnightsWarrior/                           http://knightswarrior.blog.51cto.com/
+    * Create Date: 5/8/2010
+
+
+ * Framework Url: http://autoupdater.codeplex.com/  
+
