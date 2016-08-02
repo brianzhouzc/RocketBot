@@ -149,10 +149,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AutoUpdater\AutoUpdater\AutoUpdater.csproj">
-      <Project>{4BA4719C-C6AB-49BA-9754-848CA24C1FD6}</Project>
-      <Name>AutoUpdater</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PokemonGo.RocketAPI.csproj">
       <Project>{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}</Project>
       <Name>PokemonGo.RocketAPI</Name>
