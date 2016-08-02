@@ -47,8 +47,8 @@ namespace PokemonGo.RocketAPI.Window
 
         public MainForm()
         {
-            synchronizationContext = SynchronizationContext.Current;
             InitializeComponent();
+            synchronizationContext = SynchronizationContext.Current;
             ClientSettings = Settings.Instance;
             Client.OnConsoleWrite += Client_OnConsoleWrite;
             Instance = this;
@@ -1275,9 +1275,9 @@ namespace PokemonGo.RocketAPI.Window
                    .Where(p => p != null && (int)p?.FamilyId > 0)
                    .OrderByDescending(p => (int)p.FamilyId);
 
-                var currentScrollPosition = objectListView1.LowLevelScrollPosition;
+                var prevTopItem = objectListView1.TopItemIndex;
                 objectListView1.SetObjects(pokemons);
-                objectListView1.LowLevelScroll(currentScrollPosition.X, currentScrollPosition.Y);
+                objectListView1.TopItemIndex = prevTopItem;
             }
             catch (Exception ex) { ColoredConsoleWrite(Color.Red, ex.ToString()); client2 = null; }
 
