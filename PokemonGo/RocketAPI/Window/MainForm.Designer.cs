@@ -405,7 +405,7 @@
             // 
             this.insenceToolStripMenuItem.Name = "insenceToolStripMenuItem";
             this.insenceToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.insenceToolStripMenuItem.Text = "Insence";
+            this.insenceToolStripMenuItem.Text = "Incense";
             this.insenceToolStripMenuItem.Click += new System.EventHandler(this.insenceToolStripMenuItem_Click);
             // 
             // MainForm

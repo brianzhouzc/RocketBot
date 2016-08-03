@@ -1392,12 +1392,12 @@ namespace PokemonGo.RocketAPI.Window
                 {
                     IEnumerable<Item> myItems = await client.GetItems(client);
                     IEnumerable<Item> IncenseOrdinary = myItems.Where(i => (ItemId)i.Item_ == ItemId.ItemIncenseOrdinary);
-                    Item LuckyEgg = IncenseOrdinary.FirstOrDefault();
-                    if (LuckyEgg != null)
+                    Item Incense = IncenseOrdinary.FirstOrDefault();
+                    if (Incense != null)
                     {
                         var useItemXpBoostRequest = await client.UseItemXpBoost(ItemId.ItemIncenseOrdinary);
-                        ColoredConsoleWrite(Color.Green, $"Using a Lucky Egg, we have {LuckyEgg.Count} left.");
-                        ColoredConsoleWrite(Color.Yellow, $"Lucky Egg Valid until: {DateTime.Now.AddMinutes(30).ToString()}");
+                        ColoredConsoleWrite(Color.Green, $"Using a Incense, we have {Incense.Count} left.");
+                        ColoredConsoleWrite(Color.Yellow, $"Incense Valid until: {DateTime.Now.AddMinutes(30).ToString()}");
 
                         var stripItem = sender as ToolStripMenuItem;
                         stripItem.Enabled = false;
