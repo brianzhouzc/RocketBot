@@ -35,7 +35,11 @@
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.startStopBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stopBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.todoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openSettingsFormToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.itemSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.useLuckyEggToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.forceUnbanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,6 +62,8 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.luckyEggToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.insenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.objectListView1)).BeginInit();
@@ -116,24 +122,59 @@
             // 
             // startStopBotToolStripMenuItem
             // 
+            this.startStopBotToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.startBotToolStripMenuItem,
+            this.stopBotToolStripMenuItem});
             this.startStopBotToolStripMenuItem.Name = "startStopBotToolStripMenuItem";
-            this.startStopBotToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
-            this.startStopBotToolStripMenuItem.Text = "▶ Start Bot";
-            this.startStopBotToolStripMenuItem.Click += new System.EventHandler(this.startStopBotToolStripMenuItem_Click);
+            this.startStopBotToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.startStopBotToolStripMenuItem.Text = "Bot";
+            // 
+            // startBotToolStripMenuItem
+            // 
+            this.startBotToolStripMenuItem.Name = "startBotToolStripMenuItem";
+            this.startBotToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.startBotToolStripMenuItem.Text = "▶ Start";
+            this.startBotToolStripMenuItem.Click += new System.EventHandler(this.startBotToolStripMenuItem_Click);
+            // 
+            // stopBotToolStripMenuItem
+            // 
+            this.stopBotToolStripMenuItem.Enabled = false;
+            this.stopBotToolStripMenuItem.Name = "stopBotToolStripMenuItem";
+            this.stopBotToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.stopBotToolStripMenuItem.Text = "■ Stop";
+            this.stopBotToolStripMenuItem.Click += new System.EventHandler(this.stopBotToolStripMenuItem_Click);
             // 
             // todoToolStripMenuItem
             // 
+            this.todoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openSettingsFormToolStripMenuItem,
+            this.itemSettingsToolStripMenuItem});
             this.todoToolStripMenuItem.Name = "todoToolStripMenuItem";
             this.todoToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.todoToolStripMenuItem.Text = "Settings";
             this.todoToolStripMenuItem.Click += new System.EventHandler(this.todoToolStripMenuItem_Click);
             // 
+            // openSettingsFormToolStripMenuItem
+            // 
+            this.openSettingsFormToolStripMenuItem.Name = "openSettingsFormToolStripMenuItem";
+            this.openSettingsFormToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.openSettingsFormToolStripMenuItem.Text = "Global Settings";
+            this.openSettingsFormToolStripMenuItem.Click += new System.EventHandler(this.openSettingsFormToolStripMenuItem_Click);
+            // 
+            // itemSettingsToolStripMenuItem
+            // 
+            this.itemSettingsToolStripMenuItem.Name = "itemSettingsToolStripMenuItem";
+            this.itemSettingsToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.itemSettingsToolStripMenuItem.Text = "Item Settings";
+            // 
             // useLuckyEggToolStripMenuItem
             // 
+            this.useLuckyEggToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.luckyEggToolStripMenuItem,
+            this.insenceToolStripMenuItem});
             this.useLuckyEggToolStripMenuItem.Name = "useLuckyEggToolStripMenuItem";
-            this.useLuckyEggToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
-            this.useLuckyEggToolStripMenuItem.Text = "Use Lucky Egg";
-            this.useLuckyEggToolStripMenuItem.Click += new System.EventHandler(this.useLuckyEggToolStripMenuItem_Click);
+            this.useLuckyEggToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.useLuckyEggToolStripMenuItem.Text = "Use Item";
             // 
             // forceUnbanToolStripMenuItem
             // 
@@ -353,6 +394,20 @@
             this.tabPage2.Text = ":3";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // luckyEggToolStripMenuItem
+            // 
+            this.luckyEggToolStripMenuItem.Name = "luckyEggToolStripMenuItem";
+            this.luckyEggToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.luckyEggToolStripMenuItem.Text = "Lucky Egg";
+            this.luckyEggToolStripMenuItem.Click += new System.EventHandler(this.luckyEggToolStripMenuItem_Click);
+            // 
+            // insenceToolStripMenuItem
+            // 
+            this.insenceToolStripMenuItem.Name = "insenceToolStripMenuItem";
+            this.insenceToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.insenceToolStripMenuItem.Text = "Insence";
+            this.insenceToolStripMenuItem.Click += new System.EventHandler(this.insenceToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -416,5 +471,11 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem openSettingsFormToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem itemSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem startBotToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stopBotToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem luckyEggToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem insenceToolStripMenuItem;
     }
 }
