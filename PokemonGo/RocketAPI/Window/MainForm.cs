@@ -359,8 +359,8 @@ namespace PokemonGo.RocketAPI.Window
                     ColoredConsoleWrite(Color.Red, $"Bot successfully stopped.");
                     startStopBotToolStripMenuItem.Text = "Start";
                     Stopping = false;
-                    bot_started = false;
                     pokeStops = null;
+                    startBotToolStripMenuItem.Enabled = true;
                 }
             }
             catch (TaskCanceledException) { ColoredConsoleWrite(Color.Red, "Task Canceled Exception - Restarting"); if (!Stopping) Execute(); }
@@ -1067,7 +1067,6 @@ namespace PokemonGo.RocketAPI.Window
             ColoredConsoleWrite(Color.Red, $"Bot successfully stopped.");
             startStopBotToolStripMenuItem.Text = "▶ Start Bot";
             Stopping = false;
-            bot_started = false;
         }
 
         private void logTextBox_TextChanged(object sender, EventArgs e)
@@ -1081,44 +1080,10 @@ namespace PokemonGo.RocketAPI.Window
             SettingsForm settingsForm = new SettingsForm();
             settingsForm.ShowDialog();
         }
-
-        private static bool bot_started = false;
+        
         private void startStopBotToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!bot_started)
-            {
-                bot_started = true;
-                startStopBotToolStripMenuItem.Text = "■ Stop Bot";
-                Task.Run(() =>
-                {
-                    try
-                    {
-                        //ColoredConsoleWrite(ConsoleColor.White, "Coded by Ferox - edited by NecronomiconCoding");
-                        CheckVersion();
-                        Execute();
-                    }
-                    catch (PtcOfflineException)
-                    {
-                        ColoredConsoleWrite(Color.Red, "PTC Servers are probably down OR your credentials are wrong. Try google");
-                    }
-                    catch (Exception ex)
-                    {
-                        ColoredConsoleWrite(Color.Red, $"Unhandled exception: {ex}");
-                    }
-                });
-            }
-            else
-            {
-                if (!ForceUnbanning)
-                {
-                    Stopping = true;
-                    ColoredConsoleWrite(Color.Red, $"Stopping the bot.. Waiting for the last action to be complete.");
-                }
-                else
-                {
-                    ColoredConsoleWrite(Color.Red, $"An action is in play, please wait until it's done.");
-                }
-            }
+           
         }
 
         private void Client_OnConsoleWrite(ConsoleColor color, string message)
@@ -1145,40 +1110,9 @@ namespace PokemonGo.RocketAPI.Window
             // todo: add player stats later
         }
 
-        private async void useLuckyEggToolStripMenuItem_Click(object sender, EventArgs e)
+        private void useLuckyEggToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (client != null)
-            {
-                try
-                {
-                    IEnumerable<Item> myItems = await client.GetItems(client);
-                    IEnumerable<Item> LuckyEggs = myItems.Where(i => (ItemId)i.Item_ == ItemId.ItemLuckyEgg);
-                    Item LuckyEgg = LuckyEggs.FirstOrDefault();
-                    if (LuckyEgg != null)
-                    {
-                        var useItemXpBoostRequest = await client.UseItemXpBoost(ItemId.ItemLuckyEgg);
-                        ColoredConsoleWrite(Color.Green, $"Using a Lucky Egg, we have {LuckyEgg.Count} left.");
-                        ColoredConsoleWrite(Color.Yellow, $"Lucky Egg Valid until: {DateTime.Now.AddMinutes(30).ToString()}");
-
-                        var stripItem = sender as ToolStripMenuItem;
-                        stripItem.Enabled = false;
-                        await Task.Delay(30000);
-                        stripItem.Enabled = true;
-                    }
-                    else
-                    {
-                        ColoredConsoleWrite(Color.Red, $"You don't have any Lucky Egg to use.");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ColoredConsoleWrite(Color.Red, $"Unhandled exception in using lucky egg: {ex}");
-                }
-            }
-            else
-            {
-                ColoredConsoleWrite(Color.Red, "Please start the bot before trying to use a lucky egg.");
-            }
+           
         }
 
         private async void forceUnbanToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1207,8 +1141,6 @@ namespace PokemonGo.RocketAPI.Window
 
         private void todoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SettingsForm settingsForm = new SettingsForm();
-            settingsForm.ShowDialog();
         }
 
         private void pokemonToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -1365,6 +1297,127 @@ namespace PokemonGo.RocketAPI.Window
         private void objectListView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void openSettingsFormToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            SettingsForm settingsForm = new SettingsForm();
+            settingsForm.ShowDialog();
+        }
+
+        private Task bot;
+
+        private void startBotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (bot == null || bot.IsCanceled || bot.IsCompleted)
+            {
+                startBotToolStripMenuItem.Enabled = false;
+                stopBotToolStripMenuItem.Enabled = true;
+                bot = Task.Run(() =>
+                {
+                    try
+                    {
+                        //ColoredConsoleWrite(ConsoleColor.White, "Coded by Ferox - edited by NecronomiconCoding");
+                        CheckVersion();
+                        Execute();
+                    }
+                    catch (PtcOfflineException)
+                    {
+                        ColoredConsoleWrite(Color.Red, "PTC Servers are probably down OR your credentials are wrong. Try google");
+                    }
+                    catch (Exception ex)
+                    {
+                        ColoredConsoleWrite(Color.Red, $"Unhandled exception: {ex}");
+                    }
+                });
+            }
+        }
+
+        private void stopBotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            stopBotToolStripMenuItem.Enabled = false;
+            if (!ForceUnbanning)
+            {
+                Stopping = true;
+                ColoredConsoleWrite(Color.Red, $"Stopping the bot.. Waiting for the last action to be complete.");
+            }
+            else
+            {
+                ColoredConsoleWrite(Color.Red, $"An action is in play, please wait until it's done.");
+            }
+        }
+
+        private async void luckyEggToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (client != null)
+            {
+                try
+                {
+                    IEnumerable<Item> myItems = await client.GetItems(client);
+                    IEnumerable<Item> LuckyEggs = myItems.Where(i => (ItemId)i.Item_ == ItemId.ItemLuckyEgg);
+                    Item LuckyEgg = LuckyEggs.FirstOrDefault();
+                    if (LuckyEgg != null)
+                    {
+                        var useItemXpBoostRequest = await client.UseItemXpBoost(ItemId.ItemLuckyEgg);
+                        ColoredConsoleWrite(Color.Green, $"Using a Lucky Egg, we have {LuckyEgg.Count} left.");
+                        ColoredConsoleWrite(Color.Yellow, $"Lucky Egg Valid until: {DateTime.Now.AddMinutes(30).ToString()}");
+
+                        var stripItem = sender as ToolStripMenuItem;
+                        stripItem.Enabled = false;
+                        await Task.Delay(30000);
+                        stripItem.Enabled = true;
+                    }
+                    else
+                    {
+                        ColoredConsoleWrite(Color.Red, $"You don't have any Lucky Egg to use.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ColoredConsoleWrite(Color.Red, $"Unhandled exception in using lucky egg: {ex}");
+                }
+            }
+            else
+            {
+                ColoredConsoleWrite(Color.Red, "Please start the bot before trying to use a lucky egg.");
+            }
+        }
+
+        private async void insenceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (client != null)
+            {
+                try
+                {
+                    IEnumerable<Item> myItems = await client.GetItems(client);
+                    IEnumerable<Item> IncenseOrdinary = myItems.Where(i => (ItemId)i.Item_ == ItemId.ItemIncenseOrdinary);
+                    Item Incense = IncenseOrdinary.FirstOrDefault();
+                    if (Incense != null)
+                    {
+                        var useItemXpBoostRequest = await client.UseItemXpBoost(ItemId.ItemIncenseOrdinary);
+                        ColoredConsoleWrite(Color.Green, $"Using a Incense, we have {Incense.Count} left.");
+                        ColoredConsoleWrite(Color.Yellow, $"Incense Valid until: {DateTime.Now.AddMinutes(30).ToString()}");
+
+                        var stripItem = sender as ToolStripMenuItem;
+                        stripItem.Enabled = false;
+                        await Task.Delay(30000);
+                        stripItem.Enabled = true;
+                    }
+                    else
+                    {
+                        ColoredConsoleWrite(Color.Red, $"You don't have any Incense Egg to use.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ColoredConsoleWrite(Color.Red, $"Unhandled exception in using Incense: {ex}");
+                }
+            }
+            else
+            {
+                ColoredConsoleWrite(Color.Red, "Please start the bot before trying to use a Incense.");
+            }
         }
     }
 }
