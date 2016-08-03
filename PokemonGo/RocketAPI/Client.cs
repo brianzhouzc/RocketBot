@@ -331,9 +331,19 @@ namespace PokemonGo.RocketAPI
                             Guid = ByteString.CopyFromUtf8("4a2e9bc330dae60e7b74fc85b98868ab4700802e")
                         }.ToByteString()
                 });
-
-            return
-                await _httpClient.PostProtoPayload<Request, GetMapObjectsResponse>($"https://{_apiUrl}/rpc", mapRequest);
+                
+                
+            for (int i = 0; i < 10; i++)
+            {
+                var mapobjects = await _httpClient.PostProtoPayload<Request, GetMapObjectsResponse>($"https://{_apiUrl}/rpc", mapRequest);
+                if ((mapobjects.MapCells.SelectMany(a => a.CatchablePokemons).Count() + mapobjects.MapCells.SelectMany(a => a.WildPokemons).Count() + mapobjects.MapCells.SelectMany(a => a.NearbyPokemons).Count()) == 0)
+                {
+                    await Task.Delay(500 * i);
+                    continue;
+                }
+                    return mapobjects;
+            }
+            return await _httpClient.PostProtoPayload<Request, GetMapObjectsResponse>($"https://{_apiUrl}/rpc", mapRequest);
         }
 
         public async Task<GetPlayerResponse> GetProfile()
@@ -490,8 +500,6 @@ namespace PokemonGo.RocketAPI
                 ColoredConsoleWrite(ConsoleColor.DarkCyan, $"Recycled {item.Count}x {((AllEnum.ItemId)item.Item_).ToString().Substring(4)}");
                 await Task.Delay(500);
             }
-            await Task.Delay(_settings.RecycleItemsInterval * 1000);
-            RecycleItems(client);
         }
 
         public async Task<Response.Types.Unknown6> RecycleItem(AllEnum.ItemId itemId, int amount)
