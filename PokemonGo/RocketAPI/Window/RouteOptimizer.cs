@@ -46,13 +46,7 @@ namespace PokemonGo.RocketAPI.Window
             {
                 List<FortData> p = new List<FortData>((List<FortData>)o);
                 routeOverlay.Markers.Clear();
-                List<PointLatLng> routePoint = new List<PointLatLng>();
-                foreach (var pokeStop in p)
-                {
-                    var pokeStopLoc = new PointLatLng(pokeStop.Latitude, pokeStop.Longitude);
-
-                    routePoint.Add(pokeStopLoc);
-                }
+                List<PointLatLng> routePoint = (from pokeStop in p where pokeStop != null select new PointLatLng(pokeStop.Latitude, pokeStop.Longitude)).ToList();
                 routeOverlay.Routes.Clear();
                 routeOverlay.Routes.Add(new GMapRoute(routePoint, "Walking Path"));
             }), pokeStops);

@@ -47,11 +47,15 @@ namespace PokemonGo.RocketAPI.Window
 
         public MainForm()
         {
-            synchronizationContext = SynchronizationContext.Current;
             InitializeComponent();
+            synchronizationContext = SynchronizationContext.Current;
             ClientSettings = Settings.Instance;
             Client.OnConsoleWrite += Client_OnConsoleWrite;
+            Client.OnStopBot += stopBot;
             Instance = this;
+
+            this.Text += " v" + Assembly.GetExecutingAssembly().GetName().Version;
+            this.CenterToScreen();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -77,6 +81,12 @@ namespace PokemonGo.RocketAPI.Window
 
             InitializeMap();
             InitializePokemonForm();
+
+            if (ClientSettings.TransferType == "Duplicate")
+            {
+                Settings.Instance.SetSetting("CP Duplicate", "TransferType");
+                Settings.Instance.Reload();
+            }
         }
 
         public void Restart()
@@ -88,15 +98,23 @@ namespace PokemonGo.RocketAPI.Window
         private void InitializeMap()
         {
             playerMarker.Position = new PointLatLng(ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude);
-
             searchAreaOverlay.Polygons.Clear();
             S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(ClientSettings.DefaultLongitude, ClientSettings.DefaultLatitude), searchAreaOverlay);
+        }
+
+        public static void ResetMap()
+        {
+            Instance.gMapControl1.Position = new PointLatLng(ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude);
+            Instance.playerMarker.Position = new PointLatLng(ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude);
+            Instance.searchAreaOverlay.Polygons.Clear();
+            S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(ClientSettings.DefaultLongitude, ClientSettings.DefaultLatitude), Instance.searchAreaOverlay);
         }
 
         public static ISettings ClientSettings;
         private static int Currentlevel = -1;
         private static int TotalExperience = 0;
         private static int TotalPokemon = 0;
+        private static bool bot_started = false;
         private static bool Stopping = false;
         private static bool ForceUnbanning = false;
         private static bool FarmingStops = false;
@@ -134,7 +152,7 @@ namespace PokemonGo.RocketAPI.Window
                 // makes sense to display your version and say what the current one is on github
                 ColoredConsoleWrite(Color.Green, "Your version is " + Assembly.GetExecutingAssembly().GetName().Version);
                 ColoredConsoleWrite(Color.Green, "Github version is " + gitVersion);
-                ColoredConsoleWrite(Color.Green, "You can find it at www.GitHub.com/1461748123/Pokemon-Go-Rocket-API");
+                ColoredConsoleWrite(Color.Green, "You can find it at www.GitHub.com/1461748123/Pokemon-Go-Rocket-API/releases");
             }
             catch (Exception)
             {
@@ -210,17 +228,6 @@ namespace PokemonGo.RocketAPI.Window
         {
             foreach (var pokemon in pokemonToEvolve)
             {
-                /*
-                enum Holoholo.Rpc.Types.EvolvePokemonOutProto.Result {
-	                UNSET = 0;
-	                SUCCESS = 1;
-	                FAILED_POKEMON_MISSING = 2;
-	                FAILED_INSUFFICIENT_RESOURCES = 3;
-	                FAILED_POKEMON_CANNOT_EVOLVE = 4;
-	                FAILED_POKEMON_IS_DEPLOYED = 5;
-                }
-                }*/
-
                 var countOfEvolvedUnits = 0;
                 var xpCount = 0;
 
@@ -232,23 +239,12 @@ namespace PokemonGo.RocketAPI.Window
 
                     if (evolvePokemonOutProto.Result == 1)
                     {
-                        ColoredConsoleWrite(Color.Cyan,
-                            $"Evolved {pokemon.PokemonId} successfully for {evolvePokemonOutProto.ExpAwarded}xp");
-
                         countOfEvolvedUnits++;
                         xpCount += evolvePokemonOutProto.ExpAwarded;
-                    }
-                    else
-                    {
-                        var result = evolvePokemonOutProto.Result;
-                        /*
-                        ColoredConsoleWrite(ConsoleColor.White, $"Failed to evolve {pokemon.PokemonId}. " +
-                                                 $"EvolvePokemonOutProto.Result was {result}");
-
-                        ColoredConsoleWrite(ConsoleColor.White, $"Due to above error, stopping evolving {pokemon.PokemonId}");
-                        */
+                        TotalExperience += evolvePokemonOutProto.ExpAwarded;
                     }
                 } while (evolvePokemonOutProto.Result == 1);
+
                 if (countOfEvolvedUnits > 0)
                     ColoredConsoleWrite(Color.Cyan,
                         $"Evolved {countOfEvolvedUnits} pieces of {pokemon.PokemonId} for {xpCount}xp");
@@ -329,11 +325,14 @@ namespace PokemonGo.RocketAPI.Window
                     case "All":
                         await TransferAllGivenPokemons(client, pokemons);
                         break;
-                    case "Duplicate":
+                    case "CP Duplicate":
                         await TransferDuplicatePokemon(client);
                         break;
                     case "IV Duplicate":
                         await TransferDuplicateIVPokemon(client);
+                        break;
+                    case "CP/IV Duplicate":
+                        await TransferDuplicateCPIVPokemon(client);
                         break;
                     case "CP":
                         await TransferAllWeakPokemon(client, ClientSettings.TransferCPThreshold);
@@ -368,21 +367,25 @@ namespace PokemonGo.RocketAPI.Window
                 }
                 else
                 {
-                    ConsoleClear();
-                    pokestopsOverlay.Routes.Clear();
-                    pokestopsOverlay.Markers.Clear();
-                    ColoredConsoleWrite(Color.Red, $"Bot successfully stopped.");
-                    startStopBotToolStripMenuItem.Text = "Start";
-                    Stopping = false;
-                    bot_started = false;
+                    confirmBotStopped();
                 }
             }
-            catch (TaskCanceledException) { ColoredConsoleWrite(Color.Red, "Task Canceled Exception - Restarting"); if (!Stopping) Execute(); }
-            catch (UriFormatException) { ColoredConsoleWrite(Color.Red, "System URI Format Exception - Restarting"); if (!Stopping) Execute(); }
-            catch (ArgumentOutOfRangeException) { ColoredConsoleWrite(Color.Red, "ArgumentOutOfRangeException - Restarting"); if (!Stopping) Execute(); }
-            catch (ArgumentNullException) { ColoredConsoleWrite(Color.Red, "Argument Null Refference - Restarting"); if (!Stopping) Execute(); }
-            catch (NullReferenceException) { ColoredConsoleWrite(Color.Red, "Null Refference - Restarting"); if (!Stopping) Execute(); }
-            catch (Exception ex) { ColoredConsoleWrite(Color.Red, ex.ToString()); if (!Stopping) Execute(); }
+            catch (TaskCanceledException) { ColoredConsoleWrite(Color.Red, "Task Canceled Exception - Restarting");  }
+            catch (UriFormatException) { ColoredConsoleWrite(Color.Red, "System URI Format Exception - Restarting");}
+            catch (ArgumentOutOfRangeException) { ColoredConsoleWrite(Color.Red, "ArgumentOutOfRangeException - Restarting"); }
+            catch (ArgumentNullException) { ColoredConsoleWrite(Color.Red, "Argument Null Refference - Restarting"); }
+            catch (NullReferenceException) { ColoredConsoleWrite(Color.Red, "Null Refference - Restarting");  }
+            catch (Exception ex) { ColoredConsoleWrite(Color.Red, ex.ToString());}
+            finally
+            {
+                if (!Stopping)
+                {
+                    Execute();
+                } else
+                {
+                    confirmBotStopped();
+                }
+            }
         }
 
         private static string CallAPI(string elem, string lat, string lon)
@@ -494,11 +497,14 @@ namespace PokemonGo.RocketAPI.Window
                     case "All":
                         await TransferAllGivenPokemons(client, pokemons2);
                         break;
-                    case "Duplicate":
+                    case "CP Duplicate":
                         await TransferDuplicatePokemon(client);
                         break;
                     case "IV Duplicate":
                         await TransferDuplicateIVPokemon(client);
+                        break;
+                    case "CP/IV Duplicate":
+                        await TransferDuplicateCPIVPokemon(client);
                         break;
                     case "CP":
                         await TransferAllWeakPokemon(client, ClientSettings.TransferCPThreshold);
@@ -566,6 +572,7 @@ namespace PokemonGo.RocketAPI.Window
                     }
                 }
 
+                searchAreaOverlay.Polygons.Clear();
                 S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(ClientSettings.DefaultLongitude, ClientSettings.DefaultLatitude), searchAreaOverlay);
             }), null);
         }
@@ -865,6 +872,57 @@ namespace PokemonGo.RocketAPI.Window
             }
         }
 
+        private async Task TransferDuplicateCPIVPokemon(Client client)
+        {
+
+            //ColoredConsoleWrite(Color.White, $"Check for CP/IV duplicates");
+            var inventory = await client.GetInventory();
+            var allpokemons =
+                inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon)
+                    .Where(p => p != null && p?.PokemonId > 0);
+
+            var dupes = allpokemons.OrderBy(x => Perfect(x)).Select((x, i) => new { index = i, value = x })
+                .GroupBy(x => x.value.PokemonId)
+                .Where(x => x.Skip(1).Any());
+
+            for (var i = 0; i < dupes.Count(); i++)
+            {
+                var dupe_group = dupes.ElementAt(i);
+                var max_cp = 0;
+                var max_index = -1;
+                for (var j = 0; j < dupe_group.Count(); j++)
+                {
+                    var this_cp = dupe_group.ElementAt(j).value.Cp;
+                    if (this_cp >= max_cp)
+                    {
+                        max_cp = this_cp;
+                        max_index = j;
+                    }
+                }
+                for (var j = 0; j < dupes.ElementAt(i).Count() - 1; j++)
+                {
+                    var dubpokemon = dupes.ElementAt(i).ElementAt(j).value;
+                    if (dubpokemon.Favorite == 0 && j != max_index)
+                    {
+                        var transfer = await client.TransferPokemon(dubpokemon.Id);
+                        string pokemonName;
+                        if (ClientSettings.Language == "german")
+                        {
+                            string name_english = Convert.ToString(dubpokemon.PokemonId);
+                            var request = (HttpWebRequest)WebRequest.Create("http://boosting-service.de/pokemon/index.php?pokeName=" + name_english);
+                            var response = (HttpWebResponse)request.GetResponse();
+                            pokemonName = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                        }
+                        else
+                            pokemonName = Convert.ToString(dubpokemon.PokemonId);
+                        ColoredConsoleWrite(Color.DarkGreen,
+                            $"Transferred {pokemonName} with {dubpokemon.Cp} CP, {Math.Round(Perfect(dubpokemon))}% IV (Highest is {max_cp} CP/{Math.Round(Perfect(dupes.ElementAt(i).Last().value))}% IV)");
+
+                    }
+                }
+            }
+        }
+
         private async Task TransferAllWeakPokemon(Client client, int cpThreshold)
         {
             //ColoredConsoleWrite(ConsoleColor.White, $"Firing up the meat grinder");
@@ -1074,15 +1132,6 @@ namespace PokemonGo.RocketAPI.Window
             return 0;
         }
 
-        public void confirmBotStopped()
-        {
-            //ConsoleClear(); // dont really want the console to be wipped on bot stop, unnecessary
-            ColoredConsoleWrite(Color.Red, $"Bot successfully stopped.");
-            startStopBotToolStripMenuItem.Text = "▶ Start Bot";
-            Stopping = false;
-            bot_started = false;
-        }
-
         private void logTextBox_TextChanged(object sender, EventArgs e)
         {
             logTextBox.SelectionStart = logTextBox.Text.Length;
@@ -1095,43 +1144,64 @@ namespace PokemonGo.RocketAPI.Window
             settingsForm.ShowDialog();
         }
 
-        private static bool bot_started = false;
         private void startStopBotToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!bot_started)
             {
-                bot_started = true;
-                startStopBotToolStripMenuItem.Text = "■ Stop Bot";
-                Task.Run(() =>
-                {
-                    try
-                    {
-                        //ColoredConsoleWrite(ConsoleColor.White, "Coded by Ferox - edited by NecronomiconCoding");
-                        CheckVersion();
-                        Execute();
-                    }
-                    catch (PtcOfflineException)
-                    {
-                        ColoredConsoleWrite(Color.Red, "PTC Servers are probably down OR your credentials are wrong. Try google");
-                    }
-                    catch (Exception ex)
-                    {
-                        ColoredConsoleWrite(Color.Red, $"Unhandled exception: {ex}");
-                    }
-                });
+                startBot();
             }
             else
             {
-                if (!ForceUnbanning)
-                {
-                    Stopping = true;
-                    ColoredConsoleWrite(Color.Red, $"Stopping the bot.. Waiting for the last action to be complete.");
-                }
-                else
-                {
-                    ColoredConsoleWrite(Color.Red, $"An action is in play, please wait until it's done.");
-                }
+                stopBot();
             }
+        }
+
+        public void startBot()
+        {
+            bot_started = true;
+            startStopBotToolStripMenuItem.Text = "■ Stop Bot";
+            Task.Run(() =>
+            {
+                try
+                {
+                    //ColoredConsoleWrite(ConsoleColor.White, "Coded by Ferox - edited by NecronomiconCoding");
+                    CheckVersion();
+                    Execute();
+                }
+                catch (PtcOfflineException)
+                {
+                    ColoredConsoleWrite(Color.Red, "PTC Servers are probably down OR your credentials are wrong. Try google");
+                }
+                catch (Exception ex)
+                {
+                    ColoredConsoleWrite(Color.Red, $"Unhandled exception: {ex}");
+                }
+            });
+        }
+
+        public void stopBot()
+        {
+            if (!ForceUnbanning)
+            {
+                Stopping = true;
+                ColoredConsoleWrite(Color.Red, $"Stopping the bot.. Waiting for the last action to be complete.");
+            }
+            else
+            {
+                ColoredConsoleWrite(Color.Red, $"An action is in play, please wait until it's done.");
+            }
+        }
+
+        public void confirmBotStopped()
+        {
+            ConsoleClear();
+            pokestopsOverlay.Routes.Clear();
+            pokestopsOverlay.Markers.Clear();
+            ColoredConsoleWrite(Color.Red, $"Bot successfully stopped.");
+            startStopBotToolStripMenuItem.Text = "▶ Start Bot";
+            Stopping = false;
+            bot_started = false;
+            pokeStops = null;
         }
 
         private void Client_OnConsoleWrite(ConsoleColor color, string message)
@@ -1235,50 +1305,37 @@ namespace PokemonGo.RocketAPI.Window
         #region POKEMON LIST
         private IEnumerable<PokemonFamily> families;
 
-
         private void InitializePokemonForm()
         {
             objectListView1.ButtonClick += PokemonListButton_Click;
 
             pkmnName.ImageGetter = delegate (object rowObject)
-           {
-               PokemonData pokemon = (PokemonData)rowObject;
+            {
+                PokemonData pokemon = (PokemonData)rowObject;
 
-               String key = pokemon.PokemonId.ToString();
-               if (!objectListView1.SmallImageList.Images.ContainsKey(key))
-               {
-                   Image img = GetPokemonImage((int)pokemon.PokemonId);
-                   objectListView1.SmallImageList.Images.Add(key, img);
-               }
-               return key;
-           };
+                String key = pokemon.PokemonId.ToString();
+                if (!objectListView1.SmallImageList.Images.ContainsKey(key))
+                {
+                    Image img = GetPokemonImage((int)pokemon.PokemonId);
+                    objectListView1.SmallImageList.Images.Add(key, img);
+                }
+                return key;
+            };
 
             objectListView1.CellToolTipShowing += delegate (object sender, ToolTipShowingEventArgs args)
             {
                 PokemonData pokemon = (PokemonData)args.Model;
-                if (args.ColumnIndex == 8)
-                {
-                    int candyOwned = families
-                            .Where(i => (int)i.FamilyId <= (int)pokemon.PokemonId)
-                            .Select(f => f.Candy)
-                            .First();
-                    args.Text = candyOwned + " Candy";
-                }
+
+                var family = families
+                        .Where(i => (int)i.FamilyId <= (int)pokemon.PokemonId)
+                        .First();
+                args.Text = $"You have {family.Candy} {((PokemonId)((int)family.FamilyId)).ToString()} Candy";
             };
         }
 
         private Image GetPokemonImage(int pokemonId)
         {
-            var Sprites = AppDomain.CurrentDomain.BaseDirectory + "Sprites\\";
-            string location = Sprites + pokemonId + ".png";
-            if (!Directory.Exists(Sprites))
-                Directory.CreateDirectory(Sprites);
-            if (!File.Exists(location))
-            {
-                WebClient wc = new WebClient();
-                wc.DownloadFile("http://pokeapi.co/media/sprites/pokemon/" + pokemonId + ".png", @location);
-            }
-            return Image.FromFile(location);
+            return (Image)Properties.Resources.ResourceManager.GetObject("Pokemon_" + pokemonId);
         }
 
         private async void ReloadPokemonList()
@@ -1298,9 +1355,9 @@ namespace PokemonGo.RocketAPI.Window
                    .Where(p => p != null && (int)p?.FamilyId > 0)
                    .OrderByDescending(p => (int)p.FamilyId);
 
-                var currentScrollPosition = objectListView1.LowLevelScrollPosition;
+                var prevTopItem = objectListView1.TopItemIndex;
                 objectListView1.SetObjects(pokemons);
-                objectListView1.LowLevelScroll(currentScrollPosition.X, currentScrollPosition.Y);
+                objectListView1.TopItemIndex = prevTopItem;
             }
             catch (Exception ex) { ColoredConsoleWrite(Color.Red, ex.ToString()); client2 = null; }
 
@@ -1334,65 +1391,47 @@ namespace PokemonGo.RocketAPI.Window
             if (MessageBox.Show($"Are you sure you want to transfer {pokemon.PokemonId.ToString()} with {pokemon.Cp} CP?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 var transferPokemonResponse = await client2.TransferPokemon(pokemon.Id);
-                string message = "";
-                string caption = "";
 
                 if (transferPokemonResponse.Status == 1)
                 {
-                    message = $"{pokemon.PokemonId} was transferred\n{transferPokemonResponse.CandyAwarded} candy awarded";
-                    caption = $"{pokemon.PokemonId} transferred";
+                    ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} was transferred. {transferPokemonResponse.CandyAwarded} candy awarded");
                     ReloadPokemonList();
                 }
                 else
                 {
-                    message = $"{pokemon.PokemonId} could not be transferred";
-                    caption = $"Transfer {pokemon.PokemonId} failed";
+                    ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} could not be transferred");
                 }
-
-                MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
         private async void PowerUpPokemon(PokemonData pokemon)
         {
             var evolvePokemonResponse = await client2.PowerUp(pokemon.Id);
-            string message = "";
-            string caption = "";
 
             if (evolvePokemonResponse.Result == 1)
             {
-                message = $"{pokemon.PokemonId} successfully upgraded.";
-                caption = $"{pokemon.PokemonId} upgraded";
+                ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} successfully upgraded.");
                 ReloadPokemonList();
             }
             else
             {
-                message = $"{pokemon.PokemonId} could not be upgraded";
-                caption = $"Upgrade {pokemon.PokemonId} failed";
+                ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} could not be upgraded");
             }
-
-            MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private async void EvolvePokemon(PokemonData pokemon)
         {
             var evolvePokemonResponse = await client2.EvolvePokemon(pokemon.Id);
-            string message = "";
-            string caption = "";
 
             if (evolvePokemonResponse.Result == 1)
             {
-                message = $"{pokemon.PokemonId} successfully evolved into {evolvePokemonResponse.EvolvedPokemon.PokemonType}\n{evolvePokemonResponse.ExpAwarded} experience awarded\n{evolvePokemonResponse.CandyAwarded} candy awarded";
-                caption = $"{pokemon.PokemonId} evolved into {evolvePokemonResponse.EvolvedPokemon.PokemonType}";
+                ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} successfully evolved into {evolvePokemonResponse.EvolvedPokemon.PokemonType}\n{evolvePokemonResponse.ExpAwarded} experience awarded\n{evolvePokemonResponse.CandyAwarded} candy awarded");
                 ReloadPokemonList();
             }
             else
             {
-                message = $"{pokemon.PokemonId} could not be evolved";
-                caption = $"Evolve {pokemon.PokemonId} failed";
+                ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} could not be evolved");
             }
-
-            MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button1_Click(object sender, EventArgs e)
