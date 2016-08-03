@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Google.Protobuf;
 using PokemonGo.RocketAPI.Enums;
 using PokemonGo.RocketAPI.Extensions;
@@ -42,6 +43,10 @@ namespace PokemonGo.RocketAPI
 
         public delegate void ConsoleWriteDelegate(ConsoleColor color, string message);
         public static event ConsoleWriteDelegate OnConsoleWrite;
+
+        public delegate void StopBotEDelegate();
+        public static event StopBotEDelegate OnStopBot;
+
 
         public Client(ISettings settings)
         {
@@ -115,15 +120,25 @@ namespace PokemonGo.RocketAPI
                 {
                     _accessToken = await login.GetAccessToken().ConfigureAwait(false);
                 }
-                catch (LoginFailedException) { errorMessage = "Login failed - wrong username or password? - Restarting"; }
+                catch (LoginFailedException) { errorMessage = "wrong password or username"; }
                 catch (PtcOfflineException) { errorMessage = "PTC login server is down - Restarting"; }
                 catch (JsonReaderException) { errorMessage = "Json Reader Exception - Server down? - Restarting"; }
                 catch (Exception ex) { errorMessage = ex.ToString() + "Exception - Please report - Restarting"; }
 
                 if (errorMessage != null)
-                    ColoredConsoleWrite(ConsoleColor.White, errorMessage);
+                    if (errorMessage == "wrong password or username")
+                    {
+                        ColoredConsoleWrite(ConsoleColor.White, "Login failed - Wrong username or password - Restaring bot");
+                        ColoredConsoleWrite(ConsoleColor.White, "Correct your username or password in settings before you try again.");
+                        StopBot();
+                        await Task.Delay(3000);
+                    }
+                    else
+                    {
+                        ColoredConsoleWrite(ConsoleColor.White, errorMessage);
+                    }
 
-            } while (errorMessage != null);
+            } while (errorMessage != null && errorMessage != "wrong password or username");
 
         }
 
@@ -253,12 +268,16 @@ namespace PokemonGo.RocketAPI
             return MiscEnums.Item.ITEM_POKE_BALL;
         }
 
+        public static void StopBot()
+        {
+            if (OnStopBot != null)
+            {
+                OnStopBot();
+            }
+        }
+
         public static void ColoredConsoleWrite(ConsoleColor color, string text)
         {
-            ConsoleColor originalColor = System.Console.ForegroundColor;
-            System.Console.ForegroundColor = color;
-            System.Console.WriteLine(text);
-            System.Console.ForegroundColor = originalColor;
             if (OnConsoleWrite != null)
             {
                 OnConsoleWrite(color, text);
@@ -331,9 +350,19 @@ namespace PokemonGo.RocketAPI
                             Guid = ByteString.CopyFromUtf8("4a2e9bc330dae60e7b74fc85b98868ab4700802e")
                         }.ToByteString()
                 });
-
-            return
-                await _httpClient.PostProtoPayload<Request, GetMapObjectsResponse>($"https://{_apiUrl}/rpc", mapRequest);
+                
+                
+            for (int i = 0; i < 10; i++)
+            {
+                var mapobjects = await _httpClient.PostProtoPayload<Request, GetMapObjectsResponse>($"https://{_apiUrl}/rpc", mapRequest);
+                if ((mapobjects.MapCells.SelectMany(a => a.CatchablePokemons).Count() + mapobjects.MapCells.SelectMany(a => a.WildPokemons).Count() + mapobjects.MapCells.SelectMany(a => a.NearbyPokemons).Count()) == 0)
+                {
+                    await Task.Delay(500 * i);
+                    continue;
+                }
+                    return mapobjects;
+            }
+            return await _httpClient.PostProtoPayload<Request, GetMapObjectsResponse>($"https://{_apiUrl}/rpc", mapRequest);
         }
 
         public async Task<GetPlayerResponse> GetProfile()
@@ -490,8 +519,6 @@ namespace PokemonGo.RocketAPI
                 ColoredConsoleWrite(ConsoleColor.DarkCyan, $"Recycled {item.Count}x {((AllEnum.ItemId)item.Item_).ToString().Substring(4)}");
                 await Task.Delay(500);
             }
-            await Task.Delay(_settings.RecycleItemsInterval * 1000);
-            RecycleItems(client);
         }
 
         public async Task<Response.Types.Unknown6> RecycleItem(AllEnum.ItemId itemId, int amount)
@@ -550,6 +577,10 @@ namespace PokemonGo.RocketAPI
                 ColoredConsoleWrite(ConsoleColor.Green, $"Using a Razz Berry, we have {RazzBerry.Count} left");
                 await Task.Delay(2000);
                 }
+            }
+            else
+            {
+                ColoredConsoleWrite(ConsoleColor.Red, $"You don't have any Razz Berry to use.");
             }
         }
 

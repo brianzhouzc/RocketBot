@@ -19,7 +19,7 @@ namespace PokemonGo.RocketAPI.Window
         {
             InitializeComponent();
         }
-
+        private ToolTip toolTip1 = new ToolTip();
         private void SettingsForm_Load(object sender, EventArgs e)
         {
 
@@ -70,7 +70,17 @@ namespace PokemonGo.RocketAPI.Window
 
             //set zoom
             gMapControl1.Zoom = trackBar.Value;
+
+            //disable map focus
+            gMapControl1.DisableFocusOnMouseEnter = true;
+
+            transferTypeCb.DrawMode = DrawMode.OwnerDrawFixed;
+            transferTypeCb.DrawItem += transferTypeCb_DrawItem;
+            transferTypeCb.DropDownClosed += transferTypeCb_DropDownClosed;
+
+            toolTip1.SetToolTip(transferTypeCb, "test1");
         }
+
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
@@ -104,8 +114,10 @@ namespace PokemonGo.RocketAPI.Window
             Settings.Instance.SetSetting(CatchPokemonBox.Checked ? "true" : "false", "CatchPokemon");
             Settings.Instance.Reload();
 
+            MainForm.ResetMap();
             Close();
         }
+
 
         private void authTypeCb_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -171,24 +183,24 @@ namespace PokemonGo.RocketAPI.Window
         {
             if (transferTypeCb.Text == "CP")
             {
-                label4.Visible = true;
+                CPThresholdLabel.Visible = true;
                 transferCpThresText.Visible = true;
             }
             else
             {
-                label4.Visible = false;
+                CPThresholdLabel.Visible = false;
                 transferCpThresText.Visible = false;
 
             }
 
             if (transferTypeCb.Text == "IV")
             {
-                label6.Visible = true;
+                IVThresholdLabel.Visible = true;
                 transferIVThresText.Visible = true;
             }
             else
             {
-                label6.Visible = false;
+                IVThresholdLabel.Visible = false;
                 transferIVThresText.Visible = false;
 
             }
@@ -239,6 +251,92 @@ namespace PokemonGo.RocketAPI.Window
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void TravelSpeedBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char ch = e.KeyChar;
+            if (!Char.IsDigit(ch) && ch != 8)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void razzSettingText_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char ch = e.KeyChar;
+            if (!Char.IsDigit(ch) && ch != 8)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void AdressBox_Leave(object sender, EventArgs e)
+        {
+            if (AdressBox.Text.Length == 0)
+            {
+                AdressBox.Text = "Enter an address or a coordinate";
+                AdressBox.ForeColor = SystemColors.GrayText;
+            }
+        }
+
+        private void AdressBox_Enter(object sender, EventArgs e)
+        {
+            if (AdressBox.Text == "Enter an address or a coordinate")
+            {
+                AdressBox.Text = "";
+                AdressBox.ForeColor = SystemColors.WindowText;
+            }
+        }
+
+        private void AdressBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void transferTypeCb_DropDownClosed(object sender, EventArgs e)
+        {
+            toolTip1.Hide(transferTypeCb);
+        }
+
+        private void transferTypeCb_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0) { return; } // added this line thanks to Andrew's comment
+            String tip;
+            switch (transferTypeCb.GetItemText(transferTypeCb.Items[e.Index]))
+            {
+                case "Leave Strongest":
+                    tip = "N/A";
+                    break;
+                case "All":
+                    tip = "Transfer all pokemons";
+                    break;
+                case "CP Duplicate":
+                    tip = "Only keeping the highest CP pokemon of each type";
+                    break;
+                case "IV Duplicate":
+                    tip = "Only keeping the highest IV pokemon of each type";
+                    break;
+                case "CP/IV Duplicate":
+                    tip = "Keeping one highest pokemon CP and one highest IV pokemon of each type";
+                    break;
+                case "CP":
+                    tip = "Only keeping pokemons that have a CP higher than the threshold";
+                    break;
+                case "IV":
+                    tip = "Only keeping pokemons that have a IV higher than the threshold";
+                    break;
+                default:
+                    tip = "Not transfering any pokemons";
+                    break;
+            }
+            e.DrawBackground();
+            using (SolidBrush br = new SolidBrush(e.ForeColor))
+            { e.Graphics.DrawString(transferTypeCb.GetItemText(transferTypeCb.Items[e.Index]), e.Font, br, e.Bounds); }
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+            { toolTip1.Show(tip, transferTypeCb, e.Bounds.Right, e.Bounds.Bottom); }
+            e.DrawFocusRectangle();
 
         }
     }
