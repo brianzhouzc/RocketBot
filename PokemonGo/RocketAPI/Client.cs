@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Google.Protobuf;
 using PokemonGo.RocketAPI.Enums;
 using PokemonGo.RocketAPI.Extensions;
@@ -115,13 +116,23 @@ namespace PokemonGo.RocketAPI
                 {
                     _accessToken = await login.GetAccessToken().ConfigureAwait(false);
                 }
-                catch (LoginFailedException) { errorMessage = "Login failed - wrong username or password? - Restarting"; }
+                catch (LoginFailedException) { errorMessage = "wrong password or username"; }
                 catch (PtcOfflineException) { errorMessage = "PTC login server is down - Restarting"; }
                 catch (JsonReaderException) { errorMessage = "Json Reader Exception - Server down? - Restarting"; }
                 catch (Exception ex) { errorMessage = ex.ToString() + "Exception - Please report - Restarting"; }
 
                 if (errorMessage != null)
-                    ColoredConsoleWrite(ConsoleColor.White, errorMessage);
+                    if (errorMessage == "wrong password or username")
+                    {
+                        ColoredConsoleWrite(ConsoleColor.White, "Login failed - Wrong username or password - Restaring bot");
+                        ColoredConsoleWrite(ConsoleColor.White, "Correct your username or password in settings before you try again.");
+                        await Task.Delay(5000);
+                        Application.Restart();
+                    }
+                    else
+                    {
+                        ColoredConsoleWrite(ConsoleColor.White, errorMessage);
+                    }
 
             } while (errorMessage != null);
 
