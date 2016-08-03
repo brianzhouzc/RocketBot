@@ -44,6 +44,10 @@ namespace PokemonGo.RocketAPI
         public delegate void ConsoleWriteDelegate(ConsoleColor color, string message);
         public static event ConsoleWriteDelegate OnConsoleWrite;
 
+        public delegate void StopBotEDelegate();
+        public static event StopBotEDelegate OnStopBot;
+
+
         public Client(ISettings settings)
         {
             _settings = settings;
@@ -126,15 +130,15 @@ namespace PokemonGo.RocketAPI
                     {
                         ColoredConsoleWrite(ConsoleColor.White, "Login failed - Wrong username or password - Restaring bot");
                         ColoredConsoleWrite(ConsoleColor.White, "Correct your username or password in settings before you try again.");
-                        await Task.Delay(5000);
-                        Application.Restart();
+                        StopBot();
+                        await Task.Delay(3000);
                     }
                     else
                     {
                         ColoredConsoleWrite(ConsoleColor.White, errorMessage);
                     }
 
-            } while (errorMessage != null);
+            } while (errorMessage != null && errorMessage != "wrong password or username");
 
         }
 
@@ -264,12 +268,16 @@ namespace PokemonGo.RocketAPI
             return MiscEnums.Item.ITEM_POKE_BALL;
         }
 
+        public static void StopBot()
+        {
+            if (OnStopBot != null)
+            {
+                OnStopBot();
+            }
+        }
+
         public static void ColoredConsoleWrite(ConsoleColor color, string text)
         {
-            ConsoleColor originalColor = System.Console.ForegroundColor;
-            System.Console.ForegroundColor = color;
-            System.Console.WriteLine(text);
-            System.Console.ForegroundColor = originalColor;
             if (OnConsoleWrite != null)
             {
                 OnConsoleWrite(color, text);
