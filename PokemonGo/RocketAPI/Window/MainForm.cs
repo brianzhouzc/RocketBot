@@ -27,6 +27,7 @@ using GMap.NET.WindowsForms.ToolTips;
 using System.Threading;
 using BrightIdeasSoftware;
 using PokemonGo.RocketAPI.Helpers;
+using System.Collections.Specialized;
 
 namespace PokemonGo.RocketAPI.Window
 {
@@ -927,28 +928,28 @@ namespace PokemonGo.RocketAPI.Window
         {
             //ColoredConsoleWrite(ConsoleColor.White, $"Firing up the meat grinder");
 
-            PokemonId[] doNotTransfer = new[] //these will not be transferred even when below the CP threshold
-            { // DO NOT EMPTY THIS ARRAY
-                //PokemonId.Pidgey,
-                //PokemonId.Rattata,
-                //PokemonId.Weedle,
-                //PokemonId.Zubat,
-                //PokemonId.Caterpie,
-                //PokemonId.Pidgeotto,
-                //PokemonId.NidoranFemale,
-                //PokemonId.Paras,
-                //PokemonId.Venonat,
-                //PokemonId.Psyduck,
-                //PokemonId.Poliwag,
-                //PokemonId.Slowpoke,
-                //PokemonId.Drowzee,
-                //PokemonId.Gastly,
-                //PokemonId.Goldeen,
-                //PokemonId.Staryu,
-                PokemonId.Magikarp,
-                PokemonId.Eevee//,
-                //PokemonId.Dratini
-            };
+            // Get the do not transfer list from app.config
+            List<PokemonId> doNotTransfer = new List<PokemonId>();
+            var DoNotTransferList = ConfigurationManager.GetSection("DoNotTransferList") as NameValueCollection;
+            if (DoNotTransferList != null)
+            {
+                foreach (var key in DoNotTransferList.AllKeys)
+                {
+                    string val = DoNotTransferList.GetValues(key).FirstOrDefault();
+                    if (val.ToLower() == "true")
+                    {
+                        try
+                        {
+                            PokemonId pokeId = (PokemonId)Enum.Parse(typeof(PokemonId), key);
+                            doNotTransfer.Add(pokeId);
+                        }
+                        catch
+                        {
+                            ColoredConsoleWrite(Color.Red, $"Invalid entry in DoNotTransferList: {key}.");
+                        }
+                    }
+                }
+            }
 
             var inventory = await client.GetInventory();
             var pokemons = inventory.InventoryDelta.InventoryItems
