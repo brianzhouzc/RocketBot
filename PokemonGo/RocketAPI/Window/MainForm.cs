@@ -45,18 +45,58 @@ namespace PokemonGo.RocketAPI.Window
         IEnumerable<FortData> pokeStops;
         IEnumerable<WildPokemon> wildPokemons;
 
-        public MainForm()
+        private void setStartupSettings(Dictionary<string, string> parameters)
+        {
+            string authType = null;
+            string username = null;
+            string password = null;
+            if (parameters.TryGetValue("AuthType", out authType)
+                && parameters.TryGetValue("Username", out username)
+                && parameters.TryGetValue("Password", out password))
+            {
+                Settings.Instance.SetSetting(authType, "AuthType");
+                if (authType == "google")
+                {
+                    Settings.Instance.SetSetting(username, "Email");
+                    Settings.Instance.SetSetting(password, "Password");
+                }
+                else
+                {
+                    Settings.Instance.SetSetting(username, "PtcUsername");
+                    Settings.Instance.SetSetting(password, "PtcPassword");
+                }
+            }
+            if (username != null) parameters.Remove("Username");
+            if (password != null) parameters.Remove("Password");
+            if (authType != null) parameters.Remove("AuthType");
+
+            foreach (var para in parameters)
+            {
+                Settings.Instance.SetSetting(para.Value, para.Key);
+            }
+            Settings.Instance.Reload();
+        }
+
+        public MainForm(Dictionary<string, string> parameters)
         {
             InitializeComponent();
             synchronizationContext = SynchronizationContext.Current;
+
+            
             ClientSettings = Settings.Instance;
+            setStartupSettings(parameters);
             Client.OnConsoleWrite += Client_OnConsoleWrite;
             Client.OnStopBot += stopBot;
             Instance = this;
-
-            this.Text += " v" + Assembly.GetExecutingAssembly().GetName().Version;
+            var usernameToShow = ClientSettings.AuthType == AuthType.Google ? ClientSettings.Email : ClientSettings.PtcUsername; 
+            this.Text += $"{Assembly.GetExecutingAssembly().GetName().Version} | User: {usernameToShow}";
             this.CenterToScreen();
+            if (ClientSettings.NeedStart)
+                this.startBot();
+
+            
         }
+
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -110,7 +150,7 @@ namespace PokemonGo.RocketAPI.Window
             S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(ClientSettings.DefaultLongitude, ClientSettings.DefaultLatitude), Instance.searchAreaOverlay);
         }
 
-        public static ISettings ClientSettings;
+        public static Settings ClientSettings;
         private static int Currentlevel = -1;
         private static int TotalExperience = 0;
         private static int TotalPokemon = 0;
@@ -1327,8 +1367,7 @@ namespace PokemonGo.RocketAPI.Window
                 PokemonData pokemon = (PokemonData)args.Model;
 
                 var family = families
-                        .Where(i => (int)i.FamilyId <= (int)pokemon.PokemonId)
-                        .First();
+                        .First(i => (int)i.FamilyId <= (int)pokemon.PokemonId);
                 args.Text = $"You have {family.Candy} {((PokemonId)((int)family.FamilyId)).ToString()} Candy";
             };
         }

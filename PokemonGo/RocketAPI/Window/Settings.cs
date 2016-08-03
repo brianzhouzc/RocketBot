@@ -43,6 +43,7 @@ namespace PokemonGo.RocketAPI.Window
         /// <summary>
         ///     Don't touch. User settings are in Console/App.config
         /// </summary>
+        public bool NeedStart => GetSetting() != string.Empty && Convert.ToBoolean(GetSetting(), CultureInfo.InvariantCulture);
         public string TransferType => GetSetting() != string.Empty ? GetSetting() : "none";
         public int TransferCPThreshold => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 0;
         public int TransferIVThreshold => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 0;
@@ -50,17 +51,7 @@ namespace PokemonGo.RocketAPI.Window
         public int ImageSize => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 50;
         public bool EvolveAllGivenPokemons => GetSetting() != string.Empty && Convert.ToBoolean(GetSetting(), CultureInfo.InvariantCulture);
         public bool CatchPokemon => GetSetting() != string.Empty && Convert.ToBoolean(GetSetting(), CultureInfo.InvariantCulture);
-
-
-        public AuthType AuthType
-        {
-            get
-            {
-                return (GetSetting() != string.Empty ? GetSetting() : "Ptc") == "Ptc" ? AuthType.Ptc : AuthType.Google;
-            }
-            set { SetSetting(value.ToString()); }
-        }
-
+        public AuthType AuthType => GetSetting() == "Ptc" || GetSetting() == "ptc" ? AuthType.Ptc : AuthType.Google;
         public string PtcUsername => GetSetting() != string.Empty ? GetSetting() : "username";
         public string PtcPassword => GetSetting() != string.Empty ? GetSetting() : "password";
         public string Email => GetSetting() != string.Empty ? GetSetting() : "Email";
@@ -135,7 +126,11 @@ namespace PokemonGo.RocketAPI.Window
             var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             if (key != null)
             {
-                configFile.AppSettings.Settings[key].Value = value;
+                var valueToChange = configFile.AppSettings.Settings[key];
+                if (valueToChange == null)
+                    configFile.AppSettings.Settings.Add(key,value);
+                else
+                    valueToChange.Value = value;
             }
             configFile.Save(ConfigurationSaveMode.Full);
         }
