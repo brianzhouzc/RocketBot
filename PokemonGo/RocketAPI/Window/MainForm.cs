@@ -407,8 +407,6 @@ namespace PokemonGo.RocketAPI.Window
 
         private async Task ExecuteCatchAllNearbyPokemons(Client client)
         {
-            await Task.Delay(3000);
-             
             var mapObjects = await client.GetMapObjects();
 
             var pokemons = mapObjects.MapCells.SelectMany(i => i.CatchablePokemons);
