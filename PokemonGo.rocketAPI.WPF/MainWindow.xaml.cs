@@ -1200,6 +1200,11 @@ namespace PokemonGo.rocketAPI.WPF
 
         public void confirmBotStopped()
         {
+            if (!Instance.Dispatcher.CheckAccess())
+            {
+                Instance.Dispatcher.Invoke(new Action(confirmBotStopped));
+                return;
+            }
             ConsoleClear();
             //pokestopsOverlay.Routes.Clear();
             //pokestopsOverlay.Markers.Clear();

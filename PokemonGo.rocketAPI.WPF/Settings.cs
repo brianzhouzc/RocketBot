@@ -47,7 +47,7 @@ namespace PokemonGo.rocketAPI.WPF
         public string TransferType => GetSetting() != string.Empty ? GetSetting() : "none";
         public int TransferCPThreshold => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 0;
         public int TransferIVThreshold => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 0;
-        public int TravelSpeed => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 60;
+        public int TravelSpeed => !string.IsNullOrEmpty(GetSetting()) ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 60;
         public int ImageSize => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 50;
         public bool EvolveAllGivenPokemons => GetSetting() != string.Empty && Convert.ToBoolean(GetSetting(), CultureInfo.InvariantCulture);
         public bool CatchPokemon => GetSetting() != string.Empty && Convert.ToBoolean(GetSetting(), CultureInfo.InvariantCulture);
@@ -69,14 +69,14 @@ namespace PokemonGo.rocketAPI.WPF
 
         public double DefaultLatitude
         {
-            get { return GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 51.22640; }
+            get { return !string.IsNullOrEmpty(GetSetting()) ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 51.22640; }
             set { SetSetting(value); }
         }
 
 
         public double DefaultLongitude
         {
-            get { return GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 6.77874; }
+            get { return !string.IsNullOrEmpty(GetSetting()) ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 6.77874; }
             set { SetSetting(value); }
         }
 
