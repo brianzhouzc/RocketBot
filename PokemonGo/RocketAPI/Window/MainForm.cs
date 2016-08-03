@@ -53,6 +53,9 @@ namespace PokemonGo.RocketAPI.Window
             Client.OnConsoleWrite += Client_OnConsoleWrite;
             Client.OnStopBot += stopBot;
             Instance = this;
+
+            this.Text += " v" + Assembly.GetExecutingAssembly().GetName().Version;
+            this.CenterToScreen();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
