@@ -4,7 +4,7 @@ namespace PokemonGo.Bot.ViewModels
 {
     public class WildPokemonViewModel : PokemonViewModel
     {
-        public WildPokemonViewModel(WildPokemon pokemon) : base(pokemon.PokemonData.PokemonId)
+        public WildPokemonViewModel(WildPokemon pokemon) : base(pokemon.PokemonData.PokemonId, pokemon.PokemonData.Id)
         {
             EncounterId = pokemon.EncounterId;
             LastModifiedTimestampMs = pokemon.LastModifiedTimestampMs;

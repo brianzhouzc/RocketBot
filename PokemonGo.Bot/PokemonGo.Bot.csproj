@@ -92,6 +92,7 @@
     <Compile Include="TransferPokemonAlgorithms\TransferPokemonAlgorithmFactory.cs" />
     <Compile Include="Utils\RouteOptimizer.cs" />
     <Compile Include="ViewModels\BotViewModel.cs" />
+    <Compile Include="ViewModels\CatchedPokemonViewModel.cs" />
     <Compile Include="ViewModels\ConsoleViewModel.cs" />
     <Compile Include="ViewModels\InventoryViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

@@ -5,7 +5,7 @@ namespace PokemonGo.Bot.ViewModels
     public class MapPokemonViewModel : PokemonViewModel
     {
         public MapPokemonViewModel(MapPokemon pokemon)
-            : base(pokemon.PokemonId)
+            : base(pokemon.PokemonId, pokemon.EncounterId)
         {
             EncounterId = pokemon.EncounterId;
             ExpirationTimestampMs = pokemon.ExpirationTimestampMs;

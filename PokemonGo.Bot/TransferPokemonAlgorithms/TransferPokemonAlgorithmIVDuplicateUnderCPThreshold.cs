@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PokemonGo.RocketAPI.GeneratedCode;
+using PokemonGo.Bot.ViewModels;
 
 namespace PokemonGo.Bot.TransferPokemonAlgorithms
 {
@@ -16,12 +17,12 @@ namespace PokemonGo.Bot.TransferPokemonAlgorithms
             this.threshold = threshold;
         }
 
-        public IEnumerable<PokemonData> Apply(IEnumerable<PokemonData> allPokemon)
+        public IEnumerable<CatchedPokemonViewModel> Apply(IEnumerable<CatchedPokemonViewModel> allPokemon)
             => allPokemon
                 // find duplicates
                 .GroupBy(p => p.PokemonId)
                 .Where(g => g.Count() > 1)
                 // all duplicates except the highest IV that are not favorited and are under the given threshold
-                .SelectMany(g => g.OrderByDescending(p => p.GetIV()).Skip(1).Where(p => p.Favorite == 0 && p.Cp < threshold));
+                .SelectMany(g => g.OrderByDescending(p => p.PerfectPercentage).Skip(1).Where(p => !p.IsFavorite && p.CombatPoints < threshold));
     }
 }

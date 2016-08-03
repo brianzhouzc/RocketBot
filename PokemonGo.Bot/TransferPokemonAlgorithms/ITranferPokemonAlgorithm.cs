@@ -1,4 +1,5 @@
-﻿using PokemonGo.RocketAPI.GeneratedCode;
+﻿using PokemonGo.Bot.ViewModels;
+using PokemonGo.RocketAPI.GeneratedCode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace PokemonGo.Bot.TransferPokemonAlgorithms
 {
     public interface ITranferPokemonAlgorithm
     {
-        IEnumerable<PokemonData> Apply(IEnumerable<PokemonData> allPokemon);
+        IEnumerable<CatchedPokemonViewModel> Apply(IEnumerable<CatchedPokemonViewModel> allPokemon);
     }
 }

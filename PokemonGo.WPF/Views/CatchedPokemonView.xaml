@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="PokemonGo.WPF.Views.CatchedPokemonView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:PokemonGo.WPF.Views"
+             xmlns:converters="clr-namespace:PokemonGo.WPF.Converters"
+             mc:Ignorable="d"
+             d:DesignHeight="50" d:DesignWidth="300">
+    <UserControl.Resources>
+        <converters:PokemonToImagePathConverter x:Key="imageConverter" />
+        <BooleanToVisibilityConverter x:Key="boolToVis"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Image Source="{Binding PokemonId, Converter={StaticResource imageConverter}}"/>
+        <TextBlock VerticalAlignment="Top" Text="{Binding CombatPoints}"/>
+        <ProgressBar VerticalAlignment="Bottom" Height="5" Value="{Binding Stamina}" Maximum="{Binding StaminaMax}">
+            <ProgressBar.ToolTip>
+                <ToolTip>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Stamina}"/>
+                        <TextBlock Text=" / "/>
+                        <TextBlock Text="{Binding StaminaMax}"/>
+                    </StackPanel>
+                </ToolTip>
+            </ProgressBar.ToolTip>
+        </ProgressBar>
+        <StackPanel Grid.Column="1" Margin="10,0">
+            <TextBlock Text="{Binding Name}" />
+            <TextBlock Text="{Binding Nickname}" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding IndividualAttack, StringFormat=A:{0}}" Grid.Column="0"/>
+                <TextBlock Text="{Binding IndividualDefense, StringFormat=D:{0}}" Grid.Column="1"/>
+                <TextBlock Text="{Binding IndividualStamina, StringFormat=S:{0}}" Grid.Column="2"/>
+                <TextBlock Text="{Binding PerfectPercentage, StringFormat=IV:{0:P}}" Grid.Column="3"/>
+            </Grid>
+        </StackPanel>
+        <StackPanel Grid.Column="2">
+            <TextBlock Text="{Binding Move1}"/>
+            <TextBlock Text="{Binding Move2}"/>
+            <TextBlock Text="FAVORITE" Visibility="{Binding IsFavorite, Converter={StaticResource boolToVis}}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

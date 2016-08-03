@@ -1,12 +1,16 @@
 ﻿using AllEnum;
+using GalaSoft.MvvmLight;
 using System;
 
 namespace PokemonGo.Bot.ViewModels
 {
-    public abstract class PokemonViewModel
+    public abstract class PokemonViewModel : ViewModelBase
     {
-        protected PokemonViewModel(PokemonId pokemonId)
+        public ulong Id { get; }
+
+        protected PokemonViewModel(PokemonId pokemonId, ulong id)
         {
+            Id = id;
             PokemonId = pokemonId;
         }
 

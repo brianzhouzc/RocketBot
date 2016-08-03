@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PokemonGo.RocketAPI.GeneratedCode;
+using PokemonGo.Bot.ViewModels;
 
 namespace PokemonGo.Bot.TransferPokemonAlgorithms
 {
     class TransferPokemonAlgorithmNone : ITranferPokemonAlgorithm
     {
-        public IEnumerable<PokemonData> Apply(IEnumerable<PokemonData> allPokemon) => Enumerable.Empty<PokemonData>();
+        public IEnumerable<CatchedPokemonViewModel> Apply(IEnumerable<CatchedPokemonViewModel> allPokemon) => Enumerable.Empty<CatchedPokemonViewModel>();
     }
 }

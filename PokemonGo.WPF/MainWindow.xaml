@@ -7,24 +7,33 @@
         xmlns:vm="clr-namespace:PokemonGo.Bot.ViewModels;assembly=PokemonGo.Bot"
         xmlns:actions="clr-namespace:PokemonGo.Bot.BotActions;assembly=PokemonGo.Bot"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="377.5" Width="815">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="boolToVis"/>
         <vm:MainViewModel x:Key="mainViewModel"/>
     </Window.Resources>
     <Grid DataContext="{StaticResource mainViewModel}">
-        <DockPanel>
-            <Menu Width="Auto" Height="20" DockPanel.Dock="Top">
-                <MenuItem Header="Login" Command="{Binding Player.Login}" />
-                <MenuItem Header="Start" Command="{Binding Bot.Start}" Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self} , Converter={StaticResource boolToVis}}" />
-                <MenuItem Header="Stop" Command="{Binding Bot.Stop}" Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self} , Converter={StaticResource boolToVis}}" />
-                <MenuItem Header="AddAction">
-                    <MenuItem Header="Farm" Command="{Binding Bot.AddAction}" CommandParameter="{x:Static actions:BotActionType.Farm}" />
-                    <MenuItem Header="Force Unban" Command="{Binding Bot.AddAction}" CommandParameter="{x:Static actions:BotActionType.ForceUnban}" />
-                </MenuItem>
-            </Menu>
-            <Views:BotView DockPanel.Dock="Right" Width="200" DataContext="{Binding Bot}"/>
-            <Views:ConsoleView DataContext="{Binding Console}"/>
-        </DockPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Menu Width="Auto" Height="20" Grid.Row="0" Grid.ColumnSpan="3">
+            <MenuItem Header="Login" Command="{Binding Player.Login}" />
+            <MenuItem Header="Start" Command="{Binding Bot.Start}" Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self} , Converter={StaticResource boolToVis}}" />
+            <MenuItem Header="Stop" Command="{Binding Bot.Stop}" Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self} , Converter={StaticResource boolToVis}}" />
+            <MenuItem Header="AddAction">
+                <MenuItem Header="Farm" Command="{Binding Bot.AddAction}" CommandParameter="{x:Static actions:BotActionType.Farm}" />
+                <MenuItem Header="Force Unban" Command="{Binding Bot.AddAction}" CommandParameter="{x:Static actions:BotActionType.ForceUnban}" />
+            </MenuItem>
+        </Menu>
+        <Views:ConsoleView DataContext="{Binding Console}" Grid.Row="1" Grid.Column="0"/>
+        <Views:BotView Width="200" DataContext="{Binding Bot}" Grid.Row="1" Grid.Column="1"/>
+        <Views:InventoryView Grid.Row="1" Grid.Column="2" DataContext="{Binding Player.Inventory}"/>
     </Grid>
 </Window>

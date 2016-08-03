@@ -65,7 +65,7 @@ namespace PokemonGo.Bot.ViewModels
                 }
             }
         }
-        public IEnumerable<PokemonData> Pokemon => Inventory.InventoryItems.Select(i => i.InventoryItemData?.Pokemon).Where(p => p?.PokemonId > 0);
+        public IEnumerable<CatchedPokemonViewModel> Pokemon => Inventory?.InventoryItems.Select(i => i.InventoryItemData?.Pokemon).Where(p => p?.PokemonId > 0).Select(p => new CatchedPokemonViewModel(p));
 
         PlayerStats playerStats;
         public PlayerStats PlayerStats
