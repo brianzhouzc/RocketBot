@@ -19,7 +19,7 @@ namespace PokemonGo.Bot.BotActions
         bool shouldStop;
         IEnumerable<FortData> route;
 
-        public FarmingAction(BotViewModel bot, Client client, ISettings settings) : base(bot)
+        public FarmingAction(BotViewModel bot, Client client, ISettings settings) : base(bot, "Farm")
         {
             this.client = client;
             this.settings = settings;

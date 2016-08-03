@@ -13,7 +13,7 @@ namespace PokemonGo.Bot.BotActions
         readonly Client client;
         bool shouldStop;
 
-        public ForceUnbanAction(BotViewModel bot, Client client) : base(bot)
+        public ForceUnbanAction(BotViewModel bot, Client client) : base(bot, "Force unban")
         {
             this.client = client;
         }

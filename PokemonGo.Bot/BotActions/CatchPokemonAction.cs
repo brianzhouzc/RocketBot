@@ -14,7 +14,7 @@ namespace PokemonGo.Bot.BotActions
         readonly ISettings settings;
         readonly Client client;
 
-        public CatchPokemonAction(BotViewModel bot, Client client, ISettings settings) : base(bot)
+        public CatchPokemonAction(BotViewModel bot, Client client, ISettings settings) : base(bot, "Catch Pokemon")
         {
             this.client = client;
             this.settings = settings;

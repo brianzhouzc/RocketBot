@@ -29,6 +29,8 @@ namespace PokemonGo.Bot.TransferPokemonAlgorithms
                     return new TransferPokemonAlgorithmIV(settings.TransferIVThreshold);
                 case TransferPokemonAlgorithm.None:
                     return new TransferPokemonAlgorithmNone();
+                case TransferPokemonAlgorithm.IVDuplicateUnderCPThreshold:
+                    return new TransferPokemonAlgorithmIVDuplicateUnderCPThreshold(settings.TransferCPThreshold);
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(algorithm), "Unknown transfer algorithm.");
@@ -47,6 +49,8 @@ namespace PokemonGo.Bot.TransferPokemonAlgorithms
                     return TransferPokemonAlgorithm.Duplicate;
                 case "IV Duplicate":
                     return TransferPokemonAlgorithm.IVDuplicate;
+                case "IV Duplicate under cp threshold":
+                    return TransferPokemonAlgorithm.IVDuplicateUnderCPThreshold;
                 case "CP":
                     return TransferPokemonAlgorithm.Duplicate;
                 case "IV":

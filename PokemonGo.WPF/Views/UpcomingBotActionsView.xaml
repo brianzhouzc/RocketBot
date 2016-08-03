@@ -6,13 +6,11 @@
              xmlns:local="clr-namespace:PokemonGo.WPF.Views"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <ListView ItemsSource="{Binding UpcomingActions}">
-        <!--<ListView.ItemTemplate>
+    <ListView ItemsSource="{Binding}">
+        <ListView.ItemTemplate>
             <DataTemplate>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding Text}" />
-                </StackPanel>
+                <local:BotActionView />
             </DataTemplate>
-        </ListView.ItemTemplate>-->
+        </ListView.ItemTemplate>
     </ListView>
 </UserControl>

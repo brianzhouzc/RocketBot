@@ -9,7 +9,7 @@ namespace PokemonGo.Bot.BotActions
 {
     public class TransferPokemonWithAlgorithmAction : BotAction
     {
-        public TransferPokemonWithAlgorithmAction(BotViewModel bot) : base(bot)
+        public TransferPokemonWithAlgorithmAction(BotViewModel bot) : base(bot, "Transfer Pokemon")
         {
 
         }

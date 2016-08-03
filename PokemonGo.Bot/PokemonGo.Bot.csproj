@@ -81,6 +81,7 @@
     <Compile Include="Settings.cs" />
     <Compile Include="TransferPokemonAlgorithms\ITranferPokemonAlgorithm.cs" />
     <Compile Include="TransferPokemonAlgorithms\TransferPokemonAlgorithm.cs" />
+    <Compile Include="TransferPokemonAlgorithms\TransferPokemonAlgorithmIVDuplicateUnderCPThreshold.cs" />
     <Compile Include="TransferPokemonAlgorithms\TransferPokemonAlgorithmAll.cs" />
     <Compile Include="TransferPokemonAlgorithms\TransferPokemonAlgorithmCP.cs" />
     <Compile Include="TransferPokemonAlgorithms\TransferPokemonAlgorithmCPDuplicate.cs" />

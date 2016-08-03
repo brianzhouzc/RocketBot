@@ -23,7 +23,7 @@
                     <MenuItem Header="Force Unban" Command="{Binding Bot.AddAction}" CommandParameter="{x:Static actions:BotActionType.ForceUnban}" />
                 </MenuItem>
             </Menu>
-            <Views:UpcomingBotActionsView DockPanel.Dock="Right" Width="200" DataContext="{Binding Bot}"/>
+            <Views:BotView DockPanel.Dock="Right" Width="200" DataContext="{Binding Bot}"/>
             <Views:ConsoleView DataContext="{Binding Console}"/>
         </DockPanel>
     </Grid>

@@ -11,7 +11,26 @@ namespace PokemonGo.Bot.ViewModels
     {
         public PlayerViewModel Player { get; }
         readonly Client client;
+
         BotAction currentAction;
+
+        public BotAction CurrentAction
+        {
+            get
+            {
+                return currentAction;
+            }
+            private set
+            {
+                if (CurrentAction != value)
+                {
+                    currentAction = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+
         public ObservableCollection<BotAction> UpcomingActions { get; } = new ObservableCollection<BotAction>();
         readonly ActionFactory actionFactory;
         public RelayCommand<BotActionType> AddAction { get; }
@@ -40,7 +59,7 @@ namespace PokemonGo.Bot.ViewModels
 
         void AdvanceToNextAction()
         {
-            currentAction = DequeueAction();
+            CurrentAction = DequeueAction();
             StartCurrentAction();
         }
 
@@ -57,10 +76,10 @@ namespace PokemonGo.Bot.ViewModels
 
         bool HasNextAction() => UpcomingActions.Count > 0;
 
-        bool IsExecutingAction() => currentAction?.State == ActionState.Running;
+        bool IsExecutingAction() => CurrentAction?.State == ActionState.Running;
 
-        void StartCurrentAction() => currentAction?.StartAsync();
+        void StartCurrentAction() => CurrentAction?.StartAsync();
 
-        void StopCurrentAction() => currentAction?.StopAsync();
+        void StopCurrentAction() => CurrentAction?.StopAsync();
     }
 }

@@ -7,10 +7,12 @@ namespace PokemonGo.Bot.BotActions
     {
         protected readonly BotViewModel bot;
         public ActionState State { get; private set; }
+        public string DisplayName { get; }
 
-        protected BotAction(BotViewModel bot)
+        protected BotAction(BotViewModel bot, string displayName)
         {
             this.bot = bot;
+            DisplayName = displayName;
             State = ActionState.Stopped;
         }
 

@@ -15,6 +15,7 @@ namespace PokemonGo.Bot.TransferPokemonAlgorithms
         IVDuplicate,
         CP,
         IV,
-        None
+        None,
+        IVDuplicateUnderCPThreshold
     }
 }
