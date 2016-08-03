@@ -45,7 +45,7 @@ namespace PokemonGo.RocketAPI.Window
         IEnumerable<FortData> pokeStops;
         IEnumerable<WildPokemon> wildPokemons;
 
-        public MainForm()
+        public MainForm(bool needStart)
         {
             InitializeComponent();
             synchronizationContext = SynchronizationContext.Current;
@@ -56,7 +56,10 @@ namespace PokemonGo.RocketAPI.Window
 
             this.Text += " v" + Assembly.GetExecutingAssembly().GetName().Version;
             this.CenterToScreen();
+            if (needStart)
+                this.startBot();
         }
+
 
         private void MainForm_Load(object sender, EventArgs e)
         {
