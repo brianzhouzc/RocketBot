@@ -1,13 +1,8 @@
-﻿using Google.Common.Geometry;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GMap.NET.WindowsForms;
-using GMap.NET.WindowsForms.Markers;
-using GMap.NET;
+﻿using System.Collections.Generic;
 using System.Drawing;
+using GMap.NET;
+using GMap.NET.WindowsForms;
+using Google.Common.Geometry;
 
 namespace PokemonGo.RocketAPI.Window
 {

@@ -4,8 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
-using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using AllEnum;
 using PokemonGo.RocketAPI.Enums;
 
@@ -142,9 +142,9 @@ namespace PokemonGo.RocketAPI.Window
 
         public void SetSetting(double value, [CallerMemberName] string key = null)
         {
-            CultureInfo customCulture = (CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            CultureInfo customCulture = (CultureInfo)Thread.CurrentThread.CurrentCulture.Clone();
             customCulture.NumberFormat.NumberDecimalSeparator = ".";
-            System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
+            Thread.CurrentThread.CurrentCulture = customCulture;
             var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             if (key != null) configFile.AppSettings.Settings[key].Value = value.ToString();
             configFile.Save(ConfigurationSaveMode.Full);

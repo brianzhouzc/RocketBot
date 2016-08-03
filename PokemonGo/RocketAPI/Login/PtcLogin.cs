@@ -1,10 +1,10 @@
-using Newtonsoft.Json;
-using PokemonGo.RocketAPI.Exceptions;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
+using Newtonsoft.Json;
+using PokemonGo.RocketAPI.Exceptions;
 
 namespace PokemonGo.RocketAPI.Login
 {

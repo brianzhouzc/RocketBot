@@ -1,8 +1,8 @@
 #region
 
-using PokemonGo.RocketAPI.Enums;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using AllEnum;
+using PokemonGo.RocketAPI.Enums;
 
 #endregion
 
@@ -27,7 +27,7 @@ namespace PokemonGo.RocketAPI
         int TravelSpeed { get; }
         int ImageSize { get; }
         bool Recycler { get; }
-        ICollection<KeyValuePair<AllEnum.ItemId, int>> ItemRecycleFilter { get; }
+        ICollection<KeyValuePair<ItemId, int>> ItemRecycleFilter { get; }
         int RecycleItemsInterval { get; }
         string Language { get; }
         string RazzBerryMode { get; }

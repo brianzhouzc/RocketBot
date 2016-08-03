@@ -1,31 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using AllEnum;
-using PokemonGo.RocketAPI.Enums;
-using PokemonGo.RocketAPI.Exceptions;
-using PokemonGo.RocketAPI.Extensions;
-using PokemonGo.RocketAPI.GeneratedCode;
-using System.Configuration;
+using BrightIdeasSoftware;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
-using GMap.NET.WindowsForms.ToolTips;
-using System.Threading;
-using BrightIdeasSoftware;
+using PokemonGo.RocketAPI.Enums;
+using PokemonGo.RocketAPI.Exceptions;
+using PokemonGo.RocketAPI.Extensions;
+using PokemonGo.RocketAPI.GeneratedCode;
 using PokemonGo.RocketAPI.Helpers;
 
 namespace PokemonGo.RocketAPI.Window
@@ -54,8 +48,8 @@ namespace PokemonGo.RocketAPI.Window
             Client.OnStopBot += stopBot;
             Instance = this;
 
-            this.Text += " v" + Assembly.GetExecutingAssembly().GetName().Version;
-            this.CenterToScreen();
+            Text += " v" + Assembly.GetExecutingAssembly().GetName().Version;
+            CenterToScreen();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -112,13 +106,13 @@ namespace PokemonGo.RocketAPI.Window
 
         public static ISettings ClientSettings;
         private static int Currentlevel = -1;
-        private static int TotalExperience = 0;
-        private static int TotalPokemon = 0;
-        private static bool bot_started = false;
-        private static bool Stopping = false;
-        private static bool ForceUnbanning = false;
-        private static bool FarmingStops = false;
-        private static bool FarmingPokemons = false;
+        private static int TotalExperience;
+        private static int TotalPokemon;
+        private static bool bot_started;
+        private static bool Stopping;
+        private static bool ForceUnbanning;
+        private static bool FarmingStops;
+        private static bool FarmingPokemons;
         private static DateTime TimeStarted = DateTime.Now;
         public static DateTime InitSessionDateTime = DateTime.Now;
 
@@ -170,17 +164,17 @@ namespace PokemonGo.RocketAPI.Window
 
         public static void ColoredConsoleWrite(Color color, string text)
         {
-            if (MainForm.Instance.InvokeRequired)
+            if (Instance.InvokeRequired)
             {
-                MainForm.Instance.Invoke(new Action<Color, string>(ColoredConsoleWrite), color, text);
+                Instance.Invoke(new Action<Color, string>(ColoredConsoleWrite), color, text);
                 return;
             }
 
-            MainForm.Instance.logTextBox.Select(MainForm.Instance.logTextBox.Text.Length, 1); // Reset cursor to last
+            Instance.logTextBox.Select(Instance.logTextBox.Text.Length, 1); // Reset cursor to last
 
             string textToAppend = "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\r\n";
-            MainForm.Instance.logTextBox.SelectionColor = color;
-            MainForm.Instance.logTextBox.AppendText(textToAppend);
+            Instance.logTextBox.SelectionColor = color;
+            Instance.logTextBox.AppendText(textToAppend);
 
             object syncRoot = new object();
             lock (syncRoot) // Added locking to prevent text file trying to be accessed by two things at the same time
@@ -214,6 +208,7 @@ namespace PokemonGo.RocketAPI.Window
             statusLabel.Text = text;
         }
 
+/*
         private async Task EvolvePokemons(Client client)
         {
             var inventory = await client.GetInventory();
@@ -223,6 +218,7 @@ namespace PokemonGo.RocketAPI.Window
 
             await EvolveAllGivenPokemons(client, pokemons);
         }
+*/
 
         private async Task EvolveAllGivenPokemons(Client client, IEnumerable<PokemonData> pokemonToEvolve)
         {
@@ -256,7 +252,7 @@ namespace PokemonGo.RocketAPI.Window
         private async void Execute()
         {
             client = new Client(ClientSettings);
-            this.locationManager = new LocationManager(client, ClientSettings.TravelSpeed);
+            locationManager = new LocationManager(client, ClientSettings.TravelSpeed);
             try
             {
                 switch (ClientSettings.AuthType)
@@ -272,8 +268,8 @@ namespace PokemonGo.RocketAPI.Window
                 await client.Login();
                 await client.SetServer();
                 var profile = await client.GetProfile();
-                var settings = await client.GetSettings();
-                var mapObjects = await client.GetMapObjects();
+                await client.GetSettings();
+                await client.GetMapObjects();
                 var inventory = await client.GetInventory();
                 var pokemons =
                     inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon)
@@ -294,8 +290,8 @@ namespace PokemonGo.RocketAPI.Window
                     ColoredConsoleWrite(Color.Cyan, "Email: " + ClientSettings.Email);
                     ColoredConsoleWrite(Color.Cyan, "Password: " + ClientSettings.Password + "\n");
                 }*/
-                string lat2 = System.Convert.ToString(ClientSettings.DefaultLatitude);
-                string longit2 = System.Convert.ToString(ClientSettings.DefaultLongitude);
+                string lat2 = Convert.ToString(ClientSettings.DefaultLatitude);
+                string longit2 = Convert.ToString(ClientSettings.DefaultLongitude);
                 ColoredConsoleWrite(Color.DarkGray, "Name: " + profile.Profile.Username);
                 ColoredConsoleWrite(Color.DarkGray, "Team: " + profile.Profile.Team);
                 if (profile.Profile.Currency.ToArray()[0].Amount > 0) // If player has any pokecoins it will show how many they have.
@@ -414,7 +410,6 @@ namespace PokemonGo.RocketAPI.Window
                                 break;
                             default:
                                 return "N/A";
-                                break;
                         }
                     }
                 }
@@ -525,20 +520,20 @@ namespace PokemonGo.RocketAPI.Window
 
         private void UpdatePlayerLocation(double latitude, double longitude)
         {
-            synchronizationContext.Post(new SendOrPostCallback(o =>
+            synchronizationContext.Post(o =>
             {
                 playerMarker.Position = (PointLatLng)o;
 
                 searchAreaOverlay.Polygons.Clear();
 
-            }), new PointLatLng(latitude, longitude));
+            }, new PointLatLng(latitude, longitude));
 
             ColoredConsoleWrite(Color.Gray, $"Moving player location to Lat: {latitude}, Lng: {longitude}");
         }
 
         private void UpdateMap()
         {
-            synchronizationContext.Post(new SendOrPostCallback(o =>
+            synchronizationContext.Post(o =>
             {
                 pokestopsOverlay.Markers.Clear();
                 List<PointLatLng> routePoint = new List<PointLatLng>();
@@ -574,7 +569,7 @@ namespace PokemonGo.RocketAPI.Window
 
                 searchAreaOverlay.Polygons.Clear();
                 S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(ClientSettings.DefaultLongitude, ClientSettings.DefaultLatitude), searchAreaOverlay);
-            }), null);
+            }, null);
         }
 
         private async Task ExecuteFarmingPokestopsAndPokemons(Client client)
@@ -743,7 +738,7 @@ namespace PokemonGo.RocketAPI.Window
 
         public static float Perfect(PokemonData poke)
         {
-            return ((float)(poke.IndividualAttack + poke.IndividualDefense + poke.IndividualStamina) / (3.0f * 15.0f)) * 100.0f;
+            return ((poke.IndividualAttack + poke.IndividualDefense + poke.IndividualStamina) / (3.0f * 15.0f)) * 100.0f;
         }
 
         private async Task TransferAllGivenPokemons(Client client, IEnumerable<PokemonData> unwantedPokemons, float keepPerfectPokemonLimit = 80.0f)
@@ -927,8 +922,7 @@ namespace PokemonGo.RocketAPI.Window
         {
             //ColoredConsoleWrite(ConsoleColor.White, $"Firing up the meat grinder");
 
-            PokemonId[] doNotTransfer = new[] //these will not be transferred even when below the CP threshold
-            { // DO NOT EMPTY THIS ARRAY
+            PokemonId[] doNotTransfer = { // DO NOT EMPTY THIS ARRAY
                 //PokemonId.Pidgey,
                 //PokemonId.Rattata,
                 //PokemonId.Weedle,
@@ -1138,11 +1132,13 @@ namespace PokemonGo.RocketAPI.Window
             logTextBox.ScrollToCaret();
         }
 
+/*
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SettingsForm settingsForm = new SettingsForm();
             settingsForm.ShowDialog();
         }
+*/
 
         private void startStopBotToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1219,14 +1215,18 @@ namespace PokemonGo.RocketAPI.Window
             ColoredConsoleWrite(c, message);
         }
 
+/*
         private void showAllToolStripMenuItem3_Click(object sender, EventArgs e)
         {
         }
+*/
 
+/*
         private void statsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // todo: add player stats later
         }
+*/
 
         private async void useLuckyEggToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1241,7 +1241,7 @@ namespace PokemonGo.RocketAPI.Window
                     {
                         var useItemXpBoostRequest = await client.UseItemXpBoost(ItemId.ItemLuckyEgg);
                         ColoredConsoleWrite(Color.Green, $"Using a Lucky Egg, we have {LuckyEgg.Count} left.");
-                        ColoredConsoleWrite(Color.Yellow, $"Lucky Egg Valid until: {DateTime.Now.AddMinutes(30).ToString()}");
+                        ColoredConsoleWrite(Color.Yellow, $"Lucky Egg Valid until: {DateTime.Now.AddMinutes(30)}");
 
                         var stripItem = sender as ToolStripMenuItem;
                         stripItem.Enabled = false;
@@ -1294,12 +1294,6 @@ namespace PokemonGo.RocketAPI.Window
             settingsForm.ShowDialog();
         }
 
-        private void pokemonToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            var pForm = new PokeUi();
-            pForm.Show();
-        }
-
 
 
         #region POKEMON LIST
@@ -1329,7 +1323,7 @@ namespace PokemonGo.RocketAPI.Window
                 var family = families
                         .Where(i => (int)i.FamilyId <= (int)pokemon.PokemonId)
                         .First();
-                args.Text = $"You have {family.Candy} {((PokemonId)((int)family.FamilyId)).ToString()} Candy";
+                args.Text = $"You have {family.Candy} {((PokemonId)((int)family.FamilyId))} Candy";
             };
         }
 
@@ -1388,7 +1382,7 @@ namespace PokemonGo.RocketAPI.Window
 
         private async void TransferPokemon(PokemonData pokemon)
         {
-            if (MessageBox.Show($"Are you sure you want to transfer {pokemon.PokemonId.ToString()} with {pokemon.Cp} CP?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show($"Are you sure you want to transfer {pokemon.PokemonId} with {pokemon.Cp} CP?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 var transferPokemonResponse = await client2.TransferPokemon(pokemon.Id);
 
@@ -1440,14 +1434,18 @@ namespace PokemonGo.RocketAPI.Window
         }
         #endregion
 
+/*
         private void pokeToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
+*/
 
+/*
         private void objectListView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
+*/
     }
 }

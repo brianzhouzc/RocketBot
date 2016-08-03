@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokemonGo.RocketAPI
 {
@@ -22,14 +18,14 @@ namespace PokemonGo.RocketAPI
         {
             get
             {
-                return this.Item1;
+                return Item1;
             }
         }
         public double Longitude
         {
             get
             {
-                return this.Item2;
+                return Item2;
             }
         }
     }

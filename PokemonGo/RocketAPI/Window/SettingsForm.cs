@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using GMap.NET.MapProviders;
-using GMap.NET;
 using System.Configuration;
+using System.Drawing;
 using System.Globalization;
+using System.Windows.Forms;
+using GMap.NET;
+using GMap.NET.MapProviders;
 
 namespace PokemonGo.RocketAPI.Window
 {
@@ -26,12 +21,12 @@ namespace PokemonGo.RocketAPI.Window
             authTypeCb.Text = Settings.Instance.AuthType.ToString();
             if (authTypeCb.Text == "google")
             {
-                UserLoginBox.Text = Settings.Instance.Email.ToString();
-                UserPasswordBox.Text = Settings.Instance.Password.ToString();
+                UserLoginBox.Text = Settings.Instance.Email;
+                UserPasswordBox.Text = Settings.Instance.Password;
             } else
             {
-                UserLoginBox.Text = Settings.Instance.PtcUsername.ToString();
-                UserPasswordBox.Text = Settings.Instance.PtcPassword.ToString();
+                UserLoginBox.Text = Settings.Instance.PtcUsername;
+                UserPasswordBox.Text = Settings.Instance.PtcPassword;
             }
             latitudeText.Text = Settings.Instance.DefaultLatitude.ToString();
             longitudeText.Text = Settings.Instance.DefaultLongitude.ToString();

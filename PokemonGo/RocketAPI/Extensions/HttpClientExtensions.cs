@@ -1,10 +1,10 @@
 #region
 
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Google.Protobuf;
 using PokemonGo.RocketAPI.GeneratedCode;
-using System;
 
 #endregion
 
@@ -28,7 +28,7 @@ namespace PokemonGo.RocketAPI.Extensions
             return decodedResponse;
         }
 
-        private static bool waitingForResponse = false;
+        private static bool waitingForResponse;
         public static async Task<TResponsePayload> PostProtoPayload<TRequest, TResponsePayload>(this HttpClient client,
             string url, TRequest request) where TRequest : IMessage<TRequest>
             where TResponsePayload : IMessage<TResponsePayload>, new()
@@ -65,10 +65,10 @@ namespace PokemonGo.RocketAPI.Extensions
         }
         public static void ColoredConsoleWrite(ConsoleColor color, string text)
         {
-            ConsoleColor originalColor = System.Console.ForegroundColor;
-            System.Console.ForegroundColor = color;
-            System.Console.WriteLine(text);
-            System.Console.ForegroundColor = originalColor;
+            ConsoleColor originalColor = Console.ForegroundColor;
+            Console.ForegroundColor = color;
+            Console.WriteLine(text);
+            Console.ForegroundColor = originalColor;
         }
 
     }

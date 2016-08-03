@@ -8,10 +8,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
+using System.Globalization;
+using System.Resources;
+using System.Runtime.CompilerServices;
+
 namespace PokemonGo.RocketAPI.Window.Properties {
-    using System;
-    
-    
     /// <summary>
     ///   一个强类型的资源类，用于查找本地化的字符串等。
     /// </summary>
@@ -19,27 +25,27 @@ namespace PokemonGo.RocketAPI.Window.Properties {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+    [GeneratedCode("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [DebuggerNonUserCode()]
+    [CompilerGenerated()]
     internal class Resources {
         
-        private static global::System.Resources.ResourceManager resourceMan;
+        private static ResourceManager resourceMan;
         
-        private static global::System.Globalization.CultureInfo resourceCulture;
+        private static CultureInfo resourceCulture;
         
-        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal Resources() {
         }
         
         /// <summary>
         ///   返回此类使用的缓存的 ResourceManager 实例。
         /// </summary>
-        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        internal static ResourceManager ResourceManager {
             get {
-                if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PokemonGo.RocketAPI.Window.Properties.Resources", typeof(Resources).Assembly);
+                if (ReferenceEquals(resourceMan, null)) {
+                    ResourceManager temp = new ResourceManager("PokemonGo.RocketAPI.Window.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -50,8 +56,8 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         ///   使用此强类型资源类，为所有资源查找
         ///   重写当前线程的 CurrentUICulture 属性。
         /// </summary>
-        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        internal static CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,1510 +69,1510 @@ namespace PokemonGo.RocketAPI.Window.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_1 {
+        internal static Bitmap Pokemon_1 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_10 {
+        internal static Bitmap Pokemon_10 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_10", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_100 {
+        internal static Bitmap Pokemon_100 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_100", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_101 {
+        internal static Bitmap Pokemon_101 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_101", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_102 {
+        internal static Bitmap Pokemon_102 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_102", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_103 {
+        internal static Bitmap Pokemon_103 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_103", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_104 {
+        internal static Bitmap Pokemon_104 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_104", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_105 {
+        internal static Bitmap Pokemon_105 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_105", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_106 {
+        internal static Bitmap Pokemon_106 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_106", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_107 {
+        internal static Bitmap Pokemon_107 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_107", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_108 {
+        internal static Bitmap Pokemon_108 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_108", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_109 {
+        internal static Bitmap Pokemon_109 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_109", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_11 {
+        internal static Bitmap Pokemon_11 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_11", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_110 {
+        internal static Bitmap Pokemon_110 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_110", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_111 {
+        internal static Bitmap Pokemon_111 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_111", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_112 {
+        internal static Bitmap Pokemon_112 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_112", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_113 {
+        internal static Bitmap Pokemon_113 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_113", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_114 {
+        internal static Bitmap Pokemon_114 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_114", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_115 {
+        internal static Bitmap Pokemon_115 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_115", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_116 {
+        internal static Bitmap Pokemon_116 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_116", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_117 {
+        internal static Bitmap Pokemon_117 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_117", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_118 {
+        internal static Bitmap Pokemon_118 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_118", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_119 {
+        internal static Bitmap Pokemon_119 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_119", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_12 {
+        internal static Bitmap Pokemon_12 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_12", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_120 {
+        internal static Bitmap Pokemon_120 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_120", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_121 {
+        internal static Bitmap Pokemon_121 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_121", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_122 {
+        internal static Bitmap Pokemon_122 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_122", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_123 {
+        internal static Bitmap Pokemon_123 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_123", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_124 {
+        internal static Bitmap Pokemon_124 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_124", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_125 {
+        internal static Bitmap Pokemon_125 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_125", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_126 {
+        internal static Bitmap Pokemon_126 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_126", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_127 {
+        internal static Bitmap Pokemon_127 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_127", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_128 {
+        internal static Bitmap Pokemon_128 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_128", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_129 {
+        internal static Bitmap Pokemon_129 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_129", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_13 {
+        internal static Bitmap Pokemon_13 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_13", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_130 {
+        internal static Bitmap Pokemon_130 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_130", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_131 {
+        internal static Bitmap Pokemon_131 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_131", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_132 {
+        internal static Bitmap Pokemon_132 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_132", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_133 {
+        internal static Bitmap Pokemon_133 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_133", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_134 {
+        internal static Bitmap Pokemon_134 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_134", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_135 {
+        internal static Bitmap Pokemon_135 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_135", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_136 {
+        internal static Bitmap Pokemon_136 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_136", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_137 {
+        internal static Bitmap Pokemon_137 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_137", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_138 {
+        internal static Bitmap Pokemon_138 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_138", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_139 {
+        internal static Bitmap Pokemon_139 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_139", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_14 {
+        internal static Bitmap Pokemon_14 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_14", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_140 {
+        internal static Bitmap Pokemon_140 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_140", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_141 {
+        internal static Bitmap Pokemon_141 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_141", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_142 {
+        internal static Bitmap Pokemon_142 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_142", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_143 {
+        internal static Bitmap Pokemon_143 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_143", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_144 {
+        internal static Bitmap Pokemon_144 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_144", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_145 {
+        internal static Bitmap Pokemon_145 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_145", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_146 {
+        internal static Bitmap Pokemon_146 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_146", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_147 {
+        internal static Bitmap Pokemon_147 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_147", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_148 {
+        internal static Bitmap Pokemon_148 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_148", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_149 {
+        internal static Bitmap Pokemon_149 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_149", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_15 {
+        internal static Bitmap Pokemon_15 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_15", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_150 {
+        internal static Bitmap Pokemon_150 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_150", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_151 {
+        internal static Bitmap Pokemon_151 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_151", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_16 {
+        internal static Bitmap Pokemon_16 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_17 {
+        internal static Bitmap Pokemon_17 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_17", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_18 {
+        internal static Bitmap Pokemon_18 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_18", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_19 {
+        internal static Bitmap Pokemon_19 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_19", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_2 {
+        internal static Bitmap Pokemon_2 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_20 {
+        internal static Bitmap Pokemon_20 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_20", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_21 {
+        internal static Bitmap Pokemon_21 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_21", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_22 {
+        internal static Bitmap Pokemon_22 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_22", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_23 {
+        internal static Bitmap Pokemon_23 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_23", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_24 {
+        internal static Bitmap Pokemon_24 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_24", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_25 {
+        internal static Bitmap Pokemon_25 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_25", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_26 {
+        internal static Bitmap Pokemon_26 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_26", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_27 {
+        internal static Bitmap Pokemon_27 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_27", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_28 {
+        internal static Bitmap Pokemon_28 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_28", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_29 {
+        internal static Bitmap Pokemon_29 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_29", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_3 {
+        internal static Bitmap Pokemon_3 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_3", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_30 {
+        internal static Bitmap Pokemon_30 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_30", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_31 {
+        internal static Bitmap Pokemon_31 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_31", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_32 {
+        internal static Bitmap Pokemon_32 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_32", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_33 {
+        internal static Bitmap Pokemon_33 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_33", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_34 {
+        internal static Bitmap Pokemon_34 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_34", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_35 {
+        internal static Bitmap Pokemon_35 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_35", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_36 {
+        internal static Bitmap Pokemon_36 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_36", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_37 {
+        internal static Bitmap Pokemon_37 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_37", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_38 {
+        internal static Bitmap Pokemon_38 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_38", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_39 {
+        internal static Bitmap Pokemon_39 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_39", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_4 {
+        internal static Bitmap Pokemon_4 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_4", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_40 {
+        internal static Bitmap Pokemon_40 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_40", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_41 {
+        internal static Bitmap Pokemon_41 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_41", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_42 {
+        internal static Bitmap Pokemon_42 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_42", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_43 {
+        internal static Bitmap Pokemon_43 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_43", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_44 {
+        internal static Bitmap Pokemon_44 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_44", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_45 {
+        internal static Bitmap Pokemon_45 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_45", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_46 {
+        internal static Bitmap Pokemon_46 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_46", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_47 {
+        internal static Bitmap Pokemon_47 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_47", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_48 {
+        internal static Bitmap Pokemon_48 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_48", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_49 {
+        internal static Bitmap Pokemon_49 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_49", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_5 {
+        internal static Bitmap Pokemon_5 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_5", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_50 {
+        internal static Bitmap Pokemon_50 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_50", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_51 {
+        internal static Bitmap Pokemon_51 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_51", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_52 {
+        internal static Bitmap Pokemon_52 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_52", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_53 {
+        internal static Bitmap Pokemon_53 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_53", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_54 {
+        internal static Bitmap Pokemon_54 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_54", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_55 {
+        internal static Bitmap Pokemon_55 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_55", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_56 {
+        internal static Bitmap Pokemon_56 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_56", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_57 {
+        internal static Bitmap Pokemon_57 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_57", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_58 {
+        internal static Bitmap Pokemon_58 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_58", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_59 {
+        internal static Bitmap Pokemon_59 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_59", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_6 {
+        internal static Bitmap Pokemon_6 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_6", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_60 {
+        internal static Bitmap Pokemon_60 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_60", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_61 {
+        internal static Bitmap Pokemon_61 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_61", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_62 {
+        internal static Bitmap Pokemon_62 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_62", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_63 {
+        internal static Bitmap Pokemon_63 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_63", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_64 {
+        internal static Bitmap Pokemon_64 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_64", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_65 {
+        internal static Bitmap Pokemon_65 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_65", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_66 {
+        internal static Bitmap Pokemon_66 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_66", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_67 {
+        internal static Bitmap Pokemon_67 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_67", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_68 {
+        internal static Bitmap Pokemon_68 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_68", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_69 {
+        internal static Bitmap Pokemon_69 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_69", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_7 {
+        internal static Bitmap Pokemon_7 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_7", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_70 {
+        internal static Bitmap Pokemon_70 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_70", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_71 {
+        internal static Bitmap Pokemon_71 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_71", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_72 {
+        internal static Bitmap Pokemon_72 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_72", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_73 {
+        internal static Bitmap Pokemon_73 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_73", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_74 {
+        internal static Bitmap Pokemon_74 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_74", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_75 {
+        internal static Bitmap Pokemon_75 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_75", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_76 {
+        internal static Bitmap Pokemon_76 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_76", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_77 {
+        internal static Bitmap Pokemon_77 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_77", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_78 {
+        internal static Bitmap Pokemon_78 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_78", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_79 {
+        internal static Bitmap Pokemon_79 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_79", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_8 {
+        internal static Bitmap Pokemon_8 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_8", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_80 {
+        internal static Bitmap Pokemon_80 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_80", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_81 {
+        internal static Bitmap Pokemon_81 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_81", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_82 {
+        internal static Bitmap Pokemon_82 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_82", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_83 {
+        internal static Bitmap Pokemon_83 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_83", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_84 {
+        internal static Bitmap Pokemon_84 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_84", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_85 {
+        internal static Bitmap Pokemon_85 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_85", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_86 {
+        internal static Bitmap Pokemon_86 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_86", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_87 {
+        internal static Bitmap Pokemon_87 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_87", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_88 {
+        internal static Bitmap Pokemon_88 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_88", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_89 {
+        internal static Bitmap Pokemon_89 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_89", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_9 {
+        internal static Bitmap Pokemon_9 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_9", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_90 {
+        internal static Bitmap Pokemon_90 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_90", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_91 {
+        internal static Bitmap Pokemon_91 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_91", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_92 {
+        internal static Bitmap Pokemon_92 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_92", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_93 {
+        internal static Bitmap Pokemon_93 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_93", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_94 {
+        internal static Bitmap Pokemon_94 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_94", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_95 {
+        internal static Bitmap Pokemon_95 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_95", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_96 {
+        internal static Bitmap Pokemon_96 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_96", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_97 {
+        internal static Bitmap Pokemon_97 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_97", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_98 {
+        internal static Bitmap Pokemon_98 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_98", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokemon_99 {
+        internal static Bitmap Pokemon_99 {
             get {
                 object obj = ResourceManager.GetObject("Pokemon_99", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((Bitmap)(obj));
             }
         }
     }

@@ -1,4 +1,3 @@
-using PokemonGo.RocketAPI.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +6,7 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using PokemonGo.RocketAPI.Exceptions;
 
 namespace PokemonGo.RocketAPI.Login
 {
@@ -135,7 +135,7 @@ namespace PokemonGo.RocketAPI.Login
         public static Dictionary<string, string> ParseAuthResponse(string text)
         {
             var responseData = new Dictionary<string, string>();
-            foreach (string line in text.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries))
+            foreach (string line in text.Split(new[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries))
             {
                 var parts = line.Split('=');
                 responseData.Add(parts[0], parts[1]);
@@ -151,7 +151,7 @@ namespace PokemonGo.RocketAPI.Login
                 rsa.ImportParameters(key);
                 var sha1 = SHA1.Create();
                 byte[] prefix = { 0x00 };
-                var hash = sha1.ComputeHash(GoogleKeyUtils.KeyToStruct(key)).Take(4).ToArray();
+                var hash = sha1.ComputeHash(KeyToStruct(key)).Take(4).ToArray();
                 var encrypted = rsa.Encrypt(Encoding.UTF8.GetBytes(email + "\x00" + password), true);
                 return DataTypeUtils.UrlSafeBase64(DataTypeUtils.CombineBytes(prefix, hash, encrypted));
             }

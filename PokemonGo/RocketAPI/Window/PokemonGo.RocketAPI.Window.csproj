@@ -81,25 +81,7 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MapForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MapForm.Designer.cs">
-      <DependentUpon>MapForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PokemonForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PokemonForm.Designer.cs">
-      <DependentUpon>PokemonForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="RouteOptimizer.cs" />
-    <Compile Include="PokeUi.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PokeUi.Designer.cs">
-      <DependentUpon>PokeUi.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="S2GMapDrawer.cs" />
@@ -112,15 +94,6 @@
     </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MapForm.resx">
-      <DependentUpon>MapForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PokemonForm.resx">
-      <DependentUpon>PokemonForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PokeUi.resx">
-      <DependentUpon>PokeUi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

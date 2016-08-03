@@ -1,11 +1,15 @@
-﻿namespace PokemonGo.RocketAPI.Window
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+using GMap.NET.WindowsForms;
+
+namespace PokemonGo.RocketAPI.Window
 {
     partial class SettingsForm
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -606,42 +610,42 @@
 
         #endregion
 
-        private System.Windows.Forms.Label authTypeLabel;
-        private System.Windows.Forms.ComboBox authTypeCb;
-        private System.Windows.Forms.Label UserLabel;
-        private System.Windows.Forms.Label PasswordLabel;
-        private System.Windows.Forms.Label latLabel;
-        private System.Windows.Forms.Label longiLabel;
-        private System.Windows.Forms.Label RazzberryModeLabel;
-        private System.Windows.Forms.Label TransferTypeLabel;
-        private System.Windows.Forms.Label EvolvePokemonLabel;
-        private System.Windows.Forms.Label CPThresholdLabel;
-        private System.Windows.Forms.Label RazzberrySettingLabel;
-        private System.Windows.Forms.TextBox UserLoginBox;
-        private System.Windows.Forms.TextBox UserPasswordBox;
-        private System.Windows.Forms.TextBox latitudeText;
-        private System.Windows.Forms.TextBox longitudeText;
-        private System.Windows.Forms.ComboBox razzmodeCb;
-        private System.Windows.Forms.TextBox razzSettingText;
-        private System.Windows.Forms.ComboBox transferTypeCb;
-        private System.Windows.Forms.TextBox transferCpThresText;
-        private System.Windows.Forms.CheckBox evolveAllChk;
-        private GMap.NET.WindowsForms.GMapControl gMapControl1;
-        private System.Windows.Forms.GroupBox LocationGroupBox;
-        private System.Windows.Forms.TrackBar trackBar;
-        private System.Windows.Forms.TextBox TravelSpeedBox;
-        private System.Windows.Forms.Label IVThresholdLabel;
-        private System.Windows.Forms.Label TravelSpeedLabel;
-        private System.Windows.Forms.TextBox transferIVThresText;
-        private System.Windows.Forms.TextBox AdressBox;
-        private System.Windows.Forms.Button FindAdressButton;
-        private System.Windows.Forms.CheckBox CatchPokemonBox;
-        private System.Windows.Forms.Label CatchPokemonLabel;
-        private System.Windows.Forms.TableLayoutPanel LocationControlsTableLayoutPanel;
-        private System.Windows.Forms.TableLayoutPanel MainTableLayoutPanel;
-        private System.Windows.Forms.TableLayoutPanel SettingsTableLayoutPanel;
-        private System.Windows.Forms.Label Spacer1Label;
-        private System.Windows.Forms.Label Spacer2Label;
-        private System.Windows.Forms.Button saveBtn;
+        private Label authTypeLabel;
+        private ComboBox authTypeCb;
+        private Label UserLabel;
+        private Label PasswordLabel;
+        private Label latLabel;
+        private Label longiLabel;
+        private Label RazzberryModeLabel;
+        private Label TransferTypeLabel;
+        private Label EvolvePokemonLabel;
+        private Label CPThresholdLabel;
+        private Label RazzberrySettingLabel;
+        private TextBox UserLoginBox;
+        private TextBox UserPasswordBox;
+        private TextBox latitudeText;
+        private TextBox longitudeText;
+        private ComboBox razzmodeCb;
+        private TextBox razzSettingText;
+        private ComboBox transferTypeCb;
+        private TextBox transferCpThresText;
+        private CheckBox evolveAllChk;
+        private GMapControl gMapControl1;
+        private GroupBox LocationGroupBox;
+        private TrackBar trackBar;
+        private TextBox TravelSpeedBox;
+        private Label IVThresholdLabel;
+        private Label TravelSpeedLabel;
+        private TextBox transferIVThresText;
+        private TextBox AdressBox;
+        private Button FindAdressButton;
+        private CheckBox CatchPokemonBox;
+        private Label CatchPokemonLabel;
+        private TableLayoutPanel LocationControlsTableLayoutPanel;
+        private TableLayoutPanel MainTableLayoutPanel;
+        private TableLayoutPanel SettingsTableLayoutPanel;
+        private Label Spacer1Label;
+        private Label Spacer2Label;
+        private Button saveBtn;
     }
 }

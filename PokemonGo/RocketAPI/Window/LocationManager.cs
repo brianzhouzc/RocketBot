@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using PokemonGo.RocketAPI;
 using PokemonGo.RocketAPI.Extensions;
 
 namespace PokemonGo.RocketAPI.Window
@@ -16,7 +12,7 @@ namespace PokemonGo.RocketAPI.Window
         public LocationManager(Client client, double speed)
         {
             this.client = client;
-            this.metersPerMillisecond = speed / 3600;
+            metersPerMillisecond = speed / 3600;
         }
 
         public double getDistance(double lat, double lng)
@@ -27,7 +23,7 @@ namespace PokemonGo.RocketAPI.Window
 
         public async Task update(double lat, double lng)
         {
-            double waitTime = getDistance(lat, lng) / this.metersPerMillisecond;
+            double waitTime = getDistance(lat, lng) / metersPerMillisecond;
             await Task.Delay((int)Math.Ceiling(waitTime));
             await client.UpdatePlayerLocation(lat, lng);
         }

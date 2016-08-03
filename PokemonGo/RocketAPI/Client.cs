@@ -1,27 +1,21 @@
 #region
 
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using AllEnum;
 using Google.Protobuf;
+using Newtonsoft.Json;
 using PokemonGo.RocketAPI.Enums;
+using PokemonGo.RocketAPI.Exceptions;
 using PokemonGo.RocketAPI.Extensions;
 using PokemonGo.RocketAPI.GeneratedCode;
 using PokemonGo.RocketAPI.Helpers;
 using PokemonGo.RocketAPI.Login;
-using AllEnum;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using System.Threading;
-using PokemonGo.RocketAPI.Exceptions;
-using System.Text;
-using System.IO;
-using Newtonsoft.Json;
 
 #endregion
 
@@ -123,7 +117,7 @@ namespace PokemonGo.RocketAPI
                 catch (LoginFailedException) { errorMessage = "wrong password or username"; }
                 catch (PtcOfflineException) { errorMessage = "PTC login server is down - Restarting"; }
                 catch (JsonReaderException) { errorMessage = "Json Reader Exception - Server down? - Restarting"; }
-                catch (Exception ex) { errorMessage = ex.ToString() + "Exception - Please report - Restarting"; }
+                catch (Exception ex) { errorMessage = ex + "Exception - Please report - Restarting"; }
 
                 if (errorMessage != null)
                     if (errorMessage == "wrong password or username")
@@ -249,17 +243,17 @@ namespace PokemonGo.RocketAPI
                 ColoredConsoleWrite(ConsoleColor.Green, $"Poke Ball is being used");
                 return MiscEnums.Item.ITEM_POKE_BALL;
             }
-            else if ((greatBallsCount < 40 && pokemonCP >= 200) || greatBallsCount >= 40)
+            if ((greatBallsCount < 40 && pokemonCP >= 200) || greatBallsCount >= 40)
             {
                 ColoredConsoleWrite(ConsoleColor.Green, $"Great Ball is being used");
                 return MiscEnums.Item.ITEM_GREAT_BALL;
             }
-            else if (ultraBallsCount > 0 && pokemonCP >= 500)
+            if (ultraBallsCount > 0 && pokemonCP >= 500)
             {
                 ColoredConsoleWrite(ConsoleColor.Green, $"Ultra Ball is being used");
                 return MiscEnums.Item.ITEM_ULTRA_BALL;
             }
-            else if (masterBallsCount > 0 && pokemonCP >= 700)
+            if (masterBallsCount > 0 && pokemonCP >= 700)
             {
                 ColoredConsoleWrite(ConsoleColor.Green, $"Master Ball is being used");
                 return MiscEnums.Item.ITEM_MASTER_BALL;
@@ -461,7 +455,7 @@ namespace PokemonGo.RocketAPI
         {
             get
             {
-                return this._currentLat;
+                return _currentLat;
             }
         }
 
@@ -469,7 +463,7 @@ namespace PokemonGo.RocketAPI
         {
             get
             {
-                return this._currentLng;
+                return _currentLng;
             }
         }
 
@@ -506,7 +500,7 @@ namespace PokemonGo.RocketAPI
 
             return myItems
                 .Where(x => settings.ItemRecycleFilter.Any(f => f.Key == ((ItemId)x.Item_) && x.Count > f.Value))
-                .Select(x => new Item { Item_ = x.Item_, Count = x.Count - settings.ItemRecycleFilter.Single(f => f.Key == (AllEnum.ItemId)x.Item_).Value, Unseen = x.Unseen });
+                .Select(x => new Item { Item_ = x.Item_, Count = x.Count - settings.ItemRecycleFilter.Single(f => f.Key == (ItemId)x.Item_).Value, Unseen = x.Unseen });
         }
 
         public async Task RecycleItems(Client client)
@@ -515,22 +509,22 @@ namespace PokemonGo.RocketAPI
 
             foreach (var item in items)
             {
-                var transfer = await RecycleItem((AllEnum.ItemId)item.Item_, item.Count);
-                ColoredConsoleWrite(ConsoleColor.DarkCyan, $"Recycled {item.Count}x {((AllEnum.ItemId)item.Item_).ToString().Substring(4)}");
+                var transfer = await RecycleItem((ItemId)item.Item_, item.Count);
+                ColoredConsoleWrite(ConsoleColor.DarkCyan, $"Recycled {item.Count}x {((ItemId)item.Item_).ToString().Substring(4)}");
                 await Task.Delay(500);
             }
         }
 
-        public async Task<Response.Types.Unknown6> RecycleItem(AllEnum.ItemId itemId, int amount)
+        public async Task<Response.Types.Unknown6> RecycleItem(ItemId itemId, int amount)
         {
             var customRequest = new InventoryItemData.RecycleInventoryItem
             {
-                ItemId = (AllEnum.ItemId)Enum.Parse(typeof(AllEnum.ItemId), itemId.ToString()),
+                ItemId = (ItemId)Enum.Parse(typeof(ItemId), itemId.ToString()),
                 Count = amount
             };
 
             var releasePokemonRequest = RequestBuilder.GetRequest(_unknownAuth, _currentLat, _currentLng, 30,
-                new Request.Types.Requests()
+                new Request.Types.Requests
                 {
                     Type = (int)RequestType.RECYCLE_INVENTORY_ITEM,
                     Message = customRequest.ToByteString()
@@ -546,7 +540,7 @@ namespace PokemonGo.RocketAPI
                 .Where(p => p != null);
         }
 
-        public async Task<UseItemCaptureRequest> UseCaptureItem(ulong encounterId, AllEnum.ItemId itemId, string spawnPointGuid)
+        public async Task<UseItemCaptureRequest> UseCaptureItem(ulong encounterId, ItemId itemId, string spawnPointGuid)
         {
             var customRequest = new UseItemCaptureRequest
             {
@@ -556,7 +550,7 @@ namespace PokemonGo.RocketAPI
             };
 
             var useItemRequest = RequestBuilder.GetRequest(_unknownAuth, _currentLat, _currentLng, 30,
-                new Request.Types.Requests()
+                new Request.Types.Requests
                 {
                     Type = (int)RequestType.USE_ITEM_CAPTURE,
                     Message = customRequest.ToByteString()
@@ -573,7 +567,7 @@ namespace PokemonGo.RocketAPI
             {
                 if (RazzBerry.Count > 0)
                 {
-                UseItemCaptureRequest useRazzBerry = await client.UseCaptureItem(encounterId, AllEnum.ItemId.ItemRazzBerry, spawnPointGuid);
+                UseItemCaptureRequest useRazzBerry = await client.UseCaptureItem(encounterId, ItemId.ItemRazzBerry, spawnPointGuid);
                 ColoredConsoleWrite(ConsoleColor.Green, $"Using a Razz Berry, we have {RazzBerry.Count} left");
                 await Task.Delay(2000);
                 }
@@ -588,7 +582,7 @@ namespace PokemonGo.RocketAPI
         {
             var customRequest = new UseItemRequest
             {
-                ItemId = itemId,
+                ItemId = itemId
             };
 
             var useItemRequest = RequestBuilder.GetRequest(_unknownAuth, _currentLat, _currentLng, 30,

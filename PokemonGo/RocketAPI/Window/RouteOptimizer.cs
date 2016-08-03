@@ -1,12 +1,9 @@
-﻿using GMap.NET;
-using GMap.NET.WindowsForms;
-using PokemonGo.RocketAPI.GeneratedCode;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using GMap.NET;
+using GMap.NET.WindowsForms;
+using PokemonGo.RocketAPI.GeneratedCode;
 
 namespace PokemonGo.RocketAPI.Window
 {
@@ -42,14 +39,14 @@ namespace PokemonGo.RocketAPI.Window
 
         private static void Visualize(List<FortData> pokeStops, GMapOverlay routeOverlay)
         {
-            MainForm.synchronizationContext.Post(new SendOrPostCallback(o =>
+            MainForm.synchronizationContext.Post(o =>
             {
                 List<FortData> p = new List<FortData>((List<FortData>)o);
                 routeOverlay.Markers.Clear();
                 List<PointLatLng> routePoint = (from pokeStop in p where pokeStop != null select new PointLatLng(pokeStop.Latitude, pokeStop.Longitude)).ToList();
                 routeOverlay.Routes.Clear();
                 routeOverlay.Routes.Add(new GMapRoute(routePoint, "Walking Path"));
-            }), pokeStops);
+            }, pokeStops);
         }
 
         private static List<FortData> Optimize2Opt(List<FortData> pokeStops, out bool isOptimized)

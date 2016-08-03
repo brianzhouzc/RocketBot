@@ -1,11 +1,16 @@
-﻿namespace PokemonGo.RocketAPI.Window
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+using BrightIdeasSoftware;
+using GMap.NET.WindowsForms;
+
+namespace PokemonGo.RocketAPI.Window
 {
     partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -411,35 +416,35 @@
 
         #endregion
 
-        private System.Windows.Forms.RichTextBox logTextBox;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem todoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripStatusLabel statusLabel;
-        private System.Windows.Forms.ToolStripMenuItem startStopBotToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem useLuckyEggToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem forceUnbanToolStripMenuItem;
-        private GMap.NET.WindowsForms.GMapControl gMapControl1;
-        private BrightIdeasSoftware.ObjectListView objectListView1;
-        private BrightIdeasSoftware.OLVColumn pkmnName;
-        private BrightIdeasSoftware.OLVColumn pkmnCP;
-        private BrightIdeasSoftware.OLVColumn pkmnAtkIV;
-        private BrightIdeasSoftware.OLVColumn pkmnDefIV;
-        private BrightIdeasSoftware.OLVColumn pkmnStaIV;
-        private BrightIdeasSoftware.OLVColumn pkmnIV;
-        private BrightIdeasSoftware.OLVColumn pkmnTransferButton;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ImageList smallPokemonImageList;
-        private System.Windows.Forms.ImageList largePokemonImageList;
-        private BrightIdeasSoftware.OLVColumn pkmnPowerUpButton;
-        private BrightIdeasSoftware.OLVColumn pkmnEvolveButton;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel panel1;
+        private RichTextBox logTextBox;
+        private StatusStrip statusStrip1;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem todoToolStripMenuItem;
+        private ToolStripStatusLabel statusLabel;
+        private ToolStripMenuItem startStopBotToolStripMenuItem;
+        private ToolStripMenuItem showAllToolStripMenuItem;
+        private ToolStripMenuItem showAllToolStripMenuItem1;
+        private ToolStripMenuItem useLuckyEggToolStripMenuItem;
+        private ToolStripMenuItem forceUnbanToolStripMenuItem;
+        private GMapControl gMapControl1;
+        private ObjectListView objectListView1;
+        private OLVColumn pkmnName;
+        private OLVColumn pkmnCP;
+        private OLVColumn pkmnAtkIV;
+        private OLVColumn pkmnDefIV;
+        private OLVColumn pkmnStaIV;
+        private OLVColumn pkmnIV;
+        private OLVColumn pkmnTransferButton;
+        private Button button1;
+        private ImageList smallPokemonImageList;
+        private ImageList largePokemonImageList;
+        private OLVColumn pkmnPowerUpButton;
+        private OLVColumn pkmnEvolveButton;
+        private TabControl tabControl1;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
+        private Label label1;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Panel panel1;
     }
 }
