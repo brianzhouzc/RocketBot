@@ -175,24 +175,24 @@ namespace PokemonGo.RocketAPI.Window
         {
             if (transferTypeCb.Text == "CP")
             {
-                label4.Visible = true;
+                CPThresholdLabel.Visible = true;
                 transferCpThresText.Visible = true;
             }
             else
             {
-                label4.Visible = false;
+                CPThresholdLabel.Visible = false;
                 transferCpThresText.Visible = false;
 
             }
 
             if (transferTypeCb.Text == "IV")
             {
-                label6.Visible = true;
+                IVThresholdLabel.Visible = true;
                 transferIVThresText.Visible = true;
             }
             else
             {
-                label6.Visible = false;
+                IVThresholdLabel.Visible = false;
                 transferIVThresText.Visible = false;
 
             }
