@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using AllEnum;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using PokemonGo.Bot.Messages;
 using PokemonGo.RocketAPI;
@@ -20,76 +21,80 @@ namespace PokemonGo.Bot.ViewModels
         public AsyncRelayCommand LoadProfile { get; }
 
         public InventoryViewModel Inventory { get; }
-        Profile profile;
 
-        public Profile Profile
+        int xp;
+        public int Xp
         {
-            get
-            {
-                return profile;
-            }
-            set
-            {
-                if (Profile != value)
-                {
-                    profile = value;
-                    RaisePropertyChanged();
-                }
-            }
+            get { return xp; }
+            set { if (Xp != value) { xp = value; RaisePropertyChanged(); } }
         }
+
+        int nextLevelXP;
+        public int NextLevelXP
+        {
+            get { return nextLevelXP; }
+            set { if (NextLevelXP != value) { nextLevelXP = value; RaisePropertyChanged(); } }
+        }
+
+        int level;
+        public int Level
+        {
+            get { return level; }
+            set { if (Level != value) { level = value; RaisePropertyChanged(); } }
+        }
+
+        int stardust;
+        public int Stardust
+        {
+            get { return stardust; }
+            set { if (Stardust != value) { stardust = value; RaisePropertyChanged(); } }
+        }
+
+        int pokecoins;
+        public int Pokecoins
+        {
+            get { return pokecoins; }
+            set { if (Pokecoins != value) { pokecoins = value; RaisePropertyChanged(); } }
+        }
+
+        string username;
+        public string Username
+        {
+            get { return username; }
+            set { if (Username != value) { username = value; RaisePropertyChanged(); } }
+        }
+
+        string team;
+        public string Team
+        {
+            get { return team; }
+            set { if (Team != value) { team = value; RaisePropertyChanged(); } }
+        }
+
+
 
         GlobalSettings settings;
 
         public GlobalSettings Settings
         {
-            get
-            {
-                return settings;
-            }
-            set
-            {
-                if (Settings != value)
-                {
-                    settings = value;
-                    RaisePropertyChanged();
-                }
-            }
+            get { return settings; }
+            set { if (Settings != value) { settings = value; RaisePropertyChanged(); } }
         }
 
         PositionViewModel position;
 
         public PositionViewModel Position
         {
-            get
-            {
-                return position;
-            }
-            set
-            {
-                if (Position != value)
-                {
-                    position = value;
-                    RaisePropertyChanged();
-                }
-            }
+            get { return position; }
+            set { if (Position != value) { position = value; RaisePropertyChanged(); } }
         }
 
         bool isLoggedIn;
 
         public bool IsLoggedIn
         {
-            get
-            {
-                return isLoggedIn;
-            }
-            set
-            {
-                if (IsLoggedIn != value)
-                {
-                    isLoggedIn = value;
-                    RaisePropertyChanged();
-                }
-            }
+            get { return isLoggedIn; }
+            set { if (IsLoggedIn != value) { isLoggedIn = value; RaisePropertyChanged(); }    }
         }
 
         readonly double speedInmetersPerMillisecond;
@@ -114,7 +119,12 @@ namespace PokemonGo.Bot.ViewModels
             speedInmetersPerMillisecond = settings.TravelSpeed / 3600.0;
 
             Position = new PositionViewModel(client.CurrentLatitude, client.CurrentLongitude);
-            LoadProfile = new AsyncRelayCommand(async () => Profile = (await client.GetProfile()).Profile);
+            LoadProfile = new AsyncRelayCommand(async () =>
+            {
+                var profile = (await client.GetProfile()).Profile;
+                Username = profile.Username;
+                Team = Enum.GetName(typeof(TeamColor), profile.Team);
+            });
 
             Login = new AsyncRelayCommand(async () =>
             {
