@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using PokemonGo.RocketAPI.GeneratedCode;
+﻿using System.Collections.Generic;
 using System.Linq;
 using PokemonGo.Bot.ViewModels;
 
@@ -14,6 +12,6 @@ namespace PokemonGo.Bot.TransferPokemonAlgorithms
         {
             this.threshold = threshold;
         }
-        public IEnumerable<CatchedPokemonViewModel> Apply(IEnumerable<CatchedPokemonViewModel> allPokemon) => allPokemon.Where(p => p.CombatPoints < threshold);
+        public IEnumerable<CaughtPokemonViewModel> Apply(IEnumerable<CaughtPokemonViewModel> allPokemon) => allPokemon.Where(p => p.CombatPoints < threshold);
     }
 }

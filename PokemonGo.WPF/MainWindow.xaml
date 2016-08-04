@@ -33,7 +33,7 @@
             </MenuItem>
         </Menu>
         <Views:ConsoleView DataContext="{Binding Console}" Grid.Row="1" Grid.Column="0"/>
-        <Views:BotView Width="200" DataContext="{Binding Bot}" Grid.Row="1" Grid.Column="1"/>
+        <Views:BotView DataContext="{Binding Bot}" Grid.Row="1" Grid.Column="1" Margin="10,0,10,10"/>
         <Views:InventoryView Grid.Row="1" Grid.Column="2" DataContext="{Binding Player.Inventory}"/>
     </Grid>
 </Window>

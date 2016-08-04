@@ -3,10 +3,8 @@ using GalaSoft.MvvmLight.Command;
 using PokemonGo.Bot.TransferPokemonAlgorithms;
 using PokemonGo.RocketAPI;
 using PokemonGo.RocketAPI.GeneratedCode;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PokemonGo.Bot.ViewModels
@@ -65,7 +63,7 @@ namespace PokemonGo.Bot.ViewModels
                 }
             }
         }
-        public IEnumerable<CatchedPokemonViewModel> Pokemon => Inventory?.InventoryItems.Select(i => i.InventoryItemData?.Pokemon).Where(p => p?.PokemonId > 0).Select(p => new CatchedPokemonViewModel(p));
+        public IEnumerable<CaughtPokemonViewModel> Pokemon => Inventory?.InventoryItems.Select(i => i.InventoryItemData?.Pokemon).Where(p => p?.PokemonId > 0).Select(p => new CaughtPokemonViewModel(p));
 
         PlayerStats playerStats;
         public PlayerStats PlayerStats

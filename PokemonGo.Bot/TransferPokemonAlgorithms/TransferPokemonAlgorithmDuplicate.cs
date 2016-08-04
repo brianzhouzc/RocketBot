@@ -1,5 +1,4 @@
 ﻿using PokemonGo.Bot.ViewModels;
-using PokemonGo.RocketAPI.GeneratedCode;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace PokemonGo.Bot.TransferPokemonAlgorithms
 {
     public class TransferPokemonAlgorithmDuplicate : ITranferPokemonAlgorithm
     {
-        public IEnumerable<CatchedPokemonViewModel> Apply(IEnumerable<CatchedPokemonViewModel> allPokemon)
+        public IEnumerable<CaughtPokemonViewModel> Apply(IEnumerable<CaughtPokemonViewModel> allPokemon)
             => allPokemon
                 // find duplicates
                 .GroupBy(p => p.PokemonId)

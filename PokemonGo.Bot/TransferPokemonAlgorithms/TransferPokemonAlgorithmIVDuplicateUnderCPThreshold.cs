@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PokemonGo.RocketAPI.GeneratedCode;
 using PokemonGo.Bot.ViewModels;
 
 namespace PokemonGo.Bot.TransferPokemonAlgorithms
@@ -17,7 +13,7 @@ namespace PokemonGo.Bot.TransferPokemonAlgorithms
             this.threshold = threshold;
         }
 
-        public IEnumerable<CatchedPokemonViewModel> Apply(IEnumerable<CatchedPokemonViewModel> allPokemon)
+        public IEnumerable<CaughtPokemonViewModel> Apply(IEnumerable<CaughtPokemonViewModel> allPokemon)
             => allPokemon
                 // find duplicates
                 .GroupBy(p => p.PokemonId)

@@ -4,7 +4,7 @@ using System;
 
 namespace PokemonGo.Bot.ViewModels
 {
-    public class CatchedPokemonViewModel : PokemonViewModel
+    public class CaughtPokemonViewModel : PokemonViewModel
     {
         int combatPoints;
 
@@ -57,7 +57,7 @@ namespace PokemonGo.Bot.ViewModels
             set { if (StaminaMax != value) { staminaMax = value; RaisePropertyChanged(); } }
         }
 
-        public CatchedPokemonViewModel(PokemonData pokemon) : base(pokemon.PokemonId, pokemon.Id)
+        public CaughtPokemonViewModel(PokemonData pokemon) : base(pokemon.PokemonId, pokemon.Id)
         {
             CombatPoints = pokemon.Cp;
             IsFavorite = pokemon.Favorite != 0;
