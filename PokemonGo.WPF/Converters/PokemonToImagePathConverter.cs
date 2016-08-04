@@ -16,7 +16,7 @@ namespace PokemonGo.WPF.Converters
         {
             var number = (int)value;
             if (number > 0)
-                return $"pack://siteoforigin:,,,/Images/Pokemon/Pokemon_{number}.png";
+                return $"pack://siteoforigin:,,,/Images/Pokemon/{number}.png";
             return null;
         }
 
