@@ -51,7 +51,11 @@ namespace PokemonGo.RocketAPI.Window
             synchronizationContext = SynchronizationContext.Current;
             ClientSettings = Settings.Instance;
             Client.OnConsoleWrite += Client_OnConsoleWrite;
+            Client.OnStopBot += stopBot;
             Instance = this;
+
+            this.Text += " v" + Assembly.GetExecutingAssembly().GetName().Version;
+            this.CenterToScreen();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -77,6 +81,12 @@ namespace PokemonGo.RocketAPI.Window
 
             InitializeMap();
             InitializePokemonForm();
+
+            if (ClientSettings.TransferType == "Duplicate")
+            {
+                Settings.Instance.SetSetting("CP Duplicate", "TransferType");
+                Settings.Instance.Reload();
+            }
         }
 
         public void Restart()
@@ -104,6 +114,7 @@ namespace PokemonGo.RocketAPI.Window
         private static int Currentlevel = -1;
         private static int TotalExperience = 0;
         private static int TotalPokemon = 0;
+        private static bool bot_started = false;
         private static bool Stopping = false;
         private static bool ForceUnbanning = false;
         private static bool FarmingStops = false;
@@ -314,11 +325,14 @@ namespace PokemonGo.RocketAPI.Window
                     case "All":
                         await TransferAllGivenPokemons(client, pokemons);
                         break;
-                    case "Duplicate":
+                    case "CP Duplicate":
                         await TransferDuplicatePokemon(client);
                         break;
                     case "IV Duplicate":
                         await TransferDuplicateIVPokemon(client);
+                        break;
+                    case "CP/IV Duplicate":
+                        await TransferDuplicateCPIVPokemon(client);
                         break;
                     case "CP":
                         await TransferAllWeakPokemon(client, ClientSettings.TransferCPThreshold);
@@ -353,22 +367,25 @@ namespace PokemonGo.RocketAPI.Window
                 }
                 else
                 {
-                    ConsoleClear();
-                    pokestopsOverlay.Routes.Clear();
-                    pokestopsOverlay.Markers.Clear();
-                    ColoredConsoleWrite(Color.Red, $"Bot successfully stopped.");
-                    startStopBotToolStripMenuItem.Text = "Start";
-                    Stopping = false;
-                    bot_started = false;
-                    pokeStops = null;
+                    confirmBotStopped();
                 }
             }
-            catch (TaskCanceledException) { ColoredConsoleWrite(Color.Red, "Task Canceled Exception - Restarting"); if (!Stopping) Execute(); }
-            catch (UriFormatException) { ColoredConsoleWrite(Color.Red, "System URI Format Exception - Restarting"); if (!Stopping) Execute(); }
-            catch (ArgumentOutOfRangeException) { ColoredConsoleWrite(Color.Red, "ArgumentOutOfRangeException - Restarting"); if (!Stopping) Execute(); }
-            catch (ArgumentNullException) { ColoredConsoleWrite(Color.Red, "Argument Null Refference - Restarting"); if (!Stopping) Execute(); }
-            catch (NullReferenceException) { ColoredConsoleWrite(Color.Red, "Null Refference - Restarting"); if (!Stopping) Execute(); }
-            catch (Exception ex) { ColoredConsoleWrite(Color.Red, ex.ToString()); if (!Stopping) Execute(); }
+            catch (TaskCanceledException) { ColoredConsoleWrite(Color.Red, "Task Canceled Exception - Restarting");  }
+            catch (UriFormatException) { ColoredConsoleWrite(Color.Red, "System URI Format Exception - Restarting");}
+            catch (ArgumentOutOfRangeException) { ColoredConsoleWrite(Color.Red, "ArgumentOutOfRangeException - Restarting"); }
+            catch (ArgumentNullException) { ColoredConsoleWrite(Color.Red, "Argument Null Refference - Restarting"); }
+            catch (NullReferenceException) { ColoredConsoleWrite(Color.Red, "Null Refference - Restarting");  }
+            catch (Exception ex) { ColoredConsoleWrite(Color.Red, ex.ToString());}
+            finally
+            {
+                if (!Stopping)
+                {
+                    Execute();
+                } else
+                {
+                    confirmBotStopped();
+                }
+            }
         }
 
         private static string CallAPI(string elem, string lat, string lon)
@@ -480,11 +497,14 @@ namespace PokemonGo.RocketAPI.Window
                     case "All":
                         await TransferAllGivenPokemons(client, pokemons2);
                         break;
-                    case "Duplicate":
+                    case "CP Duplicate":
                         await TransferDuplicatePokemon(client);
                         break;
                     case "IV Duplicate":
                         await TransferDuplicateIVPokemon(client);
+                        break;
+                    case "CP/IV Duplicate":
+                        await TransferDuplicateCPIVPokemon(client);
                         break;
                     case "CP":
                         await TransferAllWeakPokemon(client, ClientSettings.TransferCPThreshold);
@@ -852,6 +872,57 @@ namespace PokemonGo.RocketAPI.Window
             }
         }
 
+        private async Task TransferDuplicateCPIVPokemon(Client client)
+        {
+
+            //ColoredConsoleWrite(Color.White, $"Check for CP/IV duplicates");
+            var inventory = await client.GetInventory();
+            var allpokemons =
+                inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon)
+                    .Where(p => p != null && p?.PokemonId > 0);
+
+            var dupes = allpokemons.OrderBy(x => Perfect(x)).Select((x, i) => new { index = i, value = x })
+                .GroupBy(x => x.value.PokemonId)
+                .Where(x => x.Skip(1).Any());
+
+            for (var i = 0; i < dupes.Count(); i++)
+            {
+                var dupe_group = dupes.ElementAt(i);
+                var max_cp = 0;
+                var max_index = -1;
+                for (var j = 0; j < dupe_group.Count(); j++)
+                {
+                    var this_cp = dupe_group.ElementAt(j).value.Cp;
+                    if (this_cp >= max_cp)
+                    {
+                        max_cp = this_cp;
+                        max_index = j;
+                    }
+                }
+                for (var j = 0; j < dupes.ElementAt(i).Count() - 1; j++)
+                {
+                    var dubpokemon = dupes.ElementAt(i).ElementAt(j).value;
+                    if (dubpokemon.Favorite == 0 && j != max_index)
+                    {
+                        var transfer = await client.TransferPokemon(dubpokemon.Id);
+                        string pokemonName;
+                        if (ClientSettings.Language == "german")
+                        {
+                            string name_english = Convert.ToString(dubpokemon.PokemonId);
+                            var request = (HttpWebRequest)WebRequest.Create("http://boosting-service.de/pokemon/index.php?pokeName=" + name_english);
+                            var response = (HttpWebResponse)request.GetResponse();
+                            pokemonName = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                        }
+                        else
+                            pokemonName = Convert.ToString(dubpokemon.PokemonId);
+                        ColoredConsoleWrite(Color.DarkGreen,
+                            $"Transferred {pokemonName} with {dubpokemon.Cp} CP, {Math.Round(Perfect(dubpokemon))}% IV (Highest is {max_cp} CP/{Math.Round(Perfect(dupes.ElementAt(i).Last().value))}% IV)");
+
+                    }
+                }
+            }
+        }
+
         private async Task TransferAllWeakPokemon(Client client, int cpThreshold)
         {
             //ColoredConsoleWrite(ConsoleColor.White, $"Firing up the meat grinder");
@@ -1061,15 +1132,6 @@ namespace PokemonGo.RocketAPI.Window
             return 0;
         }
 
-        public void confirmBotStopped()
-        {
-            //ConsoleClear(); // dont really want the console to be wipped on bot stop, unnecessary
-            ColoredConsoleWrite(Color.Red, $"Bot successfully stopped.");
-            startStopBotToolStripMenuItem.Text = "▶ Start Bot";
-            Stopping = false;
-            bot_started = false;
-        }
-
         private void logTextBox_TextChanged(object sender, EventArgs e)
         {
             logTextBox.SelectionStart = logTextBox.Text.Length;
@@ -1082,43 +1144,64 @@ namespace PokemonGo.RocketAPI.Window
             settingsForm.ShowDialog();
         }
 
-        private static bool bot_started = false;
         private void startStopBotToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!bot_started)
             {
-                bot_started = true;
-                startStopBotToolStripMenuItem.Text = "■ Stop Bot";
-                Task.Run(() =>
-                {
-                    try
-                    {
-                        //ColoredConsoleWrite(ConsoleColor.White, "Coded by Ferox - edited by NecronomiconCoding");
-                        CheckVersion();
-                        Execute();
-                    }
-                    catch (PtcOfflineException)
-                    {
-                        ColoredConsoleWrite(Color.Red, "PTC Servers are probably down OR your credentials are wrong. Try google");
-                    }
-                    catch (Exception ex)
-                    {
-                        ColoredConsoleWrite(Color.Red, $"Unhandled exception: {ex}");
-                    }
-                });
+                startBot();
             }
             else
             {
-                if (!ForceUnbanning)
-                {
-                    Stopping = true;
-                    ColoredConsoleWrite(Color.Red, $"Stopping the bot.. Waiting for the last action to be complete.");
-                }
-                else
-                {
-                    ColoredConsoleWrite(Color.Red, $"An action is in play, please wait until it's done.");
-                }
+                stopBot();
             }
+        }
+
+        public void startBot()
+        {
+            bot_started = true;
+            startStopBotToolStripMenuItem.Text = "■ Stop Bot";
+            Task.Run(() =>
+            {
+                try
+                {
+                    //ColoredConsoleWrite(ConsoleColor.White, "Coded by Ferox - edited by NecronomiconCoding");
+                    CheckVersion();
+                    Execute();
+                }
+                catch (PtcOfflineException)
+                {
+                    ColoredConsoleWrite(Color.Red, "PTC Servers are probably down OR your credentials are wrong. Try google");
+                }
+                catch (Exception ex)
+                {
+                    ColoredConsoleWrite(Color.Red, $"Unhandled exception: {ex}");
+                }
+            });
+        }
+
+        public void stopBot()
+        {
+            if (!ForceUnbanning)
+            {
+                Stopping = true;
+                ColoredConsoleWrite(Color.Red, $"Stopping the bot.. Waiting for the last action to be complete.");
+            }
+            else
+            {
+                ColoredConsoleWrite(Color.Red, $"An action is in play, please wait until it's done.");
+            }
+        }
+
+        public void confirmBotStopped()
+        {
+            ConsoleClear();
+            pokestopsOverlay.Routes.Clear();
+            pokestopsOverlay.Markers.Clear();
+            ColoredConsoleWrite(Color.Red, $"Bot successfully stopped.");
+            startStopBotToolStripMenuItem.Text = "▶ Start Bot";
+            Stopping = false;
+            bot_started = false;
+            pokeStops = null;
         }
 
         private void Client_OnConsoleWrite(ConsoleColor color, string message)
