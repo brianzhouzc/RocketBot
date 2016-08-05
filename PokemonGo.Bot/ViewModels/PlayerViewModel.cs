@@ -124,6 +124,8 @@ namespace PokemonGo.Bot.ViewModels
                 var profile = (await client.GetProfile()).Profile;
                 Username = profile.Username;
                 Team = Enum.GetName(typeof(TeamColor), profile.Team);
+                Stardust = profile.Currency.Where(c => c.Type == "STARDUST").Sum(c => c.Amount);
+                Pokecoins = profile.Currency.Where(c => c.Type == "POKECOIN").Sum(c => c.Amount);
             });
 
             Login = new AsyncRelayCommand(async () =>

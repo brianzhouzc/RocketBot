@@ -34,6 +34,7 @@
         </Menu>
         <Views:ConsoleView DataContext="{Binding Console}" Grid.Row="1" Grid.Column="0"/>
         <Views:BotView Width="200" DataContext="{Binding Bot}" Grid.Row="1" Grid.Column="1"/>
-        <Views:InventoryView Grid.Row="2" Grid.ColumnSpan="2" DataContext="{Binding Player.Inventory}"/>
+        <Views:InventoryView Grid.Row="2" DataContext="{Binding Player.Inventory}"/>
+        <Views:PlayerView Grid.Row="2" Grid.Column="1" DataContext="{Binding Player}"/>
     </Grid>
 </Window>
