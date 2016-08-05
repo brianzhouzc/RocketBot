@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:PokemonGo.Bot.ViewModels;assembly=PokemonGo.Bot"
         xmlns:actions="clr-namespace:PokemonGo.Bot.BotActions;assembly=PokemonGo.Bot"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="800">
+        Title="MainWindow" Height="550" Width="1300">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="boolToVis"/>
         <vm:MainViewModel x:Key="mainViewModel"/>
@@ -16,6 +16,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="500"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
@@ -36,5 +37,6 @@
         <Views:BotView Width="200" DataContext="{Binding Bot}" Grid.Row="1" Grid.Column="1"/>
         <Views:InventoryView Grid.Row="2" DataContext="{Binding Player.Inventory}"/>
         <Views:PlayerView Grid.Row="2" Grid.Column="1" DataContext="{Binding Player}"/>
+        <Views:MapView Grid.Row="1" Grid.RowSpan="2" Grid.Column="2"/>
     </Grid>
 </Window>
