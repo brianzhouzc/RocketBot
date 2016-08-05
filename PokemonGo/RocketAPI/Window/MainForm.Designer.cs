@@ -54,9 +54,24 @@
             this.smallPokemonImageList = new System.Windows.Forms.ImageList(this.components);
             this.btnRefreshPokemonList = new System.Windows.Forms.Button();
             this.logTextBox = new System.Windows.Forms.RichTextBox();
+            this.pkmnCandy = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.pkmnCandyToEvolve = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.pkmnEvolveTimes = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.lblPokemonList = new System.Windows.Forms.Label();
+            this.cmsPokemonList = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.olvPokemonList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -66,7 +81,7 @@
             this.statusLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 551);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1064, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1235, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -86,7 +101,7 @@
             this.forceUnbanToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1064, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1235, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -130,27 +145,30 @@
             // 
             // gMapControl1
             // 
-            this.gMapControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.gMapControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gMapControl1.Bearing = 0F;
             this.gMapControl1.CanDragMap = true;
             this.gMapControl1.EmptyTileColor = System.Drawing.Color.Navy;
             this.gMapControl1.GrayScaleMode = false;
             this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMapControl1.LevelsKeepInMemmory = 5;
-            this.gMapControl1.Location = new System.Drawing.Point(3, 307);
+            this.gMapControl1.Location = new System.Drawing.Point(3, 2);
             this.gMapControl1.MarkersEnabled = true;
             this.gMapControl1.MaxZoom = 2;
             this.gMapControl1.MinZoom = 2;
             this.gMapControl1.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
             this.gMapControl1.Name = "gMapControl1";
             this.gMapControl1.NegativeMode = false;
+            this.gMapControl1.Padding = new System.Windows.Forms.Padding(3);
             this.gMapControl1.PolygonsEnabled = true;
             this.gMapControl1.RetryLoadTile = 0;
             this.gMapControl1.RoutesEnabled = true;
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(471, 241);
+            this.gMapControl1.Size = new System.Drawing.Size(407, 234);
             this.gMapControl1.TabIndex = 23;
             this.gMapControl1.Zoom = 0D;
             // 
@@ -162,9 +180,13 @@
             this.olvPokemonList.AllColumns.Add(this.pkmnDefIV);
             this.olvPokemonList.AllColumns.Add(this.pkmnStaIV);
             this.olvPokemonList.AllColumns.Add(this.pkmnIV);
+            this.olvPokemonList.AllColumns.Add(this.pkmnCandy);
+            this.olvPokemonList.AllColumns.Add(this.pkmnCandyToEvolve);
+            this.olvPokemonList.AllColumns.Add(this.pkmnEvolveTimes);
             this.olvPokemonList.AllColumns.Add(this.pkmnTransferButton);
             this.olvPokemonList.AllColumns.Add(this.pkmnPowerUpButton);
             this.olvPokemonList.AllColumns.Add(this.pkmnEvolveButton);
+            this.olvPokemonList.AllowColumnReorder = true;
             this.olvPokemonList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -176,20 +198,24 @@
             this.pkmnDefIV,
             this.pkmnStaIV,
             this.pkmnIV,
+            this.pkmnCandy,
+            this.pkmnCandyToEvolve,
+            this.pkmnEvolveTimes,
             this.pkmnTransferButton,
             this.pkmnPowerUpButton,
             this.pkmnEvolveButton});
+            this.olvPokemonList.ContextMenuStrip = this.cmsPokemonList;
             this.olvPokemonList.Cursor = System.Windows.Forms.Cursors.Default;
             this.olvPokemonList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.olvPokemonList.FullRowSelect = true;
             this.olvPokemonList.GridLines = true;
             this.olvPokemonList.LargeImageList = this.largePokemonImageList;
-            this.olvPokemonList.Location = new System.Drawing.Point(480, 27);
-            this.olvPokemonList.MultiSelect = false;
+            this.olvPokemonList.Location = new System.Drawing.Point(3, 3);
             this.olvPokemonList.Name = "olvPokemonList";
             this.olvPokemonList.RowHeight = 32;
             this.olvPokemonList.ShowGroups = false;
-            this.olvPokemonList.Size = new System.Drawing.Size(572, 487);
+            this.olvPokemonList.ShowImagesOnSubItems = true;
+            this.olvPokemonList.Size = new System.Drawing.Size(812, 474);
             this.olvPokemonList.SmallImageList = this.smallPokemonImageList;
             this.olvPokemonList.TabIndex = 25;
             this.olvPokemonList.UseCompatibleStateImageBehavior = false;
@@ -199,6 +225,7 @@
             // 
             this.pkmnName.AspectName = "PokemonId";
             this.pkmnName.AspectToStringFormat = "";
+            this.pkmnName.Hideable = false;
             this.pkmnName.Text = "Name";
             this.pkmnName.Width = 120;
             // 
@@ -239,15 +266,19 @@
             this.pkmnTransferButton.AspectToStringFormat = "Transfer";
             this.pkmnTransferButton.ButtonSizing = BrightIdeasSoftware.OLVColumn.ButtonSizingMode.CellBounds;
             this.pkmnTransferButton.IsButton = true;
-            this.pkmnTransferButton.Text = "";
+            this.pkmnTransferButton.Sortable = false;
+            this.pkmnTransferButton.Text = "Transfer";
+            this.pkmnTransferButton.Width = 80;
             // 
             // pkmnPowerUpButton
             // 
             this.pkmnPowerUpButton.AspectName = "Id";
-            this.pkmnPowerUpButton.AspectToStringFormat = "Power Up";
+            this.pkmnPowerUpButton.AspectToStringFormat = "PowerUp";
             this.pkmnPowerUpButton.ButtonSizing = BrightIdeasSoftware.OLVColumn.ButtonSizingMode.CellBounds;
             this.pkmnPowerUpButton.IsButton = true;
-            this.pkmnPowerUpButton.Text = "";
+            this.pkmnPowerUpButton.Sortable = false;
+            this.pkmnPowerUpButton.Text = "PowerUp";
+            this.pkmnPowerUpButton.Width = 80;
             // 
             // pkmnEvolveButton
             // 
@@ -255,7 +286,9 @@
             this.pkmnEvolveButton.AspectToStringFormat = "Evolve";
             this.pkmnEvolveButton.ButtonSizing = BrightIdeasSoftware.OLVColumn.ButtonSizingMode.CellBounds;
             this.pkmnEvolveButton.IsButton = true;
-            this.pkmnEvolveButton.Text = "";
+            this.pkmnEvolveButton.Sortable = false;
+            this.pkmnEvolveButton.Text = "Evolve";
+            this.pkmnEvolveButton.Width = 80;
             // 
             // largePokemonImageList
             // 
@@ -275,9 +308,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRefreshPokemonList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnRefreshPokemonList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRefreshPokemonList.Location = new System.Drawing.Point(480, 520);
+            this.btnRefreshPokemonList.Location = new System.Drawing.Point(3, 496);
             this.btnRefreshPokemonList.Name = "btnRefreshPokemonList";
-            this.btnRefreshPokemonList.Size = new System.Drawing.Size(572, 28);
+            this.btnRefreshPokemonList.Size = new System.Drawing.Size(812, 28);
             this.btnRefreshPokemonList.TabIndex = 26;
             this.btnRefreshPokemonList.Text = "Refresh";
             this.btnRefreshPokemonList.UseVisualStyleBackColor = true;
@@ -285,29 +318,93 @@
             // 
             // logTextBox
             // 
-            this.logTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.logTextBox.BackColor = System.Drawing.Color.Black;
             this.logTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.logTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.logTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.logTextBox.ForeColor = System.Drawing.Color.White;
             this.logTextBox.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.logTextBox.Location = new System.Drawing.Point(3, 27);
+            this.logTextBox.Location = new System.Drawing.Point(0, 0);
             this.logTextBox.Name = "logTextBox";
             this.logTextBox.ReadOnly = true;
-            this.logTextBox.Size = new System.Drawing.Size(471, 274);
+            this.logTextBox.Size = new System.Drawing.Size(413, 284);
             this.logTextBox.TabIndex = 29;
             this.logTextBox.Text = "";
+            // 
+            // pkmnCandy
+            // 
+            this.pkmnCandy.AspectName = "Candy";
+            this.pkmnCandy.Text = "Candy";
+            // 
+            // pkmnCandyToEvolve
+            // 
+            this.pkmnCandyToEvolve.AspectName = "CandyToEvolve";
+            this.pkmnCandyToEvolve.Text = "CtE";
+            // 
+            // pkmnEvolveTimes
+            // 
+            this.pkmnEvolveTimes.AspectName = "EvolveTimes";
+            this.pkmnEvolveTimes.Text = "# Evolves";
+            // 
+            // lblPokemonList
+            // 
+            this.lblPokemonList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblPokemonList.Location = new System.Drawing.Point(3, 480);
+            this.lblPokemonList.Name = "lblPokemonList";
+            this.lblPokemonList.Size = new System.Drawing.Size(812, 13);
+            this.lblPokemonList.TabIndex = 30;
+            this.lblPokemonList.Text = "0 / 0 ";
+            this.lblPokemonList.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cmsPokemonList
+            // 
+            this.cmsPokemonList.Name = "cmsPokemonList";
+            this.cmsPokemonList.Size = new System.Drawing.Size(61, 4);
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 24);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.btnRefreshPokemonList);
+            this.splitContainer1.Panel2.Controls.Add(this.lblPokemonList);
+            this.splitContainer1.Panel2.Controls.Add(this.olvPokemonList);
+            this.splitContainer1.Size = new System.Drawing.Size(1235, 527);
+            this.splitContainer1.SplitterDistance = 413;
+            this.splitContainer1.TabIndex = 32;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.logTextBox);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.gMapControl1);
+            this.splitContainer2.Size = new System.Drawing.Size(413, 527);
+            this.splitContainer2.SplitterDistance = 284;
+            this.splitContainer2.TabIndex = 0;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1064, 573);
-            this.Controls.Add(this.btnRefreshPokemonList);
-            this.Controls.Add(this.gMapControl1);
-            this.Controls.Add(this.olvPokemonList);
-            this.Controls.Add(this.logTextBox);
+            this.ClientSize = new System.Drawing.Size(1235, 573);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -322,6 +419,14 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.olvPokemonList)).EndInit();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -352,5 +457,12 @@
         private BrightIdeasSoftware.OLVColumn pkmnPowerUpButton;
         private BrightIdeasSoftware.OLVColumn pkmnEvolveButton;
         private System.Windows.Forms.RichTextBox logTextBox;
+        private BrightIdeasSoftware.OLVColumn pkmnCandy;
+        private BrightIdeasSoftware.OLVColumn pkmnCandyToEvolve;
+        private BrightIdeasSoftware.OLVColumn pkmnEvolveTimes;
+        private System.Windows.Forms.Label lblPokemonList;
+        private System.Windows.Forms.ContextMenuStrip cmsPokemonList;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer splitContainer2;
     }
 }

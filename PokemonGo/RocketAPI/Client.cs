@@ -383,6 +383,15 @@ namespace PokemonGo.RocketAPI
                         settingsRequest);
         }
 
+        public async Task<DownloadItemTemplatesResponse> GetItemTemplates() {
+            var itemTemplatesRequest = RequestBuilder.GetRequest(_unknownAuth, _currentLat, _currentLng, 10,
+                RequestType.DOWNLOAD_ITEM_TEMPLATES);
+            return
+                await
+                    _httpClient.PostProtoPayload<Request, DownloadItemTemplatesResponse>($"https://{_apiUrl}/rpc",
+                        itemTemplatesRequest);
+        }
+
         /*num Holoholo.Rpc.Types.FortSearchOutProto.Result {
          NO_RESULT_SET = 0;
          SUCCESS = 1;
