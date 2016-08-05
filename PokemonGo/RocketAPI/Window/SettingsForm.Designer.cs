@@ -106,7 +106,7 @@
             this.UserLabel.AutoSize = true;
             this.UserLabel.Location = new System.Drawing.Point(3, 27);
             this.UserLabel.Name = "UserLabel";
-            this.UserLabel.Size = new System.Drawing.Size(102, 26);
+            this.UserLabel.Size = new System.Drawing.Size(102, 28);
             this.UserLabel.TabIndex = 2;
             this.UserLabel.Text = "Username:";
             this.UserLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -117,9 +117,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PasswordLabel.AutoSize = true;
-            this.PasswordLabel.Location = new System.Drawing.Point(3, 53);
+            this.PasswordLabel.Location = new System.Drawing.Point(3, 55);
             this.PasswordLabel.Name = "PasswordLabel";
-            this.PasswordLabel.Size = new System.Drawing.Size(102, 26);
+            this.PasswordLabel.Size = new System.Drawing.Size(102, 28);
             this.PasswordLabel.TabIndex = 3;
             this.PasswordLabel.Text = "Password:";
             this.PasswordLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -130,9 +130,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.latLabel.AutoSize = true;
-            this.latLabel.Location = new System.Drawing.Point(3, 79);
+            this.latLabel.Location = new System.Drawing.Point(3, 83);
             this.latLabel.Name = "latLabel";
-            this.latLabel.Size = new System.Drawing.Size(102, 26);
+            this.latLabel.Size = new System.Drawing.Size(102, 28);
             this.latLabel.TabIndex = 4;
             this.latLabel.Text = "Latitude:";
             this.latLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -143,9 +143,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.longiLabel.AutoSize = true;
-            this.longiLabel.Location = new System.Drawing.Point(3, 105);
+            this.longiLabel.Location = new System.Drawing.Point(3, 111);
             this.longiLabel.Name = "longiLabel";
-            this.longiLabel.Size = new System.Drawing.Size(102, 26);
+            this.longiLabel.Size = new System.Drawing.Size(102, 28);
             this.longiLabel.TabIndex = 5;
             this.longiLabel.Text = "Longitude:";
             this.longiLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -156,7 +156,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.RazzberryModeLabel.AutoSize = true;
-            this.RazzberryModeLabel.Location = new System.Drawing.Point(3, 144);
+            this.RazzberryModeLabel.Location = new System.Drawing.Point(3, 152);
             this.RazzberryModeLabel.Name = "RazzberryModeLabel";
             this.RazzberryModeLabel.Size = new System.Drawing.Size(102, 27);
             this.RazzberryModeLabel.TabIndex = 6;
@@ -169,7 +169,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TransferTypeLabel.AutoSize = true;
-            this.TransferTypeLabel.Location = new System.Drawing.Point(3, 210);
+            this.TransferTypeLabel.Location = new System.Drawing.Point(3, 220);
             this.TransferTypeLabel.Name = "TransferTypeLabel";
             this.TransferTypeLabel.Size = new System.Drawing.Size(102, 27);
             this.TransferTypeLabel.TabIndex = 7;
@@ -182,7 +182,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.EvolvePokemonLabel.AutoSize = true;
-            this.EvolvePokemonLabel.Location = new System.Drawing.Point(3, 335);
+            this.EvolvePokemonLabel.Location = new System.Drawing.Point(3, 351);
             this.EvolvePokemonLabel.Name = "EvolvePokemonLabel";
             this.EvolvePokemonLabel.Size = new System.Drawing.Size(102, 20);
             this.EvolvePokemonLabel.TabIndex = 8;
@@ -196,9 +196,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CPThresholdLabel.AutoSize = true;
-            this.CPThresholdLabel.Location = new System.Drawing.Point(3, 263);
+            this.CPThresholdLabel.Location = new System.Drawing.Point(3, 275);
             this.CPThresholdLabel.Name = "CPThresholdLabel";
-            this.CPThresholdLabel.Size = new System.Drawing.Size(102, 26);
+            this.CPThresholdLabel.Size = new System.Drawing.Size(102, 28);
             this.CPThresholdLabel.TabIndex = 9;
             this.CPThresholdLabel.Text = "CP Threshold:";
             this.CPThresholdLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -209,9 +209,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.RazzberrySettingLabel.AutoSize = true;
-            this.RazzberrySettingLabel.Location = new System.Drawing.Point(3, 171);
+            this.RazzberrySettingLabel.Location = new System.Drawing.Point(3, 179);
             this.RazzberrySettingLabel.Name = "RazzberrySettingLabel";
-            this.RazzberrySettingLabel.Size = new System.Drawing.Size(102, 26);
+            this.RazzberrySettingLabel.Size = new System.Drawing.Size(102, 28);
             this.RazzberrySettingLabel.TabIndex = 10;
             this.RazzberrySettingLabel.Text = "Razzberry Setting:";
             this.RazzberrySettingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -221,31 +221,31 @@
             this.UserLoginBox.Location = new System.Drawing.Point(111, 30);
             this.UserLoginBox.MinimumSize = new System.Drawing.Size(136, 20);
             this.UserLoginBox.Name = "UserLoginBox";
-            this.UserLoginBox.Size = new System.Drawing.Size(136, 20);
+            this.UserLoginBox.Size = new System.Drawing.Size(136, 22);
             this.UserLoginBox.TabIndex = 11;
             // 
             // UserPasswordBox
             // 
-            this.UserPasswordBox.Location = new System.Drawing.Point(111, 56);
+            this.UserPasswordBox.Location = new System.Drawing.Point(111, 58);
             this.UserPasswordBox.Name = "UserPasswordBox";
             this.UserPasswordBox.PasswordChar = '*';
-            this.UserPasswordBox.Size = new System.Drawing.Size(136, 20);
+            this.UserPasswordBox.Size = new System.Drawing.Size(136, 22);
             this.UserPasswordBox.TabIndex = 12;
             // 
             // latitudeText
             // 
-            this.latitudeText.Location = new System.Drawing.Point(111, 82);
+            this.latitudeText.Location = new System.Drawing.Point(111, 86);
             this.latitudeText.Name = "latitudeText";
             this.latitudeText.ReadOnly = true;
-            this.latitudeText.Size = new System.Drawing.Size(100, 20);
+            this.latitudeText.Size = new System.Drawing.Size(100, 22);
             this.latitudeText.TabIndex = 13;
             // 
             // longitudeText
             // 
-            this.longitudeText.Location = new System.Drawing.Point(111, 108);
+            this.longitudeText.Location = new System.Drawing.Point(111, 114);
             this.longitudeText.Name = "longitudeText";
             this.longitudeText.ReadOnly = true;
-            this.longitudeText.Size = new System.Drawing.Size(100, 20);
+            this.longitudeText.Size = new System.Drawing.Size(100, 22);
             this.longitudeText.TabIndex = 14;
             // 
             // razzmodeCb
@@ -254,16 +254,16 @@
             this.razzmodeCb.Items.AddRange(new object[] {
             "probability",
             "cp"});
-            this.razzmodeCb.Location = new System.Drawing.Point(111, 147);
+            this.razzmodeCb.Location = new System.Drawing.Point(111, 155);
             this.razzmodeCb.Name = "razzmodeCb";
             this.razzmodeCb.Size = new System.Drawing.Size(100, 21);
             this.razzmodeCb.TabIndex = 15;
             // 
             // razzSettingText
             // 
-            this.razzSettingText.Location = new System.Drawing.Point(111, 174);
+            this.razzSettingText.Location = new System.Drawing.Point(111, 182);
             this.razzSettingText.Name = "razzSettingText";
-            this.razzSettingText.Size = new System.Drawing.Size(100, 20);
+            this.razzSettingText.Size = new System.Drawing.Size(100, 22);
             this.razzSettingText.TabIndex = 16;
             this.razzSettingText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.razzSettingText_KeyPress);
             // 
@@ -279,7 +279,7 @@
             "IV",
             "Leave Strongest",
             "All"});
-            this.transferTypeCb.Location = new System.Drawing.Point(111, 213);
+            this.transferTypeCb.Location = new System.Drawing.Point(111, 223);
             this.transferTypeCb.Name = "transferTypeCb";
             this.transferTypeCb.Size = new System.Drawing.Size(100, 21);
             this.transferTypeCb.TabIndex = 17;
@@ -289,16 +289,16 @@
             // 
             // transferCpThresText
             // 
-            this.transferCpThresText.Location = new System.Drawing.Point(111, 266);
+            this.transferCpThresText.Location = new System.Drawing.Point(111, 278);
             this.transferCpThresText.Name = "transferCpThresText";
-            this.transferCpThresText.Size = new System.Drawing.Size(100, 20);
+            this.transferCpThresText.Size = new System.Drawing.Size(100, 22);
             this.transferCpThresText.TabIndex = 18;
             this.transferCpThresText.TextChanged += new System.EventHandler(this.transferCpThresText_TextChanged);
             // 
             // evolveAllChk
             // 
             this.evolveAllChk.AutoSize = true;
-            this.evolveAllChk.Location = new System.Drawing.Point(111, 338);
+            this.evolveAllChk.Location = new System.Drawing.Point(111, 354);
             this.evolveAllChk.Name = "evolveAllChk";
             this.evolveAllChk.Size = new System.Drawing.Size(15, 14);
             this.evolveAllChk.TabIndex = 19;
@@ -329,7 +329,7 @@
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(436, 378);
+            this.gMapControl1.Size = new System.Drawing.Size(436, 376);
             this.gMapControl1.TabIndex = 22;
             this.gMapControl1.Zoom = 0D;
             this.gMapControl1.Load += new System.EventHandler(this.gMapControl1_Load);
@@ -368,20 +368,20 @@
             this.LocationControlsTableLayoutPanel.Controls.Add(this.FindAdressButton, 1, 1);
             this.LocationControlsTableLayoutPanel.Controls.Add(this.AdressBox, 0, 1);
             this.LocationControlsTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LocationControlsTableLayoutPanel.Location = new System.Drawing.Point(3, 16);
+            this.LocationControlsTableLayoutPanel.Location = new System.Drawing.Point(3, 18);
             this.LocationControlsTableLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.LocationControlsTableLayoutPanel.Name = "LocationControlsTableLayoutPanel";
             this.LocationControlsTableLayoutPanel.RowCount = 2;
             this.LocationControlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.LocationControlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.LocationControlsTableLayoutPanel.Size = new System.Drawing.Size(442, 416);
+            this.LocationControlsTableLayoutPanel.Size = new System.Drawing.Size(442, 414);
             this.LocationControlsTableLayoutPanel.TabIndex = 26;
             // 
             // FindAdressButton
             // 
             this.FindAdressButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.FindAdressButton.Location = new System.Drawing.Point(320, 387);
+            this.FindAdressButton.Location = new System.Drawing.Point(320, 385);
             this.FindAdressButton.Name = "FindAdressButton";
             this.FindAdressButton.Size = new System.Drawing.Size(119, 26);
             this.FindAdressButton.TabIndex = 25;
@@ -393,9 +393,9 @@
             // 
             this.AdressBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.AdressBox.ForeColor = System.Drawing.Color.Gray;
-            this.AdressBox.Location = new System.Drawing.Point(25, 387);
+            this.AdressBox.Location = new System.Drawing.Point(25, 385);
             this.AdressBox.Name = "AdressBox";
-            this.AdressBox.Size = new System.Drawing.Size(289, 20);
+            this.AdressBox.Size = new System.Drawing.Size(289, 22);
             this.AdressBox.TabIndex = 25;
             this.AdressBox.Text = "Enter an address or a coordinate";
             this.AdressBox.TextChanged += new System.EventHandler(this.AdressBox_TextChanged);
@@ -404,9 +404,9 @@
             // 
             // TravelSpeedBox
             // 
-            this.TravelSpeedBox.Location = new System.Drawing.Point(111, 292);
+            this.TravelSpeedBox.Location = new System.Drawing.Point(111, 306);
             this.TravelSpeedBox.Name = "TravelSpeedBox";
-            this.TravelSpeedBox.Size = new System.Drawing.Size(100, 20);
+            this.TravelSpeedBox.Size = new System.Drawing.Size(100, 22);
             this.TravelSpeedBox.TabIndex = 22;
             this.TravelSpeedBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             this.TravelSpeedBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TravelSpeedBox_KeyPress);
@@ -414,7 +414,7 @@
             // CatchPokemonBox
             // 
             this.CatchPokemonBox.AutoSize = true;
-            this.CatchPokemonBox.Location = new System.Drawing.Point(111, 318);
+            this.CatchPokemonBox.Location = new System.Drawing.Point(111, 334);
             this.CatchPokemonBox.Name = "CatchPokemonBox";
             this.CatchPokemonBox.Size = new System.Drawing.Size(15, 14);
             this.CatchPokemonBox.TabIndex = 26;
@@ -427,7 +427,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CatchPokemonLabel.AutoSize = true;
-            this.CatchPokemonLabel.Location = new System.Drawing.Point(3, 315);
+            this.CatchPokemonLabel.Location = new System.Drawing.Point(3, 331);
             this.CatchPokemonLabel.Name = "CatchPokemonLabel";
             this.CatchPokemonLabel.Size = new System.Drawing.Size(102, 20);
             this.CatchPokemonLabel.TabIndex = 25;
@@ -437,9 +437,9 @@
             // 
             // transferIVThresText
             // 
-            this.transferIVThresText.Location = new System.Drawing.Point(111, 240);
+            this.transferIVThresText.Location = new System.Drawing.Point(111, 250);
             this.transferIVThresText.Name = "transferIVThresText";
-            this.transferIVThresText.Size = new System.Drawing.Size(100, 20);
+            this.transferIVThresText.Size = new System.Drawing.Size(100, 22);
             this.transferIVThresText.TabIndex = 24;
             this.transferIVThresText.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
@@ -449,9 +449,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TravelSpeedLabel.AutoSize = true;
-            this.TravelSpeedLabel.Location = new System.Drawing.Point(3, 289);
+            this.TravelSpeedLabel.Location = new System.Drawing.Point(3, 303);
             this.TravelSpeedLabel.Name = "TravelSpeedLabel";
-            this.TravelSpeedLabel.Size = new System.Drawing.Size(102, 26);
+            this.TravelSpeedLabel.Size = new System.Drawing.Size(102, 28);
             this.TravelSpeedLabel.TabIndex = 23;
             this.TravelSpeedLabel.Text = "Travel Speed km/h:";
             this.TravelSpeedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -462,9 +462,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.IVThresholdLabel.AutoSize = true;
-            this.IVThresholdLabel.Location = new System.Drawing.Point(3, 237);
+            this.IVThresholdLabel.Location = new System.Drawing.Point(3, 247);
             this.IVThresholdLabel.Name = "IVThresholdLabel";
-            this.IVThresholdLabel.Size = new System.Drawing.Size(102, 26);
+            this.IVThresholdLabel.Size = new System.Drawing.Size(102, 28);
             this.IVThresholdLabel.TabIndex = 21;
             this.IVThresholdLabel.Text = "IV Threshold:";
             this.IVThresholdLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -478,6 +478,7 @@
             this.MainTableLayoutPanel.Controls.Add(this.SettingsTableLayoutPanel, 0, 0);
             this.MainTableLayoutPanel.Controls.Add(this.LocationGroupBox, 1, 0);
             this.MainTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainTableLayoutPanel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainTableLayoutPanel.Location = new System.Drawing.Point(9, 9);
             this.MainTableLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.MainTableLayoutPanel.Name = "MainTableLayoutPanel";
@@ -521,6 +522,7 @@
             this.SettingsTableLayoutPanel.Controls.Add(this.Spacer2Label, 0, 8);
             this.SettingsTableLayoutPanel.Controls.Add(this.saveBtn, 0, 17);
             this.SettingsTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SettingsTableLayoutPanel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SettingsTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.SettingsTableLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.SettingsTableLayoutPanel.Name = "SettingsTableLayoutPanel";
@@ -550,7 +552,7 @@
             // Spacer1Label
             // 
             this.Spacer1Label.AutoSize = true;
-            this.Spacer1Label.Location = new System.Drawing.Point(3, 131);
+            this.Spacer1Label.Location = new System.Drawing.Point(3, 139);
             this.Spacer1Label.Name = "Spacer1Label";
             this.Spacer1Label.Size = new System.Drawing.Size(10, 13);
             this.Spacer1Label.TabIndex = 5;
@@ -559,7 +561,7 @@
             // Spacer2Label
             // 
             this.Spacer2Label.AutoSize = true;
-            this.Spacer2Label.Location = new System.Drawing.Point(3, 197);
+            this.Spacer2Label.Location = new System.Drawing.Point(3, 207);
             this.Spacer2Label.Name = "Spacer2Label";
             this.Spacer2Label.Size = new System.Drawing.Size(10, 13);
             this.Spacer2Label.TabIndex = 5;
@@ -570,7 +572,7 @@
             this.saveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.SettingsTableLayoutPanel.SetColumnSpan(this.saveBtn, 2);
-            this.saveBtn.Location = new System.Drawing.Point(3, 358);
+            this.saveBtn.Location = new System.Drawing.Point(3, 374);
             this.saveBtn.MinimumSize = new System.Drawing.Size(218, 39);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(244, 39);
@@ -585,6 +587,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(722, 459);
             this.Controls.Add(this.MainTableLayoutPanel);
+            this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(630, 359);
             this.Name = "SettingsForm";
