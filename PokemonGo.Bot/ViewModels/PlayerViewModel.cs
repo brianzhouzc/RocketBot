@@ -137,8 +137,8 @@ namespace PokemonGo.Bot.ViewModels
                 await LoadProfile.ExecuteAsync();
                 MessengerInstance.Send<Message>(new Message("GetSettings"));
                 Settings = (await client.GetSettings()).Settings;
-                MessengerInstance.Send<Message>(new Message("GetMapObjects"));
-                await map.GetMapObjects.ExecuteAsync();
+                //MessengerInstance.Send<Message>(new Message("GetMapObjects"));
+                //await map.GetMapObjects.ExecuteAsync();
                 MessengerInstance.Send<Message>(new Message("LoadInventory"));
                 await Inventory.Load.ExecuteAsync();
                 IsLoggedIn = true;

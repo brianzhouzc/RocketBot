@@ -4,13 +4,13 @@ using System.Windows.Data;
 
 namespace PokemonGo.WPF.Converters
 {
-    public class PokemonToImagePathConverter : IValueConverter
+    public class ItemTypeToImagePathConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var number = (int)value;
             if (number > 0)
-                return $"pack://siteoforigin:,,,/Images/Pokemon/{number:000}.png";
+                return $"pack://siteoforigin:,,,/Images/Items/{number:0000}.png";
             return null;
         }
 

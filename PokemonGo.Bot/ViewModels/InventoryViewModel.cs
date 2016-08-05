@@ -61,11 +61,13 @@ namespace PokemonGo.Bot.ViewModels
                     inventory = value;
                     RaisePropertyChanged();
                     RaisePropertyChanged(nameof(Pokemon));
+                    RaisePropertyChanged(nameof(Items));
                     PlayerStats = value.InventoryItems.Where(i => i.InventoryItemData.PlayerStats != null).Select(i => i.InventoryItemData.PlayerStats).FirstOrDefault();
                 }
             }
         }
         public IEnumerable<CatchedPokemonViewModel> Pokemon => Inventory?.InventoryItems.Select(i => i.InventoryItemData?.Pokemon).Where(p => p?.PokemonId > 0).Select(p => new CatchedPokemonViewModel(p));
+        public IEnumerable<ItemViewModel> Items => Inventory?.InventoryItems.Select(i => i.InventoryItemData?.Item).Where(i => i != null).Select(i => new ItemViewModel(i));
 
         PlayerStats playerStats;
         public PlayerStats PlayerStats

@@ -7,23 +7,23 @@
         xmlns:vm="clr-namespace:PokemonGo.Bot.ViewModels;assembly=PokemonGo.Bot"
         xmlns:actions="clr-namespace:PokemonGo.Bot.BotActions;assembly=PokemonGo.Bot"
         mc:Ignorable="d"
-        Title="MainWindow" Height="377.5" Width="815">
+        Title="MainWindow" Height="550" Width="800">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="boolToVis"/>
         <vm:MainViewModel x:Key="mainViewModel"/>
     </Window.Resources>
     <Grid DataContext="{StaticResource mainViewModel}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Menu Width="Auto" Height="20" Grid.Row="0" Grid.ColumnSpan="3">
+        <Menu Width="Auto" Height="20" Grid.Row="0" Grid.ColumnSpan="2">
             <MenuItem Header="Login" Command="{Binding Player.Login}" />
             <MenuItem Header="Start" Command="{Binding Bot.Start}" Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self} , Converter={StaticResource boolToVis}}" />
             <MenuItem Header="Stop" Command="{Binding Bot.Stop}" Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self} , Converter={StaticResource boolToVis}}" />
@@ -34,6 +34,6 @@
         </Menu>
         <Views:ConsoleView DataContext="{Binding Console}" Grid.Row="1" Grid.Column="0"/>
         <Views:BotView Width="200" DataContext="{Binding Bot}" Grid.Row="1" Grid.Column="1"/>
-        <Views:InventoryView Grid.Row="1" Grid.Column="2" DataContext="{Binding Player.Inventory}"/>
+        <Views:InventoryView Grid.Row="2" Grid.ColumnSpan="2" DataContext="{Binding Player.Inventory}"/>
     </Grid>
 </Window>
