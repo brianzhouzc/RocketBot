@@ -93,6 +93,7 @@
     <Compile Include="PokemonForm.Designer.cs">
       <DependentUpon>PokemonForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PokemonObject.cs" />
     <Compile Include="RouteOptimizer.cs" />
     <Compile Include="PokeUi.cs">
       <SubType>Form</SubType>

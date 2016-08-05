@@ -50,9 +50,10 @@
             this.evolveAllChk = new System.Windows.Forms.CheckBox();
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
             this.LocationGroupBox = new System.Windows.Forms.GroupBox();
+            this.trackBar = new System.Windows.Forms.TrackBar();
+            this.LocationControlsTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.FindAdressButton = new System.Windows.Forms.Button();
             this.AdressBox = new System.Windows.Forms.TextBox();
-            this.trackBar = new System.Windows.Forms.TrackBar();
             this.TravelSpeedBox = new System.Windows.Forms.TextBox();
             this.CatchPokemonBox = new System.Windows.Forms.CheckBox();
             this.CatchPokemonLabel = new System.Windows.Forms.Label();
@@ -60,15 +61,14 @@
             this.TravelSpeedLabel = new System.Windows.Forms.Label();
             this.IVThresholdLabel = new System.Windows.Forms.Label();
             this.MainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.LocationControlsTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.SettingsTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.Spacer1Label = new System.Windows.Forms.Label();
             this.Spacer2Label = new System.Windows.Forms.Label();
             this.saveBtn = new System.Windows.Forms.Button();
             this.LocationGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
-            this.MainTableLayoutPanel.SuspendLayout();
             this.LocationControlsTableLayoutPanel.SuspendLayout();
+            this.MainTableLayoutPanel.SuspendLayout();
             this.SettingsTableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -228,6 +228,7 @@
             // 
             this.UserPasswordBox.Location = new System.Drawing.Point(111, 56);
             this.UserPasswordBox.Name = "UserPasswordBox";
+            this.UserPasswordBox.PasswordChar = '*';
             this.UserPasswordBox.Size = new System.Drawing.Size(136, 20);
             this.UserPasswordBox.TabIndex = 12;
             // 
@@ -328,7 +329,7 @@
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(414, 354);
+            this.gMapControl1.Size = new System.Drawing.Size(436, 378);
             this.gMapControl1.TabIndex = 22;
             this.gMapControl1.Zoom = 0D;
             this.gMapControl1.Load += new System.EventHandler(this.gMapControl1_Load);
@@ -339,18 +340,48 @@
             this.LocationGroupBox.Controls.Add(this.trackBar);
             this.LocationGroupBox.Controls.Add(this.LocationControlsTableLayoutPanel);
             this.LocationGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LocationGroupBox.Location = new System.Drawing.Point(275, 27);
+            this.LocationGroupBox.Location = new System.Drawing.Point(253, 3);
             this.LocationGroupBox.Name = "LocationGroupBox";
-            this.LocationGroupBox.Size = new System.Drawing.Size(426, 411);
+            this.LocationGroupBox.Size = new System.Drawing.Size(448, 435);
             this.LocationGroupBox.TabIndex = 25;
             this.LocationGroupBox.TabStop = false;
             this.LocationGroupBox.Text = "Location";
+            // 
+            // trackBar
+            // 
+            this.trackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackBar.BackColor = System.Drawing.SystemColors.Info;
+            this.trackBar.Location = new System.Drawing.Point(397, 19);
+            this.trackBar.Name = "trackBar";
+            this.trackBar.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar.Size = new System.Drawing.Size(45, 104);
+            this.trackBar.TabIndex = 25;
+            this.trackBar.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            this.trackBar.Scroll += new System.EventHandler(this.trackBar_Scroll);
+            // 
+            // LocationControlsTableLayoutPanel
+            // 
+            this.LocationControlsTableLayoutPanel.ColumnCount = 2;
+            this.LocationControlsTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.LocationControlsTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.LocationControlsTableLayoutPanel.Controls.Add(this.gMapControl1, 0, 0);
+            this.LocationControlsTableLayoutPanel.Controls.Add(this.FindAdressButton, 1, 1);
+            this.LocationControlsTableLayoutPanel.Controls.Add(this.AdressBox, 0, 1);
+            this.LocationControlsTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LocationControlsTableLayoutPanel.Location = new System.Drawing.Point(3, 16);
+            this.LocationControlsTableLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.LocationControlsTableLayoutPanel.Name = "LocationControlsTableLayoutPanel";
+            this.LocationControlsTableLayoutPanel.RowCount = 2;
+            this.LocationControlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.LocationControlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.LocationControlsTableLayoutPanel.Size = new System.Drawing.Size(442, 416);
+            this.LocationControlsTableLayoutPanel.TabIndex = 26;
             // 
             // FindAdressButton
             // 
             this.FindAdressButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.FindAdressButton.Location = new System.Drawing.Point(298, 363);
+            this.FindAdressButton.Location = new System.Drawing.Point(320, 387);
             this.FindAdressButton.Name = "FindAdressButton";
             this.FindAdressButton.Size = new System.Drawing.Size(119, 26);
             this.FindAdressButton.TabIndex = 25;
@@ -362,7 +393,7 @@
             // 
             this.AdressBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.AdressBox.ForeColor = System.Drawing.Color.Gray;
-            this.AdressBox.Location = new System.Drawing.Point(3, 363);
+            this.AdressBox.Location = new System.Drawing.Point(25, 387);
             this.AdressBox.Name = "AdressBox";
             this.AdressBox.Size = new System.Drawing.Size(289, 20);
             this.AdressBox.TabIndex = 25;
@@ -370,18 +401,6 @@
             this.AdressBox.TextChanged += new System.EventHandler(this.AdressBox_TextChanged);
             this.AdressBox.Enter += new System.EventHandler(this.AdressBox_Enter);
             this.AdressBox.Leave += new System.EventHandler(this.AdressBox_Leave);
-            // 
-            // trackBar
-            // 
-            this.trackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBar.BackColor = System.Drawing.SystemColors.Info;
-            this.trackBar.Location = new System.Drawing.Point(375, 19);
-            this.trackBar.Name = "trackBar";
-            this.trackBar.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar.Size = new System.Drawing.Size(45, 104);
-            this.trackBar.TabIndex = 25;
-            this.trackBar.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
-            this.trackBar.Scroll += new System.EventHandler(this.trackBar_Scroll);
             // 
             // TravelSpeedBox
             // 
@@ -466,24 +485,6 @@
             this.MainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.MainTableLayoutPanel.Size = new System.Drawing.Size(704, 441);
             this.MainTableLayoutPanel.TabIndex = 26;
-            // 
-            // LocationControlsTableLayoutPanel
-            // 
-            this.LocationControlsTableLayoutPanel.ColumnCount = 2;
-            this.LocationControlsTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.LocationControlsTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.LocationControlsTableLayoutPanel.Controls.Add(this.gMapControl1, 0, 0);
-            this.LocationControlsTableLayoutPanel.Controls.Add(this.FindAdressButton, 1, 1);
-            this.LocationControlsTableLayoutPanel.Controls.Add(this.AdressBox, 0, 1);
-            this.LocationControlsTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LocationControlsTableLayoutPanel.Location = new System.Drawing.Point(3, 16);
-            this.LocationControlsTableLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
-            this.LocationControlsTableLayoutPanel.Name = "LocationControlsTableLayoutPanel";
-            this.LocationControlsTableLayoutPanel.RowCount = 2;
-            this.LocationControlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.LocationControlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.LocationControlsTableLayoutPanel.Size = new System.Drawing.Size(420, 392);
-            this.LocationControlsTableLayoutPanel.TabIndex = 26;
             // 
             // SettingsTableLayoutPanel
             // 
@@ -587,7 +588,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(630, 359);
             this.Name = "SettingsForm";
-            this.Padding = new System.Windows.Forms.Padding(9, 9, 9, 9);
+            this.Padding = new System.Windows.Forms.Padding(9);
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Settings";
@@ -595,9 +596,9 @@
             this.LocationGroupBox.ResumeLayout(false);
             this.LocationGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).EndInit();
-            this.MainTableLayoutPanel.ResumeLayout(false);
             this.LocationControlsTableLayoutPanel.ResumeLayout(false);
             this.LocationControlsTableLayoutPanel.PerformLayout();
+            this.MainTableLayoutPanel.ResumeLayout(false);
             this.SettingsTableLayoutPanel.ResumeLayout(false);
             this.SettingsTableLayoutPanel.PerformLayout();
             this.ResumeLayout(false);

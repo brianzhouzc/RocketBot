@@ -1301,35 +1301,39 @@ namespace PokemonGo.RocketAPI.Window
         }
 
 
-
-        #region POKEMON LIST
         private IEnumerable<PokemonFamily> families;
 
         private void InitializePokemonForm()
         {
-            objectListView1.ButtonClick += PokemonListButton_Click;
+            olvPokemonList.ButtonClick += PokemonListButton_Click;
 
             pkmnName.ImageGetter = delegate (object rowObject)
             {
-                PokemonData pokemon = (PokemonData)rowObject;
+                PokemonData pokemon = (rowObject as PokemonObject).PokemonData;
 
                 String key = pokemon.PokemonId.ToString();
-                if (!objectListView1.SmallImageList.Images.ContainsKey(key))
+                if (!olvPokemonList.SmallImageList.Images.ContainsKey(key))
                 {
                     Image img = GetPokemonImage((int)pokemon.PokemonId);
-                    objectListView1.SmallImageList.Images.Add(key, img);
+                    olvPokemonList.SmallImageList.Images.Add(key, img);
                 }
                 return key;
             };
 
-            objectListView1.CellToolTipShowing += delegate (object sender, ToolTipShowingEventArgs args)
+            olvPokemonList.CellToolTipShowing += delegate (object sender, ToolTipShowingEventArgs args)
             {
-                PokemonData pokemon = (PokemonData)args.Model;
+                PokemonData pokemon = (args.Model as PokemonObject).PokemonData;
 
                 var family = families
                         .Where(i => (int)i.FamilyId <= (int)pokemon.PokemonId)
                         .First();
                 args.Text = $"You have {family.Candy} {((PokemonId)((int)family.FamilyId)).ToString()} Candy";
+            };
+
+            olvPokemonList.FormatRow += delegate (object sender, FormatRowEventArgs e) {
+                PokemonObject pok = (PokemonObject)e.Model;
+                if (olvPokemonList.Objects.Cast<PokemonObject>().Select(i => i.PokemonId).Where(p => p == pok.PokemonId).Count() > 1)
+                    e.Item.BackColor = Color.LightGreen;
             };
         }
 
@@ -1340,8 +1344,8 @@ namespace PokemonGo.RocketAPI.Window
 
         private async void ReloadPokemonList()
         {
-            button1.Enabled = false;
-            objectListView1.Enabled = false;
+            btnRefreshPokemonList.Enabled = false;
+            olvPokemonList.Enabled = false;
 
             client2 = new Client(ClientSettings);
             try
@@ -1349,27 +1353,34 @@ namespace PokemonGo.RocketAPI.Window
                 await client2.Login();
                 await client2.SetServer();
                 var inventory = await client2.GetInventory();
-                var pokemons = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon).Where(p => p != null && p?.PokemonId > 0).OrderByDescending(key => key.Cp);
+                var pokemons = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon).Where(p => p != null && p?.PokemonId > 0).OrderByDescending(key => key.Cp).OrderBy(key => key.PokemonId);
                 families = inventory.InventoryDelta.InventoryItems
                    .Select(i => i.InventoryItemData?.PokemonFamily)
                    .Where(p => p != null && (int)p?.FamilyId > 0)
                    .OrderByDescending(p => (int)p.FamilyId);
 
-                var prevTopItem = objectListView1.TopItemIndex;
-                objectListView1.SetObjects(pokemons);
-                objectListView1.TopItemIndex = prevTopItem;
+                List<PokemonObject> pokemonObjects = new List<PokemonObject>();
+                foreach (PokemonData pokemon in pokemons) {
+                    PokemonObject pokemonObject = new PokemonObject(pokemon);
+
+                    pokemonObjects.Add(pokemonObject);
+                }
+
+                var prevTopItem = olvPokemonList.TopItemIndex;
+                olvPokemonList.SetObjects(pokemonObjects);
+                olvPokemonList.TopItemIndex = prevTopItem;
             }
             catch (Exception ex) { ColoredConsoleWrite(Color.Red, ex.ToString()); client2 = null; }
 
-            button1.Enabled = true;
-            objectListView1.Enabled = true;
+            btnRefreshPokemonList.Enabled = true;
+            olvPokemonList.Enabled = true;
         }
 
         private void PokemonListButton_Click(object sender, CellClickEventArgs e)
         {
             try
             {
-                PokemonData pokemon = (PokemonData)e.Model;
+                PokemonData pokemon = (e.Model as PokemonObject).PokemonData;
                 if (e.ColumnIndex == 6)
                 {
                     TransferPokemon(pokemon);
@@ -1434,20 +1445,9 @@ namespace PokemonGo.RocketAPI.Window
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnRefreshPokemonList_Click(object sender, EventArgs e)
         {
             ReloadPokemonList();
-        }
-        #endregion
-
-        private void pokeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void objectListView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
