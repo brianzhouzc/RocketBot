@@ -9,12 +9,26 @@ using System.Threading.Tasks;
 namespace PokemonGo.RocketAPI.Window {
     public class PokemonObject {
 
-        public static bool initialized = false;
+        private static bool initialized = false;
         public static Dictionary<PokemonId, int> candyToEvolveDict = new Dictionary<PokemonId, int>(); 
 
         private readonly PokemonData pokemonData_;
 
         private int candy_ = 0;
+
+        public static async void Initilize(Client c) {
+            if (!initialized) {
+                var itemtemplates = await c.GetItemTemplates();
+                foreach (var t in itemtemplates.ItemTemplates) {
+                    if (t != null) {
+                        if (t.PokemonSettings != null) {
+                            PokemonObject.candyToEvolveDict.Add(t.PokemonSettings.PokemonId, t.PokemonSettings.CandyToEvolve);
+                        }
+                    }
+                }
+                initialized = true;
+            }
+        }
 
         public PokemonObject(PokemonData pokemonData) {
             pokemonData_ = pokemonData;
@@ -73,6 +87,10 @@ namespace PokemonGo.RocketAPI.Window {
                 }
                 return 0;
             }
+        }
+
+        public bool CanEvolve {
+            get { return EvolveTimes > 0; }
         }
     }
 }
