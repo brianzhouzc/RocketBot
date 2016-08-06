@@ -1309,7 +1309,7 @@ namespace PokemonGo.RocketAPI.Window
                 try
                 {
                     var myItems = await client.GetItems(client);
-                    var LuckyEggs = myItems.Where(i => (ItemId) i.Item_ == ItemId.ItemLuckyEgg);
+                    var LuckyEggs = myItems.Where(i => (ItemId) i.Id == ItemId.ItemLuckyEgg);
                     var LuckyEgg = LuckyEggs.FirstOrDefault();
                     if (LuckyEgg != null)
                     {
@@ -1480,6 +1480,8 @@ namespace PokemonGo.RocketAPI.Window
 
                 var profile = await client2.GetProfile();
                 var inventory = await client2.GetInventory();
+                var settings = await client2.GetSettings();
+
                 var pokemons =
                     inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon)
                         .Where(p => p != null && p?.PokemonId > 0)
@@ -1502,8 +1504,6 @@ namespace PokemonGo.RocketAPI.Window
                 var prevTopItem = olvPokemonList.TopItemIndex;
                 olvPokemonList.SetObjects(pokemonObjects);
                 olvPokemonList.TopItemIndex = prevTopItem;
-
-                var settings = await client2.GetSettings();
 
                 var pokemoncount =
                     inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon)

@@ -208,7 +208,7 @@ namespace PokemonGo.RocketAPI
 
             var ballCollection = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Item)
                 .Where(p => p != null)
-                .GroupBy(i => (MiscEnums.Item)i.Item_)
+                .GroupBy(i => (MiscEnums.Item)i.Id)
                 .Select(kvp => new { ItemId = kvp.Key, Amount = kvp.Sum(x => x.Count) })
                 .Where(y => y.ItemId == MiscEnums.Item.ITEM_POKE_BALL
                             || y.ItemId == MiscEnums.Item.ITEM_GREAT_BALL
@@ -514,8 +514,8 @@ namespace PokemonGo.RocketAPI
             var myItems = await GetItems(client);
 
             return myItems
-                .Where(x => settings.ItemRecycleFilter.Any(f => f.Key == ((ItemId)x.Item_) && x.Count > f.Value))
-                .Select(x => new Item { Item_ = x.Item_, Count = x.Count - settings.ItemRecycleFilter.Single(f => f.Key == (AllEnum.ItemId)x.Item_).Value, Unseen = x.Unseen });
+                .Where(x => settings.ItemRecycleFilter.Any(f => f.Key == ((ItemId)x.Id) && x.Count > f.Value))
+                .Select(x => new Item { Id = x.Id, Count = x.Count - settings.ItemRecycleFilter.Single(f => f.Key == (AllEnum.ItemId)x.Id).Value, Unseen = x.Unseen });
         }
 
         public async Task RecycleItems(Client client)
@@ -524,8 +524,8 @@ namespace PokemonGo.RocketAPI
 
             foreach (var item in items)
             {
-                var transfer = await RecycleItem((AllEnum.ItemId)item.Item_, item.Count);
-                ColoredConsoleWrite(ConsoleColor.DarkCyan, $"Recycled {item.Count}x {((AllEnum.ItemId)item.Item_).ToString().Substring(4)}");
+                var transfer = await RecycleItem((AllEnum.ItemId)item.Id, item.Count);
+                ColoredConsoleWrite(ConsoleColor.DarkCyan, $"Recycled {item.Count}x {((AllEnum.ItemId)item.Id).ToString().Substring(4)}");
                 await Task.Delay(500);
             }
         }
@@ -576,7 +576,7 @@ namespace PokemonGo.RocketAPI
         public async Task UseRazzBerry(Client client, ulong encounterId, string spawnPointGuid)
         {
             IEnumerable<Item> myItems = await GetItems(client);
-            IEnumerable<Item> RazzBerries = myItems.Where(i => (ItemId)i.Item_ == ItemId.ItemRazzBerry);
+            IEnumerable<Item> RazzBerries = myItems.Where(i => (ItemId)i.Id == ItemId.ItemRazzBerry);
             Item RazzBerry = RazzBerries.FirstOrDefault();
             if (RazzBerry != null)
             {
