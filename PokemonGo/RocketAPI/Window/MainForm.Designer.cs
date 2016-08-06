@@ -47,18 +47,18 @@
             this.pkmnDefIV = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnStaIV = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnIV = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.pkmnCandy = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.pkmnCandyToEvolve = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.pkmnEvolveTimes = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnTransferButton = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnPowerUpButton = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnEvolveButton = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.cmsPokemonList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.largePokemonImageList = new System.Windows.Forms.ImageList(this.components);
             this.smallPokemonImageList = new System.Windows.Forms.ImageList(this.components);
             this.btnRefreshPokemonList = new System.Windows.Forms.Button();
             this.logTextBox = new System.Windows.Forms.RichTextBox();
-            this.pkmnCandy = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.pkmnCandyToEvolve = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.pkmnEvolveTimes = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.lblPokemonList = new System.Windows.Forms.Label();
-            this.cmsPokemonList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.statusStrip1.SuspendLayout();
@@ -154,7 +154,7 @@
             this.gMapControl1.GrayScaleMode = false;
             this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMapControl1.LevelsKeepInMemmory = 5;
-            this.gMapControl1.Location = new System.Drawing.Point(3, 2);
+            this.gMapControl1.Location = new System.Drawing.Point(0, 2);
             this.gMapControl1.MarkersEnabled = true;
             this.gMapControl1.MaxZoom = 2;
             this.gMapControl1.MinZoom = 2;
@@ -168,7 +168,7 @@
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(407, 234);
+            this.gMapControl1.Size = new System.Drawing.Size(426, 259);
             this.gMapControl1.TabIndex = 23;
             this.gMapControl1.Zoom = 0D;
             // 
@@ -190,6 +190,7 @@
             this.olvPokemonList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.olvPokemonList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.olvPokemonList.CellEditUseWholeCell = false;
             this.olvPokemonList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.pkmnName,
@@ -206,16 +207,16 @@
             this.pkmnEvolveButton});
             this.olvPokemonList.ContextMenuStrip = this.cmsPokemonList;
             this.olvPokemonList.Cursor = System.Windows.Forms.Cursors.Default;
-            this.olvPokemonList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.olvPokemonList.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.olvPokemonList.FullRowSelect = true;
             this.olvPokemonList.GridLines = true;
             this.olvPokemonList.LargeImageList = this.largePokemonImageList;
-            this.olvPokemonList.Location = new System.Drawing.Point(3, 3);
+            this.olvPokemonList.Location = new System.Drawing.Point(3, 0);
             this.olvPokemonList.Name = "olvPokemonList";
             this.olvPokemonList.RowHeight = 32;
             this.olvPokemonList.ShowGroups = false;
             this.olvPokemonList.ShowImagesOnSubItems = true;
-            this.olvPokemonList.Size = new System.Drawing.Size(812, 474);
+            this.olvPokemonList.Size = new System.Drawing.Size(799, 477);
             this.olvPokemonList.SmallImageList = this.smallPokemonImageList;
             this.olvPokemonList.TabIndex = 25;
             this.olvPokemonList.UseCompatibleStateImageBehavior = false;
@@ -226,31 +227,34 @@
             this.pkmnName.AspectName = "PokemonId";
             this.pkmnName.AspectToStringFormat = "";
             this.pkmnName.Hideable = false;
-            this.pkmnName.Text = "Name";
+            this.pkmnName.Text = "Pokémon ID";
             this.pkmnName.Width = 120;
             // 
             // pkmnCP
             // 
             this.pkmnCP.AspectName = "Cp";
             this.pkmnCP.Text = "CP";
-            this.pkmnCP.Width = 50;
+            this.pkmnCP.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // pkmnAtkIV
             // 
             this.pkmnAtkIV.AspectName = "IndividualAttack";
-            this.pkmnAtkIV.Text = "Atk IV";
+            this.pkmnAtkIV.Text = "ATK";
+            this.pkmnAtkIV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.pkmnAtkIV.Width = 50;
             // 
             // pkmnDefIV
             // 
             this.pkmnDefIV.AspectName = "IndividualDefense";
-            this.pkmnDefIV.Text = "Def IV";
+            this.pkmnDefIV.Text = "DEF";
+            this.pkmnDefIV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.pkmnDefIV.Width = 50;
             // 
             // pkmnStaIV
             // 
             this.pkmnStaIV.AspectName = "IndividualStamina";
-            this.pkmnStaIV.Text = "Sta IV";
+            this.pkmnStaIV.Text = "STA";
+            this.pkmnStaIV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.pkmnStaIV.Width = 50;
             // 
             // pkmnIV
@@ -258,7 +262,25 @@
             this.pkmnIV.AspectName = "GetIV";
             this.pkmnIV.AspectToStringFormat = "{0:P2}";
             this.pkmnIV.Text = "IV %";
-            this.pkmnIV.Width = 50;
+            this.pkmnIV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // pkmnCandy
+            // 
+            this.pkmnCandy.AspectName = "Candy";
+            this.pkmnCandy.Text = "Candy";
+            this.pkmnCandy.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // pkmnCandyToEvolve
+            // 
+            this.pkmnCandyToEvolve.AspectName = "CandyToEvolve";
+            this.pkmnCandyToEvolve.Text = "CtE";
+            this.pkmnCandyToEvolve.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // pkmnEvolveTimes
+            // 
+            this.pkmnEvolveTimes.AspectName = "EvolveTimes";
+            this.pkmnEvolveTimes.Text = "Evolves";
+            this.pkmnEvolveTimes.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // pkmnTransferButton
             // 
@@ -267,8 +289,9 @@
             this.pkmnTransferButton.ButtonSizing = BrightIdeasSoftware.OLVColumn.ButtonSizingMode.CellBounds;
             this.pkmnTransferButton.IsButton = true;
             this.pkmnTransferButton.Sortable = false;
-            this.pkmnTransferButton.Text = "Transfer";
-            this.pkmnTransferButton.Width = 80;
+            this.pkmnTransferButton.Text = "";
+            this.pkmnTransferButton.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.pkmnTransferButton.Width = 70;
             // 
             // pkmnPowerUpButton
             // 
@@ -277,8 +300,9 @@
             this.pkmnPowerUpButton.ButtonSizing = BrightIdeasSoftware.OLVColumn.ButtonSizingMode.CellBounds;
             this.pkmnPowerUpButton.IsButton = true;
             this.pkmnPowerUpButton.Sortable = false;
-            this.pkmnPowerUpButton.Text = "PowerUp";
-            this.pkmnPowerUpButton.Width = 80;
+            this.pkmnPowerUpButton.Text = "";
+            this.pkmnPowerUpButton.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.pkmnPowerUpButton.Width = 70;
             // 
             // pkmnEvolveButton
             // 
@@ -287,8 +311,14 @@
             this.pkmnEvolveButton.ButtonSizing = BrightIdeasSoftware.OLVColumn.ButtonSizingMode.CellBounds;
             this.pkmnEvolveButton.IsButton = true;
             this.pkmnEvolveButton.Sortable = false;
-            this.pkmnEvolveButton.Text = "Evolve";
-            this.pkmnEvolveButton.Width = 80;
+            this.pkmnEvolveButton.Text = "";
+            this.pkmnEvolveButton.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.pkmnEvolveButton.Width = 70;
+            // 
+            // cmsPokemonList
+            // 
+            this.cmsPokemonList.Name = "cmsPokemonList";
+            this.cmsPokemonList.Size = new System.Drawing.Size(61, 4);
             // 
             // largePokemonImageList
             // 
@@ -307,10 +337,10 @@
             this.btnRefreshPokemonList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRefreshPokemonList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnRefreshPokemonList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRefreshPokemonList.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRefreshPokemonList.Location = new System.Drawing.Point(3, 496);
             this.btnRefreshPokemonList.Name = "btnRefreshPokemonList";
-            this.btnRefreshPokemonList.Size = new System.Drawing.Size(812, 28);
+            this.btnRefreshPokemonList.Size = new System.Drawing.Size(799, 28);
             this.btnRefreshPokemonList.TabIndex = 26;
             this.btnRefreshPokemonList.Text = "Refresh";
             this.btnRefreshPokemonList.UseVisualStyleBackColor = true;
@@ -319,48 +349,29 @@
             // logTextBox
             // 
             this.logTextBox.BackColor = System.Drawing.Color.Black;
-            this.logTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.logTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.logTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.logTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.logTextBox.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.logTextBox.ForeColor = System.Drawing.Color.White;
             this.logTextBox.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.logTextBox.Location = new System.Drawing.Point(0, 0);
             this.logTextBox.Name = "logTextBox";
             this.logTextBox.ReadOnly = true;
-            this.logTextBox.Size = new System.Drawing.Size(413, 284);
+            this.logTextBox.Size = new System.Drawing.Size(426, 259);
             this.logTextBox.TabIndex = 29;
             this.logTextBox.Text = "";
-            // 
-            // pkmnCandy
-            // 
-            this.pkmnCandy.AspectName = "Candy";
-            this.pkmnCandy.Text = "Candy";
-            // 
-            // pkmnCandyToEvolve
-            // 
-            this.pkmnCandyToEvolve.AspectName = "CandyToEvolve";
-            this.pkmnCandyToEvolve.Text = "CtE";
-            // 
-            // pkmnEvolveTimes
-            // 
-            this.pkmnEvolveTimes.AspectName = "EvolveTimes";
-            this.pkmnEvolveTimes.Text = "# Evolves";
             // 
             // lblPokemonList
             // 
             this.lblPokemonList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblPokemonList.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPokemonList.Location = new System.Drawing.Point(3, 480);
             this.lblPokemonList.Name = "lblPokemonList";
-            this.lblPokemonList.Size = new System.Drawing.Size(812, 13);
+            this.lblPokemonList.Size = new System.Drawing.Size(799, 13);
             this.lblPokemonList.TabIndex = 30;
             this.lblPokemonList.Text = "0 / 0 ";
             this.lblPokemonList.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // cmsPokemonList
-            // 
-            this.cmsPokemonList.Name = "cmsPokemonList";
-            this.cmsPokemonList.Size = new System.Drawing.Size(61, 4);
             // 
             // splitContainer1
             // 
@@ -378,7 +389,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.lblPokemonList);
             this.splitContainer1.Panel2.Controls.Add(this.olvPokemonList);
             this.splitContainer1.Size = new System.Drawing.Size(1235, 527);
-            this.splitContainer1.SplitterDistance = 413;
+            this.splitContainer1.SplitterDistance = 426;
             this.splitContainer1.TabIndex = 32;
             // 
             // splitContainer2
@@ -395,8 +406,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.gMapControl1);
-            this.splitContainer2.Size = new System.Drawing.Size(413, 527);
-            this.splitContainer2.SplitterDistance = 284;
+            this.splitContainer2.Size = new System.Drawing.Size(426, 527);
+            this.splitContainer2.SplitterDistance = 259;
             this.splitContainer2.TabIndex = 0;
             // 
             // MainForm
