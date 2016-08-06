@@ -1,12 +1,9 @@
-﻿using GMap.NET;
-using GMap.NET.WindowsForms;
-using PokemonGo.RocketAPI.GeneratedCode;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using GMap.NET;
+using GMap.NET.WindowsForms;
+using PokemonGo.RocketAPI.GeneratedCode;
 
 namespace PokemonGo.RocketAPI.Window
 {
@@ -14,13 +11,13 @@ namespace PokemonGo.RocketAPI.Window
     {
         public static List<FortData> Optimize(FortData[] pokeStops, LatLong latlng, GMapOverlay routeOverlay)
         {
-            List<FortData> optimizedRoute = new List<FortData>(pokeStops);
+            var optimizedRoute = new List<FortData>(pokeStops);
 
             // NN
-            FortData NN = FindNN(optimizedRoute, latlng.Latitude, latlng.Longitude);
+            var NN = FindNN(optimizedRoute, latlng.Latitude, latlng.Longitude);
             optimizedRoute.Remove(NN);
             optimizedRoute.Insert(0, NN);
-            for (int i = 1; i < pokeStops.Length; i++)
+            for (var i = 1; i < pokeStops.Length; i++)
             {
                 NN = FindNN(optimizedRoute.Skip(i), NN.Latitude, NN.Longitude);
                 optimizedRoute.Remove(NN);
@@ -34,51 +31,53 @@ namespace PokemonGo.RocketAPI.Window
             {
                 optimizedRoute = Optimize2Opt(optimizedRoute, out isOptimized);
                 Visualize(optimizedRoute, routeOverlay);
-            }
-            while (isOptimized);
+            } while (isOptimized);
 
             return optimizedRoute;
         }
 
         private static void Visualize(List<FortData> pokeStops, GMapOverlay routeOverlay)
         {
-            MainForm.synchronizationContext.Post(new SendOrPostCallback(o =>
+            MainForm.synchronizationContext.Post(o =>
             {
-                List<FortData> p = new List<FortData>((List<FortData>)o);
+                var p = new List<FortData>((List<FortData>) o);
                 routeOverlay.Markers.Clear();
-                List<PointLatLng> routePoint = (from pokeStop in p where pokeStop != null select new PointLatLng(pokeStop.Latitude, pokeStop.Longitude)).ToList();
+                var routePoint =
+                    (from pokeStop in p
+                        where pokeStop != null
+                        select new PointLatLng(pokeStop.Latitude, pokeStop.Longitude)).ToList();
                 routeOverlay.Routes.Clear();
                 routeOverlay.Routes.Add(new GMapRoute(routePoint, "Walking Path"));
-            }), pokeStops);
+            }, pokeStops);
         }
 
         private static List<FortData> Optimize2Opt(List<FortData> pokeStops, out bool isOptimized)
         {
-            int n = pokeStops.Count;
+            var n = pokeStops.Count;
             float bestGain = 0;
-            int bestI = -1;
-            int bestJ = -1;
+            var bestI = -1;
+            var bestJ = -1;
 
-            for (int ai = 0; ai < n; ai++)
+            for (var ai = 0; ai < n; ai++)
             {
-                for (int ci = 0; ci < n; ci++)
+                for (var ci = 0; ci < n; ci++)
                 {
-                    int bi = (ai + 1) % n;
-                    int di = (ci + 1) % n;
+                    var bi = (ai + 1)%n;
+                    var di = (ci + 1)%n;
 
-                    FortData a = pokeStops[ai];
-                    FortData b = pokeStops[bi];
-                    FortData c = pokeStops[ci];
-                    FortData d = pokeStops[di];
+                    var a = pokeStops[ai];
+                    var b = pokeStops[bi];
+                    var c = pokeStops[ci];
+                    var d = pokeStops[di];
 
-                    float ab = GetDistance(a, b);
-                    float cd = GetDistance(c, d);
-                    float ac = GetDistance(a, c);
-                    float bd = GetDistance(b, d);
+                    var ab = GetDistance(a, b);
+                    var cd = GetDistance(c, d);
+                    var ac = GetDistance(a, c);
+                    var bd = GetDistance(b, d);
 
                     if (ci != ai && ci != bi)
                     {
-                        float gain = (ab + cd) - (ac + bd);
+                        var gain = ab + cd - (ac + bd);
                         if (gain > bestGain)
                         {
                             bestGain = gain;
@@ -132,13 +131,13 @@ namespace PokemonGo.RocketAPI.Window
 
         private static float GetDistance(double lat1, double lng1, double lat2, double lng2)
         {
-            double R = 6371e3;
-            Func<double, float> toRad = x => (float)(x * (Math.PI / 180));
+            var R = 6371e3;
+            Func<double, float> toRad = x => (float) (x*(Math.PI/180));
             lat1 = toRad(lat1);
             lat2 = toRad(lat2);
-            float dLng = toRad(lng2 - lng1);
+            var dLng = toRad(lng2 - lng1);
 
-            return (float)(Math.Acos(Math.Sin(lat1) * Math.Sin(lat2) + Math.Cos(lat1) * Math.Cos(lat2) * Math.Cos(dLng)) * R);
+            return (float) (Math.Acos(Math.Sin(lat1)*Math.Sin(lat2) + Math.Cos(lat1)*Math.Cos(lat2)*Math.Cos(dLng))*R);
         }
     }
 }

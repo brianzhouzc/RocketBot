@@ -73,6 +73,7 @@
     <Compile Include="BotActions\FarmingAction.cs" />
     <Compile Include="BotActions\ForceUnbanAction.cs" />
     <Compile Include="BotActions\TransferPokemonWithAlgorithmAction.cs" />
+    <Compile Include="Enums\ItemType.cs" />
     <Compile Include="Messages\Message.cs" />
     <Compile Include="MVVMLightUtils\AsyncRelayCommand.cs" />
     <Compile Include="MVVMLightUtils\ObservableCollectionHelper.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="ViewModels\CatchedPokemonViewModel.cs" />
     <Compile Include="ViewModels\ConsoleViewModel.cs" />
     <Compile Include="ViewModels\InventoryViewModel.cs" />
+    <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MapPokemonViewModel.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />

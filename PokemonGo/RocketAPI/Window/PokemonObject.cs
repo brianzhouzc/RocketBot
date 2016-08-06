@@ -1,96 +1,104 @@
-﻿using AllEnum;
+﻿using System.Collections.Generic;
+using AllEnum;
 using PokemonGo.RocketAPI.GeneratedCode;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PokemonGo.RocketAPI.Window {
-    public class PokemonObject {
+namespace PokemonGo.RocketAPI.Window
+{
+    public class PokemonObject
+    {
+        private static bool initialized;
+        public static Dictionary<PokemonId, int> candyToEvolveDict = new Dictionary<PokemonId, int>();
 
-        private static bool initialized = false;
-        public static Dictionary<PokemonId, int> candyToEvolveDict = new Dictionary<PokemonId, int>(); 
+        public PokemonObject(PokemonData pokemonData)
+        {
+            PokemonData = pokemonData;
+        }
 
-        private readonly PokemonData pokemonData_;
+        public PokemonData PokemonData { get; }
 
-        private int candy_ = 0;
+        public ulong Id
+        {
+            get { return PokemonData.Id; }
+        }
 
-        public static async void Initilize(Client c) {
-            if (!initialized) {
+        public PokemonId PokemonId
+        {
+            get { return PokemonData.PokemonId; }
+        }
+
+        public int Cp
+        {
+            get { return PokemonData.Cp; }
+        }
+
+        public int IndividualAttack
+        {
+            get { return PokemonData.IndividualAttack; }
+        }
+
+        public int IndividualDefense
+        {
+            get { return PokemonData.IndividualDefense; }
+        }
+
+        public int IndividualStamina
+        {
+            get { return PokemonData.IndividualStamina; }
+        }
+
+        public float GetIV
+        {
+            get { return PokemonData.GetIV(); }
+        }
+
+        public int Candy { get; set; } = 0;
+
+        public int CandyToEvolve
+        {
+            get
+            {
+                if (candyToEvolveDict.ContainsKey(PokemonData.PokemonId))
+                {
+                    return candyToEvolveDict[PokemonData.PokemonId];
+                }
+                return 0;
+            }
+        }
+
+        public int EvolveTimes
+        {
+            get
+            {
+                if (CandyToEvolve > 0)
+                {
+                    return Candy/CandyToEvolve;
+                }
+                return 0;
+            }
+        }
+
+        public bool CanEvolve
+        {
+            get { return EvolveTimes > 0; }
+        }
+
+        public static async void Initilize(Client c)
+        {
+            if (!initialized)
+            {
                 var itemtemplates = await c.GetItemTemplates();
-                foreach (var t in itemtemplates.ItemTemplates) {
-                    if (t != null) {
-                        if (t.PokemonSettings != null) {
-                            PokemonObject.candyToEvolveDict.Add(t.PokemonSettings.PokemonId, t.PokemonSettings.CandyToEvolve);
+                foreach (var t in itemtemplates.ItemTemplates)
+                {
+                    if (t != null)
+                    {
+                        if (t.PokemonSettings != null)
+                        {
+                            candyToEvolveDict.Add(t.PokemonSettings.PokemonId, t.PokemonSettings.CandyToEvolve);
                         }
                     }
                 }
                 initialized = true;
             }
-        }
-
-        public PokemonObject(PokemonData pokemonData) {
-            pokemonData_ = pokemonData;
-        }
-
-        public PokemonData PokemonData {
-            get { return pokemonData_; }
-        }
-
-        public ulong Id {
-            get { return pokemonData_.Id; }
-        }
-
-        public PokemonId PokemonId {
-            get { return pokemonData_.PokemonId; }
-        }
-
-        public int Cp {
-            get { return pokemonData_.Cp; }
-        }
-
-        public int IndividualAttack {
-            get { return pokemonData_.IndividualAttack; }
-        }
-
-        public int IndividualDefense {
-            get { return pokemonData_.IndividualDefense; }
-        }
-
-        public int IndividualStamina {
-            get { return pokemonData_.IndividualStamina; }
-        }
-
-        public float GetIV {
-            get { return pokemonData_.GetIV(); }
-        }
-
-        public int Candy {
-            get { return candy_; }
-            set { candy_ = value; }
-        }
-
-        public int CandyToEvolve {
-            get {
-                if (candyToEvolveDict.ContainsKey(pokemonData_.PokemonId)) {
-                    return candyToEvolveDict[pokemonData_.PokemonId];
-                }
-                return 0;
-            }
-        }
-
-        public int EvolveTimes {
-            get {
-                if (CandyToEvolve > 0) {
-                    return Candy / CandyToEvolve;
-                }
-                return 0;
-            }
-        }
-
-        public bool CanEvolve {
-            get { return EvolveTimes > 0; }
         }
     }
 }

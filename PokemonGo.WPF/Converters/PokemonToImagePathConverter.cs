@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Media;
 
 namespace PokemonGo.WPF.Converters
 {
@@ -16,7 +10,7 @@ namespace PokemonGo.WPF.Converters
         {
             var number = (int)value;
             if (number > 0)
-                return $"pack://siteoforigin:,,,/Images/Pokemon/{number}.png";
+                return $"pack://siteoforigin:,,,/Images/Pokemon/{number:000}.png";
             return null;
         }
 

@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="PokemonGo.WPF.Views.PlayerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:PokemonGo.WPF.Views"
+             xmlns:converters="clr-namespace:PokemonGo.WPF.Converters"
+             mc:Ignorable="d"
+             d:DesignHeight="200" d:DesignWidth="200">
+    <UserControl.Resources>
+        <converters:TeamToImagePathConverter x:Key="teamToImageConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding Username}" />
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <Image Source="pack://siteoforigin:,,,/Images/Player/pokecoin.png"/>
+                <TextBlock Text="{Binding Pokecoins}"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <Image Source="pack://siteoforigin:,,,/Images/Player/stardust.png"/>
+                <TextBlock Text="{Binding Stardust}"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2">
+                <Image Source="{Binding Team, Converter={StaticResource teamToImageConverter}}"/>
+                <TextBlock Text="{Binding Team}"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

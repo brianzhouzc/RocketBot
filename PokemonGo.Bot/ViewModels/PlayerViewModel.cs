@@ -124,6 +124,8 @@ namespace PokemonGo.Bot.ViewModels
                 var profile = (await client.GetProfile()).Profile;
                 Username = profile.Username;
                 Team = Enum.GetName(typeof(TeamColor), profile.Team);
+                Stardust = profile.Currency.Where(c => c.Type == "STARDUST").Sum(c => c.Amount);
+                Pokecoins = profile.Currency.Where(c => c.Type == "POKECOIN").Sum(c => c.Amount);
             });
 
             Login = new AsyncRelayCommand(async () =>
@@ -137,8 +139,8 @@ namespace PokemonGo.Bot.ViewModels
                 await LoadProfile.ExecuteAsync();
                 MessengerInstance.Send<Message>(new Message("GetSettings"));
                 Settings = (await client.GetSettings()).Settings;
-                MessengerInstance.Send<Message>(new Message("GetMapObjects"));
-                await map.GetMapObjects.ExecuteAsync();
+                //MessengerInstance.Send<Message>(new Message("GetMapObjects"));
+                //await map.GetMapObjects.ExecuteAsync();
                 MessengerInstance.Send<Message>(new Message("LoadInventory"));
                 await Inventory.Load.ExecuteAsync();
                 IsLoggedIn = true;

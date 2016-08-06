@@ -5,12 +5,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:PokemonGo.WPF.Views"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="500">
     <Grid>
-        <ListView ItemsSource="{Binding Pokemon}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="330"/>
+            <ColumnDefinition Width="220"/>
+        </Grid.ColumnDefinitions>
+        <ListView ItemsSource="{Binding Pokemon}" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <local:CatchedPokemonView />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView ItemsSource="{Binding Items}" Grid.Column="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <local:ItemView />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
