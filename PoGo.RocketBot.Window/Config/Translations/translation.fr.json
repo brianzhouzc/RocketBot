@@ -1,0 +1,1202 @@
+﻿{
+  "TranslationStrings": [
+    {
+      "Key": "pokeball",
+      "Value": "PokéBall"
+    },
+    {
+      "Key": "greatPokeball",
+      "Value": "SuperBall"
+    },
+    {
+      "Key": "ultraPokeball",
+      "Value": "HyperBall"
+    },
+    {
+      "Key": "masterPokeball",
+      "Value": "MasterBall"
+    },
+    {
+      "Key": "wrongAuthType",
+      "Value": "Vérifiez le champs AuthType dans auth.json"
+    },
+    {
+      "Key": "LoginInvalid",
+      "Value": "Vos identifiants Google ou Ptc sont invalides. Echec de connexion."
+    },
+    {
+      "Key": "farmPokestopsOutsideRadius",
+      "Value": "Vous dépassez votre rayon d'action! Début de la marche ({0}m de distance) dans 5 secondes. Vérifiez votre fichier LastPos.ini"
+    },
+    {
+      "Key": "farmPokestopsNoUsableFound",
+      "Value": "Impossible de trouver un PokeStop. Modifiez la valeur de MaxTravelDistanceInMeters dans config.json"
+    },
+    {
+      "Key": "eventFortUsed",
+      "Value": "{0} +{1}XP |{2}| {3} | {4},{5}"
+    },
+    {
+      "Key": "eventFortFailed",
+      "Value": "Collecte/Capture impossible, tentative dans : {1}/{2}"
+    },
+    {
+      "Key": "eventFortTargeted",
+      "Value": "{0} {1}m | {2}s"
+    },
+    {
+      "Key": "eventProfileLogin",
+      "Value": "Connecté en tant que {0}"
+    },
+    {
+      "Key": "eventUsedLuckyEgg",
+      "Value": "Utilisation d'un oeuf Chance, reste {0}"
+    },
+    {
+      "Key": "EventUsedIncense",
+      "Value": "Utilisation d'un encens, reste {0}"
+    },
+    {
+      "Key": "SnipeServerOffline",
+      "Value": "[Sniper] Le serveur est inaccessible." 
+    },
+    {
+      "Key": "eventPokemonEvolvedSuccess",
+      "Value": "{0} +{1}XP"
+    },
+    {
+      "Key": "eventPokemonEvolvedFailed",
+      "Value": "{0} Echec. Le résultat était {1}, arrêt de l'évolution {2}"
+    },
+    {
+      "Key": "eventPokemonTransferred",
+      "Value": "{0}\t- {1} / {2}%   [Maximum  {3} / {4}%] {5} Bonbons"
+    },
+    {
+      "Key": "eventItemRecycled",
+      "Value": "{1} x{0}"
+    },
+    {
+      "Key": "eventPokemonCapture",
+      "Value": "({0})|{1}-{2}| Lv {3} {6}% {4}/{5} | {7}% dist {8}m | reste {10} {9} | {11} | {12},{13}"
+    },
+    {
+      "Key": "eventNoPokeballs",
+      "Value": "Plus de Pokeball - {0} PC{1} manqué"
+    },
+    {
+      "Key": "WaitingForMorePokemonToEvolve",
+      "Value": "Encore {1} Pokémon à capturer pour en évoluer {0} d'un coup ! ({2}/{3} pour {4}% de votre inventaire)"
+    },
+    {
+      "Key": "UseLuckyEggsMinPokemonAmountTooHigh",
+      "Value": "Un Oeuf Chance ne peut être utiliser qu'avec UseLuckyEggsMinPokemonAmount = {0}, utilisez plutôt une valeur <= à {1}"
+    },
+    {
+      "Key": "CatchMorePokemonToUseLuckyEgg",
+      "Value": "Encore {0} Pokémon à capturer pour pouvoir utiliser un Oeuf Chance!"
+    },
+    {
+      "Key": "catchStatusAttempt",
+      "Value": "#{1} -{0}"
+    },
+    {
+      "Key": "catchStatus",
+      "Value": "{0}"
+    },
+    {
+      "Key": "candies",
+      "Value": "{0} Bonbons"
+    },
+    {
+      "Key": "unhandledGPXData",
+      "Value": "Données non gérées dans le fichier GPX, ignorées."
+    },
+    {
+      "Key": "displayHighestsHeader",
+      "Value": "Pokémon"
+    },
+    {
+      "Key": "commonWordPerfect",
+      "Value": "IV"
+    },
+    {
+      "Key": "commonWordName",
+      "Value": "Nom"
+    },
+    {
+      "Key": "commonWordUnknown",
+      "Value": "Inconnu"
+    },
+    {
+      "Key": "displayHighestsCPHeader",
+      "Value": "Classement par PC"
+    },
+    {
+      "Key": "displayHighestsPerfectHeader",
+      "Value": "Classement par IV"
+    },
+    {
+      "Key": "displayHighestsLevelHeader",
+      "Value": "Classement par Niveau"
+    },
+    {
+      "Key": "welcomeWarning",
+      "Value": "Destination : {0},{1}"
+    },
+    {
+      "Key": "incubatorPuttingEgg",
+      "Value": "Incubation d'un oeuf, reste {0:0.00}km"
+    },
+    {
+      "Key": "incubatorStatusUpdate",
+      "Value": "Incubation en cours, reste {0:0.00}km"
+    },
+    {
+      "Key": "incubatorEggHatched",
+      "Value": "Eclosion d'un oeuf : {0} | Lvl: {1}  CP: ({2}/{3})  IV: {4}%"
+    },
+    {
+      "Key": "logEntryError",
+      "Value": "ERREUR"
+    },
+    {
+      "Key": "logEntryAttention",
+      "Value": "ATTENTION"
+    },
+    {
+      "Key": "logEntryInfo",
+      "Value": "INFO"
+    },
+    {
+      "Key": "logEntryPokestop",
+      "Value": "POKESTOP"
+    },
+    {
+      "Key": "logEntryFarming",
+      "Value": "COLLECTE"
+    },
+    {
+      "Key": "logEntryRecycling",
+      "Value": "REÇYCLAGE"
+    },
+    {
+      "Key": "logEntryPKMN",
+      "Value": "POKEMON"
+    },
+    {
+      "Key": "logEntryTransfered",
+      "Value": "TRANSFERT"
+    },
+    {
+      "Key": "logEntryEvolved",
+      "Value": "EVOLUTION"
+    },
+    {
+      "Key": "logEntryBerry",
+      "Value": "BAIE"
+    },
+    {
+      "Key": "logEntryEgg",
+      "Value": "OEUF"
+    },
+    {
+      "Key": "logEntryDebug",
+      "Value": "DEBUG"
+    },
+    {
+      "Key": "logEntryUpdate",
+      "Value": "UPDATE"
+    },
+    {
+      "Key": "loggingIn",
+      "Value": "Connexion via {0}"
+    },
+    {
+      "Key": "ptcOffline",
+      "Value": "Les serveurs PTC semblent hors-ligne ou vos identifiants PTC sont incorrects. Merci d'essayer via Google."
+    },
+    {
+      "Key": "tryingAgainIn",
+      "Value": "Nouvel essai dans {0} seconde(s)..."
+    },
+    {
+      "Key": "accountNotVerified",
+      "Value": "Votre compte n'est pas vérifié ! Arrêt en cours..."
+    },
+    {
+      "Key": "realisticTravelDetected",
+      "Value": "Detected realistic Traveling, using Default Settings inside config.json"
+    },
+    {
+      "Key": "notRealisticTravel",
+      "Value": "Chemin irréaliste détecté à {0}, utilisation des coordonnées sauvegardées dans le fichier LastPos.ini"
+    },
+    {
+      "Key": "coordinatesAreInvalid",
+      "Value": "Les coordonnées définies dans le fichier \"LastPos.ini\" sont invalides, utilisation des coordonnées par défaut."
+    },
+    {
+      "Key": "gotUpToDateVersion",
+      "Value": "NecroBot v{0} est à jour."
+    },
+    {
+      "Key": "autoUpdaterDisabled",
+      "Value": "La mise à jour automatique est désactivée. Rendez-vous sur : {0}\n "
+    },
+    {
+      "Key": "downloadingUpdate",
+      "Value": "Téléchargement d'une nouvelle mise à jour en cours..."
+    },
+    {
+      "Key": "finishedDownloadingRelease",
+      "Value": "Le téléchargement de la mise à jour est terminé..."
+    },
+    {
+      "Key": "finishedUnpackingFiles",
+      "Value": "La décompression de la mise à jour est terminée..."
+    },
+    {
+      "Key": "FinishedTransferringConfig",
+      "Value": "Le transfert de vos fichiers config a bien été effectué..."
+    },
+    {
+      "Key": "updateFinished",
+      "Value": "La mise à jour est terminée! Vous pouvez fermer la fenêtre."
+    },
+    {
+      "Key": "lookingForIncensePokemon",
+      "Value": "Recherche d'encens..."
+    },
+    {
+      "Key": "lookingForPokemon",
+      "Value": "Recherche de Pokémon..."
+    },
+    {
+      "Key": "lookingForLurePokemon",
+      "Value": "Recherche de leurre..."
+    },
+    {
+      "Key": "pokemonSkipped",
+      "Value": "{0} est ignoré"
+    },
+    {
+      "Key": "zeroPokeballInv",
+      "Value": "Vous n'avez plus de pokéballs, la capture de Pokémon est impossible !"
+    },
+    {
+      "Key": "currentPokeballInv",
+      "Value": "[Inventaire] Poké Balls: {0} | Super Balls: {1} | Hyper Balls: {2} | Master Balls: {3}"
+    },
+    {
+      "Key": "CurrentItemInv",
+      "Value": "[Inventaire] Potions: {0} | Rappels: {1} | Baies: {2} | Encens: {3} | Oeuf Chance: {4} | Leurres: {5}"
+    },
+    {
+    	"Key": "MaxItemsCombinedOverMaxItemStorage",
+    	"Value": "[Configuration Invalide] Vos objets consommables (Pokéballs+Potions+Rappels={0}) dépasse le seuil de votre inventaire ({1})"
+    },
+    {
+      "Key": "RecyclingQuietly",
+      "Value": "Recyclage rapide en cours..."
+    },
+    {
+      "Key": "invFullTransferring",
+      "Value": "L'inventaire de Pokémon est plein. Transfert en cours..."
+    },
+    {
+      "Key": "invFullTransferManually",
+      "Value": "L'inventaire de Pokémon est plein. Merci de transférer manuellement ou de changer la valeur de \"TransferDuplicatePokemon\" en \"true\"..."
+    },
+    {
+      "Key": "invFullPokestopLooting",
+      "Value": "L'inventaire des objets est plein. Aucun objet n'a pu être récolté!"
+    },
+    {
+      "Key": "encounterProblem",
+      "Value": "Un problème est survenu: {0}"
+    },
+    {
+      "Key": "encounterProblemLurePokemon",
+      "Value": "Un problème est survenu avec le leurre {0}"
+    },
+    {
+      "Key": "desiredDestTooFar",
+      "Value": "Votre destination désirée {0}, {1} est trop éloignée de votre position actuelle {2}, {3}."
+    },
+    {
+      "Key": "pokemonRename",
+      "Value": "{0} ({1}) a été renommé de {2} en {3}."
+    },
+    {
+      "Key": "pokemonFavorite",
+      "Value": "{0}%IV {1} (CP {2}) *Favoris*."
+    },
+    {
+      "Key": "pokemonIgnoreFilter",
+      "Value": "[Pokémon-Ignore-Filter] - {0} ignoré comme défini dans les options !"
+    },
+    {
+      "Key": "catchStatusAttempt",
+      "Value": "Capture"
+    },
+    {
+      "Key": "catchStatusError",
+      "Value": "Echec"
+    },
+    {
+      "Key": "catchStatusEscape",
+      "Value": "Échappé"
+    },
+    {
+      "Key": "catchStatusFlee",
+      "Value": "Fuite"
+    },
+    {
+      "Key": "catchStatusMissed",
+      "Value": "Manqué"
+    },
+    {
+      "Key": "catchStatusSuccess",
+      "Value": "Capturé"
+    },
+    {
+      "Key": "catchTypeNormal",
+      "Value": "Normal"
+    },
+    {
+      "Key": "catchTypeLure",
+      "Value": "Leurre"
+    },
+    {
+      "Key": "catchTypeIncense",
+      "Value": "Encens"
+    },
+    {
+      "Key": "webSocketFailStart",
+      "Value": "Impossible de démarrer le serveur WebSocket sur le port : {0}"
+    },
+    {
+      "Key": "statsTemplateString",
+      "Value": "{0} - {1} - Lvl: {2} | EXP/H: {3:0} | P/H: {4:0} | Poussières: {5:0} | Transférés: {6:0} | Reçyclés: {7:0}"
+    },
+    {
+      "Key": "statsXpTemplateString",
+      "Value": "{0} (Prochain niveau dans {1}h {2}m | {3}/{4} XP)"
+    },
+    {
+      "Key": "requireInputText",
+      "Value": "Appuyez sur une touche pour continuer..."
+    },
+    {
+      "Key": "googleTwoFactorAuth",
+      "Value": "La validation en deux étapes de votre compte Google est activée, vous devez insérer un mot de passe spécifique à l'application dans auth.json"
+    },
+    {
+      "Key": "googleTwoFactorAuthExplanation",
+      "Value": "Ouverture de la page Mots de passe d'application. Merci de générer un nouveau mot de passe spécifique à l'application. (use Other as Device)"
+    },
+    {
+      "Key": "googleError",
+      "Value": "Veuillez vérifier vos identifiants GoogleUsername et GooglePassword dans auth.json!"
+    },
+    {
+      "Key": "missingCredentialsGoogle",
+      "Value": "Vous devez remplir les champs GoogleUsername et GooglePassword dans auth.json!"
+    },
+    {
+      "Key": "missingCredentialsPtc",
+      "Value": "Vous devez remplir les champs PtcUsername et PtcPassword dans auth.json!"
+    },
+    {
+      "Key": "snipeScan",
+      "Value": "[Sniper] Scan en cours sur {0}..."
+    },
+    {
+      "Key": "SnipeScanEx",
+      "Value": "[Sniper] Scan d'un {0} avec {1}% IV à {2}..."
+    },
+    {
+      "Key": "noPokemonToSnipe",
+      "Value": "[Sniper] Echec du scan. Aucun Pokémon trouvé."
+    },
+    {
+      "Key": "notEnoughPokeballsToSnipe",
+      "Value": "[Sniper] Pas assez de pokéballs ({0}/{1})"
+    },
+    {
+      "Key": "displayHighestMove1Header",
+      "Value": "Attaque 1"
+    },
+    {
+      "Key": "displayHighestMove2Header",
+      "Value": "Attaque 2"
+    },
+    {
+      "Key": "DisplayHighestCandy",
+      "Value": "Bonbons"
+    },
+    {
+      "Key": "IPBannedError",
+      "Value": "Connexion refusée. Votre IP a sans doute été bloquée par Niantic. Arrêt en cours..."
+    },
+    {
+      "Key": "NoEggsAvailable",
+      "Value": "Aucun oeuf de disponible"
+    },
+    {
+      "Key": "UseLuckyEggActive",
+      "Value": "Oeuf Chance déjà activé"
+    },
+    {
+      "Key": "UsedLuckyEgg",
+      "Value": "Oeuf Chance utilisé"
+    },
+    {
+      "Key": "UseLuckyEggAmount",
+      "Value": "[Inventaire] Oeuf Chance : {0}"
+    },
+    {
+      "Key": "NoIncenseAvailable",
+      "Value": "Aucun encens de disponible"
+    },
+    {
+      "Key": "UseIncenseActive",
+      "Value": "Encens déjà activé"
+    },
+    {
+      "Key": "UseIncenseAmount",
+      "Value": "[Inventaire] Encens : {0}"
+    },
+    {
+      "Key": "UsedIncense",
+      "Value": "Encens utilisé"
+    },
+    {
+      "Key": "AmountPkmSeenCaught",
+      "Value": "Deck Pokémon(151) : Rencontré {0} | Capturé {1}"
+    },
+    {
+      "Key": "PkmPotentialEvolveCount",
+      "Value": "[Evolution] Disponible : {0}"
+    },
+    {
+      "Key": "PkmNotEnoughRessources",
+      "Value": "Echec. Ressources insuffisantes pour évoluer ce Pokémon"
+    },
+    {
+      "Key": "eventUseBerry",
+      "Value": "{0} utilisé, reste {1}"
+    },
+    {
+      "Key": "itemRazzBerry",
+      "Value": "Baie Framby"
+    },
+    {
+      "Key": "firstStartPrompt",
+      "Value": "[FR]This is your first start, would you like to begin setup? {0}/{1}"
+    },
+    {
+      "Key": "firstStartLanguagePrompt",
+      "Value": "[FR]Would you like to change the default language? {0}/{1}"
+    },
+    {
+      "Key": "firstStartLanguageCodePrompt",
+      "Value": "[FR]Please enter a new language code"
+    },
+    {
+      "Key": "firstStartLanguageConfirm",
+      "Value": "[FR]Language Code Applied: {0}"
+    },
+    {
+      "Key": "promptError",
+      "Value": "[FR][INPUT ERROR] Error with input, please enter '{0}' or '{1}"
+    },
+    {
+      "Key": "firstStartAutoGenSettings",
+      "Value": "[FR]Config/Auth file automatically generated and must be completed before continuing"
+    },
+    {
+      "Key": "firstStartSetupAccount",
+      "Value": "[FR]### Setting up new USER ACCOUNT ###"
+    },
+    {
+      "Key": "firstStartSetupTypePrompt",
+      "Value": "[FR]Please choose an account type: {0}/{1}"
+    },
+    {
+      "Key": "firstStartSetupTypeConfirm",
+      "Value": "[FR]Chosen Account Type: {0}"
+    },
+    {
+      "Key": "firstStartSetupTypePromptError",
+      "Value": "[FR][ERROR] submitted an incorrect account type, please choose '{0}' or '{1}'"
+    },
+    {
+      "Key": "firstStartSetupUsernamePrompt",
+      "Value": "[FR]Please enter a Username"
+    },
+    {
+      "Key": "firstStartSetupUsernameConfirm",
+      "Value": "[FR]Accepted username: {0}"
+    },
+    {
+      "Key": "firstStartSetupPasswordPrompt",
+      "Value": "[FR]Please enter a Password"
+    },
+    {
+      "Key": "firstStartSetupPasswordConfirm",
+      "Value": "[FR]Accepted password: {0}"
+    },
+    {
+      "Key": "firstStartAccountCompleted",
+      "Value": "[FR]### User Account Completed ###"
+    },
+    {
+      "Key": "firstStartDefaultLocationPrompt",
+      "Value": "[FR]Would you like to setup a new Default Location? {0}/{1}"
+    },
+    {
+      "Key": "firstStartDefaultLocationSet",
+      "Value": "[FR]Default Location Applied"
+    },
+    {
+      "Key": "firstStartDefaultLocation",
+      "Value": "[FR]### Setting Default Position ###"
+    },
+    {
+      "Key": "firstStartSetupDefaultLocationError",
+      "Value": "[FR][ERROR] Please input only a VALUE for example: {0}"
+    },
+    {
+      "Key": "firstStartSetupDefaultLatPrompt",
+      "Value": "[FR]Please enter a Latitude (Right click to paste)"
+    },
+    {
+      "Key": "firstStartSetupDefaultLatConfirm",
+      "Value": "[FR]Lattitude accepted: {0}"
+    },
+    {
+      "Key": "firstStartSetupDefaultLongPrompt",
+      "Value": "[FR]Please enter a Longitude (Right click to paste)"
+    },
+    {
+      "Key": "firstStartSetupDefaultLongConfirm",
+      "Value": "[FR]Longitude accepted: {0}"
+    },
+    {
+      "Key": "firstStartSetupCompleted",
+      "Value": "[FR]### COMPLETED CONFIG SETUP ###"
+    }
+  ],
+  "PokemonStrings": [
+    {
+      "Key": "Missingno",
+      "Value": "Missingno"
+    },
+    {
+      "Key": "Bulbasaur",
+      "Value": "Bulbizarre"
+    },
+    {
+      "Key": "Ivysaur",
+      "Value": "Herbizarre"
+    },
+    {
+      "Key": "Venusaur",
+      "Value": "Florizarre"
+    },
+    {
+      "Key": "Charmander",
+      "Value": "Salamèche"
+    },
+    {
+      "Key": "Charmeleon",
+      "Value": "Reptincel"
+    },
+    {
+      "Key": "Charizard",
+      "Value": "Dracaufeu"
+    },
+    {
+      "Key": "Squirtle",
+      "Value": "Carapuce"
+    },
+    {
+      "Key": "Wartortle",
+      "Value": "Carabaffe"
+    },
+    {
+      "Key": "Blastoise",
+      "Value": "Tortank"
+    },
+    {
+      "Key": "Caterpie",
+      "Value": "Chenipan"
+    },
+    {
+      "Key": "Metapod",
+      "Value": "Chrysacier"
+    },
+    {
+      "Key": "Butterfree",
+      "Value": "Papilusion"
+    },
+    {
+      "Key": "Weedle",
+      "Value": "Aspicot"
+    },
+    {
+      "Key": "Kakuna",
+      "Value": "Coconfort"
+    },
+    {
+      "Key": "Beedrill",
+      "Value": "Dardargnan"
+    },
+    {
+      "Key": "Pidgey",
+      "Value": "Roucool"
+    },
+    {
+      "Key": "Pidgeotto",
+      "Value": "Roucoups"
+    },
+    {
+      "Key": "Pidgeot",
+      "Value": "Roucarnage"
+    },
+    {
+      "Key": "Rattata",
+      "Value": "Rattata"
+    },
+    {
+      "Key": "Raticate",
+      "Value": "Rattatac"
+    },
+    {
+      "Key": "Spearow",
+       "Value": "Piafabec"
+    },
+    {
+      "Key": "Fearow",
+       "Value": "Rapasdepic"
+    },
+    {
+      "Key": "Ekans",
+       "Value": "Abo"
+    },
+    {
+      "Key": "Arbok",
+      "Value": "Arbok"
+    },
+    {
+      "Key": "Pikachu",
+      "Value": "Pikachu"
+    },
+    {
+      "Key": "Raichu",
+      "Value": "Raichu"
+    },
+    {
+      "Key": "Sandshrew",
+      "Value": "Sabelette"
+    },
+    {
+      "Key": "Sandslash",
+      "Value": "Sablaireau"
+    },
+    {
+      "Key": "NidoranFemale",
+      "Value": "NidoranF"
+    },
+    {
+      "Key": "Nidorina",
+      "Value": "Nidorina"
+    },
+    {
+      "Key": "Nidoqueen",
+      "Value": "Nidoqueen"
+    },
+    {
+      "Key": "NidoranMale",
+      "Value": "NidoranM"
+    },
+    {
+      "Key": "Nidorino",
+      "Value": "Nidorino"
+    },
+    {
+      "Key": "Nidoking",
+      "Value": "Nidoking"
+    },
+    {
+      "Key": "Clefairy",
+      "Value": "Mélofée"
+    },
+    {
+      "Key": "Clefable",
+      "Value": "Mélodelfe"
+    },
+    {
+      "Key": "Vulpix",
+      "Value": "Goupix"
+    },
+    {
+      "Key": "Ninetales",
+      "Value": "Feunard"
+    },
+    {
+      "Key": "Jigglypuff",
+      "Value": "Rondoudou"
+    },
+    {
+      "Key": "Wigglytuff",
+      "Value": "Grodoudou"
+    },
+    {
+      "Key": "Zubat",
+      "Value": "Nosferapti"
+    },
+    {
+      "Key": "Golbat",
+      "Value": "Nosferalto"
+    },
+    {
+      "Key": "Oddish",
+      "Value": "Mystherbe"
+    },
+    {
+      "Key": "Gloom",
+      "Value": "Ortide"
+    },
+    {
+      "Key": "Vileplume",
+      "Value": "Rafflesia"
+    },
+    {
+      "Key": "Paras",
+      "Value": "Paras"
+    },
+    {
+      "Key": "Parasect",
+      "Value": "Parasect"
+    },
+    {
+      "Key": "Venonat",
+      "Value": "Mimitoss"
+    },
+    {
+      "Key": "Venomoth",
+      "Value": "Aéromite"
+    },
+    {
+      "Key": "Diglett",
+      "Value": "Taupiqueur"
+    },
+    {
+      "Key": "Dugtrio",
+      "Value": "Triopikeur"
+    },
+    {
+      "Key": "Meowth",
+      "Value": "Miaouss"
+    },
+     {
+      "Key": "Persian",
+      "Value": "Persian"
+    },
+    {
+      "Key": "Psyduck",
+      "Value": "Psykokwak"
+    },
+    {
+      "Key": "Golduck",
+      "Value": "Akwakwak"
+    },
+    {
+      "Key": "Mankey",
+      "Value": "Férosinge"
+    },
+    {
+      "Key": "Primeape",
+      "Value": "Colossinge"
+    },
+    {
+      "Key": "Growlithe",
+      "Value": "Caninos"
+    },
+    {
+      "Key": "Arcanine",
+      "Value": "Arcanin"
+    },
+    {
+      "Key": "Poliwag",
+      "Value": "Ptitard"
+    },
+    {
+      "Key": "Poliwhirl",
+      "Value": "Têtarte"
+    },
+    {
+      "Key": "Poliwrath",
+      "Value": "Tartard"
+    },
+    {
+      "Key": "Abra",
+      "Value": "Abra"
+    },
+    {
+      "Key": "Kadabra",
+      "Value": "Kadabra"
+    },
+    {
+      "Key": "Alakazam",
+      "Value": "Alakazam"
+    },
+    {
+      "Key": "Machop",
+      "Value": "Machoc"
+    },
+    {
+      "Key": "Machoke",
+      "Value": "Machopeur"
+    },
+    {
+      "Key": "Machamp",
+      "Value": "Mackogneur"
+    },
+    {
+      "Key": "Bellsprout",
+      "Value": "Chétiflor"
+    },
+    {
+      "Key": "Weepinbell",
+      "Value": "Boustiflor"
+    },
+    {
+      "Key": "Victreebel",
+      "Value": "Empiflor"
+    },
+    {
+      "Key": "Tentacool",
+      "Value": "Tentacool"
+    },
+    {
+      "Key": "Tentacruel",
+      "Value": "Tentacruel"
+    },
+    {
+      "Key": "Geodude",
+      "Value": "Racaillou"
+    },
+    {
+      "Key": "Graveler",
+      "Value": "Gravalanch"
+    },
+    {
+      "Key": "Golem",
+      "Value": "Grolem"
+    },
+    {
+      "Key": "Ponyta",
+      "Value": "Ponyta"
+    },
+    {
+      "Key": "Rapidash",
+      "Value": "Galopa"
+    },
+    {
+      "Key": "Slowpoke",
+      "Value": "Ramoloss"
+    },
+    {
+      "Key": "Slowbro",
+      "Value": "Flagadoss"
+    },
+    {
+      "Key": "Magnemite",
+      "Value": "Magnéti"
+    },
+    {
+      "Key": "Magneton",
+      "Value": "Magnéton"
+    },
+    {
+      "Key": "Farfetchd",
+      "Value": "Canarticho"
+    },
+    {
+      "Key": "Doduo",
+      "Value": "Doduo"
+    },
+    {
+      "Key": "Dodrio",
+      "Value": "Dodrio"
+    },
+    {
+      "Key": "Seel",
+      "Value": "Otaria"
+    },
+    {
+      "Key": "Dewgong",
+      "Value": "Lamantine"
+    },
+    {
+      "Key": "Grimer",
+      "Value": "Tadmorv"
+    },
+    {
+      "Key": "Muk",
+      "Value": "Grotadmorv"
+    },
+    {
+      "Key": "Shellder",
+      "Value": "Kokiyas"
+    },
+    {
+      "Key": "Cloyster",
+      "Value": "Crustabri"
+    },
+    {
+      "Key": "Gastly",
+      "Value": "Fantominus"
+    },
+    {
+      "Key": "Haunter",
+      "Value": "Spectrum"
+    },
+    {
+      "Key": "Gengar",
+      "Value": "Ectoplasma"
+    },
+    {
+      "Key": "Onix",
+      "Value": "Onix"
+    },
+    {
+      "Key": "Drowzee",
+      "Value": "Soporifik"
+    },
+    {
+      "Key": "Hypno",
+      "Value": "Hypnomade"
+    },
+    {
+      "Key": "Krabby",
+      "Value": "Krabby"
+    },
+    {
+      "Key": "Kingler",
+      "Value": "Krabboss"
+    },
+    {
+      "Key": "Voltorb",
+      "Value": "Voltorbe"
+    },
+    {
+      "Key": "Electrode",
+      "Value": "Électrode"
+    },
+    {
+      "Key": "Exeggcute",
+      "Value": "Nœunœuf"
+    },
+    {
+      "Key": "Exeggutor",
+      "Value": "Noadkoko"
+    },
+    {
+      "Key": "Cubone",
+      "Value": "Osselait"
+    },
+    {
+      "Key": "Marowak",
+      "Value": "Ossatueur"
+    },
+    {
+      "Key": "Hitmonlee",
+      "Value": "Kicklee"
+    },
+    {
+      "Key": "Hitmonchan",
+      "Value": "Tygnon"
+    },
+    {
+      "Key": "Lickitung",
+      "Value": "Excelangue"
+    },
+    {
+      "Key": "Koffing",
+      "Value": "Smogo"
+    },
+    {
+      "Key": "Weezing",
+      "Value": "Smogogo"
+    },
+    {
+      "Key": "Rhyhorn",
+      "Value": "Rhinocorne"
+    },
+    {
+      "Key": "Rhydon",
+      "Value": "Rhinoféros"
+    },
+    {
+      "Key": "Chansey",
+      "Value": "Leveinard"
+    },
+    {
+      "Key": "Tangela",
+      "Value": "Saquedeneu"
+    },
+    {
+      "Key": "Kangaskhan",
+      "Value": "Kangourex"
+    },
+    {
+      "Key": "Horsea",
+      "Value": "Hypotrempe"
+    },
+    {
+      "Key": "Seadra",
+      "Value": "Hypocéan"
+    },
+    {
+      "Key": "Goldeen",
+      "Value": "Poissirène"
+    },
+    {
+      "Key": "Seaking",
+      "Value": "Poissoroy"
+    },
+    {
+      "Key": "Staryu",
+      "Value": "Stari"
+    },
+    {
+      "Key": "Starmie",
+      "Value": "Staross"
+    },
+    {
+      "Key": "MrMime",
+      "Value": "M.Mime"
+    },
+    {
+      "Key": "Scyther",
+      "Value": "Insécateur"
+    },
+    {
+      "Key": "Jynx",
+      "Value": "Lippoutou"
+    },
+    {
+      "Key": "Electabuzz",
+      "Value": "Élektek"
+    },
+    {
+      "Key": "Magmar",
+      "Value": "Magmar"
+    },
+    {
+      "Key": "Pinsir",
+      "Value": "Scarabrute"
+    },
+    {
+      "Key": "Tauros",
+      "Value": "Tauros"
+    },
+    {
+      "Key": "Magikarp",
+      "Value": "Magicarpe"
+    },
+    {
+      "Key": "Gyarados",
+      "Value": "Léviator"
+    },
+    {
+      "Key": "Lapras",
+      "Value": "Lokhlass"
+    },
+    {
+      "Key": "Ditto",
+      "Value": "Métamorph"
+    },
+    {
+      "Key": "Eevee",
+      "Value": "Évoli"
+    },
+    {
+      "Key": "Vaporeon",
+      "Value": "Aquali"
+    },
+    {
+      "Key": "Jolteon",
+      "Value": "Voltali"
+    },
+    {
+      "Key": "Flareon",
+      "Value": "Pyroli"
+    },
+    {
+      "Key": "Porygon",
+      "Value": "Porygon"
+    },
+    {
+      "Key": "Omanyte",
+      "Value": "Amonita"
+    },
+    {
+      "Key": "Omastar",
+      "Value": "Amonistar"
+    },
+    {
+      "Key": "Kabuto",
+      "Value": "Kabuto"
+    },
+    {
+      "Key": "Kabutops",
+      "Value": "Kabutops"
+    },
+    {
+      "Key": "Aerodactyl",
+      "Value": "Ptéra"
+    },
+    {
+      "Key": "Snorlax",
+      "Value": "Ronflex"
+    },
+    {
+      "Key": "Articuno",
+      "Value": "Artikodin"
+    },
+    {
+      "Key": "Zapdos",
+      "Value": "Électhor"
+    },
+    {
+      "Key": "Moltres",
+      "Value": "Sulfura"
+    },
+    {
+      "Key": "Dratini",
+      "Value": "Minidraco"
+    },
+    {
+      "Key": "Dragonair",
+      "Value": "Draco"
+    },
+    {
+      "Key": "Dragonite",
+      "Value": "Dracolosse"
+    },
+    {
+      "Key": "Mewtwo",
+      "Value": "Mewtwo"
+    },
+    {
+      "Key": "Mew",
+      "Value": "Mew"
+    }
+  ]
+}

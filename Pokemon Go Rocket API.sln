@@ -1,17 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonGo.RocketAPI.Window", "PokemonGo\RocketAPI\Window\PokemonGo.RocketAPI.Window.csproj", "{C85B9D78-9CA3-4830-84CD-6B69090B987F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "old.PokemonGo.RocketAPI.Window", "PokemonGo\RocketAPI\Window\old.PokemonGo.RocketAPI.Window.csproj", "{C85B9D78-9CA3-4830-84CD-6B69090B987F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonGo.Bot", "PokemonGo.Bot\PokemonGo.Bot.csproj", "{CC21D8B4-E64B-4D37-902F-4DDE004B6D4D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "old.PokemonGo.Bot", "PokemonGo.Bot\old.PokemonGo.Bot.csproj", "{CC21D8B4-E64B-4D37-902F-4DDE004B6D4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonGo.WPF", "PokemonGo.WPF\PokemonGo.WPF.csproj", "{6397D8A2-7A3E-4B35-862E-21BBA74827C4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "old.PokemonGo.WPF", "PokemonGo.WPF\old.PokemonGo.WPF.csproj", "{6397D8A2-7A3E-4B35-862E-21BBA74827C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonGo.RocketAPI", "PoGoRocketAPI\PokemonGo.RocketAPI\PokemonGo.RocketAPI.csproj", "{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POGOProtos", "..\PoGo-Protos\POGOProtos\POGOProtos.csproj", "{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POGOProtos", "PoGoProtos\POGOProtos\POGOProtos.csproj", "{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonGo.RocketAPI", "..\PoGo-Rocket-API\PokemonGo.RocketAPI\PokemonGo.RocketAPI.csproj", "{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoGo.RocketBot.Logic", "PoGo.RocketBot.Logic\PoGo.RocketBot.Logic.csproj", "{0739E40D-C589-4AEB-93E5-EE8CD6773C60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoGo.RocketBot.CLI", "PoGo.RocketBot.CLI\PoGo.RocketBot.CLI.csproj", "{1FEA147E-F704-497B-A538-00B053B5F672}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoGo.RocketBot.Window", "PoGo.RocketBot.Window\PoGo.RocketBot.Window.csproj", "{0E4B2298-C68A-4BC8-BCCF-8B4AAC84BBD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,14 +37,26 @@ Global
 		{6397D8A2-7A3E-4B35-862E-21BBA74827C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6397D8A2-7A3E-4B35-862E-21BBA74827C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6397D8A2-7A3E-4B35-862E-21BBA74827C4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0739E40D-C589-4AEB-93E5-EE8CD6773C60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0739E40D-C589-4AEB-93E5-EE8CD6773C60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0739E40D-C589-4AEB-93E5-EE8CD6773C60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0739E40D-C589-4AEB-93E5-EE8CD6773C60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FEA147E-F704-497B-A538-00B053B5F672}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FEA147E-F704-497B-A538-00B053B5F672}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FEA147E-F704-497B-A538-00B053B5F672}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FEA147E-F704-497B-A538-00B053B5F672}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E4B2298-C68A-4BC8-BCCF-8B4AAC84BBD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E4B2298-C68A-4BC8-BCCF-8B4AAC84BBD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E4B2298-C68A-4BC8-BCCF-8B4AAC84BBD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E4B2298-C68A-4BC8-BCCF-8B4AAC84BBD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
