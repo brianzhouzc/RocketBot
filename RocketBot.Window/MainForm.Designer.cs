@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PokemonGo.RocketAPI.Window
+namespace RocketBot.Window
 {
     partial class MainForm
     {
