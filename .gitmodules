@@ -1,0 +1,6 @@
+[submodule "PoGoRocketAPI"]
+	path = PoGoRocketAPI
+	url = https://github.com/TheUnnameOrganization/PoGo-Rocket-API.git
+[submodule "PoGoProtos"]
+	path = PoGoProtos
+	url = https://github.com/TheUnnameOrganization/PoGo-Protos.git
