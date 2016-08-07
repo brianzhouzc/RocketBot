@@ -14,6 +14,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonGo.RocketAPI", "Fero
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POGOProtos", "POGOProtos\POGOProtos\POGOProtos.csproj", "{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonGo.RocketAPI.Window", "PokemonGo\RocketAPI\Window\PokemonGo.RocketAPI.Window.csproj", "{C85B9D78-9CA3-4830-84CD-6B69090B987F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RocketBot.Window", "RocketBot.Window\RocketBot.Window.csproj", "{0E4B2298-C68A-4BC8-BCCF-8B4AAC84BBD6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +40,14 @@ Global
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C85B9D78-9CA3-4830-84CD-6B69090B987F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C85B9D78-9CA3-4830-84CD-6B69090B987F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C85B9D78-9CA3-4830-84CD-6B69090B987F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C85B9D78-9CA3-4830-84CD-6B69090B987F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E4B2298-C68A-4BC8-BCCF-8B4AAC84BBD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E4B2298-C68A-4BC8-BCCF-8B4AAC84BBD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E4B2298-C68A-4BC8-BCCF-8B4AAC84BBD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E4B2298-C68A-4BC8-BCCF-8B4AAC84BBD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
