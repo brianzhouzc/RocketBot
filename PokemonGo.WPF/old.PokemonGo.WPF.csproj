@@ -191,12 +191,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PokemonGo.Bot\old.PokemonGo.Bot.csproj">
-      <Project>{cc21d8b4-e64b-4d37-902f-4dde004b6d4d}</Project>
-      <Name>old.PokemonGo.Bot</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Images\Pokemon\001.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

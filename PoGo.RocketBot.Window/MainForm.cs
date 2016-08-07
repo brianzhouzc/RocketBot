@@ -8,32 +8,31 @@ namespace PoGo.RocketBot.Window
     public partial class MainForm : Form
     {
         private static string _title = "RocketBot";
-        private static MainForm _instance;
+        public static MainForm Instance;
 
         public MainForm()
         {
             InitializeComponent();
             CenterToScreen();
-            _instance = this;
+            Instance = this;
             _title += " v" + Assembly.GetExecutingAssembly().GetName().Version;
         }
 
         public void MainForm_Load(object sender, EventArgs e)
         {
-        }
 
-        public static MainForm Instance => _instance;
+        }
 
         public static void ColoredConsoleWrite(Color color, string text)
         {
-            if (_instance.InvokeRequired)
+            if (Instance.InvokeRequired)
             {
-                _instance.Invoke(new Action<Color, string>(ColoredConsoleWrite), color, text);
+                Instance.Invoke(new Action<Color, string>(ColoredConsoleWrite), color, text);
                 return;
             }
-            _instance.logTextBox.Select(_instance.logTextBox.Text.Length, 1); // Reset cursor to last
-            _instance.logTextBox.SelectionColor = color;
-            _instance.logTextBox.AppendText(text);
+            Instance.logTextBox.Select(Instance.logTextBox.Text.Length, 1); // Reset cursor to last
+            Instance.logTextBox.SelectionColor = color;
+            Instance.logTextBox.AppendText(text);
 
         }
         public void btnRefreshPokemonList_Click(object sender, EventArgs e)
