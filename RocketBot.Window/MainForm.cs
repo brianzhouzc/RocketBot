@@ -13,7 +13,6 @@ namespace RocketBot.Window
 
         public void MainForm_Load(object sender, EventArgs e)
         {
-            
         }
 
         public void btnRefreshPokemonList_Click(object sender, EventArgs e)
