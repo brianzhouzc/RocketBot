@@ -4555,7 +4555,7 @@ namespace PokemonGo.RocketAPI.GeneratedCode
 
         private static readonly pb::MessageParser<Item> _parser = new pb::MessageParser<Item>(() => new Item());
         private int count_;
-        private global::AllEnum.ItemType item_ = 0;
+        private global::AllEnum.ItemId id_ = 0;
         private bool unseen_;
 
         public Item()
@@ -4565,7 +4565,7 @@ namespace PokemonGo.RocketAPI.GeneratedCode
 
         public Item(Item other) : this()
         {
-            item_ = other.item_;
+            id_ = other.id_;
             count_ = other.count_;
             unseen_ = other.unseen_;
         }
@@ -4580,10 +4580,10 @@ namespace PokemonGo.RocketAPI.GeneratedCode
             get { return global::PokemonGo.RocketAPI.GeneratedCode.PayloadsReflection.Descriptor.MessageTypes[11]; }
         }
 
-        public global::AllEnum.ItemType Item_
+        public global::AllEnum.ItemId Id
         {
-            get { return item_; }
-            set { item_ = value; }
+            get { return id_; }
+            set { id_ = value; }
         }
 
         public int Count
@@ -4618,7 +4618,7 @@ namespace PokemonGo.RocketAPI.GeneratedCode
             {
                 return true;
             }
-            if (Item_ != other.Item_) return false;
+            if (Id != other.Id) return false;
             if (Count != other.Count) return false;
             if (Unseen != other.Unseen) return false;
             return true;
@@ -4626,10 +4626,10 @@ namespace PokemonGo.RocketAPI.GeneratedCode
 
         public void WriteTo(pb::CodedOutputStream output)
         {
-            if (Item_ != 0)
+            if (Id != 0)
             {
                 output.WriteRawTag(8);
-                output.WriteEnum((int)Item_);
+                output.WriteEnum((int)Id);
             }
             if (Count != 0)
             {
@@ -4646,9 +4646,9 @@ namespace PokemonGo.RocketAPI.GeneratedCode
         public int CalculateSize()
         {
             var size = 0;
-            if (Item_ != 0)
+            if (Id != 0)
             {
-                size += 1 + pb::CodedOutputStream.ComputeEnumSize((int)Item_);
+                size += 1 + pb::CodedOutputStream.ComputeEnumSize((int)Id);
             }
             if (Count != 0)
             {
@@ -4667,9 +4667,9 @@ namespace PokemonGo.RocketAPI.GeneratedCode
             {
                 return;
             }
-            if (other.Item_ != 0)
+            if (other.Id != 0)
             {
-                Item_ = other.Item_;
+                Id = other.Id;
             }
             if (other.Count != 0)
             {
@@ -4693,7 +4693,7 @@ namespace PokemonGo.RocketAPI.GeneratedCode
                         break;
                     case 8:
                         {
-                            item_ = (global::AllEnum.ItemType)input.ReadEnum();
+                            Id = (global::AllEnum.ItemId)input.ReadEnum();
                             break;
                         }
                     case 16:
@@ -4718,7 +4718,7 @@ namespace PokemonGo.RocketAPI.GeneratedCode
         public override int GetHashCode()
         {
             var hash = 1;
-            if (Item_ != 0) hash ^= Item_.GetHashCode();
+            if (Id != 0) hash ^= Id.GetHashCode();
             if (Count != 0) hash ^= Count.GetHashCode();
             if (Unseen != false) hash ^= Unseen.GetHashCode();
             return hash;

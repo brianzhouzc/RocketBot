@@ -1,0 +1,42 @@
+﻿<Window xmlns:Views="clr-namespace:PokemonGo.WPF.Views"  x:Class="PokemonGo.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PokemonGo.WPF"
+        xmlns:vm="clr-namespace:PokemonGo.Bot.ViewModels;assembly=PokemonGo.Bot"
+        xmlns:actions="clr-namespace:PokemonGo.Bot.BotActions;assembly=PokemonGo.Bot"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="550" Width="1300">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="boolToVis"/>
+        <vm:MainViewModel x:Key="mainViewModel"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource mainViewModel}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="500"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Menu Width="Auto" Height="20" Grid.Row="0" Grid.ColumnSpan="2">
+            <MenuItem Header="Login" Command="{Binding Player.Login}" />
+            <MenuItem Header="Start" Command="{Binding Bot.Start}" Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self} , Converter={StaticResource boolToVis}}" />
+            <MenuItem Header="Stop" Command="{Binding Bot.Stop}" Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self} , Converter={StaticResource boolToVis}}" />
+            <MenuItem Header="AddAction">
+                <MenuItem Header="Farm" Command="{Binding Bot.AddAction}" CommandParameter="{x:Static actions:BotActionType.Farm}" />
+                <MenuItem Header="Force Unban" Command="{Binding Bot.AddAction}" CommandParameter="{x:Static actions:BotActionType.ForceUnban}" />
+            </MenuItem>
+        </Menu>
+        <Views:ConsoleView DataContext="{Binding Console}" Grid.Row="1" Grid.Column="0"/>
+        <Views:BotView Width="200" DataContext="{Binding Bot}" Grid.Row="1" Grid.Column="1"/>
+        <Views:InventoryView Grid.Row="2" DataContext="{Binding Player.Inventory}"/>
+        <Views:PlayerView Grid.Row="2" Grid.Column="1" DataContext="{Binding Player}"/>
+        <Views:MapView Grid.Row="1" Grid.RowSpan="2" Grid.Column="2"/>
+    </Grid>
+</Window>
