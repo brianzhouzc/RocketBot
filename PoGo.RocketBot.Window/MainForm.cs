@@ -22,6 +22,8 @@ namespace PoGo.RocketBot.Window
         {
         }
 
+        public static MainForm Instance => _instance;
+
         public static void ColoredConsoleWrite(Color color, string text)
         {
             if (_instance.InvokeRequired)
