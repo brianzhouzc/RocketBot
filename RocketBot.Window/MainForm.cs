@@ -46,9 +46,10 @@ namespace PokemonGo.RocketAPI.Window
             throw new NotImplementedException();
         }
 
-        public void todoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void todoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            var settingsForm = new SettingsForm();
+            settingsForm.ShowDialog();
         }
 
         public void startStopBotToolStripMenuItem_Click(object sender, EventArgs e)
