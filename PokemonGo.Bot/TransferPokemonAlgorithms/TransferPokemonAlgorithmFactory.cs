@@ -1,13 +1,14 @@
 ﻿using PokemonGo.RocketAPI;
+using PokemonGo.RocketAPI.Bot;
 using System;
 
 namespace PokemonGo.Bot.TransferPokemonAlgorithms
 {
     public class TransferPokemonAlgorithmFactory
     {
-        readonly ISettings settings;
+        readonly Settings settings;
 
-        public TransferPokemonAlgorithmFactory(ISettings settings)
+        public TransferPokemonAlgorithmFactory(Settings settings)
         {
             this.settings = settings;
         }
@@ -31,7 +32,6 @@ namespace PokemonGo.Bot.TransferPokemonAlgorithms
                     return new TransferPokemonAlgorithmNone();
                 case TransferPokemonAlgorithm.IVDuplicateUnderCPThreshold:
                     return new TransferPokemonAlgorithmIVDuplicateUnderCPThreshold(settings.TransferCPThreshold);
-
                 default:
                     throw new ArgumentOutOfRangeException(nameof(algorithm), "Unknown transfer algorithm.");
             }

@@ -1,19 +1,15 @@
 ﻿using PokemonGo.Bot.ViewModels;
-using PokemonGo.RocketAPI.GeneratedCode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace PokemonGo.RocketAPI.Bot.utils
 {
     public static class RouteOptimizer
     {
-        public static List<FortData> Optimize(IEnumerable<FortData> pokeStops, PositionViewModel position)
+        public static List<PokestopViewModel> Optimize(IEnumerable<PokestopViewModel> pokeStops, Position3DViewModel position)
         {
-            var optimizedRoute = new List<FortData>(pokeStops);
+            var optimizedRoute = new List<PokestopViewModel>(pokeStops);
 
             // NN
             var NN = FindNN(optimizedRoute, position.Latitude, position.Longitude);
@@ -21,7 +17,7 @@ namespace PokemonGo.RocketAPI.Bot.utils
             optimizedRoute.Insert(0, NN);
             for (int i = 1; i < optimizedRoute.Count; i++)
             {
-                NN = FindNN(optimizedRoute.Skip(i), NN.Latitude, NN.Longitude);
+                NN = FindNN(optimizedRoute.Skip(i), NN.Position.Latitude, NN.Position.Longitude);
                 optimizedRoute.Remove(NN);
                 optimizedRoute.Insert(i, NN);
             }
@@ -55,7 +51,7 @@ namespace PokemonGo.RocketAPI.Bot.utils
         //    }), pokeStops);
         //}
 
-        static List<FortData> Optimize2Opt(List<FortData> pokeStops, out bool isOptimized)
+        private static List<PokestopViewModel> Optimize2Opt(List<PokestopViewModel> pokeStops, out bool isOptimized)
         {
             var n = pokeStops.Count;
             var bestGain = 0f;
@@ -94,10 +90,10 @@ namespace PokemonGo.RocketAPI.Bot.utils
 
             if (bestI != -1)
             {
-                List<FortData> optimizedRoute;
+                List<PokestopViewModel> optimizedRoute;
                 if (bestI > bestJ)
                 {
-                    optimizedRoute = new List<FortData>();
+                    optimizedRoute = new List<PokestopViewModel>();
                     optimizedRoute.Add(pokeStops[0]);
                     optimizedRoute.AddRange(pokeStops.Skip(bestI));
                     optimizedRoute.Reverse(1, n - bestI);
@@ -107,12 +103,12 @@ namespace PokemonGo.RocketAPI.Bot.utils
                 }
                 else if (bestI == 0)
                 {
-                    optimizedRoute = new List<FortData>(pokeStops);
+                    optimizedRoute = new List<PokestopViewModel>(pokeStops);
                     optimizedRoute.Reverse(bestJ + 1, n - bestJ - 1);
                 }
                 else
                 {
-                    optimizedRoute = new List<FortData>(pokeStops);
+                    optimizedRoute = new List<PokestopViewModel>(pokeStops);
                     optimizedRoute.Reverse(bestI, bestJ - bestI + 1);
                 }
 
@@ -123,17 +119,17 @@ namespace PokemonGo.RocketAPI.Bot.utils
             return pokeStops;
         }
 
-        static FortData FindNN(IEnumerable<FortData> pokeStops, double cLatitude, double cLongitude)
+        private static PokestopViewModel FindNN(IEnumerable<PokestopViewModel> pokeStops, double cLatitude, double cLongitude)
         {
-            return pokeStops.OrderBy(p => GetDistance(cLatitude, cLongitude, p.Latitude, p.Longitude)).First();
+            return pokeStops.OrderBy(p => GetDistance(cLatitude, cLongitude, p.Position.Latitude, p.Position.Longitude)).First();
         }
 
-        static float GetDistance(FortData a, FortData b)
+        private static float GetDistance(PokestopViewModel a, PokestopViewModel b)
         {
-            return GetDistance(a.Latitude, a.Longitude, b.Latitude, b.Longitude);
+            return GetDistance(a.Position.Latitude, a.Position.Longitude, b.Position.Latitude, b.Position.Longitude);
         }
 
-        static float GetDistance(double lat1, double lng1, double lat2, double lng2)
+        private static float GetDistance(double lat1, double lng1, double lat2, double lng2)
         {
             var R = 6371e3;
             Func<double, float> toRad = x => (float)(x * (Math.PI / 180));

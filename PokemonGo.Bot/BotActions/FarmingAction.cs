@@ -1,25 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PokemonGo.Bot.ViewModels;
-using PokemonGo.RocketAPI.Extensions;
-using PokemonGo.RocketAPI.Bot.utils;
-using PokemonGo.RocketAPI.GeneratedCode;
+﻿using PokemonGo.Bot.ViewModels;
 using PokemonGo.RocketAPI;
+using PokemonGo.RocketAPI.Bot;
+using PokemonGo.RocketAPI.Bot.utils;
+using PokemonGo.RocketAPI.Extensions;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PokemonGo.Bot.BotActions
 {
     public class FarmingAction : BotAction
     {
-        readonly ISettings settings;
-        readonly Client client;
-        bool shouldStop;
-        IEnumerable<FortData> route;
+        private readonly Settings settings;
+        private readonly Client client;
+        private bool shouldStop;
+        private IEnumerable<PokestopViewModel> route;
 
-        public FarmingAction(BotViewModel bot, Client client, ISettings settings) : base(bot, "Farm")
+        public FarmingAction(BotViewModel bot, Client client, Settings settings) : base(bot, "Farm")
         {
             this.client = client;
             this.settings = settings;
@@ -35,10 +34,10 @@ namespace PokemonGo.Bot.BotActions
             ExecuteAsync();
         }
 
-        async Task CalculateRouteAsync()
+        private async Task CalculateRouteAsync()
         {
             await bot.Map.GetMapObjects.ExecuteAsync();
-            var pokestopsNotOnCooldown = bot.Map.Pokestops.Where(p => p.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime());
+            var pokestopsNotOnCooldown = bot.Map.Pokestops.Where(p => p.IsActive);
             route = RouteOptimizer.Optimize(pokestopsNotOnCooldown, bot.Player.Position);
         }
 
@@ -48,14 +47,13 @@ namespace PokemonGo.Bot.BotActions
             return Task.CompletedTask;
         }
 
-        async Task ExecuteAsync()
+        private async Task ExecuteAsync()
         {
             var enumerator = route.GetEnumerator();
             if (!enumerator.MoveNext())
                 await StopAsync();
 
-
-            while(!shouldStop)
+            while (!shouldStop)
             {
                 var currentPokeStop = enumerator.Current;
 
@@ -74,26 +72,25 @@ namespace PokemonGo.Bot.BotActions
             }
         }
 
-        async Task TransferUnwantedPokemonAsync()
+        private async Task TransferUnwantedPokemonAsync()
         {
             await new TransferPokemonWithAlgorithmAction(bot).StartAsync();
         }
 
-        async Task CatchNearbyPokemonAsync()
+        private async Task CatchNearbyPokemonAsync()
         {
             await new CatchPokemonAction(bot, client, settings).StartAsync();
         }
 
-        async Task MoveToPokestopAsync(FortData currentPokeStop)
+        private async Task MoveToPokestopAsync(PokestopViewModel currentPokeStop)
         {
-            await bot.Player.Move.ExecuteAsync(new PositionViewModel(currentPokeStop.Latitude, currentPokeStop.Longitude));
+            await bot.Player.Move.ExecuteAsync(currentPokeStop.Position);
         }
 
-        async Task FarmPokestopAsync(FortData currentPokeStop)
+        private async Task FarmPokestopAsync(PokestopViewModel currentPokeStop)
         {
-            var fortInfo = await client.GetFort(currentPokeStop.Id, currentPokeStop.Latitude, currentPokeStop.Longitude);
-            var fortSearch = await client.SearchFort(currentPokeStop.Id, currentPokeStop.Latitude, currentPokeStop.Longitude);
-            currentPokeStop.CooldownCompleteTimestampMs = DateTime.UtcNow.ToUnixTime() + 300000;
+            var fortInfo = await client.Fort.GetFort(currentPokeStop.Id, currentPokeStop.Position.Latitude, currentPokeStop.Position.Longitude);
+            await currentPokeStop.Search.ExecuteAsync();
         }
     }
 }

@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using PokemonGo.Bot.BotActions;
 using PokemonGo.RocketAPI;
+using PokemonGo.RocketAPI.Bot;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -37,7 +38,7 @@ namespace PokemonGo.Bot.ViewModels
 
         public MapViewModel Map { get; }
 
-        public BotViewModel(Client client, PlayerViewModel player, MapViewModel map, ISettings settings)
+        public BotViewModel(Client client, PlayerViewModel player, MapViewModel map, Settings settings)
         {
             Map = map;
             this.client = client;

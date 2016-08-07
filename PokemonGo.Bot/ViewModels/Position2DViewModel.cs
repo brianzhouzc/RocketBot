@@ -1,22 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokemonGo.Bot.ViewModels
 {
-    public class PositionViewModel
+    public class Position2DViewModel
     {
         public double Latitude { get; }
         public double Longitude { get; }
-        public PositionViewModel(double lat, double lon)
+
+        public Position2DViewModel(double lat, double lon)
         {
             Latitude = lat;
             Longitude = lon;
         }
-        public double DistanceTo(PositionViewModel other)
+
+        public double DistanceTo(Position2DViewModel other)
         {
             var R = 6371e3;
             Func<double, float> toRad = x => (float)(x * (Math.PI / 180));
@@ -29,9 +27,12 @@ namespace PokemonGo.Bot.ViewModels
             return R * c;
         }
 
-        public override bool Equals(object obj) => Equals(obj as PositionViewModel);
+        public Position3DViewModel To3D(double alt)
+            => new Position3DViewModel(Latitude, Longitude, alt);
 
-        public bool Equals(PositionViewModel other)
+        public override bool Equals(object obj) => Equals(obj as Position2DViewModel);
+
+        public bool Equals(Position2DViewModel other)
         {
             return other != null &&
                 Latitude == other.Latitude &&

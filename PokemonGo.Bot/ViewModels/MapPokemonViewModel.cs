@@ -1,4 +1,4 @@
-﻿using PokemonGo.RocketAPI.GeneratedCode;
+﻿using POGOProtos.Map.Pokemon;
 
 namespace PokemonGo.Bot.ViewModels
 {
@@ -9,15 +9,15 @@ namespace PokemonGo.Bot.ViewModels
         {
             EncounterId = pokemon.EncounterId;
             ExpirationTimestampMs = pokemon.ExpirationTimestampMs;
-            SpawnpointId = pokemon.SpawnpointId;
-            Position = new PositionViewModel(pokemon.Latitude, pokemon.Longitude);
+            SpawnPointId = pokemon.SpawnPointId;
+            Position = new Position2DViewModel(pokemon.Latitude, pokemon.Longitude);
         }
 
         public ulong EncounterId { get; }
         public long ExpirationTimestampMs { get; }
-        public string SpawnpointId { get; }
+        public string SpawnPointId { get; }
 
-        public PositionViewModel Position { get; }
+        public Position2DViewModel Position { get; }
 
         public override bool Equals(object obj) => Equals(obj as MapPokemonViewModel);
 

@@ -1,13 +1,12 @@
 #region
 
+using POGOProtos.Inventory.Item;
+using PokemonGo.RocketAPI.Enums;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
-using System.Reflection;
 using System.Runtime.CompilerServices;
-using AllEnum;
-using PokemonGo.RocketAPI.Enums;
 
 #endregion
 
@@ -35,69 +34,135 @@ namespace PokemonGo.RocketAPI.Bot
             }
         }
 
-        public void Reload()
+        public string TransferType
         {
-            ConfigurationManager.RefreshSection("appSettings");
+            get { return GetSetting(); }
+            set { SetSetting(value); }
         }
 
-        /// <summary>
-        ///     Don't touch. User settings are in Console/App.config
-        /// </summary>
-        public string TransferType => GetSetting() != string.Empty ? GetSetting() : "none";
-        public int TransferCPThreshold => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 0;
-        public int TransferIVThreshold => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 0;
-        public int TravelSpeed => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 60;
-        public int ImageSize => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 50;
-        public bool EvolveAllGivenPokemons => GetSetting() != string.Empty && Convert.ToBoolean(GetSetting(), CultureInfo.InvariantCulture);
-        public bool CatchPokemon => GetSetting() != string.Empty && Convert.ToBoolean(GetSetting(), CultureInfo.InvariantCulture);
-
+        public int TransferCPThreshold
+        {
+            get { return TryParseInt(GetSetting()); }
+            set { SetSetting(value); }
+        }
+        public int TransferIVThreshold
+        {
+            get { return TryParseInt(GetSetting()); }
+            set { SetSetting(value); }
+        }
+        public int TravelSpeed
+        {
+            get { return TryParseInt(GetSetting()); }
+            set { SetSetting(value); }
+        }
+        public bool EvolveAllGivenPokemons
+        {
+            get { return TryParseBool(GetSetting()); }
+            set { SetSetting(value); }
+        }
+        public bool CatchPokemon
+        {
+            get { return TryParseBool(GetSetting()); }
+            set { SetSetting(value); }
+        }
 
         public AuthType AuthType
         {
-            get
-            {
-                return (GetSetting() != string.Empty ? GetSetting() : "Ptc") == "Ptc" ? AuthType.Ptc : AuthType.Google;
-            }
-            set { SetSetting(value.ToString()); }
+            get { return TryParseEnum<AuthType>(GetSetting()); }
+            set { SetSetting<AuthType>(value); }
         }
-
-        public string PtcUsername => GetSetting() != string.Empty ? GetSetting() : "username";
-        public string PtcPassword => GetSetting() != string.Empty ? GetSetting() : "password";
-        public string Email => GetSetting() != string.Empty ? GetSetting() : "Email";
-        public string Password => GetSetting() != string.Empty ? GetSetting() : "Password";
 
         public double DefaultLatitude
         {
-            get { return GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 51.22640; }
+            get { return TryParseDouble(GetSetting()); }
             set { SetSetting(value); }
         }
-
 
         public double DefaultLongitude
         {
-            get { return GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 6.77874; }
+            get { return TryParseDouble(GetSetting()); }
             set { SetSetting(value); }
         }
 
+        public string LevelOutput
+        {
+            get { return GetSetting(); }
+            set { SetSetting(value); }
+        }
 
-        public string LevelOutput => GetSetting() != string.Empty ? GetSetting() : "time";
+        public int LevelTimeInterval
+        {
+            get { return TryParseInt(GetSetting()); }
+            set { SetSetting(value); }
+        }
 
-        public int LevelTimeInterval => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 600;
+        public bool Recycler
+        {
+            get { return TryParseBool(GetSetting()); }
+            set { SetSetting(value); }
+        }
 
-        public bool Recycler => GetSetting() != string.Empty && Convert.ToBoolean(GetSetting(), CultureInfo.InvariantCulture);
+        private int MaxItemPokeBall
+        {
+            get { return TryParseInt(GetSetting()); }
+            set { SetSetting(value); }
+        }
 
-        private int MaxItemPokeBall => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 500;
-        private int MaxItemGreatBall => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 500;
-        private int MaxItemUltraBall => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 500;
-        private int MaxItemMasterBall => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 500;
-        private int MaxItemRazzBerry => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 500;
-        private int MaxItemRevive => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 500;
-        private int MaxItemPotion => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 500;
-        private int MaxItemSuperPotion => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 500;
-        private int MaxItemHyperPotion => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 500;
-        private int MaxItemMaxPotion => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 500;
+        private int MaxItemGreatBall
+        {
+            get { return TryParseInt(GetSetting()); }
+            set { SetSetting(value); }
+        }
 
-        ICollection<KeyValuePair<ItemId, int>> ISettings.ItemRecycleFilter => new[]
+        private int MaxItemUltraBall
+        {
+            get { return TryParseInt(GetSetting()); }
+            set { SetSetting(value); }
+        }
+
+        private int MaxItemMasterBall
+        {
+            get { return TryParseInt(GetSetting()); }
+            set { SetSetting(value); }
+        }
+
+        private int MaxItemRazzBerry
+        {
+            get { return TryParseInt(GetSetting()); }
+            set { SetSetting(value); }
+        }
+
+        private int MaxItemRevive
+        {
+            get { return TryParseInt(GetSetting()); }
+            set { SetSetting(value); }
+        }
+
+        private int MaxItemPotion
+        {
+            get { return TryParseInt(GetSetting()); }
+            set { SetSetting(value); }
+        }
+
+        private int MaxItemSuperPotion
+        {
+            get { return TryParseInt(GetSetting()); }
+            set { SetSetting(value); }
+        }
+
+        private int MaxItemHyperPotion
+        {
+            get { return TryParseInt(GetSetting()); }
+            set { SetSetting(value); }
+        }
+
+        private int MaxItemMaxPotion
+        {
+            get { return TryParseInt(GetSetting()); }
+            set { SetSetting(value); }
+        }
+
+        private ICollection<KeyValuePair<ItemId, int>> ItemRecycleFilter => new[]
         {
             new KeyValuePair<ItemId, int>(ItemId.ItemPokeBall, MaxItemPokeBall),
             new KeyValuePair<ItemId, int>(ItemId.ItemGreatBall, MaxItemGreatBall),
@@ -111,26 +176,72 @@ namespace PokemonGo.RocketAPI.Bot
             new KeyValuePair<ItemId, int>(ItemId.ItemMaxPotion, MaxItemMaxPotion)
         };
 
-        public int RecycleItemsInterval => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 60;
-
-        public string Language => GetSetting() != string.Empty ? GetSetting() : "english";
-
-        public string RazzBerryMode => GetSetting() != string.Empty ? GetSetting() : "cp";
-
-        public double RazzBerrySetting => GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 500;
-
-        public string GoogleRefreshToken
+        public int RecycleItemsInterval
         {
-            get { return GetSetting() != string.Empty ? GetSetting() : string.Empty; }
+            get { return TryParseInt(GetSetting()); }
             set { SetSetting(value); }
         }
 
-        private string GetSetting([CallerMemberName] string key = null)
+        public string Language
+        {
+            get { return GetSetting(); }
+            set { SetSetting(value); }
+        }
+
+        public string RazzBerryMode
+        {
+            get { return GetSetting(); }
+            set { SetSetting(value); }
+        }
+
+        public double RazzBerrySetting
+        {
+            get { return TryParseDouble(GetSetting()); }
+            set { SetSetting(value); }
+        }
+
+        public string GoogleRefreshToken
+        {
+            get { return GetSetting(); }
+            set { SetSetting(value); }
+        }
+
+        public double DefaultAltitude
+        {
+            get { return TryParseDouble(GetSetting()); }
+            set { SetSetting(value); }
+        }
+
+        public string GoogleUsername
+        {
+            get { return GetSetting(); }
+            set { SetSetting(value); }
+        }
+
+        public string GooglePassword
+        {
+            get { return GetSetting(); }
+            set { SetSetting(value); }
+        }
+
+        public string PtcPassword
+        {
+            get { return GetSetting(); }
+            set { SetSetting(value); }
+        }
+
+        public string PtcUsername
+        {
+            get { return GetSetting(); }
+            set { SetSetting(value); }
+        }
+
+        private static string GetSetting([CallerMemberName] string key = null)
         {
             return ConfigurationManager.AppSettings[key];
         }
 
-        public void SetSetting(string value, [CallerMemberName] string key = null)
+        public static void SetSetting(string value, [CallerMemberName] string key = null)
         {
             var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             if (key != null)
@@ -140,14 +251,45 @@ namespace PokemonGo.RocketAPI.Bot
             configFile.Save(ConfigurationSaveMode.Full);
         }
 
-        public void SetSetting(double value, [CallerMemberName] string key = null)
+        public static void SetSetting(double value, [CallerMemberName] string key = null)
+            => SetSetting(value.ToString(CultureInfo.InvariantCulture), key);
+
+        public static void SetSetting(int value, [CallerMemberName] string key = null)
+            => SetSetting(value.ToString(CultureInfo.InvariantCulture), key);
+
+        public static void SetSetting(bool value, [CallerMemberName] string key = null)
+            => SetSetting(value.ToString(CultureInfo.InvariantCulture), key);
+
+        public static void SetSetting<TEnum>(object value, [CallerMemberName] string key = null)
+            => SetSetting(Enum.GetName(typeof(TEnum), value), key);
+
+        private static double TryParseDouble(string input)
         {
-            var customCulture = (CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
-            customCulture.NumberFormat.NumberDecimalSeparator = ".";
-            System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
-            var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            if (key != null) configFile.AppSettings.Settings[key].Value = value.ToString();
-            configFile.Save(ConfigurationSaveMode.Full);
+            var val = 0.0;
+            double.TryParse(input, NumberStyles.Number, CultureInfo.InvariantCulture, out val);
+            return val;
+        }
+
+        private static int TryParseInt(string input)
+        {
+            var val = 0;
+            int.TryParse(input, NumberStyles.Number, CultureInfo.InvariantCulture, out val);
+            return val;
+        }
+
+        private static bool TryParseBool(string input)
+        {
+            var val = false;
+            bool.TryParse(input, out val);
+            return val;
+        }
+
+        private static T TryParseEnum<T>(string input)
+            where T:struct
+        {
+            var val = default(T);
+            Enum.TryParse<T>(input, out val);
+            return val;
         }
     }
 }

@@ -1,24 +1,23 @@
-﻿using PokemonGo.RocketAPI.GeneratedCode;
+﻿using POGOProtos.Data;
+using POGOProtos.Map.Pokemon;
 
 namespace PokemonGo.Bot.ViewModels
 {
-    public class WildPokemonViewModel : PokemonViewModel
+    public class WildPokemonViewModel : PokemonDataViewModel
     {
-        public WildPokemonViewModel(WildPokemon pokemon) : base(pokemon.PokemonData.PokemonId, pokemon.PokemonData.Id)
+        public WildPokemonViewModel(WildPokemon pokemon) : base(pokemon.PokemonData)
         {
             EncounterId = pokemon.EncounterId;
             LastModifiedTimestampMs = pokemon.LastModifiedTimestampMs;
-            Position = new PositionViewModel(pokemon.Latitude, pokemon.Longitude);
-            SpawnpointId = pokemon.SpawnpointId;
+            Position = new Position2DViewModel(pokemon.Latitude, pokemon.Longitude);
+            SpawnpointId = pokemon.SpawnPointId;
             TimeTillHiddenMs = pokemon.TimeTillHiddenMs;
-            PokemonData = pokemon.PokemonData;
         }
 
         public ulong EncounterId { get; }
         public long LastModifiedTimestampMs { get; }
         public string SpawnpointId { get; }
         public int TimeTillHiddenMs { get; }
-        public PokemonData PokemonData { get; }
-        PositionViewModel Position { get; }
+        Position2DViewModel Position { get; }
     }
 }

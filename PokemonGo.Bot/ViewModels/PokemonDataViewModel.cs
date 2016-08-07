@@ -1,12 +1,12 @@
-﻿using AllEnum;
-using PokemonGo.RocketAPI.GeneratedCode;
+﻿using POGOProtos.Data;
+using POGOProtos.Enums;
 using System;
 
 namespace PokemonGo.Bot.ViewModels
 {
-    public class CatchedPokemonViewModel : PokemonViewModel
+    public class PokemonDataViewModel : PokemonViewModel
     {
-        int combatPoints;
+        private int combatPoints;
 
         public int CombatPoints
         {
@@ -14,7 +14,7 @@ namespace PokemonGo.Bot.ViewModels
             set { if (CombatPoints != value) { combatPoints = value; RaisePropertyChanged(); } }
         }
 
-        bool isFavorite;
+        private bool isFavorite;
 
         public bool IsFavorite
         {
@@ -22,7 +22,7 @@ namespace PokemonGo.Bot.ViewModels
             set { if (IsFavorite != value) { isFavorite = value; RaisePropertyChanged(); } }
         }
 
-        public double PerfectPercentage { get; }
+        public double PerfectPercentage { get { return (IndividualAttack + IndividualDefense + IndividualStamina) / 45.0; } }
         public int IndividualAttack { get; }
         public int IndividualDefense { get; }
         public int IndividualStamina { get; }
@@ -30,7 +30,7 @@ namespace PokemonGo.Bot.ViewModels
         public string Move1 { get; }
         public string Move2 { get; }
 
-        string nickname;
+        private string nickname;
 
         public string Nickname
         {
@@ -41,7 +41,7 @@ namespace PokemonGo.Bot.ViewModels
         public float HeightInMeters { get; }
         public float WeightInKilograms { get; }
 
-        int stamina;
+        private int stamina;
 
         public int Stamina
         {
@@ -49,7 +49,7 @@ namespace PokemonGo.Bot.ViewModels
             set { if (Stamina != value) { stamina = value; RaisePropertyChanged(); } }
         }
 
-        int staminaMax;
+        private int staminaMax;
 
         public int StaminaMax
         {
@@ -57,11 +57,10 @@ namespace PokemonGo.Bot.ViewModels
             set { if (StaminaMax != value) { staminaMax = value; RaisePropertyChanged(); } }
         }
 
-        public CatchedPokemonViewModel(PokemonData pokemon) : base(pokemon.PokemonId, pokemon.Id)
+        public PokemonDataViewModel(PokemonData pokemon) : base(pokemon.PokemonId, pokemon.Id)
         {
             CombatPoints = pokemon.Cp;
             IsFavorite = pokemon.Favorite != 0;
-            PerfectPercentage = pokemon.GetIV();
             IndividualAttack = pokemon.IndividualAttack;
             IndividualDefense = pokemon.IndividualDefense;
             IndividualStamina = pokemon.IndividualStamina;

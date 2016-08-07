@@ -1,5 +1,5 @@
-﻿using AllEnum;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
+using POGOProtos.Enums;
 using System;
 
 namespace PokemonGo.Bot.ViewModels

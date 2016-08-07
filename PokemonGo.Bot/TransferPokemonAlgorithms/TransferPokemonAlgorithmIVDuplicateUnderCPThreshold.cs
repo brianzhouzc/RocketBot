@@ -1,23 +1,19 @@
-﻿using System;
+﻿using PokemonGo.Bot.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PokemonGo.RocketAPI.GeneratedCode;
-using PokemonGo.Bot.ViewModels;
 
 namespace PokemonGo.Bot.TransferPokemonAlgorithms
 {
     public class TransferPokemonAlgorithmIVDuplicateUnderCPThreshold : ITranferPokemonAlgorithm
     {
-        readonly int threshold;
+        private readonly int threshold;
 
         public TransferPokemonAlgorithmIVDuplicateUnderCPThreshold(int threshold)
         {
             this.threshold = threshold;
         }
 
-        public IEnumerable<CatchedPokemonViewModel> Apply(IEnumerable<CatchedPokemonViewModel> allPokemon)
+        public IEnumerable<PokemonDataViewModel> Apply(IEnumerable<PokemonDataViewModel> allPokemon)
             => allPokemon
                 // find duplicates
                 .GroupBy(p => p.PokemonId)

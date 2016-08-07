@@ -6,12 +6,51 @@
              xmlns:local="clr-namespace:PokemonGo.WPF.Views"
              xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
              xmlns:converters="clr-namespace:PokemonGo.WPF.Converters"
+             xmlns:vm="clr-namespace:PokemonGo.Bot.ViewModels;assembly=PokemonGo.Bot"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <converters:PositionToMapLocationConverter x:Key="positionToLocationConverter"/>
+        <converters:PositionToMapLocationConverter x:Key="positionToLocationConverter" />
+        <DataTemplate DataType="{x:Type vm:PlayerViewModel}">
+            <m:Pushpin Location="{Binding Position, Converter={StaticResource positionToLocationConverter}}">
+                <m:Pushpin.Template>
+                    <ControlTemplate>
+                        <Image Source="pack://siteoforigin:,,,/Images/Player/Professor.png" />
+                    </ControlTemplate>
+                </m:Pushpin.Template>
+            </m:Pushpin>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:PokestopViewModel}">
+            <m:Pushpin Location="{Binding Position, Converter={StaticResource positionToLocationConverter}}">
+                <m:Pushpin.Template>
+                    <ControlTemplate>
+                        <Image Source="pack://siteoforigin:,,,/Images/Map/pokestop.png" />
+                    </ControlTemplate>
+                </m:Pushpin.Template>
+            </m:Pushpin>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:GymViewModel}">
+            <m:Pushpin Location="{Binding Position, Converter={StaticResource positionToLocationConverter}}">
+                <m:Pushpin.Template>
+                    <ControlTemplate>
+                        <Image Source="pack://siteoforigin:,,,/Images/Map/gymLogo_less.png" />
+                    </ControlTemplate>
+                </m:Pushpin.Template>
+            </m:Pushpin>
+        </DataTemplate>
     </UserControl.Resources>
     <Grid>
-        <m:Map CredentialsProvider="AhX1gtSfkGHg8FKEthaxWJHqCNLWVmY5MVO1bBMdNQTYOyqyYrC6FEWaVArrH0oK" Mode="Aerial" Center="{Binding Player.Position, Converter={StaticResource positionToLocationConverter}}" ZoomLevel="16"/>
+        <m:Map CredentialsProvider="AhX1gtSfkGHg8FKEthaxWJHqCNLWVmY5MVO1bBMdNQTYOyqyYrC6FEWaVArrH0oK" Mode="Aerial" Center="{Binding Player.Position, Converter={StaticResource positionToLocationConverter}, Mode=OneTime}" ZoomLevel="16">
+            <m:MapItemsControl ItemsSource="{Binding Players}">
+                <!--<m:MapItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type vm:PlayerViewModel}">
+                        <m:Pushpin Location="{Binding Position, Converter={StaticResource positionToLocationConverter}}" Template="{StaticResource playerPin}" />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type vm:PokestopViewModel}">
+                        <m:Pushpin Location="{Binding Position, Converter={StaticResource positionToLocationConverter}}" Template="{StaticResource pokestopPin}" />
+                    </DataTemplate>
+                </m:MapItemsControl.ItemTemplate>-->
+            </m:MapItemsControl>
+        </m:Map>
     </Grid>
 </UserControl>

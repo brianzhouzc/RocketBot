@@ -1,12 +1,12 @@
 ﻿using GalaSoft.MvvmLight;
+using POGOProtos.Inventory.Item;
 using PokemonGo.Bot.Enums;
-using PokemonGo.RocketAPI.GeneratedCode;
 
 namespace PokemonGo.Bot.ViewModels
 {
     public class ItemViewModel : ViewModelBase
     {
-        int count;
+        private int count;
 
         public int Count
         {
@@ -14,12 +14,12 @@ namespace PokemonGo.Bot.ViewModels
             set { if (Count != value) { count = value; RaisePropertyChanged(); } }
         }
 
-        public ItemType ItemType { get; }
+        public Enums.ItemType ItemType { get; }
 
-        public ItemViewModel(Item item)
+        public ItemViewModel(ItemData item)
         {
             Count = item.Count;
-            ItemType = (ItemType)item.Item_;
+            ItemType = (Enums.ItemType)item.ItemId;
         }
     }
 }

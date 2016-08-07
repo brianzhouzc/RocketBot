@@ -1,16 +1,17 @@
 ﻿using PokemonGo.Bot.ViewModels;
 using PokemonGo.RocketAPI;
+using PokemonGo.RocketAPI.Bot;
 using System;
 
 namespace PokemonGo.Bot.BotActions
 {
     public class ActionFactory
     {
-        readonly ISettings settings;
+        readonly Settings settings;
         readonly Client client;
         readonly BotViewModel bot;
 
-        public ActionFactory(BotViewModel bot, Client client, ISettings settings)
+        public ActionFactory(BotViewModel bot, Client client, Settings settings)
         {
             this.bot = bot;
             this.client = client;

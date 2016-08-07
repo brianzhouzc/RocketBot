@@ -1,8 +1,7 @@
-﻿using AllEnum;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using POGOProtos.Map.Fort;
 using PokemonGo.RocketAPI;
-using PokemonGo.RocketAPI.GeneratedCode;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,9 +16,10 @@ namespace PokemonGo.Bot.ViewModels
         readonly Client client;
 
         public AsyncRelayCommand GetMapObjects { get; }
-        public AsyncRelayCommand<PositionViewModel> SetPosition { get; }
+        public AsyncRelayCommand<Position3DViewModel> SetPosition { get; }
 
-        public ObservableCollection<FortData> Pokestops { get; } = new ObservableCollection<FortData>();
+        public ObservableCollection<PokestopViewModel> Pokestops { get; } = new ObservableCollection<PokestopViewModel>();
+        public ObservableCollection<GymViewModel> Gyms { get; } = new ObservableCollection<GymViewModel>();
         public ObservableCollection<WildPokemonViewModel> WildPokemon { get; } = new ObservableCollection<WildPokemonViewModel>();
         public ObservableCollection<MapPokemonViewModel> CatchablePokemon { get; } = new ObservableCollection<MapPokemonViewModel>();
 
@@ -29,15 +29,16 @@ namespace PokemonGo.Bot.ViewModels
 
             GetMapObjects = new AsyncRelayCommand(async () =>
             {
-                var mapResponse = await client.GetMapObjects();
-                Pokestops.UpdateWith(mapResponse.MapCells.SelectMany(m => m.Forts).Where(f => f.Type == FortType.Checkpoint));
-                WildPokemon.UpdateWith(mapResponse.MapCells.SelectMany(m => m.WildPokemons).Select(p => new WildPokemonViewModel(p)));
-                CatchablePokemon.UpdateWith(mapResponse.MapCells.SelectMany(m => m.CatchablePokemons).Select(p => new MapPokemonViewModel(p)));
+                var mapResponse = await client.Map.GetMapObjects();
+                Pokestops.UpdateWith(mapResponse.Item1.MapCells.SelectMany(m => m.Forts).Where(f => f.Type == FortType.Checkpoint).Select(f => new PokestopViewModel(f, client)));
+                Gyms.UpdateWith(mapResponse.Item1.MapCells.SelectMany(m => m.Forts).Where(f => f.Type == FortType.Gym).Select(f => new GymViewModel(f, client)));
+                WildPokemon.UpdateWith(mapResponse.Item1.MapCells.SelectMany(m => m.WildPokemons).Select(p => new WildPokemonViewModel(p)));
+                CatchablePokemon.UpdateWith(mapResponse.Item1.MapCells.SelectMany(m => m.CatchablePokemons).Select(p => new MapPokemonViewModel(p)));
             });
 
-            SetPosition = new AsyncRelayCommand<PositionViewModel>(async pos =>
+            SetPosition = new AsyncRelayCommand<Position3DViewModel>(async pos =>
             {
-                await client.UpdatePlayerLocation(pos.Latitude, pos.Longitude);
+                await client.Player.UpdatePlayerLocation(pos.Latitude, pos.Longitude, pos.Altitute);
                 await GetMapObjects.ExecuteAsync();
             });
         }
