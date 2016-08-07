@@ -7,8 +7,8 @@
     <ProjectGuid>{0E4B2298-C68A-4BC8-BCCF-8B4AAC84BBD6}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RocketBot.Window</RootNamespace>
-    <AssemblyName>RocketBot.Window</AssemblyName>
+    <RootNamespace>PoGo.RocketBot.Window</RootNamespace>
+    <AssemblyName>PoGo.RocketBot.Window</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -94,6 +94,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>

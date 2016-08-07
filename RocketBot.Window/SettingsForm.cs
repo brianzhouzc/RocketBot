@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace RocketBot.Window
+namespace PoGo.RocketBot.Window
 {
     internal partial class SettingsForm : Form
     {

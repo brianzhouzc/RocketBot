@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace RocketBot.Window
+namespace PoGo.RocketBot.Window
 {
     internal static class Program
     {
