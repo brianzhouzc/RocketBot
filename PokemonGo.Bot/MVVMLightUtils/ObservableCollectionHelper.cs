@@ -11,17 +11,19 @@ namespace GalaSoft.MvvmLight.Command
     {
         public static void UpdateWith<T>(this ObservableCollection<T> source, IEnumerable<T> items)
         {
-            foreach (var item in items)
-            {
-                if (!source.Contains(item))
-                    source.Add(item);
-            }
+            source.Clear();
+            source.AddRange(items);
+            //foreach (var item in items)
+            //{
+            //    if (!source.Contains(item))
+            //        source.Add(item);
+            //}
 
-            var itemsToRemove = source.Where(i => !items.Contains(i)).ToList();
-            foreach (var item in itemsToRemove)
-            {
-                source.Remove(item);
-            }
+            //var itemsToRemove = source.Where(i => !items.Contains(i)).ToList();
+            //foreach (var item in itemsToRemove)
+            //{
+            //    source.Remove(item);
+            //}
         }
 
         public static void AddRange<T>(this ObservableCollection<T> source, IEnumerable<T> items)

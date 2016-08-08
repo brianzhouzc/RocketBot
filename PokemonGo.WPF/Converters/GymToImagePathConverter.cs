@@ -1,16 +1,17 @@
-﻿using System;
+﻿using PokemonGo.Bot.ViewModels;
+using System;
 using System.Globalization;
 using System.Windows.Data;
 
 namespace PokemonGo.WPF.Converters
 {
-    public class TeamToGymImagePathConverter : IValueConverter
+    public class GymToImagePathConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var teamName = (string)value;
-            if(teamName != null)
-                return $"pack://siteoforigin:,,,/Images/Map/gymLogo_{teamName.ToLowerInvariant()}.png";
+            var gym = value as GymViewModel;
+            if(gym != null)
+                return $"pack://siteoforigin:,,,/Images/Map/gymLogo_{gym.Team.ToLowerInvariant()}.png";
             return null;
         }
 

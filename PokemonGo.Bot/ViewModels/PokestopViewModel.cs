@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using POGOProtos.Map.Fort;
 using PokemonGo.RocketAPI;
+using PokemonGo.RocketAPI.Extensions;
 using System;
 using System.Threading;
 using System.Windows.Threading;
@@ -29,12 +30,15 @@ namespace PokemonGo.Bot.ViewModels
         {
             lastModifiedTimestampMs = fort.LastModifiedTimestampMs;
             cooldownCompleteTimestampMs = fort.CooldownCompleteTimestampMs;
-            //if (fort.CooldownCompleteTimestampMs > DateTime.UtcNow)
-            //{
-            //    isActiveTimer = new DispatcherTimer();
-            //    isActiveTimer.Tick += IsActiveTimer_Tick;
-            //    isActiveTimer.Interval = TimeSpan.FromSeconds(1);
-            //}
+            if (cooldownCompleteTimestampMs > DateTime.UtcNow.ToUnixTime())
+            {
+                isActiveTimer = new DispatcherTimer();
+                isActiveTimer.Tick += IsActiveTimer_Tick;
+                isActiveTimer.Interval = TimeSpan.FromSeconds(1);
+            }
+            else
+                IsActive = true;
+
             Search = new AsyncRelayCommand(async () =>
             {
                 var searchResult = await client.Fort.SearchFort(Id, Position.Latitude, Position.Longitude);
@@ -48,7 +52,11 @@ namespace PokemonGo.Bot.ViewModels
 
         private void IsActiveTimer_Tick(object sender, System.EventArgs e)
         {
-            throw new System.NotImplementedException();
+            if (cooldownCompleteTimestampMs >= DateTime.UtcNow.ToUnixTime())
+            {
+                isActiveTimer.Tick -= IsActiveTimer_Tick;
+                IsActive = true;
+            }
         }
     }
 }

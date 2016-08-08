@@ -80,8 +80,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\PokestopToImagePathConverter.cs" />
     <Compile Include="Converters\PositionToMapLocationConverter.cs" />
-    <Compile Include="Converters\TeamToGymImagePathConverter.cs" />
+    <Compile Include="Converters\GymToImagePathConverter.cs" />
     <Compile Include="Converters\TeamToImagePathConverter.cs" />
     <Compile Include="Converters\PokemonToImagePathConverter.cs" />
     <Compile Include="Converters\ItemTypeToImagePathConverter.cs" />
@@ -719,7 +720,7 @@
     <None Include="Images\Items\1002.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Images\Map\gymLogo_less.png">
+    <None Include="Images\Map\gymLogo_neutral.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Images\Map\gymLogo_blue.png">
@@ -729,12 +730,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Images\Map\gymLogo_yellow.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Images\Map\pokestop.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Images\Map\pokestop_near.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Images\Player\team_less.png">
@@ -782,6 +777,20 @@
   <ItemGroup>
     <Analyzer Include="..\packages\codecracker.CSharp.1.0.0\analyzers\dotnet\cs\CodeCracker.Common.dll" />
     <Analyzer Include="..\packages\codecracker.CSharp.1.0.0\analyzers\dotnet\cs\CodeCracker.CSharp.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Map\pokestop_active_far.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Map\pokestop_active_near.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Map\pokestop_inactive_far.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Map\pokestop_inactive_near.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -11,10 +11,10 @@ namespace PokemonGo.Bot.ViewModels
         protected PokemonViewModel(PokemonId pokemonId, ulong id)
         {
             Id = id;
-            PokemonId = pokemonId;
+            PokemonId = (int)pokemonId;
         }
 
-        public PokemonId PokemonId { get; }
+        public int PokemonId { get; }
         public virtual string Name => Enum.GetName(typeof(PokemonId), PokemonId);
 
         public override bool Equals(object obj) => Equals(obj as PokemonViewModel);

@@ -11,6 +11,9 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <converters:PositionToMapLocationConverter x:Key="positionToLocationConverter" />
+        <converters:GymToImagePathConverter x:Key="gymToImagePathConverter" />
+        <converters:PokestopToImagePathConverter x:Key="pokestopToImagePathConverter" />
+        <converters:PokemonToImagePathConverter x:Key="pokemonToImagePathConverter" />
         <DataTemplate DataType="{x:Type vm:PlayerViewModel}">
             <m:Pushpin Location="{Binding Position, Converter={StaticResource positionToLocationConverter}}">
                 <m:Pushpin.Template>
@@ -24,7 +27,7 @@
             <m:Pushpin Location="{Binding Position, Converter={StaticResource positionToLocationConverter}}">
                 <m:Pushpin.Template>
                     <ControlTemplate>
-                        <Image Source="pack://siteoforigin:,,,/Images/Map/pokestop.png" />
+                        <Image Source="{Binding Converter={StaticResource pokestopToImagePathConverter}}" />
                     </ControlTemplate>
                 </m:Pushpin.Template>
             </m:Pushpin>
@@ -33,24 +36,42 @@
             <m:Pushpin Location="{Binding Position, Converter={StaticResource positionToLocationConverter}}">
                 <m:Pushpin.Template>
                     <ControlTemplate>
-                        <Image Source="pack://siteoforigin:,,,/Images/Map/gymLogo_less.png" />
+                        <Image Source="{Binding Converter={StaticResource gymToImagePathConverter}}" />
                     </ControlTemplate>
                 </m:Pushpin.Template>
             </m:Pushpin>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:MapPokemonViewModel}">
+            <m:Pushpin Location="{Binding Position, Converter={StaticResource positionToLocationConverter}}">
+                <m:Pushpin.Template>
+                    <ControlTemplate>
+                        <Image Source="{Binding PokemonId, Converter={StaticResource pokemonToImagePathConverter}}" />
+                    </ControlTemplate>
+                </m:Pushpin.Template>
+            </m:Pushpin>
+        </DataTemplate>
+        <CollectionViewSource x:Key="players" Source="{Binding Players}"/>
+        <CollectionViewSource x:Key="pokestops" Source="{Binding Map.Pokestops}"/>
+        <CollectionViewSource x:Key="gyms" Source="{Binding Map.Gyms}"/>
+        <CollectionViewSource x:Key="pokemon" Source="{Binding Map.CatchablePokemon}"/>
     </UserControl.Resources>
     <Grid>
-        <m:Map CredentialsProvider="AhX1gtSfkGHg8FKEthaxWJHqCNLWVmY5MVO1bBMdNQTYOyqyYrC6FEWaVArrH0oK" Mode="Aerial" Center="{Binding Player.Position, Converter={StaticResource positionToLocationConverter}, Mode=OneTime}" ZoomLevel="16">
-            <m:MapItemsControl ItemsSource="{Binding Players}">
-                <!--<m:MapItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type vm:PlayerViewModel}">
-                        <m:Pushpin Location="{Binding Position, Converter={StaticResource positionToLocationConverter}}" Template="{StaticResource playerPin}" />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type vm:PokestopViewModel}">
-                        <m:Pushpin Location="{Binding Position, Converter={StaticResource positionToLocationConverter}}" Template="{StaticResource pokestopPin}" />
-                    </DataTemplate>
-                </m:MapItemsControl.ItemTemplate>-->
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <m:Map CredentialsProvider="AhX1gtSfkGHg8FKEthaxWJHqCNLWVmY5MVO1bBMdNQTYOyqyYrC6FEWaVArrH0oK" Mode="Road" Center="{Binding Player.Position, Converter={StaticResource positionToLocationConverter}, Mode=OneTime}" ZoomLevel="16">
+            <m:MapItemsControl>
+                <m:MapItemsControl.ItemsSource>
+                    <CompositeCollection>
+                        <CollectionContainer Collection="{Binding Source={StaticResource pokestops}}"/>
+                        <CollectionContainer Collection="{Binding Source={StaticResource gyms}}"/>
+                        <CollectionContainer Collection="{Binding Source={StaticResource players}}"/>
+                        <CollectionContainer Collection="{Binding Source={StaticResource pokemon}}"/>
+                    </CompositeCollection>
+                </m:MapItemsControl.ItemsSource>
             </m:MapItemsControl>
         </m:Map>
+        <Button Content="Reload Map" Command="{Binding Map.GetMapObjects}" Grid.Row="1"/>
     </Grid>
 </UserControl>

@@ -10,9 +10,14 @@ namespace PokemonGo.WPF.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var position = value as Position3DViewModel;
-            if (position != null)
-                return new Location(position.Latitude, position.Longitude, position.Altitute);
+            var position3d = value as Position3DViewModel;
+            if (position3d != null)
+                return new Location(position3d.Latitude, position3d.Longitude, position3d.Altitute);
+
+            var position2d = value as Position2DViewModel;
+            if (position2d != null)
+                return new Location(position2d.Latitude, position2d.Longitude);
+
             return null;
         }
 
@@ -20,7 +25,12 @@ namespace PokemonGo.WPF.Converters
         {
             var location = value as Location;
             if (location != null)
-                return new Position3DViewModel(location.Latitude, location.Longitude, location.Altitude);
+            {
+                if(targetType == typeof(Position3DViewModel))
+                    return new Position3DViewModel(location.Latitude, location.Longitude, location.Altitude);
+                if (targetType == typeof(Position2DViewModel))
+                    return new Position2DViewModel(location.Latitude, location.Longitude);
+            }
             return null;
         }
     }
