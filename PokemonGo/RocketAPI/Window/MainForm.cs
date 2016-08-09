@@ -374,17 +374,6 @@ namespace PokemonGo.RocketAPI.Window
                     await Task.Delay(5000);
                     Execute();
                 }
-                else
-                {
-                    ConsoleClear();
-                    _pokestopsOverlay.Routes.Clear();
-                    _pokestopsOverlay.Markers.Clear();
-                    ColoredConsoleWrite(Color.Red, $"Bot successfully stopped.");
-                    startStopBotToolStripMenuItem.Text = "Start";
-                    _stopping = false;
-                    _botStarted = false;
-                    _pokeStops = null;
-                }
             }
             catch (TaskCanceledException)
             {
@@ -435,6 +424,16 @@ namespace PokemonGo.RocketAPI.Window
                 ColoredConsoleWrite(Color.Red, ex.ToString());
                 if (!_stopping) Execute();
             }
+            //THIS COMMENT IS ONLY HERE COZ STRUCTURE IS REALLY WEIRD
+            //This section is only hit when it doesnt go back into itself
+            ConsoleClear();
+            _pokestopsOverlay.Routes.Clear();
+            _pokestopsOverlay.Markers.Clear();
+            ColoredConsoleWrite(Color.Red, $"Bot successfully stopped.");
+            startStopBotToolStripMenuItem.Text = "▶ Start Bot";
+            _stopping = false;
+            _botStarted = false;
+            _pokeStops = null;
         }
 
         private static string CallAPI(string elem, string lat, string lon)
@@ -1376,6 +1375,7 @@ namespace PokemonGo.RocketAPI.Window
 
         private async Task ReloadPokemonList()
         {
+            if (_stopping || !_botStarted) return;
             button1.Enabled = false;
             objectListView1.Enabled = false;
 
