@@ -37,6 +37,7 @@
                 <m:Pushpin.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Farm" Command="{Binding Search}"/>
+                        <MenuItem Header="Move here" Command="{Binding Player.Move}" CommandParameter="{Binding Map.LastClickedPosition}" />
                     </ContextMenu>
                 </m:Pushpin.ContextMenu>
             </m:Pushpin>
@@ -57,6 +58,12 @@
                         <Image Source="{Binding PokemonId, Converter={StaticResource pokemonToImagePathConverter}}" />
                     </ControlTemplate>
                 </m:Pushpin.Template>
+                <m:Pushpin.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Catch" Command="{Binding Catch}"/>
+                        <MenuItem Header="Move here" Command="{Binding Player.Move}" CommandParameter="{Binding Map.LastClickedPosition}" />
+                    </ContextMenu>
+                </m:Pushpin.ContextMenu>
             </m:Pushpin>
         </DataTemplate>
         <CollectionViewSource x:Key="pokemon" Source="{Binding Map.CatchablePokemon}"/>

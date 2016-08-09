@@ -14,24 +14,21 @@ namespace PokemonGo.Bot.ViewModels
 {
     public class InventoryViewModel : ViewModelBase
     {
+
         public AsyncRelayCommand Load { get; }
-
-        public AsyncRelayCommand<ulong> TransferSinglePokemon { get; }
-
-        private Task ExecuteTransferSinglePokemonAsync(ulong pokemonId) => client.Inventory.TransferPokemon(pokemonId);
 
         public AsyncRelayCommand TransferPokemonWithAlgorithm { get; }
 
-        private Task ExecuteTransferPokemonWithAlgorithmAsync(TransferPokemonAlgorithm transferAlgorithm)
+        Task ExecuteTransferPokemonWithAlgorithmAsync(TransferPokemonAlgorithm transferAlgorithm)
         {
             var algorithm = transferPokemonAlgorithmFactory.Get(transferAlgorithm);
             var pokemonToTransfer = algorithm.Apply(Pokemon);
-            return Task.WhenAll(pokemonToTransfer.Select(p => client.Inventory.TransferPokemon(p.Id)));
+            return Task.WhenAll(pokemonToTransfer.Select(p => p.Transfer.ExecuteAsync()));
         }
 
         public AsyncRelayCommand<ItemType> Recycle { get; }
 
-        private TransferPokemonAlgorithm transferPokemonAlgorithm;
+        TransferPokemonAlgorithm transferPokemonAlgorithm;
 
         public TransferPokemonAlgorithm TransferPokemonAlgorithm
         {
@@ -49,9 +46,9 @@ namespace PokemonGo.Bot.ViewModels
             }
         }
 
-        private InventoryDelta inventory;
+        InventoryDelta inventory;
 
-        private InventoryDelta Inventory
+        InventoryDelta Inventory
         {
             get
             {
@@ -63,38 +60,36 @@ namespace PokemonGo.Bot.ViewModels
                 {
                     inventory = value;
                     RaisePropertyChanged();
-                    Pokemon.UpdateWith(Inventory?.InventoryItems.Select(i => i.InventoryItemData?.PokemonData).Where(p => p?.PokemonId > 0).Select(p => new PokemonDataViewModel(p)));
+                    Pokemon.UpdateWith(Inventory?.InventoryItems.Select(i => i.InventoryItemData?.PokemonData).Where(p => p?.PokemonId > 0).Select(p => new CaughtPokemonViewModel(p, client, this)));
                     Eggs.UpdateWith(Inventory?.InventoryItems.Select(i => i.InventoryItemData?.PokemonData).Where(p => (p?.IsEgg).GetValueOrDefault()).Select(p => new EggViewModel(p)));
                     Items.UpdateWith(Inventory?.InventoryItems.Select(i => i.InventoryItemData?.Item).Where(i => i != null).Select(i => new ItemViewModel(i)));
-                    PlayerStats = value.InventoryItems.Where(i => i.InventoryItemData.PlayerStats != null).Select(i => i.InventoryItemData.PlayerStats).FirstOrDefault();
+                    UpdatePlayer(value);
                 }
             }
         }
 
-        public ObservableCollection<PokemonDataViewModel> Pokemon { get; }
+        void UpdatePlayer(InventoryDelta value)
+        {
+            var playerStats = value.InventoryItems.Where(i => i.InventoryItemData.PlayerStats != null).Select(i => i.InventoryItemData.PlayerStats).FirstOrDefault();
+            Player.Xp = playerStats.Experience;
+            Player.NextLevelXP = playerStats.NextLevelXp;
+            Player.PrevLevelXp = playerStats.PrevLevelXp;
+            Player.Level = playerStats.Level;
+        }
+
+        public ObservableCollection<CaughtPokemonViewModel> Pokemon { get; }
         public ObservableCollection<ItemViewModel> Items { get; }
         public ObservableCollection<EggViewModel> Eggs { get; }
 
-        PlayerStats playerStats;
+        readonly Client client;
+        readonly TransferPokemonAlgorithmFactory transferPokemonAlgorithmFactory;
 
-        public PlayerStats PlayerStats
+        PlayerViewModel player;
+        public PlayerViewModel Player
         {
-            get
-            {
-                return playerStats;
-            }
-            set
-            {
-                if (PlayerStats != value)
-                {
-                    playerStats = value;
-                    RaisePropertyChanged();
-                }
-            }
+            get { return player; }
+            set { if (Player != value) { player = value; RaisePropertyChanged(); } }
         }
-
-        private readonly Client client;
-        private readonly TransferPokemonAlgorithmFactory transferPokemonAlgorithmFactory;
 
         public InventoryViewModel(Client client, TransferPokemonAlgorithmFactory transferPokemonAlgorithmFactory)
         {
@@ -102,13 +97,12 @@ namespace PokemonGo.Bot.ViewModels
             TransferPokemonAlgorithm = transferPokemonAlgorithmFactory.GetDefaultFromSettings();
             this.client = client;
 
-            Pokemon = new ObservableCollection<PokemonDataViewModel>();
+            Pokemon = new ObservableCollection<CaughtPokemonViewModel>();
             Eggs = new ObservableCollection<EggViewModel>();
             Items = new ObservableCollection<ItemViewModel>();
 
             Load = new AsyncRelayCommand(async () => Inventory = (await client.Inventory.GetInventory()).InventoryDelta);
             TransferPokemonWithAlgorithm = new AsyncRelayCommand(async () => await ExecuteTransferPokemonWithAlgorithmAsync(TransferPokemonAlgorithm));
-            TransferSinglePokemon = new AsyncRelayCommand<ulong>(async param => await ExecuteTransferSinglePokemonAsync(param));
             Recycle = new AsyncRelayCommand<ItemType>(async itemType => await client.Inventory.RecycleItem((ItemId)itemType, 1));
         }
     }

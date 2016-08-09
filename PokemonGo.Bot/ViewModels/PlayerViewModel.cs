@@ -20,20 +20,28 @@ namespace PokemonGo.Bot.ViewModels
 
         public InventoryViewModel Inventory { get; }
 
-        private int xp;
+        private long xp;
 
-        public int Xp
+        public long Xp
         {
             get { return xp; }
             set { if (Xp != value) { xp = value; RaisePropertyChanged(); } }
         }
 
-        private int nextLevelXP;
+        private long nextLevelXP;
 
-        public int NextLevelXP
+        public long NextLevelXP
         {
             get { return nextLevelXP; }
             set { if (NextLevelXP != value) { nextLevelXP = value; RaisePropertyChanged(); } }
+        }
+
+        private long prevLevelXP;
+
+        public long PrevLevelXp
+        {
+            get { return prevLevelXP; }
+            set { if (PrevLevelXp != value) { prevLevelXP = value; RaisePropertyChanged(); } }
         }
 
         private int level;

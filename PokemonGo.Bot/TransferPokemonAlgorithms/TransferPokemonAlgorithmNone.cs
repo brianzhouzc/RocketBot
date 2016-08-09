@@ -6,6 +6,6 @@ namespace PokemonGo.Bot.TransferPokemonAlgorithms
 {
     internal class TransferPokemonAlgorithmNone : ITranferPokemonAlgorithm
     {
-        public IEnumerable<PokemonDataViewModel> Apply(IEnumerable<PokemonDataViewModel> allPokemon) => Enumerable.Empty<PokemonDataViewModel>();
+        public IEnumerable<CaughtPokemonViewModel> Apply(IEnumerable<CaughtPokemonViewModel> allPokemon) => Enumerable.Empty<CaughtPokemonViewModel>();
     }
 }

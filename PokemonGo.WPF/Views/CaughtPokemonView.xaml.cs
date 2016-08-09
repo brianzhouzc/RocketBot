@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace PokemonGo.WPF.Views
 {
     /// <summary>
-    /// Interaction logic for CatchedPokemonView.xaml
+    /// Interaction logic for CaughtPokemonView.xaml
     /// </summary>
-    public partial class CatchedPokemonView : UserControl
+    public partial class CaughtPokemonView : UserControl
     {
-        public CatchedPokemonView()
+        public CaughtPokemonView()
         {
             InitializeComponent();
         }

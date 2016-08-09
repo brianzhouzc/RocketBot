@@ -6,7 +6,7 @@ namespace PokemonGo.Bot.TransferPokemonAlgorithms
 {
     internal class TransferPokemonAlgorithmCPDuplicate : ITranferPokemonAlgorithm
     {
-        public IEnumerable<PokemonDataViewModel> Apply(IEnumerable<PokemonDataViewModel> allPokemon)
+        public IEnumerable<CaughtPokemonViewModel> Apply(IEnumerable<CaughtPokemonViewModel> allPokemon)
             => allPokemon
                 // find duplicates
                 .GroupBy(p => p.PokemonId)

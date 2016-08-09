@@ -13,7 +13,7 @@ namespace PokemonGo.Bot.TransferPokemonAlgorithms
             this.threshold = threshold;
         }
 
-        public IEnumerable<PokemonDataViewModel> Apply(IEnumerable<PokemonDataViewModel> allPokemon)
+        public IEnumerable<CaughtPokemonViewModel> Apply(IEnumerable<CaughtPokemonViewModel> allPokemon)
             => allPokemon
                 // find duplicates
                 .GroupBy(p => p.PokemonId)

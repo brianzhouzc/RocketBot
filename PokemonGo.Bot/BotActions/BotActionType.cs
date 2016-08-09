@@ -3,7 +3,6 @@
     public enum BotActionType
     {
         Farm,
-        CatchPokemon,
         ForceUnban,
         TransferPokemon
     }

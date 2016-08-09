@@ -76,7 +76,6 @@
     <Compile Include="BotActions\ActionFactory.cs" />
     <Compile Include="BotActions\ActionState.cs" />
     <Compile Include="BotActions\BotActionType.cs" />
-    <Compile Include="BotActions\CatchPokemonAction.cs" />
     <Compile Include="BotActions\FarmingAction.cs" />
     <Compile Include="BotActions\ForceUnbanAction.cs" />
     <Compile Include="BotActions\TransferPokemonWithAlgorithmAction.cs" />
@@ -100,6 +99,8 @@
     <Compile Include="TransferPokemonAlgorithms\TransferPokemonAlgorithmFactory.cs" />
     <Compile Include="Utils\RouteOptimizer.cs" />
     <Compile Include="ViewModels\BotViewModel.cs" />
+    <Compile Include="ViewModels\CandyViewModel.cs" />
+    <Compile Include="ViewModels\CaughtPokemonViewModel.cs" />
     <Compile Include="ViewModels\EggViewModel.cs" />
     <Compile Include="ViewModels\GymViewModel.cs" />
     <Compile Include="ViewModels\PokemonDataViewModel.cs" />

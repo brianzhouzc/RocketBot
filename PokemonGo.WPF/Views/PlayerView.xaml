@@ -14,9 +14,24 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Text="{Binding Username}" />
         <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock Text="{Binding Level, StringFormat=Level:{0}}"/>
+            <ProgressBar Minimum="{Binding PrevLevelXp}" Maximum="{Binding NextLevelXP}" Value="{Binding Xp}" Grid.Row="1"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
+                <TextBlock Text="{Binding Xp}" />
+                <TextBlock Text=" / " />
+                <TextBlock Text="{Binding NextLevelXP}" />
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>

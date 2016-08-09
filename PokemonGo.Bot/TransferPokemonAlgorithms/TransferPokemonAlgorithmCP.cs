@@ -13,6 +13,6 @@ namespace PokemonGo.Bot.TransferPokemonAlgorithms
             this.threshold = threshold;
         }
 
-        public IEnumerable<PokemonDataViewModel> Apply(IEnumerable<PokemonDataViewModel> allPokemon) => allPokemon.Where(p => p.CombatPoints < threshold);
+        public IEnumerable<CaughtPokemonViewModel> Apply(IEnumerable<CaughtPokemonViewModel> allPokemon) => allPokemon.Where(p => p.CombatPoints < threshold);
     }
 }

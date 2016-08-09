@@ -57,7 +57,6 @@ namespace PokemonGo.Bot.BotActions
             {
                 var currentPokeStop = enumerator.Current;
 
-                await MoveToPokestopAsync(currentPokeStop);
                 await FarmPokestopAsync(currentPokeStop);
 
                 await CatchNearbyPokemonAsync();
@@ -79,16 +78,16 @@ namespace PokemonGo.Bot.BotActions
 
         private async Task CatchNearbyPokemonAsync()
         {
-            await new CatchPokemonAction(bot, client, settings).StartAsync();
-        }
-
-        private async Task MoveToPokestopAsync(PokestopViewModel currentPokeStop)
-        {
-            await bot.Player.Move.ExecuteAsync(currentPokeStop.Position);
+            foreach(var pokemon in bot.Map.CatchablePokemon)
+            {
+                //await bot.Player.Move.ExecuteAsync(pokemon.Position);
+                await pokemon.Catch.ExecuteAsync();
+            }
         }
 
         private async Task FarmPokestopAsync(PokestopViewModel currentPokeStop)
         {
+            await bot.Player.Move.ExecuteAsync(currentPokeStop.Position);
             var fortInfo = await client.Fort.GetFort(currentPokeStop.Id, currentPokeStop.Position.Latitude, currentPokeStop.Position.Longitude);
             await currentPokeStop.Search.ExecuteAsync();
         }

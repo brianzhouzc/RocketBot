@@ -95,8 +95,8 @@
     <Compile Include="Views\BotView.xaml.cs">
       <DependentUpon>BotView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CatchedPokemonView.xaml.cs">
-      <DependentUpon>CatchedPokemonView.xaml</DependentUpon>
+    <Compile Include="Views\CaughtPokemonView.xaml.cs">
+      <DependentUpon>CaughtPokemonView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ConsoleView.xaml.cs">
       <DependentUpon>ConsoleView.xaml</DependentUpon>
@@ -139,7 +139,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CatchedPokemonView.xaml">
+    <Page Include="Views\CaughtPokemonView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

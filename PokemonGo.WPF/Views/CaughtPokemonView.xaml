@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="PokemonGo.WPF.Views.CatchedPokemonView"
+﻿<UserControl x:Class="PokemonGo.WPF.Views.CaughtPokemonView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -11,6 +11,11 @@
         <converters:PokemonToImagePathConverter x:Key="imageConverter" />
         <BooleanToVisibilityConverter x:Key="boolToVis"/>
     </UserControl.Resources>
+    <UserControl.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Transfer" Command="{Binding Transfer}" />
+        </ContextMenu>
+    </UserControl.ContextMenu>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>

@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using POGOProtos.Map.Fort;
 using PokemonGo.RocketAPI;
+using PokemonGo.RocketAPI.Bot;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -39,7 +40,7 @@ namespace PokemonGo.Bot.ViewModels
             set { if (Player != value) { player = value; RaisePropertyChanged(); } }
         }
 
-        public MapViewModel(Client client)
+        public MapViewModel(Client client, Settings settings)
         {
             this.client = client;
 
@@ -49,7 +50,7 @@ namespace PokemonGo.Bot.ViewModels
                 Pokestops.UpdateWith(mapResponse.Item1.MapCells.SelectMany(m => m.Forts).Where(f => f.Type == FortType.Checkpoint).Select(f => new PokestopViewModel(f, client, Player)));
                 Gyms.UpdateWith(mapResponse.Item1.MapCells.SelectMany(m => m.Forts).Where(f => f.Type == FortType.Gym).Select(f => new GymViewModel(f, client)));
                 WildPokemon.UpdateWith(mapResponse.Item1.MapCells.SelectMany(m => m.WildPokemons).Select(p => new WildPokemonViewModel(p)));
-                CatchablePokemon.UpdateWith(mapResponse.Item1.MapCells.SelectMany(m => m.CatchablePokemons).Select(p => new MapPokemonViewModel(p)));
+                CatchablePokemon.UpdateWith(mapResponse.Item1.MapCells.SelectMany(m => m.CatchablePokemons).Select(p => new MapPokemonViewModel(p, client, settings, Player)));
             });
 
             SetPosition = new AsyncRelayCommand<Position3DViewModel>(async pos =>

@@ -15,7 +15,7 @@
         <ListView ItemsSource="{Binding Pokemon}" >
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <local:CatchedPokemonView />
+                    <local:CaughtPokemonView />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

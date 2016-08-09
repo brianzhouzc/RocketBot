@@ -25,9 +25,6 @@ namespace PokemonGo.Bot.BotActions
                 case BotActionType.Farm:
                     return new FarmingAction(bot, client, settings);
 
-                case BotActionType.CatchPokemon:
-                    return new CatchPokemonAction(bot, client, settings);
-
                 case BotActionType.ForceUnban:
                     return new ForceUnbanAction(bot, client);
 

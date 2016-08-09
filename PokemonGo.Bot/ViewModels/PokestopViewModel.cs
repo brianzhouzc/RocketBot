@@ -53,7 +53,7 @@ namespace PokemonGo.Bot.ViewModels
 
                     if (searchResult.PokemonDataEgg != null)
                     {
-                        player.Inventory.Pokemon.Add(new PokemonDataViewModel(searchResult.PokemonDataEgg));
+                        player.Inventory.Eggs.Add(new EggViewModel(searchResult.PokemonDataEgg));
                     }
                 }
             });
