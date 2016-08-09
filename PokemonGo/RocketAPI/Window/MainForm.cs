@@ -27,7 +27,7 @@ using POGOProtos.Map.Fort;
 using POGOProtos.Map.Pokemon;
 using POGOProtos.Networking.Responses;
 using static System.Reflection.Assembly;
-
+using System.ComponentModel;
 
 namespace PokemonGo.RocketAPI.Window
 {
@@ -1342,30 +1342,119 @@ namespace PokemonGo.RocketAPI.Window
 
         private void InitializePokemonForm()
         {
-            objectListView1.ButtonClick += PokemonListButton_Click;
+            olvPokemonList.ButtonClick += PokemonListButton_Click;
 
             pkmnName.ImageGetter = delegate (object rowObject)
             {
-                var pokemon = (PokemonData)rowObject;
+                var pokemon = rowObject as PokemonObject;
 
                 var key = pokemon.PokemonId.ToString();
-                if (!objectListView1.SmallImageList.Images.ContainsKey(key))
+                if (!olvPokemonList.SmallImageList.Images.ContainsKey(key))
                 {
                     var img = GetPokemonImage((int)pokemon.PokemonId);
-                    objectListView1.SmallImageList.Images.Add(key, img);
+                    olvPokemonList.SmallImageList.Images.Add(key, img);
                 }
                 return key;
             };
 
-            objectListView1.CellToolTipShowing += delegate (object sender, ToolTipShowingEventArgs args)
-            {
-                var pokemon = (PokemonData)args.Model;
+            olvPokemonList.FormatRow += delegate (object sender, FormatRowEventArgs e) {
+                var pok = e.Model as PokemonObject;
+                if (
+                    olvPokemonList.Objects.Cast<PokemonObject>()
+                        .Select(i => i.PokemonId)
+                        .Where(p => p == pok.PokemonId)
+                        .Count() > 1)
+                    e.Item.BackColor = Color.LightGreen;
 
-                var family = families
-                    .Where(i => (int)i.FamilyId <= (int)pokemon.PokemonId)
-                    .First();
+                foreach (OLVListSubItem sub in e.Item.SubItems) {
+                    if (sub.Text.Equals("Evolve") && !pok.CanEvolve) {
+                        sub.CellPadding = new Rectangle(100, 100, 0, 0);
+                    }
+                }
+            };
 
-                args.Text = $"You have {family.Candy_} {(PokemonId)family.FamilyId} Candy";
+            cmsPokemonList.Opening += delegate (object sender, CancelEventArgs e) {
+                e.Cancel = false;
+                cmsPokemonList.Items.Clear();
+
+                var pokemons = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o.PokemonData);
+                var canAllEvolve =
+                    olvPokemonList.SelectedObjects.Cast<PokemonObject>()
+                        .Select(o => o)
+                        .Where(o => o.CanEvolve == false)
+                        .Count() == 0;
+                var count = pokemons.Count();
+
+                if (count < 1) {
+                    e.Cancel = true;
+                    return;
+                }
+
+                var pokemonObject = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).First();
+
+                var item = new ToolStripMenuItem();
+                var separator = new ToolStripSeparator();
+                item.Text = "Transfer " + count + " pokemon";
+                item.Click += delegate { TransferPokemon(pokemons); };
+                cmsPokemonList.Items.Add(item);
+
+                if (canAllEvolve) {
+                    item = new ToolStripMenuItem();
+                    item.Text = "Evolve " + count + " pokemon";
+                    item.Click += delegate { EvolvePokemon(pokemons); };
+                    cmsPokemonList.Items.Add(item);
+                }
+
+                if (count == 1) {
+                    item = new ToolStripMenuItem();
+                    item.Text = "PowerUp";
+                    item.Click += delegate { PowerUpPokemon(pokemons); };
+                    cmsPokemonList.Items.Add(item);
+
+                    cmsPokemonList.Items.Add(separator);
+
+                    item = new ToolStripMenuItem();
+                    item.Text = "Transfer Clean Up (Keep highest IV)";
+                    item.Click += delegate {
+                        CleanUpTransferPokemon(pokemonObject, "IV");
+                    };
+                    cmsPokemonList.Items.Add(item);
+
+                    item = new ToolStripMenuItem();
+                    item.Text = "Transfer Clean Up (Keep highest CP)";
+                    item.Click += delegate {
+                        CleanUpTransferPokemon(pokemonObject, "CP");
+                    };
+                    cmsPokemonList.Items.Add(item);
+
+                    item = new ToolStripMenuItem();
+                    item.Text = "Evolve Clean Up (Highest IV)";
+                    item.Click += delegate {
+                        CleanUpEvolvePokemon(pokemonObject, "IV");
+                    };
+                    cmsPokemonList.Items.Add(item);
+
+                    item = new ToolStripMenuItem();
+                    item.Text = "Evolve Clean Up (Highest CP)";
+                    item.Click += delegate {
+                        CleanUpEvolvePokemon(pokemonObject, "CP");
+                    };
+                    cmsPokemonList.Items.Add(item);
+                    /*
+                    cmsPokemonList.Items.Add(separator);
+
+                    item = new ToolStripMenuItem();
+                    item.Text = "Rename";
+                    item.Click += delegate (object obj, EventArgs args) {
+
+                        using (var form = new NicknamePokemonForm(pokemonObject)) {
+                            if (form.ShowDialog() == DialogResult.OK) {
+                                NicknamePokemon(pokemonObject, form.txtNickname.Text);
+                            }
+                        }
+                    };*/
+                    cmsPokemonList.Items.Add(item);
+                }
             };
         }
 
@@ -1374,28 +1463,63 @@ namespace PokemonGo.RocketAPI.Window
             return (Image)Properties.Resources.ResourceManager.GetObject("Pokemon_" + pokemonId);
         }
 
+        private void SetState(bool state) {
+            btnRefresh.Enabled = state;
+            olvPokemonList.Enabled = state;
+            //flpItems.Enabled = state;
+        }
+
         private async Task ReloadPokemonList()
         {
-            button1.Enabled = false;
-            objectListView1.Enabled = false;
+            btnRefresh.Enabled = false;
+            olvPokemonList.Enabled = false;
 
             try
             {
                 _client2 = new Client(ClientSettings, new ApiFailureStrategy());
                 await _client2.Login.DoLogin();
+
                 var inventory = await _client2.Inventory.GetInventory();
+                var profile = await _client2.Player.GetPlayer();
+                var itemTemplates = await _client2.Download.GetItemTemplates();
+
+                PokemonObject.Initilize(itemTemplates);
+
                 var pokemons =
                     inventory.InventoryDelta.InventoryItems.Select(i => i?.InventoryItemData?.PokemonData)
                         .Where(p => p != null && p?.PokemonId > 0)
-                        .OrderByDescending(key => key.Cp);
+                        .OrderByDescending(key => key.GetIV())
+                        .OrderByDescending(key => key.Cp)
+                        .OrderBy(key => key.PokemonId);
                 families = inventory.InventoryDelta.InventoryItems
                     .Select(i => i.InventoryItemData.Candy)
                     .Where(p => p != null && p.FamilyId > 0)
                     .OrderByDescending(p => p.FamilyId);
 
-                var prevTopItem = objectListView1.TopItemIndex;
-                objectListView1.SetObjects(pokemons);
-                objectListView1.TopItemIndex = prevTopItem;
+                var pokemonObjects = new List<PokemonObject>();
+                foreach (var pokemon in pokemons) {
+                    var pokemonObject = new PokemonObject(pokemon);
+                    var family = 
+                        families.Where(i => (int) i.FamilyId <= (int) pokemon.PokemonId)
+                        .First();
+                    pokemonObject.Candy = family.Candy_;
+                    pokemonObjects.Add(pokemonObject);
+                }
+
+                var prevTopItem = olvPokemonList.TopItemIndex;
+                olvPokemonList.SetObjects(pokemonObjects);
+                olvPokemonList.TopItemIndex = prevTopItem;
+
+                var pokemoncount =
+                    inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PokemonData)
+                        .Where(p => p != null && p?.PokemonId > 0)
+                        .Count();
+                var eggcount =
+                    inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PokemonData)
+                        .Where(p => p != null && p?.IsEgg == true)
+                        .Count();
+                lblPokemonList.Text = pokemoncount + eggcount + " / " + profile.PlayerData.MaxPokemonStorage + " (" +
+                                      pokemoncount + " pokemon, " + eggcount + " eggs)";
             }
             catch (GoogleException ex)
             {
@@ -1415,26 +1539,27 @@ namespace PokemonGo.RocketAPI.Window
                 _client2 = null;
             }
 
-            button1.Enabled = true;
-            objectListView1.Enabled = true;
+            btnRefresh.Enabled = true;
+            olvPokemonList.Enabled = true;
         }
 
         private void PokemonListButton_Click(object sender, CellClickEventArgs e)
         {
             try
             {
-                var pokemon = (PokemonData)e.Model;
-                if (e.ColumnIndex == 6)
+                var pokemon = e.Model as PokemonObject;
+                var cName = olvPokemonList.AllColumns[e.ColumnIndex].AspectToStringFormat;
+                if (cName.Equals("Transfer"))
                 {
-                    TransferPokemon(pokemon);
+                    TransferPokemon(new List<PokemonData> { pokemon.PokemonData });
                 }
-                else if (e.ColumnIndex == 7)
+                else if (cName.Equals("Power Up"))
                 {
-                    PowerUpPokemon(pokemon);
+                    PowerUpPokemon(new List<PokemonData> { pokemon.PokemonData });
                 }
-                else if (e.ColumnIndex == 8)
+                else if (cName.Equals("Evolve"))
                 {
-                    EvolvePokemon(pokemon);
+                    EvolvePokemon(new List<PokemonData> { pokemon.PokemonData });
                 }
             }
             catch (Exception ex)
@@ -1445,55 +1570,117 @@ namespace PokemonGo.RocketAPI.Window
             }
         }
 
-        private async void TransferPokemon(PokemonData pokemon)
+        private async void TransferPokemon(IEnumerable<PokemonData> pokemons)
         {
-            if (
-                MessageBox.Show($"Are you sure you want to transfer {pokemon.PokemonId} with {pokemon.Cp} CP?",
-                    "Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
+            SetState(false);
+            foreach (var pokemon in pokemons) {
                 var transferPokemonResponse = await _client2.Inventory.TransferPokemon(pokemon.Id);
-
-                if (transferPokemonResponse.Result == ReleasePokemonResponse.Types.Result.Success)
-                {
+                if (transferPokemonResponse.Result == ReleasePokemonResponse.Types.Result.Success) {
                     ColoredConsoleWrite(Color.Magenta,
                         $"{pokemon.PokemonId} was transferred. {transferPokemonResponse.CandyAwarded} candy awarded");
-                    ReloadPokemonList();
-                }
-                else
-                {
+                } else {
                     ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} could not be transferred");
                 }
             }
+            ReloadPokemonList();
         }
 
-        private async void PowerUpPokemon(PokemonData pokemon)
+        private async void PowerUpPokemon(IEnumerable<PokemonData> pokemons)
         {
-            var evolvePokemonResponse = await _client2.Inventory.UpgradePokemon(pokemon.Id);
-
-            if (evolvePokemonResponse.Result == UpgradePokemonResponse.Types.Result.Success)
-            {
-                ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} successfully upgraded.");
-                ReloadPokemonList();
+            SetState(false);
+            foreach (var pokemon in pokemons) {
+                var evolvePokemonResponse = await _client2.Inventory.UpgradePokemon(pokemon.Id);
+                if (evolvePokemonResponse.Result == UpgradePokemonResponse.Types.Result.Success) {
+                    ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} successfully upgraded.");
+                } else {
+                    ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} could not be upgraded");
+                }
             }
-            else
-            {
-                ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} could not be upgraded");
+            ReloadPokemonList();
+        }
+
+        private async void EvolvePokemon(IEnumerable<PokemonData> pokemons)
+        {
+            SetState(false);
+            foreach (var pokemon in pokemons) {
+                var evolvePokemonResponse = await _client2.Inventory.EvolvePokemon(pokemon.Id);
+                if (evolvePokemonResponse.Result == EvolvePokemonResponse.Types.Result.Success) {
+                    ColoredConsoleWrite(Color.Magenta,
+                        $"{pokemon.PokemonId} successfully evolved into {evolvePokemonResponse.EvolvedPokemonData.PokemonId}\n{evolvePokemonResponse.ExperienceAwarded} experience awarded\n{evolvePokemonResponse.CandyAwarded} candy awarded");
+                    
+                } else {
+                    ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} could not be evolved");
+                }
+            }
+            ReloadPokemonList();
+        }
+
+        private void CleanUpTransferPokemon(PokemonObject pokemon, string type) {
+            int ET = pokemon.EvolveTimes;
+            int pokemonCount =
+                olvPokemonList.Objects.Cast<PokemonObject>()
+                .Where(p => p.PokemonId == pokemon.PokemonId)
+                .Count();
+
+            if (pokemonCount < ET) {
+                ReloadPokemonList();
+                return;
+            }
+
+            if (ET == 0)
+                ET = 1;
+
+            if (type.Equals("IV")) {
+                var pokemons =
+                    olvPokemonList.Objects.Cast<PokemonObject>()
+                    .Where(p => p.PokemonId == pokemon.PokemonId)
+                    .Select(p => p.PokemonData)
+                    .OrderBy(p => p.Cp)
+                    .OrderBy(p => p.GetIV())
+                    .Take(pokemonCount - ET);
+
+                TransferPokemon(pokemons);
+            } else if (type.Equals("CP")) {
+                var pokemons =
+                    olvPokemonList.Objects.Cast<PokemonObject>()
+                    .Where(p => p.PokemonId == pokemon.PokemonId)
+                    .Select(p => p.PokemonData)
+                    .OrderBy(p => p.GetIV())
+                    .OrderBy(p => p.Cp)
+                    .Take(pokemonCount - ET);
+
+                TransferPokemon(pokemons);
             }
         }
 
-        private async void EvolvePokemon(PokemonData pokemon)
-        {
-            var evolvePokemonResponse = await _client2.Inventory.EvolvePokemon(pokemon.Id);
+        private void CleanUpEvolvePokemon(PokemonObject pokemon, string type) {
+            int ET = pokemon.EvolveTimes;
 
-            if (evolvePokemonResponse.Result == EvolvePokemonResponse.Types.Result.Success)
-            {
-                ColoredConsoleWrite(Color.Magenta,
-                    $"{pokemon.PokemonId} successfully evolved into {evolvePokemonResponse.EvolvedPokemonData.PokemonId}\n{evolvePokemonResponse.ExperienceAwarded} experience awarded\n{evolvePokemonResponse.CandyAwarded} candy awarded");
+            if (ET < 1) {
                 ReloadPokemonList();
+                return;
             }
-            else
-            {
-                ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} could not be evolved");
+
+            if (type.Equals("IV")) {
+                var pokemons =
+                    olvPokemonList.Objects.Cast<PokemonObject>()
+                    .Where(p => p.PokemonId == pokemon.PokemonId)
+                    .Select(p => p.PokemonData)
+                    .OrderByDescending(p => p.Cp)
+                    .OrderByDescending(p => p.GetIV())
+                    .Take(ET);
+
+                EvolvePokemon(pokemons);
+            } else if (type.Equals("CP")) {
+                var pokemons =
+                    olvPokemonList.Objects.Cast<PokemonObject>()
+                    .Where(p => p.PokemonId == pokemon.PokemonId)
+                    .Select(p => p.PokemonData)
+                    .OrderByDescending(p => p.GetIV())
+                    .OrderByDescending(p => p.Cp)
+                    .Take(ET);
+
+                EvolvePokemon(pokemons);
             }
         }
 
@@ -1628,20 +1815,6 @@ namespace PokemonGo.RocketAPI.Window
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            if (pkmnIV.AspectGetter == null)
-            {
-                pkmnIV.AspectGetter = delegate (object rowObject)
-                {
-                    var data = rowObject as PokemonData;
-                    if (data != null)
-                    {
-                        return data.GetIV();
-                    }
-
-                    return 0.0f;
-                };
-            }
-
             await ReloadPokemonList();
         }
 
