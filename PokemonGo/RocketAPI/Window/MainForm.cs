@@ -1383,7 +1383,7 @@ namespace PokemonGo.RocketAPI.Window
                         .Where(p => p != null && p?.PokemonId > 0)
                         .OrderByDescending(key => key.Cp);
                 families = inventory.InventoryDelta.InventoryItems
-                    .Select(i => i.InventoryItemData.Candy.FamilyId)
+                    .Select(i => i.InventoryItemData?.Candy?.FamilyId ?? 0)
                     .Where(p => p > 0)
                     .OrderByDescending(p => p);
 
