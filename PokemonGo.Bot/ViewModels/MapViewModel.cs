@@ -23,6 +23,15 @@ namespace PokemonGo.Bot.ViewModels
         public ObservableCollection<WildPokemonViewModel> WildPokemon { get; } = new ObservableCollection<WildPokemonViewModel>();
         public ObservableCollection<MapPokemonViewModel> CatchablePokemon { get; } = new ObservableCollection<MapPokemonViewModel>();
 
+        Position3DViewModel lastClickedPosition;
+        public Position3DViewModel LastClickedPosition
+        {
+            get { return lastClickedPosition; }
+            set { if (LastClickedPosition != value) { lastClickedPosition = value; RaisePropertyChanged(); } }
+        }
+
+        public RelayCommand<Position3DViewModel> SetLastPosition { get; }
+
         public MapViewModel(Client client)
         {
             this.client = client;
@@ -41,6 +50,8 @@ namespace PokemonGo.Bot.ViewModels
                 await client.Player.UpdatePlayerLocation(pos.Latitude, pos.Longitude, pos.Altitute);
                 await GetMapObjects.ExecuteAsync();
             });
+
+            SetLastPosition = new RelayCommand<Position3DViewModel>(pos => LastClickedPosition = pos);
         }
     }
 }

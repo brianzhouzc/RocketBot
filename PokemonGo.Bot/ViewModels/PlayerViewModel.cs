@@ -102,7 +102,17 @@ namespace PokemonGo.Bot.ViewModels
         private async Task MoveToAsync(Position3DViewModel newPosition)
         {
             var waitTime = Position.DistanceTo(newPosition) / speedInmetersPerMillisecond;
-            await Task.Delay((int)Math.Ceiling(waitTime));
+            var startTime = DateTime.Now;
+            var targetTime = startTime.AddMilliseconds(waitTime);
+            var targetVector = newPosition - Position;
+            var startPosition = Position;
+            while(DateTime.Now < targetTime)
+            {
+                var msTraveled = (DateTime.Now - startTime).TotalMilliseconds;
+                var currentPosition = startPosition + (targetVector * (msTraveled / waitTime));
+                Position = currentPosition;
+                await Task.Delay(100);
+            }
             await map.SetPosition.ExecuteAsync(newPosition);
             Position = newPosition;
         }

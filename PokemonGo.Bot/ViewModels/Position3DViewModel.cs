@@ -30,5 +30,17 @@ namespace PokemonGo.Bot.ViewModels
         }
 
         public override string ToString() => string.Format(CultureInfo.InvariantCulture, "{0},{1},{2}", Latitude, Longitude, Altitute);
+
+        public static Position3DViewModel operator +(Position3DViewModel left, Position3DViewModel right)
+            => new Position3DViewModel(left.Latitude + right.Latitude, left.Longitude + right.Longitude, left.Altitute + right.Altitute);
+
+        public static Position3DViewModel operator -(Position3DViewModel left, Position3DViewModel right)
+            => new Position3DViewModel(left.Latitude - right.Latitude, left.Longitude - right.Longitude, left.Altitute - right.Altitute);
+
+        public static Position3DViewModel operator *(Position3DViewModel left, double right)
+            => new Position3DViewModel(left.Latitude * right, left.Longitude * right, left.Altitute * right);
+
+        public static Position3DViewModel operator /(Position3DViewModel left, double right)
+            => new Position3DViewModel(left.Latitude / right, left.Longitude / right, left.Altitute / right);
     }
 }

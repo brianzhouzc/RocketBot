@@ -7,13 +7,17 @@
              xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
              xmlns:converters="clr-namespace:PokemonGo.WPF.Converters"
              xmlns:vm="clr-namespace:PokemonGo.Bot.ViewModels;assembly=PokemonGo.Bot"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <converters:PositionToMapLocationConverter x:Key="positionToLocationConverter" />
+        <converters:MapLocationToPositionConverter x:Key="locationToPositionConverter" />
         <converters:GymToImagePathConverter x:Key="gymToImagePathConverter" />
         <converters:PokestopToImagePathConverter x:Key="pokestopToImagePathConverter" />
         <converters:PokemonToImagePathConverter x:Key="pokemonToImagePathConverter" />
+        <converters:EventArgsToPositionConverter x:Key="eventArgsToPositionConverter" />
         <DataTemplate DataType="{x:Type vm:PlayerViewModel}">
             <m:Pushpin Location="{Binding Position, Converter={StaticResource positionToLocationConverter}}">
                 <m:Pushpin.Template>
@@ -60,7 +64,7 @@
             <RowDefinition/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <m:Map CredentialsProvider="AhX1gtSfkGHg8FKEthaxWJHqCNLWVmY5MVO1bBMdNQTYOyqyYrC6FEWaVArrH0oK" Mode="Road" Center="{Binding Player.Position, Converter={StaticResource positionToLocationConverter}, Mode=OneTime}" ZoomLevel="16">
+        <m:Map CredentialsProvider="AhX1gtSfkGHg8FKEthaxWJHqCNLWVmY5MVO1bBMdNQTYOyqyYrC6FEWaVArrH0oK" Mode="Road" Center="{Binding Player.Position, Converter={StaticResource positionToLocationConverter}, Mode=OneTime}" ZoomLevel="16" Loaded="Map_Loaded">
             <m:MapItemsControl>
                 <m:MapItemsControl.ItemsSource>
                     <CompositeCollection>
@@ -71,6 +75,16 @@
                     </CompositeCollection>
                 </m:MapItemsControl.ItemsSource>
             </m:MapItemsControl>
+            <m:Map.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Move here" Command="{Binding Player.Move}" CommandParameter="{Binding Map.LastClickedPosition}" />
+                </ContextMenu>
+            </m:Map.ContextMenu>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <cmd:EventToCommand Command="{Binding Map.SetLastPosition}" PassEventArgsToCommand="True" EventArgsConverter="{StaticResource eventArgsToPositionConverter}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </m:Map>
         <Button Content="Reload Map" Command="{Binding Map.GetMapObjects}" Grid.Row="1"/>
     </Grid>

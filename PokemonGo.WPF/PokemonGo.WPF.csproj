@@ -80,7 +80,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\EventArgsToPositionConverter.cs" />
     <Compile Include="Converters\PokestopToImagePathConverter.cs" />
+    <Compile Include="Converters\MapLocationToPositionConverter.cs" />
     <Compile Include="Converters\PositionToMapLocationConverter.cs" />
     <Compile Include="Converters\GymToImagePathConverter.cs" />
     <Compile Include="Converters\TeamToImagePathConverter.cs" />
