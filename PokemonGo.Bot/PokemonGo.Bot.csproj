@@ -100,6 +100,7 @@
     <Compile Include="TransferPokemonAlgorithms\TransferPokemonAlgorithmFactory.cs" />
     <Compile Include="Utils\RouteOptimizer.cs" />
     <Compile Include="ViewModels\BotViewModel.cs" />
+    <Compile Include="ViewModels\EggViewModel.cs" />
     <Compile Include="ViewModels\GymViewModel.cs" />
     <Compile Include="ViewModels\PokemonDataViewModel.cs" />
     <Compile Include="ViewModels\ConsoleViewModel.cs" />

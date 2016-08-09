@@ -1,10 +1,9 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight.Command;
 using POGOProtos.Map.Fort;
 using PokemonGo.RocketAPI;
 using PokemonGo.RocketAPI.Extensions;
 using System;
-using System.Threading;
+using System.Linq;
 using System.Windows.Threading;
 
 namespace PokemonGo.Bot.ViewModels
@@ -21,36 +20,68 @@ namespace PokemonGo.Bot.ViewModels
 
         public AsyncRelayCommand Search { get; }
 
-        readonly DispatcherTimer isActiveTimer;
-        readonly long lastModifiedTimestampMs;
-        private long cooldownCompleteTimestampMs;
+        DispatcherTimer isActiveTimer;
+        long cooldownCompleteTimestampMs;
+        readonly PlayerViewModel player;
 
-        public PokestopViewModel(FortData fort, Client client)
-            :base(fort, client)
+        public PokestopViewModel(FortData fort, Client client, PlayerViewModel player)
+            : base(fort, client)
         {
-            lastModifiedTimestampMs = fort.LastModifiedTimestampMs;
-            cooldownCompleteTimestampMs = fort.CooldownCompleteTimestampMs;
-            if (cooldownCompleteTimestampMs > DateTime.UtcNow.ToUnixTime())
-            {
-                isActiveTimer = new DispatcherTimer();
-                isActiveTimer.Tick += IsActiveTimer_Tick;
-                isActiveTimer.Interval = TimeSpan.FromSeconds(1);
-            }
-            else
-                IsActive = true;
+            this.player = player;
+            InitializeTimer(fort.CooldownCompleteTimestampMs);
 
             Search = new AsyncRelayCommand(async () =>
             {
                 var searchResult = await client.Fort.SearchFort(Id, Position.Latitude, Position.Longitude);
-                // TODO set new timer
-                if(searchResult.Result == POGOProtos.Networking.Responses.FortSearchResponse.Types.Result.Success)
+                InitializeTimer(searchResult.CooldownCompleteTimestampMs);
+                if (searchResult.Result == POGOProtos.Networking.Responses.FortSearchResponse.Types.Result.Success)
                 {
-                    // TODO add new items to inventory and add xp to player
+                    player.Xp += searchResult.ExperienceAwarded;
+                    foreach (var item in searchResult.ItemsAwarded)
+                    {
+                        var itemInInventory = player.Inventory.Items.SingleOrDefault(i => (int)i.ItemType == (int)item.ItemId);
+                        if (itemInInventory == null)
+                        {
+                            itemInInventory = new ItemViewModel(item);
+                            player.Inventory.Items.Add(itemInInventory);
+                        }
+                        else
+                        {
+                            itemInInventory.Count += item.ItemCount;
+                        }
+                    }
+
+                    if (searchResult.PokemonDataEgg != null)
+                    {
+                        player.Inventory.Pokemon.Add(new PokemonDataViewModel(searchResult.PokemonDataEgg));
+                    }
                 }
             });
         }
 
-        private void IsActiveTimer_Tick(object sender, System.EventArgs e)
+        void InitializeTimer(long cooldownComplete)
+        {
+            cooldownCompleteTimestampMs = cooldownComplete;
+
+            if (cooldownCompleteTimestampMs > DateTime.UtcNow.ToUnixTime())
+            {
+                IsActive = false;
+                if (isActiveTimer == null)
+                {
+                    isActiveTimer = new DispatcherTimer();
+                    isActiveTimer.Tick += IsActiveTimer_Tick;
+                    isActiveTimer.Interval = TimeSpan.FromSeconds(1);
+                }
+                if (!isActiveTimer.IsEnabled)
+                    isActiveTimer.Start();
+            }
+            else
+            {
+                IsActive = true;
+            }
+        }
+
+        void IsActiveTimer_Tick(object sender, System.EventArgs e)
         {
             if (cooldownCompleteTimestampMs >= DateTime.UtcNow.ToUnixTime())
             {

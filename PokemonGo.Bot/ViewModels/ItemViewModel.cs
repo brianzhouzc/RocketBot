@@ -21,5 +21,11 @@ namespace PokemonGo.Bot.ViewModels
             Count = item.Count;
             ItemType = (Enums.ItemType)item.ItemId;
         }
+
+        public ItemViewModel(ItemAward item)
+        {
+            Count = item.ItemCount;
+            ItemType = (Enums.ItemType)item.ItemId;
+        }
     }
 }

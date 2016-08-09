@@ -31,9 +31,14 @@
             <m:Pushpin Location="{Binding Position, Converter={StaticResource positionToLocationConverter}}">
                 <m:Pushpin.Template>
                     <ControlTemplate>
-                        <Image Source="{Binding Converter={StaticResource pokestopToImagePathConverter}}" />
+                        <Image Source="{Binding Converter={StaticResource pokestopToImagePathConverter}}"/>
                     </ControlTemplate>
                 </m:Pushpin.Template>
+                <m:Pushpin.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Farm" Command="{Binding Search}"/>
+                    </ContextMenu>
+                </m:Pushpin.ContextMenu>
             </m:Pushpin>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:GymViewModel}">
@@ -54,10 +59,10 @@
                 </m:Pushpin.Template>
             </m:Pushpin>
         </DataTemplate>
-        <CollectionViewSource x:Key="players" Source="{Binding Players}"/>
-        <CollectionViewSource x:Key="pokestops" Source="{Binding Map.Pokestops}"/>
-        <CollectionViewSource x:Key="gyms" Source="{Binding Map.Gyms}"/>
         <CollectionViewSource x:Key="pokemon" Source="{Binding Map.CatchablePokemon}"/>
+        <CollectionViewSource x:Key="gyms" Source="{Binding Map.Gyms}"/>
+        <CollectionViewSource x:Key="pokestops" Source="{Binding Map.Pokestops}"/>
+        <CollectionViewSource x:Key="players" Source="{Binding Players}"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>

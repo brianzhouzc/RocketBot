@@ -5,10 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:PokemonGo.WPF.Views"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="500">
+             d:DesignHeight="300" d:DesignWidth="630" Width="630">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="330"/>
+            <ColumnDefinition Width="80"/>
             <ColumnDefinition Width="220"/>
         </Grid.ColumnDefinitions>
         <ListView ItemsSource="{Binding Pokemon}" >
@@ -18,7 +19,14 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView ItemsSource="{Binding Items}" Grid.Column="1">
+        <ListView ItemsSource="{Binding Eggs}" Grid.Column="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <local:EggView />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView ItemsSource="{Binding Items}" Grid.Column="2">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <local:ItemView />

@@ -16,6 +16,7 @@ namespace PokemonGo.Bot.ViewModels
             var inventory = new InventoryViewModel(client, transferPokemonAlgorithmFactory);
             Map = new MapViewModel(client);
             Player = new PlayerViewModel(client, inventory, Map, settings);
+            Map.Player = Player;
             Bot = new BotViewModel(client, Player, Map, settings);
             Console = new ConsoleViewModel();
             Players = new[] { Player };

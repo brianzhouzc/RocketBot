@@ -32,6 +32,13 @@ namespace PokemonGo.Bot.ViewModels
 
         public RelayCommand<Position3DViewModel> SetLastPosition { get; }
 
+        PlayerViewModel player;
+        public PlayerViewModel Player
+        {
+            get { return player; }
+            set { if (Player != value) { player = value; RaisePropertyChanged(); } }
+        }
+
         public MapViewModel(Client client)
         {
             this.client = client;
@@ -39,7 +46,7 @@ namespace PokemonGo.Bot.ViewModels
             GetMapObjects = new AsyncRelayCommand(async () =>
             {
                 var mapResponse = await client.Map.GetMapObjects();
-                Pokestops.UpdateWith(mapResponse.Item1.MapCells.SelectMany(m => m.Forts).Where(f => f.Type == FortType.Checkpoint).Select(f => new PokestopViewModel(f, client)));
+                Pokestops.UpdateWith(mapResponse.Item1.MapCells.SelectMany(m => m.Forts).Where(f => f.Type == FortType.Checkpoint).Select(f => new PokestopViewModel(f, client, Player)));
                 Gyms.UpdateWith(mapResponse.Item1.MapCells.SelectMany(m => m.Forts).Where(f => f.Type == FortType.Gym).Select(f => new GymViewModel(f, client)));
                 WildPokemon.UpdateWith(mapResponse.Item1.MapCells.SelectMany(m => m.WildPokemons).Select(p => new WildPokemonViewModel(p)));
                 CatchablePokemon.UpdateWith(mapResponse.Item1.MapCells.SelectMany(m => m.CatchablePokemons).Select(p => new MapPokemonViewModel(p)));

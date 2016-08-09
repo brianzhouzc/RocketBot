@@ -6,6 +6,7 @@ using POGOProtos.Inventory.Item;
 using PokemonGo.Bot.TransferPokemonAlgorithms;
 using PokemonGo.RocketAPI;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -62,17 +63,19 @@ namespace PokemonGo.Bot.ViewModels
                 {
                     inventory = value;
                     RaisePropertyChanged();
-                    RaisePropertyChanged(nameof(Pokemon));
-                    RaisePropertyChanged(nameof(Items));
+                    Pokemon.UpdateWith(Inventory?.InventoryItems.Select(i => i.InventoryItemData?.PokemonData).Where(p => p?.PokemonId > 0).Select(p => new PokemonDataViewModel(p)));
+                    Eggs.UpdateWith(Inventory?.InventoryItems.Select(i => i.InventoryItemData?.PokemonData).Where(p => (p?.IsEgg).GetValueOrDefault()).Select(p => new EggViewModel(p)));
+                    Items.UpdateWith(Inventory?.InventoryItems.Select(i => i.InventoryItemData?.Item).Where(i => i != null).Select(i => new ItemViewModel(i)));
                     PlayerStats = value.InventoryItems.Where(i => i.InventoryItemData.PlayerStats != null).Select(i => i.InventoryItemData.PlayerStats).FirstOrDefault();
                 }
             }
         }
 
-        public IEnumerable<PokemonDataViewModel> Pokemon => Inventory?.InventoryItems.Select(i => i.InventoryItemData?.PokemonData).Where(p => p?.PokemonId > 0).Select(p => new PokemonDataViewModel(p));
-        public IEnumerable<ItemViewModel> Items => Inventory?.InventoryItems.Select(i => i.InventoryItemData?.Item).Where(i => i != null).Select(i => new ItemViewModel(i));
+        public ObservableCollection<PokemonDataViewModel> Pokemon { get; }
+        public ObservableCollection<ItemViewModel> Items { get; }
+        public ObservableCollection<EggViewModel> Eggs { get; }
 
-        private PlayerStats playerStats;
+        PlayerStats playerStats;
 
         public PlayerStats PlayerStats
         {
@@ -98,6 +101,10 @@ namespace PokemonGo.Bot.ViewModels
             this.transferPokemonAlgorithmFactory = transferPokemonAlgorithmFactory;
             TransferPokemonAlgorithm = transferPokemonAlgorithmFactory.GetDefaultFromSettings();
             this.client = client;
+
+            Pokemon = new ObservableCollection<PokemonDataViewModel>();
+            Eggs = new ObservableCollection<EggViewModel>();
+            Items = new ObservableCollection<ItemViewModel>();
 
             Load = new AsyncRelayCommand(async () => Inventory = (await client.Inventory.GetInventory()).InventoryDelta);
             TransferPokemonWithAlgorithm = new AsyncRelayCommand(async () => await ExecuteTransferPokemonWithAlgorithmAsync(TransferPokemonAlgorithm));
