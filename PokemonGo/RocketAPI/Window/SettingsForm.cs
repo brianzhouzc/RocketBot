@@ -265,8 +265,6 @@ namespace PokemonGo.RocketAPI.Window
             }
         }
 
-        private void AdressBox_TextChanged(object sender, EventArgs e)
-        {
-        }
+        
     }
 }
