@@ -4,8 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
-using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using PokemonGo.RocketAPI.Enums;
 using POGOProtos.Inventory.Item;
 
@@ -35,54 +35,39 @@ namespace PokemonGo.RocketAPI.Window
             }
         }
 
-        public void Reload()
-        {
-            ConfigurationManager.RefreshSection("appSettings");
-        }
-
         /// <summary>
         ///     Don't touch. User settings are in Console/App.config
         /// </summary>
         public string TransferType => GetSetting() != string.Empty ? GetSetting() : "none";
-        public int TransferCPThreshold => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 0;
-        public int TransferIVThreshold => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 0;
-        public int TravelSpeed => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 60;
-        public int ImageSize => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 50;
-        public bool EvolveAllGivenPokemons => GetSetting() != string.Empty && Convert.ToBoolean(GetSetting(), CultureInfo.InvariantCulture);
-        public bool CatchPokemon => GetSetting() != string.Empty && Convert.ToBoolean(GetSetting(), CultureInfo.InvariantCulture);
 
+        public int TransferCpThreshold
+            => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 0;
 
-        public AuthType AuthType
-        {
-            get
-            {
-                return (GetSetting() != string.Empty ? GetSetting() : "Ptc") == "Ptc" ? AuthType.Ptc : AuthType.Google;
-            }
-            set { SetSetting(value.ToString()); }
-        }
+        public int TransferIvThreshold
+            => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 0;
+
+        public int TravelSpeed
+            => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 60;
+
+        public int ImageSize
+            => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 50;
+
+        public bool EvolveAllGivenPokemons
+            => GetSetting() != string.Empty && Convert.ToBoolean(GetSetting(), CultureInfo.InvariantCulture);
+
+        public bool CatchPokemon
+            => GetSetting() != string.Empty && Convert.ToBoolean(GetSetting(), CultureInfo.InvariantCulture);
 
         public string PtcUsername => GetSetting() != string.Empty ? GetSetting() : "username";
         public string PtcPassword => GetSetting() != string.Empty ? GetSetting() : "password";
-
-        public double DefaultLatitude
-        {
-            get { return GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 51.22640; }
-            set { SetSetting(value); }
-        }
-
-
-        public double DefaultLongitude
-        {
-            get { return GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 6.77874; }
-            set { SetSetting(value); }
-        }
 
 
         public string LevelOutput => GetSetting() != string.Empty ? GetSetting() : "time";
 
         public int LevelTimeInterval => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 600;
 
-        public bool Recycler => GetSetting() != string.Empty && Convert.ToBoolean(GetSetting(), CultureInfo.InvariantCulture);
+        public bool Recycler
+            => GetSetting() != string.Empty && Convert.ToBoolean(GetSetting(), CultureInfo.InvariantCulture);
 
         private int MaxItemPokeBall => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 500;
         private int MaxItemGreatBall => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 500;
@@ -115,7 +100,37 @@ namespace PokemonGo.RocketAPI.Window
 
         public string RazzBerryMode => GetSetting() != string.Empty ? GetSetting() : "cp";
 
-        public double RazzBerrySetting => GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 500;
+        public double RazzBerrySetting
+            => GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 500;
+
+
+        public AuthType AuthType
+        {
+            get
+            {
+                return (GetSetting() != string.Empty ? GetSetting() : "Ptc") == "Ptc" ? AuthType.Ptc : AuthType.Google;
+            }
+            set { SetSetting(value.ToString()); }
+        }
+
+        public double DefaultLatitude
+        {
+            get
+            {
+                return GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 51.22640;
+            }
+            set { SetSetting(value); }
+        }
+
+
+        public double DefaultLongitude
+        {
+            get
+            {
+                return GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 6.77874;
+            }
+            set { SetSetting(value); }
+        }
 
         public string GoogleRefreshToken
         {
@@ -125,7 +140,10 @@ namespace PokemonGo.RocketAPI.Window
 
         public double DefaultAltitude
         {
-            get { return GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 0.0; }
+            get
+            {
+                return GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 0.0;
+            }
             set { SetSetting(value); }
         }
 
@@ -155,171 +173,98 @@ namespace PokemonGo.RocketAPI.Window
 
         public string DeviceId
         {
-            get
-            {
-                return "529e8aa6201f78b5";
-            }
+            get { return "529e8aa6201f78b5"; }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+            set { throw new NotImplementedException(); }
         }
 
         public string AndroidBoardName
         {
-            get
-            {
-                return "msm8994";
-            }
+            get { return "msm8994"; }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+            set { throw new NotImplementedException(); }
         }
 
         public string AndroidBootloader
         {
-            get
-            {
-                return "unknown";
-            }
+            get { return "unknown"; }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+            set { throw new NotImplementedException(); }
         }
 
         public string DeviceBrand
         {
-            get
-            {
-                return "OnePlus";
-            }
+            get { return "OnePlus"; }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+            set { throw new NotImplementedException(); }
         }
 
         public string DeviceModel
         {
-            get
-            {
-                return "OnePlus2";
-            }
+            get { return "OnePlus2"; }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+            set { throw new NotImplementedException(); }
         }
 
         public string DeviceModelIdentifier
         {
-            get
-            {
-                return "ONE A2003_24_160604";
-            }
+            get { return "ONE A2003_24_160604"; }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+            set { throw new NotImplementedException(); }
         }
 
         public string DeviceModelBoot
         {
-            get
-            {
-                return "qcom";
-            }
+            get { return "qcom"; }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+            set { throw new NotImplementedException(); }
         }
 
         public string HardwareManufacturer
         {
-            get
-            {
-                return "OnePlus";
-            }
+            get { return "OnePlus"; }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+            set { throw new NotImplementedException(); }
         }
 
         public string HardwareModel
         {
-            get
-            {
-                return "ONE A2003";
-            }
+            get { return "ONE A2003"; }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+            set { throw new NotImplementedException(); }
         }
 
         public string FirmwareBrand
         {
-            get
-            {
-                return "OnePlus2";
-            }
+            get { return "OnePlus2"; }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+            set { throw new NotImplementedException(); }
         }
 
         public string FirmwareTags
         {
-            get
-            {
-                return "dev-keys";
-            }
+            get { return "dev-keys"; }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+            set { throw new NotImplementedException(); }
         }
 
         public string FirmwareType
         {
-            get
-            {
-                return "user";
-            }
+            get { return "user"; }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+            set { throw new NotImplementedException(); }
         }
 
         public string FirmwareFingerprint
         {
-            get
-            {
-                return "OnePlus/OnePlus2/OnePlus2:6.0.1/MMB29M/1447840820:user/release-keys";
-            }
+            get { return "OnePlus/OnePlus2/OnePlus2:6.0.1/MMB29M/1447840820:user/release-keys"; }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+            set { throw new NotImplementedException(); }
+        }
+
+        public void Reload()
+        {
+            ConfigurationManager.RefreshSection("appSettings");
         }
 
         private string GetSetting([CallerMemberName] string key = null)
@@ -339,9 +284,9 @@ namespace PokemonGo.RocketAPI.Window
 
         public void SetSetting(double value, [CallerMemberName] string key = null)
         {
-            CultureInfo customCulture = (CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            var customCulture = (CultureInfo) Thread.CurrentThread.CurrentCulture.Clone();
             customCulture.NumberFormat.NumberDecimalSeparator = ".";
-            System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
+            Thread.CurrentThread.CurrentCulture = customCulture;
             var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             if (key != null) configFile.AppSettings.Settings[key].Value = value.ToString();
             configFile.Save(ConfigurationSaveMode.Full);
