@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,6 +18,12 @@ namespace PokemonGo.RocketAPI.Window
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
+
+            //Client client = new Client(new MySettings(), new ApiFailureStrategy());
+            //Console.write
+            //client.Login.DoLogin();
+
+            //Console.ReadLine();
         }
     }
 }

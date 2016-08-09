@@ -6,8 +6,8 @@ using System.Configuration;
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using AllEnum;
 using PokemonGo.RocketAPI.Enums;
+using POGOProtos.Inventory.Item;
 
 #endregion
 
@@ -63,8 +63,6 @@ namespace PokemonGo.RocketAPI.Window
 
         public string PtcUsername => GetSetting() != string.Empty ? GetSetting() : "username";
         public string PtcPassword => GetSetting() != string.Empty ? GetSetting() : "password";
-        public string Email => GetSetting() != string.Empty ? GetSetting() : "Email";
-        public string Password => GetSetting() != string.Empty ? GetSetting() : "Password";
 
         public double DefaultLatitude
         {
@@ -97,7 +95,7 @@ namespace PokemonGo.RocketAPI.Window
         private int MaxItemHyperPotion => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 500;
         private int MaxItemMaxPotion => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 500;
 
-        ICollection<KeyValuePair<ItemId, int>> ISettings.ItemRecycleFilter => new[]
+        public ICollection<KeyValuePair<ItemId, int>> ItemRecycleFilter => new[]
         {
             new KeyValuePair<ItemId, int>(ItemId.ItemPokeBall, MaxItemPokeBall),
             new KeyValuePair<ItemId, int>(ItemId.ItemGreatBall, MaxItemGreatBall),
@@ -123,6 +121,205 @@ namespace PokemonGo.RocketAPI.Window
         {
             get { return GetSetting() != string.Empty ? GetSetting() : string.Empty; }
             set { SetSetting(value); }
+        }
+
+        public double DefaultAltitude
+        {
+            get { return GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 0.0; }
+            set { SetSetting(value); }
+        }
+
+        string ISettings.PtcPassword
+        {
+            get { return GetSetting() != string.Empty ? GetSetting() : "password"; }
+            set { SetSetting(value); }
+        }
+
+        string ISettings.PtcUsername
+        {
+            get { return GetSetting() != string.Empty ? GetSetting() : "username"; }
+            set { SetSetting(value); }
+        }
+
+        public string GoogleUsername
+        {
+            get { return GetSetting() != string.Empty ? GetSetting() : "username"; }
+            set { SetSetting(value); }
+        }
+
+        public string GooglePassword
+        {
+            get { return GetSetting() != string.Empty ? GetSetting() : "password"; }
+            set { SetSetting(value); }
+        }
+
+        public string DeviceId
+        {
+            get
+            {
+                return "529e8aa6201f78b5";
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string AndroidBoardName
+        {
+            get
+            {
+                return "msm8994";
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string AndroidBootloader
+        {
+            get
+            {
+                return "unknown";
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string DeviceBrand
+        {
+            get
+            {
+                return "OnePlus";
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string DeviceModel
+        {
+            get
+            {
+                return "OnePlus2";
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string DeviceModelIdentifier
+        {
+            get
+            {
+                return "ONE A2003_24_160604";
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string DeviceModelBoot
+        {
+            get
+            {
+                return "qcom";
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string HardwareManufacturer
+        {
+            get
+            {
+                return "OnePlus";
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string HardwareModel
+        {
+            get
+            {
+                return "ONE A2003";
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string FirmwareBrand
+        {
+            get
+            {
+                return "OnePlus2";
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string FirmwareTags
+        {
+            get
+            {
+                return "dev-keys";
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string FirmwareType
+        {
+            get
+            {
+                return "user";
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string FirmwareFingerprint
+        {
+            get
+            {
+                return "OnePlus/OnePlus2/OnePlus2:6.0.1/MMB29M/1447840820:user/release-keys";
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
 
         private string GetSetting([CallerMemberName] string key = null)

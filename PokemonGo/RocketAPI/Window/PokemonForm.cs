@@ -28,17 +28,16 @@ namespace PokemonGo.RocketAPI.Window
 
         private async void Execute()
         {
-            var client = new Client(ClientSettings);
+            var client = new Client(ClientSettings, new ApiFailureStrategy());
 
             try
             {
 
-                await client.Login();
+                await client.Login.DoLogin();
 
-                await client.SetServer();
-                var inventory = await client.GetInventory();
+                var inventory = await client.Inventory.GetInventory();
                 var pokemons =
-                    inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon)
+                    inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PokemonData)
                         .Where(p => p != null && p?.PokemonId > 0).OrderByDescending(key => key.Cp);
 
 

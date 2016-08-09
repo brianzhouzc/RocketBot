@@ -1,6 +1,6 @@
 ﻿using GMap.NET;
 using GMap.NET.WindowsForms;
-using PokemonGo.RocketAPI.GeneratedCode;
+using POGOProtos.Map.Fort;
 using System;
 using System.Collections.Generic;
 using System.Linq;

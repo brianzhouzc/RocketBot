@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using PokemonGo.RocketAPI.Exceptions;
 using System.Collections.Generic;
 using System.Net;
@@ -26,7 +26,7 @@ namespace PokemonGo.RocketAPI.Login
                 AllowAutoRedirect = false
             };
 
-            using (var tempHttpClient = new HttpClient(handler))
+            using (var tempHttpClient = new System.Net.Http.HttpClient(handler))
             {
                 //Get session cookie
                 var sessionData = await GetSessionCookie(tempHttpClient).ConfigureAwait(false);
@@ -73,7 +73,7 @@ namespace PokemonGo.RocketAPI.Login
                 {"code", ticketId}
             };
 
-        private static async Task<string> GetLoginTicket(string username, string password, HttpClient tempHttpClient, SessionData sessionData)
+        private static async Task<string> GetLoginTicket(string username, string password, System.Net.Http.HttpClient tempHttpClient, SessionData sessionData)
         {
             HttpResponseMessage loginResp;
             var loginRequest = GenerateLoginRequest(sessionData, username, password);
@@ -86,7 +86,7 @@ namespace PokemonGo.RocketAPI.Login
             return ticketId;
         }
 
-        private static async Task<SessionData> GetSessionCookie(HttpClient tempHttpClient)
+        private static async Task<SessionData> GetSessionCookie(System.Net.Http.HttpClient tempHttpClient)
         {
             var sessionResp = await tempHttpClient.GetAsync(Resources.PtcLoginUrl).ConfigureAwait(false);
             var data = await sessionResp.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -94,7 +94,7 @@ namespace PokemonGo.RocketAPI.Login
             return sessionData;
         }
 
-        private static async Task<string> GetToken(HttpClient tempHttpClient, string ticketId)
+        private static async Task<string> GetToken(System.Net.Http.HttpClient tempHttpClient, string ticketId)
         {
             HttpResponseMessage tokenResp;
             var tokenRequest = GenerateTokenVarRequest(ticketId);

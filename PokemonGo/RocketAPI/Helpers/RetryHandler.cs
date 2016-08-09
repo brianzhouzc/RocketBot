@@ -1,18 +1,15 @@
-﻿#region
-
 using System;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-#endregion
-
 namespace PokemonGo.RocketAPI.Helpers
 {
     internal class RetryHandler : DelegatingHandler
     {
-        private const int MaxRetries = 100000;
+        private const int MaxRetries = 25;
 
         public RetryHandler(HttpMessageHandler innerHandler)
             : base(innerHandler)
@@ -28,18 +25,17 @@ namespace PokemonGo.RocketAPI.Helpers
                 try
                 {
                     var response = await base.SendAsync(request, cancellationToken);
-                    if (response.StatusCode == HttpStatusCode.BadGateway)
+                    if (response.StatusCode == HttpStatusCode.BadGateway || response.StatusCode == HttpStatusCode.InternalServerError)
                         throw new Exception(); //todo: proper implementation
 
                     return response;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    Console.WriteLine(
-                        $"[{DateTime.Now.ToString("HH:mm:ss")}] [#{i} of {MaxRetries}] retry request {request.RequestUri}");
+                    Debug.WriteLine($"[#{i} of {MaxRetries}] retry request {request.RequestUri} - Error: {ex}");
                     if (i < MaxRetries)
                     {
-                        await Task.Delay(1000);
+                        await Task.Delay(1000, cancellationToken);
                         continue;
                     }
                     throw;
