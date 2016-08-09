@@ -1,36 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using PokemonGo.RocketAPI;
 using PokemonGo.RocketAPI.Extensions;
 
 namespace PokemonGo.RocketAPI.Window
 {
     public class LocationManager
     {
-        private Client client;
-        private double metersPerMillisecond;
+        private readonly Client _client;
+        private readonly double _metersPerMillisecond;
 
         public LocationManager(Client client, double speed)
         {
-            this.client = client;
-            this.metersPerMillisecond = speed / 3600;
+            this._client = client;
+            _metersPerMillisecond = speed/3600;
         }
 
-        public double getDistance(double lat, double lng)
+        public double GetDistance(double lat, double lng)
         {
-            LatLong currentLoc = new LatLong(client.CurrentLatitude, client.CurrentLongitude);
+            var currentLoc = new LatLong(_client.CurrentLatitude, _client.CurrentLongitude);
             return currentLoc.distanceFrom(new LatLong(lat, lng));
         }
 
-        public async Task update(double lat, double lng)
+        public async Task Update(double lat, double lng)
         {
-            double waitTime = getDistance(lat, lng) / this.metersPerMillisecond;
-            await Task.Delay((int)Math.Ceiling(waitTime));
-            await client.Player.UpdatePlayerLocation(lat, lng);
+            var waitTime = GetDistance(lat, lng)/_metersPerMillisecond;
+            await Task.Delay((int) Math.Ceiling(waitTime));
+            await _client.Player.UpdatePlayerLocation(lat, lng);
         }
     }
-
 }

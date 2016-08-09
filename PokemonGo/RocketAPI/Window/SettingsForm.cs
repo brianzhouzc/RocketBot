@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using GMap.NET.MapProviders;
-using GMap.NET;
 using System.Configuration;
+using System.Drawing;
 using System.Globalization;
+using System.Windows.Forms;
+using GMap.NET;
+using GMap.NET.MapProviders;
 
 namespace PokemonGo.RocketAPI.Window
 {
-    partial class SettingsForm : Form
+    internal partial class SettingsForm : Form
     {
         public SettingsForm()
         {
@@ -22,28 +17,28 @@ namespace PokemonGo.RocketAPI.Window
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
-
             authTypeCb.Text = Settings.Instance.AuthType.ToString();
             if (authTypeCb.Text == "google")
             {
-                UserLoginBox.Text = Settings.Instance.GoogleUsername.ToString();
-                UserPasswordBox.Text = Settings.Instance.GooglePassword.ToString();
-            } else
+                UserLoginBox.Text = Settings.Instance.GoogleUsername;
+                UserPasswordBox.Text = Settings.Instance.GooglePassword;
+            }
+            else
             {
-                UserLoginBox.Text = Settings.Instance.PtcUsername.ToString();
-                UserPasswordBox.Text = Settings.Instance.PtcPassword.ToString();
+                UserLoginBox.Text = Settings.Instance.PtcUsername;
+                UserPasswordBox.Text = Settings.Instance.PtcPassword;
             }
             latitudeText.Text = Settings.Instance.DefaultLatitude.ToString();
             longitudeText.Text = Settings.Instance.DefaultLongitude.ToString();
             razzmodeCb.Text = Settings.Instance.RazzBerryMode;
             razzSettingText.Text = Settings.Instance.RazzBerrySetting.ToString();
             transferTypeCb.Text = Settings.Instance.TransferType;
-            transferCpThresText.Text = Settings.Instance.TransferCPThreshold.ToString();
-            transferIVThresText.Text = Settings.Instance.TransferIVThreshold.ToString();
+            transferCpThresText.Text = Settings.Instance.TransferCpThreshold.ToString();
+            transferIVThresText.Text = Settings.Instance.TransferIvThreshold.ToString();
             evolveAllChk.Checked = Settings.Instance.EvolveAllGivenPokemons;
             CatchPokemonBox.Checked = Settings.Instance.CatchPokemon;
             TravelSpeedBox.Text = Settings.Instance.TravelSpeed.ToString();
-           // ImageSizeBox.Text = Settings.Instance.ImageSize.ToString();
+            // ImageSizeBox.Text = Settings.Instance.ImageSize.ToString();
             // Initialize map:
             //use google provider
             gMapControl1.MapProvider = GoogleMapProvider.Instance;
@@ -52,12 +47,12 @@ namespace PokemonGo.RocketAPI.Window
             //not use proxy
             GMapProvider.WebProxy = null;
             //center map on moscow
-            string lat = ConfigurationManager.AppSettings["DefaultLatitude"];
-            string longit = ConfigurationManager.AppSettings["DefaultLongitude"];
+            var lat = ConfigurationManager.AppSettings["DefaultLatitude"];
+            var longit = ConfigurationManager.AppSettings["DefaultLongitude"];
             lat.Replace(',', '.');
             longit.Replace(',', '.');
-            gMapControl1.Position = new PointLatLng(double.Parse(lat.Replace(",", "."), CultureInfo.InvariantCulture), double.Parse(longit.Replace(",", "."), CultureInfo.InvariantCulture));
-
+            gMapControl1.Position = new PointLatLng(double.Parse(lat.Replace(",", "."), CultureInfo.InvariantCulture),
+                double.Parse(longit.Replace(",", "."), CultureInfo.InvariantCulture));
 
 
             //zoom min/max; default both = 2
@@ -82,7 +77,8 @@ namespace PokemonGo.RocketAPI.Window
             {
                 Settings.Instance.SetSetting(UserLoginBox.Text, "GoogleUsername");
                 Settings.Instance.SetSetting(UserPasswordBox.Text, "GooglePassword");
-            } else
+            }
+            else
             {
                 Settings.Instance.SetSetting(UserLoginBox.Text, "PtcUsername");
                 Settings.Instance.SetSetting(UserPasswordBox.Text, "PtcPassword");
@@ -90,8 +86,8 @@ namespace PokemonGo.RocketAPI.Window
             Settings.Instance.SetSetting(latitudeText.Text.Replace(',', '.'), "DefaultLatitude");
             Settings.Instance.SetSetting(longitudeText.Text.Replace(',', '.'), "DefaultLongitude");
 
-            string lat = ConfigurationManager.AppSettings["DefaultLatitude"];
-            string longit = ConfigurationManager.AppSettings["DefaultLongitude"];
+            var lat = ConfigurationManager.AppSettings["DefaultLatitude"];
+            var longit = ConfigurationManager.AppSettings["DefaultLongitude"];
             lat.Replace(',', '.');
             longit.Replace(',', '.');
 
@@ -125,7 +121,7 @@ namespace PokemonGo.RocketAPI.Window
 
         private void gMapControl1_MouseClick(object sender, MouseEventArgs e)
         {
-            Point localCoordinates = e.Location;
+            var localCoordinates = e.Location;
             gMapControl1.Position = gMapControl1.FromLocalToLatLng(localCoordinates.X, localCoordinates.Y);
 
             if (e.Clicks >= 2)
@@ -133,10 +129,10 @@ namespace PokemonGo.RocketAPI.Window
                 gMapControl1.Zoom += 5;
             }
 
-            double X = Math.Round(gMapControl1.Position.Lng, 6);
-            double Y = Math.Round(gMapControl1.Position.Lat, 6);
-            string longitude = X.ToString();
-            string latitude = Y.ToString();
+            var X = Math.Round(gMapControl1.Position.Lng, 6);
+            var Y = Math.Round(gMapControl1.Position.Lat, 6);
+            var longitude = X.ToString();
+            var latitude = Y.ToString();
             latitudeText.Text = latitude;
             longitudeText.Text = longitude;
         }
@@ -154,17 +150,14 @@ namespace PokemonGo.RocketAPI.Window
 
         private void authTypeLabel_Click(object sender, EventArgs e)
         {
-
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void label6_Click(object sender, EventArgs e)
         {
-
         }
 
         private void transferCpThresText_TextChanged(object sender, EventArgs e)
@@ -182,7 +175,6 @@ namespace PokemonGo.RocketAPI.Window
             {
                 label4.Visible = false;
                 transferCpThresText.Visible = false;
-
             }
 
             if (transferTypeCb.Text == "IV")
@@ -194,62 +186,53 @@ namespace PokemonGo.RocketAPI.Window
             {
                 label6.Visible = false;
                 transferIVThresText.Visible = false;
-
             }
-
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void gMapControl1_Load(object sender, EventArgs e)
         {
-
         }
 
         private void FindAdressButton_Click_1(object sender, EventArgs e)
         {
             gMapControl1.SetPositionByKeywords(AdressBox.Text);
             gMapControl1.Zoom = 15;
-            double X = Math.Round(gMapControl1.Position.Lng, 6);
-            double Y = Math.Round(gMapControl1.Position.Lat, 6);
-            string longitude = X.ToString();
-            string latitude = Y.ToString();
+            var X = Math.Round(gMapControl1.Position.Lng, 6);
+            var Y = Math.Round(gMapControl1.Position.Lat, 6);
+            var longitude = X.ToString();
+            var latitude = Y.ToString();
             latitudeText.Text = latitude;
             longitudeText.Text = longitude;
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-
         }
 
         private void label3_Click(object sender, EventArgs e)
         {
-
         }
 
         private void evolveAllChk_CheckedChanged(object sender, EventArgs e)
         {
-
         }
 
         private void label7_Click(object sender, EventArgs e)
         {
-
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-
         }
 
         private void TravelSpeedBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            char ch = e.KeyChar;
-            if (!Char.IsDigit(ch) && ch != 8)
+            var ch = e.KeyChar;
+            if (!char.IsDigit(ch) && ch != 8)
             {
                 e.Handled = true;
             }
@@ -257,8 +240,8 @@ namespace PokemonGo.RocketAPI.Window
 
         private void razzSettingText_KeyPress(object sender, KeyPressEventArgs e)
         {
-            char ch = e.KeyChar;
-            if (!Char.IsDigit(ch) && ch != 8)
+            var ch = e.KeyChar;
+            if (!char.IsDigit(ch) && ch != 8)
             {
                 e.Handled = true;
             }
@@ -282,9 +265,6 @@ namespace PokemonGo.RocketAPI.Window
             }
         }
 
-        private void AdressBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }
