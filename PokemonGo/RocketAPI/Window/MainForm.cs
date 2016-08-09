@@ -7,7 +7,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -31,6 +30,7 @@ using POGOProtos.Data;
 using POGOProtos.Networking.Responses;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Enums;
+using static System.Reflection.Assembly;
 
 namespace PokemonGo.RocketAPI.Window
 {
@@ -56,6 +56,15 @@ namespace PokemonGo.RocketAPI.Window
             ClientSettings = Settings.Instance;
             //Client.OnConsoleWrite += Client_OnConsoleWrite;
             Instance = this;
+
+            Text = "RocketBot v" + GetExecutingAssembly().GetName().Version;
+            CenterToScreen();
+        }
+
+        public sealed override string Text
+        {
+            get { return base.Text; }
+            set { base.Text = value; }
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -143,7 +152,7 @@ namespace PokemonGo.RocketAPI.Window
                             match.Groups[3],
                             match.Groups[4]));
                 // makes sense to display your version and say what the current one is on github
-                ColoredConsoleWrite(Color.Green, "Your version is " + Assembly.GetExecutingAssembly().GetName().Version);
+                ColoredConsoleWrite(Color.Green, "Your version is " + GetExecutingAssembly().GetName().Version);
                 ColoredConsoleWrite(Color.Green, "Github version is " + gitVersion);
                 ColoredConsoleWrite(Color.Green, "You can find it at www.GitHub.com/1461748123/Pokemon-Go-Rocket-API/releases");
             }
