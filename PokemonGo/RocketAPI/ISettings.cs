@@ -1,37 +1,30 @@
-#region
-
-using PokemonGo.RocketAPI.Enums;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-
-#endregion
+﻿using PokemonGo.RocketAPI.Enums;
 
 namespace PokemonGo.RocketAPI
 {
     public interface ISettings
     {
-        AuthType AuthType { get; }
+        AuthType AuthType { get; set; }
         double DefaultLatitude { get; set; }
         double DefaultLongitude { get; set; }
-        string LevelOutput { get; }
-        int LevelTimeInterval { get; }
+        double DefaultAltitude { get; set; }
         string GoogleRefreshToken { get; set; }
-        string PtcPassword { get; }
-        string PtcUsername { get; }
-        string Email { get; }		
-        string Password { get; }
-        bool EvolveAllGivenPokemons { get; }
-        string TransferType { get; }
-        int TransferCPThreshold { get; }
-        int TransferIVThreshold { get; }
-        int TravelSpeed { get; }
-        int ImageSize { get; }
-        bool Recycler { get; }
-        ICollection<KeyValuePair<AllEnum.ItemId, int>> ItemRecycleFilter { get; }
-        int RecycleItemsInterval { get; }
-        string Language { get; }
-        string RazzBerryMode { get; }
-        double RazzBerrySetting { get; }
-        bool CatchPokemon { get; }
+        string PtcPassword { get; set; }
+        string PtcUsername { get; set; }
+        string GoogleUsername { get; set; }
+        string GooglePassword { get; set; }
+        string DeviceId { get; set; }
+        string AndroidBoardName { get; set; }
+        string AndroidBootloader { get; set; }
+        string DeviceBrand { get; set; }
+        string DeviceModel { get; set; }
+        string DeviceModelIdentifier { get; set; }
+        string DeviceModelBoot { get; set; }
+        string HardwareManufacturer { get; set; }
+        string HardwareModel { get; set; }
+        string FirmwareBrand { get; set; }
+        string FirmwareTags { get; set; }
+        string FirmwareType { get; set; }
+        string FirmwareFingerprint { get; set; }
     }
 }

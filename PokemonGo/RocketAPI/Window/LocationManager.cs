@@ -29,7 +29,7 @@ namespace PokemonGo.RocketAPI.Window
         {
             double waitTime = getDistance(lat, lng) / this.metersPerMillisecond;
             await Task.Delay((int)Math.Ceiling(waitTime));
-            await client.UpdatePlayerLocation(lat, lng);
+            await client.Player.UpdatePlayerLocation(lat, lng);
         }
     }
 

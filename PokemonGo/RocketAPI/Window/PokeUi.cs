@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PokemonGo.RocketAPI.Enums;
-using PokemonGo.RocketAPI.GeneratedCode;
 using System.Net;
 using System.IO;
+using POGOProtos.Data;
 
 namespace PokemonGo.RocketAPI.Window
 {
@@ -34,25 +34,24 @@ namespace PokemonGo.RocketAPI.Window
         {
             EnabledButton(false);
 
-            client = new Client(ClientSettings);
+            client = new Client(ClientSettings, new ApiFailureStrategy());
 
             try
             {
 
-                await client.Login();
+                await client.Login.DoLogin();
 
-                await client.SetServer();
-                var profile = await client.GetProfile();
-                var inventory = await client.GetInventory();
+                var profile = await client.Player.GetPlayer();
+                var inventory = await client.Inventory.GetInventory();
                 var pokemons =
                     inventory.InventoryDelta.InventoryItems
-                    .Select(i => i.InventoryItemData?.Pokemon)
+                    .Select(i => i.InventoryItemData?.PokemonData)
                         .Where(p => p != null && p?.PokemonId > 0)
                         .OrderByDescending(key => key.Cp);
                 var families = inventory.InventoryDelta.InventoryItems
-                    .Select(i => i.InventoryItemData?.PokemonFamily)
-                    .Where(p => p != null && (int)p?.FamilyId > 0)
-                    .OrderByDescending(p => (int)p.FamilyId);
+                    .Select(i => i.InventoryItemData?.Candy.FamilyId)
+                    .Where(p => p > 0)
+                    .OrderByDescending(p => p);
 
 
                 //listView1.ShowItemToolTips = true;
@@ -90,11 +89,10 @@ namespace PokemonGo.RocketAPI.Window
                     {
                         pokemonImage = GetPokemonImage((int)pokemon.PokemonId);
                     });
-
-                    var currentCandy = families
-                        .Where(i => (int)i.FamilyId <= (int)pokemon.PokemonId)
-                        .Select(f => f.Candy)
-                        .First();
+                    var inv = await client.Inventory.GetInventory();
+                    var templates = await client.Download.GetItemTemplates();
+                    var pokemonTemplate = templates.ItemTemplates.Select(i => i.PokemonSettings).Where(i => i.PokemonId == pokemon.PokemonId);
+                    var currentCandy = inv.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Candy).Where(i => i.FamilyId == pokemonTemplate.FirstOrDefault().FamilyId).FirstOrDefault().Candy_;
                     var currIv = Math.Round(Perfect(pokemon));
 
 
@@ -116,7 +114,7 @@ namespace PokemonGo.RocketAPI.Window
                     this.dataGridView1.Rows.Add(row);
                 }
 
-                this.Text = "PokeUi " + pokemons.Count<PokemonData>() + "/" + profile.Profile.PokeStorage;
+                this.Text = "PokeUi " + pokemons.Count<PokemonData>() + "/" + profile.PlayerData.MaxPokemonStorage;
                 EnabledButton(true);
 
             }
@@ -148,7 +146,7 @@ namespace PokemonGo.RocketAPI.Window
                 wc.DownloadFile("http://pokeapi.co/media/sprites/pokemon/" + pokemonId + ".png", @location);
             }
 
-            var imageSize = ClientSettings.ImageSize;
+            var imageSize = ((Settings)ClientSettings).ImageSize;
 
             if ((imageSize > 96) || (imageSize < 1)) // no bigger than orig size and no smaller than 1x1
                 imageSize = 50;
@@ -195,7 +193,7 @@ namespace PokemonGo.RocketAPI.Window
 
             if (MessageBox.Show(this, pokemon.PokemonId + " with " + pokemon.Cp + " CP thats " + Math.Round(Perfect(pokemon)) + "% perfect", "Are you sure you want to transfer?", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                var transfer = await client.TransferPokemon(pokemon.Id);
+                var transfer = await client.Inventory.TransferPokemon(pokemon.Id);
             }
             this.dataGridView1.Rows.Remove(this.dataGridView1.SelectedRows[0]);
         }
@@ -239,16 +237,16 @@ namespace PokemonGo.RocketAPI.Window
         {
             try
             {
-                var evolvePokemonResponse = await client.EvolvePokemon(pokemon.Id);
+                var evolvePokemonResponse = await client.Inventory.EvolvePokemon(pokemon.Id);
                 string message = "";
                 string caption = "";
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 DialogResult result;
 
-                if (evolvePokemonResponse.Result == 1)
+                if (evolvePokemonResponse.Result == POGOProtos.Networking.Responses.EvolvePokemonResponse.Types.Result.Success)
                 {
-                    message = $"{pokemon.PokemonId} successfully evolved into {evolvePokemonResponse.EvolvedPokemon.PokemonType}\n{evolvePokemonResponse.ExpAwarded} experience awarded\n{evolvePokemonResponse.CandyAwarded} candy awarded";
-                    caption = $"{pokemon.PokemonId} evolved into {evolvePokemonResponse.EvolvedPokemon.PokemonType}";
+                    message = $"{pokemon.PokemonId} successfully evolved into {evolvePokemonResponse.EvolvedPokemonData.PokemonId}\n{evolvePokemonResponse.ExperienceAwarded} experience awarded\n{evolvePokemonResponse.CandyAwarded} candy awarded";
+                    caption = $"{pokemon.PokemonId} evolved into {evolvePokemonResponse.EvolvedPokemonData.PokemonId}";
                 }
                 else
                 {
@@ -270,13 +268,13 @@ namespace PokemonGo.RocketAPI.Window
         {
             try
             {
-                var transferPokemonResponse = await client.TransferPokemon(pokemon.Id);
+                var transferPokemonResponse = await client.Inventory.TransferPokemon(pokemon.Id);
                 string message = "";
                 string caption = "";
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 DialogResult result;
 
-                if (transferPokemonResponse.Status == 1)
+                if (transferPokemonResponse.Result == POGOProtos.Networking.Responses.ReleasePokemonResponse.Types.Result.Success)
                 {
                     message = $"{pokemon.PokemonId} was transferred\n{transferPokemonResponse.CandyAwarded} candy awarded";
                     caption = $"{pokemon.PokemonId} transferred";
@@ -318,13 +316,13 @@ namespace PokemonGo.RocketAPI.Window
         {
             try
             {
-                var evolvePokemonResponse = await client.PowerUp(pokemon.Id);
+                var evolvePokemonResponse = await client.Inventory.UpgradePokemon(pokemon.Id);
                 string message = "";
                 string caption = "";
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 DialogResult result;
 
-                if (evolvePokemonResponse.Result == 1)
+                if (evolvePokemonResponse.Result == POGOProtos.Networking.Responses.UpgradePokemonResponse.Types.Result.Success)
                 {
                     message = $"{pokemon.PokemonId} successfully upgraded.";
                     caption = $"{pokemon.PokemonId} upgraded";

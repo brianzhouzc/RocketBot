@@ -1,20 +1,16 @@
-#region
-
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.InteropServices;
-
-#endregion
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("Pokemon Go Rocket API")]
+[assembly: AssemblyTitle("Pokémon Go Rocket API")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Pokemon Go Rocket API")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyProduct("PokemonGo.RocketAPI")]
+[assembly: AssemblyCopyright("Copyright © 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
