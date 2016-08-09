@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiFailureStrategy.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="LocationManager.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
