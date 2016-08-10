@@ -1336,47 +1336,6 @@ namespace PokemonGo.RocketAPI.Window
             // todo: add player stats later
         }
 
-        private async void useLuckyEggToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (_client != null)
-            {
-                if (
-                    MessageBox.Show($"Are you sure you want to use a lucky egg?", "Confirmation",
-                        MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    try
-                    {
-                        var myItems = await GetItems(_client);
-                        var LuckyEggs = myItems.Where(i => i.ItemId == ItemId.ItemLuckyEgg);
-                        var LuckyEgg = LuckyEggs.FirstOrDefault();
-                        if (LuckyEgg != null)
-                        {
-                            var useItemXpBoostRequest = await _client.Inventory.UseItemXpBoost();
-                            ColoredConsoleWrite(Color.Green, $"Using a Lucky Egg, we have {LuckyEgg.Count} left.");
-                            ColoredConsoleWrite(Color.Yellow, $"Lucky Egg Valid until: {DateTime.Now.AddMinutes(30)}");
-
-                            var stripItem = sender as ToolStripMenuItem;
-                            stripItem.Enabled = false;
-                            await Task.Delay(30000);
-                            stripItem.Enabled = true;
-                        }
-                        else
-                        {
-                            ColoredConsoleWrite(Color.Red, $"You don't have any Lucky Egg to use.");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        ColoredConsoleWrite(Color.Red, $"Unhandled exception in using lucky egg: {ex}");
-                    }
-                }
-            }
-            else
-            {
-                ColoredConsoleWrite(Color.Red, "Please start the bot before trying to use a lucky egg.");
-            }
-        }
-
         private async void forceUnbanToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (_client != null && _pokeStops != null)
@@ -1518,19 +1477,18 @@ namespace PokemonGo.RocketAPI.Window
                     item.Text = "Evolve Clean Up (Highest CP)";
                     item.Click += delegate { CleanUpEvolvePokemon(pokemonObject, "CP"); };
                     cmsPokemonList.Items.Add(item);
-                    /*
+                    
                     cmsPokemonList.Items.Add(separator);
 
                     item = new ToolStripMenuItem();
                     item.Text = "Rename";
                     item.Click += delegate (object obj, EventArgs args) {
-
                         using (var form = new NicknamePokemonForm(pokemonObject)) {
                             if (form.ShowDialog() == DialogResult.OK) {
                                 NicknamePokemon(pokemonObject, form.txtNickname.Text);
                             }
                         }
-                    };*/
+                    };
                     cmsPokemonList.Items.Add(item);
                 }
             };
@@ -1545,13 +1503,12 @@ namespace PokemonGo.RocketAPI.Window
         {
             btnRefresh.Enabled = state;
             olvPokemonList.Enabled = state;
-            //flpItems.Enabled = state;
+            flpItems.Enabled = state;
         }
 
         private async Task ReloadPokemonList()
         {
-            btnRefresh.Enabled = false;
-            olvPokemonList.Enabled = false;
+            SetState(false);
 
             try
             {
@@ -1600,6 +1557,25 @@ namespace PokemonGo.RocketAPI.Window
                         .Count();
                 lblPokemonList.Text = pokemoncount + eggcount + " / " + profile.PlayerData.MaxPokemonStorage + " (" +
                                       pokemoncount + " pokemon, " + eggcount + " eggs)";
+
+                var items =
+                    inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Item)
+                    .Where(i => i != null && i.Count > 0);
+                var itemscount =
+                    inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Item)
+                    .Where(i => i != null)
+                    .Sum(i => i.Count) + 1;
+
+                flpItems.Controls.Clear();
+                foreach (ItemData item in items) {
+                    ItemBox box = new ItemBox(item);
+                    box.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Bottom;
+                    box.ItemClick += ItemBox_ItemClick; ;
+                    flpItems.Controls.Add(box);
+                }
+
+                lblInventory.Text = itemscount + " / " + profile.PlayerData.MaxItemStorage;
+
             }
             catch (GoogleException ex)
             {
@@ -1619,8 +1595,47 @@ namespace PokemonGo.RocketAPI.Window
                 _client2 = null;
             }
 
-            btnRefresh.Enabled = true;
-            olvPokemonList.Enabled = true;
+            SetState(true);
+        }
+
+        private async void ItemBox_ItemClick(object sender, EventArgs e) {
+            ItemData item = (ItemData)sender;
+
+            using (var form = new ItemForm(item)) {
+                var result = form.ShowDialog();
+                if (result == DialogResult.OK) {
+                    SetState(false);
+                    if (item.ItemId == ItemId.ItemLuckyEgg) {
+                        if (!_botStarted) {
+                            ColoredConsoleWrite(Color.Red, $"Bot must be running first!");
+                            SetState(true);
+                            return;
+                        }
+
+                        var response = await _client.Inventory.UseItemXpBoost();
+                        if (response.Result == UseItemXpBoostResponse.Types.Result.Success) {
+                            ColoredConsoleWrite(Color.Green, $"Using a Lucky Egg");
+                            ColoredConsoleWrite(Color.Yellow, $"Lucky Egg Valid until: {DateTime.Now.AddMinutes(30)}");
+                        } else if (response.Result == UseItemXpBoostResponse.Types.Result.ErrorXpBoostAlreadyActive) {
+                            ColoredConsoleWrite(Color.Orange, $"A Lucky Egg is already active!");
+                        } else if (response.Result == UseItemXpBoostResponse.Types.Result.ErrorLocationUnset) {
+                            ColoredConsoleWrite(Color.Red, $"Bot must be running first!");
+                        } else {
+                            ColoredConsoleWrite(Color.Red, $"Failed using a Lucky Egg!");
+                        }
+                    } else if (item.ItemId == ItemId.ItemIncenseOrdinary) {
+
+                    } else {
+                        var response = await _client2.Inventory.RecycleItem(item.ItemId, Decimal.ToInt32(form.numCount.Value));
+                        if (response.Result == RecycleInventoryItemResponse.Types.Result.Success) {
+                            ColoredConsoleWrite(Color.DarkCyan, $"Recycled {Decimal.ToInt32(form.numCount.Value)}x {item.ItemId.ToString().Substring(4)}");
+                        } else {
+                            ColoredConsoleWrite(Color.Red, $"Unable to recycle {Decimal.ToInt32(form.numCount.Value)}x {item.ItemId.ToString().Substring(4)}");
+                        }
+                    }
+                    ReloadPokemonList();
+                }
+            }
         }
 
         private void PokemonListButton_Click(object sender, CellClickEventArgs e)
@@ -1820,9 +1835,6 @@ namespace PokemonGo.RocketAPI.Window
                 ColoredConsoleWrite(Color.DarkCyan, $"Recycled {item.Count}x {item.ItemId.ToString().Substring(4)}");
                 await Task.Delay(500);
             }
-
-            //await Task.Delay(ClientSettings.RecycleItemsInterval * 1000);
-            //RecycleItems(client);
         }
 
         public async Task UseRazzBerry(Client client, ulong encounterId, string spawnPointGuid)
@@ -1913,6 +1925,17 @@ namespace PokemonGo.RocketAPI.Window
             }
 
             return ItemId.ItemPokeBall;
+        }
+
+        public async void NicknamePokemon(PokemonObject pokemon, string nickname) {
+            SetState(false);
+            var response = await _client2.Inventory.NicknamePokemon(pokemon.Id, nickname);
+            if (response.Result == NicknamePokemonResponse.Types.Result.Success) {
+                ColoredConsoleWrite(Color.Green, $"Successfully renamed {pokemon.PokemonId.ToString()} to \"{nickname}|\"");
+            } else {
+                ColoredConsoleWrite(Color.Red, $"Failed renaming {pokemon.PokemonId.ToString()} to \"{nickname}|\"");
+            }
+            ReloadPokemonList();
         }
 
         private async void button1_Click(object sender, EventArgs e)
