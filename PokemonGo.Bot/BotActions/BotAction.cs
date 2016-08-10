@@ -1,12 +1,22 @@
-﻿using PokemonGo.Bot.ViewModels;
+﻿using GalaSoft.MvvmLight;
+using PokemonGo.Bot.Messages;
+using PokemonGo.Bot.ViewModels;
+using System;
 using System.Threading.Tasks;
 
 namespace PokemonGo.Bot.BotActions
 {
-    public abstract class BotAction
+    public abstract class BotAction : ViewModelBase
     {
         protected readonly BotViewModel bot;
-        public ActionState State { get; private set; }
+        ActionState state;
+        public ActionState State
+        {
+            get { return state; }
+            private set { if (State != value) { state = value; RaisePropertyChanged(); } }
+        }
+
+
         public string DisplayName { get; }
 
         protected BotAction(BotViewModel bot, string displayName)
@@ -18,8 +28,18 @@ namespace PokemonGo.Bot.BotActions
 
         public async Task StartAsync()
         {
-            await OnStartAsync();
             State = ActionState.Running;
+            while (true)
+            {
+                try
+                {
+                    await OnStartAsync();
+                }
+                catch (Exception e)
+                {
+                    MessengerInstance.Send(new Message("Error, restarting current Bot Action " + e));
+                }
+            }
         }
         protected virtual Task OnStartAsync() => Task.CompletedTask;
 
