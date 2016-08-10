@@ -62,6 +62,8 @@ namespace PokemonGo.RocketAPI.Window
             this.transferIVThresText = new System.Windows.Forms.TextBox();
             this.TravelSpeedText = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.transferNumThresText = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.panel1.SuspendLayout();
@@ -363,6 +365,8 @@ namespace PokemonGo.RocketAPI.Window
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.transferNumThresText);
+            this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.TravelSpeedBox);
             this.panel1.Controls.Add(this.CatchPokemonBox);
             this.panel1.Controls.Add(this.CatchPokemonText);
@@ -431,7 +435,7 @@ namespace PokemonGo.RocketAPI.Window
             // 
             // transferIVThresText
             // 
-            this.transferIVThresText.Location = new System.Drawing.Point(138, 254);
+            this.transferIVThresText.Location = new System.Drawing.Point(138, 253);
             this.transferIVThresText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.transferIVThresText.Name = "transferIVThresText";
             this.transferIVThresText.Size = new System.Drawing.Size(116, 21);
@@ -457,6 +461,23 @@ namespace PokemonGo.RocketAPI.Window
             this.label6.Text = "IV Threshold:";
             this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
+            // transferNumThresText
+            // 
+            this.transferNumThresText.Location = new System.Drawing.Point(138, 282);
+            this.transferNumThresText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.transferNumThresText.Name = "transferNumThresText";
+            this.transferNumThresText.Size = new System.Drawing.Size(116, 21);
+            this.transferNumThresText.TabIndex = 28;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(3, 283);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(113, 15);
+            this.label7.TabIndex = 27;
+            this.label7.Text = "Extra Num to Keep:";
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -469,7 +490,7 @@ namespace PokemonGo.RocketAPI.Window
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MinimumSize = new System.Drawing.Size(732, 408);
             this.Name = "SettingsForm";
-            this.Padding = new System.Windows.Forms.Padding(10, 10, 10, 10);
+            this.Padding = new System.Windows.Forms.Padding(10);
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Settings";
@@ -518,5 +539,7 @@ namespace PokemonGo.RocketAPI.Window
         private System.Windows.Forms.Button FindAdressButton;
         private System.Windows.Forms.CheckBox CatchPokemonBox;
         private System.Windows.Forms.Label CatchPokemonText;
+        private System.Windows.Forms.TextBox transferNumThresText;
+        private System.Windows.Forms.Label label7;
     }
 }

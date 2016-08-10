@@ -46,6 +46,9 @@ namespace PokemonGo.RocketAPI.Window
         public int TransferIvThreshold
             => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 0;
 
+        public int TransferNumThreshold
+            => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 1;
+
         public int TravelSpeed
             => GetSetting() != string.Empty ? int.Parse(GetSetting(), CultureInfo.InvariantCulture) : 60;
 
