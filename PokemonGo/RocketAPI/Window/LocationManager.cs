@@ -11,7 +11,7 @@ namespace PokemonGo.RocketAPI.Window
 
         public LocationManager(Client client, double speed)
         {
-            this._client = client;
+            _client = client;
             _metersPerMillisecond = speed/3600;
         }
 

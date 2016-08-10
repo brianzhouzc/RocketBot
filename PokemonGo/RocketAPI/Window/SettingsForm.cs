@@ -264,7 +264,5 @@ namespace PokemonGo.RocketAPI.Window
                 AdressBox.ForeColor = SystemColors.WindowText;
             }
         }
-
-        
     }
 }
