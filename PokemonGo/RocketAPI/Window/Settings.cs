@@ -94,7 +94,7 @@ namespace PokemonGo.RocketAPI.Window
             new KeyValuePair<ItemId, int>(ItemId.ItemMaxPotion, MaxItemMaxPotion)
         };
 
-        public int RecycleItemsInterval => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 60;
+        public int RecycleItemsInterval => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 0;
 
         public string Language => GetSetting() != string.Empty ? GetSetting() : "english";
 
