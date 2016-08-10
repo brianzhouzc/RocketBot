@@ -292,7 +292,9 @@ namespace PokemonGo.RocketAPI.Window
                         {
                             if (_botStarted)
                             {
-                                var stats = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PlayerStats).Where(i => i != null).ToArray();
+                                var inv = await _client.Inventory.GetInventory();
+                                var stats = inv.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PlayerStats).Where(i => i != null).ToArray();
+                                var player = await _client.Player.GetPlayer();
                                 short hoursLeft = 0;
                                 short minutesLeft = 0;
                                 var secondsLeft = 0;
@@ -325,10 +327,10 @@ namespace PokemonGo.RocketAPI.Window
 
                                     SetStatusText(
                                         string.Format(
-                                            profile.PlayerData.Username +
+                                            player.PlayerData.Username +
                                             " | Level: {0:0} - ({2:0} / {3:0}) | Runtime {1} | Stardust: {4:0}", v.Level,
                                             _getSessionRuntimeInTimeFormat(), v.Experience - v.PrevLevelXp - XpDiff,
-                                            v.NextLevelXp - v.PrevLevelXp - XpDiff, profile.PlayerData.Currencies.ToArray()[1].Amount) +
+                                            v.NextLevelXp - v.PrevLevelXp - XpDiff, player.PlayerData.Currencies.ToArray()[1].Amount) +
                                         " | XP/Hour: " + Math.Round(_totalExperience / GetRuntime()) + " | Pokemon/Hour: " +
                                         Math.Round(_totalPokemon / GetRuntime()) + " | NextLevel in: " + hoursLeft + ":" + minutesLeft +
                                         ":" + secondsLeft);
@@ -1112,9 +1114,11 @@ namespace PokemonGo.RocketAPI.Window
             return (DateTime.Now - InitSessionDateTime).ToString(@"dd\.hh\:mm\:ss");
         }
 
-        public async Task updateUserStatusBar(Client client, GetInventoryResponse inventory, GetPlayerResponse profile)
+        public async Task updateUserStatusBar(Client client)
         {
-            var stats = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PlayerStats).Where(i => i != null).ToArray();
+            var inv = await _client.Inventory.GetInventory();
+            var stats = inv.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PlayerStats).Where(i => i != null).ToArray();
+            var profile = await _client.Player.GetPlayer();
             short hoursLeft = 0;
             short minutesLeft = 0;
             var secondsLeft = 0;
