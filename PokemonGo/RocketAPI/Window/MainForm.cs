@@ -874,11 +874,40 @@ namespace PokemonGo.RocketAPI.Window
                     .OrderByDescending(p => p.Cp)
                     .ToList();
 
-                var unwantedPokemon =
-                    pokemonOfDesiredType.Skip(1) // keep the strongest one for potential battle-evolving
-                        .ToList();
-
-                await TransferAllGivenPokemons(client, unwantedPokemon);
+                float CPMargin = 0.2f;
+                var unwantedPokemon = new List<PokemonData>();
+                if (pokemonOfDesiredType.Count > 0)
+                {
+                    var highestCPPokemon = pokemonOfDesiredType[0];
+                    //loop other pokemon that has lower cp, keep those cp is inside the margin and > settting perfection
+                    foreach (var pokemon in pokemonOfDesiredType.Skip(1))
+                    {
+                        if (pokemon.Cp > highestCPPokemon.Cp * (1 + CPMargin))
+                        {
+                            if (Perfect(pokemon) < ClientSettings.TransferIvThreshold)
+                            {
+                                unwantedPokemon.Add(pokemon);
+                            }
+                        }
+                        else if (pokemon.Cp < highestCPPokemon.Cp * (1 - CPMargin))
+                        {
+                            unwantedPokemon.Add(pokemon);
+                        }
+                        else if (Perfect(pokemon) < ClientSettings.TransferIvThreshold)
+                        {
+                            unwantedPokemon.Add(pokemon);
+                        }
+                    }
+                    //transfer others if there are more than setting
+                    if (pokemonOfDesiredType.Count - unwantedPokemon.Count - 1 > ClientSettings.TransferNumThreshold)
+                    {
+                        var excludeList = new List<PokemonData> { highestCPPokemon };
+                        excludeList.AddRange(unwantedPokemon);
+                        unwantedPokemon.AddRange(pokemonOfDesiredType.Except(excludeList));
+                    }
+                }
+                //force it to ignore perfection setting
+                await TransferAllGivenPokemons(client, unwantedPokemon, 100);
             }
         }
 
@@ -925,7 +954,7 @@ namespace PokemonGo.RocketAPI.Window
                         pokemonName = Convert.ToString(pokemon.PokemonId);
                     if (transferPokemonResponse.Result == ReleasePokemonResponse.Types.Result.Success)
                     {
-                        ColoredConsoleWrite(Color.Magenta, $"Transferred {pokemonName} with {pokemon.Cp} CP");
+                        ColoredConsoleWrite(Color.Magenta, $"Transferred {pokemonName} with {pokemon.Cp} CP with {Math.Round(Perfect(pokemon))}% IV");
                     }
                     else
                     {
@@ -1103,7 +1132,7 @@ namespace PokemonGo.RocketAPI.Window
             else
 
                 await Task.Delay(ClientSettings.LevelTimeInterval * 1000);
-           // PrintLevel(client);
+            // PrintLevel(client);
         }
 
         // Pulled from NecronomiconCoding

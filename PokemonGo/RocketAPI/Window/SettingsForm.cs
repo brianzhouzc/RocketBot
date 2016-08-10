@@ -35,6 +35,7 @@ namespace PokemonGo.RocketAPI.Window
             transferTypeCb.Text = Settings.Instance.TransferType;
             transferCpThresText.Text = Settings.Instance.TransferCpThreshold.ToString();
             transferIVThresText.Text = Settings.Instance.TransferIvThreshold.ToString();
+            transferNumThresText.Text = Settings.Instance.TransferNumThreshold.ToString();
             evolveAllChk.Checked = Settings.Instance.EvolveAllGivenPokemons;
             CatchPokemonBox.Checked = Settings.Instance.CatchPokemon;
             TravelSpeedBox.Text = Settings.Instance.TravelSpeed.ToString();
@@ -97,6 +98,7 @@ namespace PokemonGo.RocketAPI.Window
             Settings.Instance.SetSetting(transferTypeCb.Text, "TransferType");
             Settings.Instance.SetSetting(transferCpThresText.Text, "TransferCPThreshold");
             Settings.Instance.SetSetting(transferIVThresText.Text, "TransferIVThreshold");
+            Settings.Instance.SetSetting(transferNumThresText.Text, "TransferNumThreshold");
             Settings.Instance.SetSetting(TravelSpeedBox.Text, "TravelSpeed");
             //Settings.Instance.SetSetting(ImageSizeBox.Text, "ImageSize");
             Settings.Instance.SetSetting(evolveAllChk.Checked ? "true" : "false", "EvolveAllGivenPokemons");
@@ -186,6 +188,21 @@ namespace PokemonGo.RocketAPI.Window
             {
                 label6.Visible = false;
                 transferIVThresText.Visible = false;
+            }
+
+            if (transferTypeCb.Text == "Leave Strongest")
+            {
+                label6.Visible = true;
+                transferIVThresText.Visible = true;
+                label7.Visible = true;
+                transferNumThresText.Visible = true;
+            }
+            else
+            {
+                label6.Visible = false;
+                transferIVThresText.Visible = false;
+                label7.Visible = false;
+                transferNumThresText.Visible = false;
             }
         }
 

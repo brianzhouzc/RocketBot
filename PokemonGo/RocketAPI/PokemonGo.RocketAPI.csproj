@@ -72,10 +72,6 @@
       <HintPath>$(SolutionDir)\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="POGOProtos, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\POGOProtos\bin\Debug\POGOProtos.dll</HintPath>
-    </Reference>
     <Reference Include="S2Geometry, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\S2Geometry.1.0.1\lib\portable-net45+wp8+win8\S2Geometry.dll</HintPath>
       <Private>True</Private>
@@ -153,6 +149,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\POGOProtos\POGOProtos.csproj">
+      <Project>{a03a7bb2-4f0b-467b-84b2-9a76e6aae6fb}</Project>
+      <Name>POGOProtos</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
