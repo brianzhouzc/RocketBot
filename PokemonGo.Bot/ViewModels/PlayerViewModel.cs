@@ -114,15 +114,24 @@ namespace PokemonGo.Bot.ViewModels
             var targetTime = startTime.AddMilliseconds(waitTime);
             var targetVector = newPosition - Position;
             var startPosition = Position;
-            while(DateTime.Now < targetTime)
+            var lastUpdateTime = startTime;
+            var now = startTime;
+            while(now < targetTime)
             {
-                var msTraveled = (DateTime.Now - startTime).TotalMilliseconds;
+                var msTraveled = (now - startTime).TotalMilliseconds;
                 var currentPosition = startPosition + (targetVector * (msTraveled / waitTime));
                 Position = currentPosition;
-                await Task.Delay(100);
+
+                // update the position on the server every 10 seconds while walking.
+                if ((now - lastUpdateTime).TotalSeconds >= 10)
+                    await Task.WhenAll(Task.Delay(100), map.SetPosition.ExecuteAsync(Position));
+                else
+                    await Task.Delay(100);
+
+                now = DateTime.Now;
             }
-            await map.SetPosition.ExecuteAsync(newPosition);
             Position = newPosition;
+            await map.SetPosition.ExecuteAsync(Position);
         }
 
         public PlayerViewModel(Client client, InventoryViewModel inventory, MapViewModel map, Settings settings)

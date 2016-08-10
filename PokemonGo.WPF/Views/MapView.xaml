@@ -31,13 +31,19 @@
             <m:Pushpin Location="{Binding Position, Converter={StaticResource positionToLocationConverter}}">
                 <m:Pushpin.Template>
                     <ControlTemplate>
-                        <Image Source="{Binding Converter={StaticResource pokestopToImagePathConverter}}"/>
+                        <Image>
+                            <Image.Source>
+                                <MultiBinding Converter="{StaticResource pokestopToImagePathConverter}">
+                                    <Binding Path="IsActive"/>
+                                    <Binding Path="IsNear"/>
+                                </MultiBinding>
+                            </Image.Source>
+                        </Image>
                     </ControlTemplate>
                 </m:Pushpin.Template>
                 <m:Pushpin.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Farm" Command="{Binding Search}"/>
-                        <MenuItem Header="Move here" Command="{Binding Player.Move}" CommandParameter="{Binding Map.LastClickedPosition}" />
                     </ContextMenu>
                 </m:Pushpin.ContextMenu>
             </m:Pushpin>
@@ -61,7 +67,6 @@
                 <m:Pushpin.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Catch" Command="{Binding Catch}"/>
-                        <MenuItem Header="Move here" Command="{Binding Player.Move}" CommandParameter="{Binding Map.LastClickedPosition}" />
                     </ContextMenu>
                 </m:Pushpin.ContextMenu>
             </m:Pushpin>

@@ -18,6 +18,13 @@ namespace PokemonGo.Bot.ViewModels
             set { if (IsActive != value) { isActive = value; RaisePropertyChanged(); } }
         }
 
+        bool isNear;
+        public bool IsNear
+        {
+            get { return isNear; }
+            set { if (IsNear != value) { isNear = value; RaisePropertyChanged(); } }
+        }
+
         public AsyncRelayCommand Search { get; }
 
         DispatcherTimer isActiveTimer;
@@ -29,6 +36,8 @@ namespace PokemonGo.Bot.ViewModels
         {
             this.player = player;
             InitializeTimer(fort.CooldownCompleteTimestampMs);
+            CalculateIsNear();
+            player.PropertyChanged += Player_PropertyChanged;
 
             Search = new AsyncRelayCommand(async () =>
             {
@@ -59,6 +68,24 @@ namespace PokemonGo.Bot.ViewModels
             });
         }
 
+        ~PokestopViewModel()
+        {
+            player.PropertyChanged -= Player_PropertyChanged;
+        }
+
+        void Player_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(player.Position))
+            {
+                CalculateIsNear();
+            }
+        }
+
+        void CalculateIsNear()
+        {
+            IsNear = player.Position.DistanceTo(Position) <= 10;
+        }
+
         void InitializeTimer(long cooldownComplete)
         {
             cooldownCompleteTimestampMs = cooldownComplete;
@@ -83,7 +110,7 @@ namespace PokemonGo.Bot.ViewModels
 
         void IsActiveTimer_Tick(object sender, System.EventArgs e)
         {
-            if (cooldownCompleteTimestampMs >= DateTime.UtcNow.ToUnixTime())
+            if (cooldownCompleteTimestampMs <= DateTime.UtcNow.ToUnixTime())
             {
                 isActiveTimer.Tick -= IsActiveTimer_Tick;
                 IsActive = true;

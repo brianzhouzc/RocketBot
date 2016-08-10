@@ -13,10 +13,10 @@ namespace PokemonGo.Bot.BotActions
 {
     public class FarmingAction : BotAction
     {
-        private readonly Settings settings;
-        private readonly Client client;
-        private bool shouldStop;
-        private IEnumerable<PokestopViewModel> route;
+        readonly Settings settings;
+        readonly Client client;
+        bool shouldStop;
+        IEnumerable<PokestopViewModel> route;
 
         public FarmingAction(BotViewModel bot, Client client, Settings settings) : base(bot, "Farm")
         {
@@ -34,7 +34,7 @@ namespace PokemonGo.Bot.BotActions
             ExecuteAsync();
         }
 
-        private async Task CalculateRouteAsync()
+        async Task CalculateRouteAsync()
         {
             await bot.Map.GetMapObjects.ExecuteAsync();
             var pokestopsNotOnCooldown = bot.Map.Pokestops.Where(p => p.IsActive);
@@ -47,7 +47,7 @@ namespace PokemonGo.Bot.BotActions
             return Task.CompletedTask;
         }
 
-        private async Task ExecuteAsync()
+        async Task ExecuteAsync()
         {
             var enumerator = route.GetEnumerator();
             if (!enumerator.MoveNext())
@@ -71,12 +71,13 @@ namespace PokemonGo.Bot.BotActions
             }
         }
 
-        private async Task TransferUnwantedPokemonAsync()
+        async Task TransferUnwantedPokemonAsync()
         {
+            await bot.Player.Inventory.Load.ExecuteAsync();
             await new TransferPokemonWithAlgorithmAction(bot).StartAsync();
         }
 
-        private async Task CatchNearbyPokemonAsync()
+        async Task CatchNearbyPokemonAsync()
         {
             foreach(var pokemon in bot.Map.CatchablePokemon)
             {
@@ -85,7 +86,10 @@ namespace PokemonGo.Bot.BotActions
             }
         }
 
-        private async Task FarmPokestopAsync(PokestopViewModel currentPokeStop)
+        Task TransferPokemonWhileMoving(PokestopViewModel targetPokestop)
+            => Task.WhenAll(bot.Player.Move.ExecuteAsync(targetPokestop.Position), TransferUnwantedPokemonAsync());
+
+        async Task FarmPokestopAsync(PokestopViewModel currentPokeStop)
         {
             await bot.Player.Move.ExecuteAsync(currentPokeStop.Position);
             var fortInfo = await client.Fort.GetFort(currentPokeStop.Id, currentPokeStop.Position.Latitude, currentPokeStop.Position.Longitude);
