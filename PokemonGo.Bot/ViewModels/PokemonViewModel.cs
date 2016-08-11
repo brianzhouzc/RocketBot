@@ -12,9 +12,15 @@ namespace PokemonGo.Bot.ViewModels
         {
             Id = id;
             PokemonId = (int)pokemonId;
+
+            var familyId = PokemonId;
+            while (familyId > 0 && !Enum.IsDefined(typeof(PokemonFamilyId), familyId))
+                familyId--;
+            FamilyId = familyId;
         }
 
         public int PokemonId { get; }
+        public int FamilyId { get; }
         public virtual string Name => Enum.GetName(typeof(PokemonId), PokemonId);
 
         public override bool Equals(object obj) => Equals(obj as PokemonViewModel);

@@ -17,6 +17,13 @@ namespace PokemonGo.Bot.ViewModels
 
         public AsyncRelayCommand Transfer { get; }
 
+        int candy;
+        public int Candy
+        {
+            get { return candy; }
+            set { if (Candy != value) { candy = value; RaisePropertyChanged(); } }
+        }
+
         public CaughtPokemonViewModel(PokemonData pokemon, Client client, InventoryViewModel inventory) : base(pokemon)
         {
             if (Id == 0)

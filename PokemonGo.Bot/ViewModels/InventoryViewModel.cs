@@ -63,6 +63,15 @@ namespace PokemonGo.Bot.ViewModels
                     Pokemon.UpdateWith(Inventory?.InventoryItems.Select(i => i.InventoryItemData?.PokemonData).Where(p => p?.PokemonId > 0).Select(p => new CaughtPokemonViewModel(p, client, this)));
                     Eggs.UpdateWith(Inventory?.InventoryItems.Select(i => i.InventoryItemData?.PokemonData).Where(p => (p?.IsEgg).GetValueOrDefault()).Select(p => new EggViewModel(p)));
                     Items.UpdateWith(Inventory?.InventoryItems.Select(i => i.InventoryItemData?.Item).Where(i => i != null).Select(i => new ItemViewModel(i)));
+                    foreach (var candy in Inventory?.InventoryItems.Select(i => i.InventoryItemData?.Candy).Where(c => c != null))
+                    {
+                        var familyId = (int)candy.FamilyId;
+                        var pokemonForCandy = Pokemon.Where(p => p.FamilyId == familyId);
+                        foreach (var pokemonWithCorrectFamily in pokemonForCandy)
+                        {
+                            pokemonWithCorrectFamily.Candy = candy.Candy_;
+                        }
+                    }
                     UpdatePlayer(value);
                 }
             }
