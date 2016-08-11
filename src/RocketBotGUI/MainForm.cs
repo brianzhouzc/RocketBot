@@ -1982,5 +1982,11 @@ namespace PokemonGo.RocketAPI.Window
         }
 
         #endregion
+
+        private void deviceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var deviceFrom = new DeviceForm();
+            deviceFrom.ShowDialog();
+        }
     }
 }
