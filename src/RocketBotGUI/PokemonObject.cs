@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using PokemonGo.RocketAPI.Helpers;
 using POGOProtos.Data;
 using POGOProtos.Enums;
 using POGOProtos.Networking.Responses;
-using System;
 
 namespace PokemonGo.RocketAPI.Window
 {
@@ -51,7 +51,7 @@ namespace PokemonGo.RocketAPI.Window
 
         public double GetIV
         {
-            get { return Math.Round(PokemonInfo.CalculatePokemonPerfection(PokemonData),2); }
+            get { return Math.Round(PokemonInfo.CalculatePokemonPerfection(PokemonData), 2); }
         }
 
         public double GetLv

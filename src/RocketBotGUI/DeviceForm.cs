@@ -7,9 +7,10 @@ namespace PokemonGo.RocketAPI.Window
 {
     public partial class DeviceForm : Form
     {
-        private List<DeviceInfo> _deviceInfos;
         private DeviceHelper _deviceHelper;
-        private bool _doNotPopulate = false;
+        private List<DeviceInfo> _deviceInfos;
+        private bool _doNotPopulate;
+
         public DeviceForm()
         {
             InitializeComponent();
@@ -26,21 +27,21 @@ namespace PokemonGo.RocketAPI.Window
             }
             else
             {
-                this.DeviceIdTb.Text = Settings.Instance.DeviceId;
-                this.AndroidBoardNameTb.Text = Settings.Instance.AndroidBoardName;
-                this.AndroidBootloaderTb.Text = Settings.Instance.AndroidBootloader;
-                this.DeviceBrandTb.Text = Settings.Instance.DeviceBrand;
-                this.DeviceModelTb.Text = Settings.Instance.DeviceModel;
-                this.DeviceModelIdentifierTb.Text = Settings.Instance.DeviceModelIdentifier;
-                this.DeviceModelBootTb.Text = Settings.Instance.DeviceModelBoot;
-                this.HardwareManufacturerTb.Text = Settings.Instance.HardwareManufacturer;
-                this.HardwareModelTb.Text = Settings.Instance.HardwareModel;
-                this.FirmwareBrandTb.Text = Settings.Instance.FirmwareBrand;
-                this.FirmwareTagsTb.Text = Settings.Instance.FirmwareTags;
-                this.FirmwareTypeTb.Text = Settings.Instance.FirmwareType;
-                this.FirmwareFingerprintTb.Text = Settings.Instance.FirmwareFingerprint;
+                DeviceIdTb.Text = Settings.Instance.DeviceId;
+                AndroidBoardNameTb.Text = Settings.Instance.AndroidBoardName;
+                AndroidBootloaderTb.Text = Settings.Instance.AndroidBootloader;
+                DeviceBrandTb.Text = Settings.Instance.DeviceBrand;
+                DeviceModelTb.Text = Settings.Instance.DeviceModel;
+                DeviceModelIdentifierTb.Text = Settings.Instance.DeviceModelIdentifier;
+                DeviceModelBootTb.Text = Settings.Instance.DeviceModelBoot;
+                HardwareManufacturerTb.Text = Settings.Instance.HardwareManufacturer;
+                HardwareModelTb.Text = Settings.Instance.HardwareModel;
+                FirmwareBrandTb.Text = Settings.Instance.FirmwareBrand;
+                FirmwareTagsTb.Text = Settings.Instance.FirmwareTags;
+                FirmwareTypeTb.Text = Settings.Instance.FirmwareType;
+                FirmwareFingerprintTb.Text = Settings.Instance.FirmwareFingerprint;
                 _doNotPopulate = true;
-                this.deviceTypeCb.SelectedIndex = Settings.Instance.DeviceBrand.ToLower() == "apple" ? 0 : 1;
+                deviceTypeCb.SelectedIndex = Settings.Instance.DeviceBrand.ToLower() == "apple" ? 0 : 1;
                 _doNotPopulate = false;
             }
         }
@@ -52,7 +53,7 @@ namespace PokemonGo.RocketAPI.Window
 
         private void SaveBtn_Click(object sender, EventArgs e)
         {
-            if (this.DeviceIdTb.Text == "8525f6d8251f71b7")
+            if (DeviceIdTb.Text == "8525f6d8251f71b7")
             {
                 PopulateDevice();
             }
@@ -60,7 +61,7 @@ namespace PokemonGo.RocketAPI.Window
             {
                 SaveToSetting();
             }
-            this.Close();
+            Close();
         }
 
         private void deviceTypeCb_SelectedIndexChanged(object sender, EventArgs e)
@@ -70,7 +71,7 @@ namespace PokemonGo.RocketAPI.Window
 
         private void RandomIDBtn_Click(object sender, EventArgs e)
         {
-            this.DeviceIdTb.Text = _deviceHelper.RandomString(16, "0123456789abcdef");
+            DeviceIdTb.Text = _deviceHelper.RandomString(16, "0123456789abcdef");
         }
 
         private void PopulateDevice()
@@ -79,39 +80,43 @@ namespace PokemonGo.RocketAPI.Window
             {
                 return;
             }
-            var candidateDevices = deviceTypeCb.SelectedIndex == 0 ? _deviceInfos.Where(d => d.DeviceBrand.ToLower() == "apple").ToList() : _deviceInfos.Where(d => d.DeviceBrand.ToLower() != "apple").ToList();
-            int selectIndex = _deviceHelper.GetRandomIndex(candidateDevices.Count);
+            var candidateDevices = deviceTypeCb.SelectedIndex == 0
+                ? _deviceInfos.Where(d => d.DeviceBrand.ToLower() == "apple").ToList()
+                : _deviceInfos.Where(d => d.DeviceBrand.ToLower() != "apple").ToList();
+            var selectIndex = _deviceHelper.GetRandomIndex(candidateDevices.Count);
 
-            this.DeviceIdTb.Text = _deviceInfos[selectIndex].DeviceId == "8525f6d8251f71b7" ? _deviceHelper.RandomString(16, "0123456789abcdef") : _deviceInfos[selectIndex].DeviceId;
-            this.AndroidBoardNameTb.Text = _deviceInfos[selectIndex].AndroidBoardName;
-            this.AndroidBootloaderTb.Text = _deviceInfos[selectIndex].AndroidBootloader;
-            this.DeviceBrandTb.Text = _deviceInfos[selectIndex].DeviceBrand;
-            this.DeviceModelTb.Text = _deviceInfos[selectIndex].DeviceModel;
-            this.DeviceModelIdentifierTb.Text = _deviceInfos[selectIndex].DeviceModelIdentifier;
-            this.DeviceModelBootTb.Text = _deviceInfos[selectIndex].DeviceModelBoot;
-            this.HardwareManufacturerTb.Text = _deviceInfos[selectIndex].HardwareManufacturer;
-            this.HardwareModelTb.Text = _deviceInfos[selectIndex].HardwareModel;
-            this.FirmwareBrandTb.Text = _deviceInfos[selectIndex].FirmwareBrand;
-            this.FirmwareTagsTb.Text = _deviceInfos[selectIndex].FirmwareTags;
-            this.FirmwareTypeTb.Text = _deviceInfos[selectIndex].FirmwareType;
-            this.FirmwareFingerprintTb.Text = _deviceInfos[selectIndex].FirmwareFingerprint;
+            DeviceIdTb.Text = _deviceInfos[selectIndex].DeviceId == "8525f6d8251f71b7"
+                ? _deviceHelper.RandomString(16, "0123456789abcdef")
+                : _deviceInfos[selectIndex].DeviceId;
+            AndroidBoardNameTb.Text = _deviceInfos[selectIndex].AndroidBoardName;
+            AndroidBootloaderTb.Text = _deviceInfos[selectIndex].AndroidBootloader;
+            DeviceBrandTb.Text = _deviceInfos[selectIndex].DeviceBrand;
+            DeviceModelTb.Text = _deviceInfos[selectIndex].DeviceModel;
+            DeviceModelIdentifierTb.Text = _deviceInfos[selectIndex].DeviceModelIdentifier;
+            DeviceModelBootTb.Text = _deviceInfos[selectIndex].DeviceModelBoot;
+            HardwareManufacturerTb.Text = _deviceInfos[selectIndex].HardwareManufacturer;
+            HardwareModelTb.Text = _deviceInfos[selectIndex].HardwareModel;
+            FirmwareBrandTb.Text = _deviceInfos[selectIndex].FirmwareBrand;
+            FirmwareTagsTb.Text = _deviceInfos[selectIndex].FirmwareTags;
+            FirmwareTypeTb.Text = _deviceInfos[selectIndex].FirmwareType;
+            FirmwareFingerprintTb.Text = _deviceInfos[selectIndex].FirmwareFingerprint;
             SaveToSetting();
         }
 
         private void SaveToSetting()
         {
-            Settings.Instance.DeviceId = this.DeviceIdTb.Text;
-            Settings.Instance.AndroidBoardName = this.AndroidBoardNameTb.Text;
-            Settings.Instance.AndroidBootloader = this.AndroidBootloaderTb.Text;
-            Settings.Instance.DeviceBrand = this.DeviceBrandTb.Text;
-            Settings.Instance.DeviceModel = this.DeviceModelTb.Text;
-            Settings.Instance.DeviceModelIdentifier = this.DeviceModelIdentifierTb.Text;
-            Settings.Instance.DeviceModelBoot = this.DeviceModelBootTb.Text;
-            Settings.Instance.HardwareManufacturer = this.HardwareManufacturerTb.Text;
-            Settings.Instance.HardwareModel = this.HardwareModelTb.Text;
-            Settings.Instance.FirmwareBrand = this.FirmwareBrandTb.Text;
-            Settings.Instance.FirmwareTags = this.FirmwareTypeTb.Text;
-            Settings.Instance.FirmwareType = this.FirmwareFingerprintTb.Text;
+            Settings.Instance.DeviceId = DeviceIdTb.Text;
+            Settings.Instance.AndroidBoardName = AndroidBoardNameTb.Text;
+            Settings.Instance.AndroidBootloader = AndroidBootloaderTb.Text;
+            Settings.Instance.DeviceBrand = DeviceBrandTb.Text;
+            Settings.Instance.DeviceModel = DeviceModelTb.Text;
+            Settings.Instance.DeviceModelIdentifier = DeviceModelIdentifierTb.Text;
+            Settings.Instance.DeviceModelBoot = DeviceModelBootTb.Text;
+            Settings.Instance.HardwareManufacturer = HardwareManufacturerTb.Text;
+            Settings.Instance.HardwareModel = HardwareModelTb.Text;
+            Settings.Instance.FirmwareBrand = FirmwareBrandTb.Text;
+            Settings.Instance.FirmwareTags = FirmwareTypeTb.Text;
+            Settings.Instance.FirmwareType = FirmwareFingerprintTb.Text;
             Settings.Instance.Reload();
         }
     }

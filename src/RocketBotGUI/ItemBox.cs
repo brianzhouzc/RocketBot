@@ -2,8 +2,6 @@
 using System.Drawing;
 using System.Windows.Forms;
 using POGOProtos.Inventory.Item;
-using System.Collections.Generic;
-using POGOProtos.Inventory;
 
 namespace PokemonGo.RocketAPI.Window
 {
@@ -28,7 +26,8 @@ namespace PokemonGo.RocketAPI.Window
                 control.MouseClick += childMouseClick;
             }
 
-            if (item_.ItemId == ItemId.ItemIncubatorBasic || item_.ItemId == ItemId.ItemIncubatorBasicUnlimited || item.Count < 1)
+            if (item_.ItemId == ItemId.ItemIncubatorBasic || item_.ItemId == ItemId.ItemIncubatorBasicUnlimited ||
+                item.Count < 1)
             {
                 Enabled = false;
             }
@@ -80,11 +79,15 @@ namespace PokemonGo.RocketAPI.Window
             }
         }
 
-        private void tmr_Tick(object sender, EventArgs e) {
-            TimeSpan time = expires - DateTime.UtcNow;
-            if (expires.Ticks == 0 || time.TotalSeconds < 0) {
+        private void tmr_Tick(object sender, EventArgs e)
+        {
+            var time = expires - DateTime.UtcNow;
+            if (expires.Ticks == 0 || time.TotalSeconds < 0)
+            {
                 lblTime.Visible = false;
-            } else {
+            }
+            else
+            {
                 lblTime.Visible = true;
                 lblTime.Text = $"{time.Minutes}m {Math.Abs(time.Seconds)}s";
             }

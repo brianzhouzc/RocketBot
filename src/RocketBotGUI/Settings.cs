@@ -92,7 +92,12 @@ namespace PokemonGo.RocketAPI.Window
         public string FirmwareBrandTb => GetSetting() != string.Empty ? GetSetting() : "OnePlus2";
         public string FirmwareTagsTb => GetSetting() != string.Empty ? GetSetting() : "dev-key";
         public string FirmwareTypeTb => GetSetting() != string.Empty ? GetSetting() : "user";
-        public string FirmwareFingerprintTb => GetSetting() != string.Empty ? GetSetting() : "OnePlus/OnePlus2/OnePlus2:6.0.1/MMB29M/1447840820:user/release-keys";
+
+        public string FirmwareFingerprintTb
+            =>
+                GetSetting() != string.Empty
+                    ? GetSetting()
+                    : "OnePlus/OnePlus2/OnePlus2:6.0.1/MMB29M/1447840820:user/release-keys";
 
         public ICollection<KeyValuePair<ItemId, int>> ItemRecycleFilter => new[]
         {
@@ -271,7 +276,12 @@ namespace PokemonGo.RocketAPI.Window
 
         public string FirmwareFingerprint
         {
-            get { return GetSetting() != string.Empty ? GetSetting() : "OnePlus/OnePlus2/OnePlus2:6.0.1/MMB29M/1447840820:user/release-keys"; }
+            get
+            {
+                return GetSetting() != string.Empty
+                    ? GetSetting()
+                    : "OnePlus/OnePlus2/OnePlus2:6.0.1/MMB29M/1447840820:user/release-keys";
+            }
 
             set { SetSetting(value); }
         }
@@ -298,7 +308,7 @@ namespace PokemonGo.RocketAPI.Window
 
         public void SetSetting(double value, [CallerMemberName] string key = null)
         {
-            var customCulture = (CultureInfo)Thread.CurrentThread.CurrentCulture.Clone();
+            var customCulture = (CultureInfo) Thread.CurrentThread.CurrentCulture.Clone();
             customCulture.NumberFormat.NumberDecimalSeparator = ".";
             Thread.CurrentThread.CurrentCulture = customCulture;
             var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);

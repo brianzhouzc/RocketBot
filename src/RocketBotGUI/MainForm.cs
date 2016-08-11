@@ -1383,6 +1383,12 @@ namespace PokemonGo.RocketAPI.Window
         {
         }
 
+        private void deviceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var deviceFrom = new DeviceForm();
+            deviceFrom.ShowDialog();
+        }
+
         #region POKEMON LIST
 
         private IEnumerable<Candy> families;
@@ -1532,11 +1538,15 @@ namespace PokemonGo.RocketAPI.Window
                 var itemTemplates = await _client2.Download.GetItemTemplates();
 
                 var appliedItems = new Dictionary<ItemId, DateTime>();
-                var inventoryAppliedItems = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.AppliedItems);
+                var inventoryAppliedItems =
+                    inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.AppliedItems);
 
-                foreach (AppliedItems aItems in inventoryAppliedItems) {
-                    if (aItems != null && aItems.Item != null) {
-                        foreach (AppliedItem item in aItems.Item) {
+                foreach (var aItems in inventoryAppliedItems)
+                {
+                    if (aItems != null && aItems.Item != null)
+                    {
+                        foreach (var item in aItems.Item)
+                        {
                             appliedItems.Add(item.ItemId, Utils.FromUnixTimeUtc(item.ExpireMs));
                         }
                     }
@@ -1603,7 +1613,6 @@ namespace PokemonGo.RocketAPI.Window
                 }
 
                 lblInventory.Text = itemscount + " / " + profile.PlayerData.MaxItemStorage;
-                
             }
             catch (GoogleException ex)
             {
@@ -1665,20 +1674,28 @@ namespace PokemonGo.RocketAPI.Window
                     }
                     else if (item.ItemId == ItemId.ItemIncenseOrdinary)
                     {
-                        if (!_botStarted) {
+                        if (!_botStarted)
+                        {
                             ColoredConsoleWrite(Color.Red, $"Bot must be running first!");
                             SetState(true);
                             return;
                         }
                         var response = await _client.Inventory.UseIncense(ItemId.ItemIncenseOrdinary);
-                        if (response.Result == UseIncenseResponse.Types.Result.Success) {
+                        if (response.Result == UseIncenseResponse.Types.Result.Success)
+                        {
                             ColoredConsoleWrite(Color.Green, $"Using an incense");
                             ColoredConsoleWrite(Color.Yellow, $"Incense valid until: {DateTime.Now.AddMinutes(30)}");
-                        } else if (response.Result == UseIncenseResponse.Types.Result.IncenseAlreadyActive) {
+                        }
+                        else if (response.Result == UseIncenseResponse.Types.Result.IncenseAlreadyActive)
+                        {
                             ColoredConsoleWrite(Color.Orange, $"An incense is already active!");
-                        } else if (response.Result == UseIncenseResponse.Types.Result.LocationUnset) {
+                        }
+                        else if (response.Result == UseIncenseResponse.Types.Result.LocationUnset)
+                        {
                             ColoredConsoleWrite(Color.Red, $"Bot must be running first!");
-                        } else {
+                        }
+                        else
+                        {
                             ColoredConsoleWrite(Color.Red, $"Failed using an incense!");
                         }
                     }
@@ -2012,11 +2029,5 @@ namespace PokemonGo.RocketAPI.Window
         }
 
         #endregion
-
-        private void deviceToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var deviceFrom = new DeviceForm();
-            deviceFrom.ShowDialog();
-        }
     }
 }

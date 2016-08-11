@@ -52,7 +52,7 @@ namespace PokemonGo.RocketAPI.Window
 
         public string RandomString(int length, string alphabet = "abcdefghijklmnopqrstuvwxyz0123456789")
         {
-            int outOfRange = byte.MaxValue + 1 - (byte.MaxValue + 1) % alphabet.Length;
+            var outOfRange = byte.MaxValue + 1 - (byte.MaxValue + 1)%alphabet.Length;
 
             return string.Concat(
                 Enumerable
@@ -60,8 +60,8 @@ namespace PokemonGo.RocketAPI.Window
                     .Select(e => RandomByte())
                     .Where(randomByte => randomByte < outOfRange)
                     .Take(length)
-                    .Select(randomByte => alphabet[randomByte % alphabet.Length])
-            );
+                    .Select(randomByte => alphabet[randomByte%alphabet.Length])
+                );
         }
 
         private static byte RandomByte()
