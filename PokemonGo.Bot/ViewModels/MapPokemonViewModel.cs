@@ -44,7 +44,7 @@ namespace PokemonGo.Bot.ViewModels
                     {
                         player.Xp += caughtPokemonResponse.CaptureAward.Xp.Sum();
                         player.Stardust += caughtPokemonResponse.CaptureAward.Stardust.Sum();
-                        MessengerInstance.Send(new Message($"Cought a {pokemonEncounter.Name}"));
+                        MessengerInstance.Send(new Message($"Caught a {pokemonEncounter.Name}"));
                         encounterPokemonResponse.WildPokemon.PokemonData.Id = caughtPokemonResponse.CapturedPokemonId;
                         player.Inventory.Pokemon.Add(new CaughtPokemonViewModel(encounterPokemonResponse.WildPokemon.PokemonData, client, player.Inventory));
                         map.CatchablePokemon.Remove(this);
