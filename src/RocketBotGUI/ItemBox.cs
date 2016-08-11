@@ -2,11 +2,15 @@
 using System.Drawing;
 using System.Windows.Forms;
 using POGOProtos.Inventory.Item;
+using System.Collections.Generic;
+using POGOProtos.Inventory;
 
 namespace PokemonGo.RocketAPI.Window
 {
     public partial class ItemBox : UserControl
     {
+        public DateTime expires = new DateTime(0);
+
         public ItemBox(ItemData item)
         {
             InitializeComponent();
@@ -15,6 +19,7 @@ namespace PokemonGo.RocketAPI.Window
 
             pb.Image = (Image) Properties.Resources.ResourceManager.GetObject(item.ItemId.ToString());
             lbl.Text = item.Count.ToString();
+            lblTime.Parent = pb;
 
             foreach (Control control in Controls)
             {
@@ -23,7 +28,7 @@ namespace PokemonGo.RocketAPI.Window
                 control.MouseClick += childMouseClick;
             }
 
-            if (item_.ItemId == ItemId.ItemIncubatorBasic || item_.ItemId == ItemId.ItemIncubatorBasicUnlimited)
+            if (item_.ItemId == ItemId.ItemIncubatorBasic || item_.ItemId == ItemId.ItemIncubatorBasicUnlimited || item.Count < 1)
             {
                 Enabled = false;
             }
@@ -72,6 +77,16 @@ namespace PokemonGo.RocketAPI.Window
             if (handler != null)
             {
                 handler(item, e);
+            }
+        }
+
+        private void tmr_Tick(object sender, EventArgs e) {
+            TimeSpan time = expires - DateTime.UtcNow;
+            if (expires.Ticks == 0 || time.TotalSeconds < 0) {
+                lblTime.Visible = false;
+            } else {
+                lblTime.Visible = true;
+                lblTime.Text = $"{time.Minutes}m {Math.Abs(time.Seconds)}s";
             }
         }
     }
