@@ -34,6 +34,9 @@ namespace PokemonGo.Bot.BotActions
         private async Task ForceUnbanAsync()
         {
             var pokestop = await GetNearestPokestopNotOnCooldownAsync();
+            Route.Clear();
+            Route.Add(pokestop.Position);
+            RaisePropertyChanged(nameof(Route));
             await bot.Player.Move.ExecuteAsync(pokestop.Position);
             var fortInfo = await client.Fort.GetFort(pokestop.Id, pokestop.Position.Latitude, pokestop.Position.Longitude);
             var unbanned = false;
@@ -44,6 +47,7 @@ namespace PokemonGo.Bot.BotActions
                 if (fortSearch.ExperienceAwarded > 0)
                     unbanned = true;
             }
+            await StopAsync();
         }
     }
 }

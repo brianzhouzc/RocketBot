@@ -14,7 +14,10 @@ namespace PokemonGo.Bot.BotActions
 
         }
 
-        protected override Task OnStartAsync()
-            => bot.Player.Inventory.TransferPokemonWithAlgorithm.ExecuteAsync();
+        protected override async Task OnStartAsync()
+        {
+            await bot.Player.Inventory.TransferPokemonWithAlgorithm.ExecuteAsync();
+            await StopAsync();
+        }
     }
 }

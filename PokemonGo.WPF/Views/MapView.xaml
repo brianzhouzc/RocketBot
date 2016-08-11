@@ -33,9 +33,9 @@
                     <ControlTemplate>
                         <Image>
                             <Image.Source>
-                                <MultiBinding Converter="{StaticResource pokestopToImagePathConverter}">
-                                    <Binding Path="IsActive"/>
-                                    <Binding Path="IsNear"/>
+                                <MultiBinding Converter="{StaticResource pokestopToImagePathConverter}" Mode="OneWay">
+                                    <Binding Path="IsActive" Mode="OneWay"/>
+                                    <Binding Path="IsNear" Mode="OneWay"/>
                                 </MultiBinding>
                             </Image.Source>
                         </Image>
@@ -82,6 +82,7 @@
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
         <m:Map CredentialsProvider="AhX1gtSfkGHg8FKEthaxWJHqCNLWVmY5MVO1bBMdNQTYOyqyYrC6FEWaVArrH0oK" Mode="Road" Center="{Binding Player.Position, Converter={StaticResource positionToLocationConverter}, Mode=OneTime}" ZoomLevel="16" Loaded="Map_Loaded">
+            <m:MapPolyline Stroke="Blue" StrokeThickness="5" Locations="{Binding Bot.CurrentAction.Route, Converter={StaticResource positionToLocationConverter}}" Opacity="0.5"/>
             <m:MapItemsControl>
                 <m:MapItemsControl.ItemsSource>
                     <CompositeCollection>

@@ -1,4 +1,5 @@
-﻿using PokemonGo.Bot.ViewModels;
+﻿using GalaSoft.MvvmLight.Command;
+using PokemonGo.Bot.ViewModels;
 using PokemonGo.RocketAPI;
 using PokemonGo.RocketAPI.Bot;
 using PokemonGo.RocketAPI.Bot.utils;
@@ -31,14 +32,17 @@ namespace PokemonGo.Bot.BotActions
                 await bot.Player.Login.ExecuteAsync();
 
             await CalculateRouteAsync();
-            ExecuteAsync();
+            await ExecuteAsync();
         }
 
         async Task CalculateRouteAsync()
         {
-            await bot.Map.GetMapObjects.ExecuteAsync();
+            //await bot.Map.GetMapObjects.ExecuteAsync();
             var pokestopsNotOnCooldown = bot.Map.Pokestops.Where(p => p.IsActive);
             route = RouteOptimizer.Optimize(pokestopsNotOnCooldown, bot.Player.Position);
+            Route.Clear();
+            Route.AddRange(route.Select(r => r.Position));
+            RaisePropertyChanged(nameof(Route));
         }
 
         protected override Task OnStopAsync()
@@ -79,9 +83,10 @@ namespace PokemonGo.Bot.BotActions
 
         async Task CatchNearbyPokemonAsync()
         {
-            foreach(var pokemon in bot.Map.CatchablePokemon)
+            // have to use a backwards for loop here, because pokemon.Catch will remove the caught pokemon from the map.
+            for (int i = bot.Map.CatchablePokemon.Count - 1; i >= 0; i--)
             {
-                //await bot.Player.Move.ExecuteAsync(pokemon.Position);
+                var pokemon = bot.Map.CatchablePokemon[i];
                 await pokemon.Catch.ExecuteAsync();
             }
         }

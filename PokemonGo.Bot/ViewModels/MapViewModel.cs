@@ -48,10 +48,21 @@ namespace PokemonGo.Bot.ViewModels
             GetMapObjects = new AsyncRelayCommand(async () =>
             {
                 var mapResponse = await client.Map.GetMapObjects();
-                Pokestops.UpdateWith(mapResponse.Item1.MapCells.SelectMany(m => m.Forts).Where(f => f.Type == FortType.Checkpoint).Select(f => new PokestopViewModel(f, client, Player)));
-                Gyms.UpdateWith(mapResponse.Item1.MapCells.SelectMany(m => m.Forts).Where(f => f.Type == FortType.Gym).Select(f => new GymViewModel(f, client)));
-                WildPokemon.UpdateWith(mapResponse.Item1.MapCells.SelectMany(m => m.WildPokemons).Select(p => new WildPokemonViewModel(p)));
-                CatchablePokemon.UpdateWith(mapResponse.Item1.MapCells.SelectMany(m => m.CatchablePokemons).Select(p => new MapPokemonViewModel(p, client, settings, Player)));
+                var pokestopsFromResponse = mapResponse.Item1.MapCells.SelectMany(m => m.Forts).Where(f => f.Type == FortType.Checkpoint).Select(f => new PokestopViewModel(f, client, Player));
+                if(pokestopsFromResponse.Any())
+                    Pokestops.UpdateWith(pokestopsFromResponse);
+
+                var gymsFromResponse = mapResponse.Item1.MapCells.SelectMany(m => m.Forts).Where(f => f.Type == FortType.Gym).Select(f => new GymViewModel(f, client));
+                if(gymsFromResponse.Any())
+                    Gyms.UpdateWith(gymsFromResponse);
+
+                var wildPokemonFromResponse = mapResponse.Item1.MapCells.SelectMany(m => m.WildPokemons).Select(p => new WildPokemonViewModel(p));
+                if(wildPokemonFromResponse.Any())
+                    WildPokemon.UpdateWith(wildPokemonFromResponse);
+
+                var catchablePokemonFromResponse = mapResponse.Item1.MapCells.SelectMany(m => m.CatchablePokemons).Select(p => new MapPokemonViewModel(p, client, settings, Player, this));
+                if(catchablePokemonFromResponse.Any())
+                    CatchablePokemon.UpdateWith(catchablePokemonFromResponse);
             });
 
             SetPosition = new AsyncRelayCommand<Position3DViewModel>(async pos =>

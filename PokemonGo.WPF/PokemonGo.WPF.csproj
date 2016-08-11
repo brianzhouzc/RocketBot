@@ -80,6 +80,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\ListBoxBehavior.cs" />
     <Compile Include="Converters\EventArgsToPositionConverter.cs" />
     <Compile Include="Converters\EggToImagePathConverter.cs" />
     <Compile Include="Converters\PokestopToImagePathConverter.cs" />
@@ -742,7 +743,7 @@
     <None Include="Images\Map\gymLogo_yellow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Images\Player\team_less.png">
+    <None Include="Images\Player\team_neutral.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Images\Player\team_blue.png">

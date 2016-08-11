@@ -5,8 +5,10 @@ using PokemonGo.Bot.Messages;
 using PokemonGo.RocketAPI;
 using PokemonGo.RocketAPI.Bot;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace PokemonGo.Bot.ViewModels
 {
@@ -100,12 +102,21 @@ namespace PokemonGo.Bot.ViewModels
             set { if (IsLoggedIn != value) { isLoggedIn = value; RaisePropertyChanged(); } }
         }
 
+        double xpPerHour;
+        public double XpPerHour
+        {
+            get { return xpPerHour; }
+            set { if (XpPerHour != value) { xpPerHour = value; RaisePropertyChanged(); } }
+        }
+
         private readonly double speedInmetersPerMillisecond;
 
         public AsyncRelayCommand<Position2DViewModel> Move { get; }
 
         private Task MoveToAsync(Position2DViewModel newPosition)
             => MoveToAsync(newPosition.To3D(Position.Altitute));
+
+        private Queue<KeyValuePair<DateTime, long>> xPValuesInLastHours = new Queue<KeyValuePair<DateTime, long>>();
 
         private async Task MoveToAsync(Position3DViewModel newPosition)
         {
@@ -165,6 +176,35 @@ namespace PokemonGo.Bot.ViewModels
                 IsLoggedIn = true;
             });
             Move = new AsyncRelayCommand<Position2DViewModel>(MoveToAsync);
+
+            var xpTimer = new DispatcherTimer();
+            xpTimer.Tick += XpTimer_Tick;
+            xpTimer.Interval = TimeSpan.FromSeconds(10);
+            xpTimer.Start();
+        }
+
+        private void XpTimer_Tick(object sender, EventArgs e)
+        {
+            var currentXp = Xp;
+            if (currentXp != 0)
+            {
+                var now = DateTime.Now;
+                var oneHourBefore = now.AddHours(-1);
+
+                xPValuesInLastHours.Enqueue(new KeyValuePair<DateTime, long>(now, currentXp));
+
+                var current = xPValuesInLastHours.Peek();
+                while (current.Key <= oneHourBefore)
+                {
+                    xPValuesInLastHours.Dequeue();
+                    current = xPValuesInLastHours.Peek();
+                }
+
+                var timeDiff = now - current.Key;
+                var xpDiff = currentXp - current.Value;
+
+                XpPerHour = xpDiff / timeDiff.TotalHours;
+            }
         }
     }
 }

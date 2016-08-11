@@ -1,7 +1,10 @@
 ﻿using Microsoft.Maps.MapControl.WPF;
+using PokemonGo.Bot.ViewModels;
+using PokemonGo.WPF.Converters;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,6 +34,9 @@ namespace PokemonGo.WPF.Views
         private void Map_Loaded(object sender, RoutedEventArgs e)
         {
             var map = (Map)sender;
+            var player = ((MainViewModel)DataContext).Player;
+            var center = (Location)new PositionToMapLocationConverter().Convert(player.Position, typeof(Location), null, CultureInfo.CurrentCulture);
+            map.SetView(center, 16);
             var timer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromMilliseconds(100)

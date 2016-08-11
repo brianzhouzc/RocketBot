@@ -2,6 +2,7 @@
 using PokemonGo.Bot.Messages;
 using PokemonGo.Bot.ViewModels;
 using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace PokemonGo.Bot.BotActions
@@ -19,17 +20,20 @@ namespace PokemonGo.Bot.BotActions
 
         public string DisplayName { get; }
 
+        public ObservableCollection<Position2DViewModel> Route { get; }
+
         protected BotAction(BotViewModel bot, string displayName)
         {
             this.bot = bot;
             DisplayName = displayName;
             State = ActionState.Stopped;
+            Route = new ObservableCollection<Position2DViewModel>();
         }
 
         public async Task StartAsync()
         {
             State = ActionState.Running;
-            while (true)
+            while (State != ActionState.Stopped)
             {
                 try
                 {

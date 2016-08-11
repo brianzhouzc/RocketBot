@@ -29,6 +29,7 @@
                 <TextBlock Text="{Binding Xp}" />
                 <TextBlock Text=" / " />
                 <TextBlock Text="{Binding NextLevelXP}" />
+                <TextBlock Text="{Binding XpPerHour, StringFormat= ({0:N2}/h)}" Margin="20,0,0,0"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="2">
