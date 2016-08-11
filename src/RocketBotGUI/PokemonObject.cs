@@ -3,6 +3,7 @@ using PokemonGo.RocketAPI.Helpers;
 using POGOProtos.Data;
 using POGOProtos.Enums;
 using POGOProtos.Networking.Responses;
+using System;
 
 namespace PokemonGo.RocketAPI.Window
 {
@@ -50,7 +51,12 @@ namespace PokemonGo.RocketAPI.Window
 
         public double GetIV
         {
-            get { return PokemonInfo.CalculatePokemonPerfection(PokemonData); }
+            get { return Math.Round(PokemonInfo.CalculatePokemonPerfection(PokemonData),2); }
+        }
+
+        public double GetLv
+        {
+            get { return PokemonInfo.GetLevel(PokemonData); }
         }
 
         public string Nickname

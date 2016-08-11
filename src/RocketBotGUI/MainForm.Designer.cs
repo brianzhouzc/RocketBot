@@ -50,6 +50,7 @@
             this.pkmnCandy = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnCandyToEvolve = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnEvolveTimes = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.pkmnNickname = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnTransferButton = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnPowerUpButton = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnEvolveButton = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -62,7 +63,7 @@
             this.lblInventory = new System.Windows.Forms.Label();
             this.flpItems = new System.Windows.Forms.FlowLayoutPanel();
             this.lblPokemonList = new System.Windows.Forms.Label();
-            this.pkmnNickname = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.pkmnLevel = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.olvPokemonList)).BeginInit();
@@ -193,6 +194,7 @@
             this.olvPokemonList.AllColumns.Add(this.pkmnCandyToEvolve);
             this.olvPokemonList.AllColumns.Add(this.pkmnEvolveTimes);
             this.olvPokemonList.AllColumns.Add(this.pkmnNickname);
+            this.olvPokemonList.AllColumns.Add(this.pkmnLevel);
             this.olvPokemonList.AllColumns.Add(this.pkmnTransferButton);
             this.olvPokemonList.AllColumns.Add(this.pkmnPowerUpButton);
             this.olvPokemonList.AllColumns.Add(this.pkmnEvolveButton);
@@ -211,6 +213,7 @@
             this.pkmnCandyToEvolve,
             this.pkmnEvolveTimes,
             this.pkmnNickname,
+            this.pkmnLevel,
             this.pkmnTransferButton,
             this.pkmnPowerUpButton,
             this.pkmnEvolveButton});
@@ -285,6 +288,12 @@
             this.pkmnEvolveTimes.AspectName = "EvolveTimes";
             this.pkmnEvolveTimes.Text = "# Evolves";
             this.pkmnEvolveTimes.Width = 66;
+            // 
+            // pkmnNickname
+            // 
+            this.pkmnNickname.AspectName = "Nickname";
+            this.pkmnNickname.Text = "Nickname";
+            this.pkmnNickname.Width = 80;
             // 
             // pkmnTransferButton
             // 
@@ -418,11 +427,11 @@
             this.lblPokemonList.Text = "0 / 0";
             this.lblPokemonList.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pkmnNickname
+            // pkmnLevel
             // 
-            this.pkmnNickname.AspectName = "Nickname";
-            this.pkmnNickname.Text = "Nickname";
-            this.pkmnNickname.Width = 80;
+            this.pkmnLevel.AspectName = "GetLv";
+            this.pkmnLevel.Text = "Lv";
+            this.pkmnLevel.Width = 50;
             // 
             // MainForm
             // 
@@ -492,5 +501,6 @@
         private System.Windows.Forms.FlowLayoutPanel flpItems;
         private System.Windows.Forms.Label lblInventory;
         private BrightIdeasSoftware.OLVColumn pkmnNickname;
+        private BrightIdeasSoftware.OLVColumn pkmnLevel;
     }
 }

@@ -1536,7 +1536,7 @@ namespace PokemonGo.RocketAPI.Window
                 var pokemons =
                     inventory.InventoryDelta.InventoryItems.Select(i => i?.InventoryItemData?.PokemonData)
                         .Where(p => p != null && p?.PokemonId > 0)
-                        .OrderByDescending(key => key.GetIV())
+                        .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
                         .OrderByDescending(key => key.Cp)
                         .OrderBy(key => key.PokemonId);
                 families = inventory.InventoryDelta.InventoryItems
@@ -1779,7 +1779,7 @@ namespace PokemonGo.RocketAPI.Window
                         .Where(p => p.PokemonId == pokemon.PokemonId)
                         .Select(p => p.PokemonData)
                         .OrderBy(p => p.Cp)
-                        .OrderBy(p => p.GetIV())
+                        .OrderBy(PokemonInfo.CalculatePokemonPerfection)
                         .Take(pokemonCount - ET);
 
                 TransferPokemon(pokemons);
@@ -1790,7 +1790,7 @@ namespace PokemonGo.RocketAPI.Window
                     olvPokemonList.Objects.Cast<PokemonObject>()
                         .Where(p => p.PokemonId == pokemon.PokemonId)
                         .Select(p => p.PokemonData)
-                        .OrderBy(p => p.GetIV())
+                        .OrderBy(PokemonInfo.CalculatePokemonPerfection)
                         .OrderBy(p => p.Cp)
                         .Take(pokemonCount - ET);
 
@@ -1815,7 +1815,7 @@ namespace PokemonGo.RocketAPI.Window
                         .Where(p => p.PokemonId == pokemon.PokemonId)
                         .Select(p => p.PokemonData)
                         .OrderByDescending(p => p.Cp)
-                        .OrderByDescending(p => p.GetIV())
+                        .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
                         .Take(ET);
 
                 EvolvePokemon(pokemons);
@@ -1826,7 +1826,7 @@ namespace PokemonGo.RocketAPI.Window
                     olvPokemonList.Objects.Cast<PokemonObject>()
                         .Where(p => p.PokemonId == pokemon.PokemonId)
                         .Select(p => p.PokemonData)
-                        .OrderByDescending(p => p.GetIV())
+                        .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
                         .OrderByDescending(p => p.Cp)
                         .Take(ET);
 

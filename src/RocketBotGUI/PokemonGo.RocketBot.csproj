@@ -79,7 +79,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiFailureStrategy.cs" />
-    <Compile Include="Extensions.cs" />
     <Compile Include="ItemBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
