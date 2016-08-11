@@ -169,7 +169,7 @@ namespace PokemonGo.RocketAPI.Window
             using (var wC = new WebClient())
                 return
                     wC.DownloadString(
-                        "https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/PokemonGo/RocketAPI/Properties/AssemblyInfo.cs");
+                        "https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/Beta-Build/src/RocketBotGUI/Properties/AssemblyInfo.cs");
         }
 
         public static void ColoredConsoleWrite(Color color, string text)
