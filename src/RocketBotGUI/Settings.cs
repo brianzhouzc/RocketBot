@@ -80,6 +80,20 @@ namespace PokemonGo.RocketAPI.Window
         private int MaxItemHyperPotion => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 500;
         private int MaxItemMaxPotion => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 500;
 
+        public string DeviceIdTb => GetSetting() != string.Empty ? GetSetting() : "8525f6d8251f71b7";
+        public string AndroidBoardNameTb => GetSetting() != string.Empty ? GetSetting() : "msm8994";
+        public string AndroidBootloaderTb => GetSetting() != string.Empty ? GetSetting() : "unknown";
+        public string DeviceBrandTb => GetSetting() != string.Empty ? GetSetting() : "OnePlus";
+        public string DeviceModelTb => GetSetting() != string.Empty ? GetSetting() : "OnePlus2";
+        public string DeviceModelIdentifierTb => GetSetting() != string.Empty ? GetSetting() : "ONE A2003_24_160604";
+        public string DeviceModelBootTb => GetSetting() != string.Empty ? GetSetting() : "qcom";
+        public string HardwareManufacturerTb => GetSetting() != string.Empty ? GetSetting() : "OnePlus";
+        public string HardwareModelTb => GetSetting() != string.Empty ? GetSetting() : "ONE A2003";
+        public string FirmwareBrandTb => GetSetting() != string.Empty ? GetSetting() : "OnePlus2";
+        public string FirmwareTagsTb => GetSetting() != string.Empty ? GetSetting() : "dev-key";
+        public string FirmwareTypeTb => GetSetting() != string.Empty ? GetSetting() : "user";
+        public string FirmwareFingerprintTb => GetSetting() != string.Empty ? GetSetting() : "OnePlus/OnePlus2/OnePlus2:6.0.1/MMB29M/1447840820:user/release-keys";
+
         public ICollection<KeyValuePair<ItemId, int>> ItemRecycleFilter => new[]
         {
             new KeyValuePair<ItemId, int>(ItemId.ItemPokeBall, MaxItemPokeBall),
@@ -173,93 +187,93 @@ namespace PokemonGo.RocketAPI.Window
 
         public string DeviceId
         {
-            get { return "529e8aa6201f78b5"; }
+            get { return GetSetting() != string.Empty ? GetSetting() : "8525f6d8251f71b7"; }
 
-            set { throw new NotImplementedException(); }
+            set { SetSetting(value); }
         }
 
         public string AndroidBoardName
         {
-            get { return "msm8994"; }
+            get { return GetSetting() != string.Empty ? GetSetting() : "msm8994"; }
 
-            set { throw new NotImplementedException(); }
+            set { SetSetting(value); }
         }
 
         public string AndroidBootloader
         {
-            get { return "unknown"; }
+            get { return GetSetting() != string.Empty ? GetSetting() : "unknown"; }
 
-            set { throw new NotImplementedException(); }
+            set { SetSetting(value); }
         }
 
         public string DeviceBrand
         {
-            get { return "OnePlus"; }
+            get { return GetSetting() != string.Empty ? GetSetting() : "OnePlus"; }
 
-            set { throw new NotImplementedException(); }
+            set { SetSetting(value); }
         }
 
         public string DeviceModel
         {
-            get { return "OnePlus2"; }
+            get { return GetSetting() != string.Empty ? GetSetting() : "OnePlus2"; }
 
-            set { throw new NotImplementedException(); }
+            set { SetSetting(value); }
         }
 
         public string DeviceModelIdentifier
         {
-            get { return "ONE A2003_24_160604"; }
+            get { return GetSetting() != string.Empty ? GetSetting() : "ONE A2003_24_160604"; }
 
-            set { throw new NotImplementedException(); }
+            set { SetSetting(value); }
         }
 
         public string DeviceModelBoot
         {
-            get { return "qcom"; }
+            get { return GetSetting() != string.Empty ? GetSetting() : "qcom"; }
 
-            set { throw new NotImplementedException(); }
+            set { SetSetting(value); }
         }
 
         public string HardwareManufacturer
         {
-            get { return "OnePlus"; }
+            get { return GetSetting() != string.Empty ? GetSetting() : "OnePlus"; }
 
-            set { throw new NotImplementedException(); }
+            set { SetSetting(value); }
         }
 
         public string HardwareModel
         {
-            get { return "ONE A2003"; }
+            get { return GetSetting() != string.Empty ? GetSetting() : "ONE A2003"; }
 
-            set { throw new NotImplementedException(); }
+            set { SetSetting(value); }
         }
 
         public string FirmwareBrand
         {
-            get { return "OnePlus2"; }
+            get { return GetSetting() != string.Empty ? GetSetting() : "OnePlus2"; }
 
-            set { throw new NotImplementedException(); }
+            set { SetSetting(value); }
         }
 
         public string FirmwareTags
         {
-            get { return "dev-keys"; }
+            get { return GetSetting() != string.Empty ? GetSetting() : "dev-keys"; }
 
-            set { throw new NotImplementedException(); }
+            set { SetSetting(value); }
         }
 
         public string FirmwareType
         {
-            get { return "user"; }
+            get { return GetSetting() != string.Empty ? GetSetting() : "user"; }
 
-            set { throw new NotImplementedException(); }
+            set { SetSetting(value); }
         }
 
         public string FirmwareFingerprint
         {
-            get { return "OnePlus/OnePlus2/OnePlus2:6.0.1/MMB29M/1447840820:user/release-keys"; }
+            get { return GetSetting() != string.Empty ? GetSetting() : "OnePlus/OnePlus2/OnePlus2:6.0.1/MMB29M/1447840820:user/release-keys"; }
 
-            set { throw new NotImplementedException(); }
+            set { SetSetting(value); }
         }
 
         public void Reload()
@@ -284,7 +298,7 @@ namespace PokemonGo.RocketAPI.Window
 
         public void SetSetting(double value, [CallerMemberName] string key = null)
         {
-            var customCulture = (CultureInfo) Thread.CurrentThread.CurrentCulture.Clone();
+            var customCulture = (CultureInfo)Thread.CurrentThread.CurrentCulture.Clone();
             customCulture.NumberFormat.NumberDecimalSeparator = ".";
             Thread.CurrentThread.CurrentCulture = customCulture;
             var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
