@@ -185,6 +185,7 @@ namespace PokemonGo.RocketAPI.Window
             this.UserPasswordBox.Location = new System.Drawing.Point(96, 71);
             this.UserPasswordBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.UserPasswordBox.Name = "UserPasswordBox";
+            this.UserPasswordBox.PasswordChar = '*';
             this.UserPasswordBox.Size = new System.Drawing.Size(158, 21);
             this.UserPasswordBox.TabIndex = 12;
             // 
@@ -469,7 +470,7 @@ namespace PokemonGo.RocketAPI.Window
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MinimumSize = new System.Drawing.Size(732, 408);
             this.Name = "SettingsForm";
-            this.Padding = new System.Windows.Forms.Padding(10, 10, 10, 10);
+            this.Padding = new System.Windows.Forms.Padding(10);
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Settings";
