@@ -7,8 +7,9 @@
 * https://discord.gg/y6EU2qY
 
 ## Window
-![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/MainForm.png)  
-![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/SettingForm.png)
+![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/Beta-Build/MainForm.png)  
+![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/Beta-Build/SettingForm.png)
+![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/Beta-Build/DeviceSettingForm.png)
 
 
 A Pokémon Go bot in C#
