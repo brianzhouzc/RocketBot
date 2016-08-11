@@ -51,7 +51,6 @@ namespace PokemonGo.RocketAPI.Window
             this.evolveAllChk = new System.Windows.Forms.CheckBox();
             this.saveBtn = new System.Windows.Forms.Button();
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.FindAdressButton = new System.Windows.Forms.Button();
             this.AdressBox = new System.Windows.Forms.TextBox();
             this.trackBar = new System.Windows.Forms.TrackBar();
@@ -62,9 +61,28 @@ namespace PokemonGo.RocketAPI.Window
             this.transferIVThresText = new System.Windows.Forms.TextBox();
             this.TravelSpeedText = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.groupBox1.SuspendLayout();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.clbTransfer = new System.Windows.Forms.CheckedListBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.clbCatch = new System.Windows.Forms.CheckedListBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.clbEvolve = new System.Windows.Forms.CheckedListBox();
+            this.cbSelectAllCatch = new System.Windows.Forms.CheckBox();
+            this.cbSelectAllTransfer = new System.Windows.Forms.CheckBox();
+            this.cbSelectAllEvolve = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.tabControl.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // authTypeLabel
@@ -75,7 +93,6 @@ namespace PokemonGo.RocketAPI.Window
             this.authTypeLabel.Size = new System.Drawing.Size(70, 15);
             this.authTypeLabel.TabIndex = 0;
             this.authTypeLabel.Text = "Login Type:";
-            this.authTypeLabel.Click += new System.EventHandler(this.authTypeLabel_Click);
             // 
             // authTypeCb
             // 
@@ -152,7 +169,6 @@ namespace PokemonGo.RocketAPI.Window
             this.label3.Size = new System.Drawing.Size(101, 15);
             this.label3.TabIndex = 8;
             this.label3.Text = "Evolve Pokemon:";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
             // 
@@ -253,7 +269,6 @@ namespace PokemonGo.RocketAPI.Window
             this.transferCpThresText.Name = "transferCpThresText";
             this.transferCpThresText.Size = new System.Drawing.Size(116, 21);
             this.transferCpThresText.TabIndex = 18;
-            this.transferCpThresText.TextChanged += new System.EventHandler(this.transferCpThresText_TextChanged);
             // 
             // evolveAllChk
             // 
@@ -264,16 +279,15 @@ namespace PokemonGo.RocketAPI.Window
             this.evolveAllChk.Size = new System.Drawing.Size(15, 14);
             this.evolveAllChk.TabIndex = 19;
             this.evolveAllChk.UseVisualStyleBackColor = true;
-            this.evolveAllChk.CheckedChanged += new System.EventHandler(this.evolveAllChk_CheckedChanged);
             // 
             // saveBtn
             // 
             this.saveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveBtn.Location = new System.Drawing.Point(0, 394);
+            this.saveBtn.Location = new System.Drawing.Point(6, 412);
             this.saveBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.saveBtn.Name = "saveBtn";
-            this.saveBtn.Size = new System.Drawing.Size(254, 110);
+            this.saveBtn.Size = new System.Drawing.Size(248, 42);
             this.saveBtn.TabIndex = 20;
             this.saveBtn.Text = "Save";
             this.saveBtn.UseVisualStyleBackColor = true;
@@ -281,6 +295,9 @@ namespace PokemonGo.RocketAPI.Window
             // 
             // gMapControl1
             // 
+            this.gMapControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gMapControl1.BackColor = System.Drawing.SystemColors.Info;
             this.gMapControl1.Bearing = 0F;
             this.gMapControl1.CanDragMap = true;
@@ -288,7 +305,7 @@ namespace PokemonGo.RocketAPI.Window
             this.gMapControl1.GrayScaleMode = false;
             this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMapControl1.LevelsKeepInMemmory = 5;
-            this.gMapControl1.Location = new System.Drawing.Point(21, 19);
+            this.gMapControl1.Location = new System.Drawing.Point(6, 7);
             this.gMapControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gMapControl1.MarkersEnabled = true;
             this.gMapControl1.MaxZoom = 2;
@@ -302,36 +319,18 @@ namespace PokemonGo.RocketAPI.Window
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(546, 448);
+            this.gMapControl1.Size = new System.Drawing.Size(577, 378);
             this.gMapControl1.TabIndex = 22;
             this.gMapControl1.Zoom = 0D;
-            this.gMapControl1.Load += new System.EventHandler(this.gMapControl1_Load);
             this.gMapControl1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.gMapControl1_MouseClick);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.FindAdressButton);
-            this.groupBox1.Controls.Add(this.AdressBox);
-            this.groupBox1.Controls.Add(this.trackBar);
-            this.groupBox1.Controls.Add(this.gMapControl1);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(271, 10);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(561, 510);
-            this.groupBox1.TabIndex = 25;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Location";
             // 
             // FindAdressButton
             // 
-            this.FindAdressButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.FindAdressButton.Location = new System.Drawing.Point(414, 474);
+            this.FindAdressButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.FindAdressButton.Location = new System.Drawing.Point(464, 393);
             this.FindAdressButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.FindAdressButton.Name = "FindAdressButton";
-            this.FindAdressButton.Size = new System.Drawing.Size(140, 30);
+            this.FindAdressButton.Size = new System.Drawing.Size(119, 30);
             this.FindAdressButton.TabIndex = 25;
             this.FindAdressButton.Text = "Find Location";
             this.FindAdressButton.UseVisualStyleBackColor = true;
@@ -339,11 +338,13 @@ namespace PokemonGo.RocketAPI.Window
             // 
             // AdressBox
             // 
+            this.AdressBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.AdressBox.ForeColor = System.Drawing.Color.Gray;
-            this.AdressBox.Location = new System.Drawing.Point(21, 474);
+            this.AdressBox.Location = new System.Drawing.Point(6, 397);
             this.AdressBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.AdressBox.Name = "AdressBox";
-            this.AdressBox.Size = new System.Drawing.Size(385, 21);
+            this.AdressBox.Size = new System.Drawing.Size(452, 23);
             this.AdressBox.TabIndex = 25;
             this.AdressBox.Text = "Enter an address or a coordinate";
             this.AdressBox.Enter += new System.EventHandler(this.AdressBox_Enter);
@@ -353,7 +354,7 @@ namespace PokemonGo.RocketAPI.Window
             // 
             this.trackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBar.BackColor = System.Drawing.SystemColors.Info;
-            this.trackBar.Location = new System.Drawing.Point(505, 19);
+            this.trackBar.Location = new System.Drawing.Point(536, 7);
             this.trackBar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.trackBar.Name = "trackBar";
             this.trackBar.Orientation = System.Windows.Forms.Orientation.Vertical;
@@ -392,12 +393,11 @@ namespace PokemonGo.RocketAPI.Window
             this.panel1.Controls.Add(this.UserLoginBox);
             this.panel1.Controls.Add(this.UserPasswordBox);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(10, 10);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(261, 510);
+            this.panel1.Size = new System.Drawing.Size(261, 458);
             this.panel1.TabIndex = 26;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // TravelSpeedBox
             // 
@@ -406,7 +406,6 @@ namespace PokemonGo.RocketAPI.Window
             this.TravelSpeedBox.Name = "TravelSpeedBox";
             this.TravelSpeedBox.Size = new System.Drawing.Size(116, 21);
             this.TravelSpeedBox.TabIndex = 22;
-            this.TravelSpeedBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             this.TravelSpeedBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TravelSpeedBox_KeyPress);
             // 
             // CatchPokemonBox
@@ -418,7 +417,6 @@ namespace PokemonGo.RocketAPI.Window
             this.CatchPokemonBox.Size = new System.Drawing.Size(15, 14);
             this.CatchPokemonBox.TabIndex = 26;
             this.CatchPokemonBox.UseVisualStyleBackColor = true;
-            this.CatchPokemonBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // CatchPokemonText
             // 
@@ -428,7 +426,6 @@ namespace PokemonGo.RocketAPI.Window
             this.CatchPokemonText.Size = new System.Drawing.Size(97, 15);
             this.CatchPokemonText.TabIndex = 25;
             this.CatchPokemonText.Text = "Catch Pokemon:";
-            this.CatchPokemonText.Click += new System.EventHandler(this.label7_Click);
             // 
             // transferIVThresText
             // 
@@ -437,7 +434,6 @@ namespace PokemonGo.RocketAPI.Window
             this.transferIVThresText.Name = "transferIVThresText";
             this.transferIVThresText.Size = new System.Drawing.Size(116, 21);
             this.transferIVThresText.TabIndex = 24;
-            this.transferIVThresText.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // TravelSpeedText
             // 
@@ -456,30 +452,193 @@ namespace PokemonGo.RocketAPI.Window
             this.label6.Size = new System.Drawing.Size(78, 15);
             this.label6.TabIndex = 21;
             this.label6.Text = "IV Threshold:";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.tabControl);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(261, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(597, 458);
+            this.panel2.TabIndex = 27;
+            // 
+            // tabControl
+            // 
+            this.tabControl.Controls.Add(this.tabPage1);
+            this.tabControl.Controls.Add(this.tabPage2);
+            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabControl.Location = new System.Drawing.Point(0, 0);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(597, 458);
+            this.tabControl.TabIndex = 26;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.trackBar);
+            this.tabPage1.Controls.Add(this.AdressBox);
+            this.tabPage1.Controls.Add(this.FindAdressButton);
+            this.tabPage1.Controls.Add(this.gMapControl1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(589, 430);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Location";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.groupBox3);
+            this.tabPage2.Controls.Add(this.groupBox2);
+            this.tabPage2.Controls.Add(this.groupBox1);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(589, 430);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Pokemon";
+            // 
+            // clbTransfer
+            // 
+            this.clbTransfer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.clbTransfer.CheckOnClick = true;
+            this.clbTransfer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clbTransfer.FormattingEnabled = true;
+            this.clbTransfer.Location = new System.Drawing.Point(0, 41);
+            this.clbTransfer.Name = "clbTransfer";
+            this.clbTransfer.Size = new System.Drawing.Size(188, 364);
+            this.clbTransfer.TabIndex = 0;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox1.Controls.Add(this.cbSelectAllTransfer);
+            this.groupBox1.Controls.Add(this.clbTransfer);
+            this.groupBox1.Location = new System.Drawing.Point(200, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(188, 421);
+            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Exclude Transfer";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox2.Controls.Add(this.cbSelectAllCatch);
+            this.groupBox2.Controls.Add(this.clbCatch);
+            this.groupBox2.Location = new System.Drawing.Point(6, 6);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(188, 421);
+            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Exclude Catch";
+            // 
+            // clbCatch
+            // 
+            this.clbCatch.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.clbCatch.CheckOnClick = true;
+            this.clbCatch.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clbCatch.FormattingEnabled = true;
+            this.clbCatch.Location = new System.Drawing.Point(0, 41);
+            this.clbCatch.Name = "clbCatch";
+            this.clbCatch.Size = new System.Drawing.Size(188, 364);
+            this.clbCatch.TabIndex = 0;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox3.Controls.Add(this.cbSelectAllEvolve);
+            this.groupBox3.Controls.Add(this.clbEvolve);
+            this.groupBox3.Location = new System.Drawing.Point(394, 6);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(188, 421);
+            this.groupBox3.TabIndex = 2;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Exclude Evolve";
+            // 
+            // clbEvolve
+            // 
+            this.clbEvolve.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.clbEvolve.CheckOnClick = true;
+            this.clbEvolve.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clbEvolve.FormattingEnabled = true;
+            this.clbEvolve.Location = new System.Drawing.Point(0, 41);
+            this.clbEvolve.Name = "clbEvolve";
+            this.clbEvolve.Size = new System.Drawing.Size(188, 364);
+            this.clbEvolve.TabIndex = 0;
+            // 
+            // cbSelectAllCatch
+            // 
+            this.cbSelectAllCatch.AutoSize = true;
+            this.cbSelectAllCatch.Location = new System.Drawing.Point(6, 22);
+            this.cbSelectAllCatch.Name = "cbSelectAllCatch";
+            this.cbSelectAllCatch.Size = new System.Drawing.Size(74, 19);
+            this.cbSelectAllCatch.TabIndex = 1;
+            this.cbSelectAllCatch.Text = "Select All";
+            this.cbSelectAllCatch.UseVisualStyleBackColor = true;
+            // 
+            // cbSelectAllTransfer
+            // 
+            this.cbSelectAllTransfer.AutoSize = true;
+            this.cbSelectAllTransfer.Location = new System.Drawing.Point(6, 22);
+            this.cbSelectAllTransfer.Name = "cbSelectAllTransfer";
+            this.cbSelectAllTransfer.Size = new System.Drawing.Size(74, 19);
+            this.cbSelectAllTransfer.TabIndex = 1;
+            this.cbSelectAllTransfer.Text = "Select All";
+            this.cbSelectAllTransfer.UseVisualStyleBackColor = true;
+            // 
+            // cbSelectAllEvolve
+            // 
+            this.cbSelectAllEvolve.AutoSize = true;
+            this.cbSelectAllEvolve.Location = new System.Drawing.Point(6, 22);
+            this.cbSelectAllEvolve.Name = "cbSelectAllEvolve";
+            this.cbSelectAllEvolve.Size = new System.Drawing.Size(74, 19);
+            this.cbSelectAllEvolve.TabIndex = 1;
+            this.cbSelectAllEvolve.Text = "Select All";
+            this.cbSelectAllEvolve.UseVisualStyleBackColor = true;
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(842, 530);
-            this.Controls.Add(this.groupBox1);
+            this.ClientSize = new System.Drawing.Size(858, 458);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.MinimumSize = new System.Drawing.Size(732, 408);
+            this.MinimumSize = new System.Drawing.Size(874, 497);
             this.Name = "SettingsForm";
-            this.Padding = new System.Windows.Forms.Padding(10);
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Settings";
             this.Load += new System.EventHandler(this.SettingsForm_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.tabControl.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -508,7 +667,6 @@ namespace PokemonGo.RocketAPI.Window
         private System.Windows.Forms.CheckBox evolveAllChk;
         private System.Windows.Forms.Button saveBtn;
         private GMap.NET.WindowsForms.GMapControl gMapControl1;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TrackBar trackBar;
         private System.Windows.Forms.TextBox TravelSpeedBox;
@@ -519,5 +677,18 @@ namespace PokemonGo.RocketAPI.Window
         private System.Windows.Forms.Button FindAdressButton;
         private System.Windows.Forms.CheckBox CatchPokemonBox;
         private System.Windows.Forms.Label CatchPokemonText;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.CheckedListBox clbTransfer;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckedListBox clbCatch;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.CheckedListBox clbEvolve;
+        private System.Windows.Forms.CheckBox cbSelectAllEvolve;
+        private System.Windows.Forms.CheckBox cbSelectAllCatch;
+        private System.Windows.Forms.CheckBox cbSelectAllTransfer;
     }
 }

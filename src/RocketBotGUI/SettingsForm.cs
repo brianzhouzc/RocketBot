@@ -2,9 +2,11 @@
 using System.Configuration;
 using System.Drawing;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Forms;
 using GMap.NET;
 using GMap.NET.MapProviders;
+using POGOProtos.Enums;
 
 namespace PokemonGo.RocketAPI.Window
 {
@@ -13,6 +15,17 @@ namespace PokemonGo.RocketAPI.Window
         public SettingsForm()
         {
             InitializeComponent();
+            AdressBox.KeyDown += AdressBox_KeyDown;
+            cbSelectAllCatch.CheckedChanged += CbSelectAllCatch_CheckedChanged;
+            cbSelectAllTransfer.CheckedChanged += CbSelectAllTransfer_CheckedChanged;
+            cbSelectAllEvolve.CheckedChanged += CbSelectAllEvolve_CheckedChanged;
+
+            foreach (PokemonId id in Enum.GetValues(typeof(PokemonId))) {
+                if (id == PokemonId.Missingno) continue;
+                clbCatch.Items.Add(id);
+                clbTransfer.Items.Add(id);
+                clbEvolve.Items.Add(id);
+            }
         }
 
         private void SettingsForm_Load(object sender, EventArgs e)
@@ -68,6 +81,33 @@ namespace PokemonGo.RocketAPI.Window
 
             //disable map focus
             gMapControl1.DisableFocusOnMouseEnter = true;
+
+            foreach (var pokemonIdSetting in Settings.Instance.ExcludedPokemonCatch) {
+                for (int i = 0; i < clbCatch.Items.Count; i++) {
+                    PokemonId pokemonId = (PokemonId)clbCatch.Items[i];
+                    if (pokemonIdSetting == pokemonId) {
+                        clbCatch.SetItemChecked(i, true);
+                    }
+                }
+            }
+
+            foreach (var pokemonIdSetting in Settings.Instance.ExcludedPokemonTransfer) {
+                for (int i = 0; i < clbTransfer.Items.Count; i++) {
+                    PokemonId pokemonId = (PokemonId)clbTransfer.Items[i];
+                    if (pokemonIdSetting == pokemonId) {
+                        clbTransfer.SetItemChecked(i, true);
+                    }
+                }
+            }
+
+            foreach (var pokemonIdSetting in Settings.Instance.ExcludedPokemonEvolve) {
+                for (int i = 0; i < clbEvolve.Items.Count; i++) {
+                    PokemonId pokemonId = (PokemonId)clbEvolve.Items[i];
+                    if (pokemonIdSetting == pokemonId) {
+                        clbEvolve.SetItemChecked(i, true);
+                    }
+                }
+            }
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
@@ -101,6 +141,9 @@ namespace PokemonGo.RocketAPI.Window
             //Settings.Instance.SetSetting(ImageSizeBox.Text, "ImageSize");
             Settings.Instance.SetSetting(evolveAllChk.Checked ? "true" : "false", "EvolveAllGivenPokemons");
             Settings.Instance.SetSetting(CatchPokemonBox.Checked ? "true" : "false", "CatchPokemon");
+            Settings.Instance.ExcludedPokemonCatch = clbCatch.CheckedItems.Cast<PokemonId>().ToList();
+            Settings.Instance.ExcludedPokemonTransfer = clbTransfer.CheckedItems.Cast<PokemonId>().ToList();
+            Settings.Instance.ExcludedPokemonEvolve = clbEvolve.CheckedItems.Cast<PokemonId>().ToList();
             Settings.Instance.Reload();
 
             MainForm.ResetMap();
@@ -148,22 +191,6 @@ namespace PokemonGo.RocketAPI.Window
             gMapControl1.Zoom = 15;
         }
 
-        private void authTypeLabel_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void transferCpThresText_TextChanged(object sender, EventArgs e)
-        {
-        }
-
         private void transferTypeCb_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (transferTypeCb.Text == "CP")
@@ -189,14 +216,6 @@ namespace PokemonGo.RocketAPI.Window
             }
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void gMapControl1_Load(object sender, EventArgs e)
-        {
-        }
-
         private void FindAdressButton_Click_1(object sender, EventArgs e)
         {
             gMapControl1.SetPositionByKeywords(AdressBox.Text);
@@ -207,26 +226,6 @@ namespace PokemonGo.RocketAPI.Window
             var latitude = Y.ToString();
             latitudeText.Text = latitude;
             longitudeText.Text = longitude;
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void evolveAllChk_CheckedChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
         }
 
         private void TravelSpeedBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -262,6 +261,31 @@ namespace PokemonGo.RocketAPI.Window
             {
                 AdressBox.Text = "";
                 AdressBox.ForeColor = SystemColors.WindowText;
+            }
+        }
+
+        private void CbSelectAllEvolve_CheckedChanged(object sender, EventArgs e) {
+            for (int i = 0; i < clbEvolve.Items.Count; i++) {
+                clbEvolve.SetItemChecked(i, cbSelectAllEvolve.Checked);
+            }
+        }
+
+        private void CbSelectAllTransfer_CheckedChanged(object sender, EventArgs e) {
+            for (int i = 0; i < clbTransfer.Items.Count; i++) {
+                clbTransfer.SetItemChecked(i, cbSelectAllTransfer.Checked);
+            }
+        }
+
+        private void CbSelectAllCatch_CheckedChanged(object sender, EventArgs e) {
+            for (int i = 0; i < clbCatch.Items.Count; i++) {
+                clbCatch.SetItemChecked(i, cbSelectAllCatch.Checked);
+            }
+        }
+
+        private void AdressBox_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Enter) {
+                gMapControl1.SetPositionByKeywords(AdressBox.Text);
+                gMapControl1.Zoom = 15;
             }
         }
     }

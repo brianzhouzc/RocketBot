@@ -231,8 +231,15 @@ namespace PokemonGo.RocketAPI.Window
 
         private async Task EvolveAllGivenPokemons(Client client, IEnumerable<PokemonData> pokemonToEvolve)
         {
+            var excludedPokemon = Settings.Instance.ExcludedPokemonEvolve;
             foreach (var pokemon in pokemonToEvolve)
             {
+                if (excludedPokemon.Contains(pokemon.PokemonId)) {
+                    ColoredConsoleWrite(Color.Orange,
+                        $"{pokemon.PokemonId} excluded for evolving");
+                    continue;
+                }
+
                 var countOfEvolvedUnits = 0;
                 var xpCount = 0;
 
@@ -551,11 +558,18 @@ namespace PokemonGo.RocketAPI.Window
                 .Select(i => i.InventoryItemData?.PokemonData)
                 .Where(p => p != null && p?.PokemonId > 0)
                 .ToArray();
+            var excludedPokemon = Settings.Instance.ExcludedPokemonCatch;
 
             foreach (var pokemon in pokemons)
             {
                 if (_forceUnbanning || _stopping)
                     break;
+                
+                if (excludedPokemon.Contains(pokemon.PokemonId)) {
+                    ColoredConsoleWrite(Color.Orange,
+                        $"Encountered {pokemon.PokemonId} but is excluded for catching.");
+                    continue;
+                }
 
                 _farmingPokemons = true;
 
@@ -579,6 +593,14 @@ namespace PokemonGo.RocketAPI.Window
                 UpdateMap();
                 var encounterPokemonResponse =
                     await client.Encounter.EncounterPokemon(pokemon.EncounterId, pokemon.SpawnPointId);
+
+                if (encounterPokemonResponse.Status == EncounterResponse.Types.Status.PokemonInventoryFull) {
+                    ColoredConsoleWrite(Color.Orange,
+                        $"Unable to catch pokemon, inventory is full!");
+                    _farmingPokemons = false;
+                    break;
+                }
+
                 var pokemonCp = encounterPokemonResponse?.WildPokemon?.PokemonData?.Cp;
                 var pokemonIv = Math.Round(Perfect(encounterPokemonResponse?.WildPokemon?.PokemonData));
                 CatchPokemonResponse caughtPokemonResponse;
@@ -887,14 +909,21 @@ namespace PokemonGo.RocketAPI.Window
 
         public static float Perfect(PokemonData poke)
         {
-            return (poke.IndividualAttack + poke.IndividualDefense + poke.IndividualStamina)/(3.0f*15.0f)*100.0f;
+            if (poke == null)
+                return 0f;
+            return (poke.IndividualAttack + poke.IndividualDefense + poke.IndividualStamina) / 45f * 100f;
         }
 
         private async Task TransferAllGivenPokemons(Client client, IEnumerable<PokemonData> unwantedPokemons,
             float keepPerfectPokemonLimit = 80.0f)
         {
+            var excludedPokemon = Settings.Instance.ExcludedPokemonTransfer;
             foreach (var pokemon in unwantedPokemons)
             {
+                if (excludedPokemon.Contains(pokemon.PokemonId)) {
+                    continue;
+                }
+
                 if (Perfect(pokemon) >= keepPerfectPokemonLimit) continue;
                 ColoredConsoleWrite(Color.White,
                     $"Pokemon {pokemon.PokemonId} with {pokemon.Cp} CP has IV percent less than {keepPerfectPokemonLimit}%");
@@ -946,6 +975,7 @@ namespace PokemonGo.RocketAPI.Window
 
         private async Task TransferDuplicatePokemon(Client client)
         {
+            var excludedPokemon = Settings.Instance.ExcludedPokemonTransfer;
             //ColoredConsoleWrite(ConsoleColor.White, $"Check for duplicates");
             var inventory = await client.Inventory.GetInventory();
             var allpokemons =
@@ -961,6 +991,11 @@ namespace PokemonGo.RocketAPI.Window
                 for (var j = 0; j < dupes.ElementAt(i).Count() - 1; j++)
                 {
                     var dubpokemon = dupes.ElementAt(i).ElementAt(j).value;
+
+                    if (excludedPokemon.Contains(dubpokemon.PokemonId)) {
+                        continue;
+                    }
+
                     if (dubpokemon.Favorite == 0)
                     {
                         var transfer = await client.Inventory.TransferPokemon(dubpokemon.Id);
@@ -986,6 +1021,7 @@ namespace PokemonGo.RocketAPI.Window
 
         private async Task TransferDuplicateIVPokemon(Client client)
         {
+            var excludedPokemon = Settings.Instance.ExcludedPokemonTransfer;
             //ColoredConsoleWrite(ConsoleColor.White, $"Check for duplicates");
             var inventory = await client.Inventory.GetInventory();
             var allpokemons =
@@ -1001,6 +1037,11 @@ namespace PokemonGo.RocketAPI.Window
                 for (var j = 0; j < dupes.ElementAt(i).Count() - 1; j++)
                 {
                     var dubpokemon = dupes.ElementAt(i).ElementAt(j).value;
+
+                    if (excludedPokemon.Contains(dubpokemon.PokemonId)) {
+                        continue;
+                    }
+
                     if (dubpokemon.Favorite == 0)
                     {
                         var transfer = await client.Inventory.TransferPokemon(dubpokemon.Id);
@@ -1028,53 +1069,15 @@ namespace PokemonGo.RocketAPI.Window
         {
             //ColoredConsoleWrite(ConsoleColor.White, $"Firing up the meat grinder");
 
-            PokemonId[] doNotTransfer =
-            {
-                // DO NOT EMPTY THIS ARRAY
-                //PokemonId.Pidgey,
-                //PokemonId.Rattata,
-                //PokemonId.Weedle,
-                //PokemonId.Zubat,
-                //PokemonId.Caterpie,
-                //PokemonId.Pidgeotto,
-                //PokemonId.NidoranFemale,
-                //PokemonId.Paras,
-                //PokemonId.Venonat,
-                //PokemonId.Psyduck,
-                //PokemonId.Poliwag,
-                //PokemonId.Slowpoke,
-                //PokemonId.Drowzee,
-                //PokemonId.Gastly,
-                //PokemonId.Goldeen,
-                //PokemonId.Staryu,
-                PokemonId.Magikarp,
-                PokemonId.Eevee //,
-                //PokemonId.Dratini
-            };
-
             var inventory = await client.Inventory.GetInventory();
             var pokemons = inventory.InventoryDelta.InventoryItems
                 .Select(i => i.InventoryItemData?.PokemonData)
                 .Where(p => p != null && p?.PokemonId > 0)
                 .ToArray();
 
-            //foreach (var unwantedPokemonType in unwantedPokemonTypes)
-            {
-                List<PokemonData> pokemonToDiscard;
-                if (doNotTransfer.Count() != 0)
-                    pokemonToDiscard =
-                        pokemons.Where(p => !doNotTransfer.Contains(p.PokemonId) && p.Cp < cpThreshold)
-                            .OrderByDescending(p => p.Cp)
-                            .ToList();
-                else
-                    pokemonToDiscard = pokemons.Where(p => p.Cp < cpThreshold).OrderByDescending(p => p.Cp).ToList();
-
-
-                //var unwantedPokemon = pokemonOfDesiredType.Skip(1) // keep the strongest one for potential battle-evolving
-                //                                          .ToList();
-                ColoredConsoleWrite(Color.Gray, $"Grinding {pokemonToDiscard.Count} pokemon below {cpThreshold} CP.");
-                await TransferAllGivenPokemons(client, pokemonToDiscard);
-            }
+            List<PokemonData> pokemonToDiscard = pokemons.Where(p => p.Cp < cpThreshold).OrderByDescending(p => p.Cp).ToList();
+            ColoredConsoleWrite(Color.Gray, $"Grinding {pokemonToDiscard.Count} pokemon below {cpThreshold} CP.");
+            await TransferAllGivenPokemons(client, pokemonToDiscard);
 
             ColoredConsoleWrite(Color.Gray, $"Finished grinding all the meat");
         }
@@ -1990,11 +1993,11 @@ namespace PokemonGo.RocketAPI.Window
             var response = await _client2.Inventory.NicknamePokemon(pokemon.Id, nickname);
             if (response.Result == NicknamePokemonResponse.Types.Result.Success)
             {
-                ColoredConsoleWrite(Color.Green, $"Successfully renamed {pokemon.PokemonId} to \"{nickname}|\"");
+                ColoredConsoleWrite(Color.Green, $"Successfully renamed {pokemon.PokemonId} to \"{nickname}\"");
             }
             else
             {
-                ColoredConsoleWrite(Color.Red, $"Failed renaming {pokemon.PokemonId} to \"{nickname}|\"");
+                ColoredConsoleWrite(Color.Red, $"Failed renaming {pokemon.PokemonId} to \"{nickname}\"");
             }
             ReloadPokemonList();
         }
