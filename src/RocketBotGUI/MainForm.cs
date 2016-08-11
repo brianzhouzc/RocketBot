@@ -416,9 +416,6 @@ namespace PokemonGo.RocketAPI.Window
                 if (ClientSettings.Recycler)
                     await RecycleItems(_client);
                 //client.RecycleItems(client);
-
-                if (ClientSettings.TravelSpeed > 30)
-                    ColoredConsoleWrite(Color.Red, "WARNING: You are travelling over 30km/h. Your ip might get flag!");
                 //await Task.Delay(5000);
                 await PrintLevel(_client);
 
@@ -1336,15 +1333,6 @@ namespace PokemonGo.RocketAPI.Window
             ColoredConsoleWrite(c, message);
         }
 
-        private void showAllToolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void statsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // todo: add player stats later
-        }
-
         private async void forceUnbanToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (_client != null && _pokeStops != null)
@@ -1365,22 +1353,10 @@ namespace PokemonGo.RocketAPI.Window
             }
         }
 
-        private void showAllToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-        }
-
         private void todoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var settingsForm = new SettingsForm();
             settingsForm.ShowDialog();
-        }
-
-        private void pokemonToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void pokeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
         }
 
         private void deviceToolStripMenuItem_Click(object sender, EventArgs e)
