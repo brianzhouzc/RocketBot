@@ -100,7 +100,7 @@ namespace PokemonGo.RocketAPI.Helpers
             var minCp = CalculateMinCpMultiplier(poke);
             var curCp = CalculateCpMultiplier(poke);
 
-            return (curCp - minCp) / (maxCp - minCp) * 100.0;
+            return (curCp - minCp) / (maxCp - minCp);
         }
 
         public static BaseStats GetBaseStats(PokemonId id)
