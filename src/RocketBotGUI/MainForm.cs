@@ -156,7 +156,7 @@ namespace PokemonGo.RocketAPI.Window
                 ColoredConsoleWrite(Color.Green, "Your version is " + GetExecutingAssembly().GetName().Version);
                 ColoredConsoleWrite(Color.Green, "Github version is " + gitVersion);
                 ColoredConsoleWrite(Color.Green,
-                    "You can find it at www.GitHub.com/1461748123/Pokemon-Go-Rocket-API/releases");
+                    "You can find it at www.GitHub.com/TheUnnameOrganization/RocketBot/releases");
             }
             catch (Exception)
             {
@@ -169,7 +169,7 @@ namespace PokemonGo.RocketAPI.Window
             using (var wC = new WebClient())
                 return
                     wC.DownloadString(
-                        "https://raw.githubusercontent.com/1461748123/Pokemon-Go-Rocket-API/master/PokemonGo/RocketAPI/Window/Properties/AssemblyInfo.cs");
+                        "https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/PokemonGo/RocketAPI/Properties/AssemblyInfo.cs");
         }
 
         public static void ColoredConsoleWrite(Color color, string text)
