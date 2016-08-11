@@ -1531,6 +1531,17 @@ namespace PokemonGo.RocketAPI.Window
                 var profile = await _client2.Player.GetPlayer();
                 var itemTemplates = await _client2.Download.GetItemTemplates();
 
+                var appliedItems = new Dictionary<ItemId, DateTime>();
+                var inventoryAppliedItems = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.AppliedItems);
+
+                foreach (AppliedItems aItems in inventoryAppliedItems) {
+                    if (aItems != null && aItems.Item != null) {
+                        foreach (AppliedItem item in aItems.Item) {
+                            appliedItems.Add(item.ItemId, Utils.FromUnixTimeUtc(item.ExpireMs));
+                        }
+                    }
+                }
+
                 PokemonObject.Initilize(itemTemplates);
 
                 var pokemons =
@@ -1571,10 +1582,13 @@ namespace PokemonGo.RocketAPI.Window
                                       pokemoncount + " pokemon, " + eggcount + " eggs)";
 
                 var items =
-                    inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Item)
-                        .Where(i => i != null && i.Count > 0);
+                    inventory.InventoryDelta.InventoryItems
+                        .Select(i => i.InventoryItemData?.Item)
+                        .Where(i => i != null)
+                        .OrderBy(i => i.ItemId);
                 var itemscount =
-                    inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Item)
+                    inventory.InventoryDelta.InventoryItems
+                        .Select(i => i.InventoryItemData?.Item)
                         .Where(i => i != null)
                         .Sum(i => i.Count) + 1;
 
@@ -1582,13 +1596,14 @@ namespace PokemonGo.RocketAPI.Window
                 foreach (var item in items)
                 {
                     var box = new ItemBox(item);
-                    box.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Bottom;
+                    if (appliedItems.ContainsKey(item.ItemId))
+                        box.expires = appliedItems[item.ItemId];
                     box.ItemClick += ItemBox_ItemClick;
-                    ;
                     flpItems.Controls.Add(box);
                 }
 
                 lblInventory.Text = itemscount + " / " + profile.PlayerData.MaxItemStorage;
+                
             }
             catch (GoogleException ex)
             {
@@ -1629,12 +1644,11 @@ namespace PokemonGo.RocketAPI.Window
                             SetState(true);
                             return;
                         }
-
                         var response = await _client.Inventory.UseItemXpBoost();
                         if (response.Result == UseItemXpBoostResponse.Types.Result.Success)
                         {
                             ColoredConsoleWrite(Color.Green, $"Using a Lucky Egg");
-                            ColoredConsoleWrite(Color.Yellow, $"Lucky Egg Valid until: {DateTime.Now.AddMinutes(30)}");
+                            ColoredConsoleWrite(Color.Yellow, $"Lucky Egg valid until: {DateTime.Now.AddMinutes(30)}");
                         }
                         else if (response.Result == UseItemXpBoostResponse.Types.Result.ErrorXpBoostAlreadyActive)
                         {
@@ -1651,6 +1665,22 @@ namespace PokemonGo.RocketAPI.Window
                     }
                     else if (item.ItemId == ItemId.ItemIncenseOrdinary)
                     {
+                        if (!_botStarted) {
+                            ColoredConsoleWrite(Color.Red, $"Bot must be running first!");
+                            SetState(true);
+                            return;
+                        }
+                        var response = await _client.Inventory.UseIncense(ItemId.ItemIncenseOrdinary);
+                        if (response.Result == UseIncenseResponse.Types.Result.Success) {
+                            ColoredConsoleWrite(Color.Green, $"Using an incense");
+                            ColoredConsoleWrite(Color.Yellow, $"Incense valid until: {DateTime.Now.AddMinutes(30)}");
+                        } else if (response.Result == UseIncenseResponse.Types.Result.IncenseAlreadyActive) {
+                            ColoredConsoleWrite(Color.Orange, $"An incense is already active!");
+                        } else if (response.Result == UseIncenseResponse.Types.Result.LocationUnset) {
+                            ColoredConsoleWrite(Color.Red, $"Bot must be running first!");
+                        } else {
+                            ColoredConsoleWrite(Color.Red, $"Failed using an incense!");
+                        }
                     }
                     else
                     {
