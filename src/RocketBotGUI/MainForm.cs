@@ -408,7 +408,7 @@ namespace PokemonGo.RocketAPI.Window
                         await TransferDuplicateIVPokemon(_client);
                         break;
                     case "CP/IV Duplicate":
-                        await TransferDuplicateCPIVPokemon(client);
+                        await TransferDuplicateCPIVPokemon(_client);
                         break;
                     case "CP":
                         await TransferAllWeakPokemon(_client, ClientSettings.TransferCpThreshold);
@@ -1080,12 +1080,12 @@ namespace PokemonGo.RocketAPI.Window
         private async Task TransferDuplicateCPIVPokemon(Client client)
         {
             //ColoredConsoleWrite(Color.White, $"Check for CP/IV duplicates");
-            var inventory = await client.GetInventory();
+            var inventory = await client.Inventory.GetInventory();
             var allpokemons =
-                inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon)
+                inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PokemonData)
                     .Where(p => p != null && p?.PokemonId > 0);
 
-            var dupes = allpokemons.OrderBy(x => Perfect(x)).Select((x, i) => new { index = i, value = x })
+            var dupes = allpokemons.OrderBy(x => Perfect(x)).Select((x, i) => new {index = i, value = x})
                 .GroupBy(x => x.value.PokemonId)
                 .Where(x => x.Skip(1).Any());
 
@@ -1108,20 +1108,22 @@ namespace PokemonGo.RocketAPI.Window
                     var dubpokemon = dupes.ElementAt(i).ElementAt(j).value;
                     if (dubpokemon.Favorite == 0 && j != max_index)
                     {
-                        var transfer = await client.TransferPokemon(dubpokemon.Id);
+                        var transfer = await client.Inventory.TransferPokemon(dubpokemon.Id);
                         string pokemonName;
                         if (ClientSettings.Language == "german")
                         {
-                            string name_english = Convert.ToString(dubpokemon.PokemonId);
-                            var request = (HttpWebRequest)WebRequest.Create("http://boosting-service.de/pokemon/index.php?pokeName=" + name_english);
-                            var response = (HttpWebResponse)request.GetResponse();
+                            var name_english = Convert.ToString(dubpokemon.PokemonId);
+                            var request =
+                                (HttpWebRequest)
+                                    WebRequest.Create("http://boosting-service.de/pokemon/index.php?pokeName=" +
+                                                      name_english);
+                            var response = (HttpWebResponse) request.GetResponse();
                             pokemonName = new StreamReader(response.GetResponseStream()).ReadToEnd();
                         }
                         else
                             pokemonName = Convert.ToString(dubpokemon.PokemonId);
                         ColoredConsoleWrite(Color.DarkGreen,
                             $"Transferred {pokemonName} with {dubpokemon.Cp} CP, {Math.Round(Perfect(dubpokemon))}% IV (Highest is {max_cp} CP/{Math.Round(Perfect(dupes.ElementAt(i).Last().value))}% IV)");
-
                     }
                 }
             }
