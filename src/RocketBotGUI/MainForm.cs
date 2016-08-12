@@ -785,9 +785,13 @@ namespace PokemonGo.RocketAPI.Window
                     PokeStopOutput.Write($", Gems: {fortSearch.GemsAwarded}");
                 if (fortSearch.PokemonDataEgg != null)
                     PokeStopOutput.Write($", Eggs: {fortSearch.PokemonDataEgg}");
-                if (GetFriendlyItemsString(fortSearch.ItemsAwarded) != string.Empty)
+                if (GetFriendlyItemsString(fortSearch.ItemsAwarded) != string.Empty) {
                     PokeStopOutput.Write($", Items: {GetFriendlyItemsString(fortSearch.ItemsAwarded)} ");
+                }
+                    
                 ColoredConsoleWrite(Color.Cyan, PokeStopOutput.ToString());
+
+                await RecycleItems(client);
 
                 if (fortSearch.ExperienceAwarded != 0)
                     _totalExperience += fortSearch.ExperienceAwarded;
@@ -798,11 +802,11 @@ namespace PokemonGo.RocketAPI.Window
                     await ExecuteCatchAllNearbyPokemons(client);
             }
             _farmingStops = false;
-            if (!_forceUnbanning && !_stopping)
+            /*if (!_forceUnbanning && !_stopping)
             {
-                await RecycleItems(client);
+                
                 //await ExecuteFarmingPokestopsAndPokemons(client);
-            }
+            }*/
         }
 
         private async Task ForceUnban(Client client)
@@ -1928,19 +1932,22 @@ namespace PokemonGo.RocketAPI.Window
 
         public async Task<IEnumerable<ItemData>> GetItemsToRecycle(ISettings _settings, Client client)
         {
-            var settings = (Settings) _settings;
+            var itemCounts = (_settings as Settings).ItemCounts;
             var myItems = await GetItems(client);
+            var itemsToRecycle = new List<ItemData>();
 
-            return myItems
-                .Where(x => settings.ItemRecycleFilter.Any(f => f.Key == x.ItemId && x.Count > f.Value))
-                .Select(
-                    x =>
-                        new ItemData
-                        {
-                            ItemId = x.ItemId,
-                            Count = x.Count - settings.ItemRecycleFilter.Single(f => f.Key == x.ItemId).Value,
-                            Unseen = x.Unseen
-                        });
+            foreach (var itemData in myItems) {
+                foreach (var itemCount in itemCounts) {
+                    if (itemData.ItemId == itemCount.ItemId && itemData.Count > itemCount.Count) {
+                        var itemToRecycle = new ItemData();
+                        itemToRecycle.ItemId = itemData.ItemId;
+                        itemToRecycle.Count = itemData.Count - itemCount.Count;
+                        itemsToRecycle.Add(itemToRecycle);
+                    }
+                }
+            }
+
+            return itemsToRecycle;
         }
 
         public async Task RecycleItems(Client client)
@@ -1951,7 +1958,7 @@ namespace PokemonGo.RocketAPI.Window
             {
                 var transfer = await client.Inventory.RecycleItem(item.ItemId, item.Count);
                 ColoredConsoleWrite(Color.DarkCyan, $"Recycled {item.Count}x {item.ItemId.ToString().Substring(4)}");
-                await Task.Delay(500);
+                //await Task.Delay(500);
             }
         }
 

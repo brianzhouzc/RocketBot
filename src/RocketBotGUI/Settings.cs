@@ -123,6 +123,46 @@ namespace PokemonGo.RocketAPI.Window
         public double RazzBerrySetting
             => GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 500;
 
+        public List<ItemData> ItemCounts 
+        {
+            get 
+            {
+                var itemCounts = new List<ItemData>();
+                var items = GetSetting() != String.Empty ? GetSetting() :
+                    "ItemPokeball,100;ItemGreatBall,100;ItemUltraBall,50;ItemRazzBerry,25;ItemPotion,0;ItemSuperPotion,0;ItemHyperPotion,10;ItemMaxPotion,20;ItemRevive,10;ItemMaxRevive,10";
+                if (items.Contains(";")) {
+                    foreach (var item in items.Split(';')) {
+                        if (item.Contains(",")) {
+                            var itemId = item.Split(',')[0];
+                            var count = Int32.Parse(item.Split(',')[1]);
+                            foreach (ItemId id in Enum.GetValues(typeof(ItemId))) {
+                                if (id.ToString().Equals(itemId)) {
+                                    ItemData itemData = new ItemData();
+                                    itemData.ItemId = id;
+                                    itemData.Count = count;
+                                    itemCounts.Add(itemData);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                return itemCounts;
+            }
+
+            set 
+            {
+                var items = "";
+                foreach (var itemData in value) {
+                    items += itemData.ItemId.ToString() + "," + itemData.Count + ";";
+                }
+                if (items != string.Empty) {
+                    items = items.Remove(items.Length - 1, 1);
+                }
+                SetSetting(items);
+            }
+        }
+
         public List<PokemonId> ExcludedPokemonCatch
         {
             get
