@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -34,6 +35,9 @@ namespace PokemonGo.RocketAPI.Window
     {
         public static MainForm Instance;
         public static SynchronizationContext SynchronizationContext;
+
+        //delay between actions, to similate human operation
+        private const int ACTIONDELAY = 1500;
 
         public static Settings ClientSettings;
         private static int _currentlevel = -1;
@@ -131,7 +135,7 @@ namespace PokemonGo.RocketAPI.Window
 
         public static double GetRuntime()
         {
-            return (DateTime.Now - TimeStarted).TotalSeconds/3600;
+            return (DateTime.Now - TimeStarted).TotalSeconds / 3600;
         }
 
         public void CheckVersion()
@@ -314,10 +318,10 @@ namespace PokemonGo.RocketAPI.Window
                                     //Calculating the exp needed to level up
                                     float expNextLvl = v.NextLevelXp - v.Experience;
                                     //Calculating the exp made per second
-                                    xpSec = Math.Round(_totalExperience/GetRuntime())/60/60;
+                                    xpSec = Math.Round(_totalExperience / GetRuntime()) / 60 / 60;
                                     //Calculating the seconds left to level up
                                     if (xpSec != 0)
-                                        secondsLeft = Convert.ToInt32(expNextLvl/xpSec);
+                                        secondsLeft = Convert.ToInt32(expNextLvl / xpSec);
                                     //formatting data to make an output like DateFormat
                                     while (secondsLeft > 60)
                                     {
@@ -340,8 +344,8 @@ namespace PokemonGo.RocketAPI.Window
                                             _getSessionRuntimeInTimeFormat(), v.Experience - v.PrevLevelXp - XpDiff,
                                             v.NextLevelXp - v.PrevLevelXp - XpDiff,
                                             profile.PlayerData.Currencies.ToArray()[1].Amount) +
-                                        " | XP/Hour: " + Math.Round(_totalExperience/GetRuntime()) + " | Pokemon/Hour: " +
-                                        Math.Round(_totalPokemon/GetRuntime()) + " | NextLevel in: " + hoursLeft + ":" +
+                                        " | XP/Hour: " + Math.Round(_totalExperience / GetRuntime()) + " | Pokemon/Hour: " +
+                                        Math.Round(_totalPokemon / GetRuntime()) + " | NextLevel in: " + hoursLeft + ":" +
                                         minutesLeft +
                                         ":" + secondsLeft);
                                 }
@@ -587,7 +591,7 @@ namespace PokemonGo.RocketAPI.Window
                     var request =
                         (HttpWebRequest)
                             WebRequest.Create("http://boosting-service.de/pokemon/index.php?pokeName=" + name_english);
-                    var response = (HttpWebResponse) request.GetResponse();
+                    var response = (HttpWebResponse)request.GetResponse();
                     pokemonName = new StreamReader(response.GetResponseStream()).ReadToEnd();
                 }
                 else
@@ -685,7 +689,7 @@ namespace PokemonGo.RocketAPI.Window
         {
             SynchronizationContext.Post(o =>
             {
-                _playerMarker.Position = (PointLatLng) o;
+                _playerMarker.Position = (PointLatLng)o;
 
                 _searchAreaOverlay.Polygons.Clear();
             }, new PointLatLng(latitude, longitude));
@@ -882,7 +886,7 @@ namespace PokemonGo.RocketAPI.Window
                 return string.Empty;
 
             return enumerable.GroupBy(i => i.ItemId)
-                .Select(kvp => new {ItemName = kvp.Key.ToString().Substring(4), Amount = kvp.Sum(x => x.ItemCount)})
+                .Select(kvp => new { ItemName = kvp.Key.ToString().Substring(4), Amount = kvp.Sum(x => x.ItemCount) })
                 .Select(y => $"{y.Amount}x {y.ItemName}")
                 .Aggregate((a, b) => $"{a}, {b}");
         }
@@ -893,7 +897,7 @@ namespace PokemonGo.RocketAPI.Window
             var unwantedPokemonTypes = new List<PokemonId>();
             for (var i = 1; i <= 151; i++)
             {
-                unwantedPokemonTypes.Add((PokemonId) i);
+                unwantedPokemonTypes.Add((PokemonId)i);
             }
 
             var inventory = await client.Inventory.GetInventory();
@@ -920,7 +924,7 @@ namespace PokemonGo.RocketAPI.Window
         {
             if (poke == null)
                 return 0f;
-            return (poke.IndividualAttack + poke.IndividualDefense + poke.IndividualStamina)/45f*100f;
+            return (poke.IndividualAttack + poke.IndividualDefense + poke.IndividualStamina) / 45f * 100f;
         }
 
         private async Task TransferAllGivenPokemons(Client client, IEnumerable<PokemonData> unwantedPokemons,
@@ -960,7 +964,7 @@ namespace PokemonGo.RocketAPI.Window
                             (HttpWebRequest)
                                 WebRequest.Create("http://boosting-service.de/pokemon/index.php?pokeName=" +
                                                   name_english);
-                        var response = (HttpWebResponse) request.GetResponse();
+                        var response = (HttpWebResponse)request.GetResponse();
                         pokemonName = new StreamReader(response.GetResponseStream()).ReadToEnd();
                     }
                     else
@@ -992,7 +996,7 @@ namespace PokemonGo.RocketAPI.Window
                 inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PokemonData)
                     .Where(p => p != null && p?.PokemonId > 0);
 
-            var dupes = allpokemons.OrderBy(x => x.Cp).Select((x, i) => new {index = i, value = x})
+            var dupes = allpokemons.OrderBy(x => x.Cp).Select((x, i) => new { index = i, value = x })
                 .GroupBy(x => x.value.PokemonId)
                 .Where(x => x.Skip(1).Any());
 
@@ -1018,7 +1022,7 @@ namespace PokemonGo.RocketAPI.Window
                                 (HttpWebRequest)
                                     WebRequest.Create("http://boosting-service.de/pokemon/index.php?pokeName=" +
                                                       name_english);
-                            var response = (HttpWebResponse) request.GetResponse();
+                            var response = (HttpWebResponse)request.GetResponse();
                             pokemonName = new StreamReader(response.GetResponseStream()).ReadToEnd();
                         }
                         else
@@ -1039,7 +1043,7 @@ namespace PokemonGo.RocketAPI.Window
                 inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PokemonData)
                     .Where(p => p != null && p?.PokemonId > 0);
 
-            var dupes = allpokemons.OrderBy(x => Perfect(x)).Select((x, i) => new {index = i, value = x})
+            var dupes = allpokemons.OrderBy(x => Perfect(x)).Select((x, i) => new { index = i, value = x })
                 .GroupBy(x => x.value.PokemonId)
                 .Where(x => x.Skip(1).Any());
 
@@ -1065,7 +1069,7 @@ namespace PokemonGo.RocketAPI.Window
                                 (HttpWebRequest)
                                     WebRequest.Create("http://boosting-service.de/pokemon/index.php?pokeName=" +
                                                       name_english);
-                            var response = (HttpWebResponse) request.GetResponse();
+                            var response = (HttpWebResponse)request.GetResponse();
                             pokemonName = new StreamReader(response.GetResponseStream()).ReadToEnd();
                         }
                         else
@@ -1085,7 +1089,7 @@ namespace PokemonGo.RocketAPI.Window
                 inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PokemonData)
                     .Where(p => p != null && p?.PokemonId > 0);
 
-            var dupes = allpokemons.OrderBy(x => Perfect(x)).Select((x, i) => new {index = i, value = x})
+            var dupes = allpokemons.OrderBy(x => Perfect(x)).Select((x, i) => new { index = i, value = x })
                 .GroupBy(x => x.value.PokemonId)
                 .Where(x => x.Skip(1).Any());
 
@@ -1117,7 +1121,7 @@ namespace PokemonGo.RocketAPI.Window
                                 (HttpWebRequest)
                                     WebRequest.Create("http://boosting-service.de/pokemon/index.php?pokeName=" +
                                                       name_english);
-                            var response = (HttpWebResponse) request.GetResponse();
+                            var response = (HttpWebResponse)request.GetResponse();
                             pokemonName = new StreamReader(response.GetResponseStream()).ReadToEnd();
                         }
                         else
@@ -1172,7 +1176,7 @@ namespace PokemonGo.RocketAPI.Window
                 await Task.Delay(1000);
             else
 
-                await Task.Delay(ClientSettings.LevelTimeInterval*1000);
+                await Task.Delay(ClientSettings.LevelTimeInterval * 1000);
             // PrintLevel(client);
         }
 
@@ -1199,10 +1203,10 @@ namespace PokemonGo.RocketAPI.Window
                 //Calculating the exp needed to level up
                 float expNextLvl = v.NextLevelXp - v.Experience;
                 //Calculating the exp made per second
-                xpSec = Math.Round(_totalExperience/GetRuntime())/60/60;
+                xpSec = Math.Round(_totalExperience / GetRuntime()) / 60 / 60;
                 //Calculating the seconds left to level up
                 if (xpSec != 0)
-                    secondsLeft = Convert.ToInt32(expNextLvl/xpSec);
+                    secondsLeft = Convert.ToInt32(expNextLvl / xpSec);
                 //formatting data to make an output like DateFormat
                 while (secondsLeft > 60)
                 {
@@ -1223,8 +1227,8 @@ namespace PokemonGo.RocketAPI.Window
                         " | Level: {0:0} - ({2:0} / {3:0}) | Runtime {1} | Stardust: {4:0}", v.Level,
                         _getSessionRuntimeInTimeFormat(), v.Experience - v.PrevLevelXp - XpDiff,
                         v.NextLevelXp - v.PrevLevelXp - XpDiff, profile.PlayerData.Currencies.ToArray()[1].Amount) +
-                    " | XP/Hour: " + Math.Round(_totalExperience/GetRuntime()) + " | Pokemon/Hour: " +
-                    Math.Round(_totalPokemon/GetRuntime()) + " | NextLevel in: " + hoursLeft + ":" + minutesLeft +
+                    " | XP/Hour: " + Math.Round(_totalExperience / GetRuntime()) + " | Pokemon/Hour: " +
+                    Math.Round(_totalPokemon / GetRuntime()) + " | NextLevel in: " + hoursLeft + ":" + minutesLeft +
                     ":" + secondsLeft);
             }
             await Task.Delay(1000);
@@ -1434,24 +1438,23 @@ namespace PokemonGo.RocketAPI.Window
         {
             olvPokemonList.ButtonClick += PokemonListButton_Click;
 
-            pkmnName.ImageGetter = delegate(object rowObject)
+            pkmnName.ImageGetter = delegate (object rowObject)
             {
                 var pokemon = rowObject as PokemonObject;
 
                 var key = pokemon.PokemonId.ToString();
                 if (!olvPokemonList.SmallImageList.Images.ContainsKey(key))
                 {
-                    var img = GetPokemonImage((int) pokemon.PokemonId);
+                    var img = GetPokemonImage((int)pokemon.PokemonId);
                     olvPokemonList.SmallImageList.Images.Add(key, img);
                 }
                 return key;
             };
 
-            olvPokemonList.FormatRow += delegate(object sender, FormatRowEventArgs e)
+            olvPokemonList.FormatRow += delegate (object sender, FormatRowEventArgs e)
             {
                 var pok = e.Model as PokemonObject;
-                if (
-                    olvPokemonList.Objects.Cast<PokemonObject>()
+                if (olvPokemonList.Objects.Cast<PokemonObject>()
                         .Select(i => i.PokemonId)
                         .Where(p => p == pok.PokemonId)
                         .Count() > 1)
@@ -1466,7 +1469,7 @@ namespace PokemonGo.RocketAPI.Window
                 }
             };
 
-            cmsPokemonList.Opening += delegate(object sender, CancelEventArgs e)
+            cmsPokemonList.Opening += delegate (object sender, CancelEventArgs e)
             {
                 e.Cancel = false;
                 cmsPokemonList.Items.Clear();
@@ -1491,6 +1494,20 @@ namespace PokemonGo.RocketAPI.Window
                 var separator = new ToolStripSeparator();
                 item.Text = "Transfer " + count + " pokemon";
                 item.Click += delegate { TransferPokemon(pokemons); };
+                cmsPokemonList.Items.Add(item);
+
+                item = new ToolStripMenuItem();
+                item.Text = "Rename";
+                item.Click += delegate
+                {
+                    using (var form = count == 1 ? new NicknamePokemonForm(pokemonObject) : new NicknamePokemonForm())
+                    {
+                        if (form.ShowDialog() == DialogResult.OK)
+                        {
+                            NicknamePokemon(pokemons, form.txtNickname.Text);
+                        }
+                    }
+                };
                 cmsPokemonList.Items.Add(item);
 
                 if (canAllEvolve)
@@ -1531,27 +1548,13 @@ namespace PokemonGo.RocketAPI.Window
                     cmsPokemonList.Items.Add(item);
 
                     cmsPokemonList.Items.Add(separator);
-
-                    item = new ToolStripMenuItem();
-                    item.Text = "Rename";
-                    item.Click += delegate
-                    {
-                        using (var form = new NicknamePokemonForm(pokemonObject))
-                        {
-                            if (form.ShowDialog() == DialogResult.OK)
-                            {
-                                NicknamePokemon(pokemonObject, form.txtNickname.Text);
-                            }
-                        }
-                    };
-                    cmsPokemonList.Items.Add(item);
                 }
             };
         }
 
         private Image GetPokemonImage(int pokemonId)
         {
-            return (Image) Properties.Resources.ResourceManager.GetObject("Pokemon_" + pokemonId);
+            return (Image)Properties.Resources.ResourceManager.GetObject("Pokemon_" + pokemonId);
         }
 
         private void SetState(bool state)
@@ -1607,7 +1610,7 @@ namespace PokemonGo.RocketAPI.Window
                 {
                     var pokemonObject = new PokemonObject(pokemon);
                     var family =
-                        families.Where(i => (int) i.FamilyId <= (int) pokemon.PokemonId)
+                        families.Where(i => (int)i.FamilyId <= (int)pokemon.PokemonId)
                             .First();
                     pokemonObject.Candy = family.Candy_;
                     pokemonObjects.Add(pokemonObject);
@@ -1674,7 +1677,7 @@ namespace PokemonGo.RocketAPI.Window
 
         private async void ItemBox_ItemClick(object sender, EventArgs e)
         {
-            var item = (ItemData) sender;
+            var item = (ItemData)sender;
 
             using (var form = new ItemForm(item))
             {
@@ -1764,15 +1767,15 @@ namespace PokemonGo.RocketAPI.Window
                 var cName = olvPokemonList.AllColumns[e.ColumnIndex].AspectToStringFormat;
                 if (cName.Equals("Transfer"))
                 {
-                    TransferPokemon(new List<PokemonData> {pokemon.PokemonData});
+                    TransferPokemon(new List<PokemonData> { pokemon.PokemonData });
                 }
                 else if (cName.Equals("Power Up"))
                 {
-                    PowerUpPokemon(new List<PokemonData> {pokemon.PokemonData});
+                    PowerUpPokemon(new List<PokemonData> { pokemon.PokemonData });
                 }
                 else if (cName.Equals("Evolve"))
                 {
-                    EvolvePokemon(new List<PokemonData> {pokemon.PokemonData});
+                    EvolvePokemon(new List<PokemonData> { pokemon.PokemonData });
                 }
             }
             catch (Exception ex)
@@ -1928,7 +1931,7 @@ namespace PokemonGo.RocketAPI.Window
 
         public async Task<IEnumerable<ItemData>> GetItemsToRecycle(ISettings _settings, Client client)
         {
-            var settings = (Settings) _settings;
+            var settings = (Settings)_settings;
             var myItems = await GetItems(client);
 
             return myItems
@@ -1986,20 +1989,20 @@ namespace PokemonGo.RocketAPI.Window
             var ballCollection = inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Item)
                 .Where(p => p != null)
                 .GroupBy(i => i.ItemId)
-                .Select(kvp => new {ItemId = kvp.Key, Amount = kvp.Sum(x => x.Count)})
+                .Select(kvp => new { ItemId = kvp.Key, Amount = kvp.Sum(x => x.Count) })
                 .Where(y => y.ItemId == ItemId.ItemPokeBall
                             || y.ItemId == ItemId.ItemGreatBall
                             || y.ItemId == ItemId.ItemUltraBall
                             || y.ItemId == ItemId.ItemMasterBall);
 
             var pokeBallsCount = ballCollection.Where(p => p.ItemId == ItemId.ItemPokeBall).
-                DefaultIfEmpty(new {ItemId = ItemId.ItemPokeBall, Amount = 0}).FirstOrDefault().Amount;
+                DefaultIfEmpty(new { ItemId = ItemId.ItemPokeBall, Amount = 0 }).FirstOrDefault().Amount;
             var greatBallsCount = ballCollection.Where(p => p.ItemId == ItemId.ItemGreatBall).
-                DefaultIfEmpty(new {ItemId = ItemId.ItemGreatBall, Amount = 0}).FirstOrDefault().Amount;
+                DefaultIfEmpty(new { ItemId = ItemId.ItemGreatBall, Amount = 0 }).FirstOrDefault().Amount;
             var ultraBallsCount = ballCollection.Where(p => p.ItemId == ItemId.ItemUltraBall).
-                DefaultIfEmpty(new {ItemId = ItemId.ItemUltraBall, Amount = 0}).FirstOrDefault().Amount;
+                DefaultIfEmpty(new { ItemId = ItemId.ItemUltraBall, Amount = 0 }).FirstOrDefault().Amount;
             var masterBallsCount = ballCollection.Where(p => p.ItemId == ItemId.ItemMasterBall).
-                DefaultIfEmpty(new {ItemId = ItemId.ItemMasterBall, Amount = 0}).FirstOrDefault().Amount;
+                DefaultIfEmpty(new { ItemId = ItemId.ItemMasterBall, Amount = 0 }).FirstOrDefault().Amount;
 
             // Use better balls for high CP pokemon
             if (masterBallsCount > 0 && pokemonCP >= 1000)
@@ -2045,19 +2048,35 @@ namespace PokemonGo.RocketAPI.Window
             return ItemId.ItemPokeBall;
         }
 
-        public async void NicknamePokemon(PokemonObject pokemon, string nickname)
+        public async void NicknamePokemon(IEnumerable<PokemonData> pokemons, string nickname)
         {
             SetState(false);
-            var response = await _client2.Inventory.NicknamePokemon(pokemon.Id, nickname);
-            if (response.Result == NicknamePokemonResponse.Types.Result.Success)
+            foreach (var pokemon in pokemons)
             {
-                ColoredConsoleWrite(Color.Green, $"Successfully renamed {pokemon.PokemonId} to \"{nickname}\"");
+                var newName = new StringBuilder(nickname);
+                newName.Replace("{Name}", Convert.ToString(pokemon.PokemonId));
+                newName.Replace("{CP}", Convert.ToString(pokemon.Cp));
+                newName.Replace("{IV}", Convert.ToString(Math.Round(Perfect(pokemon))));
+                newName.Replace("{IA}", Convert.ToString(pokemon.IndividualAttack));
+                newName.Replace("{ID}", Convert.ToString(pokemon.IndividualDefense));
+                newName.Replace("{IS}", Convert.ToString(pokemon.IndividualStamina));
+                nickname = newName.ToString();
+                if (nickname.Length > 12)
+                {
+                    ColoredConsoleWrite(Color.Red, $"\"{nickname}\" is too long, please chose another name");
+                }
+                var response = await _client2.Inventory.NicknamePokemon(pokemon.Id, nickname);
+                if (response.Result == NicknamePokemonResponse.Types.Result.Success)
+                {
+                    ColoredConsoleWrite(Color.Green, $"Successfully renamed {pokemon.PokemonId} to \"{nickname}\"");
+                }
+                else
+                {
+                    ColoredConsoleWrite(Color.Red, $"Failed renaming {pokemon.PokemonId} to \"{nickname}\"");
+                }
+                await Task.Delay(ACTIONDELAY);
             }
-            else
-            {
-                ColoredConsoleWrite(Color.Red, $"Failed renaming {pokemon.PokemonId} to \"{nickname}\"");
-            }
-            ReloadPokemonList();
+            await ReloadPokemonList();
         }
 
         private async void button1_Click(object sender, EventArgs e)
