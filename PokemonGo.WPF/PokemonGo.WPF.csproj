@@ -83,6 +83,7 @@
     <Compile Include="Behaviors\ListBoxBehavior.cs" />
     <Compile Include="Converters\EventArgsToPositionConverter.cs" />
     <Compile Include="Converters\EggToImagePathConverter.cs" />
+    <Compile Include="Converters\PokemonToCandyColorConverter.cs" />
     <Compile Include="Converters\PokestopToImagePathConverter.cs" />
     <Compile Include="Converters\MapLocationToPositionConverter.cs" />
     <Compile Include="Converters\PositionToMapLocationConverter.cs" />
@@ -811,6 +812,25 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Images\Eggs\EggIncubatorUnlimited.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Interface\candy_painted_base_color.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Interface\candy_painted_highlight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Interface\candy_painted_secondary_color.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Interface\ic_fav.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Interface\ic_fav_pressed.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

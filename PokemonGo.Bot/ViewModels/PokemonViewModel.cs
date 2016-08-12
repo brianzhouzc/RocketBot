@@ -19,7 +19,14 @@ namespace PokemonGo.Bot.ViewModels
             FamilyId = familyId;
         }
 
-        public int PokemonId { get; }
+        int pokemonId;
+        public int PokemonId
+        {
+            get { return pokemonId; }
+            set { if (PokemonId != value) { pokemonId = value; RaisePropertyChanged(); } }
+        }
+
+
         public int FamilyId { get; }
         public virtual string Name => Enum.GetName(typeof(PokemonId), PokemonId);
 

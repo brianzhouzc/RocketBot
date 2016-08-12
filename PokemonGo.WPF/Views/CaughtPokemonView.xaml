@@ -6,20 +6,24 @@
              xmlns:local="clr-namespace:PokemonGo.WPF.Views"
              xmlns:converters="clr-namespace:PokemonGo.WPF.Converters"
              mc:Ignorable="d"
-             d:DesignHeight="50" d:DesignWidth="300">
+             Height="50" Width="300">
     <UserControl.Resources>
         <converters:PokemonToImagePathConverter x:Key="imageConverter" />
+        <converters:PokemonToCandyColorConverter x:Key="candyColorConverter" />
         <BooleanToVisibilityConverter x:Key="boolToVis"/>
     </UserControl.Resources>
     <UserControl.ContextMenu>
         <ContextMenu>
             <MenuItem Header="Transfer" Command="{Binding Transfer}" />
+            <MenuItem Header="Upgrade" Command="{Binding Upgrade}" />
+            <MenuItem Header="Evolve" Command="{Binding Evolve}" />
+            <MenuItem Header="Toggle Favorite" Command="{Binding ToggleFavorite}" />
         </ContextMenu>
     </UserControl.ContextMenu>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="150"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Image Source="{Binding PokemonId, Converter={StaticResource imageConverter}}"/>
@@ -48,13 +52,44 @@
                 <TextBlock Text="{Binding IndividualAttack, StringFormat=A:{0}}" Grid.Column="0"/>
                 <TextBlock Text="{Binding IndividualDefense, StringFormat=D:{0}}" Grid.Column="1"/>
                 <TextBlock Text="{Binding IndividualStamina, StringFormat=S:{0}}" Grid.Column="2"/>
-                <TextBlock Text="{Binding PerfectPercentage, StringFormat=IV:{0:P}}" Grid.Column="3"/>
+                <TextBlock Text="{Binding PerfectPercentage, StringFormat=IV:{0:P2}}" Grid.Column="3"/>
             </Grid>
         </StackPanel>
-        <StackPanel Grid.Column="2">
-            <TextBlock Text="{Binding Move1}"/>
-            <TextBlock Text="{Binding Move2}"/>
-            <TextBlock Text="FAVORITE" Visibility="{Binding IsFavorite, Converter={StaticResource boolToVis}}"/>
-        </StackPanel>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="15"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="15"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{Binding Move1}" Grid.ColumnSpan="3"/>
+            <TextBlock Text="{Binding Move2}" Grid.Row="1" Grid.ColumnSpan="3"/>
+            <Image Source="pack://siteoforigin:,,,/Images/Interface/candy_painted_base_color.png" Grid.Row="2"/>
+            <Rectangle Grid.Row="2">
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="{Binding PokemonId, Converter={StaticResource candyColorConverter}, ConverterParameter=0}" Opacity="0.5"/>
+                </Rectangle.Fill>
+                <Rectangle.OpacityMask>
+                    <ImageBrush ImageSource="pack://siteoforigin:,,,/Images/Interface/candy_painted_base_color.png" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+            <Image Source="pack://siteoforigin:,,,/Images/Interface/candy_painted_secondary_color.png" Grid.Row="2"/>
+            <Rectangle Grid.Row="2">
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="{Binding PokemonId, Converter={StaticResource candyColorConverter}, ConverterParameter=1}" Opacity="0.5"/>
+                </Rectangle.Fill>
+                <Rectangle.OpacityMask>
+                    <ImageBrush ImageSource="pack://siteoforigin:,,,/Images/Interface/candy_painted_secondary_color.png" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+            <Image Source="pack://siteoforigin:,,,/Images/Interface/candy_painted_highlight.png" Grid.Row="2"/>
+            <TextBlock Text="{Binding Candy}" Grid.Row="2" Grid.Column="1"/>
+            <Image Source="pack://siteoforigin:,,,/Images/Interface/ic_fav.png" Grid.Row="2" Grid.Column="2"/>
+            <Image Source="pack://siteoforigin:,,,/Images/Interface/ic_fav_pressed.png" Visibility="{Binding IsFavorite, Converter={StaticResource boolToVis}}" Grid.Row="2" Grid.Column="2"/>
+        </Grid>
     </Grid>
 </UserControl>

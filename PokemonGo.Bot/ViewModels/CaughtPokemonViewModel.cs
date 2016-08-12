@@ -16,6 +16,9 @@ namespace PokemonGo.Bot.ViewModels
         readonly Client client;
 
         public AsyncRelayCommand Transfer { get; }
+        public AsyncRelayCommand ToggleFavorite { get; }
+        public AsyncRelayCommand Evolve { get; }
+        public AsyncRelayCommand Upgrade { get; }
 
         int candy;
         public int Candy
@@ -36,10 +39,37 @@ namespace PokemonGo.Bot.ViewModels
                 if(response.Result == ReleasePokemonResponse.Types.Result.Success)
                 {
                     inventory.Pokemon.Remove(this);
+                    inventory.SetCandyForFamily(Candy + response.CandyAwarded, FamilyId);
                 }
                 else
                 {
                     MessengerInstance.Send(new Message($"Error transferring {Name}: {Enum.GetName(typeof(ReleasePokemonResponse.Types.Result), response.Result)}"));
+                }
+            });
+            ToggleFavorite = new AsyncRelayCommand(async () =>
+            {
+                var targetValue = !IsFavorite;
+                var response = await client.Inventory.SetFavoritePokemon(Id, targetValue);
+                if (response.Result == SetFavoritePokemonResponse.Types.Result.Success)
+                    IsFavorite = targetValue;
+            });
+            Evolve = new AsyncRelayCommand(async () =>
+            {
+                var response = await client.Inventory.EvolvePokemon(Id);
+                if(response.Result == EvolvePokemonResponse.Types.Result.Success)
+                {
+                    inventory.SetCandyForFamily(Candy + response.CandyAwarded, FamilyId);
+                    inventory.Player.Xp += response.ExperienceAwarded;
+                    CombatPoints = response.EvolvedPokemonData.Cp;
+                    PokemonId = (int)response.EvolvedPokemonData.PokemonId;
+                }
+            });
+            Upgrade = new AsyncRelayCommand(async () =>
+            {
+                var response = await client.Inventory.UpgradePokemon(Id);
+                if(response.Result == UpgradePokemonResponse.Types.Result.Success)
+                {
+                    CombatPoints = response.UpgradedPokemon.Cp;
                 }
             });
         }

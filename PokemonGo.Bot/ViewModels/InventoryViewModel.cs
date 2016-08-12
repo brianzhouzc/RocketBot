@@ -46,34 +46,21 @@ namespace PokemonGo.Bot.ViewModels
             }
         }
 
-        InventoryDelta inventory;
-
-        InventoryDelta Inventory
+        private void UpdateCandy(InventoryDelta inventory)
         {
-            get
+            foreach (var candy in inventory?.InventoryItems.Select(i => i.InventoryItemData?.Candy).Where(c => c != null))
             {
-                return inventory;
+                var familyId = (int)candy.FamilyId;
+                SetCandyForFamily(candy.Candy_, familyId);
             }
-            set
+        }
+
+        public void SetCandyForFamily(int amount, int familyId)
+        {
+            var pokemonForCandy = Pokemon.Where(p => p.FamilyId == familyId);
+            foreach (var pokemonWithCorrectFamily in pokemonForCandy)
             {
-                if (Inventory != value)
-                {
-                    inventory = value;
-                    RaisePropertyChanged();
-                    Pokemon.UpdateWith(Inventory?.InventoryItems.Select(i => i.InventoryItemData?.PokemonData).Where(p => p?.PokemonId > 0).Select(p => new CaughtPokemonViewModel(p, client, this)));
-                    Eggs.UpdateWith(Inventory?.InventoryItems.Select(i => i.InventoryItemData?.PokemonData).Where(p => (p?.IsEgg).GetValueOrDefault()).Select(p => new EggViewModel(p)));
-                    Items.UpdateWith(Inventory?.InventoryItems.Select(i => i.InventoryItemData?.Item).Where(i => i != null).Select(i => new ItemViewModel(i)));
-                    foreach (var candy in Inventory?.InventoryItems.Select(i => i.InventoryItemData?.Candy).Where(c => c != null))
-                    {
-                        var familyId = (int)candy.FamilyId;
-                        var pokemonForCandy = Pokemon.Where(p => p.FamilyId == familyId);
-                        foreach (var pokemonWithCorrectFamily in pokemonForCandy)
-                        {
-                            pokemonWithCorrectFamily.Candy = candy.Candy_;
-                        }
-                    }
-                    UpdatePlayer(value);
-                }
+                pokemonWithCorrectFamily.Candy = amount;
             }
         }
 
@@ -110,7 +97,24 @@ namespace PokemonGo.Bot.ViewModels
             Eggs = new ObservableCollection<EggViewModel>();
             Items = new ObservableCollection<ItemViewModel>();
 
-            Load = new AsyncRelayCommand(async () => Inventory = (await client.Inventory.GetInventory()).InventoryDelta);
+            Load = new AsyncRelayCommand(async () =>
+            {
+                var itemTemplaceResponse = await client.Download.GetItemTemplates();
+                if(itemTemplaceResponse.Success)
+                {
+                    var templates = itemTemplaceResponse.ItemTemplates;
+                }
+                var inventoryResponse = await client.Inventory.GetInventory();
+                if(inventoryResponse.Success)
+                {
+                    var inventory = inventoryResponse.InventoryDelta;
+                    Pokemon.UpdateWith(inventory?.InventoryItems.Select(i => i.InventoryItemData?.PokemonData).Where(p => p?.PokemonId > 0).Select(p => new CaughtPokemonViewModel(p, client, this)));
+                    Eggs.UpdateWith(inventory?.InventoryItems.Select(i => i.InventoryItemData?.PokemonData).Where(p => (p?.IsEgg).GetValueOrDefault()).Select(p => new EggViewModel(p)));
+                    Items.UpdateWith(inventory?.InventoryItems.Select(i => i.InventoryItemData?.Item).Where(i => i != null).Select(i => new ItemViewModel(i)));
+                    UpdateCandy(inventory);
+                    UpdatePlayer(inventory);
+                }
+            });
             TransferPokemonWithAlgorithm = new AsyncRelayCommand(async () => await ExecuteTransferPokemonWithAlgorithmAsync(TransferPokemonAlgorithm));
             Recycle = new AsyncRelayCommand<ItemType>(async itemType => await client.Inventory.RecycleItem((ItemId)itemType, 1));
         }
