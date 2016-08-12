@@ -1,4 +1,21 @@
-﻿using System;
+﻿using BrightIdeasSoftware;
+using GMap.NET;
+using GMap.NET.MapProviders;
+using GMap.NET.WindowsForms;
+using GMap.NET.WindowsForms.Markers;
+using POGOProtos.Data;
+using POGOProtos.Data.Player;
+using POGOProtos.Enums;
+using POGOProtos.Inventory;
+using POGOProtos.Inventory.Item;
+using POGOProtos.Map.Fort;
+using POGOProtos.Map.Pokemon;
+using POGOProtos.Networking.Responses;
+using PokemonGo.RocketAPI.Enums;
+using PokemonGo.RocketAPI.Exceptions;
+using PokemonGo.RocketAPI.Extensions;
+using PokemonGo.RocketAPI.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -10,22 +27,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
-using BrightIdeasSoftware;
-using GMap.NET;
-using GMap.NET.MapProviders;
-using GMap.NET.WindowsForms;
-using GMap.NET.WindowsForms.Markers;
-using PokemonGo.RocketAPI.Enums;
-using PokemonGo.RocketAPI.Exceptions;
-using PokemonGo.RocketAPI.Extensions;
-using PokemonGo.RocketAPI.Helpers;
-using POGOProtos.Data;
-using POGOProtos.Enums;
-using POGOProtos.Inventory;
-using POGOProtos.Inventory.Item;
-using POGOProtos.Map.Fort;
-using POGOProtos.Map.Pokemon;
-using POGOProtos.Networking.Responses;
 using static System.Reflection.Assembly;
 
 namespace PokemonGo.RocketAPI.Window
@@ -269,6 +270,7 @@ namespace PokemonGo.RocketAPI.Window
                     case AuthType.Ptc:
                         ColoredConsoleWrite(Color.Green, "Login Type: Pokemon Trainers Club");
                         break;
+
                     case AuthType.Google:
                         ColoredConsoleWrite(Color.Green, "Login Type: Google");
                         break;
@@ -376,7 +378,6 @@ namespace PokemonGo.RocketAPI.Window
                     ColoredConsoleWrite(Color.DarkGray, "Unable to get Country/Place");
                 }
 
-
                 ColoredConsoleWrite(Color.Yellow, "----------------------------");
 
                 // I believe a switch is more efficient and easier to read.
@@ -385,33 +386,39 @@ namespace PokemonGo.RocketAPI.Window
                     case "Leave Strongest":
                         await TransferAllButStrongestUnwantedPokemon(_client);
                         break;
+
                     case "All":
                         await TransferAllGivenPokemons(_client, pokemons, ClientSettings.TransferIvThreshold);
                         break;
+
                     case "Duplicate":
                         await TransferDuplicatePokemon(_client);
                         break;
+
                     case "IV Duplicate":
                         await TransferDuplicateIVPokemon(_client);
                         break;
+
                     case "CP":
                         await TransferAllWeakPokemon(_client, ClientSettings.TransferCpThreshold);
                         break;
+
                     case "IV":
                         await TransferAllGivenPokemons(_client, pokemons, ClientSettings.TransferIvThreshold);
                         break;
+
                     default:
                         ColoredConsoleWrite(Color.DarkGray, "Transfering pokemon disabled");
                         break;
                 }
-
 
                 if (ClientSettings.EvolveAllGivenPokemons)
                     await EvolveAllGivenPokemons(_client, pokemons);
                 if (ClientSettings.Recycler)
                     await RecycleItems(_client);
                 //client.RecycleItems(client);
-
+                if (ClientSettings.UseIncubators)
+                    await UseIncubators(_client);
                 if (ClientSettings.TravelSpeed > 30)
                     ColoredConsoleWrite(Color.Red, "WARNING: You are travelling over 30km/h. Your ip might get flag!");
                 //await Task.Delay(5000);
@@ -495,7 +502,6 @@ namespace PokemonGo.RocketAPI.Window
                 ColoredConsoleWrite(Color.Red, "Invalid response - Restarting");
                 //if (!_stopping) Execute();
             }
-
             catch (Exception ex)
             {
                 ColoredConsoleWrite(Color.Red, ex.ToString());
@@ -529,6 +535,7 @@ namespace PokemonGo.RocketAPI.Window
                                     return reader.ReadString();
                                 }
                                 break;
+
                             default:
                                 return "N/A";
                                 break;
@@ -614,28 +621,33 @@ namespace PokemonGo.RocketAPI.Window
                 else
                     ColoredConsoleWrite(Color.Red, $"{pokemonName} with {pokemonCp} CP and {pokemonIv}% IV got away..");
 
-
                 // I believe a switch is more efficient and easier to read.
                 switch (ClientSettings.TransferType)
                 {
                     case "Leave Strongest":
                         await TransferAllButStrongestUnwantedPokemon(client);
                         break;
+
                     case "All":
                         await TransferAllGivenPokemons(client, pokemons2, ClientSettings.TransferIvThreshold);
                         break;
+
                     case "Duplicate":
                         await TransferDuplicatePokemon(client);
                         break;
+
                     case "IV Duplicate":
                         await TransferDuplicateIVPokemon(client);
                         break;
+
                     case "CP":
                         await TransferAllWeakPokemon(client, ClientSettings.TransferCpThreshold);
                         break;
+
                     case "IV":
                         await TransferAllGivenPokemons(client, pokemons2, ClientSettings.TransferIvThreshold);
                         break;
+
                     default:
                         ColoredConsoleWrite(Color.DarkGray, "Transfering pokemon disabled");
                         break;
@@ -683,7 +695,6 @@ namespace PokemonGo.RocketAPI.Window
                 }
                 _pokestopsOverlay.Routes.Clear();
                 _pokestopsOverlay.Routes.Add(new GMapRoute(routePoint, "Walking Path"));
-
 
                 _pokemonsOverlay.Markers.Clear();
                 if (_wildPokemons != null)
@@ -852,7 +863,6 @@ namespace PokemonGo.RocketAPI.Window
                 .Select(y => $"{y.Amount}x {y.ItemName}")
                 .Aggregate((a, b) => $"{a}, {b}");
         }
-
 
         private async Task TransferAllButStrongestUnwantedPokemon(Client client)
         {
@@ -1066,7 +1076,6 @@ namespace PokemonGo.RocketAPI.Window
                 else
                     pokemonToDiscard = pokemons.Where(p => p.Cp < cpThreshold).OrderByDescending(p => p.Cp).ToList();
 
-
                 //var unwantedPokemon = pokemonOfDesiredType.Skip(1) // keep the strongest one for potential battle-evolving
                 //                                          .ToList();
                 ColoredConsoleWrite(Color.Gray, $"Grinding {pokemonToDiscard.Count} pokemon below {cpThreshold} CP.");
@@ -1075,7 +1084,6 @@ namespace PokemonGo.RocketAPI.Window
 
             ColoredConsoleWrite(Color.Gray, $"Finished grinding all the meat");
         }
-
 
         public async Task PrintLevel(Client client)
         {
@@ -1103,7 +1111,7 @@ namespace PokemonGo.RocketAPI.Window
             else
 
                 await Task.Delay(ClientSettings.LevelTimeInterval * 1000);
-           // PrintLevel(client);
+            // PrintLevel(client);
         }
 
         // Pulled from NecronomiconCoding
@@ -1163,82 +1171,121 @@ namespace PokemonGo.RocketAPI.Window
             {
                 case 1:
                     return 0;
+
                 case 2:
                     return 1000;
+
                 case 3:
                     return 2000;
+
                 case 4:
                     return 3000;
+
                 case 5:
                     return 4000;
+
                 case 6:
                     return 5000;
+
                 case 7:
                     return 6000;
+
                 case 8:
                     return 7000;
+
                 case 9:
                     return 8000;
+
                 case 10:
                     return 9000;
+
                 case 11:
                     return 10000;
+
                 case 12:
                     return 10000;
+
                 case 13:
                     return 10000;
+
                 case 14:
                     return 10000;
+
                 case 15:
                     return 15000;
+
                 case 16:
                     return 20000;
+
                 case 17:
                     return 20000;
+
                 case 18:
                     return 20000;
+
                 case 19:
                     return 25000;
+
                 case 20:
                     return 25000;
+
                 case 21:
                     return 50000;
+
                 case 22:
                     return 75000;
+
                 case 23:
                     return 100000;
+
                 case 24:
                     return 125000;
+
                 case 25:
                     return 150000;
+
                 case 26:
                     return 190000;
+
                 case 27:
                     return 200000;
+
                 case 28:
                     return 250000;
+
                 case 29:
                     return 300000;
+
                 case 30:
                     return 350000;
+
                 case 31:
                     return 500000;
+
                 case 32:
                     return 500000;
+
                 case 33:
                     return 750000;
+
                 case 34:
                     return 1000000;
+
                 case 35:
                     return 1250000;
+
                 case 36:
                     return 1500000;
+
                 case 37:
                     return 2000000;
+
                 case 38:
                     return 2500000;
+
                 case 39:
                     return 1000000;
+
                 case 40:
                     return 1000000;
             }
@@ -1320,6 +1367,7 @@ namespace PokemonGo.RocketAPI.Window
                 case ConsoleColor.Green:
                     c = Color.Green;
                     break;
+
                 case ConsoleColor.DarkCyan:
                     c = Color.DarkCyan;
                     break;
@@ -1477,14 +1525,17 @@ namespace PokemonGo.RocketAPI.Window
                     item.Text = "Evolve Clean Up (Highest CP)";
                     item.Click += delegate { CleanUpEvolvePokemon(pokemonObject, "CP"); };
                     cmsPokemonList.Items.Add(item);
-                    
+
                     cmsPokemonList.Items.Add(separator);
 
                     item = new ToolStripMenuItem();
                     item.Text = "Rename";
-                    item.Click += delegate (object obj, EventArgs args) {
-                        using (var form = new NicknamePokemonForm(pokemonObject)) {
-                            if (form.ShowDialog() == DialogResult.OK) {
+                    item.Click += delegate (object obj, EventArgs args)
+                    {
+                        using (var form = new NicknamePokemonForm(pokemonObject))
+                        {
+                            if (form.ShowDialog() == DialogResult.OK)
+                            {
                                 NicknamePokemon(pokemonObject, form.txtNickname.Text);
                             }
                         }
@@ -1567,7 +1618,8 @@ namespace PokemonGo.RocketAPI.Window
                     .Sum(i => i.Count) + 1;
 
                 flpItems.Controls.Clear();
-                foreach (ItemData item in items) {
+                foreach (ItemData item in items)
+                {
                     ItemBox box = new ItemBox(item);
                     box.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Bottom;
                     box.ItemClick += ItemBox_ItemClick; ;
@@ -1575,7 +1627,6 @@ namespace PokemonGo.RocketAPI.Window
                 }
 
                 lblInventory.Text = itemscount + " / " + profile.PlayerData.MaxItemStorage;
-
             }
             catch (GoogleException ex)
             {
@@ -1598,38 +1649,56 @@ namespace PokemonGo.RocketAPI.Window
             SetState(true);
         }
 
-        private async void ItemBox_ItemClick(object sender, EventArgs e) {
+        private async void ItemBox_ItemClick(object sender, EventArgs e)
+        {
             ItemData item = (ItemData)sender;
 
-            using (var form = new ItemForm(item)) {
+            using (var form = new ItemForm(item))
+            {
                 var result = form.ShowDialog();
-                if (result == DialogResult.OK) {
+                if (result == DialogResult.OK)
+                {
                     SetState(false);
-                    if (item.ItemId == ItemId.ItemLuckyEgg) {
-                        if (!_botStarted) {
+                    if (item.ItemId == ItemId.ItemLuckyEgg)
+                    {
+                        if (!_botStarted)
+                        {
                             ColoredConsoleWrite(Color.Red, $"Bot must be running first!");
                             SetState(true);
                             return;
                         }
 
                         var response = await _client.Inventory.UseItemXpBoost();
-                        if (response.Result == UseItemXpBoostResponse.Types.Result.Success) {
+                        if (response.Result == UseItemXpBoostResponse.Types.Result.Success)
+                        {
                             ColoredConsoleWrite(Color.Green, $"Using a Lucky Egg");
                             ColoredConsoleWrite(Color.Yellow, $"Lucky Egg Valid until: {DateTime.Now.AddMinutes(30)}");
-                        } else if (response.Result == UseItemXpBoostResponse.Types.Result.ErrorXpBoostAlreadyActive) {
+                        }
+                        else if (response.Result == UseItemXpBoostResponse.Types.Result.ErrorXpBoostAlreadyActive)
+                        {
                             ColoredConsoleWrite(Color.Orange, $"A Lucky Egg is already active!");
-                        } else if (response.Result == UseItemXpBoostResponse.Types.Result.ErrorLocationUnset) {
+                        }
+                        else if (response.Result == UseItemXpBoostResponse.Types.Result.ErrorLocationUnset)
+                        {
                             ColoredConsoleWrite(Color.Red, $"Bot must be running first!");
-                        } else {
+                        }
+                        else
+                        {
                             ColoredConsoleWrite(Color.Red, $"Failed using a Lucky Egg!");
                         }
-                    } else if (item.ItemId == ItemId.ItemIncenseOrdinary) {
-
-                    } else {
+                    }
+                    else if (item.ItemId == ItemId.ItemIncenseOrdinary)
+                    {
+                    }
+                    else
+                    {
                         var response = await _client2.Inventory.RecycleItem(item.ItemId, Decimal.ToInt32(form.numCount.Value));
-                        if (response.Result == RecycleInventoryItemResponse.Types.Result.Success) {
+                        if (response.Result == RecycleInventoryItemResponse.Types.Result.Success)
+                        {
                             ColoredConsoleWrite(Color.DarkCyan, $"Recycled {Decimal.ToInt32(form.numCount.Value)}x {item.ItemId.ToString().Substring(4)}");
-                        } else {
+                        }
+                        else
+                        {
                             ColoredConsoleWrite(Color.Red, $"Unable to recycle {Decimal.ToInt32(form.numCount.Value)}x {item.ItemId.ToString().Substring(4)}");
                         }
                     }
@@ -1721,6 +1790,55 @@ namespace PokemonGo.RocketAPI.Window
             ReloadPokemonList();
         }
 
+        private async Task UseIncubators(Client client)
+        {
+            var profile = (await GetProfile(client)).FirstOrDefault();
+
+            if (profile == null)
+                return;
+
+            var kmWalked = profile.KmWalked;
+
+            var unusedEggs = (await getUnusedEggs(client))
+                .Where(x => string.IsNullOrEmpty(x.EggIncubatorId))
+                .OrderBy(x => x.EggKmWalkedTarget - x.EggKmWalkedStart)
+                .ToList();
+            var incubators = (await getUnusedIncubators(client))
+                .Where(x => x.UsesRemaining > 0 || x.ItemId == ItemId.ItemIncubatorBasicUnlimited)
+                .OrderByDescending(x => x.ItemId == ItemId.ItemIncubatorBasicUnlimited)
+                .OrderByDescending(x => x.PokemonId != 0)
+                .ToList();
+
+            var num = 1;
+
+            foreach (var inc in incubators)
+            {
+                var usesLeft = (inc.ItemId == ItemId.ItemIncubatorBasicUnlimited) ?
+                "∞" : inc.UsesRemaining.ToString();
+                if (inc.PokemonId == 0)
+                {
+                    var egg = (inc.ItemId == ItemId.ItemIncubatorBasicUnlimited && incubators.Count > 1)
+                    ? unusedEggs.FirstOrDefault()
+                    : unusedEggs.LastOrDefault();
+
+                    if (egg == null)
+                        continue;
+
+                    var useIncubator = await client.Inventory.UseItemEggIncubator(inc.Id, egg.Id);
+                    unusedEggs.Remove(egg);
+                    var eggKm = egg.EggKmWalkedTarget;
+                    ColoredConsoleWrite(Color.YellowGreen, $"Incubator #{num} was successfully used on a {eggKm}km egg, Incubator uses left: {usesLeft}");
+                }
+                else
+                {
+                    var remainingDistance = String.Format("{0:0.00}", (inc.TargetKmWalked - kmWalked));
+                    var eggKm = inc.TargetKmWalked - inc.StartKmWalked;
+                    ColoredConsoleWrite(Color.YellowGreen, $"[Status] Incubator #{num}, Uses left: {usesLeft}, Distance left: {remainingDistance}/{eggKm} km");
+                }
+                num++;
+            }
+        }
+
         private void CleanUpTransferPokemon(PokemonObject pokemon, string type)
         {
             var ET = pokemon.EvolveTimes;
@@ -1805,6 +1923,33 @@ namespace PokemonGo.RocketAPI.Window
             var inventory = await client.Inventory.GetInventory();
             return inventory.InventoryDelta.InventoryItems
                 .Select(i => i.InventoryItemData?.Item)
+                .Where(p => p != null);
+        }
+
+        private async Task<IEnumerable<EggIncubator>> getUnusedIncubators(Client client)
+        {
+            var inventory = await client.Inventory.GetInventory();
+            return inventory.InventoryDelta.InventoryItems.
+            Where(x => x.InventoryItemData?.EggIncubators != null).
+            SelectMany(x => x.InventoryItemData.EggIncubators.EggIncubator).
+            Where(x => x != null);
+        }
+
+        private async Task<IEnumerable<PokemonData>> getUnusedEggs(Client client)
+        {
+            var inventory = await client.Inventory.GetInventory();
+            return inventory.InventoryDelta.InventoryItems.
+            Select(i => i.InventoryItemData?.PokemonData).
+            Where(p => p != null && p.IsEgg).ToList().
+            Where(x => string.IsNullOrEmpty(x.EggIncubatorId)).
+            OrderBy(x => x.EggKmWalkedTarget - x.EggKmWalkedStart);
+        }
+
+        private async Task<IEnumerable<PlayerStats>> GetProfile(Client client)
+        {
+            var inventory = await client.Inventory.GetInventory();
+            return inventory.InventoryDelta.InventoryItems
+                .Select(i => i.InventoryItemData?.PlayerStats)
                 .Where(p => p != null);
         }
 
@@ -1927,12 +2072,16 @@ namespace PokemonGo.RocketAPI.Window
             return ItemId.ItemPokeBall;
         }
 
-        public async void NicknamePokemon(PokemonObject pokemon, string nickname) {
+        public async void NicknamePokemon(PokemonObject pokemon, string nickname)
+        {
             SetState(false);
             var response = await _client2.Inventory.NicknamePokemon(pokemon.Id, nickname);
-            if (response.Result == NicknamePokemonResponse.Types.Result.Success) {
+            if (response.Result == NicknamePokemonResponse.Types.Result.Success)
+            {
                 ColoredConsoleWrite(Color.Green, $"Successfully renamed {pokemon.PokemonId.ToString()} to \"{nickname}|\"");
-            } else {
+            }
+            else
+            {
                 ColoredConsoleWrite(Color.Red, $"Failed renaming {pokemon.PokemonId.ToString()} to \"{nickname}|\"");
             }
             ReloadPokemonList();
@@ -1943,6 +2092,6 @@ namespace PokemonGo.RocketAPI.Window
             await ReloadPokemonList();
         }
 
-        #endregion
+        #endregion POKEMON LIST
     }
 }
