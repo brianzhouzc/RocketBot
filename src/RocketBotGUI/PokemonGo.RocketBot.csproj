@@ -80,12 +80,6 @@
   <ItemGroup>
     <Compile Include="ApiFailureStrategy.cs" />
     <Compile Include="DeviceHelper.cs" />
-    <Compile Include="DeviceForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DeviceForm.Designer.cs">
-      <DependentUpon>DeviceForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="ItemBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -123,9 +117,6 @@
     <Compile Include="SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="DeviceForm.resx">
-      <DependentUpon>DeviceForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

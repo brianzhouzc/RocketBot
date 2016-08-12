@@ -77,6 +77,7 @@ namespace PokemonGo.RocketAPI.Window
 
     public class DeviceInfo
     {
+        public string DeviceI { get; set; }
         public string DeviceId { get; set; }
         public string AndroidBoardName { get; set; }
         public string AndroidBootloader { get; set; }

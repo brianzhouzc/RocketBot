@@ -234,7 +234,8 @@ namespace PokemonGo.RocketAPI.Window
             var excludedPokemon = Settings.Instance.ExcludedPokemonEvolve;
             foreach (var pokemon in pokemonToEvolve)
             {
-                if (excludedPokemon.Contains(pokemon.PokemonId)) {
+                if (excludedPokemon.Contains(pokemon.PokemonId))
+                {
                     ColoredConsoleWrite(Color.Orange,
                         $"{pokemon.PokemonId} excluded for evolving");
                     continue;
@@ -564,8 +565,9 @@ namespace PokemonGo.RocketAPI.Window
             {
                 if (_forceUnbanning || _stopping)
                     break;
-                
-                if (excludedPokemon.Contains(pokemon.PokemonId)) {
+
+                if (excludedPokemon.Contains(pokemon.PokemonId))
+                {
                     ColoredConsoleWrite(Color.Orange,
                         $"Encountered {pokemon.PokemonId} but is excluded for catching.");
                     continue;
@@ -594,7 +596,8 @@ namespace PokemonGo.RocketAPI.Window
                 var encounterPokemonResponse =
                     await client.Encounter.EncounterPokemon(pokemon.EncounterId, pokemon.SpawnPointId);
 
-                if (encounterPokemonResponse.Status == EncounterResponse.Types.Status.PokemonInventoryFull) {
+                if (encounterPokemonResponse.Status == EncounterResponse.Types.Status.PokemonInventoryFull)
+                {
                     ColoredConsoleWrite(Color.Orange,
                         $"Unable to catch pokemon, inventory is full!");
                     _farmingPokemons = false;
@@ -911,7 +914,7 @@ namespace PokemonGo.RocketAPI.Window
         {
             if (poke == null)
                 return 0f;
-            return (poke.IndividualAttack + poke.IndividualDefense + poke.IndividualStamina) / 45f * 100f;
+            return (poke.IndividualAttack + poke.IndividualDefense + poke.IndividualStamina)/45f*100f;
         }
 
         private async Task TransferAllGivenPokemons(Client client, IEnumerable<PokemonData> unwantedPokemons,
@@ -920,7 +923,8 @@ namespace PokemonGo.RocketAPI.Window
             var excludedPokemon = Settings.Instance.ExcludedPokemonTransfer;
             foreach (var pokemon in unwantedPokemons)
             {
-                if (excludedPokemon.Contains(pokemon.PokemonId)) {
+                if (excludedPokemon.Contains(pokemon.PokemonId))
+                {
                     continue;
                 }
 
@@ -992,7 +996,8 @@ namespace PokemonGo.RocketAPI.Window
                 {
                     var dubpokemon = dupes.ElementAt(i).ElementAt(j).value;
 
-                    if (excludedPokemon.Contains(dubpokemon.PokemonId)) {
+                    if (excludedPokemon.Contains(dubpokemon.PokemonId))
+                    {
                         continue;
                     }
 
@@ -1038,7 +1043,8 @@ namespace PokemonGo.RocketAPI.Window
                 {
                     var dubpokemon = dupes.ElementAt(i).ElementAt(j).value;
 
-                    if (excludedPokemon.Contains(dubpokemon.PokemonId)) {
+                    if (excludedPokemon.Contains(dubpokemon.PokemonId))
+                    {
                         continue;
                     }
 
@@ -1075,7 +1081,7 @@ namespace PokemonGo.RocketAPI.Window
                 .Where(p => p != null && p?.PokemonId > 0)
                 .ToArray();
 
-            List<PokemonData> pokemonToDiscard = pokemons.Where(p => p.Cp < cpThreshold).OrderByDescending(p => p.Cp).ToList();
+            var pokemonToDiscard = pokemons.Where(p => p.Cp < cpThreshold).OrderByDescending(p => p.Cp).ToList();
             ColoredConsoleWrite(Color.Gray, $"Grinding {pokemonToDiscard.Count} pokemon below {cpThreshold} CP.");
             await TransferAllGivenPokemons(client, pokemonToDiscard);
 
@@ -1360,12 +1366,6 @@ namespace PokemonGo.RocketAPI.Window
         {
             var settingsForm = new SettingsForm();
             settingsForm.ShowDialog();
-        }
-
-        private void deviceToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var deviceFrom = new DeviceForm();
-            deviceFrom.ShowDialog();
         }
 
         #region POKEMON LIST

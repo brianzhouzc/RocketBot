@@ -51,6 +51,7 @@
             this.pkmnCandyToEvolve = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnEvolveTimes = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnNickname = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.pkmnLevel = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnTransferButton = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnPowerUpButton = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnEvolveButton = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -63,8 +64,6 @@
             this.lblInventory = new System.Windows.Forms.Label();
             this.flpItems = new System.Windows.Forms.FlowLayoutPanel();
             this.lblPokemonList = new System.Windows.Forms.Label();
-            this.pkmnLevel = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.deviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.olvPokemonList)).BeginInit();
@@ -117,7 +116,6 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startStopBotToolStripMenuItem,
             this.todoToolStripMenuItem,
-            this.deviceToolStripMenuItem,
             this.forceUnbanToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -297,6 +295,12 @@
             this.pkmnNickname.Text = "Nickname";
             this.pkmnNickname.Width = 80;
             // 
+            // pkmnLevel
+            // 
+            this.pkmnLevel.AspectName = "GetLv";
+            this.pkmnLevel.Text = "Lv";
+            this.pkmnLevel.Width = 50;
+            // 
             // pkmnTransferButton
             // 
             this.pkmnTransferButton.AspectName = "Id";
@@ -429,19 +433,6 @@
             this.lblPokemonList.Text = "0 / 0";
             this.lblPokemonList.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pkmnLevel
-            // 
-            this.pkmnLevel.AspectName = "GetLv";
-            this.pkmnLevel.Text = "Lv";
-            this.pkmnLevel.Width = 50;
-			//
-            // deviceToolStripMenuItem
-            // 
-            this.deviceToolStripMenuItem.Name = "deviceToolStripMenuItem";
-            this.deviceToolStripMenuItem.Size = new System.Drawing.Size(102, 21);
-            this.deviceToolStripMenuItem.Text = "Device Setting";
-            this.deviceToolStripMenuItem.Click += new System.EventHandler(this.deviceToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -511,6 +502,5 @@
         private System.Windows.Forms.Label lblInventory;
         private BrightIdeasSoftware.OLVColumn pkmnNickname;
         private BrightIdeasSoftware.OLVColumn pkmnLevel;
-        private System.Windows.Forms.ToolStripMenuItem deviceToolStripMenuItem;
     }
 }

@@ -7,23 +7,27 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using PokemonGo.RocketAPI.Enums;
-using POGOProtos.Inventory.Item;
 using POGOProtos.Enums;
+using POGOProtos.Inventory.Item;
 
 #endregion
 
 namespace PokemonGo.RocketAPI.Window
 {
-    public class Settings : ISettings {
+    public class Settings : ISettings
+    {
         private static volatile Settings _instance;
         private static readonly object SyncRoot = new object();
 
-        public static Settings Instance {
-            get {
+        public static Settings Instance
+        {
+            get
+            {
                 if (_instance != null)
                     return _instance;
 
-                lock (SyncRoot) {
+                lock (SyncRoot)
+                {
                     if (_instance == null)
                         _instance = new Settings();
                 }
@@ -119,146 +123,186 @@ namespace PokemonGo.RocketAPI.Window
         public double RazzBerrySetting
             => GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 500;
 
+        public List<PokemonId> ExcludedPokemonCatch
+        {
+            get
+            {
+                var pokemonIdList = new List<PokemonId>();
+                var pokemons = GetSetting();
+                if (pokemons.Contains(","))
+                {
+                    foreach (var pokemon in pokemons.Split(','))
+                    {
+                        foreach (PokemonId id in Enum.GetValues(typeof(PokemonId)))
+                        {
+                            if (id.ToString().Equals(pokemon))
+                            {
+                                pokemonIdList.Add(id);
+                                break;
+                            }
+                        }
+                    }
+                }
+                return pokemonIdList;
+            }
 
-        public AuthType AuthType {
-            get {
+            set
+            {
+                var pokemonIds = "";
+                foreach (var pokemonId in value)
+                {
+                    pokemonIds += pokemonId + ",";
+                }
+                if (pokemonIds != string.Empty)
+                {
+                    pokemonIds = pokemonIds.Remove(pokemonIds.Length - 1, 1);
+                }
+                SetSetting(pokemonIds);
+            }
+        }
+
+        public List<PokemonId> ExcludedPokemonTransfer
+        {
+            get
+            {
+                var pokemonIdList = new List<PokemonId>();
+                var pokemons = GetSetting();
+                if (pokemons.Contains(","))
+                {
+                    foreach (var pokemon in pokemons.Split(','))
+                    {
+                        foreach (PokemonId id in Enum.GetValues(typeof(PokemonId)))
+                        {
+                            if (id.ToString().Equals(pokemon))
+                            {
+                                pokemonIdList.Add(id);
+                                break;
+                            }
+                        }
+                    }
+                }
+                return pokemonIdList;
+            }
+
+            set
+            {
+                var pokemonIds = "";
+                foreach (var pokemonId in value)
+                {
+                    pokemonIds += pokemonId + ",";
+                }
+                if (pokemonIds != string.Empty)
+                {
+                    pokemonIds = pokemonIds.Remove(pokemonIds.Length - 1, 1);
+                }
+                SetSetting(pokemonIds);
+            }
+        }
+
+        public List<PokemonId> ExcludedPokemonEvolve
+        {
+            get
+            {
+                var pokemonIdList = new List<PokemonId>();
+                var pokemons = GetSetting();
+                if (pokemons.Contains(","))
+                {
+                    foreach (var pokemon in pokemons.Split(','))
+                    {
+                        foreach (PokemonId id in Enum.GetValues(typeof(PokemonId)))
+                        {
+                            if (id.ToString().Equals(pokemon))
+                            {
+                                pokemonIdList.Add(id);
+                                break;
+                            }
+                        }
+                    }
+                }
+                return pokemonIdList;
+            }
+
+            set
+            {
+                var pokemonIds = "";
+                foreach (var pokemonId in value)
+                {
+                    pokemonIds += pokemonId + ",";
+                }
+                if (pokemonIds != string.Empty)
+                {
+                    pokemonIds = pokemonIds.Remove(pokemonIds.Length - 1, 1);
+                }
+                SetSetting(pokemonIds);
+            }
+        }
+
+
+        public AuthType AuthType
+        {
+            get
+            {
                 return (GetSetting() != string.Empty ? GetSetting() : "Ptc") == "Ptc" ? AuthType.Ptc : AuthType.Google;
             }
             set { SetSetting(value.ToString()); }
         }
 
-        public double DefaultLatitude {
-            get {
+        public double DefaultLatitude
+        {
+            get
+            {
                 return GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 51.22640;
             }
             set { SetSetting(value); }
         }
 
 
-        public double DefaultLongitude {
-            get {
+        public double DefaultLongitude
+        {
+            get
+            {
                 return GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 6.77874;
             }
             set { SetSetting(value); }
         }
 
-        public string GoogleRefreshToken {
+        public string GoogleRefreshToken
+        {
             get { return GetSetting() != string.Empty ? GetSetting() : string.Empty; }
             set { SetSetting(value); }
         }
 
-        public double DefaultAltitude {
-            get {
+        public double DefaultAltitude
+        {
+            get
+            {
                 return GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 0.0;
             }
             set { SetSetting(value); }
         }
 
-        string ISettings.PtcPassword {
+        string ISettings.PtcPassword
+        {
             get { return GetSetting() != string.Empty ? GetSetting() : "password"; }
             set { SetSetting(value); }
         }
 
-        string ISettings.PtcUsername {
+        string ISettings.PtcUsername
+        {
             get { return GetSetting() != string.Empty ? GetSetting() : "username"; }
             set { SetSetting(value); }
         }
 
-        public string GoogleUsername {
+        public string GoogleUsername
+        {
             get { return GetSetting() != string.Empty ? GetSetting() : "username"; }
             set { SetSetting(value); }
         }
 
-        public string GooglePassword {
+        public string GooglePassword
+        {
             get { return GetSetting() != string.Empty ? GetSetting() : "password"; }
             set { SetSetting(value); }
-        }
-
-        public List<PokemonId> ExcludedPokemonCatch {
-            get {
-                var pokemonIdList = new List<PokemonId>();
-                string pokemons = GetSetting();
-                if (pokemons.Contains(",")) {
-                    foreach (string pokemon in pokemons.Split(',')) {
-                        foreach (PokemonId id in Enum.GetValues(typeof(PokemonId))) {
-                            if (id.ToString().Equals(pokemon)) {
-                                pokemonIdList.Add(id);
-                                break;
-                            }
-                        }
-                    }
-                }
-                return pokemonIdList;
-            }
-
-            set {
-                string pokemonIds = "";
-                foreach (var pokemonId in value) {
-                    pokemonIds += pokemonId.ToString() + ",";
-                }
-                if (pokemonIds != string.Empty) {
-                    pokemonIds = pokemonIds.Remove(pokemonIds.Length - 1, 1);
-                }
-                SetSetting(pokemonIds);
-            }
-        }
-
-        public List<PokemonId> ExcludedPokemonTransfer {
-            get {
-                var pokemonIdList = new List<PokemonId>();
-                string pokemons = GetSetting();
-                if (pokemons.Contains(",")) {
-                    foreach (string pokemon in pokemons.Split(',')) {
-                        foreach (PokemonId id in Enum.GetValues(typeof(PokemonId))) {
-                            if (id.ToString().Equals(pokemon)) {
-                                pokemonIdList.Add(id);
-                                break;
-                            }
-                        }
-                    }
-                }
-                return pokemonIdList;
-            }
-
-            set {
-                string pokemonIds = "";
-                foreach (var pokemonId in value) {
-                    pokemonIds += pokemonId.ToString() + ",";
-                }
-                if (pokemonIds != string.Empty) {
-                    pokemonIds = pokemonIds.Remove(pokemonIds.Length - 1, 1);
-                }
-                SetSetting(pokemonIds);
-            }
-        }
-
-        public List<PokemonId> ExcludedPokemonEvolve {
-            get {
-                var pokemonIdList = new List<PokemonId>();
-                string pokemons = GetSetting();
-                if (pokemons.Contains(",")) {
-                    foreach (string pokemon in pokemons.Split(',')) {
-                        foreach (PokemonId id in Enum.GetValues(typeof(PokemonId))) {
-                            if (id.ToString().Equals(pokemon)) {
-                                pokemonIdList.Add(id);
-                                break;
-                            }
-                        }
-                    }
-                }
-                return pokemonIdList;
-            }
-
-            set {
-                string pokemonIds = "";
-                foreach (var pokemonId in value) {
-                    pokemonIds += pokemonId.ToString() + ",";
-                }
-                if (pokemonIds != string.Empty) {
-                    pokemonIds = pokemonIds.Remove(pokemonIds.Length - 1, 1);
-                }
-                SetSetting(pokemonIds);
-            }
         }
 
         public string DeviceId

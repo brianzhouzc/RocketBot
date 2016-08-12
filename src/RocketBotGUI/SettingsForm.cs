@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Drawing;
 using System.Globalization;
@@ -12,6 +13,10 @@ namespace PokemonGo.RocketAPI.Window
 {
     internal partial class SettingsForm : Form
     {
+        private DeviceHelper _deviceHelper;
+        private List<DeviceInfo> _deviceInfos;
+        private bool _doNotPopulate;
+
         public SettingsForm()
         {
             InitializeComponent();
@@ -20,7 +25,8 @@ namespace PokemonGo.RocketAPI.Window
             cbSelectAllTransfer.CheckedChanged += CbSelectAllTransfer_CheckedChanged;
             cbSelectAllEvolve.CheckedChanged += CbSelectAllEvolve_CheckedChanged;
 
-            foreach (PokemonId id in Enum.GetValues(typeof(PokemonId))) {
+            foreach (PokemonId id in Enum.GetValues(typeof(PokemonId)))
+            {
                 if (id == PokemonId.Missingno) continue;
                 clbCatch.Items.Add(id);
                 clbTransfer.Items.Add(id);
@@ -82,31 +88,68 @@ namespace PokemonGo.RocketAPI.Window
             //disable map focus
             gMapControl1.DisableFocusOnMouseEnter = true;
 
-            foreach (var pokemonIdSetting in Settings.Instance.ExcludedPokemonCatch) {
-                for (int i = 0; i < clbCatch.Items.Count; i++) {
-                    PokemonId pokemonId = (PokemonId)clbCatch.Items[i];
-                    if (pokemonIdSetting == pokemonId) {
+            foreach (var pokemonIdSetting in Settings.Instance.ExcludedPokemonCatch)
+            {
+                for (var i = 0; i < clbCatch.Items.Count; i++)
+                {
+                    var pokemonId = (PokemonId) clbCatch.Items[i];
+                    if (pokemonIdSetting == pokemonId)
+                    {
                         clbCatch.SetItemChecked(i, true);
                     }
                 }
             }
 
-            foreach (var pokemonIdSetting in Settings.Instance.ExcludedPokemonTransfer) {
-                for (int i = 0; i < clbTransfer.Items.Count; i++) {
-                    PokemonId pokemonId = (PokemonId)clbTransfer.Items[i];
-                    if (pokemonIdSetting == pokemonId) {
+            foreach (var pokemonIdSetting in Settings.Instance.ExcludedPokemonTransfer)
+            {
+                for (var i = 0; i < clbTransfer.Items.Count; i++)
+                {
+                    var pokemonId = (PokemonId) clbTransfer.Items[i];
+                    if (pokemonIdSetting == pokemonId)
+                    {
                         clbTransfer.SetItemChecked(i, true);
                     }
                 }
             }
 
-            foreach (var pokemonIdSetting in Settings.Instance.ExcludedPokemonEvolve) {
-                for (int i = 0; i < clbEvolve.Items.Count; i++) {
-                    PokemonId pokemonId = (PokemonId)clbEvolve.Items[i];
-                    if (pokemonIdSetting == pokemonId) {
+            foreach (var pokemonIdSetting in Settings.Instance.ExcludedPokemonEvolve)
+            {
+                for (var i = 0; i < clbEvolve.Items.Count; i++)
+                {
+                    var pokemonId = (PokemonId) clbEvolve.Items[i];
+                    if (pokemonIdSetting == pokemonId)
+                    {
                         clbEvolve.SetItemChecked(i, true);
                     }
                 }
+            }
+
+            // Device settings
+            _deviceHelper = new DeviceHelper();
+            _deviceInfos = _deviceHelper.DeviceBucket;
+
+            if (Settings.Instance.DeviceId == "8525f6d8251f71b7")
+            {
+                PopulateDevice();
+            }
+            else
+            {
+                DeviceIdTb.Text = Settings.Instance.DeviceId;
+                AndroidBoardNameTb.Text = Settings.Instance.AndroidBoardName;
+                AndroidBootloaderTb.Text = Settings.Instance.AndroidBootloader;
+                DeviceBrandTb.Text = Settings.Instance.DeviceBrand;
+                DeviceModelTb.Text = Settings.Instance.DeviceModel;
+                DeviceModelIdentifierTb.Text = Settings.Instance.DeviceModelIdentifier;
+                DeviceModelBootTb.Text = Settings.Instance.DeviceModelBoot;
+                HardwareManufacturerTb.Text = Settings.Instance.HardwareManufacturer;
+                HardwareModelTb.Text = Settings.Instance.HardwareModel;
+                FirmwareBrandTb.Text = Settings.Instance.FirmwareBrand;
+                FirmwareTagsTb.Text = Settings.Instance.FirmwareTags;
+                FirmwareTypeTb.Text = Settings.Instance.FirmwareType;
+                FirmwareFingerprintTb.Text = Settings.Instance.FirmwareFingerprint;
+                _doNotPopulate = true;
+                deviceTypeCb.SelectedIndex = Settings.Instance.DeviceBrand.ToLower() == "apple" ? 0 : 1;
+                _doNotPopulate = false;
             }
         }
 
@@ -145,6 +188,24 @@ namespace PokemonGo.RocketAPI.Window
             Settings.Instance.ExcludedPokemonTransfer = clbTransfer.CheckedItems.Cast<PokemonId>().ToList();
             Settings.Instance.ExcludedPokemonEvolve = clbEvolve.CheckedItems.Cast<PokemonId>().ToList();
             Settings.Instance.Reload();
+
+            //Device settings
+            Settings.Instance.DeviceId = DeviceIdTb.Text;
+            Settings.Instance.AndroidBoardName = AndroidBoardNameTb.Text;
+            Settings.Instance.AndroidBootloader = AndroidBootloaderTb.Text;
+            Settings.Instance.DeviceBrand = DeviceBrandTb.Text;
+            Settings.Instance.DeviceModel = DeviceModelTb.Text;
+            Settings.Instance.DeviceModelIdentifier = DeviceModelIdentifierTb.Text;
+            Settings.Instance.DeviceModelBoot = DeviceModelBootTb.Text;
+            Settings.Instance.HardwareManufacturer = HardwareManufacturerTb.Text;
+            Settings.Instance.HardwareModel = HardwareModelTb.Text;
+            Settings.Instance.FirmwareBrand = FirmwareBrandTb.Text;
+            Settings.Instance.FirmwareTags = FirmwareTypeTb.Text;
+            Settings.Instance.FirmwareType = FirmwareFingerprintTb.Text;
+            if (DeviceIdTb.Text == "8525f6d8251f71b7")
+            {
+                PopulateDevice();
+            }
 
             MainForm.ResetMap();
             Close();
@@ -185,12 +246,6 @@ namespace PokemonGo.RocketAPI.Window
             gMapControl1.Zoom = trackBar.Value;
         }
 
-        private void FindAdressButton_Click(object sender, EventArgs e)
-        {
-            gMapControl1.SetPositionByKeywords(AdressBox.Text);
-            gMapControl1.Zoom = 15;
-        }
-
         private void transferTypeCb_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (transferTypeCb.Text == "CP")
@@ -216,7 +271,7 @@ namespace PokemonGo.RocketAPI.Window
             }
         }
 
-        private void FindAdressButton_Click_1(object sender, EventArgs e)
+        private void FindAdressButton_Click(object sender, EventArgs e)
         {
             gMapControl1.SetPositionByKeywords(AdressBox.Text);
             gMapControl1.Zoom = 15;
@@ -264,29 +319,80 @@ namespace PokemonGo.RocketAPI.Window
             }
         }
 
-        private void CbSelectAllEvolve_CheckedChanged(object sender, EventArgs e) {
-            for (int i = 0; i < clbEvolve.Items.Count; i++) {
+        private void CbSelectAllEvolve_CheckedChanged(object sender, EventArgs e)
+        {
+            for (var i = 0; i < clbEvolve.Items.Count; i++)
+            {
                 clbEvolve.SetItemChecked(i, cbSelectAllEvolve.Checked);
             }
         }
 
-        private void CbSelectAllTransfer_CheckedChanged(object sender, EventArgs e) {
-            for (int i = 0; i < clbTransfer.Items.Count; i++) {
+        private void CbSelectAllTransfer_CheckedChanged(object sender, EventArgs e)
+        {
+            for (var i = 0; i < clbTransfer.Items.Count; i++)
+            {
                 clbTransfer.SetItemChecked(i, cbSelectAllTransfer.Checked);
             }
         }
 
-        private void CbSelectAllCatch_CheckedChanged(object sender, EventArgs e) {
-            for (int i = 0; i < clbCatch.Items.Count; i++) {
+        private void CbSelectAllCatch_CheckedChanged(object sender, EventArgs e)
+        {
+            for (var i = 0; i < clbCatch.Items.Count; i++)
+            {
                 clbCatch.SetItemChecked(i, cbSelectAllCatch.Checked);
             }
         }
 
-        private void AdressBox_KeyDown(object sender, KeyEventArgs e) {
-            if (e.KeyCode == Keys.Enter) {
+        private void AdressBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
                 gMapControl1.SetPositionByKeywords(AdressBox.Text);
                 gMapControl1.Zoom = 15;
             }
+        }
+
+        private void RandomDeviceBtn_Click(object sender, EventArgs e)
+        {
+            PopulateDevice();
+        }
+
+        private void deviceTypeCb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PopulateDevice();
+        }
+
+        private void RandomIDBtn_Click(object sender, EventArgs e)
+        {
+            DeviceIdTb.Text = _deviceHelper.RandomString(16, "0123456789abcdef");
+        }
+
+        private void PopulateDevice()
+        {
+            if (_doNotPopulate)
+            {
+                return;
+            }
+            var candidateDevices = deviceTypeCb.SelectedIndex == 0
+                ? _deviceInfos.Where(d => d.DeviceBrand.ToLower() == "apple").ToList()
+                : _deviceInfos.Where(d => d.DeviceBrand.ToLower() != "apple").ToList();
+            var selectIndex = _deviceHelper.GetRandomIndex(candidateDevices.Count);
+
+            DeviceIdTb.Text = _deviceInfos[selectIndex].DeviceId == "8525f6d8251f71b7"
+                ? _deviceHelper.RandomString(16, "0123456789abcdef")
+                : _deviceInfos[selectIndex].DeviceId;
+            AndroidBoardNameTb.Text = _deviceInfos[selectIndex].AndroidBoardName;
+            AndroidBootloaderTb.Text = _deviceInfos[selectIndex].AndroidBootloader;
+            DeviceBrandTb.Text = _deviceInfos[selectIndex].DeviceBrand;
+            DeviceModelTb.Text = _deviceInfos[selectIndex].DeviceModel;
+            DeviceModelIdentifierTb.Text = _deviceInfos[selectIndex].DeviceModelIdentifier;
+            DeviceModelBootTb.Text = _deviceInfos[selectIndex].DeviceModelBoot;
+            HardwareManufacturerTb.Text = _deviceInfos[selectIndex].HardwareManufacturer;
+            HardwareModelTb.Text = _deviceInfos[selectIndex].HardwareModel;
+            FirmwareBrandTb.Text = _deviceInfos[selectIndex].FirmwareBrand;
+            FirmwareTagsTb.Text = _deviceInfos[selectIndex].FirmwareTags;
+            FirmwareTypeTb.Text = _deviceInfos[selectIndex].FirmwareType;
+            FirmwareFingerprintTb.Text = _deviceInfos[selectIndex].FirmwareFingerprint;
         }
     }
 }

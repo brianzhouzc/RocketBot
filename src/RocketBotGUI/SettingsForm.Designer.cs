@@ -65,24 +65,59 @@ namespace PokemonGo.RocketAPI.Window
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.clbTransfer = new System.Windows.Forms.CheckedListBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.clbCatch = new System.Windows.Forms.CheckedListBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.clbEvolve = new System.Windows.Forms.CheckedListBox();
-            this.cbSelectAllCatch = new System.Windows.Forms.CheckBox();
-            this.cbSelectAllTransfer = new System.Windows.Forms.CheckBox();
             this.cbSelectAllEvolve = new System.Windows.Forms.CheckBox();
+            this.clbEvolve = new System.Windows.Forms.CheckedListBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbSelectAllCatch = new System.Windows.Forms.CheckBox();
+            this.clbCatch = new System.Windows.Forms.CheckedListBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbSelectAllTransfer = new System.Windows.Forms.CheckBox();
+            this.clbTransfer = new System.Windows.Forms.CheckedListBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.RandomIDBtn = new System.Windows.Forms.Button();
+            this.deviceTypeCb = new System.Windows.Forms.ComboBox();
+            this.RandomDeviceBtn = new System.Windows.Forms.Button();
+            this.FirmwareFingerprintTb = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.FirmwareTypeTb = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.FirmwareTagsTb = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.FirmwareBrandTb = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.HardwareModelTb = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.HardwareManufacturerTb = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.DeviceModelBootTb = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.DeviceModelIdentifierTb = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.DeviceModelTb = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.DeviceBrandTb = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.AndroidBootloaderTb = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.AndroidBoardNameTb = new System.Windows.Forms.TextBox();
+            this.BoardName = new System.Windows.Forms.Label();
+            this.DeviceIdTb = new System.Windows.Forms.TextBox();
+            this.deviceIdlb = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // authTypeLabel
@@ -334,7 +369,7 @@ namespace PokemonGo.RocketAPI.Window
             this.FindAdressButton.TabIndex = 25;
             this.FindAdressButton.Text = "Find Location";
             this.FindAdressButton.UseVisualStyleBackColor = true;
-            this.FindAdressButton.Click += new System.EventHandler(this.FindAdressButton_Click_1);
+            this.FindAdressButton.Click += new System.EventHandler(this.FindAdressButton_Click);
             // 
             // AdressBox
             // 
@@ -466,6 +501,7 @@ namespace PokemonGo.RocketAPI.Window
             // 
             this.tabControl.Controls.Add(this.tabPage1);
             this.tabControl.Controls.Add(this.tabPage2);
+            this.tabControl.Controls.Add(this.tabPage3);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl.Location = new System.Drawing.Point(0, 0);
@@ -501,58 +537,6 @@ namespace PokemonGo.RocketAPI.Window
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Pokemon";
             // 
-            // clbTransfer
-            // 
-            this.clbTransfer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.clbTransfer.CheckOnClick = true;
-            this.clbTransfer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clbTransfer.FormattingEnabled = true;
-            this.clbTransfer.Location = new System.Drawing.Point(0, 41);
-            this.clbTransfer.Name = "clbTransfer";
-            this.clbTransfer.Size = new System.Drawing.Size(188, 364);
-            this.clbTransfer.TabIndex = 0;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox1.Controls.Add(this.cbSelectAllTransfer);
-            this.groupBox1.Controls.Add(this.clbTransfer);
-            this.groupBox1.Location = new System.Drawing.Point(200, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(188, 421);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Exclude Transfer";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox2.Controls.Add(this.cbSelectAllCatch);
-            this.groupBox2.Controls.Add(this.clbCatch);
-            this.groupBox2.Location = new System.Drawing.Point(6, 6);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(188, 421);
-            this.groupBox2.TabIndex = 2;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Exclude Catch";
-            // 
-            // clbCatch
-            // 
-            this.clbCatch.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.clbCatch.CheckOnClick = true;
-            this.clbCatch.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clbCatch.FormattingEnabled = true;
-            this.clbCatch.Location = new System.Drawing.Point(0, 41);
-            this.clbCatch.Name = "clbCatch";
-            this.clbCatch.Size = new System.Drawing.Size(188, 364);
-            this.clbCatch.TabIndex = 0;
-            // 
             // groupBox3
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -565,6 +549,16 @@ namespace PokemonGo.RocketAPI.Window
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Exclude Evolve";
+            // 
+            // cbSelectAllEvolve
+            // 
+            this.cbSelectAllEvolve.AutoSize = true;
+            this.cbSelectAllEvolve.Location = new System.Drawing.Point(6, 22);
+            this.cbSelectAllEvolve.Name = "cbSelectAllEvolve";
+            this.cbSelectAllEvolve.Size = new System.Drawing.Size(74, 19);
+            this.cbSelectAllEvolve.TabIndex = 1;
+            this.cbSelectAllEvolve.Text = "Select All";
+            this.cbSelectAllEvolve.UseVisualStyleBackColor = true;
             // 
             // clbEvolve
             // 
@@ -579,6 +573,19 @@ namespace PokemonGo.RocketAPI.Window
             this.clbEvolve.Size = new System.Drawing.Size(188, 364);
             this.clbEvolve.TabIndex = 0;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox2.Controls.Add(this.cbSelectAllCatch);
+            this.groupBox2.Controls.Add(this.clbCatch);
+            this.groupBox2.Location = new System.Drawing.Point(6, 6);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(188, 421);
+            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Exclude Catch";
+            // 
             // cbSelectAllCatch
             // 
             this.cbSelectAllCatch.AutoSize = true;
@@ -588,6 +595,32 @@ namespace PokemonGo.RocketAPI.Window
             this.cbSelectAllCatch.TabIndex = 1;
             this.cbSelectAllCatch.Text = "Select All";
             this.cbSelectAllCatch.UseVisualStyleBackColor = true;
+            // 
+            // clbCatch
+            // 
+            this.clbCatch.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.clbCatch.CheckOnClick = true;
+            this.clbCatch.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clbCatch.FormattingEnabled = true;
+            this.clbCatch.Location = new System.Drawing.Point(0, 41);
+            this.clbCatch.Name = "clbCatch";
+            this.clbCatch.Size = new System.Drawing.Size(188, 364);
+            this.clbCatch.TabIndex = 0;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox1.Controls.Add(this.cbSelectAllTransfer);
+            this.groupBox1.Controls.Add(this.clbTransfer);
+            this.groupBox1.Location = new System.Drawing.Point(200, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(188, 421);
+            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Exclude Transfer";
             // 
             // cbSelectAllTransfer
             // 
@@ -599,15 +632,373 @@ namespace PokemonGo.RocketAPI.Window
             this.cbSelectAllTransfer.Text = "Select All";
             this.cbSelectAllTransfer.UseVisualStyleBackColor = true;
             // 
-            // cbSelectAllEvolve
+            // clbTransfer
             // 
-            this.cbSelectAllEvolve.AutoSize = true;
-            this.cbSelectAllEvolve.Location = new System.Drawing.Point(6, 22);
-            this.cbSelectAllEvolve.Name = "cbSelectAllEvolve";
-            this.cbSelectAllEvolve.Size = new System.Drawing.Size(74, 19);
-            this.cbSelectAllEvolve.TabIndex = 1;
-            this.cbSelectAllEvolve.Text = "Select All";
-            this.cbSelectAllEvolve.UseVisualStyleBackColor = true;
+            this.clbTransfer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.clbTransfer.CheckOnClick = true;
+            this.clbTransfer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clbTransfer.FormattingEnabled = true;
+            this.clbTransfer.Location = new System.Drawing.Point(0, 41);
+            this.clbTransfer.Name = "clbTransfer";
+            this.clbTransfer.Size = new System.Drawing.Size(188, 364);
+            this.clbTransfer.TabIndex = 0;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.label22);
+            this.tabPage3.Controls.Add(this.label20);
+            this.tabPage3.Controls.Add(this.label21);
+            this.tabPage3.Controls.Add(this.RandomIDBtn);
+            this.tabPage3.Controls.Add(this.deviceTypeCb);
+            this.tabPage3.Controls.Add(this.RandomDeviceBtn);
+            this.tabPage3.Controls.Add(this.FirmwareFingerprintTb);
+            this.tabPage3.Controls.Add(this.label14);
+            this.tabPage3.Controls.Add(this.FirmwareTypeTb);
+            this.tabPage3.Controls.Add(this.label13);
+            this.tabPage3.Controls.Add(this.FirmwareTagsTb);
+            this.tabPage3.Controls.Add(this.label12);
+            this.tabPage3.Controls.Add(this.FirmwareBrandTb);
+            this.tabPage3.Controls.Add(this.label11);
+            this.tabPage3.Controls.Add(this.HardwareModelTb);
+            this.tabPage3.Controls.Add(this.label10);
+            this.tabPage3.Controls.Add(this.HardwareManufacturerTb);
+            this.tabPage3.Controls.Add(this.label9);
+            this.tabPage3.Controls.Add(this.DeviceModelBootTb);
+            this.tabPage3.Controls.Add(this.label8);
+            this.tabPage3.Controls.Add(this.DeviceModelIdentifierTb);
+            this.tabPage3.Controls.Add(this.label7);
+            this.tabPage3.Controls.Add(this.DeviceModelTb);
+            this.tabPage3.Controls.Add(this.label15);
+            this.tabPage3.Controls.Add(this.DeviceBrandTb);
+            this.tabPage3.Controls.Add(this.label16);
+            this.tabPage3.Controls.Add(this.AndroidBootloaderTb);
+            this.tabPage3.Controls.Add(this.label17);
+            this.tabPage3.Controls.Add(this.AndroidBoardNameTb);
+            this.tabPage3.Controls.Add(this.BoardName);
+            this.tabPage3.Controls.Add(this.DeviceIdTb);
+            this.tabPage3.Controls.Add(this.deviceIdlb);
+            this.tabPage3.Controls.Add(this.label18);
+            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(589, 430);
+            this.tabPage3.TabIndex = 0;
+            this.tabPage3.Text = "Device";
+            // 
+            // RandomIDBtn
+            // 
+            this.RandomIDBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.RandomIDBtn.Location = new System.Drawing.Point(326, 39);
+            this.RandomIDBtn.Name = "RandomIDBtn";
+            this.RandomIDBtn.Size = new System.Drawing.Size(87, 25);
+            this.RandomIDBtn.TabIndex = 65;
+            this.RandomIDBtn.Text = "Get New ID";
+            this.RandomIDBtn.UseVisualStyleBackColor = true;
+            this.RandomIDBtn.Click += new System.EventHandler(this.RandomIDBtn_Click);
+            // 
+            // deviceTypeCb
+            // 
+            this.deviceTypeCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.deviceTypeCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.deviceTypeCb.FormattingEnabled = true;
+            this.deviceTypeCb.Items.AddRange(new object[] {
+            "Apple",
+            "Android"});
+            this.deviceTypeCb.Location = new System.Drawing.Point(170, 13);
+            this.deviceTypeCb.Name = "deviceTypeCb";
+            this.deviceTypeCb.Size = new System.Drawing.Size(150, 23);
+            this.deviceTypeCb.TabIndex = 37;
+            this.deviceTypeCb.SelectedIndexChanged += new System.EventHandler(this.deviceTypeCb_SelectedIndexChanged);
+            // 
+            // RandomDeviceBtn
+            // 
+            this.RandomDeviceBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.RandomDeviceBtn.Location = new System.Drawing.Point(419, 334);
+            this.RandomDeviceBtn.Name = "RandomDeviceBtn";
+            this.RandomDeviceBtn.Size = new System.Drawing.Size(162, 79);
+            this.RandomDeviceBtn.TabIndex = 64;
+            this.RandomDeviceBtn.Text = "I am feeling RICH\r\n(Randomize)";
+            this.RandomDeviceBtn.UseVisualStyleBackColor = true;
+            this.RandomDeviceBtn.Click += new System.EventHandler(this.RandomDeviceBtn_Click);
+            // 
+            // FirmwareFingerprintTb
+            // 
+            this.FirmwareFingerprintTb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.FirmwareFingerprintTb.Location = new System.Drawing.Point(170, 392);
+            this.FirmwareFingerprintTb.Name = "FirmwareFingerprintTb";
+            this.FirmwareFingerprintTb.Size = new System.Drawing.Size(243, 21);
+            this.FirmwareFingerprintTb.TabIndex = 62;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label14.Location = new System.Drawing.Point(19, 396);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(121, 15);
+            this.label14.TabIndex = 49;
+            this.label14.Text = "Firmware Fingerprint";
+            // 
+            // FirmwareTypeTb
+            // 
+            this.FirmwareTypeTb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.FirmwareTypeTb.Location = new System.Drawing.Point(170, 363);
+            this.FirmwareTypeTb.Name = "FirmwareTypeTb";
+            this.FirmwareTypeTb.Size = new System.Drawing.Size(243, 21);
+            this.FirmwareTypeTb.TabIndex = 58;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label13.Location = new System.Drawing.Point(19, 366);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(88, 15);
+            this.label13.TabIndex = 51;
+            this.label13.Text = "Firmware Type";
+            // 
+            // FirmwareTagsTb
+            // 
+            this.FirmwareTagsTb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.FirmwareTagsTb.Location = new System.Drawing.Point(170, 334);
+            this.FirmwareTagsTb.Name = "FirmwareTagsTb";
+            this.FirmwareTagsTb.Size = new System.Drawing.Size(243, 21);
+            this.FirmwareTagsTb.TabIndex = 54;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label12.Location = new System.Drawing.Point(19, 337);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(89, 15);
+            this.label12.TabIndex = 50;
+            this.label12.Text = "Firmware Tags";
+            // 
+            // FirmwareBrandTb
+            // 
+            this.FirmwareBrandTb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.FirmwareBrandTb.Location = new System.Drawing.Point(170, 305);
+            this.FirmwareBrandTb.Name = "FirmwareBrandTb";
+            this.FirmwareBrandTb.Size = new System.Drawing.Size(243, 21);
+            this.FirmwareBrandTb.TabIndex = 52;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label11.Location = new System.Drawing.Point(19, 308);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(95, 15);
+            this.label11.TabIndex = 48;
+            this.label11.Text = "Firmware Brand";
+            // 
+            // HardwareModelTb
+            // 
+            this.HardwareModelTb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.HardwareModelTb.Location = new System.Drawing.Point(170, 275);
+            this.HardwareModelTb.Name = "HardwareModelTb";
+            this.HardwareModelTb.Size = new System.Drawing.Size(243, 21);
+            this.HardwareModelTb.TabIndex = 56;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label10.Location = new System.Drawing.Point(19, 279);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(99, 15);
+            this.label10.TabIndex = 46;
+            this.label10.Text = "Hardware Model";
+            // 
+            // HardwareManufacturerTb
+            // 
+            this.HardwareManufacturerTb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.HardwareManufacturerTb.Location = new System.Drawing.Point(170, 246);
+            this.HardwareManufacturerTb.Name = "HardwareManufacturerTb";
+            this.HardwareManufacturerTb.Size = new System.Drawing.Size(243, 21);
+            this.HardwareManufacturerTb.TabIndex = 60;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label9.Location = new System.Drawing.Point(19, 249);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(140, 15);
+            this.label9.TabIndex = 47;
+            this.label9.Text = "Hardware Manu facturer";
+            // 
+            // DeviceModelBootTb
+            // 
+            this.DeviceModelBootTb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.DeviceModelBootTb.Location = new System.Drawing.Point(170, 217);
+            this.DeviceModelBootTb.Name = "DeviceModelBootTb";
+            this.DeviceModelBootTb.Size = new System.Drawing.Size(243, 21);
+            this.DeviceModelBootTb.TabIndex = 63;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label8.Location = new System.Drawing.Point(19, 220);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(110, 15);
+            this.label8.TabIndex = 44;
+            this.label8.Text = "Device Model Boot";
+            // 
+            // DeviceModelIdentifierTb
+            // 
+            this.DeviceModelIdentifierTb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.DeviceModelIdentifierTb.Location = new System.Drawing.Point(170, 188);
+            this.DeviceModelIdentifierTb.Name = "DeviceModelIdentifierTb";
+            this.DeviceModelIdentifierTb.Size = new System.Drawing.Size(243, 21);
+            this.DeviceModelIdentifierTb.TabIndex = 53;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label7.Location = new System.Drawing.Point(19, 191);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(132, 15);
+            this.label7.TabIndex = 43;
+            this.label7.Text = "Device Model Identifier";
+            // 
+            // DeviceModelTb
+            // 
+            this.DeviceModelTb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.DeviceModelTb.Location = new System.Drawing.Point(170, 158);
+            this.DeviceModelTb.Name = "DeviceModelTb";
+            this.DeviceModelTb.Size = new System.Drawing.Size(243, 21);
+            this.DeviceModelTb.TabIndex = 55;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label15.Location = new System.Drawing.Point(19, 162);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(82, 15);
+            this.label15.TabIndex = 42;
+            this.label15.Text = "Device Model";
+            // 
+            // DeviceBrandTb
+            // 
+            this.DeviceBrandTb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.DeviceBrandTb.Location = new System.Drawing.Point(170, 129);
+            this.DeviceBrandTb.Name = "DeviceBrandTb";
+            this.DeviceBrandTb.Size = new System.Drawing.Size(243, 21);
+            this.DeviceBrandTb.TabIndex = 57;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label16.Location = new System.Drawing.Point(19, 132);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(80, 15);
+            this.label16.TabIndex = 41;
+            this.label16.Text = "Device Brand";
+            // 
+            // AndroidBootloaderTb
+            // 
+            this.AndroidBootloaderTb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.AndroidBootloaderTb.Location = new System.Drawing.Point(170, 100);
+            this.AndroidBootloaderTb.Name = "AndroidBootloaderTb";
+            this.AndroidBootloaderTb.Size = new System.Drawing.Size(243, 21);
+            this.AndroidBootloaderTb.TabIndex = 59;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label17.Location = new System.Drawing.Point(19, 103);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(115, 15);
+            this.label17.TabIndex = 40;
+            this.label17.Text = "Android Boot loader";
+            // 
+            // AndroidBoardNameTb
+            // 
+            this.AndroidBoardNameTb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.AndroidBoardNameTb.Location = new System.Drawing.Point(170, 71);
+            this.AndroidBoardNameTb.Name = "AndroidBoardNameTb";
+            this.AndroidBoardNameTb.Size = new System.Drawing.Size(243, 21);
+            this.AndroidBoardNameTb.TabIndex = 61;
+            // 
+            // BoardName
+            // 
+            this.BoardName.AutoSize = true;
+            this.BoardName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.BoardName.Location = new System.Drawing.Point(19, 74);
+            this.BoardName.Name = "BoardName";
+            this.BoardName.Size = new System.Drawing.Size(122, 15);
+            this.BoardName.TabIndex = 39;
+            this.BoardName.Text = "Android Board Name";
+            // 
+            // DeviceIdTb
+            // 
+            this.DeviceIdTb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.DeviceIdTb.Location = new System.Drawing.Point(170, 41);
+            this.DeviceIdTb.Name = "DeviceIdTb";
+            this.DeviceIdTb.Size = new System.Drawing.Size(150, 21);
+            this.DeviceIdTb.TabIndex = 38;
+            // 
+            // deviceIdlb
+            // 
+            this.deviceIdlb.AutoSize = true;
+            this.deviceIdlb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.deviceIdlb.Location = new System.Drawing.Point(19, 45);
+            this.deviceIdlb.Name = "deviceIdlb";
+            this.deviceIdlb.Size = new System.Drawing.Size(59, 15);
+            this.deviceIdlb.TabIndex = 45;
+            this.deviceIdlb.Text = "Device ID";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label18.Location = new System.Drawing.Point(19, 16);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(76, 15);
+            this.label18.TabIndex = 36;
+            this.label18.Text = "Device Type:";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label20.Location = new System.Drawing.Point(416, 13);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(74, 18);
+            this.label20.TabIndex = 67;
+            this.label20.Text = "Important:";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label21.Location = new System.Drawing.Point(416, 32);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(164, 45);
+            this.label21.TabIndex = 66;
+            this.label21.Text = "For your account safety.\r\nPlease do not change your \r\naccount infomation too ofte" +
+    "n.\r\n";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label22.Location = new System.Drawing.Point(416, 92);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(168, 90);
+            this.label22.TabIndex = 69;
+            this.label22.Text = "This setting change what the \r\nserver think you are using to \r\nplay Pokémon GO. I" +
+    "ts a good \r\nidea to change your device to \r\nwhat phone you are using to \r\npreven" +
+    "t ip ban.";
             // 
             // SettingsForm
             // 
@@ -633,12 +1024,14 @@ namespace PokemonGo.RocketAPI.Window
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -690,5 +1083,39 @@ namespace PokemonGo.RocketAPI.Window
         private System.Windows.Forms.CheckBox cbSelectAllEvolve;
         private System.Windows.Forms.CheckBox cbSelectAllCatch;
         private System.Windows.Forms.CheckBox cbSelectAllTransfer;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Button RandomIDBtn;
+        private System.Windows.Forms.ComboBox deviceTypeCb;
+        private System.Windows.Forms.Button RandomDeviceBtn;
+        private System.Windows.Forms.TextBox FirmwareFingerprintTb;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox FirmwareTypeTb;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox FirmwareTagsTb;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox FirmwareBrandTb;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox HardwareModelTb;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox HardwareManufacturerTb;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox DeviceModelBootTb;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox DeviceModelIdentifierTb;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox DeviceModelTb;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox DeviceBrandTb;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox AndroidBootloaderTb;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox AndroidBoardNameTb;
+        private System.Windows.Forms.Label BoardName;
+        private System.Windows.Forms.TextBox DeviceIdTb;
+        private System.Windows.Forms.Label deviceIdlb;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label22;
     }
 }
