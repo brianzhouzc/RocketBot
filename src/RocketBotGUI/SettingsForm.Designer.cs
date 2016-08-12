@@ -75,6 +75,9 @@ namespace PokemonGo.RocketAPI.Window
             this.cbSelectAllTransfer = new System.Windows.Forms.CheckBox();
             this.clbTransfer = new System.Windows.Forms.CheckedListBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
             this.RandomIDBtn = new System.Windows.Forms.Button();
             this.deviceTypeCb = new System.Windows.Forms.ComboBox();
             this.RandomDeviceBtn = new System.Windows.Forms.Button();
@@ -105,9 +108,6 @@ namespace PokemonGo.RocketAPI.Window
             this.DeviceIdTb = new System.Windows.Forms.TextBox();
             this.deviceIdlb = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -686,6 +686,40 @@ namespace PokemonGo.RocketAPI.Window
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Device";
             // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label22.Location = new System.Drawing.Point(416, 92);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(168, 90);
+            this.label22.TabIndex = 69;
+            this.label22.Text = "This setting change what the \r\nserver think you are using to \r\nplay Pokémon GO. I" +
+    "ts a good \r\nidea to change your device to \r\nwhat phone you are using to \r\npreven" +
+    "t ip ban.";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label20.Location = new System.Drawing.Point(416, 13);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(74, 18);
+            this.label20.TabIndex = 67;
+            this.label20.Text = "Important:";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label21.Location = new System.Drawing.Point(416, 32);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(164, 45);
+            this.label21.TabIndex = 66;
+            this.label21.Text = "For your account safety.\r\nPlease do not change your \r\naccount infomation too ofte" +
+    "n.\r\n";
+            // 
             // RandomIDBtn
             // 
             this.RandomIDBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
@@ -709,7 +743,7 @@ namespace PokemonGo.RocketAPI.Window
             this.deviceTypeCb.Name = "deviceTypeCb";
             this.deviceTypeCb.Size = new System.Drawing.Size(150, 23);
             this.deviceTypeCb.TabIndex = 37;
-            this.deviceTypeCb.SelectedIndexChanged += new System.EventHandler(this.deviceTypeCb_SelectedIndexChanged);
+            this.deviceTypeCb.SelectionChangeCommitted += new System.EventHandler(this.deviceTypeCb_SelectedIndexChanged);
             // 
             // RandomDeviceBtn
             // 
@@ -965,40 +999,6 @@ namespace PokemonGo.RocketAPI.Window
             this.label18.Size = new System.Drawing.Size(76, 15);
             this.label18.TabIndex = 36;
             this.label18.Text = "Device Type:";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label20.Location = new System.Drawing.Point(416, 13);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(74, 18);
-            this.label20.TabIndex = 67;
-            this.label20.Text = "Important:";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.label21.Location = new System.Drawing.Point(416, 32);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(164, 45);
-            this.label21.TabIndex = 66;
-            this.label21.Text = "For your account safety.\r\nPlease do not change your \r\naccount infomation too ofte" +
-    "n.\r\n";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.label22.Location = new System.Drawing.Point(416, 92);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(168, 90);
-            this.label22.TabIndex = 69;
-            this.label22.Text = "This setting change what the \r\nserver think you are using to \r\nplay Pokémon GO. I" +
-    "ts a good \r\nidea to change your device to \r\nwhat phone you are using to \r\npreven" +
-    "t ip ban.";
             // 
             // SettingsForm
             // 

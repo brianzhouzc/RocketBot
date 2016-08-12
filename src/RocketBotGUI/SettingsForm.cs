@@ -92,7 +92,7 @@ namespace PokemonGo.RocketAPI.Window
             {
                 for (var i = 0; i < clbCatch.Items.Count; i++)
                 {
-                    var pokemonId = (PokemonId) clbCatch.Items[i];
+                    var pokemonId = (PokemonId)clbCatch.Items[i];
                     if (pokemonIdSetting == pokemonId)
                     {
                         clbCatch.SetItemChecked(i, true);
@@ -104,7 +104,7 @@ namespace PokemonGo.RocketAPI.Window
             {
                 for (var i = 0; i < clbTransfer.Items.Count; i++)
                 {
-                    var pokemonId = (PokemonId) clbTransfer.Items[i];
+                    var pokemonId = (PokemonId)clbTransfer.Items[i];
                     if (pokemonIdSetting == pokemonId)
                     {
                         clbTransfer.SetItemChecked(i, true);
@@ -116,7 +116,7 @@ namespace PokemonGo.RocketAPI.Window
             {
                 for (var i = 0; i < clbEvolve.Items.Count; i++)
                 {
-                    var pokemonId = (PokemonId) clbEvolve.Items[i];
+                    var pokemonId = (PokemonId)clbEvolve.Items[i];
                     if (pokemonIdSetting == pokemonId)
                     {
                         clbEvolve.SetItemChecked(i, true);
@@ -147,9 +147,7 @@ namespace PokemonGo.RocketAPI.Window
                 FirmwareTagsTb.Text = Settings.Instance.FirmwareTags;
                 FirmwareTypeTb.Text = Settings.Instance.FirmwareType;
                 FirmwareFingerprintTb.Text = Settings.Instance.FirmwareFingerprint;
-                _doNotPopulate = true;
                 deviceTypeCb.SelectedIndex = Settings.Instance.DeviceBrand.ToLower() == "apple" ? 0 : 1;
-                _doNotPopulate = false;
             }
         }
 
@@ -369,30 +367,27 @@ namespace PokemonGo.RocketAPI.Window
 
         private void PopulateDevice()
         {
-            if (_doNotPopulate)
-            {
-                return;
-            }
+            deviceTypeCb.SelectedIndex = _deviceHelper.GetRandomIndex(2);
             var candidateDevices = deviceTypeCb.SelectedIndex == 0
                 ? _deviceInfos.Where(d => d.DeviceBrand.ToLower() == "apple").ToList()
                 : _deviceInfos.Where(d => d.DeviceBrand.ToLower() != "apple").ToList();
             var selectIndex = _deviceHelper.GetRandomIndex(candidateDevices.Count);
 
-            DeviceIdTb.Text = _deviceInfos[selectIndex].DeviceId == "8525f6d8251f71b7"
+            DeviceIdTb.Text = candidateDevices[selectIndex].DeviceId == "8525f6d8251f71b7"
                 ? _deviceHelper.RandomString(16, "0123456789abcdef")
-                : _deviceInfos[selectIndex].DeviceId;
-            AndroidBoardNameTb.Text = _deviceInfos[selectIndex].AndroidBoardName;
-            AndroidBootloaderTb.Text = _deviceInfos[selectIndex].AndroidBootloader;
-            DeviceBrandTb.Text = _deviceInfos[selectIndex].DeviceBrand;
-            DeviceModelTb.Text = _deviceInfos[selectIndex].DeviceModel;
-            DeviceModelIdentifierTb.Text = _deviceInfos[selectIndex].DeviceModelIdentifier;
-            DeviceModelBootTb.Text = _deviceInfos[selectIndex].DeviceModelBoot;
-            HardwareManufacturerTb.Text = _deviceInfos[selectIndex].HardwareManufacturer;
-            HardwareModelTb.Text = _deviceInfos[selectIndex].HardwareModel;
-            FirmwareBrandTb.Text = _deviceInfos[selectIndex].FirmwareBrand;
-            FirmwareTagsTb.Text = _deviceInfos[selectIndex].FirmwareTags;
-            FirmwareTypeTb.Text = _deviceInfos[selectIndex].FirmwareType;
-            FirmwareFingerprintTb.Text = _deviceInfos[selectIndex].FirmwareFingerprint;
+                : candidateDevices[selectIndex].DeviceId;
+            AndroidBoardNameTb.Text = candidateDevices[selectIndex].AndroidBoardName;
+            AndroidBootloaderTb.Text = candidateDevices[selectIndex].AndroidBootloader;
+            DeviceBrandTb.Text = candidateDevices[selectIndex].DeviceBrand;
+            DeviceModelTb.Text = candidateDevices[selectIndex].DeviceModel;
+            DeviceModelIdentifierTb.Text = candidateDevices[selectIndex].DeviceModelIdentifier;
+            DeviceModelBootTb.Text = candidateDevices[selectIndex].DeviceModelBoot;
+            HardwareManufacturerTb.Text = candidateDevices[selectIndex].HardwareManufacturer;
+            HardwareModelTb.Text = candidateDevices[selectIndex].HardwareModel;
+            FirmwareBrandTb.Text = candidateDevices[selectIndex].FirmwareBrand;
+            FirmwareTagsTb.Text = candidateDevices[selectIndex].FirmwareTags;
+            FirmwareTypeTb.Text = candidateDevices[selectIndex].FirmwareType;
+            FirmwareFingerprintTb.Text = candidateDevices[selectIndex].FirmwareFingerprint;
         }
     }
 }
