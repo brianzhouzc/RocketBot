@@ -4,6 +4,13 @@ namespace PokemonGo.RocketAPI.Window
 {
     public partial class NicknamePokemonForm : Form
     {
+        public NicknamePokemonForm()
+        {
+            InitializeComponent();
+            txtNickname.Text = @"{IV}_{Name}";
+            txtNickname.KeyDown += TxtNickname_KeyDown;
+        }
+
         public NicknamePokemonForm(PokemonObject pokemon)
         {
             InitializeComponent();
