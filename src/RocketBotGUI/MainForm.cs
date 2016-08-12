@@ -2063,7 +2063,8 @@ namespace PokemonGo.RocketAPI.Window
                 nickname = newName.ToString();
                 if (nickname.Length > 12)
                 {
-                    ColoredConsoleWrite(Color.Red, $"\"{nickname}\" is too long, please chose another name");
+                    ColoredConsoleWrite(Color.Red, $"\"{nickname}\" is too long, please choose another name");
+                    continue;
                 }
                 var response = await _client2.Inventory.NicknamePokemon(pokemon.Id, nickname);
                 if (response.Result == NicknamePokemonResponse.Types.Result.Success)
