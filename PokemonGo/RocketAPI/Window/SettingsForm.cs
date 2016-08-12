@@ -36,6 +36,7 @@ namespace PokemonGo.RocketAPI.Window
             transferCpThresText.Text = Settings.Instance.TransferCpThreshold.ToString();
             transferIVThresText.Text = Settings.Instance.TransferIvThreshold.ToString();
             evolveAllChk.Checked = Settings.Instance.EvolveAllGivenPokemons;
+            useIncubatorChk.Checked = Settings.Instance.UseIncubators;
             CatchPokemonBox.Checked = Settings.Instance.CatchPokemon;
             TravelSpeedBox.Text = Settings.Instance.TravelSpeed.ToString();
             // ImageSizeBox.Text = Settings.Instance.ImageSize.ToString();
@@ -100,6 +101,7 @@ namespace PokemonGo.RocketAPI.Window
             Settings.Instance.SetSetting(TravelSpeedBox.Text, "TravelSpeed");
             //Settings.Instance.SetSetting(ImageSizeBox.Text, "ImageSize");
             Settings.Instance.SetSetting(evolveAllChk.Checked ? "true" : "false", "EvolveAllGivenPokemons");
+            Settings.Instance.SetSetting(useIncubatorChk.Checked ? "true" : "false", "UseIncubators");
             Settings.Instance.SetSetting(CatchPokemonBox.Checked ? "true" : "false", "CatchPokemon");
             Settings.Instance.Reload();
 
@@ -221,6 +223,14 @@ namespace PokemonGo.RocketAPI.Window
         {
         }
 
+        private void UseIncubatorsText_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void useIncubatorChk_CheckedChanged(object sender, EventArgs e)
+        {
+        }
+
         private void label7_Click(object sender, EventArgs e)
         {
         }
@@ -264,7 +274,5 @@ namespace PokemonGo.RocketAPI.Window
                 AdressBox.ForeColor = SystemColors.WindowText;
             }
         }
-
-        
     }
 }
