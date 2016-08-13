@@ -24,12 +24,13 @@
         /// </summary>
         private void InitializeComponent() {
             this.pnl = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.txtNickname = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnNickname = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.closeRenameBtn = new System.Windows.Forms.Label();
             this.pnl.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -37,6 +38,7 @@
             // 
             this.pnl.BackColor = System.Drawing.SystemColors.Window;
             this.pnl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnl.Controls.Add(this.closeRenameBtn);
             this.pnl.Controls.Add(this.label4);
             this.pnl.Controls.Add(this.label3);
             this.pnl.Controls.Add(this.label2);
@@ -48,6 +50,40 @@
             this.pnl.Name = "pnl";
             this.pnl.Size = new System.Drawing.Size(401, 205);
             this.pnl.TabIndex = 0;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label4.Location = new System.Drawing.Point(191, 98);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(186, 45);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "{IA} : Pokemon Individual Attack\r\n{ID} : Pokemon Individual Defense\r\n{IS} : Pokem" +
+    "on Individual Stamina";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label3.Location = new System.Drawing.Point(13, 98);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(142, 45);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "{Name} : Pokemon Name\r\n{CP} : Pokemon CP\r\n{IV} : Pokemon IV %";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label2.Location = new System.Drawing.Point(11, 79);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(105, 15);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Rename Template:";
             // 
             // txtNickname
             // 
@@ -86,39 +122,17 @@
             this.btnNickname.Text = "Rename";
             this.btnNickname.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // closeRenameBtn
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label2.Location = new System.Drawing.Point(11, 79);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(105, 15);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Rename Template:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label3.Location = new System.Drawing.Point(13, 98);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(142, 45);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "{Name} : Pokemon Name\r\n{CP} : Pokemon CP\r\n{IV} : Pokemon IV %";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label4.Location = new System.Drawing.Point(191, 98);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(186, 45);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "{IA} : Pokemon Individual Attack\r\n{ID} : Pokemon Individual Defense\r\n{IS} : Pokem" +
-    "on Individual Stamina";
+            this.closeRenameBtn.AutoSize = true;
+            this.closeRenameBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.closeRenameBtn.ForeColor = System.Drawing.Color.Gray;
+            this.closeRenameBtn.Location = new System.Drawing.Point(382, 0);
+            this.closeRenameBtn.Name = "closeRenameBtn";
+            this.closeRenameBtn.Size = new System.Drawing.Size(16, 17);
+            this.closeRenameBtn.TabIndex = 10;
+            this.closeRenameBtn.Text = "X";
+            this.closeRenameBtn.Click += new System.EventHandler(this.closeRenameBtn_Click);
             // 
             // NicknamePokemonForm
             // 
@@ -145,5 +159,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label closeRenameBtn;
     }
 }

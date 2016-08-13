@@ -25,6 +25,17 @@ namespace PokemonGo.RocketAPI.Window
                 DialogResult = DialogResult.OK;
                 Close();
             }
+            if (e.KeyCode == Keys.Escape)
+            {
+                DialogResult = DialogResult.Cancel;
+                Close();
+            }
+        }
+
+        private void closeRenameBtn_Click(object sender, System.EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
         }
     }
 }
