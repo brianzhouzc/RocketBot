@@ -5,6 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonGo.RocketBot", "src\RocketBotGUI\PokemonGo.RocketBot.csproj", "{C85B9D78-9CA3-4830-84CD-6B69090B987F}"
 	ProjectSection(ProjectDependencies) = postProject
+		{05D2DA44-1B8E-4CF7-94ED-4D52451CD095} = {05D2DA44-1B8E-4CF7-94ED-4D52451CD095}
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB} = {A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}
 	EndProjectSection
 EndProject
