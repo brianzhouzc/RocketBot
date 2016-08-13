@@ -1,4 +1,4 @@
-{
+﻿{
   "TranslationStrings": [
     {
       "Key": "pokeball",
@@ -26,7 +26,8 @@
     },
     {
       "Key": "farmPokestopsOutsideRadius",
-      "Value": "Você está fora do seu raio definido! Caminhando para o início ({0}m de distância) em 5 segundos. Suas coordenadas em LastPos.ini estão corretas?"
+      "Value":
+        "Você está fora do seu raio definido! Caminhando para o início ({0}m de distância) em 5 segundos. Suas coordenadas em LastPos.ini estão corretas?"
     },
     {
       "Key": "farmPokestopsNoUsableFound",
@@ -74,11 +75,13 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m distancia | com uma {9} (restando {10}). | {11} EXP adquirida | {12} | lat: {13} long: {14}"
+      "Value":
+        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m distancia | com uma {9} (restando {10}). | {11} EXP adquirida | {12} | lat: {13} long: {14}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | com uma {9} (restando {10}). | lat: {11} long: {12}"
+      "Value":
+        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | com uma {9} (restando {10}). | lat: {11} long: {12}"
     },
     {
       "Key": "eventNoPokeballs",
@@ -90,7 +93,8 @@
     },
     {
       "Key": "useLuckyEggsMinPokemonAmountTooHigh",
-      "Value": "Ovos da sorte nunca serão utilizados com a propriedade UseLuckyEggsMinPokemonAmount definida como {0}, em vez disso use um valor <= {1}"
+      "Value":
+        "Ovos da sorte nunca serão utilizados com a propriedade UseLuckyEggsMinPokemonAmount definida como {0}, em vez disso use um valor <= {1}"
     },
     {
       "Key": "catchMorePokemonToUseLuckyEgg",
@@ -326,7 +330,8 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Configuração Inválida] Seu limite de itens combinados (pokebolas+poções+revives={0}) está acima da capacidade máxima de seu inventário ({1})"
+      "Value":
+        "[Configuração Inválida] Seu limite de itens combinados (pokebolas+poções+revives={0}) está acima da capacidade máxima de seu inventário ({1})"
     },
     {
       "Key": "recyclingQuietly",
@@ -338,7 +343,8 @@
     },
     {
       "Key": "invFullTransferManually",
-      "Value": "O inventário de Pokémons está cheio. Por favor transfira seus pokémons manualmente ou altere a propriedade TransferDuplicatePokemon para true nas configurações..."
+      "Value":
+        "O inventário de Pokémons está cheio. Por favor transfira seus pokémons manualmente ou altere a propriedade TransferDuplicatePokemon para true nas configurações..."
     },
     {
       "Key": "invFullPokestopLooting",
@@ -410,7 +416,8 @@
     },
     {
       "Key": "statsTemplateString",
-      "Value": "{0} - Sessão {1} - Lvl: {2} | EXP/H: {3:n0} | P/H: {4:n0} | Stardust: {5:n0} | Transferidos: {6:n0} | Reciclados: {7:n0}"
+      "Value":
+        "{0} - Sessão {1} - Lvl: {2} | EXP/H: {3:n0} | P/H: {4:n0} | Stardust: {5:n0} | Transferidos: {6:n0} | Reciclados: {7:n0}"
     },
     {
       "Key": "statsXpTemplateString",
@@ -422,7 +429,8 @@
     },
     {
       "Key": "googleTwoFactorAuth",
-      "Value": "Como você possui o Google Two Factor Auth ativado, você precisará informar o App Specific Password no arquivo auth.json"
+      "Value":
+        "Como você possui o Google Two Factor Auth ativado, você precisará informar o App Specific Password no arquivo auth.json"
     },
     {
       "Key": "googleTwoFactorAuthExplanation",
@@ -438,11 +446,13 @@
     },
     {
       "Key": "missingCredentialsGoogle",
-      "Value": "Você precisa informar o GoogleUsername e GooglePassword no arquivo auth.json! Nota : Após o Update 0.7.5 é nessesario colocar as informações em auth.json e authgoogle.json dependendo de como veio o bot, verifique se o seu bot possui os dois arquivos e em caso contrário preencha-os!"
+      "Value":
+        "Você precisa informar o GoogleUsername e GooglePassword no arquivo auth.json! Nota : Após o Update 0.7.5 é nessesario colocar as informações em auth.json e authgoogle.json dependendo de como veio o bot, verifique se o seu bot possui os dois arquivos e em caso contrário preencha-os!"
     },
     {
       "Key": "missingCredentialsPtc",
-      "Value": "Você precisa informar o PtcUsername e PtcPassword no arquivo auth.json! Nota : Após o Update 0.7.5 é nessesario colocar as informações em auth.json e authptc.json dependendo de como veio o bot, verifique se o seu bot possui os dois arquivos e em caso contrário preencha-os!"
+      "Value":
+        "Você precisa informar o PtcUsername e PtcPassword no arquivo auth.json! Nota : Após o Update 0.7.5 é nessesario colocar as informações em auth.json e authptc.json dependendo de como veio o bot, verifique se o seu bot possui os dois arquivos e em caso contrário preencha-os!"
     },
     {
       "Key": "snipeScan",
@@ -622,22 +632,22 @@
     },
     {
       "Key": "PokedexCatchedTelegram",
-      "Value":  "--- Pokedex catched --- \n"  
+      "Value": "--- Pokedex catched --- \n"
     },
     {
       "Key": "PokedexPokemonCatchedTelegram",
-      "Value":  "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"  
+      "Value": "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"
     },
     {
       "Key": "PokedexNeededTelegram",
-      "Value":  "--- Pokedex needed --- \n"  
+      "Value": "--- Pokedex needed --- \n"
     },
     {
       "Key": "PokedexPokemonNeededTelegram",
-      "Value":  "#{0} Name: {1} \n"  
+      "Value": "#{0} Name: {1} \n"
     }
   ],
-	"PokemonStrings": [
+  "PokemonStrings": [
     {
       "Key": "bulbasaur",
       "Value": "Bulbasauro"

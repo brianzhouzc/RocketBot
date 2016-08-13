@@ -1,4 +1,4 @@
-{
+﻿{
   "TranslationStrings": [
     {
       "Key": "pokeball",
@@ -22,7 +22,8 @@
     },
     {
       "Key": "farmPokestopsOutsideRadius",
-      "Value": "Jūs esate už savo nustatyto spindulio! Einama į pradžią (už {0}m) po 5 sekundžių. Ar jūsų LastPos.ini failas teisingas?"
+      "Value":
+        "Jūs esate už savo nustatyto spindulio! Einama į pradžią (už {0}m) po 5 sekundžių. Ar jūsų LastPos.ini failas teisingas?"
     },
     {
       "Key": "farmPokestopsNoUsableFound",
@@ -66,11 +67,13 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | with a {9} ({10} left). | {11} EXP earned | {12} | lat: {13} long: {14}"
+      "Value":
+        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | with a {9} ({10} left). | {11} EXP earned | {12} | lat: {13} long: {14}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | with a {9} ({10} left). | lat: {11} long: {12}"
+      "Value":
+        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | with a {9} ({10} left). | lat: {11} long: {12}"
     },
     {
       "Key": "eventNoPokeballs",
@@ -130,7 +133,8 @@
     },
     {
       "Key": "welcomeWarning",
-      "Value": "Įsitikinkite kad platuma ir plokštuma teisingos. Išjunkite programą jeigu ne! Platuma: {0} Plokštuma: {1}"
+      "Value":
+        "Įsitikinkite kad platuma ir plokštuma teisingos. Išjunkite programą jeigu ne! Platuma: {0} Plokštuma: {1}"
     },
     {
       "Key": "incubatorPuttingEgg",
@@ -306,7 +310,8 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Konfigūracija neteisinga] Jūsų maksimalūs daiktai (rutuliai+gėrimai+prikėlimai={0}) viršija jūsų saugyklą ({1})"
+      "Value":
+        "[Konfigūracija neteisinga] Jūsų maksimalūs daiktai (rutuliai+gėrimai+prikėlimai={0}) viršija jūsų saugyklą ({1})"
     },
     {
       "Key": "recyclingQuietly",
@@ -318,7 +323,8 @@
     },
     {
       "Key": "invFullTransferManually",
-      "Value": "Pokemonų inventorius pilnas! Prašome atiduoti Pokemonus rankiniu būdu arba nustatyti TransferDuplicatePokemon į true nustatymuose..."
+      "Value":
+        "Pokemonų inventorius pilnas! Prašome atiduoti Pokemonus rankiniu būdu arba nustatyti TransferDuplicatePokemon į true nustatymuose..."
     },
     {
       "Key": "invFullPokestopLooting",
@@ -390,7 +396,8 @@
     },
     {
       "Key": "statsTemplateString",
-      "Value": "{0} - trukmė {1} - Lvl: {2} | EXP/H: {3:n0} | P/H: {4:n0} | Dulkės: {5:n0} | Atiduota: {6:n0} | Išmesta: {7:n0}"
+      "Value":
+        "{0} - trukmė {1} - Lvl: {2} | EXP/H: {3:n0} | P/H: {4:n0} | Dulkės: {5:n0} | Atiduota: {6:n0} | Išmesta: {7:n0}"
     },
     {
       "Key": "statsXpTemplateString",
@@ -402,11 +409,13 @@
     },
     {
       "Key": "googleTwoFactorAuth",
-      "Value": "Kadangi jūs įjungę Google Two Factor Auth, jums reikės nurodyti aplikacijai specifinį slaptažodį faile auth.json"
+      "Value":
+        "Kadangi jūs įjungę Google Two Factor Auth, jums reikės nurodyti aplikacijai specifinį slaptažodį faile auth.json"
     },
     {
       "Key": "googleTwoFactorAuthExplanation",
-      "Value": "Atidaroma Google aplikacijų slaptažodžiai. Sukurkite naują aplikacijos slaptažodį (naudokite Other kaip Device)"
+      "Value":
+        "Atidaroma Google aplikacijų slaptažodžiai. Sukurkite naują aplikacijos slaptažodį (naudokite Other kaip Device)"
     },
     {
       "Key": "googleError",
@@ -486,22 +495,22 @@
     },
     {
       "Key": "PokedexCatchedTelegram",
-      "Value":  "--- Pokedex catched --- \n"  
+      "Value": "--- Pokedex catched --- \n"
     },
     {
       "Key": "PokedexPokemonCatchedTelegram",
-      "Value":  "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"  
+      "Value": "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"
     },
     {
       "Key": "PokedexNeededTelegram",
-      "Value":  "--- Pokedex needed --- \n"  
+      "Value": "--- Pokedex needed --- \n"
     },
     {
       "Key": "PokedexPokemonNeededTelegram",
-      "Value":  "#{0} Name: {1} \n"  
+      "Value": "#{0} Name: {1} \n"
     }
   ],
-	"PokemonStrings": [
+  "PokemonStrings": [
     {
       "Key": "bulbasaur",
       "Value": "Bulbasaur"

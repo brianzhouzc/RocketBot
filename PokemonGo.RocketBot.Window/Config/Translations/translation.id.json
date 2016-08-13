@@ -20,13 +20,14 @@
       "Key": "wrongAuthType",
       "Value": "Jenis AuthType pada config.json tidak dikenal"
     },
-	{
+    {
       "Key": "loginInvalid",
       "Value": "Username dan password tidak cocok, login gagal!"
     },
     {
       "Key": "farmPokestopsOutsideRadius",
-      "Value": "Kamu diluar dari radius yang telah kamu tentukan! Kembali ke posisi awal (sekitar {0} meter) dalam 5 detik. Apakah berkas LastPos.ini kamu benar?"
+      "Value":
+        "Kamu diluar dari radius yang telah kamu tentukan! Kembali ke posisi awal (sekitar {0} meter) dalam 5 detik. Apakah berkas LastPos.ini kamu benar?"
     },
     {
       "Key": "farmPokestopsNoUsableFound",
@@ -48,7 +49,7 @@
       "Key": "eventProfileLogin",
       "Value": "Bermain sebagai {0}"
     },
-	{
+    {
       "Key": "eventUsedIncense",
       "Value": "Memakai Incense, tersisa: {0}"
     },
@@ -74,11 +75,13 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Kemungkinan: {7}% | Jarak: {8} meter | menggunakan {9} ( Sisa {10}). | mendapatkan: {11} EXP | {12} | lintang: {13} bujur: {14}"
+      "Value":
+        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Kemungkinan: {7}% | Jarak: {8} meter | menggunakan {9} ( Sisa {10}). | mendapatkan: {11} EXP | {12} | lintang: {13} bujur: {14}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | kemungkinan: {7}% | Jarak: {8} meter | menggunakan {9} ( Sisa {10}). | lat: {11} long: {12}"
+      "Value":
+        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | kemungkinan: {7}% | Jarak: {8} meter | menggunakan {9} ( Sisa {10}). | lat: {11} long: {12}"
     },
     {
       "Key": "eventNoPokeballs",
@@ -90,7 +93,8 @@
     },
     {
       "Key": "useLuckyEggsMinPokemonAmountTooHigh",
-      "Value": "Lucky Egg tidak akan terpakai dengan pengaturan UseLuckyEggsMinPokemonAmount diatur ke {0}, gunakan <= {1}"
+      "Value":
+        "Lucky Egg tidak akan terpakai dengan pengaturan UseLuckyEggsMinPokemonAmount diatur ke {0}, gunakan <= {1}"
     },
     {
       "Key": "catchMorePokemonToUseLuckyEgg",
@@ -150,7 +154,8 @@
     },
     {
       "Key": "welcomeWarning",
-      "Value": "Pastikan koordinat kamu telah benar. Tutup program dan konfigurasi ulang jika belum! X (lintang): {0} Y (bujur): {1}"
+      "Value":
+        "Pastikan koordinat kamu telah benar. Tutup program dan konfigurasi ulang jika belum! X (lintang): {0} Y (bujur): {1}"
     },
     {
       "Key": "incubatorPuttingEgg",
@@ -334,11 +339,12 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Konfigurasi Salah] Total barang maksimum kamu (ball+potion+revive={0}) melebihi kapasitas tas kamu ({1})"
+      "Value":
+        "[Konfigurasi Salah] Total barang maksimum kamu (ball+potion+revive={0}) melebihi kapasitas tas kamu ({1})"
     },
     {
       "Key": "recyclingQuietly",
-	  "Value": "Mendaur ulang senyap..."
+      "Value": "Mendaur ulang senyap..."
     },
     {
       "Key": "invFullTransferring",
@@ -346,7 +352,8 @@
     },
     {
       "Key": "invFullTransferManually",
-      "Value": "Inventaris pokemon penuh. Transfer pokemon secara manual atau ubah TransferDuplicatePokemon menjadi true diberkas config.json"
+      "Value":
+        "Inventaris pokemon penuh. Transfer pokemon secara manual atau ubah TransferDuplicatePokemon menjadi true diberkas config.json"
     },
     {
       "Key": "invFullPokestopLooting",
@@ -418,11 +425,13 @@
     },
     {
       "Key": "statsTemplateString",
-      "Value": "{0} - Waktu aktif {1} - Lvl: {2} | EXP/H: {3:n0} | P/H: {4:n0} | Stardust: {5:n0} | Ditransfer: {6:n0} | Didaur ulang: {7:n0}"
+      "Value":
+        "{0} - Waktu aktif {1} - Lvl: {2} | EXP/H: {3:n0} | P/H: {4:n0} | Stardust: {5:n0} | Ditransfer: {6:n0} | Didaur ulang: {7:n0}"
     },
     {
       "Key": "profileStatsTemplateString",
-      "Value": "----- LVL {0} | {1} ----- \n EXP: {2}/{3} \n Pokemon yang ditangkap: {4} \n Pokemon yang ditransfer: {5} \n Pokestop yang dikunjungi: {6} \n Telur yang ditetaskan: {6} \n Pokemon yang dievolusikan: {7} \n Catatan Pokedex: {8} \n Sudah berjalan: {9} KM \n Pokemon: {11}/{12}"
+      "Value":
+        "----- LVL {0} | {1} ----- \n EXP: {2}/{3} \n Pokemon yang ditangkap: {4} \n Pokemon yang ditransfer: {5} \n Pokestop yang dikunjungi: {6} \n Telur yang ditetaskan: {6} \n Pokemon yang dievolusikan: {7} \n Catatan Pokedex: {8} \n Sudah berjalan: {9} KM \n Pokemon: {11}/{12}"
     },
     {
       "Key": "showPokeTemplate",
@@ -430,7 +439,8 @@
     },
     {
       "Key": "helpTemplate",
-      "Value": "Perintah: \n \n /top <cp/iv> <jumlah> - Menampilkan Pokemon tertinggimu.. \n /all <cp/iv> - Menampilkan semua Pokemon-mu. \n /profile - Menampilkan profilmu. \n /loc - Menampilkan lokasimu. \n /items - Menampilkan barangmu. \n /status - Menampilkan status bot-mu. \n /pokedex - Menampilkan Pokedex-mu"
+      "Value":
+        "Perintah: \n \n /top <cp/iv> <jumlah> - Menampilkan Pokemon tertinggimu.. \n /all <cp/iv> - Menampilkan semua Pokemon-mu. \n /profile - Menampilkan profilmu. \n /loc - Menampilkan lokasimu. \n /items - Menampilkan barangmu. \n /status - Menampilkan status bot-mu. \n /pokedex - Menampilkan Pokedex-mu"
     },
     {
       "Key": "statsXpTemplateString",
@@ -442,11 +452,13 @@
     },
     {
       "Key": "googleTwoFactorAuth",
-      "Value": "Karena kamu menggunakan keamanan ganda Google, kamu perlu memasukkan kata kunci khusus aplikasi di auth.json"
+      "Value":
+        "Karena kamu menggunakan keamanan ganda Google, kamu perlu memasukkan kata kunci khusus aplikasi di auth.json"
     },
     {
       "Key": "googleTwoFactorAuthExplanation",
-      "Value": "Membuka Google App-Passwords. Mohon buat kata kunci aplikasi baru (gunakan \"lainnya\" sebagai jenis perangkat)"
+      "Value":
+        "Membuka Google App-Passwords. Mohon buat kata kunci aplikasi baru (gunakan \"lainnya\" sebagai jenis perangkat)"
     },
     {
       "Key": "googleError",
@@ -540,128 +552,129 @@
       "Key": "pkmNotEnoughRessources",
       "Value": "Peningkatan level Pokemon gagal karena tidak cukup bahan"
     },
-	{
+    {
       "Key": "snipeServerOffline",
       "Value": "Server bidikan offline. Melewati..."
     },
-	{
+    {
       "Key": "firstStartPrompt",
       "Value": "Ini adalah pertama kalinya kamu menjalankan aplikasi, apakah kamu ingin memulai pengaturan? {0}/{1}"
     },
-	{
+    {
       "Key": "firstStartLanguagePrompt",
       "Value": "Apakah kamu ingin mengganti bahasa bawaan? {0}/{1}"
     },
-	{
+    {
       "Key": "firstStartLanguageCodePrompt",
       "Value": "Mohon masukkan kode bahasa baru"
     },
-	{
+    {
       "Key": "firstStartLanguageConfirm",
       "Value": "Kode bahasa yang diterapkan: {0}"
     },
-	{
+    {
       "Key": "PromptError",
       "Value": "[MASUKAN ERROR] Terdapat error pada masukan, mohon masukkan '{0}' atau '{1}'"
     },
-	{
+    {
       "Key": "firstStartAutoGenSettings",
-      "Value": "Berkas \"config.json\" dan \"auth.json\" secara otomatis dibuat dan harus dilengkapi sebelum melanjutkan INFO: ubah berkas tersebut dalam folder CONFIG"
+      "Value":
+        "Berkas \"config.json\" dan \"auth.json\" secara otomatis dibuat dan harus dilengkapi sebelum melanjutkan INFO: ubah berkas tersebut dalam folder CONFIG"
     },
-	{
+    {
       "Key": "firstStartSetupAccount",
       "Value": "### Mengatur AKUN PENGGUNA baru ###"
     },
-	{
+    {
       "Key": "firstStartSetupTypePrompt",
       "Value": "Mohon pilih tipe akun: {0}/{1}"
     },
-	{
+    {
       "Key": "firstStartSetupTypeConfirm",
       "Value": "Tipe akun yang dipilih: {0}"
     },
-	{
+    {
       "Key": "firstStartSetupTypePromptError",
       "Value": "[ERROR] jenis akun yang salah dimasukkan, mohon pilih '{0}' atau '{1}'"
     },
-	{
+    {
       "Key": "firstStartSetupUsernamePrompt",
       "Value": "Mohon masukkan nama pengguna atau email"
     },
-	{
+    {
       "Key": "firstStartSetupUsernameConfirm",
       "Value": "Nama pengguna yang diterima: {0}"
     },
-	{
+    {
       "Key": "firstStartSetupPasswordPrompt",
       "Value": "Mohon masukkan password"
     },
-	{
+    {
       "Key": "firstStartSetupPasswordConfirm",
       "Value": "Password yang diterima: {0}"
     },
-	{
+    {
       "Key": "firstStartAccountCompleted",
       "Value": "### Akun Pengguna Selesai ###"
     },
-	{
+    {
       "Key": "firstStartDefaultLocationPrompt",
       "Value": "Apakah kamu ingin mengatur lokasi bawaan yang baru? {0}/{1}"
     },
-	{
+    {
       "Key": "firstStartDefaultLocationSet",
       "Value": "Lokasi bawaan diterapkan"
     },
-	{
+    {
       "Key": "firstStartDefaultLocation",
       "Value": "### Mengatur Lokasi Bawaan ###"
     },
-	{
+    {
       "Key": "firstStartSetupDefaultLocationError",
       "Value": "[ERROR] Tolong hanya masukkan ANGKA, contohnya: {0}"
     },
-	{
+    {
       "Key": "firstStartSetupDefaultLatPrompt",
       "Value": "Mohon masukkan lintang (klik kanan untuk menempelkan)"
     },
-	{
+    {
       "Key": "firstStartSetupDefaultLatConfirm",
       "Value": "Lintang yang diterima: {0}"
     },
-	{
+    {
       "Key": "firstStartSetupDefaultLongPrompt",
       "Value": "Mohon masukkan bujur (klik kanan untuk menempelkan)"
     },
-	{
+    {
       "Key": "firstStartSetupDefaultLongConfirm",
       "Value": "Bujur yang diterima: {0}"
     },
-	{
+    {
       "Key": "softBanBypassed",
       "Value": "Berhasil dilewati!"
     },
-	{
+    {
       "Key": "firstStartSetupCompleted",
       "Value": "### PENGATURAN KONFIGURASI SELESAI ###"
     },
     {
       "Key": "PokedexCatchedTelegram",
-      "Value":  "--- Tertangkap di Pokedex  --- \n"  
+      "Value": "--- Tertangkap di Pokedex  --- \n"
     },
     {
       "Key": "PokedexPokemonCatchedTelegram",
-      "Value":  "#{0} Nama: {1} | Tertangkap: {2} | Ditemukan: {3} \n"  
+      "Value": "#{0} Nama: {1} | Tertangkap: {2} | Ditemukan: {3} \n"
     },
     {
       "Key": "PokedexNeededTelegram",
-      "Value":  "--- Dibutuhkan di Pokedex --- \n"  
+      "Value": "--- Dibutuhkan di Pokedex --- \n"
     },
     {
       "Key": "PokedexPokemonNeededTelegram",
-      "Value":  "#{0} Nama: {1} \n"  
+      "Value": "#{0} Nama: {1} \n"
     }
   ],
-	"PokemonStrings": [
+  "PokemonStrings": [
     {
       "Key": "bulbasaur",
       "Value": "Bulbasaur"

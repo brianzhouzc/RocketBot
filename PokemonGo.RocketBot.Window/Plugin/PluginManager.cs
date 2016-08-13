@@ -1,27 +1,24 @@
-﻿using PokemonGo.RocketBot.Logic.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using PokemonGo.RocketBot.Logic.Logging;
 
 namespace PokemonGo.RocketBot.Window.Plugin
 {
     /// <summary>
-    /// Plugin loader.
+    ///     Plugin loader.
     /// </summary>
-    class PluginManager
-    { 
+    internal class PluginManager
+    {
         // Private vars.
-        private PluginInitializerInfo _initInfo;
-        private List<INecroPlugin> _plugins;
-        private Type _pluginType = typeof(INecroPlugin);
+        private readonly PluginInitializerInfo _initInfo;
+        private readonly List<INecroPlugin> _plugins;
+        private readonly Type _pluginType = typeof(INecroPlugin);
 
 
         /// <summary>
-        /// Plugin loader.
+        ///     Plugin loader.
         /// </summary>
         /// <param name="initInfo"></param>
         public PluginManager(PluginInitializerInfo initInfo)
@@ -32,20 +29,20 @@ namespace PokemonGo.RocketBot.Window.Plugin
 
 
         /// <summary>
-        /// Load all the plugins found in the Necro root folder.
+        ///     Load all the plugins found in the Necro root folder.
         /// </summary>
         public void InitPlugins()
         {
             // Get all the plugin DLLs.
-            string pluginDir = Path.Combine(Directory.GetCurrentDirectory(), "Plugins");
+            var pluginDir = Path.Combine(Directory.GetCurrentDirectory(), "Plugins");
             if (!Directory.Exists(pluginDir))
                 Directory.CreateDirectory(pluginDir);
 
             var dllFiles = Directory.GetFiles(pluginDir, "*.dll");
 
             // Attempt to load all the assemblies from the DLLs.
-            List<Assembly> assemblies = new List<Assembly>();
-            foreach (string dll in dllFiles)
+            var assemblies = new List<Assembly>();
+            foreach (var dll in dllFiles)
             {
                 var assembly = AttemptAssemblyLoad(dll);
                 if (assembly != null)
@@ -58,7 +55,7 @@ namespace PokemonGo.RocketBot.Window.Plugin
 
 
         /// <summary>
-        /// Attempt to load an assembly.
+        ///     Attempt to load an assembly.
         /// </summary>
         /// <param name="dll">List of DLLs</param>
         /// <returns>Assembly if found, null if not.</returns>
@@ -66,8 +63,8 @@ namespace PokemonGo.RocketBot.Window.Plugin
         {
             try
             {
-                AssemblyName an = AssemblyName.GetAssemblyName(dll);
-                Assembly assembly = Assembly.Load(an);
+                var an = AssemblyName.GetAssemblyName(dll);
+                var assembly = Assembly.Load(an);
                 return assembly;
             }
             catch
@@ -78,20 +75,19 @@ namespace PokemonGo.RocketBot.Window.Plugin
 
 
         /// <summary>
-        /// Load plugins from an assembly.
+        ///     Load plugins from an assembly.
         /// </summary>
         /// <param name="assemblies">List of assemblies.</param>
         private void LoadPlugins(List<Assembly> assemblies)
         {
-            
             // Get all the types from this assembly that match our plugin type.
             ICollection<Type> pluginTypes = new List<Type>();
-            foreach (Assembly assembly in assemblies)
+            foreach (var assembly in assemblies)
             {
                 try
                 {
-                    Type[] types = assembly.GetTypes();
-                    foreach (Type type in types)
+                    var types = assembly.GetTypes();
+                    foreach (var type in types)
                     {
                         if (type.IsInterface || type.IsAbstract)
                             continue;
@@ -107,11 +103,11 @@ namespace PokemonGo.RocketBot.Window.Plugin
             }
 
             // Iterate through them all and create an instance of the plugin.
-            foreach (Type type in pluginTypes)
+            foreach (var type in pluginTypes)
             {
                 try
                 {
-                    INecroPlugin plugin = (INecroPlugin)Activator.CreateInstance(type);
+                    var plugin = (INecroPlugin) Activator.CreateInstance(type);
                     plugin.Initialize(_initInfo);
                     _plugins.Add(plugin);
                 }

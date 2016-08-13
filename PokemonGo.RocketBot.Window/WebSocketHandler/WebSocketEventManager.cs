@@ -1,43 +1,35 @@
-﻿using SuperSocket.WebSocket;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using PokemonGo.RocketBot.Logic.Tasks;
-using System.Reflection;
 using PokemonGo.RocketBot.Logic.State;
+using SuperSocket.WebSocket;
 
 namespace PokemonGo.RocketBot.Window.WebSocketHandler
 {
-    class WebSocketEventManager
+    internal class WebSocketEventManager
     {
-        Dictionary<string, IWebSocketRequestHandler> _registerdHandlers = new Dictionary<string, IWebSocketRequestHandler>();
-        
+        private readonly Dictionary<string, IWebSocketRequestHandler> _registerdHandlers =
+            new Dictionary<string, IWebSocketRequestHandler>();
+
         public void RegisterHandler(string actionName, IWebSocketRequestHandler action)
-        { 
+        {
             try
             {
-                _registerdHandlers.Add(actionName,action);
+                _registerdHandlers.Add(actionName, action);
             }
             catch
             {
                 // ignore
-            } 
+            }
         }
 
         public async Task Handle(ISession session, WebSocketSession webSocketSession, dynamic message)
         {
-            if (_registerdHandlers.ContainsKey((string)message.Command))
+            if (_registerdHandlers.ContainsKey((string) message.Command))
             {
-                await _registerdHandlers[(string)message.Command].Handle(session, webSocketSession, message);
+                await _registerdHandlers[(string) message.Command].Handle(session, webSocketSession, message);
             }
-            else
-            {
-                // Unknown command.
-            }
-
-            
         }
 
         // Registers all IWebSocketRequestHandler's automatically. 
@@ -51,9 +43,9 @@ namespace PokemonGo.RocketBot.Window.WebSocketHandler
                 .SelectMany(s => s.GetTypes())
                 .Where(p => type.IsAssignableFrom(p) && p.IsClass);
 
-            foreach(var plugin in types)
+            foreach (var plugin in types)
             {
-                IWebSocketRequestHandler instance = (IWebSocketRequestHandler)Activator.CreateInstance(plugin);
+                var instance = (IWebSocketRequestHandler) Activator.CreateInstance(plugin);
                 manager.RegisterHandler(instance.Command, instance);
             }
 

@@ -1,4 +1,4 @@
-{
+﻿{
   "TranslationStrings": [
     {
       "Key": "pokeball",
@@ -26,7 +26,8 @@
     },
     {
       "Key": "farmPokestopsOutsideRadius",
-      "Value": "Mevcut konum, tanımlanan yarıçapın dışında kalıyor! 5 saniye sonra {0}m'lik mesafeye yürümeye başlanacak. \"LastPos.ini\" dosyasındaki mevcut konum doğru mu?"
+      "Value":
+        "Mevcut konum, tanımlanan yarıçapın dışında kalıyor! 5 saniye sonra {0}m'lik mesafeye yürümeye başlanacak. \"LastPos.ini\" dosyasındaki mevcut konum doğru mu?"
     },
     {
       "Key": "farmPokestopsNoUsableFound",
@@ -74,11 +75,13 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Yakalama Şansı: {7}% | Mesafe: {8}m | {9} kullanıldı ({10} tane kaldı) | {11}XP kazanıldı | {12} | Enlem: {13} Boylam: {14}"
+      "Value":
+        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Yakalama Şansı: {7}% | Mesafe: {8}m | {9} kullanıldı ({10} tane kaldı) | {11}XP kazanıldı | {12} | Enlem: {13} Boylam: {14}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Yakalama Şansı: {7}% | Mesafe: {8}m | {9} kullanıldı ({10} tane kaldı) | Enlem: {11} Boylam: {12}"
+      "Value":
+        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Yakalama Şansı: {7}% | Mesafe: {8}m | {9} kullanıldı ({10} tane kaldı) | Enlem: {11} Boylam: {12}"
     },
     {
       "Key": "eventNoPokeballs",
@@ -86,11 +89,13 @@
     },
     {
       "Key": "waitingForMorePokemonToEvolve",
-      "Value": "{0} Pokémon geliştirilmeyi(evolve) bekliyor! {1} Pokémon daha yakalandığında Pokémon taşıma limitinin {4}%'i dolacak. ({2}/{3})"
+      "Value":
+        "{0} Pokémon geliştirilmeyi(evolve) bekliyor! {1} Pokémon daha yakalandığında Pokémon taşıma limitinin {4}%'i dolacak. ({2}/{3})"
     },
     {
       "Key": "useLuckyEggsMinPokemonAmountTooHigh",
-      "Value": "\"UseLuckyEggsMinPokemonAmount\" değeri {0} olarak ayarlanmış ve çok yüksek. {1}'den küçük bir değer girilmesi lazım."
+      "Value":
+        "\"UseLuckyEggsMinPokemonAmount\" değeri {0} olarak ayarlanmış ve çok yüksek. {1}'den küçük bir değer girilmesi lazım."
     },
     {
       "Key": "catchMorePokemonToUseLuckyEgg",
@@ -150,7 +155,8 @@
     },
     {
       "Key": "welcomeWarning",
-      "Value": "Varsayılan enlem(DefaultLatitude) ve boylam(DefaultLongitude) değerlerinin doğrulundan emin olun. Aksi halde programı kapatın! Enlem: {0} Boylam: {1}"
+      "Value":
+        "Varsayılan enlem(DefaultLatitude) ve boylam(DefaultLongitude) değerlerinin doğrulundan emin olun. Aksi halde programı kapatın! Enlem: {0} Boylam: {1}"
     },
     {
       "Key": "incubatorPuttingEgg",
@@ -162,7 +168,8 @@
     },
     {
       "Key": "incubatorEggHatched",
-      "Value": "Kuluçka makinesindeki(Incubator) Yumurta(Egg) çatladı: Çıkan Pokémon: {0} | Lvl: {1} CP: ({2}/{3}) IV: {4}%"
+      "Value":
+        "Kuluçka makinesindeki(Incubator) Yumurta(Egg) çatladı: Çıkan Pokémon: {0} | Lvl: {1} CP: ({2}/{3}) IV: {4}%"
     },
     {
       "Key": "logEntryError",
@@ -270,7 +277,8 @@
     },
     {
       "Key": "notRealisticTravel",
-      "Value": "{0} konumunda gerçekçi gezinme geçerli değil. \"LastPos.ini\" dosyasındaki son kaydedilen koordinatlar kullanılıyor."
+      "Value":
+        "{0} konumunda gerçekçi gezinme geçerli değil. \"LastPos.ini\" dosyasındaki son kaydedilen koordinatlar kullanılıyor."
     },
     {
       "Key": "coordinatesAreInvalid",
@@ -342,7 +350,8 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Geçersiz Ayar] Tüm eşyaların toplamı (Pokétopları+Potionlar+Revivelar={0}) taşınabilecek eşya limitinden ({1}) daha fazla olamaz."
+      "Value":
+        "[Geçersiz Ayar] Tüm eşyaların toplamı (Pokétopları+Potionlar+Revivelar={0}) taşınabilecek eşya limitinden ({1}) daha fazla olamaz."
     },
     {
       "Key": "recyclingQuietly",
@@ -354,7 +363,8 @@
     },
     {
       "Key": "invFullTransferManually",
-      "Value": "Taşınabilecek Pokémon limiti doldu! Pokémonları elle aktararak yer açın ya da ayarlardan \"TransferDuplicatePokemon\" değerini \"true\" yapın."
+      "Value":
+        "Taşınabilecek Pokémon limiti doldu! Pokémonları elle aktararak yer açın ya da ayarlardan \"TransferDuplicatePokemon\" değerini \"true\" yapın."
     },
     {
       "Key": "invFullPokestopLooting",
@@ -426,11 +436,13 @@
     },
     {
       "Key": "statsTemplateString",
-      "Value": "{0} - Süre {1} - Seviye: {2} | XP/SA: {3:n0} | P/SA: {4:n0} | Stardust: {5:n0} | Aktarılan Pokémon: {6:n0} | Atılan Eşya: {7:n0}"
+      "Value":
+        "{0} - Süre {1} - Seviye: {2} | XP/SA: {3:n0} | P/SA: {4:n0} | Stardust: {5:n0} | Aktarılan Pokémon: {6:n0} | Atılan Eşya: {7:n0}"
     },
     {
       "Key": "profileStatsTemplateString",
-      "Value": "----- SEVİYE {0} | {1} ----- \n Tecrübe(XP): {2}/{3} \n Yakalanan Pokémon: {4} \n Görülen Pokémon: {5} \n Ziyaret Edilen Pokéstop: {6} \n Çatlatılan Yumurta(Egg): {7} \n Geliştirilen(Evolve) Pokémon: {8} \n Pokédex Kayıtları: {9} \n Yürünen Mesafe: {10}km  \n Pokémonlar: {11}/{12}"
+      "Value":
+        "----- SEVİYE {0} | {1} ----- \n Tecrübe(XP): {2}/{3} \n Yakalanan Pokémon: {4} \n Görülen Pokémon: {5} \n Ziyaret Edilen Pokéstop: {6} \n Çatlatılan Yumurta(Egg): {7} \n Geliştirilen(Evolve) Pokémon: {8} \n Pokédex Kayıtları: {9} \n Yürünen Mesafe: {10}km  \n Pokémonlar: {11}/{12}"
     },
     {
       "Key": "showPokeTemplate",
@@ -438,7 +450,8 @@
     },
     {
       "Key": "helpTemplate",
-      "Value": "Komutlar: \n \n /top <cp/iv> <sayı> - En iyi Pokémonları gösterir. \n /all <cp/iv> - Bütün Pokémonları gösterir. \n /profile - Profili gösterir. \n /loc - Konumu gösterir. \n /items - Eşyaları gösterir. \n /status - Bot durumunu gösterir."
+      "Value":
+        "Komutlar: \n \n /top <cp/iv> <sayı> - En iyi Pokémonları gösterir. \n /all <cp/iv> - Bütün Pokémonları gösterir. \n /profile - Profili gösterir. \n /loc - Konumu gösterir. \n /items - Eşyaları gösterir. \n /status - Bot durumunu gösterir."
     },
     {
       "Key": "statsXpTemplateString",
@@ -450,11 +463,13 @@
     },
     {
       "Key": "googleTwoFactorAuth",
-      "Value": "\"Google İki Aşamalı Doğrulama\" etkinleştirilmiş olduğundan dolayı \"auth.json\" dosyasına uygulamaya özel şifrenin eklenmesi gerekiyor."
+      "Value":
+        "\"Google İki Aşamalı Doğrulama\" etkinleştirilmiş olduğundan dolayı \"auth.json\" dosyasına uygulamaya özel şifrenin eklenmesi gerekiyor."
     },
     {
       "Key": "googleTwoFactorAuthExplanation",
-      "Value": "\"Google Uygulama Şifreleri\" sayfası açılıyor. Lütfen yeni bir uygulama şifresi oluşturun. (Aygıt olarak \"Diğer\" seçeneğini seçin.)"
+      "Value":
+        "\"Google Uygulama Şifreleri\" sayfası açılıyor. Lütfen yeni bir uygulama şifresi oluşturun. (Aygıt olarak \"Diğer\" seçeneğini seçin.)"
     },
     {
       "Key": "googleError",
@@ -574,7 +589,8 @@
     },
     {
       "Key": "firstStartAutoGenSettings",
-      "Value": "\"auth.json\" ve \"config.json\" dosyaları otomatik olarak oluşturuldu. Programı çalıştırmadan önce elle doldurmanız gerekiyor."
+      "Value":
+        "\"auth.json\" ve \"config.json\" dosyaları otomatik olarak oluşturuldu. Programı çalıştırmadan önce elle doldurmanız gerekiyor."
     },
     {
       "Key": "firstStartSetupAccount",
@@ -644,7 +660,7 @@
       "Key": "firstStartSetupDefaultLongConfirm",
       "Value": "Boylam(longitude) onaylandı: {0}"
     },
-	{
+    {
       "Key": "firstStartSetupCompleted",
       "Value": "### KURULUM TAMAMLANDI ###"
     },

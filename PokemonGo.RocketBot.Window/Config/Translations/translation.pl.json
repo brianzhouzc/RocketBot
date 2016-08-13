@@ -1,4 +1,4 @@
-{
+﻿{
   "TranslationStrings": [
     {
       "Key": "pokeball",
@@ -26,7 +26,8 @@
     },
     {
       "Key": "farmPokestopsOutsideRadius",
-      "Value": "Znajdujesz się poza zdefiniowanym zasięgiem. Zostaniesz przeniesiony na start odległy o ({0}m) za 5 sekund. Sprawdź, czy plik 'LastPos.ini' jest poprawny"
+      "Value":
+        "Znajdujesz się poza zdefiniowanym zasięgiem. Zostaniesz przeniesiony na start odległy o ({0}m) za 5 sekund. Sprawdź, czy plik 'LastPos.ini' jest poprawny"
     },
     {
       "Key": "farmPokestopsNoUsableFound",
@@ -38,7 +39,8 @@
     },
     {
       "Key": "eventFortFailed",
-      "Value": "Nazwa: {0}  INFO: Zbieranie przedmiotów nie powiodła się, prawdopodobnie masz SoftBana. Odbanowanie za: {1}/{2}"
+      "Value":
+        "Nazwa: {0}  INFO: Zbieranie przedmiotów nie powiodła się, prawdopodobnie masz SoftBana. Odbanowanie za: {1}/{2}"
     },
     {
       "Key": "eventFortTargeted",
@@ -74,11 +76,13 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value": "({0}) | ({1}) {2}  [Lvl: {3} | CP: ({4}/{5}) | IV: {6}%] Szansa: {7}% | Odległy o: {8}m | Użyto: {9} (Pozostało {10}) | EXP: {11} | {12} | Szerokość: {13} Długość: {14}"
+      "Value":
+        "({0}) | ({1}) {2}  [Lvl: {3} | CP: ({4}/{5}) | IV: {6}%] Szansa: {7}% | Odległy o: {8}m | Użyto: {9} (Pozostało {10}) | EXP: {11} | {12} | Szerokość: {13} Długość: {14}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value": "({0}) | ({1}) {2}  [Lvl: {3} | CP: ({4}/{5}) | IV: {6}%] Szansa: {7}% | Odległy o: {8}m | Użyto: {9} (Pozostało {10}) | Szerokość: {11} Długość: {12}"
+      "Value":
+        "({0}) | ({1}) {2}  [Lvl: {3} | CP: ({4}/{5}) | IV: {6}%] Szansa: {7}% | Odległy o: {8}m | Użyto: {9} (Pozostało {10}) | Szerokość: {11} Długość: {12}"
     },
     {
       "Key": "eventNoPokeballs",
@@ -150,7 +154,8 @@
     },
     {
       "Key": "welcomeWarning",
-      "Value": "Upewnij się, że szerokość i długość geograficzna są poprawnie. Jeżeli nie to zamknij program  [Szerokość: {0} Długość: {1}]"
+      "Value":
+        "Upewnij się, że szerokość i długość geograficzna są poprawnie. Jeżeli nie to zamknij program  [Szerokość: {0} Długość: {1}]"
     },
     {
       "Key": "incubatorPuttingEgg",
@@ -234,7 +239,8 @@
     },
     {
       "Key": "ptcOffline",
-      "Value": "Serwery PTC najprawdopodobniej nie działają albo Twoje dane logowania są błędne. Spróbuj użyć konta Google"
+      "Value":
+        "Serwery PTC najprawdopodobniej nie działają albo Twoje dane logowania są błędne. Spróbuj użyć konta Google"
     },
     {
       "Key": "accessTokenExpired",
@@ -342,7 +348,8 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "Ustawiona przez Ciebie dopuszczalna ilość itemów w ekwipunku (PokeBalle+Potiony+Revivy={0}) przekracza maksymalną jego pojemność, która wynosi: ({1})"
+      "Value":
+        "Ustawiona przez Ciebie dopuszczalna ilość itemów w ekwipunku (PokeBalle+Potiony+Revivy={0}) przekracza maksymalną jego pojemność, która wynosi: ({1})"
     },
     {
       "Key": "recyclingQuietly",
@@ -354,7 +361,8 @@
     },
     {
       "Key": "invFullTransferManually",
-      "Value": "Posiadasz maksymalną ilość pokemonów, prześlij pokemony ręcznie albo zmień w ustawieniach wartość TransferDuplicatePokemon na true..."
+      "Value":
+        "Posiadasz maksymalną ilość pokemonów, prześlij pokemony ręcznie albo zmień w ustawieniach wartość TransferDuplicatePokemon na true..."
     },
     {
       "Key": "invFullPokestopLooting",
@@ -426,11 +434,13 @@
     },
     {
       "Key": "statsTemplateString",
-      "Value": "{0} - Czas działania {1} - Poziom: {2} | XP na godzinę: {3:n0} | Pokemony na godzinę: {4:n0} | Stardust: {5:n0} | Przesłano: {6:n0} | Usunięto: {7:n0}"
+      "Value":
+        "{0} - Czas działania {1} - Poziom: {2} | XP na godzinę: {3:n0} | Pokemony na godzinę: {4:n0} | Stardust: {5:n0} | Przesłano: {6:n0} | Usunięto: {7:n0}"
     },
     {
       "Key": "profileStatsTemplateString",
-      "Value": "----- LVL: {0} | {1} ----- \n Doświadczenie: {2}/{3} \n Złapanych Pokemonów: {4} \n Umieszczonych Pokemonów: {5} \n Odwiedzonych Pokestopów: {6} \n Wyklutych Jajek: {6} \n Wyewoluowanych Pokemonów: {7} \n Pokemonów w Pokedex: {8} \n Przebytych KM: {9}"
+      "Value":
+        "----- LVL: {0} | {1} ----- \n Doświadczenie: {2}/{3} \n Złapanych Pokemonów: {4} \n Umieszczonych Pokemonów: {5} \n Odwiedzonych Pokestopów: {6} \n Wyklutych Jajek: {6} \n Wyewoluowanych Pokemonów: {7} \n Pokemonów w Pokedex: {8} \n Przebytych KM: {9}"
     },
     {
       "Key": "showPokeTemplate",
@@ -438,7 +448,8 @@
     },
     {
       "Key": "helpTemplate",
-      "Value": "Komendy: \n \n /top <wartość> - Wyświetla top Twoich Pokemonów. \n /all - Wyświetla wszystkie posiadane Pokemony. \n /profile - Wyświetla Twój profil. \n /loc - Pokazuje Twoją lokalizację. \n /items - Wyświetla Twoje itemy"
+      "Value":
+        "Komendy: \n \n /top <wartość> - Wyświetla top Twoich Pokemonów. \n /all - Wyświetla wszystkie posiadane Pokemony. \n /profile - Wyświetla Twój profil. \n /loc - Pokazuje Twoją lokalizację. \n /items - Wyświetla Twoje itemy"
     },
     {
       "Key": "statsXpTemplateString",
@@ -450,7 +461,8 @@
     },
     {
       "Key": "googleTwoFactorAuth",
-      "Value": "Na Twoim koncie Google aktywna jest weryfikacja dwuetapowa, będziesz musiał wprowadzić nowe hasło w 'auth.json'"
+      "Value":
+        "Na Twoim koncie Google aktywna jest weryfikacja dwuetapowa, będziesz musiał wprowadzić nowe hasło w 'auth.json'"
     },
     {
       "Key": "googleTwoFactorAuthExplanation",
@@ -486,7 +498,7 @@
     },
     {
       "Key": "notEnoughPokeballsToSnipe",
-      "Value":  "Zbyt mało Pokeballi ({0}/{1})"
+      "Value": "Zbyt mało Pokeballi ({0}/{1})"
     },
     {
       "Key": "displayHighestMove1Header",
@@ -654,19 +666,19 @@
     },
     {
       "Key": "PokedexCatchedTelegram",
-      "Value":  "--- Pokedex catched --- \n"  
+      "Value": "--- Pokedex catched --- \n"
     },
     {
       "Key": "PokedexPokemonCatchedTelegram",
-      "Value":  "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"  
+      "Value": "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"
     },
     {
       "Key": "PokedexNeededTelegram",
-      "Value":  "--- Pokedex needed --- \n"  
+      "Value": "--- Pokedex needed --- \n"
     },
     {
       "Key": "PokedexPokemonNeededTelegram",
-      "Value":  "#{0} Name: {1} \n"  
+      "Value": "#{0} Name: {1} \n"
     }
   ],
   "PokemonStrings": [

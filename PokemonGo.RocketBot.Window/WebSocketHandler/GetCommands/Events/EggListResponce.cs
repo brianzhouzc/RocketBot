@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PokemonGo.RocketBot.Window.WebSocketHandler.GetCommands.Events
+﻿namespace PokemonGo.RocketBot.Window.WebSocketHandler.GetCommands.Events
 {
     public class EggListResponce : IWebSocketResponce
     {
@@ -14,9 +8,9 @@ namespace PokemonGo.RocketBot.Window.WebSocketHandler.GetCommands.Events
             Data = data;
             RequestID = requestID;
         }
-        public string RequestID { get; private set; }
-        public string Command { get; private set; }
-        public dynamic Data { get; private set; }
-        
+
+        public string RequestID { get; }
+        public string Command { get; }
+        public dynamic Data { get; }
     }
 }

@@ -1,4 +1,4 @@
-{
+﻿{
   "TranslationStrings": [
     {
       "Key": "pokeball",
@@ -28,7 +28,8 @@
     },
     {
       "Key": "farmPokestopsOutsideRadius",
-      "Value": "คุณอยู่นอกเหนือระยะทำการ กำลังเดินกลับจุดเริ่มต้น ({0} เมตร) ใน 5 วินาที จุดพิกัดใน LastPos.ini ถูกต้องหรือเปล่า?"
+      "Value":
+        "คุณอยู่นอกเหนือระยะทำการ กำลังเดินกลับจุดเริ่มต้น ({0} เมตร) ใน 5 วินาที จุดพิกัดใน LastPos.ini ถูกต้องหรือเปล่า?"
 
     },
     {
@@ -86,11 +87,13 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value": "({0}) | ({1}) {2} เลเวล: {3} CP: ({4}/{5}) IV: {6}% | โอกาส: {7}% | ระยะ {8}m | จับด้วย a {9} (เหลือ {10} ชิ้น). | ได้รับค่าประสบการณ์ {11} หน่วย | {12} | ละติจูด: {13} ลองติจูด: {14}"
+      "Value":
+        "({0}) | ({1}) {2} เลเวล: {3} CP: ({4}/{5}) IV: {6}% | โอกาส: {7}% | ระยะ {8}m | จับด้วย a {9} (เหลือ {10} ชิ้น). | ได้รับค่าประสบการณ์ {11} หน่วย | {12} | ละติจูด: {13} ลองติจูด: {14}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | โอกาส: {7}% | ระยะ {8}m | จับด้วย a {9} (เหลือ {10} ชิ้น). | ละติจูด: {11} ลองติจูด: {12}"
+      "Value":
+        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | โอกาส: {7}% | ระยะ {8}m | จับด้วย a {9} (เหลือ {10} ชิ้น). | ละติจูด: {11} ลองติจูด: {12}"
     },
     {
       "Key": "eventNoPokeballs",
@@ -110,22 +113,22 @@
     },
     {
       "Key": "PokedexCatchedTelegram",
-      "Value":  "--- Pokedex catched --- \n"  
+      "Value": "--- Pokedex catched --- \n"
     },
     {
       "Key": "PokedexPokemonCatchedTelegram",
-      "Value":  "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"  
+      "Value": "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"
     },
     {
       "Key": "PokedexNeededTelegram",
-      "Value":  "--- Pokedex needed --- \n"  
+      "Value": "--- Pokedex needed --- \n"
     },
     {
       "Key": "PokedexPokemonNeededTelegram",
-      "Value":  "#{0} Name: {1} \n"  
+      "Value": "#{0} Name: {1} \n"
     }
   ],
-	"PokemonStrings": [
+  "PokemonStrings": [
     {
       "Key": "bulbasaur",
       "Value": "Bulbasaur"

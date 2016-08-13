@@ -19,18 +19,20 @@
     {
       "Key": "wrongAuthType",
       "Value": "AuthType desconegut dins de config.json"
-	},
+    },
     {
       "Key": "loginInvalid",
       "Value": "Les credencials d'usuari són invàlides i el login ha fallat."
     },
     {
       "Key": "farmPokestopsOutsideRadius",
-      "Value": "Ets fora del radi definit! Caminant cap a la posició inicial (a {0}m) en 5 segons. És correcte el teu arxiu Coords.ini?"
+      "Value":
+        "Ets fora del radi definit! Caminant cap a la posició inicial (a {0}m) en 5 segons. És correcte el teu arxiu Coords.ini?"
     },
     {
       "Key": "farmPokestopsNoUsableFound",
-      "Value": "No s'han trobat pokeparades disponibles dins la teva àrea. Has configurat una distància màxima massa petita?"
+      "Value":
+        "No s'han trobat pokeparades disponibles dins la teva àrea. Has configurat una distància màxima massa petita?"
     },
     {
       "Key": "eventFortUsed",
@@ -47,8 +49,8 @@
     {
       "Key": "eventProfileLogin",
       "Value": "Jugant com a {0}"
-	},
-	{
+    },
+    {
       "Key": "eventUsedIncense",
       "Value": "S'ha fet servir encens, en queden: {0}"
     },
@@ -74,23 +76,26 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value": "({0}) | ({1}) {2} Nvll: {3} PC: ({4}/{5}) IV: {6}% | Probabilitat: {7}% | Dist {8}m | amb una {9} (en queden {10}). | {11} punts d'EXP obtinguts | lat: {12} long: {13}"
+      "Value":
+        "({0}) | ({1}) {2} Nvll: {3} PC: ({4}/{5}) IV: {6}% | Probabilitat: {7}% | Dist {8}m | amb una {9} (en queden {10}). | {11} punts d'EXP obtinguts | lat: {12} long: {13}"
     },
-	{
+    {
       "Key": "eventPokemonCaptureFailed",
-      "Value": "({0}) | ({1}) {2} Nvll: {3} PC: ({4}/{5}) IV: {6}% | Probabilitat: {7}% | Dist {8}m | amb una {9} (en queden {10}). | lat: {11} long: {12}"
+      "Value":
+        "({0}) | ({1}) {2} Nvll: {3} PC: ({4}/{5}) IV: {6}% | Probabilitat: {7}% | Dist {8}m | amb una {9} (en queden {10}). | lat: {11} long: {12}"
     },
     {
       "Key": "eventNoPokeballs",
       "Value": "Sense Pokéballs! - Hem perdut un {0} amb {1} PC :("
     },
-	{
+    {
       "Key": "waitingForMorePokemonToEvolve",
       "Value": "Esperant a evolucionar {0} Pokemon un cope se n'hagin capturat {1} més! ({2}/{3} per {4}% inventari)"
     },
     {
       "Key": "useLuckyEggsMinPokemonAmountTooHigh",
-      "Value": "Mai es farà servir cap Ou de la Sort quan UseLuckyEggsMinPokemonAmount estigui definit com a {0}, en comptes, fes servir <= {1}"
+      "Value":
+        "Mai es farà servir cap Ou de la Sort quan UseLuckyEggsMinPokemonAmount estigui definit com a {0}, en comptes, fes servir <= {1}"
     },
     {
       "Key": "catchMorePokemonToUseLuckyEgg",
@@ -104,8 +109,6 @@
       "Key": "itemRazzBerry",
       "Value": "Baia"
     },
-	
-	
     {
       "Key": "catchStatusAttempt",
       "Value": "{0} Intent #{1}"
@@ -152,7 +155,8 @@
     },
     {
       "Key": "welcomeWarning",
-      "Value": "Asegura't que la Latitud i la Longitud són correctes. Surt del programa si no és així! Lat: {0} Lng: {1}"
+      "Value":
+        "Asegura't que la Latitud i la Longitud són correctes. Surt del programa si no és així! Lat: {0} Lng: {1}"
     },
     {
       "Key": "incubatorPuttingEgg",
@@ -190,7 +194,7 @@
       "Key": "logEntrySniper",
       "Value": "SNIPER"
     },
-	{
+    {
       "Key": "logEntryRecycling",
       "Value": "RECICLANT"
     },
@@ -228,7 +232,8 @@
     },
     {
       "Key": "ptcOffline",
-      "Value": "Els servidors de PTC probablement han caigut o les teves dades d'accés són incorrectes. Prova amb Google."
+      "Value":
+        "Els servidors de PTC probablement han caigut o les teves dades d'accés són incorrectes. Prova amb Google."
     },
     {
       "Key": "tryingAgainIn",
@@ -332,7 +337,8 @@
     },
     {
       "Key": "invFullTransferManually",
-      "Value": "L'inventari de pokemon està ple. Si us plau, transfereix els pokemons manualment o activa l'opció TransferDuplicatePokemon dins l'arxiu de Configuració posant-la com a (True)..."
+      "Value":
+        "L'inventari de pokemon està ple. Si us plau, transfereix els pokemons manualment o activa l'opció TransferDuplicatePokemon dins l'arxiu de Configuració posant-la com a (True)..."
     },
     {
       "Key": "invFullPokestopLooting",
@@ -358,7 +364,6 @@
       "Key": "pokemonFavorite",
       "Value": "{0}% perfect {1} (CP {2}) *favorited*."
     },
-	
     {
       "Key": "pokemonIgnoreFilter",
       "Value": "[Filtre de Pokemons Ignorats] - Ignorant {0} tal i com s'ha definit en la configuració actual."
@@ -405,7 +410,8 @@
     },
     {
       "Key": "statsTemplateString",
-      "Value": "{0} - Actiu {1} - Nivell: {2} | EXP/H: {3:n0} | P/H: {4:n0} | P.Estel·lar: {5:n0} | Transferit: {6:n0} | Reciclat: {7:n0}"
+      "Value":
+        "{0} - Actiu {1} - Nivell: {2} | EXP/H: {3:n0} | P/H: {4:n0} | P.Estel·lar: {5:n0} | Transferit: {6:n0} | Reciclat: {7:n0}"
     },
     {
       "Key": "statsXpTemplateString",
@@ -417,11 +423,13 @@
     },
     {
       "Key": "googleTwoFactorAuth",
-      "Value": "Com tens habilitada l'autenticació en 2 passos de Google, hauràs d'inserir una contrasenya específica de l'APP dins de l'arxiu auth.json"
+      "Value":
+        "Com tens habilitada l'autenticació en 2 passos de Google, hauràs d'inserir una contrasenya específica de l'APP dins de l'arxiu auth.json"
     },
     {
       "Key": "googleTwoFactorAuthExplanation",
-      "Value": "Obrint Google App-Passwords. Si us plau, crea una nova contrasenya en l'APP (utilitzar en un altre dispositiu)"
+      "Value":
+        "Obrint Google App-Passwords. Si us plau, crea una nova contrasenya en l'APP (utilitzar en un altre dispositiu)"
     },
     {
       "Key": "googleError",
@@ -463,13 +471,14 @@
       "Key": "displayHighestMOVE2Header",
       "Value": "MOVIMENT2"
     },
-	{
+    {
       "Key": "displayHighestCandy",
       "Value": "Caramels"
     },
     {
       "Key": "ipBannedError",
-      "Value": "Connexió refusada. És possible que la teva IP hagi estat posada a la llista negra per part de Niantic. Sortint..."
+      "Value":
+        "Connexió refusada. És possible que la teva IP hagi estat posada a la llista negra per part de Niantic. Sortint..."
     },
     {
       "Key": "noEggsAvailable",
@@ -521,37 +530,36 @@
     },
     {
       "Key": "PokedexCatchedTelegram",
-      "Value":  "--- Pokedex catched --- \n"  
+      "Value": "--- Pokedex catched --- \n"
     },
     {
       "Key": "PokedexPokemonCatchedTelegram",
-      "Value":  "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"  
+      "Value": "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"
     },
     {
       "Key": "PokedexNeededTelegram",
-      "Value":  "--- Pokedex needed --- \n"  
+      "Value": "--- Pokedex needed --- \n"
     },
     {
       "Key": "PokedexPokemonNeededTelegram",
-      "Value":  "#{0} Name: {1} \n"  
+      "Value": "#{0} Name: {1} \n"
     },
     {
       "Key": "PokedexCatchedTelegram",
-      "Value":  "--- Pokedex catched --- \n"  
+      "Value": "--- Pokedex catched --- \n"
     },
     {
       "Key": "PokedexPokemonCatchedTelegram",
-      "Value":  "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"  
+      "Value": "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"
     },
     {
       "Key": "PokedexNeededTelegram",
-      "Value":  "--- Pokedex needed --- \n"  
+      "Value": "--- Pokedex needed --- \n"
     },
     {
       "Key": "PokedexPokemonNeededTelegram",
-      "Value":  "#{0} Name: {1} \n"  
+      "Value": "#{0} Name: {1} \n"
     }
-
   ],
   "PokemonStrings": [
     {

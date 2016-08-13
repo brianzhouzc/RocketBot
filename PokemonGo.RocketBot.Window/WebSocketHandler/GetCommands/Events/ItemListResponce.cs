@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PokemonGo.RocketBot.Window.WebSocketHandler.GetCommands.Events
+﻿namespace PokemonGo.RocketBot.Window.WebSocketHandler.GetCommands.Events
 {
-    class ItemListResponce : IWebSocketResponce
+    internal class ItemListResponce : IWebSocketResponce
     {
-        public ItemListResponce(dynamic data,string requestID)
+        public ItemListResponce(dynamic data, string requestID)
         {
             Command = "ItemListWeb";
             Data = data;
             RequestID = requestID;
         }
-        public string RequestID { get; private set; }
-        public string Command { get; private set; }
-        public dynamic Data { get; private set; }
+
+        public string RequestID { get; }
+        public string Command { get; }
+        public dynamic Data { get; }
     }
 }

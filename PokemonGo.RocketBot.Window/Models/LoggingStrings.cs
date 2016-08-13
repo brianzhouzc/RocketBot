@@ -93,15 +93,15 @@ namespace PokemonGo.RocketBot.Window.Models
 
             Update =
                 session?.Translation.GetTranslation(
-                    TranslationString.LogEntryUpdate ) ?? "UPDATE";
+                    TranslationString.LogEntryUpdate) ?? "UPDATE";
 
             New =
                 session?.Translation.GetTranslation(
-                    TranslationString.LogEntryNew ) ?? "NEW";
+                    TranslationString.LogEntryNew) ?? "NEW";
 
             SoftBan =
                 session?.Translation.GetTranslation(
-                   TranslationString.LogEntrySoftBan) ?? "SOFTBAN";
+                    TranslationString.LogEntrySoftBan) ?? "SOFTBAN";
         }
     }
 }

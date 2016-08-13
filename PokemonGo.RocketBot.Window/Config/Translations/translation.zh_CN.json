@@ -1,4 +1,4 @@
-{
+﻿{
   "TranslationStrings": [
     {
       "Key": "pokeball",
@@ -74,7 +74,8 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value": "[{0}]|({1}){2} 等级:{3} CP:({4}/{5}) 完美度:{6}%|捕获几率:{7}%|距离{8}米|使用{9}捕捉(剩余{10}个)|经验+{11}|{12}|坐标:{13},{14}\t\t\t\t\t"
+      "Value":
+        "[{0}]|({1}){2} 等级:{3} CP:({4}/{5}) 完美度:{6}%|捕获几率:{7}%|距离{8}米|使用{9}捕捉(剩余{10}个)|经验+{11}|{12}|坐标:{13},{14}\t\t\t\t\t"
     },
     {
       "Key": "eventPokemonCaptureFailed",
@@ -430,7 +431,8 @@
     },
     {
       "Key": "profileStatsTemplateString",
-      "Value": "----- 等级: {0} | {1} ----- \t\t\n 经验: {2}/{3} \t\t\n 捕获了{4}个精灵\t\t\n 已部署了{5}个精灵 \t\t\n 访问了{6}个补给站 \t\t\n 已孵化{6}个蛋 \t\t\n 已进化{7}个精灵\t\t\n 图鉴解锁{8}种\t\t\n 已行走{9}公里\t\t"
+      "Value":
+        "----- 等级: {0} | {1} ----- \t\t\n 经验: {2}/{3} \t\t\n 捕获了{4}个精灵\t\t\n 已部署了{5}个精灵 \t\t\n 访问了{6}个补给站 \t\t\n 已孵化{6}个蛋 \t\t\n 已进化{7}个精灵\t\t\n 图鉴解锁{8}种\t\t\n 已行走{9}公里\t\t"
     },
     {
       "Key": "showPokeTemplate",
@@ -438,7 +440,8 @@
     },
     {
       "Key": "helpTemplate",
-      "Value": "命令: \n \n /top <数量> - 显示你最高级的精灵列表. \t\t\n /all - 显示你所有精灵列表. \t\t\n /profile - 显示你个人详细信息. \t\t\n /loc - 显示你的位置. \t\t\n /items - 显示你的物品.\t\t"
+      "Value":
+        "命令: \n \n /top <数量> - 显示你最高级的精灵列表. \t\t\n /all - 显示你所有精灵列表. \t\t\n /profile - 显示你个人详细信息. \t\t\n /loc - 显示你的位置. \t\t\n /items - 显示你的物品.\t\t"
     },
     {
       "Key": "statsXpTemplateString",
@@ -654,19 +657,19 @@
     },
     {
       "Key": "PokedexCatchedTelegram",
-      "Value":  "--- Pokedex catched --- \n"  
+      "Value": "--- Pokedex catched --- \n"
     },
     {
       "Key": "PokedexPokemonCatchedTelegram",
-      "Value":  "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"  
+      "Value": "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"
     },
     {
       "Key": "PokedexNeededTelegram",
-      "Value":  "--- Pokedex needed --- \n"  
+      "Value": "--- Pokedex needed --- \n"
     },
     {
       "Key": "PokedexPokemonNeededTelegram",
-      "Value":  "#{0} Name: {1} \n"  
+      "Value": "#{0} Name: {1} \n"
     }
   ],
   "PokemonStrings": [

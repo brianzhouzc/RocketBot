@@ -1,4 +1,4 @@
-{
+﻿{
   "TranslationStrings": [
     {
       "Key": "pokeball",
@@ -74,11 +74,13 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value": "({0}) | ({1}) {2} Nivel: {3} CP: ({4}/{5}) IV: {6}% | Șansă: {7}% | {8}m distanță | cu un {9} ({10} rămase) | {11} EXP câștigată | {12} | lat: {13} long: {14}"
+      "Value":
+        "({0}) | ({1}) {2} Nivel: {3} CP: ({4}/{5}) IV: {6}% | Șansă: {7}% | {8}m distanță | cu un {9} ({10} rămase) | {11} EXP câștigată | {12} | lat: {13} long: {14}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value": "({0}) | ({1}) {2} Nivel: {3} CP: ({4}/{5}) IV: {6}% | Șansă: {7}% | {8}m distanță | cu un {9} ({10} rămase) | lat: {11} long: {12}"
+      "Value":
+        "({0}) | ({1}) {2} Nivel: {3} CP: ({4}/{5}) IV: {6}% | Șansă: {7}% | {8}m distanță | cu un {9} ({10} rămase) | lat: {11} long: {12}"
     },
     {
       "Key": "eventNoPokeballs",
@@ -90,7 +92,8 @@
     },
     {
       "Key": "useLuckyEggsMinPokemonAmountTooHigh",
-      "Value": "Ouăle norocoase nu vor fi folosite niciodată cu UseLuckyEggsMinPokemonAmount setat pe {0}, folosește în schimb <= {1}"
+      "Value":
+        "Ouăle norocoase nu vor fi folosite niciodată cu UseLuckyEggsMinPokemonAmount setat pe {0}, folosește în schimb <= {1}"
     },
     {
       "Key": "catchMorePokemonToUseLuckyEgg",
@@ -150,7 +153,8 @@
     },
     {
       "Key": "welcomeWarning",
-      "Value": "Asigură-te că latitudinea și longitudinea sunt corecte. Ieși din program în caz contrar! Lat: {0} Lng: {1}"
+      "Value":
+        "Asigură-te că latitudinea și longitudinea sunt corecte. Ieși din program în caz contrar! Lat: {0} Lng: {1}"
     },
     {
       "Key": "incubatorPuttingEgg",
@@ -234,7 +238,8 @@
     },
     {
       "Key": "ptcOffline",
-      "Value": "Serverele PTC sunt probabil căzute sau datele de conectare sunt greșite. Încearcă cu autentificarea Google."
+      "Value":
+        "Serverele PTC sunt probabil căzute sau datele de conectare sunt greșite. Încearcă cu autentificarea Google."
     },
     {
       "Key": "accessTokenExpired",
@@ -342,7 +347,8 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Configurație invalidă] Numărul maxim de obiecte combinate (bile+poțiuni+reînvieri={0}) este peste limita maximă de stocare a obiectelor ({1})"
+      "Value":
+        "[Configurație invalidă] Numărul maxim de obiecte combinate (bile+poțiuni+reînvieri={0}) este peste limita maximă de stocare a obiectelor ({1})"
     },
     {
       "Key": "recyclingQuietly",
@@ -354,7 +360,8 @@
     },
     {
       "Key": "invFullTransferManually",
-      "Value": "Inventarul de pokemoni este plin. Te rugăm să tranferi pokemoni manual sau schimbă valoarea \"TransferDuplicatePokemon\" pe \"true\" din setări..."
+      "Value":
+        "Inventarul de pokemoni este plin. Te rugăm să tranferi pokemoni manual sau schimbă valoarea \"TransferDuplicatePokemon\" pe \"true\" din setări..."
     },
     {
       "Key": "invFullPokestopLooting",
@@ -426,11 +433,13 @@
     },
     {
       "Key": "statsTemplateString",
-      "Value": "{0} - Durată de funcționare {1} - Nivel: {2} | EXP/H: {3:0} | P/H: {4:0} | Praf de stele: {5:0} | Transferați: {6:0} | Reciclați: {7:0}"
+      "Value":
+        "{0} - Durată de funcționare {1} - Nivel: {2} | EXP/H: {3:0} | P/H: {4:0} | Praf de stele: {5:0} | Transferați: {6:0} | Reciclați: {7:0}"
     },
     {
       "Key": "profileStatsTemplateString",
-      "Value": "----- NIVEL {0} | {1} ----- \n Experiență: {2}/{3} \n Pokemoni prinși: {4} \n Pokemoni transferați pentru bomboane: {5} \n Pokestopuri vizitate: {6} \n Ouă eclozate: {7} \n Pokemoni evoluați: {8} \n Intrări în pokedex: {9} \n KM străbătuți: {10}  \n Pokemoni: {11}/{12}"
+      "Value":
+        "----- NIVEL {0} | {1} ----- \n Experiență: {2}/{3} \n Pokemoni prinși: {4} \n Pokemoni transferați pentru bomboane: {5} \n Pokestopuri vizitate: {6} \n Ouă eclozate: {7} \n Pokemoni evoluați: {8} \n Intrări în pokedex: {9} \n KM străbătuți: {10}  \n Pokemoni: {11}/{12}"
     },
     {
       "Key": "showPokeTemplate",
@@ -438,7 +447,8 @@
     },
     {
       "Key": "helpTemplate",
-      "Value": "Comenzi: \n \n /top <cp/iv> <cantitate> - Afișează pokemonii tăi de top. \n /all <cp/iv> - Afișează toți pokemonii tăi. \n /profile - Afișează profilul tău. \n /loc - Afișează locația ta. \n /items - Afișează obiectele tale. \n /status - Afișează statusul botului."
+      "Value":
+        "Comenzi: \n \n /top <cp/iv> <cantitate> - Afișează pokemonii tăi de top. \n /all <cp/iv> - Afișează toți pokemonii tăi. \n /profile - Afișează profilul tău. \n /loc - Afișează locația ta. \n /items - Afișează obiectele tale. \n /status - Afișează statusul botului."
     },
     {
       "Key": "statsXpTemplateString",
@@ -450,11 +460,13 @@
     },
     {
       "Key": "googleTwoFactorAuth",
-      "Value": "Din moment ce autentificarea Google cu doi factori este activată, va trebui să introduci o parolă specifică aplicației în auth.json"
+      "Value":
+        "Din moment ce autentificarea Google cu doi factori este activată, va trebui să introduci o parolă specifică aplicației în auth.json"
     },
     {
       "Key": "googleTwoFactorAuthExplanation",
-      "Value": "Se deschid pagina de parole pentru aplicații Google. Te rugăm să creezi o parolă nouă pentru aplicație (alege Alta (Other) în Device)"
+      "Value":
+        "Se deschid pagina de parole pentru aplicații Google. Te rugăm să creezi o parolă nouă pentru aplicație (alege Alta (Other) în Device)"
     },
     {
       "Key": "googleError",
@@ -502,7 +514,8 @@
     },
     {
       "Key": "ipBannedError",
-      "Value": "Conexiune refuzată. IP-ul tău s-ar putea să fi fost trecut pe lista neagră de Niantic. Se iese din aplicație.."
+      "Value":
+        "Conexiune refuzată. IP-ul tău s-ar putea să fi fost trecut pe lista neagră de Niantic. Se iese din aplicație.."
     },
     {
       "Key": "noEggsAvailable",

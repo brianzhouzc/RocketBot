@@ -1,11 +1,6 @@
 ﻿using PokemonGo.RocketBot.Logic;
 using PokemonGo.RocketBot.Logic.State;
 using PokemonGo.RocketBot.Logic.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokemonGo.RocketBot.Window.Plugin
 {

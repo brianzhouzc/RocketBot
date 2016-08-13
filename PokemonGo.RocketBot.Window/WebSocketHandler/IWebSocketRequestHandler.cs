@@ -1,14 +1,10 @@
-﻿using PokemonGo.RocketBot.Logic.State;
+﻿using System.Threading.Tasks;
+using PokemonGo.RocketBot.Logic.State;
 using SuperSocket.WebSocket;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokemonGo.RocketBot.Window.WebSocketHandler
 {
-    interface IWebSocketRequestHandler
+    internal interface IWebSocketRequestHandler
     {
         string Command { get; }
         Task Handle(ISession session, WebSocketSession webSocketSession, dynamic message);

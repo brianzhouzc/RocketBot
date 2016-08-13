@@ -1,4 +1,4 @@
-{
+﻿{
   "TranslationStrings": [
     {
       "Key": "pokeball",
@@ -22,7 +22,8 @@
     },
     {
       "Key": "farmPokestopsOutsideRadius",
-      "Value": "Kívül vagy a megadott maximális távolságon! Séta az induláshoz ({0}méterre) 5 másodperc múlva. A Coords.ini fájlod rendben van?"
+      "Value":
+        "Kívül vagy a megadott maximális távolságon! Séta az induláshoz ({0}méterre) 5 másodperc múlva. A Coords.ini fájlod rendben van?"
     },
     {
       "Key": "farmPokestopsNoUsableFound",
@@ -66,11 +67,13 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Esély: {7}% | {8}m távolságra | with a {9} ({10} maradt). | {11} kapott EXP | {12} | szél.: {13} hossz.: {14}"
+      "Value":
+        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Esély: {7}% | {8}m távolságra | with a {9} ({10} maradt). | {11} kapott EXP | {12} | szél.: {13} hossz.: {14}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Esély: {7}% | {8}m távolságra | with a {9} ({10} maradt). | szél.: {11} hossz.: {12}"
+      "Value":
+        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Esély: {7}% | {8}m távolságra | with a {9} ({10} maradt). | szél.: {11} hossz.: {12}"
     },
     {
       "Key": "eventNoPokeballs",
@@ -122,7 +125,8 @@
     },
     {
       "Key": "welcomeWarning",
-      "Value": "Győződj meg róla hogy a szélesség és a hosszúság helyes-e. Zárd be a programot ha nem! Szélesség: {0} Hosszúság: {1}"
+      "Value":
+        "Győződj meg róla hogy a szélesség és a hosszúság helyes-e. Zárd be a programot ha nem! Szélesség: {0} Hosszúság: {1}"
     },
     {
       "Key": "incubatorPuttingEgg",
@@ -322,7 +326,8 @@
     },
     {
       "Key": "invFullTransferManually",
-      "Value": "A pokémon tárhely megtelt! TOvábbíts pokémonokat manuálisan a professzornak vagy állítsd a TransferDuplicatePokemon értékét true-ra a beállításokban..."
+      "Value":
+        "A pokémon tárhely megtelt! TOvábbíts pokémonokat manuálisan a professzornak vagy állítsd a TransferDuplicatePokemon értékét true-ra a beállításokban..."
     },
     {
       "Key": "invFullPokestopLooting",
@@ -390,7 +395,8 @@
     },
     {
       "Key": "statsTemplateString",
-      "Value": "{0} - Futás idő {1} - Lvl: {2} | EXP/H: {3:n0} | P/H: {4:n0} | Csillagpor: {5:n0} | Továbbítva: {6:n0} | Kidobva: {7:n0} Fordította: SkayRedux"
+      "Value":
+        "{0} - Futás idő {1} - Lvl: {2} | EXP/H: {3:n0} | P/H: {4:n0} | Csillagpor: {5:n0} | Továbbítva: {6:n0} | Kidobva: {7:n0} Fordította: SkayRedux"
     },
     {
       "Key": "statsXpTemplateString",
@@ -402,11 +408,13 @@
     },
     {
       "Key": "googleTwoFactorAuth",
-      "Value": "Hogyha van Google 2 tényezős hitelesítésed engedélyezve, be kell illesztened egy alkalmazás által meghatározott kódot az auth.json fájlba"
+      "Value":
+        "Hogyha van Google 2 tényezős hitelesítésed engedélyezve, be kell illesztened egy alkalmazás által meghatározott kódot az auth.json fájlba"
     },
     {
       "Key": "googleTwoFactorAuthExplanation",
-      "Value": "Google alkalmazás jelszavak megnyitása. Adj meg új alkalmazás jelszót (használd az újat felhasználóként)"
+      "Value":
+        "Google alkalmazás jelszavak megnyitása. Adj meg új alkalmazás jelszót (használd az újat felhasználóként)"
     },
     {
       "Key": "googleError",
@@ -450,19 +458,19 @@
     },
     {
       "Key": "PokedexCatchedTelegram",
-      "Value":  "--- Regisztrált pokémonok a Pokédexben --- \n"  
+      "Value": "--- Regisztrált pokémonok a Pokédexben --- \n"
     },
     {
       "Key": "PokedexPokemonCatchedTelegram",
-      "Value":  "#{0} Név: {1} | Elfogva: {2} | Látott: {3} \n"  
+      "Value": "#{0} Név: {1} | Elfogva: {2} | Látott: {3} \n"
     },
     {
       "Key": "PokedexNeededTelegram",
-      "Value":  "--- Regisztrálatlan pokémonok --- \n"  
+      "Value": "--- Regisztrálatlan pokémonok --- \n"
     },
     {
       "Key": "PokedexPokemonNeededTelegram",
-      "Value":  "#{0} Név: {1} \n"  
+      "Value": "#{0} Név: {1} \n"
     }
   ],
   "PokemonStrings": [

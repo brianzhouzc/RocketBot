@@ -224,7 +224,7 @@
       "Key": "logEntryUpdate",
       "Value": "ОБНОВЛЕНИЕ"
     },
-	{
+    {
       "Key": "logEntryNew",
       "Value": "НОВЫЙ"
     },
@@ -237,7 +237,7 @@
       "Value":
         "PTC сервера возможно не работают ИЛИ неверно указаны данные учетной записи. Попробуйте использовать логин от Google аккаунта"
     },
-	{
+    {
       "Key": "accessTokenExpired",
       "Value": "Токен PTC истек. Перезаходим..."
     },
@@ -343,7 +343,8 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Ошибка Конфигурации] Общее количество выбранных предметов (шары+зелья+возр.={0}) превышает максимальное значение рюкзака ({1})"
+      "Value":
+        "[Ошибка Конфигурации] Общее количество выбранных предметов (шары+зелья+возр.={0}) превышает максимальное значение рюкзака ({1})"
     },
     {
       "Key": "recyclingQuietly",
@@ -642,22 +643,22 @@
     },
     {
       "Key": "PokedexCatchedTelegram",
-      "Value":  "--- Pokedex catched --- \n"  
+      "Value": "--- Pokedex catched --- \n"
     },
     {
       "Key": "PokedexPokemonCatchedTelegram",
-      "Value":  "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"  
+      "Value": "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"
     },
     {
       "Key": "PokedexNeededTelegram",
-      "Value":  "--- Pokedex needed --- \n"  
+      "Value": "--- Pokedex needed --- \n"
     },
     {
       "Key": "PokedexPokemonNeededTelegram",
-      "Value":  "#{0} Name: {1} \n"  
+      "Value": "#{0} Name: {1} \n"
     }
   ],
-	"PokemonStrings": [
+  "PokemonStrings": [
     {
       "Key": "bulbasaur",
       "Value": "Бульбазавр"

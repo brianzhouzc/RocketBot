@@ -1,4 +1,4 @@
-{
+﻿{
   "TranslationStrings": [
     {
       "Key": "pokeball",
@@ -75,11 +75,13 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} PL: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | con una {9} ({10} rimanenti). | {11} PE guadagnati | {12} | lat: {13} long: {14}"
+      "Value":
+        "({0}) | ({1}) {2} Lvl: {3} PL: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | con una {9} ({10} rimanenti). | {11} PE guadagnati | {12} | lat: {13} long: {14}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} PL: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | con una {9} ({10} rimanenti). | lat: {11} long: {12}"
+      "Value":
+        "({0}) | ({1}) {2} Lvl: {3} PL: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | con una {9} ({10} rimanenti). | lat: {11} long: {12}"
     },
     {
       "Key": "eventNoPokeballs",
@@ -101,7 +103,6 @@
       "Key": "eventUseBerry",
       "Value": "Usata {0} | {1} rimanenti"
     },
-
     {
       "Key": "itemRazzBerry",
       "Value": "Baccalampon"
@@ -328,7 +329,8 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Configurazione Non Valida] La somma degli oggetti (Pokeball+Pozioni+Revitalizzanti={0}) e' maggiore della capacita' massima dell'inventario ({1})"
+      "Value":
+        "[Configurazione Non Valida] La somma degli oggetti (Pokeball+Pozioni+Revitalizzanti={0}) e' maggiore della capacita' massima dell'inventario ({1})"
     },
     {
       "Key": "recyclingQuietly",
@@ -524,29 +526,29 @@
     {
       "Key": "pkmNotEnoughRessources",
       "Value": "Potenziamento Pokemon Fallito: Risorse Insufficienti"
-     },
+    },
     {
       "Key": "snipeServerOffline",
       "Value": "Il server di Sniping è offline. Saltando..."
     },
     {
       "Key": "PokedexCatchedTelegram",
-      "Value":  "--- Pokedex catched --- \n"  
+      "Value": "--- Pokedex catched --- \n"
     },
     {
       "Key": "PokedexPokemonCatchedTelegram",
-      "Value":  "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"  
+      "Value": "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"
     },
     {
       "Key": "PokedexNeededTelegram",
-      "Value":  "--- Pokedex needed --- \n"  
+      "Value": "--- Pokedex needed --- \n"
     },
     {
       "Key": "PokedexPokemonNeededTelegram",
-      "Value":  "#{0} Name: {1} \n"  
+      "Value": "#{0} Name: {1} \n"
     }
   ],
-	"PokemonStrings": [
+  "PokemonStrings": [
     {
       "Key": "bulbasaur",
       "Value": "Bulbasaur"

@@ -1,18 +1,18 @@
 ﻿#region using directives
 
+using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using PokemonGo.RocketBot.Window.WebSocketHandler;
 using PokemonGo.RocketBot.Logic.Common;
 using PokemonGo.RocketBot.Logic.Event;
 using PokemonGo.RocketBot.Logic.Logging;
 using PokemonGo.RocketBot.Logic.State;
 using PokemonGo.RocketBot.Logic.Tasks;
+using PokemonGo.RocketBot.Window.WebSocketHandler;
 using SuperSocket.SocketBase;
 using SuperSocket.SocketBase.Config;
 using SuperSocket.WebSocket;
-using System;
-using System.Collections.Generic;
 
 #endregion
 
@@ -24,7 +24,7 @@ namespace PokemonGo.RocketBot.Window
         private readonly Session _session;
         private PokeStopListEvent _lastPokeStopList;
         private ProfileEvent _lastProfile;
-        private WebSocketEventManager _websocketHandler;
+        private readonly WebSocketEventManager _websocketHandler;
 
         public WebSocketInterface(int port, Session session)
         {
@@ -40,17 +40,21 @@ namespace PokemonGo.RocketBot.Window
                 {
                     FilePath = @"cert.pfx",
                     Password = "necro"
-                },
+                }
             };
             config.Listeners = new List<ListenerConfig>
             {
-                new ListenerConfig()
+                new ListenerConfig
                 {
-                    Ip = "Any", Port = port, Security = "tls"
+                    Ip = "Any",
+                    Port = port,
+                    Security = "tls"
                 },
-                new ListenerConfig()
+                new ListenerConfig
                 {
-                    Ip = "Any", Port = port + 1, Security = "none"
+                    Ip = "Any",
+                    Port = port + 1,
+                    Security = "none"
                 }
             };
 
@@ -95,7 +99,7 @@ namespace PokemonGo.RocketBot.Window
 
         private async void HandleMessage(WebSocketSession session, string message)
         {
-            switch(message)
+            switch (message)
             {
                 case "PokemonList":
                     await PokemonListTask.Execute(_session);
@@ -132,13 +136,15 @@ namespace PokemonGo.RocketBot.Window
 
             try
             {
-                session.Send(Serialize(new UpdatePositionEvent()
+                session.Send(Serialize(new UpdatePositionEvent
                 {
                     Latitude = _session.Client.CurrentLatitude,
                     Longitude = _session.Client.CurrentLongitude
                 }));
             }
-            catch { }
+            catch
+            {
+            }
         }
 
         public void Listen(IEvent evt, Session session)
@@ -159,7 +165,7 @@ namespace PokemonGo.RocketBot.Window
 
         private string Serialize(dynamic evt)
         {
-            var jsonSerializerSettings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
+            var jsonSerializerSettings = new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All};
 
             // Add custom seriaizer to convert uong to string (ulong shoud not appear to json according to json specs)
             jsonSerializerSettings.Converters.Add(new IdToStringConverter());
@@ -170,15 +176,16 @@ namespace PokemonGo.RocketBot.Window
 
     public class IdToStringConverter : JsonConverter
     {
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
+            JsonSerializer serializer)
         {
-            JToken jt = JValue.ReadFrom(reader);
+            var jt = JToken.ReadFrom(reader);
             return jt.Value<long>();
         }
 
         public override bool CanConvert(Type objectType)
         {
-            return typeof(System.Int64).Equals(objectType) || typeof(ulong).Equals(objectType);
+            return typeof(long).Equals(objectType) || typeof(ulong).Equals(objectType);
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

@@ -1,26 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SuperSocket.WebSocket;
-using PokemonGo.RocketBot.Window.WebSocketHandler.GetCommands.Tasks;
+﻿using System.Threading.Tasks;
 using PokemonGo.RocketBot.Logic.State;
+using PokemonGo.RocketBot.Logic.Tasks;
+using SuperSocket.WebSocket;
 
 namespace PokemonGo.RocketBot.Window.WebSocketHandler.ActionCommands
 {
     public class EvolvePokemonHandler : IWebSocketRequestHandler
     {
-        public string Command { get; private set;}
-
         public EvolvePokemonHandler()
         {
             Command = "EvolvePokemon";
         }
 
+        public string Command { get; }
+
         public async Task Handle(ISession session, WebSocketSession webSocketSession, dynamic message)
         {
-            await Logic.Tasks.EvolveSpecificPokemonTask.Execute(session, (ulong)message.PokemonId);
+            await EvolveSpecificPokemonTask.Execute(session, (ulong) message.PokemonId);
         }
     }
 }

@@ -1,4 +1,4 @@
-{
+﻿{
   "TranslationStrings": [
     {
       "Key": "pokeball",
@@ -74,7 +74,8 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value": "({0}) | ({1}) {2} 等級：{3} CP：({4}/{5}) IV：{6}% | 捕獲機率：{7}% | 距離{8}公尺 | 使用{9}捕捉 (剩餘{10}個) | 經驗值+{11} | {12} | 座標：{13},{14}"
+      "Value":
+        "({0}) | ({1}) {2} 等級：{3} CP：({4}/{5}) IV：{6}% | 捕獲機率：{7}% | 距離{8}公尺 | 使用{9}捕捉 (剩餘{10}個) | 經驗值+{11} | {12} | 座標：{13},{14}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
@@ -634,19 +635,19 @@
     },
     {
       "Key": "PokedexCatchedTelegram",
-      "Value":  "--- Pokedex catched --- \n"  
+      "Value": "--- Pokedex catched --- \n"
     },
     {
       "Key": "PokedexPokemonCatchedTelegram",
-      "Value":  "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"  
+      "Value": "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"
     },
     {
       "Key": "PokedexNeededTelegram",
-      "Value":  "--- Pokedex needed --- \n"  
+      "Value": "--- Pokedex needed --- \n"
     },
     {
       "Key": "PokedexPokemonNeededTelegram",
-      "Value":  "#{0} Name: {1} \n"  
+      "Value": "#{0} Name: {1} \n"
     }
   ],
   "PokemonStrings": [
@@ -1256,7 +1257,7 @@
     }
   ],
   "PokemonMovesetStrings": [
-	  {
+    {
       "Key": "moveUnset",
       "Value": "MoveUnset"
     },

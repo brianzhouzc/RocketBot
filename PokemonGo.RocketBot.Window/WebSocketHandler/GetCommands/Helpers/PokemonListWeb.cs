@@ -1,4 +1,5 @@
-﻿using POGOProtos.Data;
+﻿using PokemonGo.RocketBot.Logic.PoGoUtils;
+using POGOProtos.Data;
 
 namespace PokemonGo.RocketBot.Window.WebSocketHandler.GetCommands.Helpers
 {
@@ -13,14 +14,7 @@ namespace PokemonGo.RocketBot.Window.WebSocketHandler.GetCommands.Helpers
 
         public double IvPerfection
         {
-            get
-            {
-                return Logic.PoGoUtils.PokemonInfo.CalculatePokemonPerfection(Base);
-            }
+            get { return PokemonInfo.CalculatePokemonPerfection(Base); }
         }
-
     }
 }
-
-
-

@@ -1,4 +1,4 @@
-{
+﻿{
   "TranslationStrings": [
     {
       "Key": "pokeball",
@@ -26,11 +26,13 @@
     },
     {
       "Key": "farmPokestopsOutsideRadius",
-      "Value": "¡Estás fuera del radio definido! Andando a la posición inicial (a {0}m) en 5 segundos. ¿Es correcto tu archivo LastPos.ini?"
+      "Value":
+        "¡Estás fuera del radio definido! Andando a la posición inicial (a {0}m) en 5 segundos. ¿Es correcto tu archivo LastPos.ini?"
     },
     {
       "Key": "farmPokestopsNoUsableFound",
-      "Value": "No se encontraron Poképaradas disponibles en tu área. ¿Has configurado una distancia máxima demasiado pequeña?"
+      "Value":
+        "No se encontraron Poképaradas disponibles en tu área. ¿Has configurado una distancia máxima demasiado pequeña?"
     },
     {
       "Key": "eventFortUsed",
@@ -74,11 +76,13 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value": "({0}) | ({1}) {2} | Nivel: {3} PC: ({4}/{5}) IV: {6}% | Prob: {7}% | {8}m dist | con {9} (quedan {10}). | {11} EXP ganada | {12} | lat: {13} long: {14}"
+      "Value":
+        "({0}) | ({1}) {2} | Nivel: {3} PC: ({4}/{5}) IV: {6}% | Prob: {7}% | {8}m dist | con {9} (quedan {10}). | {11} EXP ganada | {12} | lat: {13} long: {14}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value": "({0}) | ({1}) {2} | Nivel: {3} PC: ({4}/{5}) IV: {6}% | Prob: {7}% | {8}m dist | con {9} (quedan {10}). | lat: {11} long: {12}"
+      "Value":
+        "({0}) | ({1}) {2} | Nivel: {3} PC: ({4}/{5}) IV: {6}% | Prob: {7}% | {8}m dist | con {9} (quedan {10}). | lat: {11} long: {12}"
     },
     {
       "Key": "eventNoPokeballs",
@@ -90,7 +94,8 @@
     },
     {
       "Key": "useLuckyEggsMinPokemonAmountTooHigh",
-      "Value": "Los huevos de la suerte nunca serán utilizados con UseLuckyEggsMinPokemonAmount en {0}, usa <= {1} en su lugar"
+      "Value":
+        "Los huevos de la suerte nunca serán utilizados con UseLuckyEggsMinPokemonAmount en {0}, usa <= {1} en su lugar"
     },
     {
       "Key": "catchMorePokemonToUseLuckyEgg",
@@ -150,7 +155,8 @@
     },
     {
       "Key": "welcomeWarning",
-      "Value": "Asegúrese de que la Latitud y Longitud son las correctas. ¡Salga del Programa si no es así! Lat: {0} Long: {1}"
+      "Value":
+        "Asegúrese de que la Latitud y Longitud son las correctas. ¡Salga del Programa si no es así! Lat: {0} Long: {1}"
     },
     {
       "Key": "incubatorPuttingEgg",
@@ -230,7 +236,8 @@
     },
     {
       "Key": "ptcOffline",
-      "Value": "Es probable que los servidores de PTC estén caídos o que tus datos de acceso sean incorrectos. Prueba con Google."
+      "Value":
+        "Es probable que los servidores de PTC estén caídos o que tus datos de acceso sean incorrectos. Prueba con Google."
     },
     {
       "Key": "accessTokenExpired",
@@ -338,7 +345,8 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Configuración Inválida] El Máximo de items combinados (bolas+pociones+revivir={0}) está por encima del almacenamiento máximo ({1})"
+      "Value":
+        "[Configuración Inválida] El Máximo de items combinados (bolas+pociones+revivir={0}) está por encima del almacenamiento máximo ({1})"
     },
     {
       "Key": "recyclingQuietly",
@@ -350,7 +358,8 @@
     },
     {
       "Key": "invFullTransferManually",
-      "Value": "El inventario de Pokémon está lleno. Transfiera los Pokémon manualmente o active (true) TransferDuplicatePokemon en config.json..."
+      "Value":
+        "El inventario de Pokémon está lleno. Transfiera los Pokémon manualmente o active (true) TransferDuplicatePokemon en config.json..."
     },
     {
       "Key": "invFullPokestopLooting",
@@ -422,7 +431,8 @@
     },
     {
       "Key": "statsTemplateString",
-      "Value": "{0} - Activo {1} - Nivel: {2} | EXP/H: {3:n0} | P/H: {4:n0} | P.Estelar: {5:n0} | Transferido: {6:n0} | Reciclado: {7:n0}"
+      "Value":
+        "{0} - Activo {1} - Nivel: {2} | EXP/H: {3:n0} | P/H: {4:n0} | P.Estelar: {5:n0} | Transferido: {6:n0} | Reciclado: {7:n0}"
     },
     {
       "Key": "statsXpTemplateString",
@@ -434,11 +444,13 @@
     },
     {
       "Key": "googleTwoFactorAuth",
-      "Value": "Como tiene habilitada la autenticación de dos factores de Google, tendrá que insertar una contraseña de la APP específica en el auth.json"
+      "Value":
+        "Como tiene habilitada la autenticación de dos factores de Google, tendrá que insertar una contraseña de la APP específica en el auth.json"
     },
     {
       "Key": "googleTwoFactorAuthExplanation",
-      "Value": "Abriendo Google App-Passwords. Por favor, cree una nueva contraseña en la APP (utilizar en otro dispositivo)"
+      "Value":
+        "Abriendo Google App-Passwords. Por favor, cree una nueva contraseña en la APP (utilizar en otro dispositivo)"
     },
     {
       "Key": "googleError",
@@ -634,19 +646,19 @@
     },
     {
       "Key": "PokedexCatchedTelegram",
-      "Value":  "--- Pokedex catched --- \n"  
+      "Value": "--- Pokedex catched --- \n"
     },
     {
       "Key": "PokedexPokemonCatchedTelegram",
-      "Value":  "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"  
+      "Value": "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"
     },
     {
       "Key": "PokedexNeededTelegram",
-      "Value":  "--- Pokedex needed --- \n"  
+      "Value": "--- Pokedex needed --- \n"
     },
     {
       "Key": "PokedexPokemonNeededTelegram",
-      "Value":  "#{0} Name: {1} \n"  
+      "Value": "#{0} Name: {1} \n"
     }
   ],
   "PokemonStrings": [

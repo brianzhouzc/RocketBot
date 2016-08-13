@@ -1,4 +1,4 @@
-*{
+﻿*{
   "TranslationStrings": [
     {
       "Key": "pokeball",
@@ -67,11 +67,13 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | with a {9} ({10} left). | {11} EXP earned | {12} | lat: {13} long: {14}"
+      "Value":
+        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | with a {9} ({10} left). | {11} EXP earned | {12} | lat: {13} long: {14}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | with a {9} ({10} left). | lat: {11} long: {12}"
+      "Value":
+        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | with a {9} ({10} left). | lat: {11} long: {12}"
     },
     {
       "Key": "eventNoPokeballs",
@@ -364,7 +366,8 @@
     },
     {
       "Key": "StatsTemplateString",
-      "Value": "{0} - Doba spuštění {1} - Úroveň: {2} | Zk/H: {3:n0} | P/H: {4:n0} | Hvězdný prach: {5:n0} | Přeneseno: {6:n0} | Vyhozeno: {7:n0}"
+      "Value":
+        "{0} - Doba spuštění {1} - Úroveň: {2} | Zk/H: {3:n0} | P/H: {4:n0} | Hvězdný prach: {5:n0} | Přeneseno: {6:n0} | Vyhozeno: {7:n0}"
     },
     {
       "Key": "StatsXpTemplateString",
@@ -376,7 +379,8 @@
     },
     {
       "Key": "GoogleTwoFactorAuth",
-      "Value": "U vašeho Google účtu máte nastaveno dvoufázové ověření (2FA), musíte vložit speciální heslo do auth.json"
+      "Value":
+        "U vašeho Google účtu máte nastaveno dvoufázové ověření (2FA), musíte vložit speciální heslo do auth.json"
     },
     {
       "Key": "GoogleTwoFactorAuthExplanation",
@@ -480,19 +484,19 @@
     },
     {
       "Key": "PokedexCatchedTelegram",
-      "Value":  "--- Pokedex catched --- \n"  
+      "Value": "--- Pokedex catched --- \n"
     },
     {
       "Key": "PokedexPokemonCatchedTelegram",
-      "Value":  "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"  
+      "Value": "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"
     },
     {
       "Key": "PokedexNeededTelegram",
-      "Value":  "--- Pokedex needed --- \n"  
+      "Value": "--- Pokedex needed --- \n"
     },
     {
       "Key": "PokedexPokemonNeededTelegram",
-      "Value":  "#{0} Name: {1} \n"  
+      "Value": "#{0} Name: {1} \n"
     }
   ],
   "PokemonStrings": [
@@ -1101,4 +1105,4 @@
       "Value": "Mew"
     }
   ]
-}
+  }

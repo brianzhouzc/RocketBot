@@ -67,11 +67,13 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m entfernt | mit {9} ({10} verbleibend). | {11} EP erhalten | {12} | B: {13} L: {14}"
+      "Value":
+        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m entfernt | mit {9} ({10} verbleibend). | {11} EP erhalten | {12} | B: {13} L: {14}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m entfernt | mit {9} ({10} verbleibend). | B: {11} L: {12}"
+      "Value":
+        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m entfernt | mit {9} ({10} verbleibend). | B: {11} L: {12}"
     },
     {
       "Key": "eventNoPokeballs",
@@ -364,11 +366,13 @@
     },
     {
       "Key": "StatsTemplateString",
-      "Value": "{0} - Laufzeit {1} - Lvl: {2} | EP/H: {3:n0} | P/H: {4:n0} | Sternenstaub: {5:n0} | Verschickt: {6:n0} | Weggeworfen: {7:n0}"
+      "Value":
+        "{0} - Laufzeit {1} - Lvl: {2} | EP/H: {3:n0} | P/H: {4:n0} | Sternenstaub: {5:n0} | Verschickt: {6:n0} | Weggeworfen: {7:n0}"
     },
     {
       "Key": "ProfileStatsTemplateString",
-      "Value": "----- LVL {0} | {1} ----- \n Erfahrungspunkte: {2}/{3} \n Pokemons gefangen: {4} \n Pokemons verschickt: {5} \n Pokestops besucht: {6} \n Eier geschlüpft: {7} \n Pokemons entwickelt: {8} \n Pokedex Einträge: {9} \n KM gelaufen: {10} \n Pokemons: {11}/{12}"
+      "Value":
+        "----- LVL {0} | {1} ----- \n Erfahrungspunkte: {2}/{3} \n Pokemons gefangen: {4} \n Pokemons verschickt: {5} \n Pokestops besucht: {6} \n Eier geschlüpft: {7} \n Pokemons entwickelt: {8} \n Pokedex Einträge: {9} \n KM gelaufen: {10} \n Pokemons: {11}/{12}"
     },
     {
       "Key": "ShowPokeTemplate",
@@ -376,7 +380,8 @@
     },
     {
       "Key": "HelpTemplate",
-      "Value": "Kommandos: \n \n /top <cp/iv> <amount> - Zeigt die besten Pokemons an. \n /all <cp/iv> - Zeigt dir alle Pokemons an. \n /profile - Zeigt dein Profil. \n /loc - Zeigt deine Position an. \n /items - Zeigt dir deine Items \n /status - Zeigt den Status vom Bot. \n /pokedex - Zeigt dein Pokedex. "
+      "Value":
+        "Kommandos: \n \n /top <cp/iv> <amount> - Zeigt die besten Pokemons an. \n /all <cp/iv> - Zeigt dir alle Pokemons an. \n /profile - Zeigt dein Profil. \n /loc - Zeigt deine Position an. \n /items - Zeigt dir deine Items \n /status - Zeigt den Status vom Bot. \n /pokedex - Zeigt dein Pokedex. "
     },
     {
       "Key": "StatsXpTemplateString",
@@ -388,7 +393,8 @@
     },
     {
       "Key": "GoogleTwoFactorAuth",
-      "Value": "Wenn Google-Zwei-Faktor-Authentifizierung aktiviert ist, muss ein App Spezifisches Passwort in die auth.json eingefügt werden."
+      "Value":
+        "Wenn Google-Zwei-Faktor-Authentifizierung aktiviert ist, muss ein App Spezifisches Passwort in die auth.json eingefügt werden."
     },
     {
       "Key": "GoogleTwoFactorAuthExplanation",
@@ -488,23 +494,24 @@
     },
     {
       "Key": "waitingForMorePokemonToEvolve",
-      "Value": "Warte mit Entwicklungen von {0} Pokémon bis {1} weitere gefangen wurden! ({2}/{3} bis {4}% Inventar Auslastung)"
+      "Value":
+        "Warte mit Entwicklungen von {0} Pokémon bis {1} weitere gefangen wurden! ({2}/{3} bis {4}% Inventar Auslastung)"
     },
     {
       "Key": "PokedexCatchedTelegram",
-      "Value":  "--- Pokedex gefangen --- \n"  
+      "Value": "--- Pokedex gefangen --- \n"
     },
     {
       "Key": "PokedexPokemonCatchedTelegram",
-      "Value":  "#{0} Name: {1} | Gefangen: {2} | Gesehen: {3} \n"  
+      "Value": "#{0} Name: {1} | Gefangen: {2} | Gesehen: {3} \n"
     },
     {
       "Key": "PokedexNeededTelegram",
-      "Value":  "--- Pokedex gebraucht --- \n"  
+      "Value": "--- Pokedex gebraucht --- \n"
     },
     {
       "Key": "PokedexPokemonNeededTelegram",
-      "Value":  "#{0} Name: {1} \n"  
+      "Value": "#{0} Name: {1} \n"
     }
   ],
   "PokemonStrings": [

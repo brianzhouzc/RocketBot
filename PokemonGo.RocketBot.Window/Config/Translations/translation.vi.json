@@ -1,4 +1,4 @@
-{
+﻿{
   "TranslationStrings": [
     {
       "Key": "pokeball",
@@ -26,7 +26,8 @@
     },
     {
       "Key": "farmPokestopsOutsideRadius",
-      "Value": "Bạn đang ở ngoài phạm vi xác định! Đi tới điểm xuất phát (xa {0}m) trong 5 giây. File LastPos.ini có đúng không?"
+      "Value":
+        "Bạn đang ở ngoài phạm vi xác định! Đi tới điểm xuất phát (xa {0}m) trong 5 giây. File LastPos.ini có đúng không?"
     },
     {
       "Key": "farmPokestopsNoUsableFound",
@@ -74,11 +75,13 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Cơ hội bắt được: {7}% | Cách xa {8}m | Bắt bằng {9} (Còn lại {10}) | Nhận được {11} EXP | {12} | Toạ độ: {13},{14}"
+      "Value":
+        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Cơ hội bắt được: {7}% | Cách xa {8}m | Bắt bằng {9} (Còn lại {10}) | Nhận được {11} EXP | {12} | Toạ độ: {13},{14}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Cơ hội bắt được: {7}% | Cách xa {8}m | Bắt bằng {9} (Còn lại {10}) | Toạ độ: {11},{12} ."
+      "Value":
+        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Cơ hội bắt được: {7}% | Cách xa {8}m | Bắt bằng {9} (Còn lại {10}) | Toạ độ: {11},{12} ."
     },
     {
       "Key": "eventNoPokeballs",
@@ -338,7 +341,8 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Cấu Hình Không Hợp Lệ] Tổng số vật phẩm tối đa của bạn (balls+potions+revives={0}) đã vượt qua số lượng vật phẩm tốt đa trong túi ({1})"
+      "Value":
+        "[Cấu Hình Không Hợp Lệ] Tổng số vật phẩm tối đa của bạn (balls+potions+revives={0}) đã vượt qua số lượng vật phẩm tốt đa trong túi ({1})"
     },
     {
       "Key": "recyclingQuietly",
@@ -350,7 +354,8 @@
     },
     {
       "Key": "invFullTransferManually",
-      "Value": "Túi Pokemon đã đầy! Hãy chuyển Pokemon bằng tay hoặc đặt TransferDuplicatePokemon là true trong config.json..."
+      "Value":
+        "Túi Pokemon đã đầy! Hãy chuyển Pokemon bằng tay hoặc đặt TransferDuplicatePokemon là true trong config.json..."
     },
     {
       "Key": "invFullPokestopLooting",
@@ -422,11 +427,13 @@
     },
     {
       "Key": "statsTemplateString",
-      "Value": "{0} - Đã Chạy: {1} - Lvl: {2} | EXP/H: {3:n0} | P/H: {4:n0} | Stardust: {5:n0} | ĐãChuyểnHoá: {6:n0} | ĐãXoá: {7:n0}"
+      "Value":
+        "{0} - Đã Chạy: {1} - Lvl: {2} | EXP/H: {3:n0} | P/H: {4:n0} | Stardust: {5:n0} | ĐãChuyểnHoá: {6:n0} | ĐãXoá: {7:n0}"
     },
-	{
+    {
       "Key": "profileStatsTemplateString",
-      "Value": "----- LVL {0} | {1} ----- \n Kinh Nghiệm: {2}/{3} \n Pokemon Đã Bắt: {4} \n Pokemon Đã Chuyển Thành Candy: {5} \n Pokestop Đã Đến: {6} \n Trứng Đã Nở: {6} \n Pokemons envolved: {7} \n Số Mục Trong Pokedex: {8} \n Đã Đi: {9} KM"
+      "Value":
+        "----- LVL {0} | {1} ----- \n Kinh Nghiệm: {2}/{3} \n Pokemon Đã Bắt: {4} \n Pokemon Đã Chuyển Thành Candy: {5} \n Pokestop Đã Đến: {6} \n Trứng Đã Nở: {6} \n Pokemons envolved: {7} \n Số Mục Trong Pokedex: {8} \n Đã Đi: {9} KM"
     },
     {
       "Key": "showPokeTemplate",
@@ -434,7 +441,8 @@
     },
     {
       "Key": "helpTemplate",
-      "Value": "Các Lệnh: \n \n /top <Số lượng> - Hiển thị những Pokemon trong TOP <số lượng>. \n /all - Hiển thị tất cả Pokemon. \n /profile - Hiển thị thông tin. \n /loc - Hiển thị vị trí hiện tại. \n /items - Hiển thị những vật phẩm trong túi."
+      "Value":
+        "Các Lệnh: \n \n /top <Số lượng> - Hiển thị những Pokemon trong TOP <số lượng>. \n /all - Hiển thị tất cả Pokemon. \n /profile - Hiển thị thông tin. \n /loc - Hiển thị vị trí hiện tại. \n /items - Hiển thị những vật phẩm trong túi."
     },
     {
       "Key": "statsXpTemplateString",
@@ -646,19 +654,19 @@
     },
     {
       "Key": "PokedexCatchedTelegram",
-      "Value":  "--- Pokedex catched --- \n"  
+      "Value": "--- Pokedex catched --- \n"
     },
     {
       "Key": "PokedexPokemonCatchedTelegram",
-      "Value":  "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"  
+      "Value": "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"
     },
     {
       "Key": "PokedexNeededTelegram",
-      "Value":  "--- Pokedex needed --- \n"  
+      "Value": "--- Pokedex needed --- \n"
     },
     {
       "Key": "PokedexPokemonNeededTelegram",
-      "Value":  "#{0} Name: {1} \n"  
+      "Value": "#{0} Name: {1} \n"
     }
   ],
   "PokemonStrings": [
