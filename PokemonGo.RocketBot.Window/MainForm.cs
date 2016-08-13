@@ -11,8 +11,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
-using PokemonGo.RocketAPI.Exceptions;
-using PokemonGo.RocketAPI.Helpers;
 using PokemonGo.RocketBot.Logic;
 using PokemonGo.RocketBot.Logic.Common;
 using PokemonGo.RocketBot.Logic.Event;
@@ -25,6 +23,8 @@ using PokemonGo.RocketBot.Window.Plugin;
 using POGOProtos.Inventory;
 using POGOProtos.Inventory.Item;
 using static System.Reflection.Assembly;
+using PokemonGo.RocketAPI.Helpers;
+using PokemonGo.RocketAPI.Exceptions;
 
 namespace PokemonGo.RocketBot.Window
 {
