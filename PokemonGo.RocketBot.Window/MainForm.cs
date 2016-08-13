@@ -27,6 +27,9 @@ using POGOProtos.Inventory.Item;
 using static System.Reflection.Assembly;
 using POGOProtos.Networking.Responses;
 using POGOProtos.Data;
+using System.Text;
+using GMap.NET.WindowsForms;
+using GMap.NET.WindowsForms.Markers;
 
 namespace PokemonGo.RocketBot.Window
 {
@@ -36,6 +39,12 @@ namespace PokemonGo.RocketBot.Window
         private static readonly ManualResetEvent QuitEvent = new ManualResetEvent(false);
         private static readonly string subPath = "";
         private static Session session;
+
+        private readonly GMapOverlay _playerOverlay = new GMapOverlay("players");
+        private readonly GMapOverlay _pokemonsOverlay = new GMapOverlay("pokemons");
+        private readonly GMapOverlay _pokestopsOverlay = new GMapOverlay("pokestops");
+        private readonly GMapOverlay _searchAreaOverlay = new GMapOverlay("areas");
+        private GMarkerGoogle _playerMarker;
 
         public MainForm()
         {
@@ -190,11 +199,6 @@ namespace PokemonGo.RocketBot.Window
             throw new Exception();
         }
 
-        private void startStopBotToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Task.Run(() => StartBot());
-        }
-
         public static void ColoredConsoleWrite(Color color, string text)
         {
             if (text.Length <= 0)
@@ -255,10 +259,17 @@ namespace PokemonGo.RocketBot.Window
                         "https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/Beta-Build/src/RocketBotGUI/Properties/AssemblyInfo.cs");
         }
 
+        #region BUTTONS
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             ReloadPokemonList();
         }
+
+        private void startStopBotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Task.Run(() => StartBot());
+        }
+        #endregion BUTTONS
 
         #region POKEMON LIST
 
@@ -327,7 +338,7 @@ namespace PokemonGo.RocketBot.Window
 
                 item = new ToolStripMenuItem();
                 item.Text = "Rename";
-                /**item.Click += delegate
+                item.Click += delegate
                 {
                     using (var form = count == 1 ? new NicknamePokemonForm(pokemonObject) : new NicknamePokemonForm())
                     {
@@ -336,7 +347,7 @@ namespace PokemonGo.RocketBot.Window
                             NicknamePokemon(pokemons, form.txtNickname.Text);
                         }
                     }
-                };**/
+                };
                 cmsPokemonList.Items.Add(item);
 
                 if (canAllEvolve)
@@ -389,12 +400,11 @@ namespace PokemonGo.RocketBot.Window
                 var transferPokemonResponse = await session.Client.Inventory.TransferPokemon(pokemon.Id);
                 if (transferPokemonResponse.Result == ReleasePokemonResponse.Types.Result.Success)
                 {
-                    ColoredConsoleWrite(Color.Magenta,
-                        $"{pokemon.PokemonId} was transferred. {transferPokemonResponse.CandyAwarded} candy awarded");
+                    Logger.Write($"{pokemon.PokemonId} was transferred. {transferPokemonResponse.CandyAwarded} candy awarded", LogLevel.Transfer);
                 }
                 else
                 {
-                    ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} could not be transferred");
+                    Logger.Write($"{pokemon.PokemonId} could not be transferred", LogLevel.Error);
                 }
             }
             ReloadPokemonList();
@@ -408,11 +418,11 @@ namespace PokemonGo.RocketBot.Window
                 var evolvePokemonResponse = await session.Client.Inventory.UpgradePokemon(pokemon.Id);
                 if (evolvePokemonResponse.Result == UpgradePokemonResponse.Types.Result.Success)
                 {
-                    ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} successfully upgraded.");
+                    Logger.Write($"{pokemon.PokemonId} successfully upgraded.");
                 }
                 else
                 {
-                    ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} could not be upgraded");
+                    Logger.Write($"{pokemon.PokemonId} could not be upgraded");
                 }
             }
             ReloadPokemonList();
@@ -426,12 +436,12 @@ namespace PokemonGo.RocketBot.Window
                 var evolvePokemonResponse = await session.Client.Inventory.EvolvePokemon(pokemon.Id);
                 if (evolvePokemonResponse.Result == EvolvePokemonResponse.Types.Result.Success)
                 {
-                    ColoredConsoleWrite(Color.Magenta,
+                    Logger.Write(
                         $"{pokemon.PokemonId} successfully evolved into {evolvePokemonResponse.EvolvedPokemonData.PokemonId}\n{evolvePokemonResponse.ExperienceAwarded} experience awarded\n{evolvePokemonResponse.CandyAwarded} candy awarded");
                 }
                 else
                 {
-                    ColoredConsoleWrite(Color.Magenta, $"{pokemon.PokemonId} could not be evolved");
+                    Logger.Write($"{pokemon.PokemonId} could not be evolved");
                 }
             }
             ReloadPokemonList();
@@ -514,6 +524,41 @@ namespace PokemonGo.RocketBot.Window
 
                 EvolvePokemon(pokemons);
             }
+        }
+        public async void NicknamePokemon(IEnumerable<PokemonData> pokemons, string nickname)
+        {
+            SetState(false);
+            foreach (var pokemon in pokemons)
+            {
+                var newName = new StringBuilder(nickname);
+                newName.Replace("{Name}", Convert.ToString(pokemon.PokemonId));
+                newName.Replace("{CP}", Convert.ToString(pokemon.Cp));
+                newName.Replace("{IV}", Convert.ToString(Math.Round(session.Inventory.GetPerfect(pokemon))));
+                newName.Replace("{IA}", Convert.ToString(pokemon.IndividualAttack));
+                newName.Replace("{ID}", Convert.ToString(pokemon.IndividualDefense));
+                newName.Replace("{IS}", Convert.ToString(pokemon.IndividualStamina));
+                if (nickname.Length > 12)
+                {
+                    Logger.Write($"\"{newName}\" is too long, please choose another name");
+                    if (pokemons.Count() == 1)
+                    {
+                        SetState(true);
+                        return;
+                    }
+                    continue;
+                }
+                var response = await session.Client.Inventory.NicknamePokemon(pokemon.Id, newName.ToString());
+                if (response.Result == NicknamePokemonResponse.Types.Result.Success)
+                {
+                    Logger.Write($"Successfully renamed {pokemon.PokemonId} to \"{newName}\"");
+                }
+                else
+                {
+                    Logger.Write($"Failed renaming {pokemon.PokemonId} to \"{newName}\"");
+                }
+                await Task.Delay(1500);
+            }
+            await ReloadPokemonList();
         }
         private Image GetPokemonImage(int pokemonId)
         {
@@ -606,21 +651,9 @@ namespace PokemonGo.RocketBot.Window
 
                 lblInventory.Text = itemscount + " / " + profile.PlayerData.MaxItemStorage;
             }
-            catch (GoogleException)
-            {
-                ColoredConsoleWrite(Color.Red, "Please check your google login information again");
-            }
-            catch (LoginFailedException)
-            {
-                ColoredConsoleWrite(Color.Red, "Login failed, please check your ptc login information again");
-            }
-            catch (AccessTokenExpiredException ex)
-            {
-                ColoredConsoleWrite(Color.Red, ex.Message);
-            }
             catch (Exception ex)
             {
-                ColoredConsoleWrite(Color.Red, ex.ToString());
+                Logger.Write(ex.ToString(), LogLevel.Error);
             }
 
             SetState(true);
@@ -640,7 +673,7 @@ namespace PokemonGo.RocketBot.Window
                     {
                         if (session.Client == null)
                         {
-                            ColoredConsoleWrite(Color.Red, $"Bot must be running first!");
+                            Logger.Write($"Bot must be running first!", LogLevel.Warning);
                             SetState(true);
                             return;
                         }
