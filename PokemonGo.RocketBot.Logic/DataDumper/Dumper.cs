@@ -20,7 +20,7 @@ namespace PokemonGo.RocketBot.Logic.DataDumper
         {
             var path = Path.Combine(session.LogicSettings.ProfilePath, "Dumps");
             var file = Path.Combine(path,
-                $"NecroBot-{filename}-{DateTime.Today.ToString("yyyy-MM-dd")}-{DateTime.Now.ToString("HH")}.{extension}");
+                $"RocketBot-{filename}-{DateTime.Today.ToString("yyyy-MM-dd")}-{DateTime.Now.ToString("HH")}.{extension}");
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 
             // Clears all contents of a file first if overwrite is true
@@ -50,7 +50,7 @@ namespace PokemonGo.RocketBot.Logic.DataDumper
         private static void DumpToFile(ISession session, string data, string filename, string extension = "csv")
         {
             var path = Path.Combine(session.LogicSettings.ProfilePath, "Dumps",
-                $"NecroBot-{filename}-{DateTime.Today.ToString("yyyy-MM-dd")}-{DateTime.Now.ToString("HH")}.{extension}");
+                $"RocketBot-{filename}-{DateTime.Today.ToString("yyyy-MM-dd")}-{DateTime.Now.ToString("HH")}.{extension}");
 
             using (
                 var dumpFile =

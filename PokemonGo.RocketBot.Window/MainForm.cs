@@ -11,7 +11,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
-using PokemonGo.RocketAPI.Exceptions;
 using PokemonGo.RocketAPI.Helpers;
 using PokemonGo.RocketBot.Logic;
 using PokemonGo.RocketBot.Logic.Common;
@@ -86,10 +85,10 @@ namespace PokemonGo.RocketBot.Window
 
             if (File.Exists(configFile))
             {
-                if (!VersionCheckState.IsLatest())
+                /** if (!VersionCheckState.IsLatest())
                     settings = GlobalSettings.Load(subPath, true);
-                else
-                    settings = GlobalSettings.Load(subPath);
+                else **/
+                settings = GlobalSettings.Load(subPath);
             }
             else
             {
@@ -108,7 +107,7 @@ namespace PokemonGo.RocketBot.Window
             if (boolNeedsSetup)
             {
                 menuStrip1.ShowItemToolTips = true;
-                startStopBotToolStripMenuItem.ToolTipText = "Please goto settings and enter your basic info";
+                startStopBotToolStripMenuItem.ToolTipText = @"Please goto settings and enter your basic info";
                 return;
                 /** if (GlobalSettings.PromptForSetup(session.Translation) && !settings.isGui)
                 {
@@ -169,6 +168,7 @@ namespace PokemonGo.RocketBot.Window
             session.Navigation.UpdatePositionEvent +=
                 (lat, lng) => session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng });
             session.Navigation.UpdatePositionEvent += Navigation_UpdatePositionEvent;
+
             machine.AsyncStart(new VersionCheckState(), session);
 
             if (settings.UseTelegramAPI)
@@ -197,21 +197,6 @@ namespace PokemonGo.RocketBot.Window
         {
             Logger.Write("Exception caught, writing LogBuffer.", force: true);
             throw new Exception();
-        }
-
-        public static void ColoredConsoleWrite(Color color, string text)
-        {
-            if (text.Length <= 0)
-                return;
-            var message = text;
-            if (Instance.InvokeRequired)
-            {
-                Instance.Invoke(new Action<Color, string>(ColoredConsoleWrite), color, message);
-                return;
-            }
-            Instance.logTextBox.Select(Instance.logTextBox.Text.Length, 1); // Reset cursor to last
-            Instance.logTextBox.SelectionColor = color;
-            Instance.logTextBox.AppendText(message);
         }
 
         private static bool BoolNeedsSetup()
@@ -258,6 +243,33 @@ namespace PokemonGo.RocketBot.Window
                     wC.DownloadString(
                         "https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/Beta-Build/src/RocketBotGUI/Properties/AssemblyInfo.cs");
         }
+
+        #region INTERFACE
+        public static void ColoredConsoleWrite(Color color, string text)
+        {
+            if (text.Length <= 0)
+                return;
+            var message = text;
+            if (Instance.InvokeRequired)
+            {
+                Instance.Invoke(new Action<Color, string>(ColoredConsoleWrite), color, message);
+                return;
+            }
+            Instance.logTextBox.Select(Instance.logTextBox.Text.Length, 1); // Reset cursor to last
+            Instance.logTextBox.SelectionColor = color;
+            Instance.logTextBox.AppendText(message);
+        }
+
+        public static void SetStatusText(string text)
+        {
+            if (Instance.InvokeRequired)
+            {
+                Instance.Invoke(new Action<string>(SetStatusText), text);
+                return;
+            }
+            Instance.statusLabel.Text = text;
+        }
+        #endregion INTERFACE
 
         #region BUTTONS
         private void btnRefresh_Click(object sender, EventArgs e)
