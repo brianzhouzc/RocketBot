@@ -130,6 +130,18 @@
   <ItemGroup>
     <Compile Include="ConsoleEventListener.cs" />
     <Compile Include="ConsoleLogger.cs" />
+    <Compile Include="ItemBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ItemBox.designer.cs">
+      <DependentUpon>ItemBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ItemForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ItemForm.designer.cs">
+      <DependentUpon>ItemForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -469,6 +481,9 @@
     <Content Include="Resources\Icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ItemBox.resx">
+      <DependentUpon>ItemBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
