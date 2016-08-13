@@ -92,6 +92,12 @@
     <Compile Include="ItemForm.Designer.cs">
       <DependentUpon>ItemForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ItemSetting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ItemSetting.Designer.cs">
+      <DependentUpon>ItemSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="LocationManager.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -117,6 +123,9 @@
     <Compile Include="SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ItemSetting.resx">
+      <DependentUpon>ItemSetting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

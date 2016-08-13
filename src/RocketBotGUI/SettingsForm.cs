@@ -1,13 +1,14 @@
-﻿using System;
+﻿using GMap.NET;
+using GMap.NET.MapProviders;
+using POGOProtos.Enums;
+using POGOProtos.Inventory.Item;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using GMap.NET;
-using GMap.NET.MapProviders;
-using POGOProtos.Enums;
 
 namespace PokemonGo.RocketAPI.Window
 {
@@ -16,6 +17,19 @@ namespace PokemonGo.RocketAPI.Window
         private DeviceHelper _deviceHelper;
         private List<DeviceInfo> _deviceInfos;
         private bool _doNotPopulate;
+
+        private List<ItemId> itemSettings = new List<ItemId> {
+            ItemId.ItemPokeBall,
+            ItemId.ItemGreatBall,
+            ItemId.ItemUltraBall,
+            ItemId.ItemRazzBerry,
+            ItemId.ItemPotion,
+            ItemId.ItemSuperPotion,
+            ItemId.ItemHyperPotion,
+            ItemId.ItemMaxPotion,
+            ItemId.ItemRevive,
+            ItemId.ItemMaxRevive,
+        };
 
         public SettingsForm()
         {
@@ -32,12 +46,19 @@ namespace PokemonGo.RocketAPI.Window
                 clbTransfer.Items.Add(id);
                 clbEvolve.Items.Add(id);
             }
+
+            foreach (ItemId itemId in itemSettings)
+            {
+                ItemData item = new ItemData();
+                item.ItemId = itemId;
+                flpItems.Controls.Add(new ItemSetting(item));
+            }
         }
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
             authTypeCb.Text = Settings.Instance.AuthType.ToString();
-            if (authTypeCb.Text == "google")
+            if (authTypeCb.Text.ToLower().Equals("google"))
             {
                 UserLoginBox.Text = Settings.Instance.GoogleUsername;
                 UserPasswordBox.Text = Settings.Instance.GooglePassword;
@@ -51,10 +72,12 @@ namespace PokemonGo.RocketAPI.Window
             longitudeText.Text = Settings.Instance.DefaultLongitude.ToString();
             razzmodeCb.Text = Settings.Instance.RazzBerryMode;
             razzSettingText.Text = Settings.Instance.RazzBerrySetting.ToString();
+            useIncubatorsCb.Text = Settings.Instance.UseIncubatorsMode.ToString();
             transferTypeCb.Text = Settings.Instance.TransferType;
             transferCpThresText.Text = Settings.Instance.TransferCpThreshold.ToString();
             transferIVThresText.Text = Settings.Instance.TransferIvThreshold.ToString();
             evolveAllChk.Checked = Settings.Instance.EvolveAllGivenPokemons;
+            
             CatchPokemonBox.Checked = Settings.Instance.CatchPokemon;
             TravelSpeedBox.Text = Settings.Instance.TravelSpeed.ToString();
             // ImageSizeBox.Text = Settings.Instance.ImageSize.ToString();
@@ -72,7 +95,6 @@ namespace PokemonGo.RocketAPI.Window
             longit.Replace(',', '.');
             gMapControl1.Position = new PointLatLng(double.Parse(lat.Replace(",", "."), CultureInfo.InvariantCulture),
                 double.Parse(longit.Replace(",", "."), CultureInfo.InvariantCulture));
-
 
             //zoom min/max; default both = 2
             gMapControl1.DragButton = MouseButtons.Left;
@@ -124,6 +146,18 @@ namespace PokemonGo.RocketAPI.Window
                 }
             }
 
+            var itemCounts = Settings.Instance.ItemCounts;
+            foreach (ItemSetting itemSetting in flpItems.Controls)
+            {
+                foreach (var itemCount in itemCounts)
+                {
+                    if (itemSetting.ItemData.ItemId == itemCount.ItemId)
+                    {
+                        itemSetting.ItemData = itemCount;
+                    }
+                }
+            }
+
             // Device settings
             _deviceHelper = new DeviceHelper();
             _deviceInfos = _deviceHelper.DeviceBucket;
@@ -154,7 +188,7 @@ namespace PokemonGo.RocketAPI.Window
         private void saveBtn_Click(object sender, EventArgs e)
         {
             Settings.Instance.SetSetting(authTypeCb.Text, "AuthType");
-            if (authTypeCb.Text == "google")
+            if (authTypeCb.Text.ToLower().Equals("google"))
             {
                 Settings.Instance.SetSetting(UserLoginBox.Text, "GoogleUsername");
                 Settings.Instance.SetSetting(UserPasswordBox.Text, "GooglePassword");
@@ -172,12 +206,12 @@ namespace PokemonGo.RocketAPI.Window
             lat.Replace(',', '.');
             longit.Replace(',', '.');
 
-
             Settings.Instance.SetSetting(razzmodeCb.Text, "RazzBerryMode");
             Settings.Instance.SetSetting(razzSettingText.Text, "RazzBerrySetting");
             Settings.Instance.SetSetting(transferTypeCb.Text, "TransferType");
             Settings.Instance.SetSetting(transferCpThresText.Text, "TransferCPThreshold");
             Settings.Instance.SetSetting(transferIVThresText.Text, "TransferIVThreshold");
+            Settings.Instance.SetSetting(useIncubatorsCb.Text, "useIncubatorsMode");
             Settings.Instance.SetSetting(TravelSpeedBox.Text, "TravelSpeed");
             //Settings.Instance.SetSetting(ImageSizeBox.Text, "ImageSize");
             Settings.Instance.SetSetting(evolveAllChk.Checked ? "true" : "false", "EvolveAllGivenPokemons");
@@ -185,6 +219,7 @@ namespace PokemonGo.RocketAPI.Window
             Settings.Instance.ExcludedPokemonCatch = clbCatch.CheckedItems.Cast<PokemonId>().ToList();
             Settings.Instance.ExcludedPokemonTransfer = clbTransfer.CheckedItems.Cast<PokemonId>().ToList();
             Settings.Instance.ExcludedPokemonEvolve = clbEvolve.CheckedItems.Cast<PokemonId>().ToList();
+            Settings.Instance.ItemCounts = flpItems.Controls.Cast<ItemSetting>().Select(i => i.ItemData).ToList();
             Settings.Instance.Reload();
 
             //Device settings
@@ -211,7 +246,7 @@ namespace PokemonGo.RocketAPI.Window
 
         private void authTypeCb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (authTypeCb.Text == "google")
+            if (authTypeCb.Text.ToLower().Equals("google"))
             {
                 UserLabel.Text = "Email:";
             }

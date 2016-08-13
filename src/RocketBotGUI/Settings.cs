@@ -1,14 +1,14 @@
 #region
 
+using POGOProtos.Enums;
+using POGOProtos.Inventory.Item;
+using PokemonGo.RocketAPI.Enums;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Threading;
-using PokemonGo.RocketAPI.Enums;
-using POGOProtos.Enums;
-using POGOProtos.Inventory.Item;
 
 #endregion
 
@@ -61,7 +61,6 @@ namespace PokemonGo.RocketAPI.Window
 
         public string PtcUsername => GetSetting() != string.Empty ? GetSetting() : "username";
         public string PtcPassword => GetSetting() != string.Empty ? GetSetting() : "password";
-
 
         public string LevelOutput => GetSetting() != string.Empty ? GetSetting() : "time";
 
@@ -118,10 +117,59 @@ namespace PokemonGo.RocketAPI.Window
 
         public string Language => GetSetting() != string.Empty ? GetSetting() : "english";
 
-        public string RazzBerryMode => GetSetting() != string.Empty ? GetSetting() : "cp";
+        public string RazzBerryMode => GetSetting() != string.Empty ? GetSetting() : "CP";
+
+        public string UseIncubatorsMode => GetSetting() != string.Empty ? GetSetting() : "Disabled";
 
         public double RazzBerrySetting
             => GetSetting() != string.Empty ? double.Parse(GetSetting(), CultureInfo.InvariantCulture) : 500;
+
+        public List<ItemData> ItemCounts
+        {
+            get
+            {
+                var itemCounts = new List<ItemData>();
+                var items = GetSetting() != String.Empty ? GetSetting() :
+                    "ItemPokeball,100;ItemGreatBall,100;ItemUltraBall,50;ItemRazzBerry,25;ItemPotion,0;ItemSuperPotion,0;ItemHyperPotion,10;ItemMaxPotion,20;ItemRevive,10;ItemMaxRevive,10";
+                if (items.Contains(";"))
+                {
+                    foreach (var item in items.Split(';'))
+                    {
+                        if (item.Contains(","))
+                        {
+                            var itemId = item.Split(',')[0];
+                            var count = Int32.Parse(item.Split(',')[1]);
+                            foreach (ItemId id in Enum.GetValues(typeof(ItemId)))
+                            {
+                                if (id.ToString().Equals(itemId))
+                                {
+                                    ItemData itemData = new ItemData();
+                                    itemData.ItemId = id;
+                                    itemData.Count = count;
+                                    itemCounts.Add(itemData);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                return itemCounts;
+            }
+
+            set
+            {
+                var items = "";
+                foreach (var itemData in value)
+                {
+                    items += itemData.ItemId.ToString() + "," + itemData.Count + ";";
+                }
+                if (items != string.Empty)
+                {
+                    items = items.Remove(items.Length - 1, 1);
+                }
+                SetSetting(items);
+            }
+        }
 
         public List<PokemonId> ExcludedPokemonCatch
         {
@@ -237,12 +285,11 @@ namespace PokemonGo.RocketAPI.Window
             }
         }
 
-
         public AuthType AuthType
         {
             get
             {
-                return (GetSetting() != string.Empty ? GetSetting() : "Ptc") == "Ptc" ? AuthType.Ptc : AuthType.Google;
+                return (GetSetting() != string.Empty ? GetSetting() : "PTC") == "PTC" ? AuthType.Ptc : AuthType.Google;
             }
             set { SetSetting(value.ToString()); }
         }
@@ -255,7 +302,6 @@ namespace PokemonGo.RocketAPI.Window
             }
             set { SetSetting(value); }
         }
-
 
         public double DefaultLongitude
         {
@@ -423,7 +469,7 @@ namespace PokemonGo.RocketAPI.Window
 
         public void SetSetting(double value, [CallerMemberName] string key = null)
         {
-            var customCulture = (CultureInfo) Thread.CurrentThread.CurrentCulture.Clone();
+            var customCulture = (CultureInfo)Thread.CurrentThread.CurrentCulture.Clone();
             customCulture.NumberFormat.NumberDecimalSeparator = ".";
             Thread.CurrentThread.CurrentCulture = customCulture;
             var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
