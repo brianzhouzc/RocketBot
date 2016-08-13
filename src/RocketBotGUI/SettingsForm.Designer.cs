@@ -63,8 +63,8 @@ namespace PokemonGo.RocketAPI.Window
             this.label6 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabLocation = new System.Windows.Forms.TabPage();
+            this.tabPokemon = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbSelectAllEvolve = new System.Windows.Forms.CheckBox();
             this.clbEvolve = new System.Windows.Forms.CheckedListBox();
@@ -74,7 +74,8 @@ namespace PokemonGo.RocketAPI.Window
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbSelectAllTransfer = new System.Windows.Forms.CheckBox();
             this.clbTransfer = new System.Windows.Forms.CheckedListBox();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabItems = new System.Windows.Forms.TabPage();
+            this.tabDevice = new System.Windows.Forms.TabPage();
             this.label22 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
@@ -108,16 +109,18 @@ namespace PokemonGo.RocketAPI.Window
             this.DeviceIdTb = new System.Windows.Forms.TextBox();
             this.deviceIdlb = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
+            this.flpItems = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tabControl.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tabLocation.SuspendLayout();
+            this.tabPokemon.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.tabPage3.SuspendLayout();
+            this.tabItems.SuspendLayout();
+            this.tabDevice.SuspendLayout();
             this.SuspendLayout();
             // 
             // authTypeLabel
@@ -499,9 +502,10 @@ namespace PokemonGo.RocketAPI.Window
             // 
             // tabControl
             // 
-            this.tabControl.Controls.Add(this.tabPage1);
-            this.tabControl.Controls.Add(this.tabPage2);
-            this.tabControl.Controls.Add(this.tabPage3);
+            this.tabControl.Controls.Add(this.tabLocation);
+            this.tabControl.Controls.Add(this.tabPokemon);
+            this.tabControl.Controls.Add(this.tabItems);
+            this.tabControl.Controls.Add(this.tabDevice);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl.Location = new System.Drawing.Point(0, 0);
@@ -510,32 +514,32 @@ namespace PokemonGo.RocketAPI.Window
             this.tabControl.Size = new System.Drawing.Size(597, 458);
             this.tabControl.TabIndex = 26;
             // 
-            // tabPage1
+            // tabLocation
             // 
-            this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage1.Controls.Add(this.trackBar);
-            this.tabPage1.Controls.Add(this.AdressBox);
-            this.tabPage1.Controls.Add(this.FindAdressButton);
-            this.tabPage1.Controls.Add(this.gMapControl1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(589, 430);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Location";
+            this.tabLocation.BackColor = System.Drawing.SystemColors.Control;
+            this.tabLocation.Controls.Add(this.trackBar);
+            this.tabLocation.Controls.Add(this.AdressBox);
+            this.tabLocation.Controls.Add(this.FindAdressButton);
+            this.tabLocation.Controls.Add(this.gMapControl1);
+            this.tabLocation.Location = new System.Drawing.Point(4, 24);
+            this.tabLocation.Name = "tabLocation";
+            this.tabLocation.Padding = new System.Windows.Forms.Padding(3);
+            this.tabLocation.Size = new System.Drawing.Size(589, 430);
+            this.tabLocation.TabIndex = 0;
+            this.tabLocation.Text = "Location";
             // 
-            // tabPage2
+            // tabPokemon
             // 
-            this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage2.Controls.Add(this.groupBox3);
-            this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Controls.Add(this.groupBox1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(589, 430);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Pokemon";
+            this.tabPokemon.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPokemon.Controls.Add(this.groupBox3);
+            this.tabPokemon.Controls.Add(this.groupBox2);
+            this.tabPokemon.Controls.Add(this.groupBox1);
+            this.tabPokemon.Location = new System.Drawing.Point(4, 24);
+            this.tabPokemon.Name = "tabPokemon";
+            this.tabPokemon.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPokemon.Size = new System.Drawing.Size(589, 430);
+            this.tabPokemon.TabIndex = 1;
+            this.tabPokemon.Text = "Pokemon";
             // 
             // groupBox3
             // 
@@ -645,46 +649,57 @@ namespace PokemonGo.RocketAPI.Window
             this.clbTransfer.Size = new System.Drawing.Size(188, 364);
             this.clbTransfer.TabIndex = 0;
             // 
-            // tabPage3
+            // tabItems
             // 
-            this.tabPage3.Controls.Add(this.label22);
-            this.tabPage3.Controls.Add(this.label20);
-            this.tabPage3.Controls.Add(this.label21);
-            this.tabPage3.Controls.Add(this.RandomIDBtn);
-            this.tabPage3.Controls.Add(this.deviceTypeCb);
-            this.tabPage3.Controls.Add(this.RandomDeviceBtn);
-            this.tabPage3.Controls.Add(this.FirmwareFingerprintTb);
-            this.tabPage3.Controls.Add(this.label14);
-            this.tabPage3.Controls.Add(this.FirmwareTypeTb);
-            this.tabPage3.Controls.Add(this.label13);
-            this.tabPage3.Controls.Add(this.FirmwareTagsTb);
-            this.tabPage3.Controls.Add(this.label12);
-            this.tabPage3.Controls.Add(this.FirmwareBrandTb);
-            this.tabPage3.Controls.Add(this.label11);
-            this.tabPage3.Controls.Add(this.HardwareModelTb);
-            this.tabPage3.Controls.Add(this.label10);
-            this.tabPage3.Controls.Add(this.HardwareManufacturerTb);
-            this.tabPage3.Controls.Add(this.label9);
-            this.tabPage3.Controls.Add(this.DeviceModelBootTb);
-            this.tabPage3.Controls.Add(this.label8);
-            this.tabPage3.Controls.Add(this.DeviceModelIdentifierTb);
-            this.tabPage3.Controls.Add(this.label7);
-            this.tabPage3.Controls.Add(this.DeviceModelTb);
-            this.tabPage3.Controls.Add(this.label15);
-            this.tabPage3.Controls.Add(this.DeviceBrandTb);
-            this.tabPage3.Controls.Add(this.label16);
-            this.tabPage3.Controls.Add(this.AndroidBootloaderTb);
-            this.tabPage3.Controls.Add(this.label17);
-            this.tabPage3.Controls.Add(this.AndroidBoardNameTb);
-            this.tabPage3.Controls.Add(this.BoardName);
-            this.tabPage3.Controls.Add(this.DeviceIdTb);
-            this.tabPage3.Controls.Add(this.deviceIdlb);
-            this.tabPage3.Controls.Add(this.label18);
-            this.tabPage3.Location = new System.Drawing.Point(4, 24);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(589, 430);
-            this.tabPage3.TabIndex = 0;
-            this.tabPage3.Text = "Device";
+            this.tabItems.BackColor = System.Drawing.SystemColors.Control;
+            this.tabItems.Controls.Add(this.flpItems);
+            this.tabItems.Location = new System.Drawing.Point(4, 24);
+            this.tabItems.Name = "tabItems";
+            this.tabItems.Padding = new System.Windows.Forms.Padding(3);
+            this.tabItems.Size = new System.Drawing.Size(589, 430);
+            this.tabItems.TabIndex = 2;
+            this.tabItems.Text = "Items";
+            // 
+            // tabDevice
+            // 
+            this.tabDevice.Controls.Add(this.label22);
+            this.tabDevice.Controls.Add(this.label20);
+            this.tabDevice.Controls.Add(this.label21);
+            this.tabDevice.Controls.Add(this.RandomIDBtn);
+            this.tabDevice.Controls.Add(this.deviceTypeCb);
+            this.tabDevice.Controls.Add(this.RandomDeviceBtn);
+            this.tabDevice.Controls.Add(this.FirmwareFingerprintTb);
+            this.tabDevice.Controls.Add(this.label14);
+            this.tabDevice.Controls.Add(this.FirmwareTypeTb);
+            this.tabDevice.Controls.Add(this.label13);
+            this.tabDevice.Controls.Add(this.FirmwareTagsTb);
+            this.tabDevice.Controls.Add(this.label12);
+            this.tabDevice.Controls.Add(this.FirmwareBrandTb);
+            this.tabDevice.Controls.Add(this.label11);
+            this.tabDevice.Controls.Add(this.HardwareModelTb);
+            this.tabDevice.Controls.Add(this.label10);
+            this.tabDevice.Controls.Add(this.HardwareManufacturerTb);
+            this.tabDevice.Controls.Add(this.label9);
+            this.tabDevice.Controls.Add(this.DeviceModelBootTb);
+            this.tabDevice.Controls.Add(this.label8);
+            this.tabDevice.Controls.Add(this.DeviceModelIdentifierTb);
+            this.tabDevice.Controls.Add(this.label7);
+            this.tabDevice.Controls.Add(this.DeviceModelTb);
+            this.tabDevice.Controls.Add(this.label15);
+            this.tabDevice.Controls.Add(this.DeviceBrandTb);
+            this.tabDevice.Controls.Add(this.label16);
+            this.tabDevice.Controls.Add(this.AndroidBootloaderTb);
+            this.tabDevice.Controls.Add(this.label17);
+            this.tabDevice.Controls.Add(this.AndroidBoardNameTb);
+            this.tabDevice.Controls.Add(this.BoardName);
+            this.tabDevice.Controls.Add(this.DeviceIdTb);
+            this.tabDevice.Controls.Add(this.deviceIdlb);
+            this.tabDevice.Controls.Add(this.label18);
+            this.tabDevice.Location = new System.Drawing.Point(4, 24);
+            this.tabDevice.Name = "tabDevice";
+            this.tabDevice.Size = new System.Drawing.Size(589, 430);
+            this.tabDevice.TabIndex = 0;
+            this.tabDevice.Text = "Device";
             // 
             // label22
             // 
@@ -1000,6 +1015,15 @@ namespace PokemonGo.RocketAPI.Window
             this.label18.TabIndex = 36;
             this.label18.Text = "Device Type:";
             // 
+            // flpItems
+            // 
+            this.flpItems.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpItems.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flpItems.Location = new System.Drawing.Point(3, 3);
+            this.flpItems.Name = "flpItems";
+            this.flpItems.Size = new System.Drawing.Size(583, 424);
+            this.flpItems.TabIndex = 0;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1021,17 +1045,18 @@ namespace PokemonGo.RocketAPI.Window
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
+            this.tabLocation.ResumeLayout(false);
+            this.tabLocation.PerformLayout();
+            this.tabPokemon.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
+            this.tabItems.ResumeLayout(false);
+            this.tabDevice.ResumeLayout(false);
+            this.tabDevice.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1072,8 +1097,8 @@ namespace PokemonGo.RocketAPI.Window
         private System.Windows.Forms.Label CatchPokemonText;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TabControl tabControl;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabLocation;
+        private System.Windows.Forms.TabPage tabPokemon;
         private System.Windows.Forms.CheckedListBox clbTransfer;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -1083,7 +1108,7 @@ namespace PokemonGo.RocketAPI.Window
         private System.Windows.Forms.CheckBox cbSelectAllEvolve;
         private System.Windows.Forms.CheckBox cbSelectAllCatch;
         private System.Windows.Forms.CheckBox cbSelectAllTransfer;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabDevice;
         private System.Windows.Forms.Button RandomIDBtn;
         private System.Windows.Forms.ComboBox deviceTypeCb;
         private System.Windows.Forms.Button RandomDeviceBtn;
@@ -1117,5 +1142,7 @@ namespace PokemonGo.RocketAPI.Window
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TabPage tabItems;
+        private System.Windows.Forms.FlowLayoutPanel flpItems;
     }
 }

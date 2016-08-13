@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using POGOProtos.Enums;
+using POGOProtos.Inventory.Item;
 
 namespace PokemonGo.RocketAPI.Window
 {
@@ -16,6 +17,18 @@ namespace PokemonGo.RocketAPI.Window
         private DeviceHelper _deviceHelper;
         private List<DeviceInfo> _deviceInfos;
         private bool _doNotPopulate;
+        private List<ItemId> itemSettings = new List<ItemId> {
+            ItemId.ItemPokeBall,
+            ItemId.ItemGreatBall,
+            ItemId.ItemUltraBall,
+            ItemId.ItemRazzBerry,
+            ItemId.ItemPotion,
+            ItemId.ItemSuperPotion,
+            ItemId.ItemHyperPotion,
+            ItemId.ItemMaxPotion,
+            ItemId.ItemRevive,
+            ItemId.ItemMaxRevive,
+        };
 
         public SettingsForm()
         {
@@ -31,6 +44,12 @@ namespace PokemonGo.RocketAPI.Window
                 clbCatch.Items.Add(id);
                 clbTransfer.Items.Add(id);
                 clbEvolve.Items.Add(id);
+            }
+
+            foreach (ItemId itemId in itemSettings) {
+                ItemData item = new ItemData();
+                item.ItemId = itemId;
+                flpItems.Controls.Add(new ItemSetting(item));
             }
         }
 
@@ -124,6 +143,15 @@ namespace PokemonGo.RocketAPI.Window
                 }
             }
 
+            var itemCounts = Settings.Instance.ItemCounts;
+            foreach (ItemSetting itemSetting in flpItems.Controls) {
+                foreach(var itemCount in itemCounts) {
+                    if (itemSetting.ItemData.ItemId == itemCount.ItemId) {
+                        itemSetting.ItemData = itemCount;
+                    }
+                }
+            }
+
             // Device settings
             _deviceHelper = new DeviceHelper();
             _deviceInfos = _deviceHelper.DeviceBucket;
@@ -185,6 +213,7 @@ namespace PokemonGo.RocketAPI.Window
             Settings.Instance.ExcludedPokemonCatch = clbCatch.CheckedItems.Cast<PokemonId>().ToList();
             Settings.Instance.ExcludedPokemonTransfer = clbTransfer.CheckedItems.Cast<PokemonId>().ToList();
             Settings.Instance.ExcludedPokemonEvolve = clbEvolve.CheckedItems.Cast<PokemonId>().ToList();
+            Settings.Instance.ItemCounts = flpItems.Controls.Cast<ItemSetting>().Select(i => i.ItemData).ToList();
             Settings.Instance.Reload();
 
             //Device settings
