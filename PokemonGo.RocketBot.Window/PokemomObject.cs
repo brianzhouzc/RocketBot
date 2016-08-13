@@ -84,7 +84,7 @@ namespace PokemonGo.RocketBot.Window
             {
                 if (CandyToEvolve > 0)
                 {
-                    return Candy / CandyToEvolve;
+                    return Candy/CandyToEvolve;
                 }
                 return 0;
             }

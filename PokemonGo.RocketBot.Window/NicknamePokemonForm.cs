@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace PokemonGo.RocketBot.Window
 {
@@ -32,7 +33,7 @@ namespace PokemonGo.RocketBot.Window
             }
         }
 
-        private void closeRenameBtn_Click(object sender, System.EventArgs e)
+        private void closeRenameBtn_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
             Close();

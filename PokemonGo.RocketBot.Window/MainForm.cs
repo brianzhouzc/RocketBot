@@ -6,11 +6,14 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
+using GMap.NET.WindowsForms;
+using GMap.NET.WindowsForms.Markers;
 using PokemonGo.RocketAPI.Helpers;
 using PokemonGo.RocketBot.Logic;
 using PokemonGo.RocketBot.Logic.Common;
@@ -21,14 +24,11 @@ using PokemonGo.RocketBot.Logic.Service;
 using PokemonGo.RocketBot.Logic.State;
 using PokemonGo.RocketBot.Logic.Utils;
 using PokemonGo.RocketBot.Window.Plugin;
+using POGOProtos.Data;
 using POGOProtos.Inventory;
 using POGOProtos.Inventory.Item;
-using static System.Reflection.Assembly;
 using POGOProtos.Networking.Responses;
-using POGOProtos.Data;
-using System.Text;
-using GMap.NET.WindowsForms;
-using GMap.NET.WindowsForms.Markers;
+using static System.Reflection.Assembly;
 
 namespace PokemonGo.RocketBot.Window
 {
@@ -166,7 +166,7 @@ namespace PokemonGo.RocketBot.Window
             machine.SetFailureState(new LoginState());
             Logger.SetLoggerContext(session);
             session.Navigation.UpdatePositionEvent +=
-                (lat, lng) => session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng });
+                (lat, lng) => session.EventDispatcher.Send(new UpdatePositionEvent {Latitude = lat, Longitude = lng});
             session.Navigation.UpdatePositionEvent += Navigation_UpdatePositionEvent;
 
             machine.AsyncStart(new VersionCheckState(), session);
@@ -245,6 +245,7 @@ namespace PokemonGo.RocketBot.Window
         }
 
         #region INTERFACE
+
         public static void ColoredConsoleWrite(Color color, string text)
         {
             if (text.Length <= 0)
@@ -269,9 +270,11 @@ namespace PokemonGo.RocketBot.Window
             }
             Instance.statusLabel.Text = text;
         }
+
         #endregion INTERFACE
 
         #region BUTTONS
+
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             ReloadPokemonList();
@@ -281,6 +284,7 @@ namespace PokemonGo.RocketBot.Window
         {
             Task.Run(() => StartBot());
         }
+
         #endregion BUTTONS
 
         #region POKEMON LIST
@@ -291,20 +295,20 @@ namespace PokemonGo.RocketBot.Window
         {
             //olvPokemonList.ButtonClick += PokemonListButton_Click;
 
-            pkmnName.ImageGetter = delegate (object rowObject)
+            pkmnName.ImageGetter = delegate(object rowObject)
             {
                 var pokemon = rowObject as PokemonObject;
 
                 var key = pokemon.PokemonId.ToString();
                 if (!olvPokemonList.SmallImageList.Images.ContainsKey(key))
                 {
-                    var img = GetPokemonImage((int)pokemon.PokemonId);
+                    var img = GetPokemonImage((int) pokemon.PokemonId);
                     olvPokemonList.SmallImageList.Images.Add(key, img);
                 }
                 return key;
             };
 
-            olvPokemonList.FormatRow += delegate (object sender, FormatRowEventArgs e)
+            olvPokemonList.FormatRow += delegate(object sender, FormatRowEventArgs e)
             {
                 var pok = e.Model as PokemonObject;
                 if (olvPokemonList.Objects.Cast<PokemonObject>()
@@ -322,7 +326,7 @@ namespace PokemonGo.RocketBot.Window
                 }
             };
 
-            cmsPokemonList.Opening += delegate (object sender, CancelEventArgs e)
+            cmsPokemonList.Opening += delegate(object sender, CancelEventArgs e)
             {
                 e.Cancel = false;
                 cmsPokemonList.Items.Clear();
@@ -412,7 +416,9 @@ namespace PokemonGo.RocketBot.Window
                 var transferPokemonResponse = await session.Client.Inventory.TransferPokemon(pokemon.Id);
                 if (transferPokemonResponse.Result == ReleasePokemonResponse.Types.Result.Success)
                 {
-                    Logger.Write($"{pokemon.PokemonId} was transferred. {transferPokemonResponse.CandyAwarded} candy awarded", LogLevel.Transfer);
+                    Logger.Write(
+                        $"{pokemon.PokemonId} was transferred. {transferPokemonResponse.CandyAwarded} candy awarded",
+                        LogLevel.Transfer);
                 }
                 else
                 {
@@ -537,6 +543,7 @@ namespace PokemonGo.RocketBot.Window
                 EvolvePokemon(pokemons);
             }
         }
+
         public async void NicknamePokemon(IEnumerable<PokemonData> pokemons, string nickname)
         {
             SetState(false);
@@ -572,9 +579,10 @@ namespace PokemonGo.RocketBot.Window
             }
             await ReloadPokemonList();
         }
+
         private Image GetPokemonImage(int pokemonId)
         {
-            return (Image)Properties.Resources.ResourceManager.GetObject("Pokemon_" + pokemonId);
+            return (Image) Properties.Resources.ResourceManager.GetObject("Pokemon_" + pokemonId);
         }
 
         private async Task ReloadPokemonList()
@@ -619,7 +627,7 @@ namespace PokemonGo.RocketBot.Window
                 {
                     var pokemonObject = new PokemonObject(pokemon);
                     var family =
-                        families.Where(i => (int)i.FamilyId <= (int)pokemon.PokemonId)
+                        families.Where(i => (int) i.FamilyId <= (int) pokemon.PokemonId)
                             .First();
                     pokemonObject.Candy = family.Candy_;
                     pokemonObjects.Add(pokemonObject);
@@ -673,7 +681,7 @@ namespace PokemonGo.RocketBot.Window
 
         private async void ItemBox_ItemClick(object sender, EventArgs e)
         {
-            var item = (ItemData)sender;
+            var item = (ItemData) sender;
 
             using (var form = new ItemForm(item))
             {
@@ -738,7 +746,8 @@ namespace PokemonGo.RocketBot.Window
                     else
                     {
                         var response =
-                            await session.Client.Inventory.RecycleItem(item.ItemId, decimal.ToInt32(form.numCount.Value));
+                            await
+                                session.Client.Inventory.RecycleItem(item.ItemId, decimal.ToInt32(form.numCount.Value));
                         if (response.Result == RecycleInventoryItemResponse.Types.Result.Success)
                         {
                             ColoredConsoleWrite(Color.DarkCyan,
