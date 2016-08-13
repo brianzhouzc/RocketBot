@@ -233,8 +233,9 @@ namespace PokemonGo.RocketAPI.Window
             Settings.Instance.HardwareManufacturer = HardwareManufacturerTb.Text;
             Settings.Instance.HardwareModel = HardwareModelTb.Text;
             Settings.Instance.FirmwareBrand = FirmwareBrandTb.Text;
-            Settings.Instance.FirmwareTags = FirmwareTypeTb.Text;
-            Settings.Instance.FirmwareType = FirmwareFingerprintTb.Text;
+            Settings.Instance.FirmwareTags = FirmwareTagsTb.Text;
+            Settings.Instance.FirmwareType = FirmwareTypeTb.Text;
+            Settings.Instance.FirmwareFingerprint = FirmwareFingerprintTb.Text;
             if (DeviceIdTb.Text == "8525f6d8251f71b7")
             {
                 PopulateDevice();
@@ -392,7 +393,7 @@ namespace PokemonGo.RocketAPI.Window
 
         private void deviceTypeCb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            PopulateDevice();
+            PopulateDevice(deviceTypeCb.SelectedIndex);
         }
 
         private void RandomIDBtn_Click(object sender, EventArgs e)
@@ -400,9 +401,9 @@ namespace PokemonGo.RocketAPI.Window
             DeviceIdTb.Text = _deviceHelper.RandomString(16, "0123456789abcdef");
         }
 
-        private void PopulateDevice()
+        private void PopulateDevice(int tabIndex = -1)
         {
-            deviceTypeCb.SelectedIndex = _deviceHelper.GetRandomIndex(2);
+            deviceTypeCb.SelectedIndex = tabIndex == -1 ? _deviceHelper.GetRandomIndex(2) : tabIndex;
             var candidateDevices = deviceTypeCb.SelectedIndex == 0
                 ? _deviceInfos.Where(d => d.DeviceBrand.ToLower() == "apple").ToList()
                 : _deviceInfos.Where(d => d.DeviceBrand.ToLower() != "apple").ToList();
