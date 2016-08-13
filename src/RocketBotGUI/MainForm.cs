@@ -68,7 +68,7 @@ namespace PokemonGo.RocketAPI.Window
         private IEnumerable<FortData> _pokeStops;
         private IEnumerable<WildPokemon> _wildPokemons;
 
-        private static Uri strKillSwitchUri = new Uri("https://raw.githubusercontent.com/ChemiHatake/RocketBot/Beta-Build/KillSwitch.txt");
+        private static Uri strKillSwitchUri = new Uri("https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/KillSwitch.txt");
 
         public MainForm()
         {
