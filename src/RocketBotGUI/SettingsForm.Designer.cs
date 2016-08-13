@@ -136,6 +136,7 @@ namespace PokemonGo.RocketAPI.Window
             // 
             // authTypeCb
             // 
+            this.authTypeCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.authTypeCb.FormattingEnabled = true;
             this.authTypeCb.Items.AddRange(new object[] {
             "Google",
@@ -265,6 +266,7 @@ namespace PokemonGo.RocketAPI.Window
             // 
             // razzmodeCb
             // 
+            this.razzmodeCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.razzmodeCb.FormattingEnabled = true;
             this.razzmodeCb.Items.AddRange(new object[] {
             "Probability",
@@ -286,6 +288,7 @@ namespace PokemonGo.RocketAPI.Window
             // 
             // transferTypeCb
             // 
+            this.transferTypeCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.transferTypeCb.FormattingEnabled = true;
             this.transferTypeCb.Items.AddRange(new object[] {
             "None",
@@ -443,6 +446,7 @@ namespace PokemonGo.RocketAPI.Window
             // 
             // useIncubatorsCb
             // 
+            this.useIncubatorsCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.useIncubatorsCb.FormattingEnabled = true;
             this.useIncubatorsCb.Items.AddRange(new object[] {
             "Disabled",
@@ -492,7 +496,7 @@ namespace PokemonGo.RocketAPI.Window
             // 
             // transferIVThresText
             // 
-            this.transferIVThresText.Location = new System.Drawing.Point(138, 254);
+            this.transferIVThresText.Location = new System.Drawing.Point(138, 252);
             this.transferIVThresText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.transferIVThresText.Name = "transferIVThresText";
             this.transferIVThresText.Size = new System.Drawing.Size(116, 21);

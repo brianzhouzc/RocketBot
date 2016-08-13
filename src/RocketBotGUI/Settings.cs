@@ -80,25 +80,6 @@ namespace PokemonGo.RocketAPI.Window
         private int MaxItemHyperPotion => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 500;
         private int MaxItemMaxPotion => GetSetting() != string.Empty ? Convert.ToInt16(GetSetting()) : 500;
 
-        public string DeviceIdTb => GetSetting() != string.Empty ? GetSetting() : "8525f6d8251f71b7";
-        public string AndroidBoardNameTb => GetSetting() != string.Empty ? GetSetting() : "msm8994";
-        public string AndroidBootloaderTb => GetSetting() != string.Empty ? GetSetting() : "unknown";
-        public string DeviceBrandTb => GetSetting() != string.Empty ? GetSetting() : "OnePlus";
-        public string DeviceModelTb => GetSetting() != string.Empty ? GetSetting() : "OnePlus2";
-        public string DeviceModelIdentifierTb => GetSetting() != string.Empty ? GetSetting() : "ONE A2003_24_160604";
-        public string DeviceModelBootTb => GetSetting() != string.Empty ? GetSetting() : "qcom";
-        public string HardwareManufacturerTb => GetSetting() != string.Empty ? GetSetting() : "OnePlus";
-        public string HardwareModelTb => GetSetting() != string.Empty ? GetSetting() : "ONE A2003";
-        public string FirmwareBrandTb => GetSetting() != string.Empty ? GetSetting() : "OnePlus2";
-        public string FirmwareTagsTb => GetSetting() != string.Empty ? GetSetting() : "dev-key";
-        public string FirmwareTypeTb => GetSetting() != string.Empty ? GetSetting() : "user";
-
-        public string FirmwareFingerprintTb
-            =>
-                GetSetting() != string.Empty
-                    ? GetSetting()
-                    : "OnePlus/OnePlus2/OnePlus2:6.0.1/MMB29M/1447840820:user/release-keys";
-
         public ICollection<KeyValuePair<ItemId, int>> ItemRecycleFilter => new[]
         {
             new KeyValuePair<ItemId, int>(ItemId.ItemPokeBall, MaxItemPokeBall),
