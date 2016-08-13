@@ -53,7 +53,7 @@ namespace PokemonGo.RocketBot.Window
 
             // Fire log write event.
             OnLogWrite?.Invoke(this, new LogWriteEventArgs() { Message = message, Level = level, Color = color });
-            message = message + Environment.NewLine;
+            message = message + "\r\n";
             // ReSharper disable once SwitchStatementMissingSomeCases
             switch (level)
             {
