@@ -16,7 +16,6 @@ namespace PokemonGo.RocketAPI.Window
     {
         private DeviceHelper _deviceHelper;
         private List<DeviceInfo> _deviceInfos;
-        private bool _doNotPopulate;
 
         private List<ItemId> itemSettings = new List<ItemId> {
             ItemId.ItemPokeBall,

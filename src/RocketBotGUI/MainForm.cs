@@ -68,6 +68,8 @@ namespace PokemonGo.RocketAPI.Window
         private IEnumerable<FortData> _pokeStops;
         private IEnumerable<WildPokemon> _wildPokemons;
 
+        private static Uri strKillSwitchUri = new Uri("https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/KillSwitch.txt");
+
         public MainForm()
         {
             InitializeComponent();
@@ -162,6 +164,7 @@ namespace PokemonGo.RocketAPI.Window
                 ColoredConsoleWrite(Color.Green, "Github version is " + gitVersion);
                 ColoredConsoleWrite(Color.Green,
                     "You can find it at www.GitHub.com/TheUnnameOrganization/RocketBot/releases");
+                CheckKillSwitch();
             }
             catch (Exception)
             {
@@ -177,6 +180,46 @@ namespace PokemonGo.RocketAPI.Window
                         "https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/Beta-Build/src/RocketBotGUI/Properties/AssemblyInfo.cs");
         }
 
+        private void CheckKillSwitch()
+        {
+            using (var wC = new WebClient())
+            {
+                try
+                {
+                    string strResponse = WebClientExtensions.DownloadString(wC, strKillSwitchUri);
+
+                    if (strResponse == null)
+                        return;
+
+                    string[] strSplit = strResponse.Split(';');
+
+                    if (strSplit.Length > 1)
+                    {
+                        string strStatus = strSplit[0];
+                        string strReason = strSplit[1];
+
+                        if (strStatus.ToLower().Contains("disable"))
+                        {
+                            ColoredConsoleWrite(Color.Red,
+                                                "\n---------------------------\n" +
+                                                "The bot repository is inactive/disabled! \n" +
+                                                "Please do not open issues in case the bot not working.\n");
+                            ColoredConsoleWrite(Color.Orange,
+                                               "Reason: " + strReason +
+                                               "---------------------------");
+                            return;
+                        }
+                    }
+                    else
+                        return;
+                }
+                catch (WebException)
+                {
+                }
+            }
+            return;
+        }
+
         public static void ColoredConsoleWrite(Color color, string text)
         {
             if (Instance.InvokeRequired)
@@ -187,10 +230,18 @@ namespace PokemonGo.RocketAPI.Window
 
             Instance.logTextBox.Select(Instance.logTextBox.Text.Length, 1); // Reset cursor to last
 
-            var textToAppend = "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\r\n";
-            Instance.logTextBox.SelectionColor = color;
-            Instance.logTextBox.AppendText(textToAppend);
-
+            if (!text.ToLower().Contains("reason:") && !text.ToLower().Contains("inactive/disabled")) 
+            {
+                var textToAppend = "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\r\n";
+                Instance.logTextBox.SelectionColor = color;
+                Instance.logTextBox.AppendText(textToAppend);
+            }
+            else
+            {
+                var textToAppend = text + "\r\n";
+                Instance.logTextBox.SelectionColor = color;
+                Instance.logTextBox.AppendText(textToAppend);
+            }
             var syncRoot = new object();
             lock (syncRoot) // Added locking to prevent text file trying to be accessed by two things at the same time
             {
