@@ -1,2 +1,3 @@
-Status=DISABLED
+//DON'T FORGET THE ';' AFTER THE STATUS!\\
+Status=DISABLED;
 Testing if the killswitch works :p
