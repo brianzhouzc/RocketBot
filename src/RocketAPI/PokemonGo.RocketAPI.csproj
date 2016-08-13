@@ -113,6 +113,7 @@
     <Compile Include="Exceptions\GoogleOfflineException.cs" />
     <Compile Include="Exceptions\LoginFailedException.cs" />
     <Compile Include="Extensions\LatLongExtensions.cs" />
+    <Compile Include="Extensions\WebClientExtensions.cs" />
     <Compile Include="HttpClient\PokemonClient.cs" />
     <Compile Include="Enums\AuthType.cs" />
     <Compile Include="Exceptions\AccessTokenExpiredException.cs" />
