@@ -950,11 +950,11 @@ namespace PokemonGo.RocketAPI.Window
             }
         }
 
-        public static float Perfect(PokemonData poke)
+        public static double Perfect(PokemonData poke)
         {
             if (poke == null)
-                return 0f;
-            return (poke.IndividualAttack + poke.IndividualDefense + poke.IndividualStamina) / 45f * 100f;
+                return 0d;
+            return PokemonInfo.CalculatePokemonPerfection(poke) * 100d;
         }
 
         private async Task TransferAllGivenPokemons(Client client, IEnumerable<PokemonData> unwantedPokemons,
@@ -2216,20 +2216,24 @@ namespace PokemonGo.RocketAPI.Window
                 newName.Replace("{IA}", Convert.ToString(pokemon.IndividualAttack));
                 newName.Replace("{ID}", Convert.ToString(pokemon.IndividualDefense));
                 newName.Replace("{IS}", Convert.ToString(pokemon.IndividualStamina));
-                nickname = newName.ToString();
                 if (nickname.Length > 12)
                 {
-                    ColoredConsoleWrite(Color.Red, $"\"{nickname}\" is too long, please choose another name");
+                    ColoredConsoleWrite(Color.Red, $"\"{newName}\" is too long, please choose another name");
+                    if (pokemons.Count() == 1)
+                    {
+                        SetState(true);
+                        return;
+                    }
                     continue;
                 }
-                var response = await _client2.Inventory.NicknamePokemon(pokemon.Id, nickname);
+                var response = await _client2.Inventory.NicknamePokemon(pokemon.Id, newName.ToString());
                 if (response.Result == NicknamePokemonResponse.Types.Result.Success)
                 {
-                    ColoredConsoleWrite(Color.Green, $"Successfully renamed {pokemon.PokemonId} to \"{nickname}\"");
+                    ColoredConsoleWrite(Color.Green, $"Successfully renamed {pokemon.PokemonId} to \"{newName}\"");
                 }
                 else
                 {
-                    ColoredConsoleWrite(Color.Red, $"Failed renaming {pokemon.PokemonId} to \"{nickname}\"");
+                    ColoredConsoleWrite(Color.Red, $"Failed renaming {pokemon.PokemonId} to \"{newName}\"");
                 }
                 await Task.Delay(ACTIONDELAY);
             }
