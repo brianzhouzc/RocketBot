@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using PokemonGo.RocketBot.Logic.PoGoUtils;
-using POGOProtos.Data;
 using POGOProtos.Enums;
+using POGOProtos.Data;
 using POGOProtos.Networking.Responses;
 
 namespace PokemonGo.RocketBot.Window

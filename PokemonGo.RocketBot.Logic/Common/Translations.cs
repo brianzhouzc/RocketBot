@@ -3,7 +3,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using PokemonGo.RocketBot.Logic.Logging;
-using PokemonGo.RocketBot.Logic.PoGoUtils;
 using PokemonGo.RocketBot.Logic.Utils;
 using System;
 using System.Collections.Generic;

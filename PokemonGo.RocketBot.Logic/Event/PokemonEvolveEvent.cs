@@ -1,8 +1,6 @@
 ﻿#region using directives
-
 using POGOProtos.Enums;
 using POGOProtos.Networking.Responses;
-
 #endregion
 
 namespace PokemonGo.RocketBot.Logic.Event
