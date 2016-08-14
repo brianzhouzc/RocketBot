@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using POGOProtos.Inventory.Item;
 
-namespace PokemonGo.RocketBot.Window
+namespace PokemonGo.RocketBot.Window.Forms
 {
     public partial class ItemForm : Form
     {

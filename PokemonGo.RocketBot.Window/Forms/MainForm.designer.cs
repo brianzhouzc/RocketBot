@@ -1,4 +1,4 @@
-﻿namespace PokemonGo.RocketBot.Window
+﻿namespace PokemonGo.RocketBot.Window.Forms
 {
     partial class MainForm
     {
@@ -36,7 +36,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.startStopBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.todoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.forceUnbanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
@@ -114,8 +113,7 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startStopBotToolStripMenuItem,
-            this.todoToolStripMenuItem,
-            this.forceUnbanToolStripMenuItem});
+            this.todoToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1254, 25);
@@ -135,12 +133,6 @@
             this.todoToolStripMenuItem.Size = new System.Drawing.Size(66, 21);
             this.todoToolStripMenuItem.Text = "Settings";
             this.todoToolStripMenuItem.Click += new System.EventHandler(this.todoToolStripMenuItem_Click);
-            // 
-            // forceUnbanToolStripMenuItem
-            // 
-            this.forceUnbanToolStripMenuItem.Name = "forceUnbanToolStripMenuItem";
-            this.forceUnbanToolStripMenuItem.Size = new System.Drawing.Size(94, 21);
-            this.forceUnbanToolStripMenuItem.Text = "Force Unban";
             // 
             // showAllToolStripMenuItem
             // 
@@ -474,7 +466,6 @@
         private System.Windows.Forms.ToolStripMenuItem startStopBotToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem forceUnbanToolStripMenuItem;
         private GMap.NET.WindowsForms.GMapControl gMapControl1;
         private BrightIdeasSoftware.ObjectListView olvPokemonList;
         private BrightIdeasSoftware.OLVColumn pkmnName;

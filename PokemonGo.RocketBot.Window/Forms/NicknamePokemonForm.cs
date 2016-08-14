@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace PokemonGo.RocketBot.Window
+namespace PokemonGo.RocketBot.Window.Forms
 {
     public partial class NicknamePokemonForm : Form
     {

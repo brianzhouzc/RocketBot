@@ -2,6 +2,7 @@
 
 using System;
 using System.Windows.Forms;
+using PokemonGo.RocketBot.Window.Forms;
 
 #endregion
 

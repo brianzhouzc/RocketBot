@@ -6,6 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -28,9 +29,8 @@ using POGOProtos.Data;
 using POGOProtos.Inventory;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Networking.Responses;
-using static System.Reflection.Assembly;
 
-namespace PokemonGo.RocketBot.Window
+namespace PokemonGo.RocketBot.Window.Forms
 {
     public partial class MainForm : Form
     {
@@ -136,7 +136,7 @@ namespace PokemonGo.RocketBot.Window
             _machine = new StateMachine();
             var stats = new Statistics();
 
-            var strVersion = GetExecutingAssembly().GetName().Version.ToString(3);
+            var strVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
 
             stats.DirtyEvent +=
                 () =>
@@ -222,7 +222,7 @@ namespace PokemonGo.RocketBot.Window
                             match.Groups[3],
                             match.Groups[4]));
                 // makes sense to display your version and say what the current one is on github
-                Logger.Write("Your version is " + GetExecutingAssembly().GetName().Version);
+                Logger.Write("Your version is " + Assembly.GetExecutingAssembly().GetName().Version);
                 Logger.Write("Github version is " + gitVersion);
                 Logger.Write("You can find it at www.GitHub.com/TheUnnameOrganization/RocketBot/releases");
             }

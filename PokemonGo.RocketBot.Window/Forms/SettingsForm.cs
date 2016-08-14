@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Drawing;
-using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using PokemonGo.RocketBot.Logic;
+using PokemonGo.RocketBot.Window.Helpers;
 using POGOProtos.Enums;
 using POGOProtos.Inventory.Item;
 
-namespace PokemonGo.RocketBot.Window
+namespace PokemonGo.RocketBot.Window.Forms
 {
     internal partial class SettingsForm : Form
     {

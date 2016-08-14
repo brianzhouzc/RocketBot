@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using PokemonGo.RocketBot.Logic.Logging;
 using PokemonGo.RocketBot.Logic.State;
+using PokemonGo.RocketBot.Window.Forms;
 using PokemonGo.RocketBot.Window.Models;
 
 #endregion

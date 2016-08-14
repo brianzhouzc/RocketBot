@@ -9,8 +9,8 @@ namespace PokemonGo.RocketBot.Window
 {
     public class PokemonObject
     {
-        private static bool initialized;
-        public static Dictionary<PokemonId, int> candyToEvolveDict = new Dictionary<PokemonId, int>();
+        private static bool _initialized;
+        public static Dictionary<PokemonId, int> CandyToEvolveDict = new Dictionary<PokemonId, int>();
 
         public PokemonObject(PokemonData pokemonData)
         {
@@ -70,9 +70,9 @@ namespace PokemonGo.RocketBot.Window
         {
             get
             {
-                if (candyToEvolveDict.ContainsKey(PokemonData.PokemonId))
+                if (CandyToEvolveDict.ContainsKey(PokemonData.PokemonId))
                 {
-                    return candyToEvolveDict[PokemonData.PokemonId];
+                    return CandyToEvolveDict[PokemonData.PokemonId];
                 }
                 return 0;
             }
@@ -97,7 +97,7 @@ namespace PokemonGo.RocketBot.Window
 
         public static void Initilize(DownloadItemTemplatesResponse itemtemplates)
         {
-            if (!initialized)
+            if (!_initialized)
             {
                 foreach (var t in itemtemplates.ItemTemplates)
                 {
@@ -105,11 +105,11 @@ namespace PokemonGo.RocketBot.Window
                     {
                         if (t.PokemonSettings != null)
                         {
-                            candyToEvolveDict.Add(t.PokemonSettings.PokemonId, t.PokemonSettings.CandyToEvolve);
+                            CandyToEvolveDict.Add(t.PokemonSettings.PokemonId, t.PokemonSettings.CandyToEvolve);
                         }
                     }
                 }
-                initialized = true;
+                _initialized = true;
             }
         }
     }

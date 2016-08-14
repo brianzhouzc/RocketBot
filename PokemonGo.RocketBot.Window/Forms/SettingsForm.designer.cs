@@ -1,4 +1,4 @@
-﻿namespace PokemonGo.RocketBot.Window
+﻿namespace PokemonGo.RocketBot.Window.Forms
 {
     partial class SettingsForm
     {

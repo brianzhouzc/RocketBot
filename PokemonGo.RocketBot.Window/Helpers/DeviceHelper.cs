@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 
-namespace PokemonGo.RocketBot.Window
+namespace PokemonGo.RocketBot.Window.Helpers
 {
     public class DeviceHelper
     {
