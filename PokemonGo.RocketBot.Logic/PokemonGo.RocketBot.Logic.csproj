@@ -191,15 +191,14 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\POGOProtos\POGOProtos.csproj">
-      <Project>{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}</Project>
+      <Project>{a03a7bb2-4f0b-467b-84b2-9a76e6aae6fb}</Project>
       <Name>POGOProtos</Name>
     </ProjectReference>
     <ProjectReference Include="..\PokemonGo.RocketAPI\PokemonGo.RocketAPI.csproj">
-      <Project>{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}</Project>
+      <Project>{05d2da44-1b8e-4cf7-94ed-4d52451cd095}</Project>
       <Name>PokemonGo.RocketAPI</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

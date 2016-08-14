@@ -37,7 +37,11 @@ namespace PokemonGo.RocketBot.Window
         public static MainForm Instance;
         private static readonly ManualResetEvent QuitEvent = new ManualResetEvent(false);
         private static readonly string subPath = "";
-        private static Session session;
+        private GlobalSettings _settings;
+        private static Session _session;
+        private ConsoleLogger _logger;
+        public static bool BoolNeedsSetup;
+        private StateMachine _machine;
 
         private readonly GMapOverlay _playerOverlay = new GMapOverlay("players");
         private readonly GMapOverlay _pokemonsOverlay = new GMapOverlay("pokemons");
@@ -54,16 +58,16 @@ namespace PokemonGo.RocketBot.Window
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Logger.SetLogger(new ConsoleLogger(LogLevel.LevelUp), subPath);
+            InitializeBot();
             CheckVersion();
-            if (BoolNeedsSetup())
+            if (BoolNeedsSetup)
             {
                 startStopBotToolStripMenuItem.Enabled = false;
                 Logger.Write("First time here? Go to settings to set your basic info.");
             }
         }
 
-        private async Task StartBot()
+        private void InitializeBot()
         {
             var strCulture = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
 
@@ -73,38 +77,35 @@ namespace PokemonGo.RocketBot.Window
 
             AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionEventHandler;
 
-            var logger = new ConsoleLogger(LogLevel.LevelUp);
-            Logger.SetLogger(logger, subPath);
+            _logger = new ConsoleLogger(LogLevel.LevelUp);
+            Logger.SetLogger(_logger, subPath);
 
             var profilePath = Path.Combine(Directory.GetCurrentDirectory(), subPath);
             var profileConfigPath = Path.Combine(profilePath, "config");
             var configFile = Path.Combine(profileConfigPath, "config.json");
 
-            GlobalSettings settings;
-            var boolNeedsSetup = false;
+            BoolNeedsSetup = false;
 
             if (File.Exists(configFile))
             {
                 /** if (!VersionCheckState.IsLatest())
                     settings = GlobalSettings.Load(subPath, true);
                 else **/
-                settings = GlobalSettings.Load(subPath);
+                _settings = GlobalSettings.Load(subPath);
             }
             else
             {
-                settings = new GlobalSettings();
-                settings.ProfilePath = profilePath;
-                settings.ProfileConfigPath = profileConfigPath;
-                settings.GeneralConfigPath = Path.Combine(Directory.GetCurrentDirectory(), "config");
-                settings.TranslationLanguageCode = strCulture;
-
-                boolNeedsSetup = true;
+                _settings = new GlobalSettings();
+                _settings.ProfilePath = profilePath;
+                _settings.ProfileConfigPath = profileConfigPath;
+                _settings.GeneralConfigPath = Path.Combine(Directory.GetCurrentDirectory(), "config");
+                _settings.TranslationLanguageCode = strCulture;
+                BoolNeedsSetup = true;
             }
 
+            _session = new Session(new ClientSettings(_settings), new LogicSettings(_settings));
 
-            session = new Session(new ClientSettings(settings), new LogicSettings(settings));
-
-            if (boolNeedsSetup)
+            if (BoolNeedsSetup)
             {
                 menuStrip1.ShowItemToolTips = true;
                 startStopBotToolStripMenuItem.ToolTipText = @"Please goto settings and enter your basic info";
@@ -130,53 +131,56 @@ namespace PokemonGo.RocketBot.Window
                     return;
                 } **/
             }
-            session.Client.ApiFailure = new ApiFailureStrategy(session);
+            _session.Client.ApiFailure = new ApiFailureStrategy(_session);
 
-            var machine = new StateMachine();
+            _machine = new StateMachine();
             var stats = new Statistics();
 
             var strVersion = GetExecutingAssembly().GetName().Version.ToString(3);
 
             stats.DirtyEvent +=
                 () =>
-                    Text = $"[RocketBot v{strVersion}] " +
+                    MainForm.Instance.Text = $"[RocketBot v{strVersion}] " +
                            stats.GetTemplatedStats(
-                               session.Translation.GetTranslation(TranslationString.StatsTemplateString),
-                               session.Translation.GetTranslation(TranslationString.StatsXpTemplateString));
+                               _session.Translation.GetTranslation(TranslationString.StatsTemplateString),
+                               _session.Translation.GetTranslation(TranslationString.StatsXpTemplateString));
 
             var aggregator = new StatisticsAggregator(stats);
             var listener = new ConsoleEventListener();
 
-            session.EventDispatcher.EventReceived += evt => listener.Listen(evt, session);
-            session.EventDispatcher.EventReceived += evt => aggregator.Listen(evt, session);
-            if (settings.UseWebsocket)
+            _session.EventDispatcher.EventReceived += evt => listener.Listen(evt, _session);
+            _session.EventDispatcher.EventReceived += evt => aggregator.Listen(evt, _session);
+            if (_settings.UseWebsocket)
             {
-                var websocket = new WebSocketInterface(settings.WebSocketPort, session);
-                session.EventDispatcher.EventReceived += evt => websocket.Listen(evt, session);
+                var websocket = new WebSocketInterface(_settings.WebSocketPort, _session);
+                _session.EventDispatcher.EventReceived += evt => websocket.Listen(evt, _session);
             }
 
             var plugins = new PluginManager(new PluginInitializerInfo
             {
-                Logger = logger,
-                Session = session,
-                Settings = settings,
+                Logger = _logger,
+                Session = _session,
+                Settings = _settings,
                 Statistics = stats
             });
             plugins.InitPlugins();
-            machine.SetFailureState(new LoginState());
-            Logger.SetLoggerContext(session);
-            session.Navigation.UpdatePositionEvent +=
-                (lat, lng) => session.EventDispatcher.Send(new UpdatePositionEvent {Latitude = lat, Longitude = lng});
-            session.Navigation.UpdatePositionEvent += Navigation_UpdatePositionEvent;
+            _machine.SetFailureState(new LoginState());
+            Logger.SetLoggerContext(_session);
 
-            machine.AsyncStart(new VersionCheckState(), session);
+            _session.Navigation.UpdatePositionEvent +=
+                (lat, lng) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng });
+            _session.Navigation.UpdatePositionEvent += Navigation_UpdatePositionEvent;
+        }
+        private async Task StartBot()
+        {
+            _machine.AsyncStart(new VersionCheckState(), _session);
 
-            if (settings.UseTelegramAPI)
+            if (_settings.UseTelegramAPI)
             {
-                session.Telegram = new TelegramService(settings.TelegramAPIKey, session);
+                _session.Telegram = new TelegramService(_settings.TelegramAPIKey, _session);
             }
 
-            settings.checkProxy();
+            _settings.checkProxy();
 
             QuitEvent.WaitOne();
         }
@@ -197,14 +201,6 @@ namespace PokemonGo.RocketBot.Window
         {
             Logger.Write("Exception caught, writing LogBuffer.", force: true);
             throw new Exception();
-        }
-
-        private static bool BoolNeedsSetup()
-        {
-            var profilePath = Path.Combine(Directory.GetCurrentDirectory(), subPath);
-            var profileConfigPath = Path.Combine(profilePath, "config");
-            var configFile = Path.Combine(profileConfigPath, "config.json");
-            return !File.Exists(configFile);
         }
 
         public void CheckVersion()
@@ -285,30 +281,36 @@ namespace PokemonGo.RocketBot.Window
             Task.Run(() => StartBot());
         }
 
+        private void todoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form settingsForm = new SettingsForm();
+            settingsForm.ShowDialog();
+        }
+
         #endregion BUTTONS
 
         #region POKEMON LIST
 
-        private IEnumerable<Candy> families;
+        private IEnumerable<Candy> _families;
 
         private void InitializePokemonForm()
         {
             //olvPokemonList.ButtonClick += PokemonListButton_Click;
 
-            pkmnName.ImageGetter = delegate(object rowObject)
+            pkmnName.ImageGetter = delegate (object rowObject)
             {
                 var pokemon = rowObject as PokemonObject;
 
                 var key = pokemon.PokemonId.ToString();
                 if (!olvPokemonList.SmallImageList.Images.ContainsKey(key))
                 {
-                    var img = GetPokemonImage((int) pokemon.PokemonId);
+                    var img = GetPokemonImage((int)pokemon.PokemonId);
                     olvPokemonList.SmallImageList.Images.Add(key, img);
                 }
                 return key;
             };
 
-            olvPokemonList.FormatRow += delegate(object sender, FormatRowEventArgs e)
+            olvPokemonList.FormatRow += delegate (object sender, FormatRowEventArgs e)
             {
                 var pok = e.Model as PokemonObject;
                 if (olvPokemonList.Objects.Cast<PokemonObject>()
@@ -326,7 +328,7 @@ namespace PokemonGo.RocketBot.Window
                 }
             };
 
-            cmsPokemonList.Opening += delegate(object sender, CancelEventArgs e)
+            cmsPokemonList.Opening += delegate (object sender, CancelEventArgs e)
             {
                 e.Cancel = false;
                 cmsPokemonList.Items.Clear();
@@ -413,7 +415,7 @@ namespace PokemonGo.RocketBot.Window
             SetState(false);
             foreach (var pokemon in pokemons)
             {
-                var transferPokemonResponse = await session.Client.Inventory.TransferPokemon(pokemon.Id);
+                var transferPokemonResponse = await _session.Client.Inventory.TransferPokemon(pokemon.Id);
                 if (transferPokemonResponse.Result == ReleasePokemonResponse.Types.Result.Success)
                 {
                     Logger.Write(
@@ -433,7 +435,7 @@ namespace PokemonGo.RocketBot.Window
             SetState(false);
             foreach (var pokemon in pokemons)
             {
-                var evolvePokemonResponse = await session.Client.Inventory.UpgradePokemon(pokemon.Id);
+                var evolvePokemonResponse = await _session.Client.Inventory.UpgradePokemon(pokemon.Id);
                 if (evolvePokemonResponse.Result == UpgradePokemonResponse.Types.Result.Success)
                 {
                     Logger.Write($"{pokemon.PokemonId} successfully upgraded.");
@@ -451,7 +453,7 @@ namespace PokemonGo.RocketBot.Window
             SetState(false);
             foreach (var pokemon in pokemons)
             {
-                var evolvePokemonResponse = await session.Client.Inventory.EvolvePokemon(pokemon.Id);
+                var evolvePokemonResponse = await _session.Client.Inventory.EvolvePokemon(pokemon.Id);
                 if (evolvePokemonResponse.Result == EvolvePokemonResponse.Types.Result.Success)
                 {
                     Logger.Write(
@@ -552,7 +554,7 @@ namespace PokemonGo.RocketBot.Window
                 var newName = new StringBuilder(nickname);
                 newName.Replace("{Name}", Convert.ToString(pokemon.PokemonId));
                 newName.Replace("{CP}", Convert.ToString(pokemon.Cp));
-                newName.Replace("{IV}", Convert.ToString(Math.Round(session.Inventory.GetPerfect(pokemon))));
+                newName.Replace("{IV}", Convert.ToString(Math.Round(_session.Inventory.GetPerfect(pokemon))));
                 newName.Replace("{IA}", Convert.ToString(pokemon.IndividualAttack));
                 newName.Replace("{ID}", Convert.ToString(pokemon.IndividualDefense));
                 newName.Replace("{IS}", Convert.ToString(pokemon.IndividualStamina));
@@ -566,7 +568,7 @@ namespace PokemonGo.RocketBot.Window
                     }
                     continue;
                 }
-                var response = await session.Client.Inventory.NicknamePokemon(pokemon.Id, newName.ToString());
+                var response = await _session.Client.Inventory.NicknamePokemon(pokemon.Id, newName.ToString());
                 if (response.Result == NicknamePokemonResponse.Types.Result.Success)
                 {
                     Logger.Write($"Successfully renamed {pokemon.PokemonId} to \"{newName}\"");
@@ -582,7 +584,7 @@ namespace PokemonGo.RocketBot.Window
 
         private Image GetPokemonImage(int pokemonId)
         {
-            return (Image) Properties.Resources.ResourceManager.GetObject("Pokemon_" + pokemonId);
+            return (Image)Properties.Resources.ResourceManager.GetObject("Pokemon_" + pokemonId);
         }
 
         private async Task ReloadPokemonList()
@@ -590,13 +592,13 @@ namespace PokemonGo.RocketBot.Window
             SetState(false);
             try
             {
-                await session.Inventory.RefreshCachedInventory();
-                var itemTemplates = await session.Client.Download.GetItemTemplates();
-                var inventory = await session.Inventory.GetCachedInventory();
-                var profile = await session.Client.Player.GetPlayer();
+                await _session.Inventory.RefreshCachedInventory();
+                var itemTemplates = await _session.Client.Download.GetItemTemplates();
+                var inventory = await _session.Inventory.GetCachedInventory();
+                var profile = await _session.Client.Player.GetPlayer();
                 var appliedItems = new Dictionary<ItemId, DateTime>();
                 var inventoryAppliedItems =
-                    await session.Inventory.GetAppliedItems();
+                    await _session.Inventory.GetAppliedItems();
 
                 foreach (var aItems in inventoryAppliedItems)
                 {
@@ -617,7 +619,7 @@ namespace PokemonGo.RocketBot.Window
                         .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
                         .OrderByDescending(key => key.Cp)
                         .OrderBy(key => key.PokemonId);
-                families = inventory.InventoryDelta.InventoryItems
+                _families = inventory.InventoryDelta.InventoryItems
                     .Select(i => i.InventoryItemData.Candy)
                     .Where(p => p != null && p.FamilyId > 0)
                     .OrderByDescending(p => p.FamilyId);
@@ -627,7 +629,7 @@ namespace PokemonGo.RocketBot.Window
                 {
                     var pokemonObject = new PokemonObject(pokemon);
                     var family =
-                        families.Where(i => (int) i.FamilyId <= (int) pokemon.PokemonId)
+                        _families.Where(i => (int)i.FamilyId <= (int)pokemon.PokemonId)
                             .First();
                     pokemonObject.Candy = family.Candy_;
                     pokemonObjects.Add(pokemonObject);
@@ -681,7 +683,7 @@ namespace PokemonGo.RocketBot.Window
 
         private async void ItemBox_ItemClick(object sender, EventArgs e)
         {
-            var item = (ItemData) sender;
+            var item = (ItemData)sender;
 
             using (var form = new ItemForm(item))
             {
@@ -691,13 +693,13 @@ namespace PokemonGo.RocketBot.Window
                     SetState(false);
                     if (item.ItemId == ItemId.ItemLuckyEgg)
                     {
-                        if (session.Client == null)
+                        if (_session.Client == null)
                         {
                             Logger.Write($"Bot must be running first!", LogLevel.Warning);
                             SetState(true);
                             return;
                         }
-                        var response = await session.Client.Inventory.UseItemXpBoost();
+                        var response = await _session.Client.Inventory.UseItemXpBoost();
                         if (response.Result == UseItemXpBoostResponse.Types.Result.Success)
                         {
                             ColoredConsoleWrite(Color.Green, $"Using a Lucky Egg");
@@ -718,13 +720,13 @@ namespace PokemonGo.RocketBot.Window
                     }
                     else if (item.ItemId == ItemId.ItemIncenseOrdinary)
                     {
-                        if (session.Client == null)
+                        if (_session.Client == null)
                         {
                             ColoredConsoleWrite(Color.Red, $"Bot must be running first!");
                             SetState(true);
                             return;
                         }
-                        var response = await session.Client.Inventory.UseIncense(ItemId.ItemIncenseOrdinary);
+                        var response = await _session.Client.Inventory.UseIncense(ItemId.ItemIncenseOrdinary);
                         if (response.Result == UseIncenseResponse.Types.Result.Success)
                         {
                             ColoredConsoleWrite(Color.Green, $"Using an incense");
@@ -747,7 +749,7 @@ namespace PokemonGo.RocketBot.Window
                     {
                         var response =
                             await
-                                session.Client.Inventory.RecycleItem(item.ItemId, decimal.ToInt32(form.numCount.Value));
+                                _session.Client.Inventory.RecycleItem(item.ItemId, decimal.ToInt32(form.numCount.Value));
                         if (response.Result == RecycleInventoryItemResponse.Types.Result.Success)
                         {
                             ColoredConsoleWrite(Color.DarkCyan,
@@ -772,5 +774,6 @@ namespace PokemonGo.RocketBot.Window
         }
 
         #endregion POKEMON LIST
+
     }
 }

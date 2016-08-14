@@ -189,10 +189,10 @@ namespace PokemonGo.RocketBot.Logic
                 {
                     tempWebClient.Proxy = this.InitProxy();
                     string proxiedIPres = WebClientExtensions.DownloadString(tempWebClient, new Uri("https://api.ipify.org/?format=text"));
-                    string proxiedIP = proxiedIPres == null?"INVALID PROXY": proxiedIPres;
+                    string proxiedIP = proxiedIPres == null ? "INVALID PROXY" : proxiedIPres;
                     Logger.Write(
                        $"Your IP is: {unproxiedIP} / Proxy IP is: {proxiedIP}",
-                       LogLevel.Info, (unproxiedIP==proxiedIP)?ConsoleColor.Red:ConsoleColor.Green);
+                       LogLevel.Info, (unproxiedIP == proxiedIP) ? ConsoleColor.Red : ConsoleColor.Green);
 
                     if (unproxiedIP == proxiedIP || proxiedIPres == null)
                     {
@@ -546,7 +546,7 @@ namespace PokemonGo.RocketBot.Logic
             new KeyValuePair<ItemId, int>(ItemId.ItemItemStorageUpgrade, 100)
         };
 
-        
+
         public List<PokemonId> PokemonsNotToTransfer = new List<PokemonId>
         {
             //criteria: from SS Tier to A Tier + Regional Exclusive
@@ -853,7 +853,7 @@ namespace PokemonGo.RocketBot.Logic
                 settings.Save(configFile);
                 settings.Auth.Load(Path.Combine(profileConfigPath, "auth.json"));
             }
-            
+
             return shouldExit ? null : settings;
         }
 

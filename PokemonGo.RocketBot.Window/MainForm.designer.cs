@@ -134,6 +134,7 @@
             this.todoToolStripMenuItem.Name = "todoToolStripMenuItem";
             this.todoToolStripMenuItem.Size = new System.Drawing.Size(66, 21);
             this.todoToolStripMenuItem.Text = "Settings";
+            this.todoToolStripMenuItem.Click += new System.EventHandler(this.todoToolStripMenuItem_Click);
             // 
             // forceUnbanToolStripMenuItem
             // 
