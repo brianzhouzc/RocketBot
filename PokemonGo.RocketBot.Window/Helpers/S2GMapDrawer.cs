@@ -12,7 +12,7 @@ namespace PokemonGo.RocketBot.Window.Helpers
         {
             for (var i = 0; i < cellsIds.Count; i++)
             {
-                var cellId = new S2CellId((ulong)i);
+                var cellId = new S2CellId((ulong) i);
                 var cell = new S2Cell(cellId);
 
                 var points = new List<PointLatLng>();

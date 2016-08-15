@@ -22,9 +22,9 @@ namespace PokemonGo.RocketBot.Window
     {
         private readonly WebSocketServer _server;
         private readonly Session _session;
+        private readonly WebSocketEventManager _websocketHandler;
         private PokeStopListEvent _lastPokeStopList;
         private ProfileEvent _lastProfile;
-        private readonly WebSocketEventManager _websocketHandler;
 
         public WebSocketInterface(int port, Session session)
         {

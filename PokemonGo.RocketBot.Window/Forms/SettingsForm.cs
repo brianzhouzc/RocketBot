@@ -18,7 +18,8 @@ namespace PokemonGo.RocketBot.Window.Forms
         private List<DeviceInfo> _deviceInfos;
         private bool _doNotPopulate;
 
-        private List<ItemId> itemSettings = new List<ItemId> {
+        private List<ItemId> itemSettings = new List<ItemId>
+        {
             ItemId.ItemPokeBall,
             ItemId.ItemGreatBall,
             ItemId.ItemUltraBall,
@@ -28,7 +29,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             ItemId.ItemHyperPotion,
             ItemId.ItemMaxPotion,
             ItemId.ItemRevive,
-            ItemId.ItemMaxRevive,
+            ItemId.ItemMaxRevive
         };
 
         public SettingsForm()
@@ -58,7 +59,7 @@ namespace PokemonGo.RocketBot.Window.Forms
         private void SettingsForm_Load(object sender, EventArgs e)
         {
             GlobalSettings.Load("");
-            GlobalSettings settings = new GlobalSettings();
+            var settings = new GlobalSettings();
 
             authTypeCb.Text = settings.Auth.AuthType.ToString();
             if (authTypeCb.Text.ToLower().Equals("google"))
@@ -113,7 +114,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             {
                 for (var i = 0; i < clbCatch.Items.Count; i++)
                 {
-                    var pokemonId = (PokemonId)clbCatch.Items[i];
+                    var pokemonId = (PokemonId) clbCatch.Items[i];
                     if (pokemonIdSetting == pokemonId)
                     {
                         clbCatch.SetItemChecked(i, true);
@@ -125,7 +126,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             {
                 for (var i = 0; i < clbTransfer.Items.Count; i++)
                 {
-                    var pokemonId = (PokemonId)clbTransfer.Items[i];
+                    var pokemonId = (PokemonId) clbTransfer.Items[i];
                     if (pokemonIdSetting == pokemonId)
                     {
                         clbTransfer.SetItemChecked(i, true);
@@ -133,7 +134,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 }
             }
 
-          /**  foreach (var pokemonIdSetting in Settings.Instance.ExcludedPokemonEvolve)
+            /**  foreach (var pokemonIdSetting in Settings.Instance.ExcludedPokemonEvolve)
             {
                 for (var i = 0; i < clbEvolve.Items.Count; i++)
                 {
@@ -145,7 +146,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 }
             } **/
 
-           /** var itemCounts = Settings.Instance.ItemCounts;
+            /** var itemCounts = Settings.Instance.ItemCounts;
             foreach (ItemSetting itemSetting in flpItems.Controls)
             {
                 foreach (var itemCount in itemCounts)
@@ -186,7 +187,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
-           /** Settings.Instance.SetSetting(authTypeCb.Text, "AuthType");
+            /** Settings.Instance.SetSetting(authTypeCb.Text, "AuthType");
             if (authTypeCb.Text.ToLower().Equals("google"))
             {
                 Settings.Instance.SetSetting(UserLoginBox.Text, "GoogleUsername");
