@@ -38,13 +38,17 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                 Logger.Write(
                     session.Translation.GetTranslation(TranslationString.FarmPokestopsOutsideRadius, distanceFromStart),
                     LogLevel.Warning);
-                
+
                 await session.Navigation.Move(
                     new GeoCoordinate(session.Settings.DefaultLatitude, session.Settings.DefaultLongitude, LocationUtils.getElevation(session.Settings.DefaultLatitude, session.Settings.DefaultLongitude)),
                     session.LogicSettings.WalkingSpeedInKilometerPerHour, null, cancellationToken, session.LogicSettings.DisableHumanWalking);
             }
 
             var pokestopList = await GetPokeStops(session);
+
+            //get optimized route
+            var pokeStops = RouteOptimizeUtil.Optimize(pokestopList.ToArray(), session.Client.CurrentLatitude, session.Client.CurrentLongitude);
+
             var stopsHit = 0;
             var rc = new Random(); //initialize pokestop random cleanup counter first time
             storeRI = rc.Next(8, 15);
@@ -58,37 +62,28 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                 });
             }
 
-            session.EventDispatcher.Send(new PokeStopListEvent {Forts = pokestopList});
+            session.EventDispatcher.Send(new PokeStopListEvent { Forts = pokestopList });
 
-            while (pokestopList.Any())
+            foreach (var pokeStop in pokeStops)
             {
                 cancellationToken.ThrowIfCancellationRequested();
-
-                //resort
-                pokestopList =
-                    pokestopList.OrderBy(
-                        i =>
-                            LocationUtils.CalculateDistanceInMeters(session.Client.CurrentLatitude,
-                                session.Client.CurrentLongitude, i.Latitude, i.Longitude)).ToList();
-                var pokeStop = pokestopList[0];
-                pokestopList.RemoveAt(0);
 
                 var distance = LocationUtils.CalculateDistanceInMeters(session.Client.CurrentLatitude,
                     session.Client.CurrentLongitude, pokeStop.Latitude, pokeStop.Longitude);
                 var fortInfo = await session.Client.Fort.GetFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
 
-                session.EventDispatcher.Send(new FortTargetEvent {Name = fortInfo.Name, Distance = distance});
+                session.EventDispatcher.Send(new FortTargetEvent { Name = fortInfo.Name, Distance = distance });
 
-                    await session.Navigation.Move(new GeoCoordinate(pokeStop.Latitude, pokeStop.Longitude, LocationUtils.getElevation(pokeStop.Latitude, pokeStop.Longitude)),
-                    session.LogicSettings.WalkingSpeedInKilometerPerHour,
-                    async () =>
-                    {
+                await session.Navigation.Move(new GeoCoordinate(pokeStop.Latitude, pokeStop.Longitude, LocationUtils.getElevation(pokeStop.Latitude, pokeStop.Longitude)),
+                session.LogicSettings.WalkingSpeedInKilometerPerHour,
+                async () =>
+                {
                         // Catch normal map Pokemon
                         await CatchNearbyPokemonsTask.Execute(session, cancellationToken);
                         //Catch Incense Pokemon
                         await CatchIncensePokemonsTask.Execute(session, cancellationToken);
-                        return true;
-                    }, cancellationToken, session.LogicSettings.DisableHumanWalking);
+                    return true;
+                }, cancellationToken, session.LogicSettings.DisableHumanWalking);
 
                 //Catch Lure Pokemon
                 if (pokeStop.LureInfo != null)
@@ -114,7 +109,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
 
                         if (timesZeroXPawarded > zeroCheck)
                         {
-                            if ((int) fortSearch.CooldownCompleteTimestampMs != 0)
+                            if ((int)fortSearch.CooldownCompleteTimestampMs != 0)
                             {
                                 break; // Check if successfully looted, if so program can continue as this was "false alarm".
                             }
@@ -160,7 +155,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                             InventoryFull = fortSearch.Result == FortSearchResponse.Types.Result.InventoryFull
                         });
 
-                        if ( fortSearch.Result == FortSearchResponse.Types.Result.InventoryFull )
+                        if (fortSearch.Result == FortSearchResponse.Types.Result.InventoryFull)
                             storeRI = 1;
 
                         break; //Continue with program as loot was succesfull.
@@ -231,7 +226,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                             LocationUtils.CalculateDistanceInMeters(
                                 session.Settings.DefaultLatitude, session.Settings.DefaultLongitude,
                                 i.Latitude, i.Longitude) < session.LogicSettings.MaxTravelDistanceInMeters ||
-                        session.LogicSettings.MaxTravelDistanceInMeters == 0) 
+                        session.LogicSettings.MaxTravelDistanceInMeters == 0)
                 );
 
             return pokeStops.ToList();

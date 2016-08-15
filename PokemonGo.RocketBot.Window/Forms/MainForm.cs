@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
+using GMap.NET;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 using PokemonGo.RocketAPI.Helpers;
@@ -29,6 +30,9 @@ using POGOProtos.Data;
 using POGOProtos.Inventory;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Networking.Responses;
+using POGOProtos.Map.Fort;
+using PokemonGo.RocketBot.Window.Helpers;
+using GMap.NET.MapProviders;
 
 namespace PokemonGo.RocketBot.Window.Forms
 {
@@ -52,19 +56,50 @@ namespace PokemonGo.RocketBot.Window.Forms
         public MainForm()
         {
             InitializeComponent();
-            InitializePokemonForm();
             Instance = this;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             InitializeBot();
+            InitializePokemonForm();
+            InitializeMap();
             CheckVersion();
             if (BoolNeedsSetup)
             {
                 startStopBotToolStripMenuItem.Enabled = false;
                 Logger.Write("First time here? Go to settings to set your basic info.");
             }
+        }
+
+        private void InitializeMap()
+        {
+            var lat = _session.Client.Settings.DefaultLatitude;
+            var lng = _session.Client.Settings.DefaultLongitude;
+            gMapControl1.MapProvider = GoogleMapProvider.Instance;
+            gMapControl1.Manager.Mode = AccessMode.ServerOnly;
+            GMapProvider.WebProxy = null;
+            gMapControl1.Position = new PointLatLng(lat, lng);
+            gMapControl1.DragButton = MouseButtons.Left;
+
+            gMapControl1.MinZoom = 1;
+            gMapControl1.MaxZoom = 20;
+            gMapControl1.Zoom = 15;
+
+            gMapControl1.Overlays.Add(_searchAreaOverlay);
+            gMapControl1.Overlays.Add(_pokestopsOverlay);
+            gMapControl1.Overlays.Add(_pokemonsOverlay);
+            gMapControl1.Overlays.Add(_playerOverlay);
+
+            _playerMarker =
+                new GMarkerGoogle(new PointLatLng(lat, lng),
+                    GMarkerGoogleType.orange_small);
+            _playerOverlay.Markers.Add(_playerMarker);
+            _playerMarker.Position = new PointLatLng(lat, lng);
+            _searchAreaOverlay.Polygons.Clear();
+            S2GMapDrawer.DrawS2Cells(
+                S2Helper.GetNearbyCellIds(lng, lat),
+                _searchAreaOverlay);
         }
 
         private void InitializeBot()
@@ -138,18 +173,19 @@ namespace PokemonGo.RocketBot.Window.Forms
 
             var strVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
 
+            //Status bar
             stats.DirtyEvent +=
                 () =>
-                    MainForm.Instance.Text = $"[RocketBot v{strVersion}] " +
-                           stats.GetTemplatedStats(
-                               _session.Translation.GetTranslation(TranslationString.StatsTemplateString),
-                               _session.Translation.GetTranslation(TranslationString.StatsXpTemplateString));
+                    SetStatusText(stats.GetTemplatedStats(
+                        _session.Translation.GetTranslation(TranslationString.StatsTemplateString),
+                        _session.Translation.GetTranslation(TranslationString.StatsXpTemplateString)));
 
             var aggregator = new StatisticsAggregator(stats);
             var listener = new ConsoleEventListener();
 
             _session.EventDispatcher.EventReceived += evt => listener.Listen(evt, _session);
             _session.EventDispatcher.EventReceived += evt => aggregator.Listen(evt, _session);
+
             if (_settings.UseWebsocket)
             {
                 var websocket = new WebSocketInterface(_settings.WebSocketPort, _session);
@@ -170,6 +206,9 @@ namespace PokemonGo.RocketBot.Window.Forms
             _session.Navigation.UpdatePositionEvent +=
                 (lat, lng) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng });
             _session.Navigation.UpdatePositionEvent += Navigation_UpdatePositionEvent;
+
+            RouteOptimizeUtil.RouteOptimizeEvent += (optimizedroute) => _session.EventDispatcher.Send(new OptimizeRouteEvent { OptimizedRoute = optimizedroute });
+            RouteOptimizeUtil.RouteOptimizeEvent += Visualize;
         }
         private async Task StartBot()
         {
@@ -183,6 +222,22 @@ namespace PokemonGo.RocketBot.Window.Forms
             _settings.checkProxy();
 
             QuitEvent.WaitOne();
+        }
+
+        private void Visualize(List<FortData> pokeStops)
+        {
+            lock (_pokestopsOverlay)
+            {
+                _pokestopsOverlay.Markers.Clear();
+                var routePoint =
+                    (from pokeStop in pokeStops
+                     where pokeStop != null
+                     select new PointLatLng(pokeStop.Latitude, pokeStop.Longitude)).ToList();
+                _pokestopsOverlay.Routes.Clear();
+                _pokestopsOverlay.Routes.Add(new GMapRoute(routePoint, "Walking Path"));
+            }
+
+
         }
 
         private static void Navigation_UpdatePositionEvent(double lat, double lng)
