@@ -50,7 +50,7 @@ namespace PokemonGo.RocketBot.Window.Forms
         private readonly GMapOverlay _searchAreaOverlay = new GMapOverlay("areas");
         private ConsoleLogger _logger;
         private StateMachine _machine;
-        private GMarkerGoogle _playerMarker;
+        private static GMarkerGoogle _playerMarker;
         private GlobalSettings _settings;
 
         public MainForm()
@@ -238,11 +238,23 @@ namespace PokemonGo.RocketBot.Window.Forms
                         select new PointLatLng(pokeStop.Latitude, pokeStop.Longitude)).ToList();
                 _pokestopsOverlay.Routes.Clear();
                 _pokestopsOverlay.Routes.Add(new GMapRoute(routePoint, "Walking Path"));
+                foreach (var pokeStop in pokeStops)
+                {
+                    var type = GMarkerGoogleType.blue_small;
+                    var pokeStopLoc = new PointLatLng(pokeStop.Latitude, pokeStop.Longitude);
+                    var pokestopMarker = new GMarkerGoogle(pokeStopLoc, type);
+                    //pokestopMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+                    //pokestopMarker.ToolTip = new GMapBaloonToolTip(pokestopMarker);
+                    _pokestopsOverlay.Markers.Add(pokestopMarker);
+
+                    routePoint.Add(pokeStopLoc);
+                }
             }
         }
 
         private static void Navigation_UpdatePositionEvent(double lat, double lng)
         {
+            _playerMarker.Position = new PointLatLng(lat, lng);
             SaveLocationToDisk(lat, lng);
         }
 
