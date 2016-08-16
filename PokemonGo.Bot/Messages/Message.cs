@@ -1,19 +1,20 @@
 ﻿using System;
+using System.Windows.Media;
 
 namespace PokemonGo.Bot.Messages
 {
     public class Message
     {
-        public ConsoleColor Color { get; }
+        public Color Color { get; }
         public DateTime CreationTime { get; }
         public string Text { get; }
 
         public Message(string text)
-            : this(ConsoleColor.Gray, text)
+            : this(Colors.Gray, text)
         {
         }
 
-        public Message(ConsoleColor color, string text)
+        public Message(Color color, string text)
         {
             CreationTime = DateTime.Now;
             Color = color;

@@ -12,6 +12,9 @@
         <BooleanToVisibilityConverter x:Key="boolToVis"/>
         <vm:MainViewModel x:Key="mainViewModel"/>
     </Window.Resources>
+    <Window.DataContext>
+        <StaticResource ResourceKey="mainViewModel"/>
+    </Window.DataContext>
     <Grid DataContext="{StaticResource mainViewModel}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -26,12 +29,13 @@
 
         <Menu Width="Auto" Height="20" Grid.Row="0" Grid.ColumnSpan="2">
             <MenuItem Header="Login" Command="{Binding Player.Login}" />
-            <MenuItem Header="Start" Command="{Binding Bot.Start}" Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self} , Converter={StaticResource boolToVis}}" />
-            <MenuItem Header="Stop" Command="{Binding Bot.Stop}" Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self} , Converter={StaticResource boolToVis}}" />
+            <MenuItem Header="Settings" Click="MenuItem_Click"/>
             <MenuItem Header="AddAction">
                 <MenuItem Header="Farm" Command="{Binding Bot.AddAction}" CommandParameter="{x:Static actions:BotActionType.Farm}" />
                 <MenuItem Header="Force Unban" Command="{Binding Bot.AddAction}" CommandParameter="{x:Static actions:BotActionType.ForceUnban}" />
             </MenuItem>
+            <MenuItem Header="Start" Command="{Binding Bot.Start}" Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self} , Converter={StaticResource boolToVis}}" />
+            <MenuItem Header="Stop" Command="{Binding Bot.Stop}" Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self} , Converter={StaticResource boolToVis}}" />
         </Menu>
         <Views:ConsoleView DataContext="{Binding Console}" Grid.Row="1" Grid.Column="0"/>
         <Views:BotView Width="200" DataContext="{Binding Bot}" Grid.Row="1" Grid.Column="1"/>

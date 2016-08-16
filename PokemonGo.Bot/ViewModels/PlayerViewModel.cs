@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using POGOProtos.Enums;
 using PokemonGo.Bot.Messages;
+using PokemonGo.Bot.Utils;
 using PokemonGo.RocketAPI;
 using PokemonGo.RocketAPI.Bot;
 using System;
@@ -14,15 +15,15 @@ namespace PokemonGo.Bot.ViewModels
 {
     public class PlayerViewModel : ViewModelBase
     {
-        private readonly MapViewModel map;
-        private readonly Client client;
+        readonly MapViewModel map;
+        readonly Client client;
 
         public AsyncRelayCommand Login { get; }
         public AsyncRelayCommand LoadProfile { get; }
 
         public InventoryViewModel Inventory { get; }
 
-        private long xp;
+        long xp;
 
         public long Xp
         {
@@ -30,7 +31,7 @@ namespace PokemonGo.Bot.ViewModels
             set { if (Xp != value) { xp = value; RaisePropertyChanged(); } }
         }
 
-        private long nextLevelXP;
+        long nextLevelXP;
 
         public long NextLevelXP
         {
@@ -38,7 +39,7 @@ namespace PokemonGo.Bot.ViewModels
             set { if (NextLevelXP != value) { nextLevelXP = value; RaisePropertyChanged(); } }
         }
 
-        private long prevLevelXP;
+        long prevLevelXP;
 
         public long PrevLevelXp
         {
@@ -46,7 +47,7 @@ namespace PokemonGo.Bot.ViewModels
             set { if (PrevLevelXp != value) { prevLevelXP = value; RaisePropertyChanged(); } }
         }
 
-        private int level;
+        int level;
 
         public int Level
         {
@@ -54,7 +55,7 @@ namespace PokemonGo.Bot.ViewModels
             set { if (Level != value) { level = value; RaisePropertyChanged(); } }
         }
 
-        private int stardust;
+        int stardust;
 
         public int Stardust
         {
@@ -62,7 +63,7 @@ namespace PokemonGo.Bot.ViewModels
             set { if (Stardust != value) { stardust = value; RaisePropertyChanged(); } }
         }
 
-        private int pokecoins;
+        int pokecoins;
 
         public int Pokecoins
         {
@@ -70,7 +71,7 @@ namespace PokemonGo.Bot.ViewModels
             set { if (Pokecoins != value) { pokecoins = value; RaisePropertyChanged(); } }
         }
 
-        private string username;
+        string username;
 
         public string Username
         {
@@ -78,7 +79,7 @@ namespace PokemonGo.Bot.ViewModels
             set { if (Username != value) { username = value; RaisePropertyChanged(); } }
         }
 
-        private string team;
+        string team;
 
         public string Team
         {
@@ -86,7 +87,7 @@ namespace PokemonGo.Bot.ViewModels
             set { if (Team != value) { team = value; RaisePropertyChanged(); } }
         }
 
-        private Position3DViewModel position;
+        Position3DViewModel position;
 
         public Position3DViewModel Position
         {
@@ -94,7 +95,7 @@ namespace PokemonGo.Bot.ViewModels
             set { if (Position != value) { position = value; RaisePropertyChanged(); } }
         }
 
-        private bool isLoggedIn;
+        bool isLoggedIn;
 
         public bool IsLoggedIn
         {
@@ -109,48 +110,49 @@ namespace PokemonGo.Bot.ViewModels
             set { if (XpPerHour != value) { xpPerHour = value; RaisePropertyChanged(); } }
         }
 
-        private readonly double speedInmetersPerMillisecond;
+        readonly double minSpeedInmetersPerMillisecond;
+        readonly double maxSpeedInmetersPerMillisecond;
 
         public AsyncRelayCommand<Position2DViewModel> Move { get; }
 
-        private Task MoveToAsync(Position2DViewModel newPosition)
+        Task MoveToAsync(Position2DViewModel newPosition)
             => MoveToAsync(newPosition.To3D(Position.Altitute));
 
-        private Queue<KeyValuePair<DateTime, long>> xPValuesInLastHours = new Queue<KeyValuePair<DateTime, long>>();
+        Queue<KeyValuePair<DateTime, long>> xPValuesInLastHours = new Queue<KeyValuePair<DateTime, long>>();
 
+        Random random = new Random(DateTime.Now.Millisecond);
+        readonly Settings settings;
+
+        double GetRandomTravelSpeed() => random.NextDouble() * (maxSpeedInmetersPerMillisecond - minSpeedInmetersPerMillisecond) + minSpeedInmetersPerMillisecond;
         private async Task MoveToAsync(Position3DViewModel newPosition)
         {
-            var waitTime = Position.DistanceTo(newPosition) / speedInmetersPerMillisecond;
+            var waitTime = Position.DistanceTo(newPosition) / GetRandomTravelSpeed();
             var startTime = DateTime.Now;
             var targetTime = startTime.AddMilliseconds(waitTime);
             var targetVector = newPosition - Position;
             var startPosition = Position;
             var lastUpdateTime = startTime;
             var now = startTime;
-            while(now < targetTime)
+            while (now < targetTime)
             {
                 var msTraveled = (now - startTime).TotalMilliseconds;
                 var currentPosition = startPosition + (targetVector * (msTraveled / waitTime));
                 Position = currentPosition;
-
-                // update the position on the server every 10 seconds while walking.
-                if ((now - lastUpdateTime).TotalSeconds >= 10)
-                    await Task.WhenAll(Task.Delay(100), map.SetPosition.ExecuteAsync(Position));
-                else
-                    await Task.Delay(100);
+                await Task.WhenAll(map.SetPosition.ExecuteAsync(position), Task.Delay(100));
 
                 now = DateTime.Now;
             }
             Position = newPosition;
-            await map.SetPosition.ExecuteAsync(Position);
         }
 
         public PlayerViewModel(Client client, InventoryViewModel inventory, MapViewModel map, Settings settings)
         {
             this.client = client;
             this.map = map;
+            this.settings = settings;
             Inventory = inventory;
-            speedInmetersPerMillisecond = settings.TravelSpeed / 3600.0;
+            minSpeedInmetersPerMillisecond = settings.MinTravelSpeedInKmH / 3600.0;
+            maxSpeedInmetersPerMillisecond = settings.MaxTravelSpeedInKmH / 3600.0;
 
             Position = new Position3DViewModel(client.CurrentLatitude, client.CurrentLongitude, client.CurrentAltitude);
             LoadProfile = new AsyncRelayCommand(async () =>
@@ -173,6 +175,8 @@ namespace PokemonGo.Bot.ViewModels
                 await map.GetMapObjects.ExecuteAsync();
                 MessengerInstance.Send<Message>(new Message("LoadInventory"));
                 await Inventory.Load.ExecuteAsync();
+                await settings.DownloadSettingsAsync();
+                await settings.DownloadItemTemplatesAsync();
                 IsLoggedIn = true;
             });
             Move = new AsyncRelayCommand<Position2DViewModel>(MoveToAsync);

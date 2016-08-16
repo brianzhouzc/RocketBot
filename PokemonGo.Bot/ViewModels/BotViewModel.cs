@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using PokemonGo.Bot.BotActions;
+using PokemonGo.Bot.Utils;
 using PokemonGo.RocketAPI;
 using PokemonGo.RocketAPI.Bot;
 using System.Collections.Generic;
@@ -38,14 +39,14 @@ namespace PokemonGo.Bot.ViewModels
 
         public MapViewModel Map { get; }
 
-        public BotViewModel(Client client, PlayerViewModel player, MapViewModel map, Settings settings)
+        public BotViewModel(Client client, PlayerViewModel player, MapViewModel map)
         {
             Map = map;
             this.client = client;
             Start = new RelayCommand(AdvanceToNextAction, HasNextAction);
             Stop = new RelayCommand(StopCurrentAction, IsExecutingAction);
             Player = player;
-            actionFactory = new ActionFactory(this, client, settings);
+            actionFactory = new ActionFactory(this, client);
             AddAction = new RelayCommand<BotActionType>(param =>
             {
                 UpcomingActions.Add(actionFactory.Get(param));

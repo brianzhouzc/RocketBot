@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="PokemonGo.WPF.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:PokemonGo.WPF.Views"
+             xmlns:utils="clr-namespace:PokemonGo.Bot.Utils;assembly=PokemonGo.Bot"
+             xmlns:transfer="clr-namespace:PokemonGo.Bot.TransferPokemonAlgorithms;assembly=PokemonGo.Bot"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d"
+             d:DesignHeight="500" d:DesignWidth="500" d:DataContext="{d:DesignInstance utils:Settings, IsDesignTimeCreatable=True}">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="authTypeValues" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="utils:AuthType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="transferTypeValues" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="transfer:TransferPokemonAlgorithm"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label Content="Default Latitude" Grid.Row="0" Grid.Column="0" Height="25"/>
+        <TextBox Text="{Binding DefaultLatitude}" Grid.Row="0" Grid.Column="1" Height="25"/>
+        <Label Content="Default Longitude" Grid.Row="1" Grid.Column="0" Height="25"/>
+        <TextBox Text="{Binding DefaultLongitude}" Grid.Row="1" Grid.Column="1" Height="25"/>
+        <Label Content="Default Altitude" Grid.Row="2" Grid.Column="0" Height="25"/>
+        <TextBox Text="{Binding DefaultAltitude}" Grid.Row="2" Grid.Column="1" Height="25"/>
+        <Label Content="Auth Type" Grid.Row="3" Grid.Column="0" Height="25"/>
+        <ComboBox ItemsSource="{Binding Source={StaticResource authTypeValues}}" SelectedItem="{Binding AuthType}" Grid.Row="3" Grid.Column="1" Height="25"/>
+        <Label Content="Username" Grid.Row="4" Grid.Column="0" Height="25"/>
+        <TextBox Text="{Binding Username}" Grid.Row="4" Grid.Column="1" Height="25"/>
+        <Label Content="Password" Grid.Row="5" Grid.Column="0" Height="25"/>
+        <TextBox Text="{Binding Password}" Grid.Row="5" Grid.Column="1" Height="25"/>
+        <Label Content="Transfer Type" Grid.Row="6" Grid.Column="0" Height="25"/>
+        <ComboBox ItemsSource="{Binding Source={StaticResource transferTypeValues}}" SelectedItem="{Binding TransferType}" Grid.Row="6" Grid.Column="1" Height="25"/>
+        <Label Content="Do not transfer pokemon above CP" Grid.Row="7" Grid.Column="0" Height="25"/>
+        <TextBox Text="{Binding DoNotTransferPokemonAboveCP}" Grid.Row="7" Grid.Column="1" Height="25"/>
+        <Label Content="Do not transfer pokemon above IV" Grid.Row="8" Grid.Column="0" Height="25"/>
+        <TextBox Text="{Binding DoNotTransferPokemonAboveIV}" Grid.Row="8" Grid.Column="1" Height="25"/>
+        <Label Content="Use razzberry when Pokemon is above CP" Grid.Row="9" Grid.Column="0" Height="25"/>
+        <TextBox Text="{Binding UseRazzBerryWhenPokemonIsAboveCP}" Grid.Row="9" Grid.Column="1" Height="25"/>
+        <Label Content="Use razzberry when catch probability is below" Grid.Row="10" Grid.Column="0" Height="25"/>
+        <TextBox Text="{Binding UseRazzBerryWhenCatchProbabilityIsBelow}" Grid.Row="10" Grid.Column="1" Height="25"/>
+        <Label Content="Minimum travel speed in km/h" Grid.Row="11" Grid.Column="0" Height="25"/>
+        <TextBox Text="{Binding MinTravelSpeedInKmH}" Grid.Row="11" Grid.Column="1" Height="25"/>
+        <Label Content="Maximum travel speed in km/h" Grid.Row="12" Grid.Column="0" Height="25"/>
+        <TextBox Text="{Binding MaxTravelSpeedInKmH}" Grid.Row="12" Grid.Column="1" Height="25"/>
+        <Button Content="Save" Command="{Binding Save}" Grid.Row="13" Grid.Column="1" Height="25"/>
+    </Grid>
+</UserControl>

@@ -6,9 +6,9 @@ namespace PokemonGo.Bot.TransferPokemonAlgorithms
 {
     public class TransferPokemonAlgorithmIVDuplicateUnderCPThreshold : ITranferPokemonAlgorithm
     {
-        private readonly int threshold;
+        private readonly int? threshold;
 
-        public TransferPokemonAlgorithmIVDuplicateUnderCPThreshold(int threshold)
+        public TransferPokemonAlgorithmIVDuplicateUnderCPThreshold(int? threshold)
         {
             this.threshold = threshold;
         }

@@ -26,5 +26,14 @@ namespace PokemonGo.WPF
         {
             InitializeComponent();
         }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var settingsWindow = new SettingsWindow
+            {
+                DataContext = ((MainViewModel)DataContext).Settings
+            };
+            settingsWindow.ShowDialog();
+        }
     }
 }

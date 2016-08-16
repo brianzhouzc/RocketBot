@@ -8,6 +8,7 @@ using PokemonGo.RocketAPI;
 using GalaSoft.MvvmLight.Command;
 using PokemonGo.Bot.Messages;
 using POGOProtos.Networking.Responses;
+using System.Windows.Media;
 
 namespace PokemonGo.Bot.ViewModels
 {
@@ -33,17 +34,21 @@ namespace PokemonGo.Bot.ViewModels
                 throw new ArgumentException("This is not a caught pokemon.", nameof(pokemon));
 
             this.client = client;
+
+            Candy = inventory.GetCandyForFamily(FamilyId);
+
             Transfer = new AsyncRelayCommand(async () =>
             {
                 var response = await client.Inventory.TransferPokemon(Id);
                 if(response.Result == ReleasePokemonResponse.Types.Result.Success)
                 {
                     inventory.Pokemon.Remove(this);
-                    inventory.SetCandyForFamily(Candy + response.CandyAwarded, FamilyId);
+                    inventory.AddCandyForFamily(response.CandyAwarded, FamilyId);
+                    MessengerInstance.Send(new Message(Colors.Green, $"Transferred {Name} ({CombatPoints} CP, {PerfectPercentage:P2} IV). Got {response.CandyAwarded} Candy."));
                 }
                 else
                 {
-                    MessengerInstance.Send(new Message($"Error transferring {Name}: {Enum.GetName(typeof(ReleasePokemonResponse.Types.Result), response.Result)}"));
+                    MessengerInstance.Send(new Message(Colors.Red, $"Error transferring {Name}: {Enum.GetName(typeof(ReleasePokemonResponse.Types.Result), response.Result)}"));
                 }
             });
             ToggleFavorite = new AsyncRelayCommand(async () =>
@@ -58,7 +63,7 @@ namespace PokemonGo.Bot.ViewModels
                 var response = await client.Inventory.EvolvePokemon(Id);
                 if(response.Result == EvolvePokemonResponse.Types.Result.Success)
                 {
-                    inventory.SetCandyForFamily(Candy + response.CandyAwarded, FamilyId);
+                    inventory.AddCandyForFamily(Candy, FamilyId);
                     inventory.Player.Xp += response.ExperienceAwarded;
                     CombatPoints = response.EvolvedPokemonData.Cp;
                     PokemonId = (int)response.EvolvedPokemonData.PokemonId;

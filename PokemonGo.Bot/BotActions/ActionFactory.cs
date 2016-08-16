@@ -1,4 +1,5 @@
-﻿using PokemonGo.Bot.ViewModels;
+﻿using PokemonGo.Bot.Utils;
+using PokemonGo.Bot.ViewModels;
 using PokemonGo.RocketAPI;
 using PokemonGo.RocketAPI.Bot;
 using System;
@@ -7,15 +8,13 @@ namespace PokemonGo.Bot.BotActions
 {
     public class ActionFactory
     {
-        readonly Settings settings;
         readonly Client client;
         readonly BotViewModel bot;
 
-        public ActionFactory(BotViewModel bot, Client client, Settings settings)
+        public ActionFactory(BotViewModel bot, Client client)
         {
             this.bot = bot;
             this.client = client;
-            this.settings = settings;
         }
 
         public BotAction Get(BotActionType action)
@@ -23,7 +22,7 @@ namespace PokemonGo.Bot.BotActions
             switch (action)
             {
                 case BotActionType.Farm:
-                    return new FarmingAction(bot, client, settings);
+                    return new FarmingAction(bot, client);
 
                 case BotActionType.ForceUnban:
                     return new ForceUnbanAction(bot, client);

@@ -55,13 +55,28 @@ namespace PokemonGo.Bot.ViewModels
             }
         }
 
+        readonly IDictionary<int, int> candyForFamily = new Dictionary<int, int>();
+
         public void SetCandyForFamily(int amount, int familyId)
         {
+            candyForFamily[familyId] = amount;
             var pokemonForCandy = Pokemon.Where(p => p.FamilyId == familyId);
             foreach (var pokemonWithCorrectFamily in pokemonForCandy)
             {
                 pokemonWithCorrectFamily.Candy = amount;
             }
+        }
+
+        public int GetCandyForFamily(int familyId)
+        {
+            var amount = 0;
+            candyForFamily.TryGetValue(familyId, out amount);
+            return amount;
+        }
+
+        public void AddCandyForFamily(int amount, int familyId)
+        {
+            SetCandyForFamily(GetCandyForFamily(familyId) + amount, familyId);
         }
 
         void UpdatePlayer(InventoryDelta value)

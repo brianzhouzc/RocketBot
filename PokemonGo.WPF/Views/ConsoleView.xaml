@@ -12,9 +12,30 @@
         <ListView.ItemTemplate>
             <DataTemplate>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding Text}" Foreground="White"/>
+                    <TextBlock Text="{Binding CreationTime, StringFormat=[{0:hh:mm:ss}]}">
+                        <TextBlock.Foreground>
+                            <SolidColorBrush Color="{Binding Color}"/>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                    <TextBlock Text="{Binding Text}">
+                        <TextBlock.Foreground>
+                            <SolidColorBrush Color="{Binding Color}"/>
+                        </TextBlock.Foreground>
+                    </TextBlock>
                 </StackPanel>
             </DataTemplate>
         </ListView.ItemTemplate>
+        <ListView.ItemContainerStyle>
+            <Style TargetType="ListViewItem">
+                <Setter Property="IsSelected" Value="{Binding Content.IsSelected, Mode=TwoWay, RelativeSource={RelativeSource Self}}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListViewItem">
+                            <ContentPresenter/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ListView.ItemContainerStyle>
     </ListView>
 </UserControl>

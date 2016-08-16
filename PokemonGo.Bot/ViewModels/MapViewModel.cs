@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using PokemonGo.Bot.Utils;
+using System.Windows.Threading;
 
 namespace PokemonGo.Bot.ViewModels
 {
@@ -33,8 +35,13 @@ namespace PokemonGo.Bot.ViewModels
         }
 
         public RelayCommand<Position3DViewModel> SetLastPosition { get; }
+        readonly DispatcherTimer timer;
+        readonly Settings settings;
+        DateTime lastMapObjectsUpdateTime;
+        Position3DViewModel lastMapObjectUpdatePosition;
 
         PlayerViewModel player;
+
         public PlayerViewModel Player
         {
             get { return player; }
@@ -44,9 +51,16 @@ namespace PokemonGo.Bot.ViewModels
         public MapViewModel(Client client, Settings settings)
         {
             this.client = client;
+            this.settings = settings;
+
+            timer = new DispatcherTimer();
+            timer.Tick += Timer_Tick;
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Start();
 
             GetMapObjects = new AsyncRelayCommand(async () =>
             {
+                MessengerInstance.Send(new Messages.Message("GetMapObjects"));
                 var mapResponse = await client.Map.GetMapObjects();
                 var pokestopsFromResponse = mapResponse.Item1.MapCells.SelectMany(m => m.Forts).Where(f => f.Type == FortType.Checkpoint).Select(f => new PokestopViewModel(f, client, Player));
                 if(pokestopsFromResponse.Any())
@@ -67,11 +81,40 @@ namespace PokemonGo.Bot.ViewModels
 
             SetPosition = new AsyncRelayCommand<Position3DViewModel>(async pos =>
             {
-                await client.Player.UpdatePlayerLocation(pos.Latitude, pos.Longitude, pos.Altitute);
-                await GetMapObjects.ExecuteAsync();
+                //await client.Player.UpdatePlayerLocation(pos.Latitude, pos.Longitude, pos.Altitute);
+                //await GetMapObjects.ExecuteAsync();
+                client.Player.SetCoordinates(pos.Latitude, pos.Longitude, pos.Altitute);
+                await TryUpdateMap();
             });
 
             SetLastPosition = new RelayCommand<Position3DViewModel>(pos => LastClickedPosition = pos);
+        }
+
+        async void Timer_Tick(object sender, EventArgs e)
+        {
+            await TryUpdateMap();
+        }
+
+        async Task TryUpdateMap()
+        {
+            if (Player != null && settings?.Map != null)
+            {
+                var now = DateTime.Now;
+                var position = Player.Position;
+                if (lastMapObjectUpdatePosition == null)
+                    lastMapObjectUpdatePosition = position;
+
+                // update when player has moved or when max update time has passed,
+                // but never before min update time has passed.
+                if (now >= lastMapObjectsUpdateTime.AddSeconds(settings.Map.GetMapObjectsMinRefreshSeconds) &&
+                    (now.AddSeconds(1) >= lastMapObjectsUpdateTime.AddSeconds(settings.Map.GetMapObjectsMaxRefreshSeconds) ||
+                    position.DistanceTo(lastMapObjectUpdatePosition) >= settings.Map.GetMapObjectsMinDistanceMeters))
+                {
+                    lastMapObjectsUpdateTime = now;
+                    lastMapObjectUpdatePosition = position;
+                    await GetMapObjects.ExecuteAsync();
+                }
+            }
         }
     }
 }

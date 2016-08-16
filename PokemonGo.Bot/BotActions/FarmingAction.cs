@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using PokemonGo.Bot.Utils;
 using PokemonGo.Bot.ViewModels;
 using PokemonGo.RocketAPI;
 using PokemonGo.RocketAPI.Bot;
@@ -14,15 +15,13 @@ namespace PokemonGo.Bot.BotActions
 {
     public class FarmingAction : BotAction
     {
-        readonly Settings settings;
         readonly Client client;
         bool shouldStop;
         IEnumerable<PokestopViewModel> route;
 
-        public FarmingAction(BotViewModel bot, Client client, Settings settings) : base(bot, "Farm")
+        public FarmingAction(BotViewModel bot, Client client) : base(bot, "Farm")
         {
             this.client = client;
-            this.settings = settings;
         }
 
         [SuppressMessage("Await.Warning", "CS4014:Await.Warning", Justification = "ExecuteAsync runs in an infinite loop.")]
