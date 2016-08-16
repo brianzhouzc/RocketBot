@@ -19,6 +19,7 @@
 ## Window
 ![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/MainForm.png)  
 ![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/SettingForm.png)
+![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/DeviceSettingForm.png)
 
 
 A Pokémon Go bot in C#
@@ -62,18 +63,18 @@ Click Start Bot and enjoy!
 ## For users:
 You can contribute in many ways, here are some that you can do to help the project out!
 ### Join discord channel and help answer questions
-We have more and more users everyday, so we have alot of questions form new users who haven't fully understand how the bot works yet. If you want to help them out, join our official discord channel :)
+We have more and more users everyday, so we have a lot of questions from new users who haven't fully understand how the bot works yet. If you want to help them out, join our official discord channel :)
 ### Answer questions in [issues](https://github.com/1461748123/Pokemon-Go-Rocket-API/issues)
 Same as above, you can help by answering questions in the [issues](https://github.com/1461748123/Pokemon-Go-Rocket-API/issues) tab!
 ### Report bugs
 Report bugs you found in [issues](https://github.com/1461748123/Pokemon-Go-Rocket-API/issues).  
-In order to help us fix the problem, please take a screenshot of the error you get and also attatch your log file (under the Logs folder) as well. Add [Bug] to the title to help us quickly identify the category of the issue.  
+In order to help us fix the problem, please take a screenshot of the error you get and also attach your log file (under the Logs folder) as well. Add [Bug] to the title to help us quickly identify the category of the issue.  
 ### Suggestions/ideas
 Tell us what you think we can do better in [issues](https://github.com/1461748123/Pokemon-Go-Rocket-API/issues).  
 Give detailed discription to help us understand what you are looking for. Add [Suggestion] to the title to help us quickly identify the category of the issue. Your suggestion might not be accept, but hey, maybe we will accept your suggestion next time! :)
 ## For developers:
 You can contribute to the project by helping us on coding.  
-Fork this project and creat a new branch to add your code or fix a know issue.  
+Fork this project and create a new branch to add your code or fix a known issue.  
 Use pull request to submit your code. Remember, submit to *Beta-Build* branch! :D
 ## Donations
 We are not accepting donations currently :) If you really wanna contribute, consider doing the stuff above! :D
