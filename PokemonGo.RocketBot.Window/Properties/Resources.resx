@@ -1984,4 +1984,10 @@
   <data name="Pokemon_99" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Pokemon\Pokemon_99.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Pokestop_Inrange" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Pokestop_Inrange.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Trainer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Trainer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
