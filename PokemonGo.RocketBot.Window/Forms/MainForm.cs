@@ -25,6 +25,7 @@ using PokemonGo.RocketBot.Logic.Logging;
 using PokemonGo.RocketBot.Logic.PoGoUtils;
 using PokemonGo.RocketBot.Logic.Service;
 using PokemonGo.RocketBot.Logic.State;
+using PokemonGo.RocketBot.Logic.Tasks;
 using PokemonGo.RocketBot.Logic.Utils;
 using PokemonGo.RocketBot.Window.Helpers;
 using PokemonGo.RocketBot.Window.Models;
@@ -34,8 +35,6 @@ using POGOProtos.Inventory;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Fort;
 using POGOProtos.Networking.Responses;
-using PokemonGo.RocketAPI.Extensions;
-using PokemonGo.RocketBot.Logic.Tasks;
 
 namespace PokemonGo.RocketBot.Window.Forms
 {
@@ -100,7 +99,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             gMapControl1.Overlays.Add(_playerOverlay);
 
             _playerMarker = new GMapMarkerTrainer(new PointLatLng(lat, lng),
-                (Image)Properties.Resources.ResourceManager.GetObject("Trainer"));
+                (Image) Properties.Resources.ResourceManager.GetObject("Trainer"));
             _playerOverlay.Markers.Add(_playerMarker);
             _playerMarker.Position = new PointLatLng(lat, lng);
             _searchAreaOverlay.Polygons.Clear();
@@ -191,22 +190,22 @@ namespace PokemonGo.RocketBot.Window.Forms
             Logger.SetLoggerContext(_session);
 
             _session.Navigation.UpdatePositionEvent +=
-                (lat, lng) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng });
+                (lat, lng) => _session.EventDispatcher.Send(new UpdatePositionEvent {Latitude = lat, Longitude = lng});
             _session.Navigation.UpdatePositionEvent += Navigation_UpdatePositionEvent;
 
             RouteOptimizeUtil.RouteOptimizeEvent +=
                 optimizedroute =>
-                    _session.EventDispatcher.Send(new OptimizeRouteEvent { OptimizedRoute = optimizedroute });
+                    _session.EventDispatcher.Send(new OptimizeRouteEvent {OptimizedRoute = optimizedroute});
             RouteOptimizeUtil.RouteOptimizeEvent += InitializePokestopsAndRoute;
 
             FarmPokestopsTask.LootPokestopEvent +=
-                pokestop => _session.EventDispatcher.Send(new LootPokestopEvent { Pokestop = pokestop });
+                pokestop => _session.EventDispatcher.Send(new LootPokestopEvent {Pokestop = pokestop});
             FarmPokestopsTask.LootPokestopEvent += UpdateMap;
         }
 
         private async Task StartBot()
         {
-            this.startStopBotToolStripMenuItem.Enabled = false;
+            startStopBotToolStripMenuItem.Enabled = false;
             _machine.AsyncStart(new VersionCheckState(), _session);
 
             if (_settings.UseTelegramAPI)
@@ -224,8 +223,8 @@ namespace PokemonGo.RocketBot.Window.Forms
             _pokestopsOverlay.Markers.Clear();
             var routePoint =
                 (from pokeStop in pokeStops
-                 where pokeStop != null
-                 select new PointLatLng(pokeStop.Latitude, pokeStop.Longitude)).ToList();
+                    where pokeStop != null
+                    select new PointLatLng(pokeStop.Latitude, pokeStop.Longitude)).ToList();
             _pokestopsOverlay.Routes.Clear();
             var route = new GMapRoute(routePoint, "Walking Path");
             route.Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4);
@@ -235,13 +234,12 @@ namespace PokemonGo.RocketBot.Window.Forms
             {
                 var pokeStopLoc = new PointLatLng(pokeStop.Latitude, pokeStop.Longitude);
                 var pokestopMarker = new GMapMarkerPokestops(pokeStopLoc,
-                    (Image)Properties.Resources.ResourceManager.GetObject("Pokestop"));
+                    (Image) Properties.Resources.ResourceManager.GetObject("Pokestop"));
                 _pokestopsOverlay.Markers.Add(pokestopMarker);
             }
-
         }
 
-        private new void UpdateMap(FortData pokestop = null)
+        private void UpdateMap(FortData pokestop = null)
         {
             SynchronizationContext.Post(o =>
             {
@@ -251,7 +249,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
                     lock (_pokestopsOverlay.Markers)
                     {
-                        for (int i = 0; i < _pokestopsOverlay.Markers.Count; i++)
+                        for (var i = 0; i < _pokestopsOverlay.Markers.Count; i++)
                         {
                             var marker = _pokestopsOverlay.Markers[i];
                             if (marker.Position == pokeStopLoc)
@@ -260,7 +258,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                     }
 
                     GMapMarker pokestopMarker = new GMapMarkerPokestops(pokeStopLoc,
-                        (Image)Properties.Resources.ResourceManager.GetObject("Pokestop_looted"));
+                        (Image) Properties.Resources.ResourceManager.GetObject("Pokestop_looted"));
                     //pokestopMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
                     //pokestopMarker.ToolTip = new GMapBaloonToolTip(pokestopMarker);
                     _pokestopsOverlay.Markers.Add(pokestopMarker);
@@ -392,20 +390,20 @@ namespace PokemonGo.RocketBot.Window.Forms
         {
             //olvPokemonList.ButtonClick += PokemonListButton_Click;
 
-            pkmnName.ImageGetter = delegate (object rowObject)
+            pkmnName.ImageGetter = delegate(object rowObject)
             {
                 var pokemon = rowObject as PokemonObject;
 
                 var key = pokemon.PokemonId.ToString();
                 if (!olvPokemonList.SmallImageList.Images.ContainsKey(key))
                 {
-                    var img = GetPokemonImage((int)pokemon.PokemonId);
+                    var img = GetPokemonImage((int) pokemon.PokemonId);
                     olvPokemonList.SmallImageList.Images.Add(key, img);
                 }
                 return key;
             };
 
-            olvPokemonList.FormatRow += delegate (object sender, FormatRowEventArgs e)
+            olvPokemonList.FormatRow += delegate(object sender, FormatRowEventArgs e)
             {
                 var pok = e.Model as PokemonObject;
                 if (olvPokemonList.Objects.Cast<PokemonObject>()
@@ -423,7 +421,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 }
             };
 
-            cmsPokemonList.Opening += delegate (object sender, CancelEventArgs e)
+            cmsPokemonList.Opening += delegate(object sender, CancelEventArgs e)
             {
                 e.Cancel = false;
                 cmsPokemonList.Items.Clear();
@@ -679,7 +677,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private Image GetPokemonImage(int pokemonId)
         {
-            return (Image)Properties.Resources.ResourceManager.GetObject("Pokemon_" + pokemonId);
+            return (Image) Properties.Resources.ResourceManager.GetObject("Pokemon_" + pokemonId);
         }
 
         private async Task ReloadPokemonList()
@@ -724,7 +722,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 {
                     var pokemonObject = new PokemonObject(pokemon);
                     var family =
-                        _families.Where(i => (int)i.FamilyId <= (int)pokemon.PokemonId)
+                        _families.Where(i => (int) i.FamilyId <= (int) pokemon.PokemonId)
                             .First();
                     pokemonObject.Candy = family.Candy_;
                     pokemonObjects.Add(pokemonObject);
@@ -778,7 +776,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private async void ItemBox_ItemClick(object sender, EventArgs e)
         {
-            var item = (ItemData)sender;
+            var item = (ItemData) sender;
 
             using (var form = new ItemForm(item))
             {
@@ -847,12 +845,14 @@ namespace PokemonGo.RocketBot.Window.Forms
                         if (response.Result == RecycleInventoryItemResponse.Types.Result.Success)
                         {
                             Logger.Write(
-                                $"Recycled {decimal.ToInt32(form.numCount.Value)}x {item.ItemId.ToString().Substring(4)}", LogLevel.Recycling);
+                                $"Recycled {decimal.ToInt32(form.numCount.Value)}x {item.ItemId.ToString().Substring(4)}",
+                                LogLevel.Recycling);
                         }
                         else
                         {
                             Logger.Write(
-                                $"Unable to recycle {decimal.ToInt32(form.numCount.Value)}x {item.ItemId.ToString().Substring(4)}", LogLevel.Error);
+                                $"Unable to recycle {decimal.ToInt32(form.numCount.Value)}x {item.ItemId.ToString().Substring(4)}",
+                                LogLevel.Error);
                         }
                     }
                     ReloadPokemonList();
