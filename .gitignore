@@ -250,7 +250,3 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
-
-#Submodules
-POGOProtos/
-PokemonGo.RocketAPI/
