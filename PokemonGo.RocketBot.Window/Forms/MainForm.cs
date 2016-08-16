@@ -76,6 +76,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             {
                 startStopBotToolStripMenuItem.Enabled = false;
                 Logger.Write("First time here? Go to settings to set your basic info.");
+                GlobalSettings.Load("");
             }
         }
 
