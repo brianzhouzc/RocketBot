@@ -816,47 +816,46 @@ namespace PokemonGo.RocketBot.Window.Forms
                         var response = await _session.Client.Inventory.UseItemXpBoost();
                         if (response.Result == UseItemXpBoostResponse.Types.Result.Success)
                         {
-                            ColoredConsoleWrite(Color.Green, $"Using a Lucky Egg");
-                            ColoredConsoleWrite(Color.Yellow, $"Lucky Egg valid until: {DateTime.Now.AddMinutes(30)}");
+                            Logger.Write($"Using a Lucky Egg");
+                            Logger.Write($"Lucky Egg valid until: {DateTime.Now.AddMinutes(30)}");
                         }
                         else if (response.Result == UseItemXpBoostResponse.Types.Result.ErrorXpBoostAlreadyActive)
                         {
-                            ColoredConsoleWrite(Color.Orange, $"A Lucky Egg is already active!");
+                            Logger.Write($"A Lucky Egg is already active!", LogLevel.Warning);
                         }
                         else if (response.Result == UseItemXpBoostResponse.Types.Result.ErrorLocationUnset)
                         {
-                            ColoredConsoleWrite(Color.Red, $"Bot must be running first!");
+                            Logger.Write($"Bot must be running first!", LogLevel.Error);
                         }
                         else
                         {
-                            ColoredConsoleWrite(Color.Red, $"Failed using a Lucky Egg!");
+                            Logger.Write($"Failed using a Lucky Egg!", LogLevel.Error);
                         }
                     }
                     else if (item.ItemId == ItemId.ItemIncenseOrdinary)
                     {
                         if (_session.Client == null)
                         {
-                            ColoredConsoleWrite(Color.Red, $"Bot must be running first!");
+                            Logger.Write($"Bot must be running first!", LogLevel.Error);
                             SetState(true);
                             return;
                         }
                         var response = await _session.Client.Inventory.UseIncense(ItemId.ItemIncenseOrdinary);
                         if (response.Result == UseIncenseResponse.Types.Result.Success)
                         {
-                            ColoredConsoleWrite(Color.Green, $"Using an incense");
-                            ColoredConsoleWrite(Color.Yellow, $"Incense valid until: {DateTime.Now.AddMinutes(30)}");
+                            Logger.Write($"Incense valid until: {DateTime.Now.AddMinutes(30)}");
                         }
                         else if (response.Result == UseIncenseResponse.Types.Result.IncenseAlreadyActive)
                         {
-                            ColoredConsoleWrite(Color.Orange, $"An incense is already active!");
+                            Logger.Write($"An incense is already active!", LogLevel.Warning);
                         }
                         else if (response.Result == UseIncenseResponse.Types.Result.LocationUnset)
                         {
-                            ColoredConsoleWrite(Color.Red, $"Bot must be running first!");
+                            Logger.Write($"Bot must be running first!", LogLevel.Error);
                         }
                         else
                         {
-                            ColoredConsoleWrite(Color.Red, $"Failed using an incense!");
+                            Logger.Write($"Failed using an incense!", LogLevel.Error);
                         }
                     }
                     else
@@ -866,13 +865,13 @@ namespace PokemonGo.RocketBot.Window.Forms
                                 _session.Client.Inventory.RecycleItem(item.ItemId, decimal.ToInt32(form.numCount.Value));
                         if (response.Result == RecycleInventoryItemResponse.Types.Result.Success)
                         {
-                            ColoredConsoleWrite(Color.DarkCyan,
-                                $"Recycled {decimal.ToInt32(form.numCount.Value)}x {item.ItemId.ToString().Substring(4)}");
+                            Logger.Write(
+                                $"Recycled {decimal.ToInt32(form.numCount.Value)}x {item.ItemId.ToString().Substring(4)}", LogLevel.Recycling);
                         }
                         else
                         {
-                            ColoredConsoleWrite(Color.Red,
-                                $"Unable to recycle {decimal.ToInt32(form.numCount.Value)}x {item.ItemId.ToString().Substring(4)}");
+                            Logger.Write(
+                                $"Unable to recycle {decimal.ToInt32(form.numCount.Value)}x {item.ItemId.ToString().Substring(4)}", LogLevel.Error);
                         }
                     }
                     ReloadPokemonList();

@@ -1,4 +1,6 @@
-﻿namespace PokemonGo.RocketBot.Window.Forms
+﻿using System.Windows.Forms;
+
+namespace PokemonGo.RocketBot.Window.Forms
 {
     partial class MainForm
     {
@@ -87,7 +89,8 @@
             this.logTextBox.Location = new System.Drawing.Point(0, 0);
             this.logTextBox.Name = "logTextBox";
             this.logTextBox.ReadOnly = true;
-            this.logTextBox.Size = new System.Drawing.Size(554, 267);
+            this.logTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
+            this.logTextBox.Size = new System.Drawing.Size(611, 245);
             this.logTextBox.TabIndex = 0;
             this.logTextBox.Text = "";
             // 
@@ -168,7 +171,7 @@
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(548, 196);
+            this.gMapControl1.Size = new System.Drawing.Size(605, 218);
             this.gMapControl1.TabIndex = 23;
             this.gMapControl1.Zoom = 0D;
             // 
@@ -217,7 +220,7 @@
             this.olvPokemonList.Name = "olvPokemonList";
             this.olvPokemonList.RowHeight = 32;
             this.olvPokemonList.ShowGroups = false;
-            this.olvPokemonList.Size = new System.Drawing.Size(690, 298);
+            this.olvPokemonList.Size = new System.Drawing.Size(633, 298);
             this.olvPokemonList.SmallImageList = this.smallPokemonImageList;
             this.olvPokemonList.TabIndex = 25;
             this.olvPokemonList.UseCompatibleStateImageBehavior = false;
@@ -341,7 +344,7 @@
             this.btnRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRefresh.Location = new System.Drawing.Point(3, 446);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(690, 26);
+            this.btnRefresh.Size = new System.Drawing.Size(633, 26);
             this.btnRefresh.TabIndex = 26;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -365,7 +368,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.olvPokemonList);
             this.splitContainer1.Panel2.Controls.Add(this.btnRefresh);
             this.splitContainer1.Size = new System.Drawing.Size(1254, 473);
-            this.splitContainer1.SplitterDistance = 554;
+            this.splitContainer1.SplitterDistance = 611;
             this.splitContainer1.TabIndex = 27;
             // 
             // splitContainer2
@@ -382,8 +385,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.gMapControl1);
-            this.splitContainer2.Size = new System.Drawing.Size(554, 473);
-            this.splitContainer2.SplitterDistance = 267;
+            this.splitContainer2.Size = new System.Drawing.Size(611, 473);
+            this.splitContainer2.SplitterDistance = 245;
             this.splitContainer2.TabIndex = 0;
             // 
             // lblInventory
@@ -393,7 +396,7 @@
             this.lblInventory.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblInventory.Location = new System.Drawing.Point(3, 431);
             this.lblInventory.Name = "lblInventory";
-            this.lblInventory.Size = new System.Drawing.Size(690, 12);
+            this.lblInventory.Size = new System.Drawing.Size(633, 12);
             this.lblInventory.TabIndex = 33;
             this.lblInventory.Text = "0 / 0 ";
             this.lblInventory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -408,7 +411,7 @@
             this.flpItems.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flpItems.Location = new System.Drawing.Point(3, 317);
             this.flpItems.Name = "flpItems";
-            this.flpItems.Size = new System.Drawing.Size(690, 111);
+            this.flpItems.Size = new System.Drawing.Size(633, 111);
             this.flpItems.TabIndex = 32;
             // 
             // lblPokemonList
@@ -418,7 +421,7 @@
             this.lblPokemonList.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPokemonList.Location = new System.Drawing.Point(3, 303);
             this.lblPokemonList.Name = "lblPokemonList";
-            this.lblPokemonList.Size = new System.Drawing.Size(690, 11);
+            this.lblPokemonList.Size = new System.Drawing.Size(633, 11);
             this.lblPokemonList.TabIndex = 27;
             this.lblPokemonList.Text = "0 / 0";
             this.lblPokemonList.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
