@@ -67,7 +67,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Text = @"[RocketBot] " + Assembly.GetExecutingAssembly().GetName().Version;
+            Text = @"RocketBot v" + Assembly.GetExecutingAssembly().GetName().Version;
             InitializeBot();
             InitializePokemonForm();
             InitializeMap();
