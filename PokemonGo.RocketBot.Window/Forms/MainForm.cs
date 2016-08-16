@@ -365,7 +365,8 @@ namespace PokemonGo.RocketBot.Window.Forms
                 Instance.Invoke(new Action<Color, string>(ColoredConsoleWrite), color, message);
                 return;
             }
-            Instance.logTextBox.Select(Instance.logTextBox.Text.Length, 1); // Reset cursor to last
+            Instance.logTextBox.SelectionStart = Instance.logTextBox.Text.Length;
+            Instance.logTextBox.ScrollToCaret();
             Instance.logTextBox.SelectionColor = color;
             Instance.logTextBox.AppendText(message);
         }
