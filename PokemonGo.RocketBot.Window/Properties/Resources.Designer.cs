@@ -1813,9 +1813,19 @@ namespace PokemonGo.RocketBot.Window.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Pokestop_Inrange {
+        internal static System.Drawing.Bitmap Pokestop {
             get {
-                object obj = ResourceManager.GetObject("Pokestop_Inrange", resourceCulture);
+                object obj = ResourceManager.GetObject("Pokestop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Pokestop_looted {
+            get {
+                object obj = ResourceManager.GetObject("Pokestop_looted", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

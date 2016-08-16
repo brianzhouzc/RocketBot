@@ -112,6 +112,7 @@
     <Compile Include="Event\FortUsedEvent.cs" />
     <Compile Include="Event\InventoryListEvent.cs" />
     <Compile Include="Event\ItemRecycledEvent.cs" />
+    <Compile Include="Event\LootPokestopEvent.cs" />
     <Compile Include="Event\NoPokeballEvent.cs" />
     <Compile Include="Event\OptimizeRouteEvent.cs" />
     <Compile Include="Event\SnipeEvent.cs" />

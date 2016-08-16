@@ -22,7 +22,10 @@ namespace PokemonGo.RocketBot.Logic.Tasks
     public static class FarmPokestopsTask
     {
         public static int TimesZeroXPawarded;
-        private static int storeRI;
+        private static int _storeRi;
+
+        public delegate void LootPokestopDelegate(FortData pokestop);
+
         public static async Task Execute(ISession session, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -51,7 +54,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
 
             var stopsHit = 0;
             var rc = new Random(); //initialize pokestop random cleanup counter first time
-            storeRI = rc.Next(8, 15);
+            _storeRi = rc.Next(8, 15);
             var eggWalker = new EggWalker(1000, session);
 
             if (pokestopList.Count <= 0)
@@ -78,10 +81,10 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                 session.LogicSettings.WalkingSpeedInKilometerPerHour,
                 async () =>
                 {
-                        // Catch normal map Pokemon
-                        await CatchNearbyPokemonsTask.Execute(session, cancellationToken);
-                        //Catch Incense Pokemon
-                        await CatchIncensePokemonsTask.Execute(session, cancellationToken);
+                    // Catch normal map Pokemon
+                    await CatchNearbyPokemonsTask.Execute(session, cancellationToken);
+                    //Catch Incense Pokemon
+                    await CatchIncensePokemonsTask.Execute(session, cancellationToken);
                     return true;
                 }, cancellationToken, session.LogicSettings.DisableHumanWalking);
 
@@ -156,8 +159,9 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                         });
 
                         if (fortSearch.Result == FortSearchResponse.Types.Result.InventoryFull)
-                            storeRI = 1;
+                            _storeRi = 1;
 
+                        OnLootPokestopEvent(pokeStop);
                         break; //Continue with program as loot was succesfull.
                     }
                 } while (fortTry < retryNumber - zeroCheck);
@@ -165,9 +169,9 @@ namespace PokemonGo.RocketBot.Logic.Tasks
 
                 await eggWalker.ApplyDistance(distance, cancellationToken);
 
-                if (++stopsHit >= storeRI) //TODO: OR item/pokemon bag is full //check stopsHit against storeRI random without dividing.
+                if (++stopsHit >= _storeRi) //TODO: OR item/pokemon bag is full //check stopsHit against storeRI random without dividing.
                 {
-                    storeRI = rc.Next(6, 12); //set new storeRI for new random value
+                    _storeRi = rc.Next(6, 12); //set new storeRI for new random value
                     stopsHit = 0;
 
                     await RecycleItemsTask.Execute(session, cancellationToken);
@@ -231,5 +235,12 @@ namespace PokemonGo.RocketBot.Logic.Tasks
 
             return pokeStops.ToList();
         }
+
+        private static void OnLootPokestopEvent(FortData pokestop)
+        {
+            LootPokestopEvent?.Invoke(pokestop);
+        }
+
+        public static event LootPokestopDelegate LootPokestopEvent;
     }
 }
