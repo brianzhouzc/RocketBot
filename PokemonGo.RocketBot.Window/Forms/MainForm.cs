@@ -57,7 +57,6 @@ namespace PokemonGo.RocketBot.Window.Forms
         private readonly GMapOverlay _searchAreaOverlay = new GMapOverlay("areas");
         private ConsoleLogger _logger;
         private StateMachine _machine;
-        private List<FortData> _pokeStops;
         private GlobalSettings _settings;
 
         public MainForm()
@@ -69,6 +68,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            Text = @"[RocketBot] " + Assembly.GetExecutingAssembly().GetName().Version;
             InitializeBot();
             InitializePokemonForm();
             InitializeMap();
@@ -152,26 +152,6 @@ namespace PokemonGo.RocketBot.Window.Forms
                 menuStrip1.ShowItemToolTips = true;
                 startStopBotToolStripMenuItem.ToolTipText = @"Please goto settings and enter your basic info";
                 return;
-                /** if (GlobalSettings.PromptForSetup(session.Translation) && !settings.isGui)
-                {
-                    session = GlobalSettings.SetupSettings(session, settings, configFile);
-
-                    if (!settings.isGui)
-                    {
-                        var fileName = Assembly.GetExecutingAssembly().Location;
-                        System.Diagnostics.Process.Start(fileName);
-                        Environment.Exit(0);
-                    }
-                }
-                else
-                {
-                    GlobalSettings.Load(subPath);
-
-                    Logger.Write("Press a Key to continue...",
-                        LogLevel.Warning);
-                    Console.ReadKey();
-                    return;
-                } **/
             }
             _session.Client.ApiFailure = new ApiFailureStrategy(_session);
 
@@ -217,15 +197,16 @@ namespace PokemonGo.RocketBot.Window.Forms
             RouteOptimizeUtil.RouteOptimizeEvent +=
                 optimizedroute =>
                     _session.EventDispatcher.Send(new OptimizeRouteEvent { OptimizedRoute = optimizedroute });
-            RouteOptimizeUtil.RouteOptimizeEvent += Visualize;
+            RouteOptimizeUtil.RouteOptimizeEvent += InitializePokestopsAndRoute;
 
             FarmPokestopsTask.LootPokestopEvent +=
                 pokestop => _session.EventDispatcher.Send(new LootPokestopEvent { Pokestop = pokestop });
-            FarmPokestopsTask.LootPokestopEvent += Update;
+            FarmPokestopsTask.LootPokestopEvent += UpdateMap;
         }
 
         private async Task StartBot()
         {
+            this.startStopBotToolStripMenuItem.Enabled = false;
             _machine.AsyncStart(new VersionCheckState(), _session);
 
             if (_settings.UseTelegramAPI)
@@ -238,7 +219,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             QuitEvent.WaitOne();
         }
 
-        private async void Visualize(List<FortData> pokeStops)
+        private async void InitializePokestopsAndRoute(List<FortData> pokeStops)
         {
             _pokestopsOverlay.Markers.Clear();
             var routePoint =
@@ -260,7 +241,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         }
 
-        private new void Update(FortData pokestop = null)
+        private new void UpdateMap(FortData pokestop = null)
         {
             SynchronizationContext.Post(o =>
             {
@@ -299,7 +280,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             var latlng = new PointLatLng(lat, lng);
             _playerLocations.Add(latlng);
             _playerMarker.Position = latlng;
-            Update();
+            UpdateMap();
             SaveLocationToDisk(lat, lng);
         }
 

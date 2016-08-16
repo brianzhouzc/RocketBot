@@ -132,9 +132,11 @@ namespace PokemonGo.RocketBot.Window.Forms
             // 
             // todoToolStripMenuItem
             // 
+            this.todoToolStripMenuItem.Enabled = false;
             this.todoToolStripMenuItem.Name = "todoToolStripMenuItem";
-            this.todoToolStripMenuItem.Size = new System.Drawing.Size(66, 21);
-            this.todoToolStripMenuItem.Text = "Settings";
+            this.todoToolStripMenuItem.Size = new System.Drawing.Size(540, 21);
+            this.todoToolStripMenuItem.Text = "Settings (Not finish yet, please go to the config folder and set your information" +
+    " manually)";
             this.todoToolStripMenuItem.Click += new System.EventHandler(this.todoToolStripMenuItem_Click);
             // 
             // showAllToolStripMenuItem
@@ -439,7 +441,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PokemonGo Rocket API";
+            this.Text = "RocketBot";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
