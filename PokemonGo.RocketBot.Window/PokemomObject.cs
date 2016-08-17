@@ -95,6 +95,16 @@ namespace PokemonGo.RocketBot.Window
             get { return EvolveTimes > 0; }
         }
 
+        public String Move1
+        {
+            get { return PokemonData.Move1.ToString();  }
+        }
+
+        public String Move2
+        {
+            get { return PokemonData.Move2.ToString();  }
+        }
+
         public static void Initilize(DownloadItemTemplatesResponse itemtemplates)
         {
             if (!_initialized)

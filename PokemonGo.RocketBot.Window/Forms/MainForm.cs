@@ -742,20 +742,10 @@ namespace PokemonGo.RocketBot.Window.Forms
                 var itemTemplates = await _session.Client.Download.GetItemTemplates();
                 var inventory = await _session.Inventory.GetCachedInventory();
                 var profile = await _session.Client.Player.GetPlayer();
-                var appliedItems = new Dictionary<ItemId, DateTime>();
                 var inventoryAppliedItems =
                     await _session.Inventory.GetAppliedItems();
 
-                foreach (var aItems in inventoryAppliedItems)
-                {
-                    if (aItems != null && aItems.Item != null)
-                    {
-                        foreach (var item in aItems.Item)
-                        {
-                            appliedItems.Add(item.ItemId, Utils.FromUnixTimeUtc(item.ExpireMs));
-                        }
-                    }
-                }
+                var appliedItems = inventoryAppliedItems.Where(aItems => aItems?.Item != null).SelectMany(aItems => aItems.Item).ToDictionary(item => item.ItemId, item => Utils.FromUnixTimeUtc(item.ExpireMs));
 
                 PokemonObject.Initilize(itemTemplates);
 
@@ -763,7 +753,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                     inventory.InventoryDelta.InventoryItems.Select(i => i?.InventoryItemData?.PokemonData)
                         .Where(p => p != null && p?.PokemonId > 0)
                         .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
-                        .OrderByDescending(key => key.Cp)
+                        .ThenByDescending(key => key.Cp)
                         .OrderBy(key => key.PokemonId);
                 _families = inventory.InventoryDelta.InventoryItems
                     .Select(i => i.InventoryItemData.Candy)
@@ -774,9 +764,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 foreach (var pokemon in pokemons)
                 {
                     var pokemonObject = new PokemonObject(pokemon);
-                    var family =
-                        _families.Where(i => (int) i.FamilyId <= (int) pokemon.PokemonId)
-                            .First();
+                    var family = _families.First(i => (int) i.FamilyId <= (int) pokemon.PokemonId);
                     pokemonObject.Candy = family.Candy_;
                     pokemonObjects.Add(pokemonObject);
                 }
@@ -786,13 +774,13 @@ namespace PokemonGo.RocketBot.Window.Forms
                 olvPokemonList.TopItemIndex = prevTopItem;
 
                 var pokemoncount =
-                    inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PokemonData)
-                        .Where(p => p != null && p?.PokemonId > 0)
-                        .Count();
+                    inventory.InventoryDelta.InventoryItems
+                        .Select(i => i.InventoryItemData?.PokemonData)
+                        .Count(p => p != null && p?.PokemonId > 0);
                 var eggcount =
-                    inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PokemonData)
-                        .Where(p => p != null && p?.IsEgg == true)
-                        .Count();
+                    inventory.InventoryDelta.InventoryItems
+                        .Select(i => i.InventoryItemData?.PokemonData)
+                        .Count(p => p != null && p?.IsEgg == true);
                 lblPokemonList.Text = pokemoncount + eggcount + " / " + profile.PlayerData.MaxPokemonStorage + " (" +
                                       pokemoncount + " pokemon, " + eggcount + " eggs)";
 
@@ -834,10 +822,11 @@ namespace PokemonGo.RocketBot.Window.Forms
             using (var form = new ItemForm(item))
             {
                 var result = form.ShowDialog();
-                if (result == DialogResult.OK)
+                if (result != DialogResult.OK) return;
+                SetState(false);
+                switch (item.ItemId)
                 {
-                    SetState(false);
-                    if (item.ItemId == ItemId.ItemLuckyEgg)
+                    case ItemId.ItemLuckyEgg:
                     {
                         if (_session.Client == null)
                         {
@@ -846,25 +835,31 @@ namespace PokemonGo.RocketBot.Window.Forms
                             return;
                         }
                         var response = await _session.Client.Inventory.UseItemXpBoost();
-                        if (response.Result == UseItemXpBoostResponse.Types.Result.Success)
+                        switch (response.Result)
                         {
-                            Logger.Write($"Using a Lucky Egg");
-                            Logger.Write($"Lucky Egg valid until: {DateTime.Now.AddMinutes(30)}");
-                        }
-                        else if (response.Result == UseItemXpBoostResponse.Types.Result.ErrorXpBoostAlreadyActive)
-                        {
-                            Logger.Write($"A Lucky Egg is already active!", LogLevel.Warning);
-                        }
-                        else if (response.Result == UseItemXpBoostResponse.Types.Result.ErrorLocationUnset)
-                        {
-                            Logger.Write($"Bot must be running first!", LogLevel.Error);
-                        }
-                        else
-                        {
-                            Logger.Write($"Failed using a Lucky Egg!", LogLevel.Error);
+                            case UseItemXpBoostResponse.Types.Result.Success:
+                                Logger.Write($"Using a Lucky Egg");
+                                Logger.Write($"Lucky Egg valid until: {DateTime.Now.AddMinutes(30)}");
+                                break;
+                            case UseItemXpBoostResponse.Types.Result.ErrorXpBoostAlreadyActive:
+                                Logger.Write($"A Lucky Egg is already active!", LogLevel.Warning);
+                                break;
+                            case UseItemXpBoostResponse.Types.Result.ErrorLocationUnset:
+                                Logger.Write($"Bot must be running first!", LogLevel.Error);
+                                break;
+                            case UseItemXpBoostResponse.Types.Result.Unset:
+                                break;
+                            case UseItemXpBoostResponse.Types.Result.ErrorInvalidItemType:
+                                break;
+                            case UseItemXpBoostResponse.Types.Result.ErrorNoItemsRemaining:
+                                break;
+                            default:
+                                Logger.Write($"Failed using a Lucky Egg!", LogLevel.Error);
+                                break;
                         }
                     }
-                    else if (item.ItemId == ItemId.ItemIncenseOrdinary)
+                        break;
+                    case ItemId.ItemIncenseOrdinary:
                     {
                         if (_session.Client == null)
                         {
@@ -873,24 +868,84 @@ namespace PokemonGo.RocketBot.Window.Forms
                             return;
                         }
                         var response = await _session.Client.Inventory.UseIncense(ItemId.ItemIncenseOrdinary);
-                        if (response.Result == UseIncenseResponse.Types.Result.Success)
+                        switch (response.Result)
                         {
-                            Logger.Write($"Incense valid until: {DateTime.Now.AddMinutes(30)}");
-                        }
-                        else if (response.Result == UseIncenseResponse.Types.Result.IncenseAlreadyActive)
-                        {
-                            Logger.Write($"An incense is already active!", LogLevel.Warning);
-                        }
-                        else if (response.Result == UseIncenseResponse.Types.Result.LocationUnset)
-                        {
-                            Logger.Write($"Bot must be running first!", LogLevel.Error);
-                        }
-                        else
-                        {
-                            Logger.Write($"Failed using an incense!", LogLevel.Error);
+                            case UseIncenseResponse.Types.Result.Success:
+                                Logger.Write($"Incense valid until: {DateTime.Now.AddMinutes(30)}");
+                                break;
+                            case UseIncenseResponse.Types.Result.IncenseAlreadyActive:
+                                Logger.Write($"An incense is already active!", LogLevel.Warning);
+                                break;
+                            case UseIncenseResponse.Types.Result.LocationUnset:
+                                Logger.Write($"Bot must be running first!", LogLevel.Error);
+                                break;
+                            case UseIncenseResponse.Types.Result.Unknown:
+                                break;
+                            case UseIncenseResponse.Types.Result.NoneInInventory:
+                                break;
+                            default:
+                                Logger.Write($"Failed using an incense!", LogLevel.Error);
+                                break;
                         }
                     }
-                    else
+                        break;
+                    case ItemId.ItemUnknown:
+                        break;
+                    case ItemId.ItemPokeBall:
+                        break;
+                    case ItemId.ItemGreatBall:
+                        break;
+                    case ItemId.ItemUltraBall:
+                        break;
+                    case ItemId.ItemMasterBall:
+                        break;
+                    case ItemId.ItemPotion:
+                        break;
+                    case ItemId.ItemSuperPotion:
+                        break;
+                    case ItemId.ItemHyperPotion:
+                        break;
+                    case ItemId.ItemMaxPotion:
+                        break;
+                    case ItemId.ItemRevive:
+                        break;
+                    case ItemId.ItemMaxRevive:
+                        break;
+                    case ItemId.ItemIncenseSpicy:
+                        break;
+                    case ItemId.ItemIncenseCool:
+                        break;
+                    case ItemId.ItemIncenseFloral:
+                        break;
+                    case ItemId.ItemTroyDisk:
+                        break;
+                    case ItemId.ItemXAttack:
+                        break;
+                    case ItemId.ItemXDefense:
+                        break;
+                    case ItemId.ItemXMiracle:
+                        break;
+                    case ItemId.ItemRazzBerry:
+                        break;
+                    case ItemId.ItemBlukBerry:
+                        break;
+                    case ItemId.ItemNanabBerry:
+                        break;
+                    case ItemId.ItemWeparBerry:
+                        break;
+                    case ItemId.ItemPinapBerry:
+                        break;
+                    case ItemId.ItemSpecialCamera:
+                        break;
+                    case ItemId.ItemIncubatorBasicUnlimited:
+                        break;
+                    case ItemId.ItemIncubatorBasic:
+                        break;
+                    case ItemId.ItemPokemonStorageUpgrade:
+                        break;
+                    case ItemId.ItemItemStorageUpgrade:
+                        break;
+                    default:
                     {
                         var response =
                             await
@@ -908,8 +963,9 @@ namespace PokemonGo.RocketBot.Window.Forms
                                 LogLevel.Error);
                         }
                     }
-                    ReloadPokemonList();
+                        break;
                 }
+                await ReloadPokemonList();
             }
         }
 
@@ -921,5 +977,10 @@ namespace PokemonGo.RocketBot.Window.Forms
         }
 
         #endregion POKEMON LIST
+
+        private void olvPokemonList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
