@@ -264,7 +264,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.pkmnIV.AspectName = "GetIV";
             this.pkmnIV.AspectToStringFormat = "{0:P2}";
             this.pkmnIV.Text = "IV %";
-            this.pkmnIV.Width = 51;
+            this.pkmnIV.Width = 52;
             // 
             // pkmnCandy
             // 
