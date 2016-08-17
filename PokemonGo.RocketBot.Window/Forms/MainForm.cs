@@ -194,26 +194,26 @@ namespace PokemonGo.RocketBot.Window.Forms
             Logger.SetLoggerContext(_session);
 
             _session.Navigation.UpdatePositionEvent +=
-                (lat, lng) => _session.EventDispatcher.Send(new UpdatePositionEvent {Latitude = lat, Longitude = lng});
+                (lat, lng) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng });
             _session.Navigation.UpdatePositionEvent += Navigation_UpdatePositionEvent;
 
             RouteOptimizeUtil.RouteOptimizeEvent +=
                 optimizedroute =>
-                    _session.EventDispatcher.Send(new OptimizeRouteEvent {OptimizedRoute = optimizedroute});
+                    _session.EventDispatcher.Send(new OptimizeRouteEvent { OptimizedRoute = optimizedroute });
             RouteOptimizeUtil.RouteOptimizeEvent += InitializePokestopsAndRoute;
 
             FarmPokestopsTask.LootPokestopEvent +=
-                pokestop => _session.EventDispatcher.Send(new LootPokestopEvent {Pokestop = pokestop});
+                pokestop => _session.EventDispatcher.Send(new LootPokestopEvent { Pokestop = pokestop });
             FarmPokestopsTask.LootPokestopEvent += UpdateMap;
 
             CatchNearbyPokemonsTask.PokemonEncounterEvent +=
                 mappokemons =>
-                    _session.EventDispatcher.Send(new PokemonsEncounterEvent {EncounterPokemons = mappokemons});
+                    _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
             CatchNearbyPokemonsTask.PokemonEncounterEvent += UpdateMap;
 
             CatchIncensePokemonsTask.PokemonEncounterEvent +=
                 mappokemons =>
-                    _session.EventDispatcher.Send(new PokemonsEncounterEvent {EncounterPokemons = mappokemons});
+                    _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
             CatchIncensePokemonsTask.PokemonEncounterEvent += UpdateMap;
         }
 
@@ -242,8 +242,8 @@ namespace PokemonGo.RocketBot.Window.Forms
                 _playerLocations.Clear();
                 var routePoint =
                     (from pokeStop in pokeStops
-                        where pokeStop != null
-                        select new PointLatLng(pokeStop.Latitude, pokeStop.Longitude)).ToList();
+                     where pokeStop != null
+                     select new PointLatLng(pokeStop.Latitude, pokeStop.Longitude)).ToList();
 
                 var route = new GMapRoute(routePoint, "Walking Path")
                 {
@@ -267,7 +267,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             {
                 var route = new GMapRoute(_playerLocations, "step")
                 {
-                    Stroke = new Pen(Color.FromArgb(175, 175, 175), 2) {DashStyle = DashStyle.Dot}
+                    Stroke = new Pen(Color.FromArgb(175, 175, 175), 2) { DashStyle = DashStyle.Dot }
                 };
                 _playerOverlay.Routes.Clear();
                 _playerOverlay.Routes.Add(route);
@@ -318,12 +318,13 @@ namespace PokemonGo.RocketBot.Window.Forms
         {
             var latlng = new PointLatLng(lat, lng);
 
+            _playerLocations.Add(latlng);
+            var currentlatlng = _currentLatLng;
             SynchronizationContext.Post(o =>
             {
-                _playerLocations.Add(latlng);
                 _playerOverlay.Markers.Remove(_playerMarker);
-                if (!_currentLatLng.IsEmpty)
-                    _playerMarker = _currentLatLng.Lng < latlng.Lng
+                if (!currentlatlng.IsEmpty)
+                    _playerMarker = currentlatlng.Lng < latlng.Lng
                         ? new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("Trainer_Right"))
                         : new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("Trainer_Left"));
                 _playerOverlay.Markers.Add(_playerMarker);
@@ -443,20 +444,20 @@ namespace PokemonGo.RocketBot.Window.Forms
         {
             //olvPokemonList.ButtonClick += PokemonListButton_Click;
 
-            pkmnName.ImageGetter = delegate(object rowObject)
+            pkmnName.ImageGetter = delegate (object rowObject)
             {
                 var pokemon = rowObject as PokemonObject;
 
                 var key = pokemon.PokemonId.ToString();
                 if (!olvPokemonList.SmallImageList.Images.ContainsKey(key))
                 {
-                    var img = GetPokemonImage((int) pokemon.PokemonId);
+                    var img = GetPokemonImage((int)pokemon.PokemonId);
                     olvPokemonList.SmallImageList.Images.Add(key, img);
                 }
                 return key;
             };
 
-            olvPokemonList.FormatRow += delegate(object sender, FormatRowEventArgs e)
+            olvPokemonList.FormatRow += delegate (object sender, FormatRowEventArgs e)
             {
                 var pok = e.Model as PokemonObject;
                 if (olvPokemonList.Objects.Cast<PokemonObject>()
@@ -474,7 +475,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 }
             };
 
-            cmsPokemonList.Opening += delegate(object sender, CancelEventArgs e)
+            cmsPokemonList.Opening += delegate (object sender, CancelEventArgs e)
             {
                 e.Cancel = false;
                 cmsPokemonList.Items.Clear();
@@ -775,7 +776,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 {
                     var pokemonObject = new PokemonObject(pokemon);
                     var family =
-                        _families.Where(i => (int) i.FamilyId <= (int) pokemon.PokemonId)
+                        _families.Where(i => (int)i.FamilyId <= (int)pokemon.PokemonId)
                             .First();
                     pokemonObject.Candy = family.Candy_;
                     pokemonObjects.Add(pokemonObject);
@@ -829,7 +830,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private async void ItemBox_ItemClick(object sender, EventArgs e)
         {
-            var item = (ItemData) sender;
+            var item = (ItemData)sender;
 
             using (var form = new ItemForm(item))
             {
