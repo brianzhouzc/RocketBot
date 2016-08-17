@@ -54,6 +54,8 @@ namespace PokemonGo.RocketBot.Window.Forms
         private readonly GMapOverlay _pokemonsOverlay = new GMapOverlay("pokemons");
         private readonly GMapOverlay _pokestopsOverlay = new GMapOverlay("pokestops");
         private readonly GMapOverlay _searchAreaOverlay = new GMapOverlay("areas");
+
+        private PointLatLng _currentLatLng;
         private ConsoleLogger _logger;
         private StateMachine _machine;
         private GlobalSettings _settings;
@@ -67,7 +69,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Text = @"[RocketBot] " + Assembly.GetExecutingAssembly().GetName().Version;
+            Text = @"RocketBot v" + Assembly.GetExecutingAssembly().GetName().Version;
             InitializeBot();
             InitializePokemonForm();
             InitializeMap();
@@ -76,6 +78,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             {
                 startStopBotToolStripMenuItem.Enabled = false;
                 Logger.Write("First time here? Go to settings to set your basic info.");
+                GlobalSettings.Load("");
             }
         }
 
@@ -99,7 +102,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             gMapControl1.Overlays.Add(_playerOverlay);
 
             _playerMarker = new GMapMarkerTrainer(new PointLatLng(lat, lng),
-                (Image) Properties.Resources.ResourceManager.GetObject("Trainer"));
+                (Image) Properties.Resources.ResourceManager.GetObject("Trainer_Front"));
             _playerOverlay.Markers.Add(_playerMarker);
             _playerMarker.Position = new PointLatLng(lat, lng);
             _searchAreaOverlay.Polygons.Clear();
@@ -205,7 +208,6 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private async Task StartBot()
         {
-            startStopBotToolStripMenuItem.Enabled = false;
             _machine.AsyncStart(new VersionCheckState(), _session);
 
             if (_settings.UseTelegramAPI)
@@ -218,25 +220,30 @@ namespace PokemonGo.RocketBot.Window.Forms
             QuitEvent.WaitOne();
         }
 
-        private async void InitializePokestopsAndRoute(List<FortData> pokeStops)
+        private void InitializePokestopsAndRoute(List<FortData> pokeStops)
         {
-            _pokestopsOverlay.Markers.Clear();
-            var routePoint =
-                (from pokeStop in pokeStops
-                    where pokeStop != null
-                    select new PointLatLng(pokeStop.Latitude, pokeStop.Longitude)).ToList();
-            _pokestopsOverlay.Routes.Clear();
-            var route = new GMapRoute(routePoint, "Walking Path");
-            route.Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4);
-            _pokestopsOverlay.Routes.Add(route);
-
-            foreach (var pokeStop in pokeStops)
+            SynchronizationContext.Post(o =>
             {
-                var pokeStopLoc = new PointLatLng(pokeStop.Latitude, pokeStop.Longitude);
-                var pokestopMarker = new GMapMarkerPokestops(pokeStopLoc,
-                    (Image) Properties.Resources.ResourceManager.GetObject("Pokestop"));
-                _pokestopsOverlay.Markers.Add(pokestopMarker);
-            }
+                _pokestopsOverlay.Markers.Clear();
+                _pokestopsOverlay.Routes.Clear();
+                _playerOverlay.Markers.Clear();
+                _playerOverlay.Routes.Clear();
+                var routePoint =
+                    (from pokeStop in pokeStops
+                        where pokeStop != null
+                        select new PointLatLng(pokeStop.Latitude, pokeStop.Longitude)).ToList();
+                var route = new GMapRoute(routePoint, "Walking Path");
+                route.Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4);
+                _pokestopsOverlay.Routes.Add(route);
+
+                foreach (var pokeStop in pokeStops)
+                {
+                    var pokeStopLoc = new PointLatLng(pokeStop.Latitude, pokeStop.Longitude);
+                    var pokestopMarker = new GMapMarkerPokestops(pokeStopLoc,
+                        (Image) Properties.Resources.ResourceManager.GetObject("Pokestop"));
+                    _pokestopsOverlay.Markers.Add(pokestopMarker);
+                }
+            }, null);
         }
 
         private void UpdateMap(FortData pokestop = null)
@@ -277,7 +284,17 @@ namespace PokemonGo.RocketBot.Window.Forms
         {
             var latlng = new PointLatLng(lat, lng);
             _playerLocations.Add(latlng);
-            _playerMarker.Position = latlng;
+
+            _playerOverlay.Markers.Remove(_playerMarker);
+            if (!_currentLatLng.IsEmpty)
+                _playerMarker = _currentLatLng.Lng < latlng.Lng
+                    ? new GMapMarkerTrainer(latlng,
+                        (Image) Properties.Resources.ResourceManager.GetObject("Trainer_Right"))
+                    : new GMapMarkerTrainer(latlng,
+                        (Image) Properties.Resources.ResourceManager.GetObject("Trainer_Left"));
+            _playerOverlay.Markers.Add(_playerMarker);
+
+            _currentLatLng = latlng;
             UpdateMap();
             SaveLocationToDisk(lat, lng);
         }
@@ -371,7 +388,8 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private void startStopBotToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Task.Run(() => StartBot());
+            startStopBotToolStripMenuItem.Enabled = false;
+            Task.Run(StartBot);
         }
 
         private void todoToolStripMenuItem_Click(object sender, EventArgs e)
