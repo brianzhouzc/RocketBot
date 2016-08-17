@@ -8,6 +8,7 @@ using PokemonGo.RocketBot.Logic.Logging;
 using PokemonGo.RocketBot.Logic.State;
 using POGOProtos.Map.Fort;
 using POGOProtos.Networking.Responses;
+using POGOProtos.Map.Pokemon;
 
 #endregion
 
@@ -25,8 +26,8 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             var fortId = currentFortData.Id;
 
             var pokemonId = currentFortData.LureInfo.ActivePokemonId;
-
-            if( ( session.LogicSettings.UsePokemonSniperFilterOnly && !session.LogicSettings.PokemonToSnipe.Pokemon.Contains( pokemonId ) ) ||
+            
+            if ( ( session.LogicSettings.UsePokemonSniperFilterOnly && !session.LogicSettings.PokemonToSnipe.Pokemon.Contains( pokemonId ) ) ||
                     ( session.LogicSettings.UsePokemonToNotCatchFilter && session.LogicSettings.PokemonsNotToCatch.Contains( pokemonId ) ) )
             {
                 session.EventDispatcher.Send(new NoticeEvent

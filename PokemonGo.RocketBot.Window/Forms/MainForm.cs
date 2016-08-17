@@ -34,6 +34,7 @@ using POGOProtos.Data;
 using POGOProtos.Inventory;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Fort;
+using POGOProtos.Map.Pokemon;
 using POGOProtos.Networking.Responses;
 
 namespace PokemonGo.RocketBot.Window.Forms
@@ -102,7 +103,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             gMapControl1.Overlays.Add(_playerOverlay);
 
             _playerMarker = new GMapMarkerTrainer(new PointLatLng(lat, lng),
-                (Image) Properties.Resources.ResourceManager.GetObject("Trainer_Front"));
+                ResourceHelper.GetImage("Trainer_Front"));
             _playerOverlay.Markers.Add(_playerMarker);
             _playerMarker.Position = new PointLatLng(lat, lng);
             _searchAreaOverlay.Polygons.Clear();
@@ -193,17 +194,25 @@ namespace PokemonGo.RocketBot.Window.Forms
             Logger.SetLoggerContext(_session);
 
             _session.Navigation.UpdatePositionEvent +=
-                (lat, lng) => _session.EventDispatcher.Send(new UpdatePositionEvent {Latitude = lat, Longitude = lng});
+                (lat, lng) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng });
             _session.Navigation.UpdatePositionEvent += Navigation_UpdatePositionEvent;
 
             RouteOptimizeUtil.RouteOptimizeEvent +=
                 optimizedroute =>
-                    _session.EventDispatcher.Send(new OptimizeRouteEvent {OptimizedRoute = optimizedroute});
+                    _session.EventDispatcher.Send(new OptimizeRouteEvent { OptimizedRoute = optimizedroute });
             RouteOptimizeUtil.RouteOptimizeEvent += InitializePokestopsAndRoute;
 
             FarmPokestopsTask.LootPokestopEvent +=
-                pokestop => _session.EventDispatcher.Send(new LootPokestopEvent {Pokestop = pokestop});
+                pokestop => _session.EventDispatcher.Send(new LootPokestopEvent { Pokestop = pokestop });
             FarmPokestopsTask.LootPokestopEvent += UpdateMap;
+
+            CatchNearbyPokemonsTask.PokemonEncounterEvent +=
+                mappokemons => _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
+            CatchNearbyPokemonsTask.PokemonEncounterEvent += UpdateMap;
+
+            CatchIncensePokemonsTask.PokemonEncounterEvent +=
+                mappokemons => _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
+            CatchIncensePokemonsTask.PokemonEncounterEvent += UpdateMap;
         }
 
         private async Task StartBot()
@@ -228,71 +237,95 @@ namespace PokemonGo.RocketBot.Window.Forms
                 _pokestopsOverlay.Routes.Clear();
                 _playerOverlay.Markers.Clear();
                 _playerOverlay.Routes.Clear();
+                _playerLocations.Clear();
                 var routePoint =
                     (from pokeStop in pokeStops
-                        where pokeStop != null
-                        select new PointLatLng(pokeStop.Latitude, pokeStop.Longitude)).ToList();
-                var route = new GMapRoute(routePoint, "Walking Path");
-                route.Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4);
+                     where pokeStop != null
+                     select new PointLatLng(pokeStop.Latitude, pokeStop.Longitude)).ToList();
+
+                var route = new GMapRoute(routePoint, "Walking Path")
+                {
+                    Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
+                };
                 _pokestopsOverlay.Routes.Add(route);
 
                 foreach (var pokeStop in pokeStops)
                 {
                     var pokeStopLoc = new PointLatLng(pokeStop.Latitude, pokeStop.Longitude);
                     var pokestopMarker = new GMapMarkerPokestops(pokeStopLoc,
-                        (Image) Properties.Resources.ResourceManager.GetObject("Pokestop"));
+                        ResourceHelper.GetImage("Pokestop"));
                     _pokestopsOverlay.Markers.Add(pokestopMarker);
                 }
             }, null);
         }
 
-        private void UpdateMap(FortData pokestop = null)
+        private void UpdateMap()
         {
             SynchronizationContext.Post(o =>
             {
-                if (pokestop != null)
+                var route = new GMapRoute(_playerLocations, "step")
                 {
-                    var pokeStopLoc = new PointLatLng(pokestop.Latitude, pokestop.Longitude);
-
-                    lock (_pokestopsOverlay.Markers)
-                    {
-                        for (var i = 0; i < _pokestopsOverlay.Markers.Count; i++)
-                        {
-                            var marker = _pokestopsOverlay.Markers[i];
-                            if (marker.Position == pokeStopLoc)
-                                _pokestopsOverlay.Markers.Remove(marker);
-                        }
-                    }
-
-                    GMapMarker pokestopMarker = new GMapMarkerPokestops(pokeStopLoc,
-                        (Image) Properties.Resources.ResourceManager.GetObject("Pokestop_looted"));
-                    //pokestopMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
-                    //pokestopMarker.ToolTip = new GMapBaloonToolTip(pokestopMarker);
-                    _pokestopsOverlay.Markers.Add(pokestopMarker);
-                }
-
-                var route = new GMapRoute(_playerLocations, "step");
-                route.Stroke = new Pen(Color.FromArgb(175, 175, 175), 2);
-                route.Stroke.DashStyle = DashStyle.Dot;
-                _playerOverlay.Routes.Add(route);
+                    Stroke = new Pen(Color.FromArgb(175, 175, 175), 2) { DashStyle = DashStyle.Dot }
+                };
                 _playerOverlay.Routes.Clear();
                 _playerOverlay.Routes.Add(route);
+            }, null);
+        }
+
+        private void UpdateMap(FortData pokestop)
+        {
+            SynchronizationContext.Post(o =>
+            {
+                var pokeStopLoc = new PointLatLng(pokestop.Latitude, pokestop.Longitude);
+
+                lock (_pokestopsOverlay.Markers)
+                {
+                    for (var i = 0; i < _pokestopsOverlay.Markers.Count; i++)
+                    {
+                        var marker = _pokestopsOverlay.Markers[i];
+                        if (marker.Position == pokeStopLoc)
+                            _pokestopsOverlay.Markers.Remove(marker);
+                    }
+                }
+
+                GMapMarker pokestopMarker = new GMapMarkerPokestops(pokeStopLoc,
+                    ResourceHelper.GetImage("Pokestop_looted"));
+                //pokestopMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+                //pokestopMarker.ToolTip = new GMapBaloonToolTip(pokestopMarker);
+                _pokestopsOverlay.Markers.Add(pokestopMarker);
+            }, null);
+        }
+
+        private void UpdateMap(List<MapPokemon> encounterPokemons)
+        {
+            SynchronizationContext.Post(o =>
+            {
+                _pokemonsOverlay.Markers.Clear();
+
+                foreach (var pokemon in encounterPokemons)
+                {
+                    Image pkmImage = ResourceHelper.GetImage("Pokemon_" + pokemon.PokemonId.GetHashCode(), 50, 50);
+                    PointLatLng pointLatLng = new PointLatLng(pokemon.Latitude, pokemon.Longitude);
+                    GMapMarker pkmMarker = new GMapMarkerTrainer(pointLatLng, pkmImage);
+                    _pokemonsOverlay.Markers.Add(pkmMarker);
+                }
             }, null);
         }
 
         private void Navigation_UpdatePositionEvent(double lat, double lng)
         {
             var latlng = new PointLatLng(lat, lng);
-            _playerLocations.Add(latlng);
 
-            _playerOverlay.Markers.Remove(_playerMarker);
-            if (!_currentLatLng.IsEmpty)
-                _playerMarker = _currentLatLng.Lng < latlng.Lng
-                    ? new GMapMarkerTrainer(latlng,
-                        (Image) Properties.Resources.ResourceManager.GetObject("Trainer_Right"))
-                    : new GMapMarkerTrainer(latlng,
-                        (Image) Properties.Resources.ResourceManager.GetObject("Trainer_Left"));
-            _playerOverlay.Markers.Add(_playerMarker);
+            SynchronizationContext.Post(o =>
+            {
+                _playerLocations.Add(latlng);
+                _playerOverlay.Markers.Remove(_playerMarker);
+                if (!_currentLatLng.IsEmpty)
+                    _playerMarker = _currentLatLng.Lng < latlng.Lng
+                        ? new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("Trainer_Right"))
+                        : new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("Trainer_Left"));
+                _playerOverlay.Markers.Add(_playerMarker);
+            }, null);
 
             _currentLatLng = latlng;
             UpdateMap();
@@ -408,20 +441,20 @@ namespace PokemonGo.RocketBot.Window.Forms
         {
             //olvPokemonList.ButtonClick += PokemonListButton_Click;
 
-            pkmnName.ImageGetter = delegate(object rowObject)
+            pkmnName.ImageGetter = delegate (object rowObject)
             {
                 var pokemon = rowObject as PokemonObject;
 
                 var key = pokemon.PokemonId.ToString();
                 if (!olvPokemonList.SmallImageList.Images.ContainsKey(key))
                 {
-                    var img = GetPokemonImage((int) pokemon.PokemonId);
+                    var img = GetPokemonImage((int)pokemon.PokemonId);
                     olvPokemonList.SmallImageList.Images.Add(key, img);
                 }
                 return key;
             };
 
-            olvPokemonList.FormatRow += delegate(object sender, FormatRowEventArgs e)
+            olvPokemonList.FormatRow += delegate (object sender, FormatRowEventArgs e)
             {
                 var pok = e.Model as PokemonObject;
                 if (olvPokemonList.Objects.Cast<PokemonObject>()
@@ -439,7 +472,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 }
             };
 
-            cmsPokemonList.Opening += delegate(object sender, CancelEventArgs e)
+            cmsPokemonList.Opening += delegate (object sender, CancelEventArgs e)
             {
                 e.Cancel = false;
                 cmsPokemonList.Items.Clear();
@@ -695,7 +728,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private Image GetPokemonImage(int pokemonId)
         {
-            return (Image) Properties.Resources.ResourceManager.GetObject("Pokemon_" + pokemonId);
+            return ResourceHelper.GetImage("Pokemon_" + pokemonId);
         }
 
         private async Task ReloadPokemonList()
@@ -740,7 +773,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 {
                     var pokemonObject = new PokemonObject(pokemon);
                     var family =
-                        _families.Where(i => (int) i.FamilyId <= (int) pokemon.PokemonId)
+                        _families.Where(i => (int)i.FamilyId <= (int)pokemon.PokemonId)
                             .First();
                     pokemonObject.Candy = family.Candy_;
                     pokemonObjects.Add(pokemonObject);
@@ -794,7 +827,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private async void ItemBox_ItemClick(object sender, EventArgs e)
         {
-            var item = (ItemData) sender;
+            var item = (ItemData)sender;
 
             using (var form = new ItemForm(item))
             {
