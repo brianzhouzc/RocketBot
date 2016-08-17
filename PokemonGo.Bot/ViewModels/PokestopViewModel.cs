@@ -72,7 +72,7 @@ namespace PokemonGo.Bot.ViewModels
                     if (searchResult.PokemonDataEgg != null)
                     {
                         sb.AppendFormat("- 1x Egg ({0}km)", searchResult.PokemonDataEgg.EggKmWalkedTarget);
-                        player.Inventory.Eggs.Add(new EggViewModel(searchResult.PokemonDataEgg));
+                        player.Inventory.Eggs.Add(new EggViewModel(searchResult.PokemonDataEgg, player.Inventory.EggIncubators));
                     }
                     MessengerInstance.Send(new Message(Colors.Green, sb.ToString()));
                 }

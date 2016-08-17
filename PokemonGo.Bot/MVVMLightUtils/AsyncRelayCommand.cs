@@ -9,12 +9,17 @@ namespace GalaSoft.MvvmLight.Command
         readonly Action execute;
 
         public AsyncRelayCommand(Func<Task> asyncExecute)
-            : this(asyncExecute, () => asyncExecute?.Invoke())
+            : this(asyncExecute, null)
         {
         }
 
-        AsyncRelayCommand(Func<Task> asyncExecute, Action execute)
-            : base(execute)
+        public AsyncRelayCommand(Func<Task> asyncExecute, Func<bool> canExecute)
+            : this(asyncExecute, () => asyncExecute?.Invoke(), canExecute)
+        {
+        }
+
+        AsyncRelayCommand(Func<Task> asyncExecute, Action execute, Func<bool> canExecute)
+            : base(execute, canExecute)
         {
             if (execute == null)
                 throw new ArgumentNullException(nameof(execute));
@@ -34,12 +39,16 @@ namespace GalaSoft.MvvmLight.Command
         readonly Action<T> execute;
 
         public AsyncRelayCommand(Func<T, Task> asyncExecute)
-            : this(asyncExecute, x => asyncExecute?.Invoke(x))
+            : this(asyncExecute, null)
+        {
+        }
+        public AsyncRelayCommand(Func<T, Task> asyncExecute, Func<T, bool> canExecute)
+            : this(asyncExecute, x => asyncExecute?.Invoke(x), canExecute)
         {
         }
 
-        AsyncRelayCommand(Func<T, Task> asyncExecute, Action<T> execute)
-            : base(execute)
+        AsyncRelayCommand(Func<T, Task> asyncExecute, Action<T> execute, Func<T, bool> canExecute)
+            : base(execute, canExecute)
         {
             if (execute == null)
                 throw new ArgumentNullException(nameof(execute));

@@ -91,6 +91,7 @@ namespace PokemonGo.Bot.ViewModels
         public ObservableCollection<CaughtPokemonViewModel> Pokemon { get; }
         public ObservableCollection<ItemViewModel> Items { get; }
         public ObservableCollection<EggViewModel> Eggs { get; }
+        public ObservableCollection<EggIncubatorViewModel> EggIncubators { get; }
 
         readonly Client client;
         readonly TransferPokemonAlgorithmFactory transferPokemonAlgorithmFactory;
@@ -110,6 +111,7 @@ namespace PokemonGo.Bot.ViewModels
 
             Pokemon = new ObservableCollection<CaughtPokemonViewModel>();
             Eggs = new ObservableCollection<EggViewModel>();
+            EggIncubators = new ObservableCollection<EggIncubatorViewModel>();
             Items = new ObservableCollection<ItemViewModel>();
 
             Load = new AsyncRelayCommand(async () =>
@@ -124,7 +126,8 @@ namespace PokemonGo.Bot.ViewModels
                 {
                     var inventory = inventoryResponse.InventoryDelta;
                     Pokemon.UpdateWith(inventory?.InventoryItems.Select(i => i.InventoryItemData?.PokemonData).Where(p => p?.PokemonId > 0).Select(p => new CaughtPokemonViewModel(p, client, this)));
-                    Eggs.UpdateWith(inventory?.InventoryItems.Select(i => i.InventoryItemData?.PokemonData).Where(p => (p?.IsEgg).GetValueOrDefault()).Select(p => new EggViewModel(p)));
+                    EggIncubators.UpdateWith(inventory?.InventoryItems.Select(i => i.InventoryItemData?.EggIncubators).Where(i => i != null).SelectMany(i => i?.EggIncubator).Where(i => i != null).Select(i => new EggIncubatorViewModel(i, client)));
+                    Eggs.UpdateWith(inventory?.InventoryItems.Select(i => i.InventoryItemData?.PokemonData).Where(p => (p?.IsEgg).GetValueOrDefault()).Select(p => new EggViewModel(p, EggIncubators)));
                     Items.UpdateWith(inventory?.InventoryItems.Select(i => i.InventoryItemData?.Item).Where(i => i != null).Select(i => new ItemViewModel(i)));
                     UpdateCandy(inventory);
                     UpdatePlayer(inventory);

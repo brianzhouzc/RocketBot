@@ -110,6 +110,7 @@
     <Compile Include="ViewModels\BotViewModel.cs" />
     <Compile Include="ViewModels\CandyViewModel.cs" />
     <Compile Include="ViewModels\CaughtPokemonViewModel.cs" />
+    <Compile Include="ViewModels\EggIncubatorViewModel.cs" />
     <Compile Include="ViewModels\EggViewModel.cs" />
     <Compile Include="ViewModels\GymViewModel.cs" />
     <Compile Include="ViewModels\PokemonDataViewModel.cs" />

@@ -11,6 +11,8 @@ namespace PokemonGo.WPF.Converters
         private static ImageSourceConverter imageSourceConverter = new ImageSourceConverter();
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
+            if (values == null)
+                throw new ArgumentNullException(nameof(values));
             if (values.Length != 2)
                 throw new ArgumentOutOfRangeException(nameof(values), "You must supply IsActive and IsNear");
 

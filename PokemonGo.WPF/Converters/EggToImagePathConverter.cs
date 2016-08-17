@@ -1,27 +1,43 @@
-﻿using PokemonGo.Bot.ViewModels;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace PokemonGo.WPF.Converters
 {
-    public class EggToImagePathConverter : IValueConverter
+    public class EggToImagePathConverter : IMultiValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        static ImageSourceConverter imageSourceConverter = new ImageSourceConverter();
+
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            var egg = value as EggViewModel;
-            if (egg != null)
-            {
-                if(egg.IsInUnlimitedIncubator)
-                    return $"pack://siteoforigin:,,,/Images/Eggs/EggIncubatorUnlimited.png";
-                if (egg.IsInNormalIncubator)
-                    return $"pack://siteoforigin:,,,/Images/Eggs/EggIncubator.png";
-                return $"pack://siteoforigin:,,,/Images/Eggs/Egg.png";
-            }
-            return null;
+            if (values == null)
+                throw new ArgumentNullException(nameof(values));
+            if (values.Length != 2)
+                throw new ArgumentOutOfRangeException(nameof(values), "You must supply IsInNormalIncubator and IsInUnlimitedIncubator");
+
+            var isInNormalIncubator = values[0] as bool?;
+            var isInUnlimitedIncubator = values[1] as bool?;
+
+            if (!isInNormalIncubator.HasValue)
+                throw new ArgumentException("The first parameter must be of type bool (IsInNormalIncubator)");
+            if (!isInUnlimitedIncubator.HasValue)
+                throw new ArgumentException("The second parameter must be of type bool (IsInUnlimitedIncubator)");
+
+            var uri = GetImageUri(isInNormalIncubator, isInUnlimitedIncubator);
+            return imageSourceConverter.ConvertFromString(uri);
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        static string GetImageUri(bool? isInNormalIncubator, bool? isInUnlimitedIncubator)
+        {
+            if (isInUnlimitedIncubator.Value)
+                return $"pack://siteoforigin:,,,/Images/Eggs/EggIncubatorUnlimited.png";
+            if (isInNormalIncubator.Value)
+                return $"pack://siteoforigin:,,,/Images/Eggs/EggIncubator.png";
+            return $"pack://siteoforigin:,,,/Images/Eggs/Egg.png";
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

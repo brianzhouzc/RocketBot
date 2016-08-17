@@ -9,13 +9,28 @@
              d:DesignHeight="58" d:DesignWidth="40">
     <UserControl.Resources>
         <converters:EggToImagePathConverter x:Key="eggToImagePathConverter"/>
+        <DataTemplate x:Key="incubatorTemplate">
+            <MenuItem Header="{Binding Id}" Command="{Binding PutEggIntoIncubator}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"/>
+        </DataTemplate>
     </UserControl.Resources>
+    <UserControl.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Put into Incubator" ItemsSource="{Binding EggIncubators}" ItemTemplate="{StaticResource incubatorTemplate}"/>
+        </ContextMenu>
+    </UserControl.ContextMenu>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="12"/>
         </Grid.RowDefinitions>
-        <Image Source="{Binding Converter={StaticResource eggToImagePathConverter}}" />
+        <Image>
+            <Image.Source>
+                <MultiBinding Converter="{StaticResource eggToImagePathConverter}">
+                    <Binding Path="IsInNormalIncubator" Mode="OneWay"/>
+                    <Binding Path="IsInUnlimitedIncubator" Mode="OneWay"/>
+                </MultiBinding>
+            </Image.Source>
+        </Image>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBlock Text="{Binding KmWalked}"/>
             <TextBlock Text=" / "/>

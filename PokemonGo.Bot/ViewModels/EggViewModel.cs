@@ -1,19 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using POGOProtos.Data;
+using System;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using POGOProtos.Data;
 
 namespace PokemonGo.Bot.ViewModels
 {
     public class EggViewModel : PokemonDataViewModel
     {
-        public string IncubatorId { get; }
-        public bool IsInUnlimitedIncubator => !string.IsNullOrEmpty(IncubatorId) && IncubatorId.Contains('-');
-        public bool IsInNormalIncubator => !string.IsNullOrEmpty(IncubatorId) && !IncubatorId.Contains('-');
+        string incubatorId;
+
+        public string IncubatorId
+        {
+            get { return incubatorId; }
+            set
+            {
+                if (IncubatorId != value)
+                {
+                    incubatorId = value;
+                    RaisePropertyChanged();
+                    RaisePropertyChanged(nameof(IsInIncubator));
+                    RaisePropertyChanged(nameof(IsInUnlimitedIncubator));
+                    RaisePropertyChanged(nameof(IsInNormalIncubator));
+                }
+            }
+        }
+
+        public bool IsInIncubator => !string.IsNullOrEmpty(IncubatorId);
+        public bool IsInUnlimitedIncubator => IsInIncubator && IncubatorId.Contains('-');
+        public bool IsInNormalIncubator => IsInIncubator && !IncubatorId.Contains('-');
 
         double kmWalked;
+
         public double KmWalked
         {
             get { return kmWalked; }
@@ -22,11 +39,14 @@ namespace PokemonGo.Bot.ViewModels
 
         public double KmTarget { get; }
 
-        public EggViewModel(PokemonData pokemon) : base(pokemon)
+        public ObservableCollection<EggIncubatorViewModel> EggIncubators { get; }
+
+        public EggViewModel(PokemonData pokemon, ObservableCollection<EggIncubatorViewModel> eggIncubators) : base(pokemon)
         {
             if (!pokemon.IsEgg)
                 throw new ArgumentOutOfRangeException(nameof(pokemon.PokemonId), $"{pokemon} is not an egg.");
 
+            EggIncubators = eggIncubators;
             IncubatorId = pokemon.EggIncubatorId;
             KmWalked = pokemon.EggKmWalkedStart;
             KmTarget = pokemon.EggKmWalkedTarget;
