@@ -227,6 +227,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.olvPokemonList.TabIndex = 25;
             this.olvPokemonList.UseCompatibleStateImageBehavior = false;
             this.olvPokemonList.View = System.Windows.Forms.View.Details;
+            this.olvPokemonList.ButtonClick += new System.EventHandler<BrightIdeasSoftware.CellClickEventArgs>(this.olvPokemonList_ButtonClick);
             // 
             // pkmnName
             // 

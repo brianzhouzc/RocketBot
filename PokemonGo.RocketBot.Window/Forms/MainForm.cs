@@ -424,7 +424,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         #endregion INTERFACE
 
-        #region BUTTONS
+        #region EVENTS
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
@@ -443,7 +443,12 @@ namespace PokemonGo.RocketBot.Window.Forms
             settingsForm.ShowDialog();
         }
 
-        #endregion BUTTONS
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        #endregion EVENTS
 
         #region POKEMON LIST
 
@@ -469,10 +474,10 @@ namespace PokemonGo.RocketBot.Window.Forms
             olvPokemonList.FormatRow += delegate (object sender, FormatRowEventArgs e)
             {
                 var pok = e.Model as PokemonObject;
-                if (olvPokemonList.Objects.Cast<PokemonObject>()
+                if (olvPokemonList.Objects
+                    .Cast<PokemonObject>()
                     .Select(i => i.PokemonId)
-                    .Where(p => p == pok.PokemonId)
-                    .Count() > 1)
+                    .Count(p => p == pok.PokemonId) > 1)
                     e.Item.BackColor = Color.LightGreen;
 
                 foreach (OLVListSubItem sub in e.Item.SubItems)
@@ -538,7 +543,6 @@ namespace PokemonGo.RocketBot.Window.Forms
                     item.Text = "PowerUp";
                     item.Click += delegate { PowerUpPokemon(pokemons); };
                     cmsPokemonList.Items.Add(item);
-
                     cmsPokemonList.Items.Add(separator);
 
                     item = new ToolStripMenuItem();
@@ -564,6 +568,32 @@ namespace PokemonGo.RocketBot.Window.Forms
                     cmsPokemonList.Items.Add(separator);
                 }
             };
+        }
+
+        private void olvPokemonList_ButtonClick(object sender, CellClickEventArgs e)
+        {
+            try
+            {
+                var pokemon = e.Model as PokemonObject;
+                var cName = olvPokemonList.AllColumns[e.ColumnIndex].AspectToStringFormat;
+                if (cName.Equals("Transfer"))
+                {
+                    TransferPokemon(new List<PokemonData> { pokemon.PokemonData });
+                }
+                else if (cName.Equals("Power Up"))
+                {
+                    PowerUpPokemon(new List<PokemonData> { pokemon.PokemonData });
+                }
+                else if (cName.Equals("Evolve"))
+                {
+                    EvolvePokemon(new List<PokemonData> { pokemon.PokemonData });
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Write(ex.ToString(), LogLevel.Error);
+                ReloadPokemonList();
+            }
         }
 
         private async void TransferPokemon(IEnumerable<PokemonData> pokemons)
@@ -829,6 +859,12 @@ namespace PokemonGo.RocketBot.Window.Forms
 
                 lblInventory.Text = itemscount + " / " + profile.PlayerData.MaxItemStorage;
             }
+            catch (ArgumentNullException)
+            {
+                Logger.Write("Please start the bot or wait until login is finished before loading Pokemon List", LogLevel.Warning);
+                SetState(true);
+                return;
+            }
             catch (Exception ex)
             {
                 Logger.Write(ex.ToString(), LogLevel.Error);
@@ -931,10 +967,5 @@ namespace PokemonGo.RocketBot.Window.Forms
         }
 
         #endregion POKEMON LIST
-
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Environment.Exit(0);
-        }
     }
 }
