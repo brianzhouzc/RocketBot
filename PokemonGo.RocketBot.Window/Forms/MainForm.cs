@@ -78,7 +78,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             //Everything is anonymous
             Analytics.Initialize("UzL1tnZa9Yw2qcJWRIbcwGFmWGuovXez");
             Analytics.Client.Identify(MachineIdHelper.GetMachineId(), new Traits());
-            Analytics.Client.Track(MachineIdHelper.GetMachineId(), "App start");
+            Analytics.Client.Track(MachineIdHelper.GetMachineId(), "App started");
 
             InitializeBot();
             InitializePokemonForm();
@@ -445,6 +445,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Analytics.Client.Track(MachineIdHelper.GetMachineId(), "App stopped");
             Environment.Exit(0);
         }
 

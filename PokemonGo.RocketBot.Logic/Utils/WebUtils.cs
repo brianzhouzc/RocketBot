@@ -43,7 +43,7 @@ namespace PokemonGo.RocketBot.Logic.Utils
             {
                 return Encoding.GetEncoding(charsetName);
             }
-            catch (ArgumentException ex)
+            catch (ArgumentException)
             {
                 /*
                 throw new UnknownEncodingException(
