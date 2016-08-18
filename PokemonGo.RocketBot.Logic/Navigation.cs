@@ -5,10 +5,10 @@ using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using GeoCoordinatePortable;
-using PokemonGo.RocketBot.Logic.Utils;
 using PokemonGo.RocketAPI;
-using POGOProtos.Networking.Responses;
 using PokemonGo.RocketBot.Logic.Logging;
+using PokemonGo.RocketBot.Logic.Utils;
+using POGOProtos.Networking.Responses;
 
 #endregion
 
@@ -27,23 +27,23 @@ namespace PokemonGo.RocketBot.Logic
         }
 
         public async Task<PlayerUpdateResponse> Move(GeoCoordinate targetLocation,
-            double walkingSpeedInKilometersPerHour, Func<Task<bool>> functionExecutedWhileWalking,
+            double walkingSpeedInKilometersPerHour, double walkingSpeedOffSetInKilometersPerHour,
+            Func<Task<bool>> functionExecutedWhileWalking,
             CancellationToken cancellationToken, bool disableHumanLikeWalking)
         {
             cancellationToken.ThrowIfCancellationRequested();
             if (!disableHumanLikeWalking)
             {
-                var speedInMetersPerSecond = walkingSpeedInKilometersPerHour/3.6;
-
                 var sourceLocation = new GeoCoordinate(_client.CurrentLatitude, _client.CurrentLongitude);
 
                 var nextWaypointBearing = LocationUtils.DegreeBearing(sourceLocation, targetLocation);
-                var nextWaypointDistance = speedInMetersPerSecond;
+                var nextWaypointDistance = walkingSpeedInKilometersPerHour/3.6;
+                ;
                 var waypoint = LocationUtils.CreateWaypoint(sourceLocation, nextWaypointDistance, nextWaypointBearing);
 
                 //Initial walking
                 var requestSendDateTime = DateTime.Now;
-                var result = 
+                var result =
                     await
                         _client.Player.UpdatePlayerLocation(waypoint.Latitude, waypoint.Longitude,
                             waypoint.Altitude);
@@ -52,6 +52,15 @@ namespace PokemonGo.RocketBot.Logic
 
                 do
                 {
+                    var random = new Random();
+                    double offset;
+                    if (random.Next(0, 2) == 1)
+                        offset = random.NextDouble()*walkingSpeedOffSetInKilometersPerHour;
+                    else
+                        offset = -random.NextDouble()*walkingSpeedOffSetInKilometersPerHour;
+                    Logger.Write(offset.ToString());
+
+                    var speedInMetersPerSecond = (walkingSpeedInKilometersPerHour + offset)/3.6;
                     cancellationToken.ThrowIfCancellationRequested();
 
                     var millisecondsUntilGetUpdatePlayerLocationResponse =
@@ -146,7 +155,7 @@ namespace PokemonGo.RocketBot.Logic
                 var result =
                     await
                         _client.Player.UpdatePlayerLocation(targetLocation.Latitude, targetLocation.Longitude,
-                            LocationUtils.getElevation(targetLocation.Latitude,targetLocation.Longitude));
+                            LocationUtils.getElevation(targetLocation.Latitude, targetLocation.Longitude));
                 UpdatePositionEvent?.Invoke(targetLocation.Latitude, targetLocation.Longitude);
                 if (functionExecutedWhileWalking != null)
                     await functionExecutedWhileWalking(); // look for pokemon
