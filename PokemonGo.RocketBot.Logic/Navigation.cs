@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using GeoCoordinatePortable;
 using PokemonGo.RocketAPI;
-using PokemonGo.RocketBot.Logic.Logging;
 using PokemonGo.RocketBot.Logic.Utils;
 using POGOProtos.Networking.Responses;
 
@@ -37,7 +36,8 @@ namespace PokemonGo.RocketBot.Logic
                 var sourceLocation = new GeoCoordinate(_client.CurrentLatitude, _client.CurrentLongitude);
 
                 var nextWaypointBearing = LocationUtils.DegreeBearing(sourceLocation, targetLocation);
-                var nextWaypointDistance = walkingSpeedInKilometersPerHour/3.6;
+                var nextWaypointDistance = getspeedInMetersPerSecond(walkingSpeedInKilometersPerHour,
+                    walkingSpeedOffSetInKilometersPerHour);
                 ;
                 var waypoint = LocationUtils.CreateWaypoint(sourceLocation, nextWaypointDistance, nextWaypointBearing);
 
@@ -52,15 +52,8 @@ namespace PokemonGo.RocketBot.Logic
 
                 do
                 {
-                    var random = new Random();
-                    double offset;
-                    if (random.Next(0, 2) == 1)
-                        offset = random.NextDouble()*walkingSpeedOffSetInKilometersPerHour;
-                    else
-                        offset = -random.NextDouble()*walkingSpeedOffSetInKilometersPerHour;
-                    Logger.Write(offset.ToString());
-
-                    var speedInMetersPerSecond = (walkingSpeedInKilometersPerHour + offset)/3.6;
+                    var speedInMetersPerSecond = getspeedInMetersPerSecond(walkingSpeedInKilometersPerHour,
+                        walkingSpeedOffSetInKilometersPerHour);
                     cancellationToken.ThrowIfCancellationRequested();
 
                     var millisecondsUntilGetUpdatePlayerLocationResponse =
@@ -231,6 +224,18 @@ namespace PokemonGo.RocketBot.Logic
             } while (LocationUtils.CalculateDistanceInMeters(sourceLocation, targetLocation) >= 30);
 
             return result;
+        }
+
+        public double getspeedInMetersPerSecond(double SpeedInKilometersPerHour, double SpeedOffSetInKilometersPerHour)
+        {
+            var random = new Random();
+            double offset;
+            if (random.Next(0, 2) == 1)
+                offset = random.NextDouble()*SpeedOffSetInKilometersPerHour;
+            else
+                offset = -random.NextDouble()*SpeedOffSetInKilometersPerHour;
+
+            return (SpeedInKilometersPerHour + offset)/3.6;
         }
 
         public event UpdatePositionDelegate UpdatePositionEvent;
