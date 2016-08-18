@@ -51,7 +51,6 @@ namespace PokemonGo.RocketBot.Logic.Utils
                     "The server returned data in an unknown encoding: " + charsetName,
                     ex);
                     */
-                var a = 1;
                 return null;
             }
         }

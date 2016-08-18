@@ -115,6 +115,7 @@
     <Compile Include="Event\LootPokestopEvent.cs" />
     <Compile Include="Event\NoPokeballEvent.cs" />
     <Compile Include="Event\OptimizeRouteEvent.cs" />
+    <Compile Include="Event\PokemonsEncounterEvent.cs" />
     <Compile Include="Event\SnipeEvent.cs" />
     <Compile Include="Event\SnipeModeEvent.cs" />
     <Compile Include="Event\PokemonListEvent.cs" />

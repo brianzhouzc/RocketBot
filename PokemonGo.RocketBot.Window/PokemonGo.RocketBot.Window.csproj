@@ -149,6 +149,7 @@
     <Compile Include="Forms\MainForm.designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="Helpers\S2GMapDrawer.cs" />
     <Compile Include="Models\GMapMarkerPokestops.cs" />
     <Compile Include="Models\GMapMarkerTrainer.cs" />
@@ -328,6 +329,9 @@
     <None Include="Images\Markers\Pokestop.png" />
     <None Include="Images\Markers\Pokestop_looted.png" />
     <None Include="Images\Markers\Trainer.png" />
+    <None Include="Images\Markers\Trainer_Front.png" />
+    <None Include="Images\Markers\Trainer_Left.png" />
+    <None Include="Images\Markers\Trainer_Right.png" />
     <Content Include="Images\Pokemon\Pokemon_1.png" />
     <Content Include="Images\Pokemon\Pokemon_10.png" />
     <Content Include="Images\Pokemon\Pokemon_100.png" />
@@ -479,8 +483,6 @@
     <Content Include="Images\Pokemon\Pokemon_97.png" />
     <Content Include="Images\Pokemon\Pokemon_98.png" />
     <Content Include="Images\Pokemon\Pokemon_99.png" />
-    <None Include="Images\Pokestop_Inrange.png" />
-    <None Include="Images\Trainer.png" />
     <Content Include="Resources\encrypt.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

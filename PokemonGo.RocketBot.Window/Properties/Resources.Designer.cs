@@ -1833,9 +1833,29 @@ namespace PokemonGo.RocketBot.Window.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Trainer {
+        internal static System.Drawing.Bitmap Trainer_Front {
             get {
-                object obj = ResourceManager.GetObject("Trainer", resourceCulture);
+                object obj = ResourceManager.GetObject("Trainer_Front", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Trainer_Left {
+            get {
+                object obj = ResourceManager.GetObject("Trainer_Left", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Trainer_Right {
+            get {
+                object obj = ResourceManager.GetObject("Trainer_Right", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -46,7 +46,7 @@ namespace PokemonGo.RocketBot.Logic
         {
         }
 
-        public TransferFilter(int keepMinCp, int keepMinLvl, bool useKeepMinLvl, float keepMinIvPercentage, string keepMinOperator, int keepMinDuplicatePokemon, 
+        public TransferFilter(int keepMinCp, int keepMinLvl, bool useKeepMinLvl, float keepMinIvPercentage, string keepMinOperator, int keepMinDuplicatePokemon,
             List<PokemonMove> moves = null, string movesOperator = "or")
         {
             KeepMinCp = keepMinCp;
@@ -83,6 +83,7 @@ namespace PokemonGo.RocketBot.Logic
         bool UseKeepMinLvl { get; }
         string KeepMinOperator { get; }
         double WalkingSpeedInKilometerPerHour { get; }
+        double WalkingSpeedOffSetInKilometerPerHour { get; }
         bool FastSoftBanBypass { get; }
         bool EvolveAllPokemonWithEnoughCandy { get; }
         bool KeepPokemonsThatCanEvolve { get; }

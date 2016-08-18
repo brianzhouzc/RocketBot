@@ -11,6 +11,7 @@ using PokemonGo.RocketBot.Logic.Utils;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Pokemon;
 using POGOProtos.Networking.Responses;
+using System.Collections.Generic;
 
 #endregion
 
@@ -18,6 +19,8 @@ namespace PokemonGo.RocketBot.Logic.Tasks
 {
     public static class CatchNearbyPokemonsTask
     {
+        public delegate void PokemonsEncounterDelegate(List<MapPokemon> pokemons);
+
         public static async Task Execute(ISession session, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -26,6 +29,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             Logger.Write(session.Translation.GetTranslation(TranslationString.LookingForPokemon), LogLevel.Debug);
 
             var pokemons = await GetNearbyPokemons(session);
+            OnPokemonEncounterEvent(pokemons.ToList());
             foreach (var pokemon in pokemons)
             {
                 cancellationToken.ThrowIfCancellationRequested();
@@ -49,8 +53,8 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                     return;
                 }
 
-                if( ( session.LogicSettings.UsePokemonSniperFilterOnly && !session.LogicSettings.PokemonToSnipe.Pokemon.Contains( pokemon.PokemonId ) ) ||
-                    ( session.LogicSettings.UsePokemonToNotCatchFilter && session.LogicSettings.PokemonsNotToCatch.Contains( pokemon.PokemonId ) ) )
+                if ((session.LogicSettings.UsePokemonSniperFilterOnly && !session.LogicSettings.PokemonToSnipe.Pokemon.Contains(pokemon.PokemonId)) ||
+                    (session.LogicSettings.UsePokemonToNotCatchFilter && session.LogicSettings.PokemonsNotToCatch.Contains(pokemon.PokemonId)))
                 {
                     Logger.Write(session.Translation.GetTranslation(TranslationString.PokemonSkipped, session.Translation.GetPokemonTranslation(pokemon.PokemonId)));
                     continue;
@@ -112,6 +116,13 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                             i.Latitude, i.Longitude));
 
             return pokemons;
+        }
+
+        public static event PokemonsEncounterDelegate PokemonEncounterEvent;
+
+        private static void OnPokemonEncounterEvent(List<MapPokemon> pokemons)
+        {
+            PokemonEncounterEvent?.Invoke(pokemons);
         }
     }
 }

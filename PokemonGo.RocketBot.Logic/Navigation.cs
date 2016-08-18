@@ -5,10 +5,9 @@ using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using GeoCoordinatePortable;
-using PokemonGo.RocketBot.Logic.Utils;
 using PokemonGo.RocketAPI;
+using PokemonGo.RocketBot.Logic.Utils;
 using POGOProtos.Networking.Responses;
-using PokemonGo.RocketBot.Logic.Logging;
 
 #endregion
 
@@ -18,7 +17,7 @@ namespace PokemonGo.RocketBot.Logic
 
     public class Navigation
     {
-        private const double SpeedDownTo = 10/3.6;
+        private const double SpeedDownTo = 10 / 3.6;
         private readonly Client _client;
 
         public Navigation(Client client)
@@ -27,23 +26,24 @@ namespace PokemonGo.RocketBot.Logic
         }
 
         public async Task<PlayerUpdateResponse> Move(GeoCoordinate targetLocation,
-            double walkingSpeedInKilometersPerHour, Func<Task<bool>> functionExecutedWhileWalking,
+            double walkingSpeedInKilometersPerHour, double walkingSpeedOffSetInKilometersPerHour,
+            Func<Task<bool>> functionExecutedWhileWalking,
             CancellationToken cancellationToken, bool disableHumanLikeWalking)
         {
             cancellationToken.ThrowIfCancellationRequested();
             if (!disableHumanLikeWalking)
             {
-                var speedInMetersPerSecond = walkingSpeedInKilometersPerHour/3.6;
-
                 var sourceLocation = new GeoCoordinate(_client.CurrentLatitude, _client.CurrentLongitude);
 
                 var nextWaypointBearing = LocationUtils.DegreeBearing(sourceLocation, targetLocation);
-                var nextWaypointDistance = speedInMetersPerSecond;
+                var nextWaypointDistance = getspeedInMetersPerSecond(walkingSpeedInKilometersPerHour,
+                    walkingSpeedOffSetInKilometersPerHour);
+                ;
                 var waypoint = LocationUtils.CreateWaypoint(sourceLocation, nextWaypointDistance, nextWaypointBearing);
 
                 //Initial walking
                 var requestSendDateTime = DateTime.Now;
-                var result = 
+                var result =
                     await
                         _client.Player.UpdatePlayerLocation(waypoint.Latitude, waypoint.Longitude,
                             waypoint.Altitude);
@@ -52,6 +52,8 @@ namespace PokemonGo.RocketBot.Logic
 
                 do
                 {
+                    var speedInMetersPerSecond = getspeedInMetersPerSecond(walkingSpeedInKilometersPerHour,
+                        walkingSpeedOffSetInKilometersPerHour);
                     cancellationToken.ThrowIfCancellationRequested();
 
                     var millisecondsUntilGetUpdatePlayerLocationResponse =
@@ -70,7 +72,7 @@ namespace PokemonGo.RocketBot.Logic
                     }
 
                     nextWaypointDistance = Math.Min(currentDistanceToTarget,
-                        millisecondsUntilGetUpdatePlayerLocationResponse/1000*speedInMetersPerSecond);
+                        millisecondsUntilGetUpdatePlayerLocationResponse / 1000 * speedInMetersPerSecond);
                     nextWaypointBearing = LocationUtils.DegreeBearing(sourceLocation, targetLocation);
                     waypoint = LocationUtils.CreateWaypoint(sourceLocation, nextWaypointDistance, nextWaypointBearing);
 
@@ -94,7 +96,7 @@ namespace PokemonGo.RocketBot.Logic
             var dist = LocationUtils.CalculateDistanceInMeters(curLocation, targetLocation);
             if (dist >= 100)
             {
-                var nextWaypointDistance = dist*70/100;
+                var nextWaypointDistance = dist * 70 / 100;
                 var nextWaypointBearing = LocationUtils.DegreeBearing(curLocation, targetLocation);
 
                 var waypoint = LocationUtils.CreateWaypoint(curLocation, nextWaypointDistance, nextWaypointBearing);
@@ -119,7 +121,7 @@ namespace PokemonGo.RocketBot.Logic
                     dist = LocationUtils.CalculateDistanceInMeters(curLocation, targetLocation);
                     if (dist >= 100)
                     {
-                        nextWaypointDistance = dist*70/100;
+                        nextWaypointDistance = dist * 70 / 100;
                     }
                     else
                     {
@@ -146,7 +148,7 @@ namespace PokemonGo.RocketBot.Logic
                 var result =
                     await
                         _client.Player.UpdatePlayerLocation(targetLocation.Latitude, targetLocation.Longitude,
-                            LocationUtils.getElevation(targetLocation.Latitude,targetLocation.Longitude));
+                            LocationUtils.getElevation(targetLocation.Latitude, targetLocation.Longitude));
                 UpdatePositionEvent?.Invoke(targetLocation.Latitude, targetLocation.Longitude);
                 if (functionExecutedWhileWalking != null)
                     await functionExecutedWhileWalking(); // look for pokemon
@@ -165,7 +167,7 @@ namespace PokemonGo.RocketBot.Logic
             var targetLocation = new GeoCoordinate(Convert.ToDouble(trk.Lat, CultureInfo.InvariantCulture),
                 Convert.ToDouble(trk.Lon, CultureInfo.InvariantCulture));
 
-            var speedInMetersPerSecond = walkingSpeedInKilometersPerHour/3.6;
+            var speedInMetersPerSecond = walkingSpeedInKilometersPerHour / 3.6;
 
             var sourceLocation = new GeoCoordinate(_client.CurrentLatitude, _client.CurrentLongitude);
             LocationUtils.CalculateDistanceInMeters(sourceLocation, targetLocation);
@@ -205,7 +207,7 @@ namespace PokemonGo.RocketBot.Logic
                 //}
 
                 nextWaypointDistance = Math.Min(currentDistanceToTarget,
-                    millisecondsUntilGetUpdatePlayerLocationResponse/1000*speedInMetersPerSecond);
+                    millisecondsUntilGetUpdatePlayerLocationResponse / 1000 * speedInMetersPerSecond);
                 nextWaypointBearing = LocationUtils.DegreeBearing(sourceLocation, targetLocation);
                 waypoint = LocationUtils.CreateWaypoint(sourceLocation, nextWaypointDistance, nextWaypointBearing);
 
@@ -222,6 +224,18 @@ namespace PokemonGo.RocketBot.Logic
             } while (LocationUtils.CalculateDistanceInMeters(sourceLocation, targetLocation) >= 30);
 
             return result;
+        }
+
+        public double getspeedInMetersPerSecond(double SpeedInKilometersPerHour, double SpeedOffSetInKilometersPerHour)
+        {
+            var random = new Random();
+            double offset;
+            if (random.Next(0, 2) == 1)
+                offset = random.NextDouble() * SpeedOffSetInKilometersPerHour;
+            else
+                offset = -random.NextDouble() * SpeedOffSetInKilometersPerHour;
+
+            return (SpeedInKilometersPerHour + offset) / 3.6;
         }
 
         public event UpdatePositionDelegate UpdatePositionEvent;

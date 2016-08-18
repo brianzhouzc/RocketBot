@@ -347,6 +347,8 @@ namespace PokemonGo.RocketBot.Logic
         public double DefaultLongitude;
         [DefaultValue(19.0)]
         public double WalkingSpeedInKilometerPerHour;
+        [DefaultValue(2)]
+        public double WalkingSpeedOffSetInKilometerPerHour;
         [DefaultValue(10)]
         public int MaxSpawnLocationOffset;
         //softban related
@@ -1320,6 +1322,7 @@ namespace PokemonGo.RocketBot.Logic
         public float UpgradePokemonCpMinimum => _settings.UpgradePokemonCpMinimum;
         public string UpgradePokemonMinimumStatsOperator => _settings.UpgradePokemonMinimumStatsOperator;
         public double WalkingSpeedInKilometerPerHour => _settings.WalkingSpeedInKilometerPerHour;
+        public double WalkingSpeedOffSetInKilometerPerHour => _settings.WalkingSpeedOffSetInKilometerPerHour;
         public bool FastSoftBanBypass => _settings.FastSoftBanBypass;
         public bool EvolveAllPokemonWithEnoughCandy => _settings.EvolveAllPokemonWithEnoughCandy;
         public bool KeepPokemonsThatCanEvolve => _settings.KeepPokemonsThatCanEvolve;

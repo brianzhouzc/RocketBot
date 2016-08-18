@@ -9,18 +9,21 @@ using PokemonGo.RocketBot.Logic.State;
 using PokemonGo.RocketBot.Logic.Utils;
 using POGOProtos.Map.Pokemon;
 using POGOProtos.Networking.Responses;
+using System.Collections.Generic;
 
 #endregion
 
 namespace PokemonGo.RocketBot.Logic.Tasks
 {
+    public delegate void PokemonsEncounterDelegate(List<MapPokemon> pokemons);
+
     public static class CatchIncensePokemonsTask
     {
         public static async Task Execute(ISession session, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
             if (!session.LogicSettings.CatchPokemon) return;
-            
+
             Logger.Write(session.Translation.GetTranslation(TranslationString.LookingForIncensePokemon), LogLevel.Debug);
 
             var incensePokemon = await session.Client.Map.GetIncensePokemons();
@@ -36,8 +39,9 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                     SpawnPointId = incensePokemon.EncounterLocation
                 };
 
-                if( ( session.LogicSettings.UsePokemonSniperFilterOnly && !session.LogicSettings.PokemonToSnipe.Pokemon.Contains( pokemon.PokemonId ) ) ||
-                    ( session.LogicSettings.UsePokemonToNotCatchFilter && session.LogicSettings.PokemonsNotToCatch.Contains( pokemon.PokemonId ) ) )
+                OnPokemonEncounterEvent(new List<MapPokemon> { pokemon });
+                if ((session.LogicSettings.UsePokemonSniperFilterOnly && !session.LogicSettings.PokemonToSnipe.Pokemon.Contains(pokemon.PokemonId)) ||
+                    (session.LogicSettings.UsePokemonToNotCatchFilter && session.LogicSettings.PokemonsNotToCatch.Contains(pokemon.PokemonId)))
                 {
                     Logger.Write(session.Translation.GetTranslation(TranslationString.PokemonIgnoreFilter,
                         session.Translation.GetPokemonTranslation(pokemon.PokemonId)));
@@ -50,7 +54,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
 
                     var encounter =
                         await
-                            session.Client.Encounter.EncounterIncensePokemon((ulong) pokemon.EncounterId,
+                            session.Client.Encounter.EncounterIncensePokemon((ulong)pokemon.EncounterId,
                                 pokemon.SpawnPointId);
 
                     if (encounter.Result == IncenseEncounterResponse.Types.Result.IncenseEncounterSuccess && session.LogicSettings.CatchPokemon)
@@ -65,7 +69,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                             {
                                 Message = session.Translation.GetTranslation(TranslationString.InvFullTransferring)
                             });
-                            await  TransferDuplicatePokemonTask.Execute(session, cancellationToken);
+                            await TransferDuplicatePokemonTask.Execute(session, cancellationToken);
                         }
                         else
                             session.EventDispatcher.Send(new WarnEvent
@@ -84,5 +88,13 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                 }
             }
         }
+
+        public static event PokemonsEncounterDelegate PokemonEncounterEvent;
+
+        private static void OnPokemonEncounterEvent(List<MapPokemon> pokemons)
+        {
+            PokemonEncounterEvent?.Invoke(pokemons);
+        }
     }
+
 }
