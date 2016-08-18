@@ -51,7 +51,7 @@ namespace PokemonGo.RocketBot.Window
 
         public double GetIV
         {
-            get { return Math.Round(PokemonInfo.CalculatePokemonPerfection(PokemonData) / 100, 2); }
+            get { return Math.Round(PokemonInfo.CalculatePokemonPerfection(PokemonData)/100, 2); }
         }
 
         public double GetLv
@@ -84,7 +84,7 @@ namespace PokemonGo.RocketBot.Window
             {
                 if (CandyToEvolve > 0)
                 {
-                    return Candy / CandyToEvolve;
+                    return Candy/CandyToEvolve;
                 }
                 return 0;
             }
