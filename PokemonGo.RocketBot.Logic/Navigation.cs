@@ -17,7 +17,7 @@ namespace PokemonGo.RocketBot.Logic
 
     public class Navigation
     {
-        private const double SpeedDownTo = 10/3.6;
+        private const double SpeedDownTo = 10 / 3.6;
         private readonly Client _client;
 
         public Navigation(Client client)
@@ -72,7 +72,7 @@ namespace PokemonGo.RocketBot.Logic
                     }
 
                     nextWaypointDistance = Math.Min(currentDistanceToTarget,
-                        millisecondsUntilGetUpdatePlayerLocationResponse/1000*speedInMetersPerSecond);
+                        millisecondsUntilGetUpdatePlayerLocationResponse / 1000 * speedInMetersPerSecond);
                     nextWaypointBearing = LocationUtils.DegreeBearing(sourceLocation, targetLocation);
                     waypoint = LocationUtils.CreateWaypoint(sourceLocation, nextWaypointDistance, nextWaypointBearing);
 
@@ -96,7 +96,7 @@ namespace PokemonGo.RocketBot.Logic
             var dist = LocationUtils.CalculateDistanceInMeters(curLocation, targetLocation);
             if (dist >= 100)
             {
-                var nextWaypointDistance = dist*70/100;
+                var nextWaypointDistance = dist * 70 / 100;
                 var nextWaypointBearing = LocationUtils.DegreeBearing(curLocation, targetLocation);
 
                 var waypoint = LocationUtils.CreateWaypoint(curLocation, nextWaypointDistance, nextWaypointBearing);
@@ -121,7 +121,7 @@ namespace PokemonGo.RocketBot.Logic
                     dist = LocationUtils.CalculateDistanceInMeters(curLocation, targetLocation);
                     if (dist >= 100)
                     {
-                        nextWaypointDistance = dist*70/100;
+                        nextWaypointDistance = dist * 70 / 100;
                     }
                     else
                     {
@@ -167,7 +167,7 @@ namespace PokemonGo.RocketBot.Logic
             var targetLocation = new GeoCoordinate(Convert.ToDouble(trk.Lat, CultureInfo.InvariantCulture),
                 Convert.ToDouble(trk.Lon, CultureInfo.InvariantCulture));
 
-            var speedInMetersPerSecond = walkingSpeedInKilometersPerHour/3.6;
+            var speedInMetersPerSecond = walkingSpeedInKilometersPerHour / 3.6;
 
             var sourceLocation = new GeoCoordinate(_client.CurrentLatitude, _client.CurrentLongitude);
             LocationUtils.CalculateDistanceInMeters(sourceLocation, targetLocation);
@@ -207,7 +207,7 @@ namespace PokemonGo.RocketBot.Logic
                 //}
 
                 nextWaypointDistance = Math.Min(currentDistanceToTarget,
-                    millisecondsUntilGetUpdatePlayerLocationResponse/1000*speedInMetersPerSecond);
+                    millisecondsUntilGetUpdatePlayerLocationResponse / 1000 * speedInMetersPerSecond);
                 nextWaypointBearing = LocationUtils.DegreeBearing(sourceLocation, targetLocation);
                 waypoint = LocationUtils.CreateWaypoint(sourceLocation, nextWaypointDistance, nextWaypointBearing);
 
@@ -231,11 +231,11 @@ namespace PokemonGo.RocketBot.Logic
             var random = new Random();
             double offset;
             if (random.Next(0, 2) == 1)
-                offset = random.NextDouble()*SpeedOffSetInKilometersPerHour;
+                offset = random.NextDouble() * SpeedOffSetInKilometersPerHour;
             else
-                offset = -random.NextDouble()*SpeedOffSetInKilometersPerHour;
+                offset = -random.NextDouble() * SpeedOffSetInKilometersPerHour;
 
-            return (SpeedInKilometersPerHour + offset)/3.6;
+            return (SpeedInKilometersPerHour + offset) / 3.6;
         }
 
         public event UpdatePositionDelegate UpdatePositionEvent;
