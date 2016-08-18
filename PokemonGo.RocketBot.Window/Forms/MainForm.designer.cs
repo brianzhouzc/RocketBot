@@ -56,6 +56,8 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.pkmnTransferButton = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnPowerUpButton = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnEvolveButton = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.pkmnMove1 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.pkmnMove2 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.cmsPokemonList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.largePokemonImageList = new System.Windows.Forms.ImageList(this.components);
             this.smallPokemonImageList = new System.Windows.Forms.ImageList(this.components);
@@ -90,7 +92,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.logTextBox.Name = "logTextBox";
             this.logTextBox.ReadOnly = true;
             this.logTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.logTextBox.Size = new System.Drawing.Size(611, 245);
+            this.logTextBox.Size = new System.Drawing.Size(611, 267);
             this.logTextBox.TabIndex = 0;
             this.logTextBox.Text = "";
             // 
@@ -99,7 +101,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 498);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 541);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1254, 22);
             this.statusStrip1.TabIndex = 1;
@@ -108,7 +110,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             // statusLabel
             // 
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(43, 17);
+            this.statusLabel.Size = new System.Drawing.Size(39, 17);
             this.statusLabel.Text = "Status";
             // 
             // menuStrip1
@@ -119,14 +121,14 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.todoToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1254, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(1254, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // startStopBotToolStripMenuItem
             // 
             this.startStopBotToolStripMenuItem.Name = "startStopBotToolStripMenuItem";
-            this.startStopBotToolStripMenuItem.Size = new System.Drawing.Size(85, 21);
+            this.startStopBotToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
             this.startStopBotToolStripMenuItem.Text = "▶ Start Bot";
             this.startStopBotToolStripMenuItem.Click += new System.EventHandler(this.startStopBotToolStripMenuItem_Click);
             // 
@@ -134,7 +136,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             // 
             this.todoToolStripMenuItem.Enabled = false;
             this.todoToolStripMenuItem.Name = "todoToolStripMenuItem";
-            this.todoToolStripMenuItem.Size = new System.Drawing.Size(540, 21);
+            this.todoToolStripMenuItem.Size = new System.Drawing.Size(490, 20);
             this.todoToolStripMenuItem.Text = "Settings (Not finish yet, please go to the config folder and set your information" +
     " manually)";
             this.todoToolStripMenuItem.Click += new System.EventHandler(this.todoToolStripMenuItem_Click);
@@ -173,7 +175,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(605, 218);
+            this.gMapControl1.Size = new System.Drawing.Size(605, 239);
             this.gMapControl1.TabIndex = 23;
             this.gMapControl1.Zoom = 0D;
             // 
@@ -190,6 +192,8 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.olvPokemonList.AllColumns.Add(this.pkmnEvolveTimes);
             this.olvPokemonList.AllColumns.Add(this.pkmnNickname);
             this.olvPokemonList.AllColumns.Add(this.pkmnLevel);
+            this.olvPokemonList.AllColumns.Add(this.pkmnMove1);
+            this.olvPokemonList.AllColumns.Add(this.pkmnMove2);
             this.olvPokemonList.AllColumns.Add(this.pkmnTransferButton);
             this.olvPokemonList.AllColumns.Add(this.pkmnPowerUpButton);
             this.olvPokemonList.AllColumns.Add(this.pkmnEvolveButton);
@@ -209,6 +213,8 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.pkmnEvolveTimes,
             this.pkmnNickname,
             this.pkmnLevel,
+            this.pkmnMove1,
+            this.pkmnMove2,
             this.pkmnTransferButton,
             this.pkmnPowerUpButton,
             this.pkmnEvolveButton});
@@ -222,12 +228,13 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.olvPokemonList.Name = "olvPokemonList";
             this.olvPokemonList.RowHeight = 32;
             this.olvPokemonList.ShowGroups = false;
-            this.olvPokemonList.Size = new System.Drawing.Size(633, 298);
+            this.olvPokemonList.Size = new System.Drawing.Size(633, 328);
             this.olvPokemonList.SmallImageList = this.smallPokemonImageList;
             this.olvPokemonList.TabIndex = 25;
             this.olvPokemonList.UseCompatibleStateImageBehavior = false;
             this.olvPokemonList.View = System.Windows.Forms.View.Details;
             this.olvPokemonList.ButtonClick += new System.EventHandler<BrightIdeasSoftware.CellClickEventArgs>(this.olvPokemonList_ButtonClick);
+            this.olvPokemonList.SelectedIndexChanged += new System.EventHandler(this.olvPokemonList_SelectedIndexChanged);
             // 
             // pkmnName
             // 
@@ -321,6 +328,16 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.pkmnEvolveButton.IsButton = true;
             this.pkmnEvolveButton.Text = "";
             // 
+            // pkmnMove1
+            // 
+            this.pkmnMove1.AspectName = "Move1";
+            this.pkmnMove1.Text = "Move1";
+            // 
+            // pkmnMove2
+            // 
+            this.pkmnMove2.AspectName = "Move2";
+            this.pkmnMove2.Text = "Move2";
+            // 
             // cmsPokemonList
             // 
             this.cmsPokemonList.Name = "cmsPokemonList";
@@ -345,9 +362,9 @@ namespace PokemonGo.RocketBot.Window.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRefresh.Location = new System.Drawing.Point(3, 446);
+            this.btnRefresh.Location = new System.Drawing.Point(3, 488);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(633, 26);
+            this.btnRefresh.Size = new System.Drawing.Size(633, 28);
             this.btnRefresh.TabIndex = 26;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -356,7 +373,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 25);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 24);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -370,7 +387,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.splitContainer1.Panel2.Controls.Add(this.lblPokemonList);
             this.splitContainer1.Panel2.Controls.Add(this.olvPokemonList);
             this.splitContainer1.Panel2.Controls.Add(this.btnRefresh);
-            this.splitContainer1.Size = new System.Drawing.Size(1254, 473);
+            this.splitContainer1.Size = new System.Drawing.Size(1254, 517);
             this.splitContainer1.SplitterDistance = 611;
             this.splitContainer1.TabIndex = 27;
             // 
@@ -388,8 +405,8 @@ namespace PokemonGo.RocketBot.Window.Forms
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.gMapControl1);
-            this.splitContainer2.Size = new System.Drawing.Size(611, 473);
-            this.splitContainer2.SplitterDistance = 245;
+            this.splitContainer2.Size = new System.Drawing.Size(611, 517);
+            this.splitContainer2.SplitterDistance = 267;
             this.splitContainer2.TabIndex = 0;
             // 
             // lblInventory
@@ -397,9 +414,9 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.lblInventory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblInventory.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInventory.Location = new System.Drawing.Point(3, 431);
+            this.lblInventory.Location = new System.Drawing.Point(3, 472);
             this.lblInventory.Name = "lblInventory";
-            this.lblInventory.Size = new System.Drawing.Size(633, 12);
+            this.lblInventory.Size = new System.Drawing.Size(633, 13);
             this.lblInventory.TabIndex = 33;
             this.lblInventory.Text = "0 / 0 ";
             this.lblInventory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -412,9 +429,9 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.flpItems.BackColor = System.Drawing.SystemColors.Window;
             this.flpItems.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.flpItems.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flpItems.Location = new System.Drawing.Point(3, 317);
+            this.flpItems.Location = new System.Drawing.Point(3, 348);
             this.flpItems.Name = "flpItems";
-            this.flpItems.Size = new System.Drawing.Size(633, 111);
+            this.flpItems.Size = new System.Drawing.Size(633, 120);
             this.flpItems.TabIndex = 32;
             // 
             // lblPokemonList
@@ -422,18 +439,18 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.lblPokemonList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPokemonList.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPokemonList.Location = new System.Drawing.Point(3, 303);
+            this.lblPokemonList.Location = new System.Drawing.Point(3, 333);
             this.lblPokemonList.Name = "lblPokemonList";
-            this.lblPokemonList.Size = new System.Drawing.Size(633, 11);
+            this.lblPokemonList.Size = new System.Drawing.Size(633, 12);
             this.lblPokemonList.TabIndex = 27;
             this.lblPokemonList.Text = "0 / 0";
             this.lblPokemonList.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1254, 520);
+            this.ClientSize = new System.Drawing.Size(1254, 563);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -498,5 +515,7 @@ namespace PokemonGo.RocketBot.Window.Forms
         private System.Windows.Forms.Label lblInventory;
         private BrightIdeasSoftware.OLVColumn pkmnNickname;
         private BrightIdeasSoftware.OLVColumn pkmnLevel;
+        private BrightIdeasSoftware.OLVColumn pkmnMove1;
+        private BrightIdeasSoftware.OLVColumn pkmnMove2;
     }
 }

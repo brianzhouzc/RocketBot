@@ -64,6 +64,16 @@ namespace PokemonGo.RocketBot.Window
             get { return PokemonData.Nickname; }
         }
 
+        public string Move1
+        {
+            get { return PokemonData.Move1.ToString(); }
+        }
+
+        public string Move2
+        {
+            get { return PokemonData.Move2.ToString(); }
+        }
+
         public int Candy { get; set; } = 0;
 
         public int CandyToEvolve

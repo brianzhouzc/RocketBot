@@ -741,7 +741,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 var newName = new StringBuilder(nickname);
                 newName.Replace("{Name}", Convert.ToString(pokemon.PokemonId));
                 newName.Replace("{CP}", Convert.ToString(pokemon.Cp));
-                newName.Replace("{IV}", Convert.ToString(Math.Round(_session.Inventory.GetPerfect(pokemon))));
+                newName.Replace("{IV}", Convert.ToString(Math.Round(_session.Inventory.GetPerfect(pokemon)), CultureInfo.InvariantCulture));
                 newName.Replace("{IA}", Convert.ToString(pokemon.IndividualAttack));
                 newName.Replace("{ID}", Convert.ToString(pokemon.IndividualDefense));
                 newName.Replace("{IS}", Convert.ToString(pokemon.IndividualStamina));
@@ -804,7 +804,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                     inventory.InventoryDelta.InventoryItems.Select(i => i?.InventoryItemData?.PokemonData)
                         .Where(p => p != null && p?.PokemonId > 0)
                         .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
-                        .OrderByDescending(key => key.Cp)
+                        .ThenByDescending(key => key.Cp)
                         .OrderBy(key => key.PokemonId);
                 _families = inventory.InventoryDelta.InventoryItems
                     .Select(i => i.InventoryItemData.Candy)
@@ -815,9 +815,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 foreach (var pokemon in pokemons)
                 {
                     var pokemonObject = new PokemonObject(pokemon);
-                    var family =
-                        _families.Where(i => (int)i.FamilyId <= (int)pokemon.PokemonId)
-                            .First();
+                    var family = _families.First(i => (int)i.FamilyId <= (int)pokemon.PokemonId);
                     pokemonObject.Candy = family.Candy_;
                     pokemonObjects.Add(pokemonObject);
                 }
@@ -827,13 +825,13 @@ namespace PokemonGo.RocketBot.Window.Forms
                 olvPokemonList.TopItemIndex = prevTopItem;
 
                 var pokemoncount =
-                    inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PokemonData)
-                        .Where(p => p != null && p?.PokemonId > 0)
-                        .Count();
+                    inventory.InventoryDelta.InventoryItems
+                        .Select(i => i.InventoryItemData?.PokemonData)
+                        .Count(p => p != null && p?.PokemonId > 0);
                 var eggcount =
-                    inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PokemonData)
-                        .Where(p => p != null && p?.IsEgg == true)
-                        .Count();
+                    inventory.InventoryDelta.InventoryItems
+                        .Select(i => i.InventoryItemData?.PokemonData)
+                        .Count(p => p != null && p?.IsEgg == true);
                 lblPokemonList.Text = pokemoncount + eggcount + " / " + profile.PlayerData.MaxPokemonStorage + " (" +
                                       pokemoncount + " pokemon, " + eggcount + " eggs)";
 
@@ -968,5 +966,10 @@ namespace PokemonGo.RocketBot.Window.Forms
         }
 
         #endregion POKEMON LIST
+
+        private void olvPokemonList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
