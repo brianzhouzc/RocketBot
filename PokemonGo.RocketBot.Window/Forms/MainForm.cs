@@ -744,7 +744,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 newName.Replace("{Name}", Convert.ToString(pokemon.PokemonId));
                 newName.Replace("{CP}", Convert.ToString(pokemon.Cp));
                 newName.Replace("{IV}",
-                    Convert.ToString(Math.Round(_session.Inventory.GetPerfect(pokemon)), CultureInfo.InvariantCulture));
+                    Convert.ToString(Math.Round(_session.Inventory.GetPerfect(pokemon), 2), CultureInfo.InvariantCulture));
                 newName.Replace("{IA}", Convert.ToString(pokemon.IndividualAttack));
                 newName.Replace("{ID}", Convert.ToString(pokemon.IndividualDefense));
                 newName.Replace("{IS}", Convert.ToString(pokemon.IndividualStamina));
