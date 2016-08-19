@@ -166,7 +166,6 @@ namespace PokemonGo.RocketBot.Logic.Tasks
 
                         await session.Navigation.HumanPathWalking(
                             trackPoints.ElementAt(curTrkPt),
-                            session.LogicSettings.WalkingSpeedInKilometerPerHour,
                             async () =>
                             {
                                 await CatchNearbyPokemonsTask.Execute(session, cancellationToken);
@@ -175,8 +174,8 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                                 await UseNearbyPokestopsTask.Execute(session, cancellationToken);
                                 return true;
                             },
-                            cancellationToken
-                            );
+                            session,
+                            cancellationToken);
 
                         await eggWalker.ApplyDistance(distance, cancellationToken);
                     } //end trkpts

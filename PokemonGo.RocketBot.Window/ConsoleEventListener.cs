@@ -18,6 +18,16 @@ namespace PokemonGo.RocketBot.Window
     [SuppressMessage("ReSharper", "UnusedParameter.Local")]
     internal class ConsoleEventListener
     {
+        private static void HandleEvent(HumanWalkingEvent humanWalkingEvent, ISession session)
+        {
+            if (session.LogicSettings.ShowVariantWalking)
+                Logger.Write(
+                    session.Translation.GetTranslation(TranslationString.HumanWalkingVariant,
+                    humanWalkingEvent.OldWalkingSpeed,
+                    humanWalkingEvent.CurrentWalkingSpeed),
+                    LogLevel.Info, ConsoleColor.DarkCyan);
+        }
+
         private static void HandleEvent(ProfileEvent profileEvent, ISession session)
         {
             Logger.Write(session.Translation.GetTranslation(TranslationString.EventProfileLogin,

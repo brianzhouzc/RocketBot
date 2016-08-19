@@ -53,11 +53,11 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.pkmnEvolveTimes = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnNickname = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnLevel = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.pkmnMove1 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.pkmnMove2 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnTransferButton = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnPowerUpButton = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnEvolveButton = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.pkmnMove1 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.pkmnMove2 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.cmsPokemonList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.largePokemonImageList = new System.Windows.Forms.ImageList(this.components);
             this.smallPokemonImageList = new System.Windows.Forms.ImageList(this.components);
@@ -178,6 +178,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.gMapControl1.Size = new System.Drawing.Size(605, 239);
             this.gMapControl1.TabIndex = 23;
             this.gMapControl1.Zoom = 0D;
+            this.gMapControl1.Load += new System.EventHandler(this.gMapControl1_Load);
             // 
             // olvPokemonList
             // 
@@ -304,6 +305,16 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.pkmnLevel.Text = "Lv";
             this.pkmnLevel.Width = 50;
             // 
+            // pkmnMove1
+            // 
+            this.pkmnMove1.AspectName = "Move1";
+            this.pkmnMove1.Text = "Move1";
+            // 
+            // pkmnMove2
+            // 
+            this.pkmnMove2.AspectName = "Move2";
+            this.pkmnMove2.Text = "Move2";
+            // 
             // pkmnTransferButton
             // 
             this.pkmnTransferButton.AspectName = "Id";
@@ -327,16 +338,6 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.pkmnEvolveButton.ButtonSizing = BrightIdeasSoftware.OLVColumn.ButtonSizingMode.CellBounds;
             this.pkmnEvolveButton.IsButton = true;
             this.pkmnEvolveButton.Text = "";
-            // 
-            // pkmnMove1
-            // 
-            this.pkmnMove1.AspectName = "Move1";
-            this.pkmnMove1.Text = "Move1";
-            // 
-            // pkmnMove2
-            // 
-            this.pkmnMove2.AspectName = "Move2";
-            this.pkmnMove2.Text = "Move2";
             // 
             // cmsPokemonList
             // 
