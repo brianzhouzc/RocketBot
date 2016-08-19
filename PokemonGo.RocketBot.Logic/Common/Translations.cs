@@ -26,6 +26,7 @@ namespace PokemonGo.RocketBot.Logic.Common
 
     public enum TranslationString
     {
+        HumanWalkingVariant,
         Pokeball,
         GreatPokeball,
         UltraPokeball,
@@ -151,6 +152,7 @@ namespace PokemonGo.RocketBot.Logic.Common
         DisplayHighestMove1Header,
         DisplayHighestMove2Header,
         DisplayHighestCandy,
+        // ReSharper disable once InconsistentNaming
         IPBannedError,
         NoEggsAvailable,
         UseLuckyEggActive,
@@ -207,6 +209,7 @@ namespace PokemonGo.RocketBot.Logic.Common
         private readonly List<KeyValuePair<TranslationString, string>> _translationStrings = new List
             <KeyValuePair<TranslationString, string>>
         {
+            new KeyValuePair<TranslationString, string>(TranslationString.HumanWalkingVariant, "Walking Speed: Has been changed, {0:n2} Km/h to {1:n2} Km/h"),
             new KeyValuePair<TranslationString, string>(TranslationString.Pokeball, "PokeBall"),
             new KeyValuePair<TranslationString, string>(TranslationString.GreatPokeball, "GreatBall"),
             new KeyValuePair<TranslationString, string>(TranslationString.UltraPokeball, "UltraBall"),

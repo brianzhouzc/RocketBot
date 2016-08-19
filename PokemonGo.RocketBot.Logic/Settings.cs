@@ -314,6 +314,7 @@ namespace PokemonGo.RocketBot.Logic
         [DefaultValue(2)] public double WalkingSpeedOffSetInKilometerPerHour;
         [DefaultValue(true)] public bool UseWalkingSpeedVariant;
         [DefaultValue(1.2)] public double WalkingSpeedVariant;
+        [DefaultValue(true)] public bool ShowVariantWalking;
 
 
         public int MaxSpawnLocationOffset;
@@ -1247,6 +1248,7 @@ namespace PokemonGo.RocketBot.Logic
         public double WalkingSpeedOffSetInKilometerPerHour => _settings.WalkingSpeedOffSetInKilometerPerHour;
         public bool UseWalkingSpeedVariant => _settings.UseWalkingSpeedVariant;
         public double WalkingSpeedVariant => _settings.WalkingSpeedVariant;
+        public bool ShowVariantWalking => _settings.ShowVariantWalking;
         public bool FastSoftBanBypass => _settings.FastSoftBanBypass;
         public bool EvolveAllPokemonWithEnoughCandy => _settings.EvolveAllPokemonWithEnoughCandy;
         public bool KeepPokemonsThatCanEvolve => _settings.KeepPokemonsThatCanEvolve;

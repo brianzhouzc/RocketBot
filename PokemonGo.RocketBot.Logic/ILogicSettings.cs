@@ -87,6 +87,7 @@ namespace PokemonGo.RocketBot.Logic
         double WalkingSpeedOffSetInKilometerPerHour { get; }
         bool UseWalkingSpeedVariant { get; }
         double WalkingSpeedVariant { get; }
+        bool ShowVariantWalking { get; }
         bool FastSoftBanBypass { get; }
         bool EvolveAllPokemonWithEnoughCandy { get; }
         bool KeepPokemonsThatCanEvolve { get; }
