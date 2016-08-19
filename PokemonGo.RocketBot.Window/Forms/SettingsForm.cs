@@ -114,7 +114,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             {
                 for (var i = 0; i < clbCatch.Items.Count; i++)
                 {
-                    var pokemonId = (PokemonId)clbCatch.Items[i];
+                    var pokemonId = (PokemonId) clbCatch.Items[i];
                     if (pokemonIdSetting == pokemonId)
                     {
                         clbCatch.SetItemChecked(i, true);
@@ -126,7 +126,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             {
                 for (var i = 0; i < clbTransfer.Items.Count; i++)
                 {
-                    var pokemonId = (PokemonId)clbTransfer.Items[i];
+                    var pokemonId = (PokemonId) clbTransfer.Items[i];
                     if (pokemonIdSetting == pokemonId)
                     {
                         clbTransfer.SetItemChecked(i, true);
