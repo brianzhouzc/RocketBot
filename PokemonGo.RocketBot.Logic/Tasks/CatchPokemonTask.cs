@@ -241,7 +241,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                     Math.Round(
                         PokemonInfo.CalculatePokemonPerfection(encounter is EncounterResponse
                             ? encounter.WildPokemon?.PokemonData
-                            : encounter?.PokemonData));
+                            : encounter?.PokemonData), 2);
                 evt.Probability =
                     Math.Round(probability * 100, 2);
                 evt.Distance = distance;
