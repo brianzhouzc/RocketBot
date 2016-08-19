@@ -149,11 +149,13 @@ namespace PokemonGo.RocketBot.Window.Forms
             }
             else
             {
-                _settings = new GlobalSettings();
-                _settings.ProfilePath = profilePath;
-                _settings.ProfileConfigPath = profileConfigPath;
-                _settings.GeneralConfigPath = Path.Combine(Directory.GetCurrentDirectory(), "config");
-                _settings.TranslationLanguageCode = strCulture;
+                _settings = new GlobalSettings
+                {
+                    ProfilePath = profilePath,
+                    ProfileConfigPath = profileConfigPath,
+                    GeneralConfigPath = Path.Combine(Directory.GetCurrentDirectory(), "config"),
+                    TranslationLanguageCode = strCulture
+                };
                 BoolNeedsSetup = true;
             }
 
@@ -249,16 +251,17 @@ namespace PokemonGo.RocketBot.Window.Forms
                 _playerOverlay.Markers.Clear();
                 _playerOverlay.Routes.Clear();
                 _playerLocations.Clear();
-                var routePoint =
+                /*var routePoint =
                     (from pokeStop in pokeStops
                         where pokeStop != null
                         select new PointLatLng(pokeStop.Latitude, pokeStop.Longitude)).ToList();
 
+                // Temporary removed it since the route is calculated on the fly with gmap api's
                 var route = new GMapRoute(routePoint, "Walking Path")
                 {
                     Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
                 };
-                _pokestopsOverlay.Routes.Add(route);
+                _pokestopsOverlay.Routes.Add(route);*/
 
                 foreach (var pokeStop in pokeStops)
                 {
@@ -1024,5 +1027,10 @@ namespace PokemonGo.RocketBot.Window.Forms
         }
 
         #endregion POKEMON LIST
+
+        private void gMapControl1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
