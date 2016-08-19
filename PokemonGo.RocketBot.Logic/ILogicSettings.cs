@@ -71,6 +71,7 @@ namespace PokemonGo.RocketBot.Logic
 
     public interface ILogicSettings
     {
+        string GoogleAPIKey { get; }
         bool UseWebsocket { get; }
         bool CatchPokemon { get; }
         bool TransferWeakPokemon { get; }
@@ -84,6 +85,8 @@ namespace PokemonGo.RocketBot.Logic
         string KeepMinOperator { get; }
         double WalkingSpeedInKilometerPerHour { get; }
         double WalkingSpeedOffSetInKilometerPerHour { get; }
+        bool UseWalkingSpeedVariant { get; }
+        double WalkingSpeedVariant { get; }
         bool FastSoftBanBypass { get; }
         bool EvolveAllPokemonWithEnoughCandy { get; }
         bool KeepPokemonsThatCanEvolve { get; }

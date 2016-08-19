@@ -42,9 +42,14 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                     session.Translation.GetTranslation(TranslationString.FarmPokestopsOutsideRadius, distanceFromStart),
                     LogLevel.Warning);
 
-                await session.Navigation.Move(
-                    new GeoCoordinate(session.Settings.DefaultLatitude, session.Settings.DefaultLongitude, LocationUtils.getElevation(session.Settings.DefaultLatitude, session.Settings.DefaultLongitude)),
-                    session.LogicSettings.WalkingSpeedInKilometerPerHour, session.LogicSettings.WalkingSpeedOffSetInKilometerPerHour, null, cancellationToken, session.LogicSettings.DisableHumanWalking);
+                await session.Navigation.Move(new GeoCoordinate(
+                    session.Settings.DefaultLatitude,
+                    session.Settings.DefaultLongitude,
+                    LocationUtils.getElevation(session.Settings.DefaultLatitude,
+                    session.Settings.DefaultLongitude)),
+                    null,
+                    session,
+                    cancellationToken);
             }
 
             var pokestopList = await GetPokeStops(session);
@@ -77,16 +82,18 @@ namespace PokemonGo.RocketBot.Logic.Tasks
 
                 session.EventDispatcher.Send(new FortTargetEvent { Name = fortInfo.Name, Distance = distance });
 
-                await session.Navigation.Move(new GeoCoordinate(pokeStop.Latitude, pokeStop.Longitude, LocationUtils.getElevation(pokeStop.Latitude, pokeStop.Longitude)),
-                session.LogicSettings.WalkingSpeedInKilometerPerHour, session.LogicSettings.WalkingSpeedOffSetInKilometerPerHour,
-                async () =>
-                {
-                    // Catch normal map Pokemon
-                    await CatchNearbyPokemonsTask.Execute(session, cancellationToken);
-                    //Catch Incense Pokemon
-                    await CatchIncensePokemonsTask.Execute(session, cancellationToken);
-                    return true;
-                }, cancellationToken, session.LogicSettings.DisableHumanWalking);
+                await session.Navigation.Move(new GeoCoordinate(pokeStop.Latitude, pokeStop.Longitude,
+                        LocationUtils.getElevation(pokeStop.Latitude, pokeStop.Longitude)),
+                    async () =>
+                    {
+                        // Catch normal map Pokemon
+                        await CatchNearbyPokemonsTask.Execute(session, cancellationToken);
+                        //Catch Incense Pokemon
+                        await CatchIncensePokemonsTask.Execute(session, cancellationToken);
+                        return true;
+                    },
+                    session,
+                    cancellationToken);
 
                 //Catch Lure Pokemon
                 if (pokeStop.LureInfo != null)

@@ -170,7 +170,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             _machine = new StateMachine();
             var stats = new Statistics();
 
-            var strVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
+            // var strVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(3); NOT USED ATM
 
             //Status bar
             stats.DirtyEvent +=
@@ -228,14 +228,14 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private async Task StartBot()
         {
-            _machine.AsyncStart(new VersionCheckState(), _session);
+            await _machine.AsyncStart(new VersionCheckState(), _session);
 
-            if (_settings.UseTelegramAPI)
+            if (_settings.UseTelegramApi)
             {
-                _session.Telegram = new TelegramService(_settings.TelegramAPIKey, _session);
+                _session.Telegram = new TelegramService(_settings.TelegramApiKey, _session);
             }
 
-            _settings.checkProxy();
+            _settings.CheckProxy();
 
             QuitEvent.WaitOne();
         }
@@ -430,9 +430,9 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         #region EVENTS
 
-        private void btnRefresh_Click(object sender, EventArgs e)
+        private async void btnRefresh_Click(object sender, EventArgs e)
         {
-            ReloadPokemonList();
+            await ReloadPokemonList();
         }
 
         private void startStopBotToolStripMenuItem_Click(object sender, EventArgs e)
@@ -467,6 +467,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             {
                 var pokemon = rowObject as PokemonObject;
 
+                // ReSharper disable once PossibleNullReferenceException
                 var key = pokemon.PokemonId.ToString();
                 if (!olvPokemonList.SmallImageList.Images.ContainsKey(key))
                 {
@@ -482,11 +483,13 @@ namespace PokemonGo.RocketBot.Window.Forms
                 if (olvPokemonList.Objects
                     .Cast<PokemonObject>()
                     .Select(i => i.PokemonId)
+                    // ReSharper disable once PossibleNullReferenceException
                     .Count(p => p == pok.PokemonId) > 1)
                     e.Item.BackColor = Color.LightGreen;
 
                 foreach (OLVListSubItem sub in e.Item.SubItems)
                 {
+                    // ReSharper disable once PossibleNullReferenceException
                     if (sub.Text.Equals("Evolve") && !pok.CanEvolve)
                     {
                         sub.CellPadding = new Rectangle(100, 100, 0, 0);
@@ -499,12 +502,9 @@ namespace PokemonGo.RocketBot.Window.Forms
                 e.Cancel = false;
                 cmsPokemonList.Items.Clear();
 
-                var pokemons = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o.PokemonData);
+                var pokemons = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o.PokemonData).ToList();
                 var canAllEvolve =
-                    olvPokemonList.SelectedObjects.Cast<PokemonObject>()
-                        .Select(o => o)
-                        .Where(o => o.CanEvolve == false)
-                        .Count() == 0;
+                    olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).All(o => o.CanEvolve);
                 var count = pokemons.Count();
 
                 if (count < 1)
@@ -516,12 +516,11 @@ namespace PokemonGo.RocketBot.Window.Forms
 
                 var item = new ToolStripMenuItem();
                 var separator = new ToolStripSeparator();
-                item.Text = "Transfer " + count + " pokemon";
+                item.Text = $"Transfer {count} pokemon";
                 item.Click += delegate { TransferPokemon(pokemons); };
                 cmsPokemonList.Items.Add(item);
 
-                item = new ToolStripMenuItem();
-                item.Text = "Rename";
+                item = new ToolStripMenuItem {Text = @"Rename"};
                 item.Click += delegate
                 {
                     using (var form = count == 1 ? new NicknamePokemonForm(pokemonObject) : new NicknamePokemonForm())
@@ -536,46 +535,38 @@ namespace PokemonGo.RocketBot.Window.Forms
 
                 if (canAllEvolve)
                 {
-                    item = new ToolStripMenuItem();
-                    item.Text = "Evolve " + count + " pokemon";
+                    item = new ToolStripMenuItem {Text = $"Evolve {count} pokemon"};
                     item.Click += delegate { EvolvePokemon(pokemons); };
                     cmsPokemonList.Items.Add(item);
                 }
 
-                if (count == 1)
-                {
-                    item = new ToolStripMenuItem();
-                    item.Text = "PowerUp";
-                    item.Click += delegate { PowerUpPokemon(pokemons); };
-                    cmsPokemonList.Items.Add(item);
-                    cmsPokemonList.Items.Add(separator);
+                if (count != 1) return;
+                item = new ToolStripMenuItem {Text = @"PowerUp"};
+                item.Click += delegate { PowerUpPokemon(pokemons); };
+                cmsPokemonList.Items.Add(item);
+                cmsPokemonList.Items.Add(separator);
 
-                    item = new ToolStripMenuItem();
-                    item.Text = "Transfer Clean Up (Keep highest IV)";
-                    item.Click += delegate { CleanUpTransferPokemon(pokemonObject, "IV"); };
-                    cmsPokemonList.Items.Add(item);
+                item = new ToolStripMenuItem {Text = @"Transfer Clean Up (Keep highest IV)"};
+                item.Click += delegate { CleanUpTransferPokemon(pokemonObject, "IV"); };
+                cmsPokemonList.Items.Add(item);
 
-                    item = new ToolStripMenuItem();
-                    item.Text = "Transfer Clean Up (Keep highest CP)";
-                    item.Click += delegate { CleanUpTransferPokemon(pokemonObject, "CP"); };
-                    cmsPokemonList.Items.Add(item);
+                item = new ToolStripMenuItem {Text = @"Transfer Clean Up (Keep highest CP)"};
+                item.Click += delegate { CleanUpTransferPokemon(pokemonObject, "CP"); };
+                cmsPokemonList.Items.Add(item);
 
-                    item = new ToolStripMenuItem();
-                    item.Text = "Evolve Clean Up (Highest IV)";
-                    item.Click += delegate { CleanUpEvolvePokemon(pokemonObject, "IV"); };
-                    cmsPokemonList.Items.Add(item);
+                item = new ToolStripMenuItem {Text = @"Evolve Clean Up (Highest IV)"};
+                item.Click += delegate { CleanUpEvolvePokemon(pokemonObject, "IV"); };
+                cmsPokemonList.Items.Add(item);
 
-                    item = new ToolStripMenuItem();
-                    item.Text = "Evolve Clean Up (Highest CP)";
-                    item.Click += delegate { CleanUpEvolvePokemon(pokemonObject, "CP"); };
-                    cmsPokemonList.Items.Add(item);
+                item = new ToolStripMenuItem {Text = @"Evolve Clean Up (Highest CP)"};
+                item.Click += delegate { CleanUpEvolvePokemon(pokemonObject, "CP"); };
+                cmsPokemonList.Items.Add(item);
 
-                    cmsPokemonList.Items.Add(separator);
-                }
+                cmsPokemonList.Items.Add(separator);
             };
         }
 
-        private void olvPokemonList_ButtonClick(object sender, CellClickEventArgs e)
+        private async void olvPokemonList_ButtonClick(object sender, CellClickEventArgs e)
         {
             try
             {
@@ -583,21 +574,24 @@ namespace PokemonGo.RocketBot.Window.Forms
                 var cName = olvPokemonList.AllColumns[e.ColumnIndex].AspectToStringFormat;
                 if (cName.Equals("Transfer"))
                 {
+                    // ReSharper disable once PossibleNullReferenceException
                     TransferPokemon(new List<PokemonData> {pokemon.PokemonData});
                 }
                 else if (cName.Equals("Power Up"))
                 {
+                    // ReSharper disable once PossibleNullReferenceException
                     PowerUpPokemon(new List<PokemonData> {pokemon.PokemonData});
                 }
                 else if (cName.Equals("Evolve"))
                 {
+                    // ReSharper disable once PossibleNullReferenceException
                     EvolvePokemon(new List<PokemonData> {pokemon.PokemonData});
                 }
             }
             catch (Exception ex)
             {
                 Logger.Write(ex.ToString(), LogLevel.Error);
-                ReloadPokemonList();
+                await ReloadPokemonList();
             }
         }
 
@@ -618,7 +612,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                     Logger.Write($"{pokemon.PokemonId} could not be transferred", LogLevel.Error);
                 }
             }
-            ReloadPokemonList();
+            await ReloadPokemonList();
         }
 
         private async void PowerUpPokemon(IEnumerable<PokemonData> pokemons)
@@ -636,7 +630,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                     Logger.Write($"{pokemon.PokemonId} could not be upgraded");
                 }
             }
-            ReloadPokemonList();
+            await ReloadPokemonList();
         }
 
         private async void EvolvePokemon(IEnumerable<PokemonData> pokemons)
@@ -655,25 +649,25 @@ namespace PokemonGo.RocketBot.Window.Forms
                     Logger.Write($"{pokemon.PokemonId} could not be evolved");
                 }
             }
-            ReloadPokemonList();
+            await ReloadPokemonList();
         }
 
-        private void CleanUpTransferPokemon(PokemonObject pokemon, string type)
+        private async void CleanUpTransferPokemon(PokemonObject pokemon, string type)
         {
-            var ET = pokemon.EvolveTimes;
+            var et = pokemon.EvolveTimes;
             var pokemonCount =
-                olvPokemonList.Objects.Cast<PokemonObject>()
-                    .Where(p => p.PokemonId == pokemon.PokemonId)
-                    .Count();
+                olvPokemonList.Objects
+                    .Cast<PokemonObject>()
+                    .Count(p => p.PokemonId == pokemon.PokemonId);
 
-            if (pokemonCount < ET)
+            if (pokemonCount < et)
             {
-                ReloadPokemonList();
+                await ReloadPokemonList();
                 return;
             }
 
-            if (ET == 0)
-                ET = 1;
+            if (et == 0)
+                et = 1;
 
             if (type.Equals("IV"))
             {
@@ -682,8 +676,8 @@ namespace PokemonGo.RocketBot.Window.Forms
                         .Where(p => p.PokemonId == pokemon.PokemonId)
                         .Select(p => p.PokemonData)
                         .OrderBy(p => p.Cp)
-                        .OrderBy(PokemonInfo.CalculatePokemonPerfection)
-                        .Take(pokemonCount - ET);
+                        .ThenBy(PokemonInfo.CalculatePokemonPerfection)
+                        .Take(pokemonCount - et);
 
                 TransferPokemon(pokemons);
             }
@@ -694,20 +688,20 @@ namespace PokemonGo.RocketBot.Window.Forms
                         .Where(p => p.PokemonId == pokemon.PokemonId)
                         .Select(p => p.PokemonData)
                         .OrderBy(PokemonInfo.CalculatePokemonPerfection)
-                        .OrderBy(p => p.Cp)
-                        .Take(pokemonCount - ET);
+                        .ThenBy(p => p.Cp)
+                        .Take(pokemonCount - et);
 
                 TransferPokemon(pokemons);
             }
         }
 
-        private void CleanUpEvolvePokemon(PokemonObject pokemon, string type)
+        private async void CleanUpEvolvePokemon(PokemonObject pokemon, string type)
         {
-            var ET = pokemon.EvolveTimes;
+            var et = pokemon.EvolveTimes;
 
-            if (ET < 1)
+            if (et < 1)
             {
-                ReloadPokemonList();
+                await ReloadPokemonList();
                 return;
             }
 
@@ -718,8 +712,8 @@ namespace PokemonGo.RocketBot.Window.Forms
                         .Where(p => p.PokemonId == pokemon.PokemonId)
                         .Select(p => p.PokemonData)
                         .OrderByDescending(p => p.Cp)
-                        .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
-                        .Take(ET);
+                        .ThenByDescending(PokemonInfo.CalculatePokemonPerfection)
+                        .Take(et);
 
                 EvolvePokemon(pokemons);
             }
@@ -730,8 +724,8 @@ namespace PokemonGo.RocketBot.Window.Forms
                         .Where(p => p.PokemonId == pokemon.PokemonId)
                         .Select(p => p.PokemonData)
                         .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
-                        .OrderByDescending(p => p.Cp)
-                        .Take(ET);
+                        .ThenByDescending(p => p.Cp)
+                        .Take(et);
 
                 EvolvePokemon(pokemons);
             }
@@ -740,7 +734,8 @@ namespace PokemonGo.RocketBot.Window.Forms
         public async void NicknamePokemon(IEnumerable<PokemonData> pokemons, string nickname)
         {
             SetState(false);
-            foreach (var pokemon in pokemons)
+            var pokemonDatas = pokemons as IList<PokemonData> ?? pokemons.ToList();
+            foreach (var pokemon in pokemonDatas)
             {
                 var newName = new StringBuilder(nickname);
                 newName.Replace("{Name}", Convert.ToString(pokemon.PokemonId));
@@ -753,7 +748,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 if (nickname.Length > 12)
                 {
                     Logger.Write($"\"{newName}\" is too long, please choose another name");
-                    if (pokemons.Count() == 1)
+                    if (pokemonDatas.Count() == 1)
                     {
                         SetState(true);
                         return;
@@ -788,26 +783,16 @@ namespace PokemonGo.RocketBot.Window.Forms
                 var itemTemplates = await _session.Client.Download.GetItemTemplates();
                 var inventory = await _session.Inventory.GetCachedInventory();
                 var profile = await _session.Client.Player.GetPlayer();
-                var appliedItems = new Dictionary<ItemId, DateTime>();
                 var inventoryAppliedItems =
                     await _session.Inventory.GetAppliedItems();
 
-                foreach (var aItems in inventoryAppliedItems)
-                {
-                    if (aItems != null && aItems.Item != null)
-                    {
-                        foreach (var item in aItems.Item)
-                        {
-                            appliedItems.Add(item.ItemId, Utils.FromUnixTimeUtc(item.ExpireMs));
-                        }
-                    }
-                }
+                var appliedItems = inventoryAppliedItems.Where(aItems => aItems?.Item != null).SelectMany(aItems => aItems.Item).ToDictionary(item => item.ItemId, item => Utils.FromUnixTimeUtc(item.ExpireMs));
 
                 PokemonObject.Initilize(itemTemplates);
 
                 var pokemons =
                     inventory.InventoryDelta.InventoryItems.Select(i => i?.InventoryItemData?.PokemonData)
-                        .Where(p => p != null && p?.PokemonId > 0)
+                        .Where(p => p != null && p.PokemonId > 0)
                         .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
                         .ThenByDescending(key => key.Cp)
                         .OrderBy(key => key.PokemonId);
@@ -832,13 +817,12 @@ namespace PokemonGo.RocketBot.Window.Forms
                 var pokemoncount =
                     inventory.InventoryDelta.InventoryItems
                         .Select(i => i.InventoryItemData?.PokemonData)
-                        .Count(p => p != null && p?.PokemonId > 0);
+                        .Count(p => p != null && p.PokemonId > 0);
                 var eggcount =
                     inventory.InventoryDelta.InventoryItems
                         .Select(i => i.InventoryItemData?.PokemonData)
-                        .Count(p => p != null && p?.IsEgg == true);
-                lblPokemonList.Text = pokemoncount + eggcount + " / " + profile.PlayerData.MaxPokemonStorage + " (" +
-                                      pokemoncount + " pokemon, " + eggcount + " eggs)";
+                        .Count(p => p != null && p.IsEgg);
+                lblPokemonList.Text = $"{pokemoncount + eggcount} / {profile.PlayerData.MaxPokemonStorage} ({pokemoncount} pokemon, {eggcount} eggs)";
 
                 var items =
                     inventory.InventoryDelta.InventoryItems
@@ -861,7 +845,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                     flpItems.Controls.Add(box);
                 }
 
-                lblInventory.Text = itemscount + " / " + profile.PlayerData.MaxItemStorage;
+                lblInventory.Text = itemscount + @" / " + profile.PlayerData.MaxItemStorage;
             }
             catch (ArgumentNullException)
             {
@@ -885,10 +869,11 @@ namespace PokemonGo.RocketBot.Window.Forms
             using (var form = new ItemForm(item))
             {
                 var result = form.ShowDialog();
-                if (result == DialogResult.OK)
+                if (result != DialogResult.OK) return;
+                SetState(false);
+                switch (item.ItemId)
                 {
-                    SetState(false);
-                    if (item.ItemId == ItemId.ItemLuckyEgg)
+                    case ItemId.ItemLuckyEgg:
                     {
                         if (_session.Client == null)
                         {
@@ -897,25 +882,31 @@ namespace PokemonGo.RocketBot.Window.Forms
                             return;
                         }
                         var response = await _session.Client.Inventory.UseItemXpBoost();
-                        if (response.Result == UseItemXpBoostResponse.Types.Result.Success)
+                        switch (response.Result)
                         {
-                            Logger.Write($"Using a Lucky Egg");
-                            Logger.Write($"Lucky Egg valid until: {DateTime.Now.AddMinutes(30)}");
-                        }
-                        else if (response.Result == UseItemXpBoostResponse.Types.Result.ErrorXpBoostAlreadyActive)
-                        {
-                            Logger.Write($"A Lucky Egg is already active!", LogLevel.Warning);
-                        }
-                        else if (response.Result == UseItemXpBoostResponse.Types.Result.ErrorLocationUnset)
-                        {
-                            Logger.Write($"Bot must be running first!", LogLevel.Error);
-                        }
-                        else
-                        {
-                            Logger.Write($"Failed using a Lucky Egg!", LogLevel.Error);
+                            case UseItemXpBoostResponse.Types.Result.Success:
+                                Logger.Write($"Using a Lucky Egg");
+                                Logger.Write($"Lucky Egg valid until: {DateTime.Now.AddMinutes(30)}");
+                                break;
+                            case UseItemXpBoostResponse.Types.Result.ErrorXpBoostAlreadyActive:
+                                Logger.Write($"A Lucky Egg is already active!", LogLevel.Warning);
+                                break;
+                            case UseItemXpBoostResponse.Types.Result.ErrorLocationUnset:
+                                Logger.Write($"Bot must be running first!", LogLevel.Error);
+                                break;
+                            case UseItemXpBoostResponse.Types.Result.Unset:
+                                break;
+                            case UseItemXpBoostResponse.Types.Result.ErrorInvalidItemType:
+                                break;
+                            case UseItemXpBoostResponse.Types.Result.ErrorNoItemsRemaining:
+                                break;
+                            default:
+                                Logger.Write($"Failed using a Lucky Egg!", LogLevel.Error);
+                                break;
                         }
                     }
-                    else if (item.ItemId == ItemId.ItemIncenseOrdinary)
+                        break;
+                    case ItemId.ItemIncenseOrdinary:
                     {
                         if (_session.Client == null)
                         {
@@ -924,24 +915,84 @@ namespace PokemonGo.RocketBot.Window.Forms
                             return;
                         }
                         var response = await _session.Client.Inventory.UseIncense(ItemId.ItemIncenseOrdinary);
-                        if (response.Result == UseIncenseResponse.Types.Result.Success)
+                        switch (response.Result)
                         {
-                            Logger.Write($"Incense valid until: {DateTime.Now.AddMinutes(30)}");
-                        }
-                        else if (response.Result == UseIncenseResponse.Types.Result.IncenseAlreadyActive)
-                        {
-                            Logger.Write($"An incense is already active!", LogLevel.Warning);
-                        }
-                        else if (response.Result == UseIncenseResponse.Types.Result.LocationUnset)
-                        {
-                            Logger.Write($"Bot must be running first!", LogLevel.Error);
-                        }
-                        else
-                        {
-                            Logger.Write($"Failed using an incense!", LogLevel.Error);
+                            case UseIncenseResponse.Types.Result.Success:
+                                Logger.Write($"Incense valid until: {DateTime.Now.AddMinutes(30)}");
+                                break;
+                            case UseIncenseResponse.Types.Result.IncenseAlreadyActive:
+                                Logger.Write($"An incense is already active!", LogLevel.Warning);
+                                break;
+                            case UseIncenseResponse.Types.Result.LocationUnset:
+                                Logger.Write($"Bot must be running first!", LogLevel.Error);
+                                break;
+                            case UseIncenseResponse.Types.Result.Unknown:
+                                break;
+                            case UseIncenseResponse.Types.Result.NoneInInventory:
+                                break;
+                            default:
+                                Logger.Write($"Failed using an incense!", LogLevel.Error);
+                                break;
                         }
                     }
-                    else
+                        break;
+                    case ItemId.ItemUnknown:
+                        break;
+                    case ItemId.ItemPokeBall:
+                        break;
+                    case ItemId.ItemGreatBall:
+                        break;
+                    case ItemId.ItemUltraBall:
+                        break;
+                    case ItemId.ItemMasterBall:
+                        break;
+                    case ItemId.ItemPotion:
+                        break;
+                    case ItemId.ItemSuperPotion:
+                        break;
+                    case ItemId.ItemHyperPotion:
+                        break;
+                    case ItemId.ItemMaxPotion:
+                        break;
+                    case ItemId.ItemRevive:
+                        break;
+                    case ItemId.ItemMaxRevive:
+                        break;
+                    case ItemId.ItemIncenseSpicy:
+                        break;
+                    case ItemId.ItemIncenseCool:
+                        break;
+                    case ItemId.ItemIncenseFloral:
+                        break;
+                    case ItemId.ItemTroyDisk:
+                        break;
+                    case ItemId.ItemXAttack:
+                        break;
+                    case ItemId.ItemXDefense:
+                        break;
+                    case ItemId.ItemXMiracle:
+                        break;
+                    case ItemId.ItemRazzBerry:
+                        break;
+                    case ItemId.ItemBlukBerry:
+                        break;
+                    case ItemId.ItemNanabBerry:
+                        break;
+                    case ItemId.ItemWeparBerry:
+                        break;
+                    case ItemId.ItemPinapBerry:
+                        break;
+                    case ItemId.ItemSpecialCamera:
+                        break;
+                    case ItemId.ItemIncubatorBasicUnlimited:
+                        break;
+                    case ItemId.ItemIncubatorBasic:
+                        break;
+                    case ItemId.ItemPokemonStorageUpgrade:
+                        break;
+                    case ItemId.ItemItemStorageUpgrade:
+                        break;
+                    default:
                     {
                         var response =
                             await
@@ -959,8 +1010,9 @@ namespace PokemonGo.RocketBot.Window.Forms
                                 LogLevel.Error);
                         }
                     }
-                    ReloadPokemonList();
+                        break;
                 }
+                await ReloadPokemonList();
             }
         }
 
