@@ -251,17 +251,19 @@ namespace PokemonGo.RocketBot.Window.Forms
                 _playerOverlay.Markers.Clear();
                 _playerOverlay.Routes.Clear();
                 _playerLocations.Clear();
-                /*var routePoint =
+                var routePoint =
                     (from pokeStop in pokeStops
                         where pokeStop != null
                         select new PointLatLng(pokeStop.Latitude, pokeStop.Longitude)).ToList();
+                foreach(var pks in pokeStops)
+                    Logger.Write(pks.Latitude + ", " + pks.Longitude);
 
                 // Temporary removed it since the route is calculated on the fly with gmap api's
                 var route = new GMapRoute(routePoint, "Walking Path")
                 {
                     Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
                 };
-                _pokestopsOverlay.Routes.Add(route);*/
+                _pokestopsOverlay.Routes.Add(route);
 
                 foreach (var pokeStop in pokeStops)
                 {
