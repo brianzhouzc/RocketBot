@@ -55,7 +55,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             var pokestopList = await GetPokeStops(session);
 
             //get optimized route
-            var pokeStops = RouteOptimizeUtil.Optimize(pokestopList.ToArray(), session.Client.CurrentLatitude, session.Client.CurrentLongitude);
+            var pokeStops = RouteOptimizeUtil.OptimizeHumanizeRoute(pokestopList.ToArray(), session.Client.CurrentLatitude, session.Client.CurrentLongitude);
 
             var stopsHit = 0;
             var rc = new Random(); //initialize pokestop random cleanup counter first time
