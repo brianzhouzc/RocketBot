@@ -255,6 +255,8 @@ namespace PokemonGo.RocketBot.Window.Forms
                     (from pokeStop in pokeStops
                         where pokeStop != null
                         select new PointLatLng(pokeStop.Latitude, pokeStop.Longitude)).ToList();
+                foreach(var pks in pokeStops)
+                    Logger.Write(pks.Latitude + ", " + pks.Longitude);
 
                 // Temporary removed it since the route is calculated on the fly with gmap api's
                 var route = new GMapRoute(routePoint, "Walking Path")
@@ -413,8 +415,8 @@ namespace PokemonGo.RocketBot.Window.Forms
                 Instance.Invoke(new Action<Color, string>(ColoredConsoleWrite), color, message);
                 return;
             }
-            //Instance.logTextBox.SelectionStart = Instance.logTextBox.Text.Length;
-            //Instance.logTextBox.ScrollToCaret();
+            Instance.logTextBox.SelectionStart = Instance.logTextBox.Text.Length;
+            Instance.logTextBox.ScrollToCaret();
             Instance.logTextBox.SelectionColor = color;
             Instance.logTextBox.AppendText(message);
         }

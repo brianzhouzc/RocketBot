@@ -4,12 +4,6 @@ using System.Linq;
 using POGOProtos.Map.Fort;
 using GMap.NET.WindowsForms;
 using PokemonGo.RocketBot.Logic.Logging;
-using System.Diagnostics;
-using System.IO;
-using System.Net;
-using Newtonsoft.Json.Linq;
-using PokemonGo.RocketBot.Logic.Event;
-using System.Threading.Tasks;
 
 namespace PokemonGo.RocketBot.Logic.Utils
 {
@@ -17,15 +11,11 @@ namespace PokemonGo.RocketBot.Logic.Utils
 
     public static class RouteOptimizeUtil
     {
-        public static List<FortData> Optimize(FortData[] pokeStops, double lat, double lng,
-            bool randomizestartpoint = false)
+        public static List<FortData> Optimize(FortData[] pokeStops, double lat, double lng)
         {
             var optimizedRoute = new List<FortData>(pokeStops);
             // NN
-            var nn = !randomizestartpoint
-                ? FindNn(optimizedRoute, lat, lng)
-                : optimizedRoute[new Random().Next(optimizedRoute.Count)];
-
+            var nn = FindNn(optimizedRoute, lat, lng);
             optimizedRoute.Remove(nn);
             optimizedRoute.Insert(0, nn);
             for (var i = 1; i < pokeStops.Length; i++)
@@ -42,116 +32,9 @@ namespace PokemonGo.RocketBot.Logic.Utils
             {
                 optimizedRoute = Optimize2Opt(optimizedRoute, out isOptimized);
             } while (isOptimized);
-            //OnRouteOptimizeEvent(optimizedRoute);
+            OnRouteOptimizeEvent(optimizedRoute);
 
             return optimizedRoute;
-        }
-
-        public static List<FortData> OptimizeHumanizeRoute(FortData[] pokeStops, double lat, double lng,
-            bool randomizestartpoint = false)
-        {
-            var apikey = "AIzaSyD-9h_V9GjpczxcOOBb5payKuWrrAjk_jg";
-            //THIS IS THE LIST WITHOUT ANY MODIFY
-            var originalroute = new List<FortData>(Optimize(pokeStops, lat, lng, randomizestartpoint));
-
-            //Split list into lists with length smaller or equal to 24 
-            var splitroutecontainer = SplitList(originalroute, 24);
-
-            List<FortData> finaList = new List<FortData>();
-            for (var scc = 0; scc < splitroutecontainer.Count; scc++)
-            {
-                var splitedroutes = splitroutecontainer[scc];
-                //Getting the starting point. The start point is the same as the end point if this isn't the first list
-                var start = scc == 0 ? splitedroutes[0] : splitroutecontainer[scc - 1][splitroutecontainer[scc - 1].Count - 1];
-                var end = splitedroutes[splitedroutes.Count - 1];
-                var requesturl =
-                    $"https://maps.googleapis.com/maps/api/directions/json?origin={start.Latitude},{start.Longitude}&destination={end.Latitude},{end.Longitude}&waypoints=optimize:true|";
-
-                //Create list to store waypoints
-                List<FortData> waypoints = new List<FortData>(splitedroutes);
-                //Excluded start only if this is the first list
-                if (scc == 0)
-                    waypoints.Remove(waypoints[0]);
-                //Excluded end
-                waypoints.Remove(waypoints[waypoints.Count - 1]);
-
-                foreach (var waypoint in waypoints)
-                {
-                    //Building request url
-                    requesturl += $"{waypoint.Latitude},{waypoint.Longitude}|";
-                }
-                requesturl += $"&mode=walking&units=metric&key={apikey}";
-
-                //Get resond from Google
-                var parseObject = JObject.Parse(GetRespond(requesturl));
-                //A list storing the order of waypoints
-                var orderlist = parseObject["routes"][0]["waypoint_order"].ToList();
-
-                //Initialize a list to store the sorted waypoints
-                List<FortData> buildinglist = new List<FortData>(waypoints);
-                if (scc == 0)
-                {
-                    buildinglist.Insert(0, start);
-                }
-                for (var d = 0; d < orderlist.Count; d++)
-                {
-                    if (scc == 0)
-                    {
-                        buildinglist[d + 1] = waypoints[(int)orderlist[d]];
-                    }
-                    else
-                    {
-                        buildinglist[d] = waypoints[(int)orderlist[d]];
-                    }
-                }
-                buildinglist.Add(end);
-
-                finaList.AddRange(buildinglist);
-            }
-            OnRouteOptimizeEvent(finaList);
-            return finaList;
-
-            /*var start = route[0];
-            //var endpoint = route[route.Count - 1];
-            var end = route[24];
-            var requesturl =
-                $"https://maps.googleapis.com/maps/api/directions/json?origin={start.Latitude},{start.Longitude}&destination={end.Latitude},{end.Longitude}&waypoints=optimize:true|";
-            for (var i = 1; i < 24; i++)
-            {
-                var point = route[i];
-                requesturl += $"{point.Latitude},{point.Longitude}|";
-            }
-            requesturl += $"&mode=walking&units=metric&key={apikey}";
-            Logger.Write(requesturl);
-            try
-            {
-                var web = WebRequest.Create(requesturl);
-                web.Credentials = CredentialCache.DefaultCredentials;
-
-                string strResponse;
-                using (var response = web.GetResponse())
-                {
-                    using (var stream = response.GetResponseStream())
-                    {
-                        Debug.Assert(stream != null, "stream != null");
-                        using (var reader = new StreamReader(stream))
-                            strResponse = reader.ReadToEnd();
-                    }
-                }
-                var parseObject = JObject.Parse(strResponse);
-                var l = parseObject["routes"][0]["waypoint_order"].ToString();
-                Logger.Write(strResponse);
-            }
-            catch (WebException e)
-            {
-
-            }
-            catch (NullReferenceException e)
-            {
-
-            }
-
-            return null; */
         }
 
         private static List<FortData> Optimize2Opt(List<FortData> pokeStops, out bool isOptimized)
@@ -247,50 +130,8 @@ namespace PokemonGo.RocketBot.Logic.Utils
             RouteOptimizeEvent?.Invoke(optimizedroute);
         }
 
-        public static List<List<T>> SplitList<T>(List<T> locations, int nSize = 30)
-        {
-            var list = new List<List<T>>();
-
-            for (int i = 0; i < locations.Count; i += nSize)
-            {
-                list.Add(locations.GetRange(i, Math.Min(nSize, locations.Count - i)));
-            }
-
-            return list;
-        }
-
-        public static String GetRespond(string request)
-        {
-            try
-            {
-                var web = WebRequest.Create(request);
-                web.Credentials = CredentialCache.DefaultCredentials;
-
-                string strResponse;
-                using (var response = web.GetResponse())
-                {
-                    using (var stream = response.GetResponseStream())
-                    {
-                        Debug.Assert(stream != null, "stream != null");
-                        using (var reader = new StreamReader(stream))
-                            strResponse = reader.ReadToEnd();
-                    }
-                }
-                return strResponse;
-            }
-            catch (WebException e)
-            {
-                Logger.Write(e.Message, LogLevel.Error);
-            }
-            catch (NullReferenceException e)
-            {
-                Logger.Write(e.Message, LogLevel.Error);
-
-            }
-            return null;
-        }
-
         public static event RouteOptimizeDelegate RouteOptimizeEvent;
 
     }
+
 }

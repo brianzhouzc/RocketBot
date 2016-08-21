@@ -12,7 +12,6 @@ using GeoCoordinatePortable;
 using Newtonsoft.Json.Linq;
 using PokemonGo.RocketAPI;
 using PokemonGo.RocketBot.Logic.Event;
-using PokemonGo.RocketBot.Logic.Logging;
 using PokemonGo.RocketBot.Logic.State;
 using PokemonGo.RocketBot.Logic.Utils;
 using POGOProtos.Networking.Responses;
@@ -128,6 +127,7 @@ namespace PokemonGo.RocketBot.Logic
                             strResponse = reader.ReadToEnd();
                     }
                 }
+
                 var parseObject = JObject.Parse(strResponse);
                 result = Points(parseObject["routes"][0]["overview_polyline"]["points"].ToString(), 1e5);
             }
