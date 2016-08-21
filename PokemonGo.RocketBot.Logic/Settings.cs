@@ -286,6 +286,9 @@ namespace PokemonGo.RocketBot.Logic
         [JsonIgnore]
         public bool isGui;
 
+        [DefaultValue(false)]
+        public bool EnableAdvancedSettings;
+
         [DefaultValue("en")]
         public string TranslationLanguageCode;
         //autoupdate
@@ -308,7 +311,7 @@ namespace PokemonGo.RocketBot.Logic
         public string TelegramAPIKey;
 
         //console options
-        [DefaultValue(10)]
+        [DefaultValue(0)]
         public int AmountOfPokemonToDisplayOnStart;
         [DefaultValue(true)]
         public bool DetailedCountsBeforeRecycling;
@@ -1077,7 +1080,7 @@ namespace PokemonGo.RocketBot.Logic
     public class ClientSettings : ISettings
     {
         // Never spawn at the same position.
-        private readonly Random _rand = new Random();
+        private readonly Random _rand = new Random(DateTime.Now.Millisecond);
         private readonly GlobalSettings _settings;
 
         public ClientSettings(GlobalSettings settings)

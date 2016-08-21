@@ -149,11 +149,13 @@ namespace PokemonGo.RocketBot.Window.Forms
             }
             else
             {
-                _settings = new GlobalSettings();
-                _settings.ProfilePath = profilePath;
-                _settings.ProfileConfigPath = profileConfigPath;
-                _settings.GeneralConfigPath = Path.Combine(Directory.GetCurrentDirectory(), "config");
-                _settings.TranslationLanguageCode = strCulture;
+                _settings = new GlobalSettings
+                {
+                    ProfilePath = profilePath,
+                    ProfileConfigPath = profileConfigPath,
+                    GeneralConfigPath = Path.Combine(Directory.GetCurrentDirectory(), "config"),
+                    TranslationLanguageCode = strCulture
+                };
                 BoolNeedsSetup = true;
             }
 
@@ -439,8 +441,14 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private void todoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form settingsForm = new SettingsForm();
+            Form settingsForm = new SettingsForm(ref _settings);
             settingsForm.ShowDialog();
+            var newLocation = new PointLatLng(_settings.DefaultLatitude, _settings.DefaultLongitude);
+            gMapControl1.Position = newLocation;
+            _playerMarker.Position = newLocation;
+            _playerLocations.Clear();
+            _playerLocations.Add(newLocation);
+            UpdateMap();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
