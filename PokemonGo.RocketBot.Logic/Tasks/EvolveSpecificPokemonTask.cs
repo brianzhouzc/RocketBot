@@ -1,14 +1,10 @@
 ﻿#region using directives
 
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using PokemonGo.RocketBot.Logic.Event;
-using PokemonGo.RocketBot.Logic.PoGoUtils;
 using PokemonGo.RocketBot.Logic.State;
 using PokemonGo.RocketBot.Logic.Utils;
-using PokemonGo.RocketBot.Logic.Logging;
-using PokemonGo.RocketBot.Logic.Common;
 
 #endregion
 

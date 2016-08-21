@@ -7,11 +7,11 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using PokemonGo.RocketAPI.Extensions;
 using PokemonGo.RocketBot.Logic.Common;
 using PokemonGo.RocketBot.Logic.Event;
 using PokemonGo.RocketBot.Logic.State;
 using PokemonGo.RocketBot.Logic.Utils;
-using PokemonGo.RocketAPI.Extensions;
 using POGOProtos.Map.Fort;
 
 #endregion
@@ -120,7 +120,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                             await RecycleItemsTask.Execute(session, cancellationToken);
 
                             if (session.LogicSettings.EvolveAllPokemonWithEnoughCandy ||
-                                session.LogicSettings.EvolveAllPokemonAboveIv || 
+                                session.LogicSettings.EvolveAllPokemonAboveIv ||
                                 session.LogicSettings.UseLuckyEggsWhileEvolving ||
                                 session.LogicSettings.KeepPokemonsThatCanEvolve)
                             {
@@ -196,7 +196,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
         //so do not make it more than 40 because it will never get close to those stops.
         private static async Task<List<FortData>> GetPokeStops(ISession session)
         {
-            var mapObjects = await session.Client.Map.GetMapObjects();  
+            var mapObjects = await session.Client.Map.GetMapObjects();
 
             // Wasn't sure how to make this pretty. Edit as needed.
             var pokeStops = mapObjects.Item1.MapCells.SelectMany(i => i.Forts)

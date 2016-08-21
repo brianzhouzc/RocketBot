@@ -1,8 +1,8 @@
-﻿using PokemonGo.RocketBot.Logic.Event;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using PokemonGo.RocketBot.Logic.Event;
 using PokemonGo.RocketBot.Logic.State;
 using PokemonGo.RocketBot.Logic.Utils;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PokemonGo.RocketBot.Logic.Tasks
 {

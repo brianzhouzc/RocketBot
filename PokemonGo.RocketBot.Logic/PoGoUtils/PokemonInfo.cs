@@ -1,12 +1,12 @@
 ﻿#region using directives
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using POGOProtos.Data;
 using POGOProtos.Enums;
 using POGOProtos.Inventory;
-using System.Collections.Generic;
 using POGOProtos.Settings.Master;
-using System.Linq;
 
 #endregion
 
@@ -583,7 +583,8 @@ namespace PokemonGo.RocketBot.Logic.PoGoUtils
             return move2;
         }
 
-        public static int GetCandy(PokemonData pokemon, List<Candy> PokemonFamilies, IEnumerable<PokemonSettings> PokemonSettings)
+        public static int GetCandy(PokemonData pokemon, List<Candy> PokemonFamilies,
+            IEnumerable<PokemonSettings> PokemonSettings)
         {
             var setting = PokemonSettings.FirstOrDefault(q => pokemon != null && q.PokemonId.Equals(pokemon.PokemonId));
             var family = PokemonFamilies.FirstOrDefault(q => setting != null && q.FamilyId.Equals(setting.FamilyId));

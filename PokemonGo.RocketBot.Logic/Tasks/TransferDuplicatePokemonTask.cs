@@ -7,7 +7,6 @@ using PokemonGo.RocketBot.Logic.Event;
 using PokemonGo.RocketBot.Logic.PoGoUtils;
 using PokemonGo.RocketBot.Logic.State;
 using PokemonGo.RocketBot.Logic.Utils;
-using POGOProtos.Data;
 
 #endregion
 
@@ -23,11 +22,11 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                 await
                     session.Inventory.GetDuplicatePokemonToTransfer(
                         session.LogicSettings.PokemonsNotToTransfer,
-                        session.LogicSettings.PokemonsToEvolve, 
+                        session.LogicSettings.PokemonsToEvolve,
                         session.LogicSettings.KeepPokemonsThatCanEvolve,
                         session.LogicSettings.PrioritizeIvOverCp);
 
-            var orderedPokemon = duplicatePokemons.OrderBy( poke => poke.Cp );
+            var orderedPokemon = duplicatePokemons.OrderBy(poke => poke.Cp);
 
             var pokemonSettings = await session.Inventory.GetPokemonSettings();
             var pokemonFamilies = await session.Inventory.GetPokemonFamilies();

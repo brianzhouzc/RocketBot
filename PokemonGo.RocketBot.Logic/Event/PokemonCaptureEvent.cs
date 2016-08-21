@@ -18,14 +18,14 @@ namespace PokemonGo.RocketBot.Logic.Event
         public int Exp;
         public int FamilyCandies;
         public PokemonId Id;
+        public double Latitude;
         public double Level;
+        public double Longitude;
         public int MaxCp;
         public double Perfection;
         public ItemId Pokeball;
         public double Probability;
         public int Stardust;
         public CatchPokemonResponse.Types.CatchStatus Status;
-        public double Latitude;
-        public double Longitude;
     }
 }

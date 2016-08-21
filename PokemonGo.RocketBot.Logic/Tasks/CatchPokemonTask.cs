@@ -2,9 +2,11 @@
 
 using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using PokemonGo.RocketBot.Logic.Common;
 using PokemonGo.RocketBot.Logic.Event;
+using PokemonGo.RocketBot.Logic.Logging;
 using PokemonGo.RocketBot.Logic.PoGoUtils;
 using PokemonGo.RocketBot.Logic.State;
 using PokemonGo.RocketBot.Logic.Utils;
@@ -12,8 +14,6 @@ using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Fort;
 using POGOProtos.Map.Pokemon;
 using POGOProtos.Networking.Responses;
-using System.Threading;
-using PokemonGo.RocketBot.Logic.Logging;
 
 #endregion
 
@@ -22,9 +22,10 @@ namespace PokemonGo.RocketBot.Logic.Tasks
     public static class CatchPokemonTask
     {
         public static int AmountOfBerries;
-        private static Random Random => new Random((int)DateTime.Now.Ticks);
+        private static Random Random => new Random((int) DateTime.Now.Ticks);
 
-        public static async Task Execute(ISession session, CancellationToken cancellationToken, dynamic encounter, MapPokemon pokemon,
+        public static async Task Execute(ISession session, CancellationToken cancellationToken, dynamic encounter,
+            MapPokemon pokemon,
             FortData currentFortData = null, ulong encounterId = 0)
         {
             AmountOfBerries = 0;
@@ -40,12 +41,12 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             if (pokeball == ItemId.ItemUnknown) return;
 
             //Calculate CP and IV
-            var pokemonCp = (encounter is EncounterResponse
-                               ? encounter.WildPokemon?.PokemonData?.Cp
-                               : encounter.PokemonData?.Cp);
+            var pokemonCp = encounter is EncounterResponse
+                ? encounter.WildPokemon?.PokemonData?.Cp
+                : encounter.PokemonData?.Cp;
             var pokemonIv = PokemonInfo.CalculatePokemonPerfection(encounter is EncounterResponse
-                    ? encounter.WildPokemon?.PokemonData
-                    : encounter?.PokemonData);
+                ? encounter.WildPokemon?.PokemonData
+                : encounter?.PokemonData);
 
             // Calculate distance away
             var distance = LocationUtils.CalculateDistanceInMeters(session.Client.CurrentLatitude,
@@ -61,8 +62,8 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             var attemptCounter = 1;
             do
             {
-                if ((session.LogicSettings.MaxPokeballsPerPokemon > 0 &&
-                    attemptCounter > session.LogicSettings.MaxPokeballsPerPokemon))
+                if (session.LogicSettings.MaxPokeballsPerPokemon > 0 &&
+                    attemptCounter > session.LogicSettings.MaxPokeballsPerPokemon)
                     break;
 
                 pokeball = await GetBestBall(session, encounter, probability);
@@ -81,28 +82,26 @@ namespace PokemonGo.RocketBot.Logic.Tasks
 
                 // Determine whether to use berries or not
                 if ((session.LogicSettings.UseBerriesOperator.ToLower().Equals("and") &&
-                        pokemonIv >= session.LogicSettings.UseBerriesMinIv &&
-                        pokemonCp >= session.LogicSettings.UseBerriesMinCp &&
-                        probability < session.LogicSettings.UseBerriesBelowCatchProbability) ||
+                     pokemonIv >= session.LogicSettings.UseBerriesMinIv &&
+                     pokemonCp >= session.LogicSettings.UseBerriesMinCp &&
+                     probability < session.LogicSettings.UseBerriesBelowCatchProbability) ||
                     (session.LogicSettings.UseBerriesOperator.ToLower().Equals("or") && (
                         pokemonIv >= session.LogicSettings.UseBerriesMinIv ||
                         pokemonCp >= session.LogicSettings.UseBerriesMinCp ||
                         probability < session.LogicSettings.UseBerriesBelowCatchProbability)))
                 {
-                    
                     AmountOfBerries++;
                     if (AmountOfBerries <= session.LogicSettings.MaxBerriesToUsePerPokemon)
                     {
                         await
-                       UseBerry(session,
-                           encounter is EncounterResponse || encounter is IncenseEncounterResponse
-                               ? pokemon.EncounterId
-                               : encounterId,
-                           encounter is EncounterResponse || encounter is IncenseEncounterResponse
-                               ? pokemon.SpawnPointId
-                               : currentFortData?.Id);
+                            UseBerry(session,
+                                encounter is EncounterResponse || encounter is IncenseEncounterResponse
+                                    ? pokemon.EncounterId
+                                    : encounterId,
+                                encounter is EncounterResponse || encounter is IncenseEncounterResponse
+                                    ? pokemon.SpawnPointId
+                                    : currentFortData?.Id);
                     }
-                   
                 }
 
                 //default to excellent throw
@@ -119,12 +118,12 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                     if (pokemonCp > session.LogicSettings.ForceExcellentThrowOverCp ||
                         pokemonIv > session.LogicSettings.ForceExcellentThrowOverIv)
                     {
-                        normalizedRecticleSize = Random.NextDouble() * (1.95 - 1.7) + 1.7;
+                        normalizedRecticleSize = Random.NextDouble()*(1.95 - 1.7) + 1.7;
                     }
                     else if (pokemonCp >= session.LogicSettings.ForceGreatThrowOverCp ||
                              pokemonIv >= session.LogicSettings.ForceGreatThrowOverIv)
                     {
-                        normalizedRecticleSize = Random.NextDouble() * (1.95 - 1.3) + 1.3;
+                        normalizedRecticleSize = Random.NextDouble()*(1.95 - 1.3) + 1.3;
                         hitTxt = "Great";
                     }
                     else
@@ -136,23 +135,23 @@ namespace PokemonGo.RocketBot.Logic.Tasks
 
                         if (rnd <= regularThrow)
                         {
-                            normalizedRecticleSize = Random.NextDouble() * (1 - 0.1) + 0.1;
+                            normalizedRecticleSize = Random.NextDouble()*(1 - 0.1) + 0.1;
                             hitTxt = "Ordinary";
                         }
                         else if (rnd <= regularThrow + session.LogicSettings.NiceThrowChance)
                         {
-                            normalizedRecticleSize = Random.NextDouble() * (1.3 - 1) + 1;
+                            normalizedRecticleSize = Random.NextDouble()*(1.3 - 1) + 1;
                             hitTxt = "Nice";
                         }
                         else if (rnd <=
                                  regularThrow + session.LogicSettings.NiceThrowChance +
                                  session.LogicSettings.GreatThrowChance)
                         {
-                            normalizedRecticleSize = Random.NextDouble() * (1.7 - 1.3) + 1.3;
+                            normalizedRecticleSize = Random.NextDouble()*(1.7 - 1.3) + 1.3;
                             hitTxt = "Great";
                         }
 
-                        if (Random.NextDouble() * 100 > session.LogicSettings.CurveThrowChance)
+                        if (Random.NextDouble()*100 > session.LogicSettings.CurveThrowChance)
                         {
                             spinModifier = 0.0;
                             spinTxt = "Straight";
@@ -175,10 +174,12 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                             : currentFortData.Id, pokeball, normalizedRecticleSize, spinModifier);
 
                 var lat = encounter is EncounterResponse || encounter is IncenseEncounterResponse
-                             ? pokemon.Latitude : currentFortData.Latitude;
+                    ? pokemon.Latitude
+                    : currentFortData.Latitude;
                 var lng = encounter is EncounterResponse || encounter is IncenseEncounterResponse
-                            ? pokemon.Longitude : currentFortData.Longitude;
-                var evt = new PokemonCaptureEvent()
+                    ? pokemon.Longitude
+                    : currentFortData.Longitude;
+                var evt = new PokemonCaptureEvent
                 {
                     Status = caughtPokemonResponse.Status,
                     Latitude = lat,
@@ -216,7 +217,8 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                         evt.FamilyCandies = caughtPokemonResponse.CaptureAward.Candy.Sum();
                     }
 
-                    if (session.LogicSettings.TransferDuplicatePokemonOnCapture && session.LogicSettings.TransferDuplicatePokemon)
+                    if (session.LogicSettings.TransferDuplicatePokemonOnCapture &&
+                        session.LogicSettings.TransferDuplicatePokemon)
                         await TransferDuplicatePokemonTask.Execute(session, cancellationToken);
                 }
 
@@ -243,7 +245,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                             ? encounter.WildPokemon?.PokemonData
                             : encounter?.PokemonData));
                 evt.Probability =
-                    Math.Round(probability * 100, 2);
+                    Math.Round(probability*100, 2);
                 evt.Distance = distance;
                 evt.Pokeball = pokeball;
                 evt.Attempt = attemptCounter;
@@ -279,22 +281,22 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             var masterBallsCount = await session.Inventory.GetItemAmountByType(ItemId.ItemMasterBall);
 
             if (masterBallsCount > 0 && (
-                    (!session.LogicSettings.PokemonToUseMasterball.Any() && (
-                        pokemonCp >= session.LogicSettings.UseMasterBallAboveCp ||
-                        probability < session.LogicSettings.UseMasterBallBelowCatchProbability)) ||
-                    session.LogicSettings.PokemonToUseMasterball.Contains(pokemonId)))
+                (!session.LogicSettings.PokemonToUseMasterball.Any() && (
+                    pokemonCp >= session.LogicSettings.UseMasterBallAboveCp ||
+                    probability < session.LogicSettings.UseMasterBallBelowCatchProbability)) ||
+                session.LogicSettings.PokemonToUseMasterball.Contains(pokemonId)))
                 return ItemId.ItemMasterBall;
 
             if (ultraBallsCount > 0 && (
-                    pokemonCp >= session.LogicSettings.UseUltraBallAboveCp ||
-                    iV >= session.LogicSettings.UseUltraBallAboveIv ||
-                    probability < session.LogicSettings.UseUltraBallBelowCatchProbability))
+                pokemonCp >= session.LogicSettings.UseUltraBallAboveCp ||
+                iV >= session.LogicSettings.UseUltraBallAboveIv ||
+                probability < session.LogicSettings.UseUltraBallBelowCatchProbability))
                 return ItemId.ItemUltraBall;
 
             if (greatBallsCount > 0 && (
-                    pokemonCp >= session.LogicSettings.UseGreatBallAboveCp ||
-                    iV >= session.LogicSettings.UseGreatBallAboveIv ||
-                    probability < session.LogicSettings.UseGreatBallBelowCatchProbability))
+                pokemonCp >= session.LogicSettings.UseGreatBallAboveCp ||
+                iV >= session.LogicSettings.UseGreatBallAboveIv ||
+                probability < session.LogicSettings.UseGreatBallBelowCatchProbability))
                 return ItemId.ItemGreatBall;
 
             if (pokeBallsCount > 0)
@@ -320,7 +322,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
 
             await session.Client.Encounter.UseCaptureItem(encounterId, ItemId.ItemRazzBerry, spawnPointId);
             berry.Count -= 1;
-            session.EventDispatcher.Send(new UseBerryEvent { BerryType = ItemId.ItemRazzBerry, Count = berry.Count });
+            session.EventDispatcher.Send(new UseBerryEvent {BerryType = ItemId.ItemRazzBerry, Count = berry.Count});
         }
     }
 }

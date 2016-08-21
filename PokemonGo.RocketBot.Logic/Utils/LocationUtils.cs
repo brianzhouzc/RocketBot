@@ -2,9 +2,6 @@
 
 using System;
 using GeoCoordinatePortable;
-using System.Net;
-using Newtonsoft.Json.Linq;
-using System.IO;
 
 #endregion
 
@@ -30,10 +27,10 @@ namespace PokemonGo.RocketBot.Logic.Utils
 
         public static double getElevation(double lat, double lon)
         {
-            Random random = new Random();
+            var random = new Random();
             double maximum = 11.0f;
             double minimum = 8.6f;
-            double return1 = random.NextDouble() * (maximum - minimum) + minimum;
+            var return1 = random.NextDouble()*(maximum - minimum) + minimum;
 
             return return1;
         }
@@ -63,7 +60,8 @@ namespace PokemonGo.RocketBot.Logic.Utils
             // adjust toLonRadians to be in the range -180 to +180...
             targetLongitudeRadians = (targetLongitudeRadians + 3*Math.PI)%(2*Math.PI) - Math.PI;
 
-            return new GeoCoordinate(ToDegrees(targetLatitudeRadians), ToDegrees(targetLongitudeRadians), getElevation(sourceLocation.Latitude, sourceLocation.Longitude));
+            return new GeoCoordinate(ToDegrees(targetLatitudeRadians), ToDegrees(targetLongitudeRadians),
+                getElevation(sourceLocation.Latitude, sourceLocation.Longitude));
         }
 
         public static GeoCoordinate CreateWaypoint(GeoCoordinate sourceLocation, double distanceInMeters,

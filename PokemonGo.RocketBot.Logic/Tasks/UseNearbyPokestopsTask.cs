@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using PokemonGo.RocketAPI.Extensions;
 using PokemonGo.RocketBot.Logic.Event;
 using PokemonGo.RocketBot.Logic.State;
 using PokemonGo.RocketBot.Logic.Utils;
-using PokemonGo.RocketAPI.Extensions;
 using POGOProtos.Map.Fort;
 
 #endregion

@@ -48,7 +48,8 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                     session.EventDispatcher.Send(new NoticeEvent
                     {
                         Message =
-                            session.Translation.GetTranslation(TranslationString.PokemonRename, session.Translation.GetPokemonTranslation(pokemon.PokemonId),
+                            session.Translation.GetTranslation(TranslationString.PokemonRename,
+                                session.Translation.GetPokemonTranslation(pokemon.PokemonId),
                                 pokemon.Id, oldNickname, newNickname)
                     });
                 }

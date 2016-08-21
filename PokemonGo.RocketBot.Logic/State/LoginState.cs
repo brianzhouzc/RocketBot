@@ -5,10 +5,10 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Google.Protobuf;
-using PokemonGo.RocketBot.Logic.Common;
-using PokemonGo.RocketBot.Logic.Event;
 using PokemonGo.RocketAPI.Enums;
 using PokemonGo.RocketAPI.Exceptions;
+using PokemonGo.RocketBot.Logic.Common;
+using PokemonGo.RocketBot.Logic.Event;
 using PokemonGo.RocketBot.Logic.Logging;
 
 #endregion
@@ -128,21 +128,26 @@ namespace PokemonGo.RocketBot.Logic.State
             if (session.Profile == null)
             {
                 await Task.Delay(20000, cancellationToken);
-                Logger.Write("Due to login failure your player profile could not be retrieved. Press any key to re-try login.", LogLevel.Warning);
+                Logger.Write(
+                    "Due to login failure your player profile could not be retrieved. Press any key to re-try login.",
+                    LogLevel.Warning);
                 Console.ReadKey();
             }
 
-            int maxTheoreticalItems = session.LogicSettings.TotalAmountOfPokeballsToKeep +
-                session.LogicSettings.TotalAmountOfPotionsToKeep +
-                session.LogicSettings.TotalAmountOfRevivesToKeep +
-                session.LogicSettings.TotalAmountOfBerriesToKeep;
+            var maxTheoreticalItems = session.LogicSettings.TotalAmountOfPokeballsToKeep +
+                                      session.LogicSettings.TotalAmountOfPotionsToKeep +
+                                      session.LogicSettings.TotalAmountOfRevivesToKeep +
+                                      session.LogicSettings.TotalAmountOfBerriesToKeep;
 
             if (maxTheoreticalItems > session.Profile.PlayerData.MaxItemStorage)
             {
-                Logger.Write(session.Translation.GetTranslation(TranslationString.MaxItemsCombinedOverMaxItemStorage, maxTheoreticalItems, session.Profile.PlayerData.MaxItemStorage), LogLevel.Error);
-                Logger.Write("Press any key to exit, then fix your configuration and run the bot again.", LogLevel.Warning);
+                Logger.Write(
+                    session.Translation.GetTranslation(TranslationString.MaxItemsCombinedOverMaxItemStorage,
+                        maxTheoreticalItems, session.Profile.PlayerData.MaxItemStorage), LogLevel.Error);
+                Logger.Write("Press any key to exit, then fix your configuration and run the bot again.",
+                    LogLevel.Warning);
                 Console.ReadKey();
-                System.Environment.Exit(1);
+                Environment.Exit(1);
             }
 
             return new PositionCheckState();
@@ -179,15 +184,15 @@ namespace PokemonGo.RocketBot.Logic.State
             try
             {
                 session.Profile = await session.Client.Player.GetPlayer();
-                session.EventDispatcher.Send(new ProfileEvent { Profile = session.Profile });
+                session.EventDispatcher.Send(new ProfileEvent {Profile = session.Profile});
             }
-            catch (System.UriFormatException e)
+            catch (UriFormatException e)
             {
-                session.EventDispatcher.Send(new ErrorEvent { Message = e.ToString() });
+                session.EventDispatcher.Send(new ErrorEvent {Message = e.ToString()});
             }
             catch (Exception ex)
             {
-                session.EventDispatcher.Send(new ErrorEvent { Message = ex.ToString() });
+                session.EventDispatcher.Send(new ErrorEvent {Message = ex.ToString()});
             }
         }
     }

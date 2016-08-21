@@ -11,6 +11,12 @@ namespace PokemonGo.RocketBot.Logic.Utils
 {
     public static class StringUtils
     {
+        private static readonly Func<bool, bool, bool> AndFunc = (x, y) => x && y;
+        private static readonly Func<bool, bool, bool> OrFunc = (x, y) => x || y;
+
+        private static readonly Func<string, Func<bool, bool, bool>> GetBoolOperator =
+            myOperator => myOperator.ToLower().Equals("and") ? AndFunc : OrFunc;
+
         public static string GetSummedFriendlyNameOfItemAwardList(IEnumerable<ItemAward> items)
         {
             var enumerable = items as IList<ItemAward> ?? items.ToList();
@@ -24,12 +30,6 @@ namespace PokemonGo.RocketBot.Logic.Utils
                     .Select(y => $"{y.Amount} x {y.ItemName}")
                     .Aggregate((a, b) => $"{a}, {b}");
         }
-
-
-        private static readonly Func<bool, bool, bool> AndFunc = (x, y) => x && y;
-        private static readonly Func<bool, bool, bool> OrFunc = (x, y) => x || y;
-        private static readonly Func<string, Func<bool, bool, bool>> GetBoolOperator =
-            myOperator => myOperator.ToLower().Equals("and") ? AndFunc : OrFunc;
 
         public static bool BoolFunc(this bool expr, bool expr2, string operatorStr)
         {
@@ -50,6 +50,5 @@ namespace PokemonGo.RocketBot.Logic.Utils
         {
             return operatorStr.ToLower().Equals("and") ? !expr : expr;
         }
-
     }
 }

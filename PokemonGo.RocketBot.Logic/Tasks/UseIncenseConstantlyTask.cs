@@ -1,14 +1,14 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using POGOProtos.Inventory.Item;
 using PokemonGo.RocketBot.Logic.Common;
 using PokemonGo.RocketBot.Logic.Logging;
-using POGOProtos.Networking.Responses;
 using PokemonGo.RocketBot.Logic.State;
+using POGOProtos.Inventory.Item;
+using POGOProtos.Networking.Responses;
 
 namespace PokemonGo.RocketBot.Logic.Tasks
 {
-    class UseIncenseConstantlyTask
+    internal class UseIncenseConstantlyTask
     {
         public static async Task Execute(ISession session, CancellationToken cancellationToken)
         {
@@ -21,10 +21,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                 Logger.Write(session.Translation.GetTranslation(TranslationString.NoIncenseAvailable));
                 return;
             }
-            else
-            {
-                Logger.Write(session.Translation.GetTranslation(TranslationString.UseIncenseAmount, currentAmountOfIncense));
-            }
+            Logger.Write(session.Translation.GetTranslation(TranslationString.UseIncenseAmount, currentAmountOfIncense));
 
             var UseIncense = await session.Inventory.UseIncenseConstantly();
 
@@ -36,7 +33,8 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             {
                 Logger.Write(session.Translation.GetTranslation(TranslationString.NoIncenseAvailable));
             }
-            else if (UseIncense.Result == UseIncenseResponse.Types.Result.IncenseAlreadyActive || (UseIncense.AppliedIncense == null))
+            else if (UseIncense.Result == UseIncenseResponse.Types.Result.IncenseAlreadyActive ||
+                     (UseIncense.AppliedIncense == null))
             {
                 Logger.Write(session.Translation.GetTranslation(TranslationString.UseIncenseActive));
             }

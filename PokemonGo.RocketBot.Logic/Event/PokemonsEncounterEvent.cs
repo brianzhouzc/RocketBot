@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using POGOProtos.Data;
+﻿using System.Collections.Generic;
 using POGOProtos.Map.Pokemon;
 
 namespace PokemonGo.RocketBot.Logic.Event

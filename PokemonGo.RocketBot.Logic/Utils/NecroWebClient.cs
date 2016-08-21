@@ -7,7 +7,7 @@ namespace PokemonGo.RocketBot.Logic.Utils
     {
         protected override WebRequest GetWebRequest(Uri uri)
         {
-            WebRequest w = base.GetWebRequest(uri);
+            var w = base.GetWebRequest(uri);
             w.Timeout = 5000;
             return w;
         }

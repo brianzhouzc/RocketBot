@@ -74,7 +74,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                 {
                     // Unlimited incubators prefer short eggs, limited incubators prefer long eggs
                     // Special case: If only one incubator is available at all, it will prefer long eggs
-                    var egg = (incubator.ItemId == ItemId.ItemIncubatorBasicUnlimited && incubators.Count > 1)
+                    var egg = incubator.ItemId == ItemId.ItemIncubatorBasicUnlimited && incubators.Count > 1
                         ? unusedEggs.FirstOrDefault()
                         : unusedEggs.LastOrDefault();
 

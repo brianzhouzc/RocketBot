@@ -1,5 +1,6 @@
 ﻿#region using directives
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,7 +12,6 @@ using PokemonGo.RocketBot.Logic.Utils;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Pokemon;
 using POGOProtos.Networking.Responses;
-using System.Collections.Generic;
 
 #endregion
 
@@ -53,10 +53,13 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                     return;
                 }
 
-                if ((session.LogicSettings.UsePokemonSniperFilterOnly && !session.LogicSettings.PokemonToSnipe.Pokemon.Contains(pokemon.PokemonId)) ||
-                    (session.LogicSettings.UsePokemonToNotCatchFilter && session.LogicSettings.PokemonsNotToCatch.Contains(pokemon.PokemonId)))
+                if ((session.LogicSettings.UsePokemonSniperFilterOnly &&
+                     !session.LogicSettings.PokemonToSnipe.Pokemon.Contains(pokemon.PokemonId)) ||
+                    (session.LogicSettings.UsePokemonToNotCatchFilter &&
+                     session.LogicSettings.PokemonsNotToCatch.Contains(pokemon.PokemonId)))
                 {
-                    Logger.Write(session.Translation.GetTranslation(TranslationString.PokemonSkipped, session.Translation.GetPokemonTranslation(pokemon.PokemonId)));
+                    Logger.Write(session.Translation.GetTranslation(TranslationString.PokemonSkipped,
+                        session.Translation.GetPokemonTranslation(pokemon.PokemonId)));
                     continue;
                 }
 
@@ -67,7 +70,8 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                 var encounter =
                     await session.Client.Encounter.EncounterPokemon(pokemon.EncounterId, pokemon.SpawnPointId);
 
-                if (encounter.Status == EncounterResponse.Types.Status.EncounterSuccess && session.LogicSettings.CatchPokemon)
+                if (encounter.Status == EncounterResponse.Types.Status.EncounterSuccess &&
+                    session.LogicSettings.CatchPokemon)
                 {
                     await CatchPokemonTask.Execute(session, cancellationToken, encounter, pokemon);
                 }

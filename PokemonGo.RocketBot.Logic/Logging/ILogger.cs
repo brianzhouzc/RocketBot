@@ -22,6 +22,7 @@ namespace PokemonGo.RocketBot.Logic.Logging
         /// <param name="level">Optional. Default <see cref="LogLevel.Info" />.</param>
         /// <param name="color">Optional. Default automatic color.</param>
         void Write(string message, LogLevel level = LogLevel.Info, ConsoleColor color = ConsoleColor.Black);
+
         void lineSelect(int lineChar = 0, int linesUp = 1);
     }
 }

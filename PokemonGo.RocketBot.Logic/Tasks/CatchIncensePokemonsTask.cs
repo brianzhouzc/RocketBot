@@ -1,5 +1,6 @@
 ﻿#region using directives
 
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using PokemonGo.RocketBot.Logic.Common;
@@ -9,7 +10,6 @@ using PokemonGo.RocketBot.Logic.State;
 using PokemonGo.RocketBot.Logic.Utils;
 using POGOProtos.Map.Pokemon;
 using POGOProtos.Networking.Responses;
-using System.Collections.Generic;
 
 #endregion
 
@@ -39,9 +39,11 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                     SpawnPointId = incensePokemon.EncounterLocation
                 };
 
-                OnPokemonEncounterEvent(new List<MapPokemon> { pokemon });
-                if ((session.LogicSettings.UsePokemonSniperFilterOnly && !session.LogicSettings.PokemonToSnipe.Pokemon.Contains(pokemon.PokemonId)) ||
-                    (session.LogicSettings.UsePokemonToNotCatchFilter && session.LogicSettings.PokemonsNotToCatch.Contains(pokemon.PokemonId)))
+                OnPokemonEncounterEvent(new List<MapPokemon> {pokemon});
+                if ((session.LogicSettings.UsePokemonSniperFilterOnly &&
+                     !session.LogicSettings.PokemonToSnipe.Pokemon.Contains(pokemon.PokemonId)) ||
+                    (session.LogicSettings.UsePokemonToNotCatchFilter &&
+                     session.LogicSettings.PokemonsNotToCatch.Contains(pokemon.PokemonId)))
                 {
                     Logger.Write(session.Translation.GetTranslation(TranslationString.PokemonIgnoreFilter,
                         session.Translation.GetPokemonTranslation(pokemon.PokemonId)));
@@ -54,10 +56,11 @@ namespace PokemonGo.RocketBot.Logic.Tasks
 
                     var encounter =
                         await
-                            session.Client.Encounter.EncounterIncensePokemon((ulong)pokemon.EncounterId,
+                            session.Client.Encounter.EncounterIncensePokemon(pokemon.EncounterId,
                                 pokemon.SpawnPointId);
 
-                    if (encounter.Result == IncenseEncounterResponse.Types.Result.IncenseEncounterSuccess && session.LogicSettings.CatchPokemon)
+                    if (encounter.Result == IncenseEncounterResponse.Types.Result.IncenseEncounterSuccess &&
+                        session.LogicSettings.CatchPokemon)
                     {
                         await CatchPokemonTask.Execute(session, cancellationToken, encounter, pokemon);
                     }
@@ -96,5 +99,4 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             PokemonEncounterEvent?.Invoke(pokemons);
         }
     }
-
 }

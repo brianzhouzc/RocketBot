@@ -6,12 +6,12 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using GeoCoordinatePortable;
+using PokemonGo.RocketAPI.Extensions;
 using PokemonGo.RocketBot.Logic.Common;
 using PokemonGo.RocketBot.Logic.Event;
 using PokemonGo.RocketBot.Logic.Logging;
 using PokemonGo.RocketBot.Logic.State;
 using PokemonGo.RocketBot.Logic.Utils;
-using PokemonGo.RocketAPI.Extensions;
 using POGOProtos.Map.Fort;
 using POGOProtos.Networking.Responses;
 
@@ -21,10 +21,10 @@ namespace PokemonGo.RocketBot.Logic.Tasks
 {
     public static class FarmPokestopsTask
     {
+        public delegate void LootPokestopDelegate(FortData pokestop);
+
         public static int TimesZeroXPawarded;
         private static int _storeRi;
-
-        public delegate void LootPokestopDelegate(FortData pokestop);
 
         public static async Task Execute(ISession session, CancellationToken cancellationToken)
         {
@@ -46,7 +46,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                     session.Settings.DefaultLatitude,
                     session.Settings.DefaultLongitude,
                     LocationUtils.getElevation(session.Settings.DefaultLatitude,
-                    session.Settings.DefaultLongitude)),
+                        session.Settings.DefaultLongitude)),
                     null,
                     session,
                     cancellationToken);
@@ -55,7 +55,8 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             var pokestopList = await GetPokeStops(session);
 
             //get optimized route
-            var pokeStops = RouteOptimizeUtil.Optimize(pokestopList.ToArray(), session.Client.CurrentLatitude, session.Client.CurrentLongitude);
+            var pokeStops = RouteOptimizeUtil.Optimize(pokestopList.ToArray(), session.Client.CurrentLatitude,
+                session.Client.CurrentLongitude);
 
             var stopsHit = 0;
             var rc = new Random(); //initialize pokestop random cleanup counter first time
@@ -70,7 +71,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                 });
             }
 
-            session.EventDispatcher.Send(new PokeStopListEvent { Forts = pokestopList });
+            session.EventDispatcher.Send(new PokeStopListEvent {Forts = pokestopList});
 
             foreach (var pokeStop in pokeStops)
             {
@@ -80,10 +81,10 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                     session.Client.CurrentLongitude, pokeStop.Latitude, pokeStop.Longitude);
                 var fortInfo = await session.Client.Fort.GetFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
 
-                session.EventDispatcher.Send(new FortTargetEvent { Name = fortInfo.Name, Distance = distance });
+                session.EventDispatcher.Send(new FortTargetEvent {Name = fortInfo.Name, Distance = distance});
 
                 await session.Navigation.Move(new GeoCoordinate(pokeStop.Latitude, pokeStop.Longitude,
-                        LocationUtils.getElevation(pokeStop.Latitude, pokeStop.Longitude)),
+                    LocationUtils.getElevation(pokeStop.Latitude, pokeStop.Longitude)),
                     async () =>
                     {
                         // Catch normal map Pokemon
@@ -119,9 +120,10 @@ namespace PokemonGo.RocketBot.Logic.Tasks
 
                         if (timesZeroXPawarded > zeroCheck)
                         {
-                            if ((int)fortSearch.CooldownCompleteTimestampMs != 0)
+                            if ((int) fortSearch.CooldownCompleteTimestampMs != 0)
                             {
-                                break; // Check if successfully looted, if so program can continue as this was "false alarm".
+                                break;
+                                    // Check if successfully looted, if so program can continue as this was "false alarm".
                             }
 
                             fortTry += 1;
@@ -176,7 +178,8 @@ namespace PokemonGo.RocketBot.Logic.Tasks
 
                 await eggWalker.ApplyDistance(distance, cancellationToken);
 
-                if (++stopsHit >= _storeRi) //TODO: OR item/pokemon bag is full //check stopsHit against storeRI random without dividing.
+                if (++stopsHit >= _storeRi)
+                    //TODO: OR item/pokemon bag is full //check stopsHit against storeRI random without dividing.
                 {
                     _storeRi = rc.Next(6, 12); //set new storeRI for new random value
                     stopsHit = 0;
@@ -237,7 +240,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                             LocationUtils.CalculateDistanceInMeters(
                                 session.Settings.DefaultLatitude, session.Settings.DefaultLongitude,
                                 i.Latitude, i.Longitude) < session.LogicSettings.MaxTravelDistanceInMeters ||
-                        session.LogicSettings.MaxTravelDistanceInMeters == 0)
+                            session.LogicSettings.MaxTravelDistanceInMeters == 0)
                 );
 
             return pokeStops.ToList();

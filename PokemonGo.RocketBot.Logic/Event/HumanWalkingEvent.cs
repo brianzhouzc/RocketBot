@@ -2,8 +2,7 @@
 {
     public class HumanWalkingEvent : IEvent
     {
-        public double OldWalkingSpeed;
         public double CurrentWalkingSpeed;
+        public double OldWalkingSpeed;
     }
 }
-
