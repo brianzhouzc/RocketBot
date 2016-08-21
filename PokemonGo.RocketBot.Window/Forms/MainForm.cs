@@ -570,8 +570,14 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private void todoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form settingsForm = new SettingsForm();
+            Form settingsForm = new SettingsForm(ref _settings);
             settingsForm.ShowDialog();
+            var newLocation = new PointLatLng(_settings.DefaultLatitude, _settings.DefaultLongitude);
+            gMapControl1.Position = newLocation;
+            _playerMarker.Position = newLocation;
+            _playerLocations.Clear();
+            _playerLocations.Add(newLocation);
+            UpdateMap();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
