@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
-using PokemonGo.RocketBot.Logic.Utils;
 
 namespace PokemonGo.RocketBot.Window.Helpers
 {
@@ -15,53 +14,34 @@ namespace PokemonGo.RocketBot.Window.Helpers
         public DeviceHelper()
         {
             var deviceInfoStrings = new List<string[]>();
-            if (File.Exists(_deviceSourcePath))
+            if (!File.Exists(_deviceSourcePath))
             {
-                using (var reader = new StreamReader(_deviceSourcePath))
+                return;
+            }
+            using (var reader = new StreamReader(_deviceSourcePath))
+            {
+                string stringLine;
+                while ((stringLine = reader.ReadLine()) != null)
                 {
-                    string stringLine;
-                    while ((stringLine = reader.ReadLine()) != null)
-                    {
-                        deviceInfoStrings.Add(stringLine.Split(';'));
-                    }
+                    deviceInfoStrings.Add(stringLine.Split(';'));
                 }
-                DeviceBucket = deviceInfoStrings.Select(info => new DeviceInfo
-                {
-                    DeviceId = info[0],
-                    AndroidBoardName = info[1],
-                    AndroidBootloader = info[2],
-                    DeviceBrand = info[3],
-                    DeviceModel = info[4],
-                    DeviceModelIdentifier = info[5],
-                    DeviceModelBoot = info[6],
-                    HardwareManufacturer = info[7],
-                    HardwareModel = info[8],
-                    FirmwareBrand = info[9],
-                    FirmwareTags = info[10],
-                    FirmwareType = info[11],
-                    FirmwareFingerprint = info[12]
-                }).ToList();
             }
-            //also add the list from Necro
-            foreach (var necroSet in DeviceInfoHelper.DeviceInfoSets.Values)
+            DeviceBucket = deviceInfoStrings.Select(info => new DeviceInfo
             {
-                DeviceBucket.Add(new DeviceInfo
-                {
-                    DeviceId = necroSet["DeviceId"],
-                    AndroidBoardName = necroSet["AndroidBoardName"],
-                    AndroidBootloader = necroSet["AndroidBootloader"],
-                    DeviceBrand = necroSet["DeviceBrand"],
-                    DeviceModel = necroSet["DeviceModel"],
-                    DeviceModelIdentifier = necroSet["DeviceModelIdentifier"],
-                    DeviceModelBoot = necroSet["DeviceModelBoot"],
-                    HardwareManufacturer = necroSet["HardwareManufacturer"],
-                    HardwareModel = necroSet["HardwareModel"],
-                    FirmwareBrand = necroSet["FirmwareBrand"],
-                    FirmwareTags = necroSet["FirmwareTags"],
-                    FirmwareType = necroSet["FirmwareType"],
-                    FirmwareFingerprint = necroSet["FirmwareFingerprint"]
-                });
-            }
+                DeviceId = info[0],
+                AndroidBoardName = info[1],
+                AndroidBootloader = info[2],
+                DeviceBrand = info[3],
+                DeviceModel = info[4],
+                DeviceModelIdentifier = info[5],
+                DeviceModelBoot = info[6],
+                HardwareManufacturer = info[7],
+                HardwareModel = info[8],
+                FirmwareBrand = info[9],
+                FirmwareTags = info[10],
+                FirmwareType = info[11],
+                FirmwareFingerprint = info[12]
+            }).ToList();
         }
 
         public int GetRandomIndex(int max)

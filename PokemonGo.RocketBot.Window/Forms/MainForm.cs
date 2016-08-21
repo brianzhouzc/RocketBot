@@ -246,9 +246,9 @@ namespace PokemonGo.RocketBot.Window.Forms
         {
             await _machine.AsyncStart(new VersionCheckState(), _session);
 
-            if (_settings.UseTelegramAPI)
+            if (_settings.UseTelegramApi)
             {
-                _session.Telegram = new TelegramService(_settings.TelegramAPIKey, _session);
+                _session.Telegram = new TelegramService(_settings.TelegramApiKey, _session);
             }
 
             _settings.CheckProxy();
@@ -570,14 +570,8 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private void todoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form settingsForm = new SettingsForm(ref _settings);
+            Form settingsForm = new SettingsForm();
             settingsForm.ShowDialog();
-            var newLocation = new PointLatLng(_settings.DefaultLatitude, _settings.DefaultLongitude);
-            gMapControl1.Position = newLocation;
-            _playerMarker.Position = newLocation;
-            _playerLocations.Clear();
-            _playerLocations.Add(newLocation);
-            UpdateMap();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
