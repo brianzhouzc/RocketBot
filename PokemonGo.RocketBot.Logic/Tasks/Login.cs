@@ -1,11 +1,11 @@
 ﻿#region using directives
 
 using System;
+using PokemonGo.RocketAPI.Enums;
+using PokemonGo.RocketAPI.Exceptions;
 using PokemonGo.RocketBot.Logic.Common;
 using PokemonGo.RocketBot.Logic.Event;
 using PokemonGo.RocketBot.Logic.State;
-using PokemonGo.RocketAPI.Enums;
-using PokemonGo.RocketAPI.Exceptions;
 
 #endregion
 
@@ -45,7 +45,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             {
                 throw ae.Flatten().InnerException;
             }
-            catch(LoginFailedException)
+            catch (LoginFailedException)
             {
                 _session.EventDispatcher.Send(new ErrorEvent
                 {

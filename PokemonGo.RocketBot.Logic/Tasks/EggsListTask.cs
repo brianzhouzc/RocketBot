@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using PokemonGo.RocketBot.Logic.Event;
 using PokemonGo.RocketBot.Logic.State;
-using POGOProtos.Inventory.Item;
 using PokemonGo.RocketBot.Logic.Utils;
+using POGOProtos.Inventory.Item;
 
 #endregion
 

@@ -1,10 +1,10 @@
 #region using directives
 
+using PokemonGo.RocketAPI;
 using PokemonGo.RocketBot.Logic.Common;
 using PokemonGo.RocketBot.Logic.Event;
-using PokemonGo.RocketAPI;
-using POGOProtos.Networking.Responses;
 using PokemonGo.RocketBot.Logic.Service;
+using POGOProtos.Networking.Responses;
 
 #endregion
 
@@ -54,7 +54,7 @@ namespace PokemonGo.RocketBot.Logic.State
 
         public void Reset(ISettings settings, ILogicSettings logicSettings)
         {
-            ApiFailureStrategy _apiStrategy = new ApiFailureStrategy(this);
+            var _apiStrategy = new ApiFailureStrategy(this);
             Client = new Client(Settings, _apiStrategy);
             // ferox wants us to set this manually
             Inventory = new Inventory(Client, logicSettings);

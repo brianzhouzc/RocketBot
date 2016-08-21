@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using POGOProtos.Map.Fort;
-using GMap.NET.WindowsForms;
-using PokemonGo.RocketBot.Logic.Logging;
 
 namespace PokemonGo.RocketBot.Logic.Utils
 {
@@ -48,8 +46,8 @@ namespace PokemonGo.RocketBot.Logic.Utils
             {
                 for (var ci = 0; ci < n; ci++)
                 {
-                    var bi = (ai + 1) % n;
-                    var di = (ci + 1) % n;
+                    var bi = (ai + 1)%n;
+                    var di = (ci + 1)%n;
 
                     var a = pokeStops[ai];
                     var b = pokeStops[bi];
@@ -79,7 +77,7 @@ namespace PokemonGo.RocketBot.Logic.Utils
                 List<FortData> optimizedRoute;
                 if (bestI > bestJ)
                 {
-                    optimizedRoute = new List<FortData> { pokeStops[0] };
+                    optimizedRoute = new List<FortData> {pokeStops[0]};
                     optimizedRoute.AddRange(pokeStops.Skip(bestI));
                     optimizedRoute.Reverse(1, n - bestI);
                     optimizedRoute.AddRange(pokeStops.GetRange(bestJ + 1, bestI - bestJ - 1));
@@ -117,12 +115,12 @@ namespace PokemonGo.RocketBot.Logic.Utils
         private static float GetDistance(double lat1, double lng1, double lat2, double lng2)
         {
             const double R = 6371e3;
-            Func<double, float> toRad = x => (float)(x * (Math.PI / 180));
+            Func<double, float> toRad = x => (float) (x*(Math.PI/180));
             lat1 = toRad(lat1);
             lat2 = toRad(lat2);
             var dLng = toRad(lng2 - lng1);
 
-            return (float)(Math.Acos(Math.Sin(lat1) * Math.Sin(lat2) + Math.Cos(lat1) * Math.Cos(lat2) * Math.Cos(dLng)) * R);
+            return (float) (Math.Acos(Math.Sin(lat1)*Math.Sin(lat2) + Math.Cos(lat1)*Math.Cos(lat2)*Math.Cos(dLng))*R);
         }
 
         private static void OnRouteOptimizeEvent(List<FortData> optimizedroute)
@@ -131,7 +129,5 @@ namespace PokemonGo.RocketBot.Logic.Utils
         }
 
         public static event RouteOptimizeDelegate RouteOptimizeEvent;
-
     }
-
 }

@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using PokemonGo.RocketBot.Logic.DataDumper;
@@ -69,7 +70,9 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                 try
                 {
                     Dumper.ClearDumpFile(session, dumpFileName);
-                    Dumper.Dump(session, "pokemonid,pokemonlevel,cp,perfection,stamina,staminamax,move1,move2,candy,ownername,origin,heightm,weightkg,individualattack,individualdefense,individualstamina,cpmultiplier,battlesattacked,battlesdefended,creationtimems,numupgrades,additionalcpmultiplier,favorite,nickname", dumpFileName);
+                    Dumper.Dump(session,
+                        "pokemonid,pokemonlevel,cp,perfection,stamina,staminamax,move1,move2,candy,ownername,origin,heightm,weightkg,individualattack,individualdefense,individualstamina,cpmultiplier,battlesattacked,battlesdefended,creationtimems,numupgrades,additionalcpmultiplier,favorite,nickname",
+                        dumpFileName);
                     foreach (var pokemon in allPokemonInBag)
                     {
                         Dumper.Dump(session,
@@ -77,9 +80,9 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                             dumpFileName);
                     }
                 }
-                catch (System.IO.IOException)
+                catch (IOException)
                 {
-                    session.EventDispatcher.Send(new ErrorEvent { Message = $"Could not write {dumpFileName} dump file." });
+                    session.EventDispatcher.Send(new ErrorEvent {Message = $"Could not write {dumpFileName} dump file."});
                 }
             }
         }

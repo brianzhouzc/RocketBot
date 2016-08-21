@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using PokemonGo.RocketBot.Logic.Event;
 using PokemonGo.RocketBot.Logic.PoGoUtils;
 using PokemonGo.RocketBot.Logic.State;
-using POGOProtos.Data;
 using PokemonGo.RocketBot.Logic.Utils;
+using POGOProtos.Data;
 
 #endregion
 
@@ -24,22 +24,23 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             var pokemonDatas = pokemons as IList<PokemonData> ?? pokemons.ToList();
             var pokemonsFiltered =
                 pokemonDatas.Where(pokemon => !session.LogicSettings.PokemonsNotToTransfer.Contains(pokemon.PokemonId))
-                    .ToList().OrderBy( poke => poke.Cp );
+                    .ToList().OrderBy(poke => poke.Cp);
 
             if (session.LogicSettings.KeepPokemonsThatCanEvolve)
                 pokemonsFiltered =
                     pokemonDatas.Where(pokemon => !session.LogicSettings.PokemonsToEvolve.Contains(pokemon.PokemonId))
-                        .ToList().OrderBy( poke => poke.Cp );
+                        .ToList().OrderBy(poke => poke.Cp);
 
-            var orderedPokemon = pokemonsFiltered.OrderBy( poke => poke.Cp );
+            var orderedPokemon = pokemonsFiltered.OrderBy(poke => poke.Cp);
 
-            foreach (var pokemon in orderedPokemon )
+            foreach (var pokemon in orderedPokemon)
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 if ((pokemon.Cp >= session.LogicSettings.KeepMinCp) ||
                     (PokemonInfo.CalculatePokemonPerfection(pokemon) >= session.LogicSettings.KeepMinIvPercentage &&
                      session.LogicSettings.PrioritizeIvOverCp) ||
-                     (PokemonInfo.GetLevel(pokemon) >= session.LogicSettings.KeepMinLvl && session.LogicSettings.UseKeepMinLvl) ||
+                    (PokemonInfo.GetLevel(pokemon) >= session.LogicSettings.KeepMinLvl &&
+                     session.LogicSettings.UseKeepMinLvl) ||
                     pokemon.Favorite == 1)
                     continue;
 

@@ -2,6 +2,8 @@
 
 using System.Linq;
 using System.Threading.Tasks;
+using PokemonGo.RocketBot.Logic.Event;
+using PokemonGo.RocketBot.Logic.PoGoUtils;
 using PokemonGo.RocketBot.Logic.State;
 using PokemonGo.RocketBot.Logic.Utils;
 
@@ -35,13 +37,13 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             family.Candy_++;
 
             // Broadcast event as everyone would benefit
-            session.EventDispatcher.Send(new Logic.Event.TransferPokemonEvent
+            session.EventDispatcher.Send(new TransferPokemonEvent
             {
                 Id = pokemon.PokemonId,
-                Perfection = Logic.PoGoUtils.PokemonInfo.CalculatePokemonPerfection(pokemon),
+                Perfection = PokemonInfo.CalculatePokemonPerfection(pokemon),
                 Cp = pokemon.Cp,
                 BestCp = bestPokemonOfType.Cp,
-                BestPerfection = Logic.PoGoUtils.PokemonInfo.CalculatePokemonPerfection(bestPokemonOfType),
+                BestPerfection = PokemonInfo.CalculatePokemonPerfection(bestPokemonOfType),
                 FamilyCandies = family.Candy_
             });
 

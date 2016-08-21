@@ -1,11 +1,11 @@
 ﻿#region using directives
 
 using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using PokemonGo.RocketBot.Logic.Event;
 using PokemonGo.RocketAPI.Exceptions;
-using System.IO;
+using PokemonGo.RocketBot.Logic.Event;
 using PokemonGo.RocketBot.Logic.Logging;
 
 #endregion
@@ -34,7 +34,7 @@ namespace PokemonGo.RocketBot.Logic.State
             var profilePath = Path.Combine(Directory.GetCurrentDirectory(), "");
             var profileConfigPath = Path.Combine(profilePath, "config");
 
-            FileSystemWatcher configWatcher = new FileSystemWatcher();
+            var configWatcher = new FileSystemWatcher();
             configWatcher.Path = profileConfigPath;
             configWatcher.Filter = "config.json";
             configWatcher.NotifyFilter = NotifyFilters.LastWrite;
@@ -69,9 +69,12 @@ namespace PokemonGo.RocketBot.Logic.State
                 }
                 catch (Exception ex)
                 {
-                    session.EventDispatcher.Send(new ErrorEvent {Message = "Pokemon Servers might be offline / unstable. Trying again..."});
+                    session.EventDispatcher.Send(new ErrorEvent
+                    {
+                        Message = "Pokemon Servers might be offline / unstable. Trying again..."
+                    });
                     Thread.Sleep(1000);
-                    session.EventDispatcher.Send(new ErrorEvent { Message = "Error: " + ex });
+                    session.EventDispatcher.Send(new ErrorEvent {Message = "Error: " + ex});
                     state = _initialState;
                 }
             } while (state != null);

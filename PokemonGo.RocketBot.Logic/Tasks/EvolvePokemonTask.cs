@@ -1,16 +1,16 @@
 ﻿#region using directives
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using PokemonGo.RocketBot.Logic.Common;
 using PokemonGo.RocketBot.Logic.Event;
 using PokemonGo.RocketBot.Logic.State;
 using PokemonGo.RocketBot.Logic.Utils;
-using POGOProtos.Inventory.Item;
-using PokemonGo.RocketBot.Logic.Common;
-using System.Collections.Generic;
 using POGOProtos.Data;
+using POGOProtos.Inventory.Item;
 
 #endregion
 
@@ -42,7 +42,9 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                     var totalPokemon = await session.Inventory.GetPokemons();
                     var totalEggs = await session.Inventory.GetEggs();
 
-                    var pokemonNeededInInventory = (maxStorage - totalEggs.Count()) * session.LogicSettings.EvolveKeptPokemonsAtStorageUsagePercentage / 100.0f;
+                    var pokemonNeededInInventory = (maxStorage - totalEggs.Count())*
+                                                   session.LogicSettings.EvolveKeptPokemonsAtStorageUsagePercentage/
+                                                   100.0f;
                     var needPokemonToStartEvolve = Math.Round(
                         Math.Max(0,
                             Math.Min(pokemonNeededInInventory, session.Profile.PlayerData.MaxPokemonStorage)));
@@ -54,8 +56,10 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                         {
                             session.EventDispatcher.Send(new WarnEvent
                             {
-                                Message = session.Translation.GetTranslation(TranslationString.UseLuckyEggsMinPokemonAmountTooHigh,
-                                luckyEggMin, maxStorage)
+                                Message =
+                                    session.Translation.GetTranslation(
+                                        TranslationString.UseLuckyEggsMinPokemonAmountTooHigh,
+                                        luckyEggMin, maxStorage)
                             });
                             return;
                         }
@@ -63,12 +67,13 @@ namespace PokemonGo.RocketBot.Logic.Tasks
 
                     if (deltaCount > 0)
                     {
-                        session.EventDispatcher.Send(new UpdateEvent()
+                        session.EventDispatcher.Send(new UpdateEvent
                         {
-                            Message = session.Translation.GetTranslation(TranslationString.WaitingForMorePokemonToEvolve,
-                                pokemonToEvolve.Count, deltaCount, totalPokemon.Count(), needPokemonToStartEvolve, session.LogicSettings.EvolveKeptPokemonsAtStorageUsagePercentage)
+                            Message =
+                                session.Translation.GetTranslation(TranslationString.WaitingForMorePokemonToEvolve,
+                                    pokemonToEvolve.Count, deltaCount, totalPokemon.Count(), needPokemonToStartEvolve,
+                                    session.LogicSettings.EvolveKeptPokemonsAtStorageUsagePercentage)
                         });
-                        return;
                     }
                     else
                     {
@@ -79,7 +84,8 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                         await evolve(session, pokemonToEvolve);
                     }
                 }
-                else if (session.LogicSettings.EvolveAllPokemonWithEnoughCandy || session.LogicSettings.EvolveAllPokemonAboveIv)
+                else if (session.LogicSettings.EvolveAllPokemonWithEnoughCandy ||
+                         session.LogicSettings.EvolveAllPokemonAboveIv)
                 {
                     if (await shouldUseLuckyEgg(session, pokemonToEvolve))
                     {
@@ -103,7 +109,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             _lastLuckyEggTime = DateTime.Now;
             await session.Client.Inventory.UseItemXpBoost();
             await session.Inventory.RefreshCachedInventory();
-            if (luckyEgg != null) session.EventDispatcher.Send(new UseLuckyEggEvent { Count = luckyEgg.Count });
+            if (luckyEgg != null) session.EventDispatcher.Send(new UseLuckyEggEvent {Count = luckyEgg.Count});
             DelayingUtils.Delay(session.LogicSettings.DelayBetweenPlayerActions, 0);
         }
 
@@ -127,7 +133,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             }
         }
 
-        private static async Task<Boolean> shouldUseLuckyEgg(ISession session, List<PokemonData> pokemonToEvolve)
+        private static async Task<bool> shouldUseLuckyEgg(ISession session, List<PokemonData> pokemonToEvolve)
         {
             var inventoryContent = await session.Inventory.GetItems();
 
@@ -140,33 +146,31 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                 {
                     return true;
                 }
+                var evolvablePokemon = await session.Inventory.GetPokemons();
+
+                var deltaPokemonToUseLuckyEgg = session.LogicSettings.UseLuckyEggsMinPokemonAmount -
+                                                pokemonToEvolve.Count;
+
+                var availableSpace = session.Profile.PlayerData.MaxPokemonStorage - evolvablePokemon.Count();
+
+                if (deltaPokemonToUseLuckyEgg > availableSpace)
+                {
+                    var possibleLimitInThisIteration = pokemonToEvolve.Count + availableSpace;
+
+                    session.EventDispatcher.Send(new NoticeEvent
+                    {
+                        Message =
+                            session.Translation.GetTranslation(TranslationString.UseLuckyEggsMinPokemonAmountTooHigh,
+                                session.LogicSettings.UseLuckyEggsMinPokemonAmount, possibleLimitInThisIteration)
+                    });
+                }
                 else
                 {
-                    var evolvablePokemon = await session.Inventory.GetPokemons();
-
-                    var deltaPokemonToUseLuckyEgg = session.LogicSettings.UseLuckyEggsMinPokemonAmount -
-                                                               pokemonToEvolve.Count;
-
-                    var availableSpace = session.Profile.PlayerData.MaxPokemonStorage - evolvablePokemon.Count();
-
-                    if (deltaPokemonToUseLuckyEgg > availableSpace)
+                    session.EventDispatcher.Send(new NoticeEvent
                     {
-                        var possibleLimitInThisIteration = pokemonToEvolve.Count + availableSpace;
-
-                        session.EventDispatcher.Send(new NoticeEvent()
-                        {
-                            Message = session.Translation.GetTranslation(TranslationString.UseLuckyEggsMinPokemonAmountTooHigh,
-                                session.LogicSettings.UseLuckyEggsMinPokemonAmount, possibleLimitInThisIteration)
-                        });
-                    }
-                    else
-                    {
-                        session.EventDispatcher.Send(new NoticeEvent()
-                        {
-                            Message = session.Translation.GetTranslation(TranslationString.CatchMorePokemonToUseLuckyEgg,
-                                deltaPokemonToUseLuckyEgg)
-                        });
-                    }
+                        Message = session.Translation.GetTranslation(TranslationString.CatchMorePokemonToUseLuckyEgg,
+                            deltaPokemonToUseLuckyEgg)
+                    });
                 }
             }
             return false;

@@ -4,12 +4,10 @@
 
 using System;
 using System.Linq;
-using POGOProtos.Networking.Responses;
 using System.Threading.Tasks;
 using PokemonGo.RocketBot.Logic.Logging;
-using POGOProtos.Inventory.Item;
-using Google.Protobuf.Collections;
 using PokemonGo.RocketBot.Logic.State;
+using POGOProtos.Networking.Responses;
 
 #endregion
 
@@ -24,15 +22,15 @@ namespace PokemonGo.RocketBot.Logic.Utils
     public class Statistics
     {
         private readonly DateTime _initSessionDateTime = DateTime.Now;
-        
+
         private StatsExport _exportStats;
         private string _playerName;
+        public int LevelForRewards = -1;
         public int TotalExperience;
         public int TotalItemsRemoved;
         public int TotalPokemons;
         public int TotalPokemonTransferred;
         public int TotalStardust;
-        public int LevelForRewards = -1;
 
         public void Dirty(Inventory inventory)
         {
@@ -63,26 +61,26 @@ namespace PokemonGo.RocketBot.Logic.Utils
                     hours = Math.Truncate(TimeSpan.FromHours(time).TotalHours);
                     minutes = TimeSpan.FromHours(time).Minutes;
                 }
-                
-                if( LevelForRewards == -1 || stat.Level >= LevelForRewards )
-                {
-                    LevelUpRewardsResponse Result = Execute( inventory ).Result;
 
-                    if( Result.ToString().ToLower().Contains( "awarded_already" ) )
+                if (LevelForRewards == -1 || stat.Level >= LevelForRewards)
+                {
+                    var Result = Execute(inventory).Result;
+
+                    if (Result.ToString().ToLower().Contains("awarded_already"))
                         LevelForRewards = stat.Level + 1;
 
-                    if( Result.ToString().ToLower().Contains( "success" ) )
+                    if (Result.ToString().ToLower().Contains("success"))
                     {
-                        Logger.Write( "Leveled up: " + stat.Level, LogLevel.Info );
+                        Logger.Write("Leveled up: " + stat.Level, LogLevel.Info);
 
-                        RepeatedField<ItemAward> items = Result.ItemsAwarded;
+                        var items = Result.ItemsAwarded;
 
-                        if( items.Any<ItemAward>() )
+                        if (items.Any())
                         {
-                            Logger.Write( "- Received Items -", LogLevel.Info );
-                            foreach( ItemAward item in items )
+                            Logger.Write("- Received Items -", LogLevel.Info);
+                            foreach (var item in items)
                             {
-                                Logger.Write( $"[ITEM] {item.ItemId} x {item.ItemCount} ", LogLevel.Info );
+                                Logger.Write($"[ITEM] {item.ItemId} x {item.ItemCount} ", LogLevel.Info);
                             }
                         }
                     }
@@ -91,8 +89,8 @@ namespace PokemonGo.RocketBot.Logic.Utils
                 LevelForRewards = stat.Level;
                 if (Result2.ToString().ToLower().Contains("success"))
                 {
-                    string[] tokens = Result2.Result.ToString().Split(new[] { "itemId" }, StringSplitOptions.None);
-                    Logging.Logger.Write("Items Awarded:" + Result2.ItemsAwarded.ToString());
+                    var tokens = Result2.Result.ToString().Split(new[] {"itemId"}, StringSplitOptions.None);
+                    Logger.Write("Items Awarded:" + Result2.ItemsAwarded);
                 }
                 output = new StatsExport
                 {
@@ -112,9 +110,9 @@ namespace PokemonGo.RocketBot.Logic.Utils
             return Result;
         }
 
-        public async Task<LevelUpRewardsResponse> Execute( Inventory inventory )
+        public async Task<LevelUpRewardsResponse> Execute(Inventory inventory)
         {
-            var Result = await inventory.GetLevelUpRewards( inventory );
+            var Result = await inventory.GetLevelUpRewards(inventory);
             return Result;
         }
 

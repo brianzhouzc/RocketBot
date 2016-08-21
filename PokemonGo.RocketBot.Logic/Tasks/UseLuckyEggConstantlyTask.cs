@@ -1,14 +1,14 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using PokemonGo.RocketBot.Logic.Common;
+using PokemonGo.RocketBot.Logic.Logging;
 using PokemonGo.RocketBot.Logic.State;
 using POGOProtos.Inventory.Item;
-using PokemonGo.RocketBot.Logic.Logging;
-using PokemonGo.RocketBot.Logic.Common;
 using POGOProtos.Networking.Responses;
 
 namespace PokemonGo.RocketBot.Logic.Tasks
 {
-    class UseLuckyEggConstantlyTask
+    internal class UseLuckyEggConstantlyTask
     {
         public static async Task Execute(ISession session, CancellationToken cancellationToken)
         {
@@ -21,10 +21,8 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                 Logger.Write(session.Translation.GetTranslation(TranslationString.NoEggsAvailable));
                 return;
             }
-            else
-            {
-                Logger.Write(session.Translation.GetTranslation(TranslationString.UseLuckyEggAmount, currentAmountOfLuckyEggs));
-            }
+            Logger.Write(session.Translation.GetTranslation(TranslationString.UseLuckyEggAmount,
+                currentAmountOfLuckyEggs));
 
             var UseEgg = await session.Inventory.UseLuckyEggConstantly();
 
@@ -36,11 +34,11 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             {
                 Logger.Write(session.Translation.GetTranslation(TranslationString.NoEggsAvailable));
             }
-            else if (UseEgg.Result == UseItemXpBoostResponse.Types.Result.ErrorXpBoostAlreadyActive || (UseEgg.AppliedItems == null))
+            else if (UseEgg.Result == UseItemXpBoostResponse.Types.Result.ErrorXpBoostAlreadyActive ||
+                     (UseEgg.AppliedItems == null))
             {
                 Logger.Write(session.Translation.GetTranslation(TranslationString.UseLuckyEggActive));
             }
         }
-       
     }
 }

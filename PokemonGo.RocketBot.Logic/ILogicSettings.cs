@@ -1,8 +1,8 @@
 #region using directives
 
+using System.Collections.Generic;
 using POGOProtos.Enums;
 using POGOProtos.Inventory.Item;
-using System.Collections.Generic;
 
 #endregion
 
@@ -46,7 +46,8 @@ namespace PokemonGo.RocketBot.Logic
         {
         }
 
-        public TransferFilter(int keepMinCp, int keepMinLvl, bool useKeepMinLvl, float keepMinIvPercentage, string keepMinOperator, int keepMinDuplicatePokemon,
+        public TransferFilter(int keepMinCp, int keepMinLvl, bool useKeepMinLvl, float keepMinIvPercentage,
+            string keepMinOperator, int keepMinDuplicatePokemon,
             List<PokemonMove> moves = null, string movesOperator = "or")
         {
             KeepMinCp = keepMinCp;

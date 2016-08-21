@@ -27,13 +27,14 @@ namespace PokemonGo.RocketBot.Logic.Tasks
 
             var allPokemonInBag = await session.Inventory.GetHighestsCp(1000);
 
-            var pkmWithIv = allPokemonInBag.Select(p => {
+            var pkmWithIv = allPokemonInBag.Select(p =>
+            {
                 var settings = pokemonSettings.Single(x => x.PokemonId == p.PokemonId);
                 return Tuple.Create(
                     p,
                     PokemonInfo.CalculatePokemonPerfection(p),
                     pokemonFamilies.Single(x => settings.FamilyId == x.FamilyId).Candy_
-                );
+                    );
             });
 
             session.EventDispatcher.Send(

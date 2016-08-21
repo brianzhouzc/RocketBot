@@ -23,7 +23,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
 
         public void Run(CancellationToken cancellationToken)
         {
-            if (_session.LogicSettings.EvolveAllPokemonAboveIv || _session.LogicSettings.EvolveAllPokemonWithEnoughCandy 
+            if (_session.LogicSettings.EvolveAllPokemonAboveIv || _session.LogicSettings.EvolveAllPokemonWithEnoughCandy
                 || _session.LogicSettings.UseLuckyEggsWhileEvolving || _session.LogicSettings.KeepPokemonsThatCanEvolve)
             {
                 EvolvePokemonTask.Execute(_session, cancellationToken).Wait(cancellationToken);

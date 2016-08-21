@@ -77,7 +77,8 @@ namespace PokemonGo.RocketBot.Logic.Logging
         /// <param name="message">The message to log.</param>
         /// <param name="level">Optional level to log. Default <see cref="LogLevel.Info" />.</param>
         /// <param name="color">Optional. Default is automatic color.</param>
-        public static void Write(string message, LogLevel level = LogLevel.Info, ConsoleColor color = ConsoleColor.Black, bool force = false)
+        public static void Write(string message, LogLevel level = LogLevel.Info, ConsoleColor color = ConsoleColor.Black,
+            bool force = false)
         {
             if (_logger == null || _lastLogMessage == message)
                 return;
@@ -114,6 +115,6 @@ namespace PokemonGo.RocketBot.Logic.Logging
         New = 15,
         SoftBan = 16,
         LevelUp = 17,
-        Debug = 18,
+        Debug = 18
     }
 }

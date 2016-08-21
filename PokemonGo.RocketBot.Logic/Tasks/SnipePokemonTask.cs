@@ -1,6 +1,5 @@
 ﻿#region using directives
 
-using CloudFlareUtilities;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -11,7 +10,9 @@ using System.Net.Http;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
+using CloudFlareUtilities;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using PokemonGo.RocketBot.Logic.Common;
 using PokemonGo.RocketBot.Logic.Event;
 using PokemonGo.RocketBot.Logic.PoGoUtils;
@@ -20,8 +21,9 @@ using POGOProtos.Enums;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Pokemon;
 using POGOProtos.Networking.Responses;
+using Quobject.Collections.Immutable;
 using Quobject.SocketIoClientDotNet.Client;
-using Newtonsoft.Json.Linq;
+using Socket = Quobject.SocketIoClientDotNet.Client.Socket;
 
 #endregion
 
@@ -90,11 +92,11 @@ namespace PokemonGo.RocketBot.Logic.Tasks
 
     public class PokemonLocation_pokezz
     {
-
         public double time { get; set; }
         public double lat { get; set; }
         public double lng { get; set; }
         public string iv { get; set; }
+
         public double _iv
         {
             get
@@ -109,8 +111,9 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                 }
             }
         }
+
         public PokemonId name { get; set; }
-        public Boolean verified { get; set; }
+        public bool verified { get; set; }
     }
 
     public class PokemonLocation_pokesnipers
@@ -139,6 +142,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
     public class ScanResult_pokesnipers
     {
         public string Status { get; set; }
+
         [JsonProperty("results")]
         public List<PokemonLocation_pokesnipers> pokemons { get; set; }
     }
@@ -154,7 +158,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
         public static List<PokemonLocation> LocsVisited = new List<PokemonLocation>();
         private static readonly List<SniperInfo> SnipeLocations = new List<SniperInfo>();
         private static DateTime _lastSnipe = DateTime.MinValue;
-        
+
         public static Task AsyncStart(Session session, CancellationToken cancellationToken = default(CancellationToken))
         {
             return Task.Run(() => Start(session, cancellationToken), cancellationToken);
@@ -194,13 +198,16 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             {
                 if (session.LogicSettings.PokemonToSnipe != null)
                 {
-                    List<PokemonId> pokemonIds = new List<PokemonId>();
+                    var pokemonIds = new List<PokemonId>();
                     if (session.LogicSettings.SnipePokemonNotInPokedex)
                     {
                         var PokeDex = await session.Inventory.GetPokeDexItems();
                         var pokemonOnlyList = session.LogicSettings.PokemonToSnipe.Pokemon;
-                        var capturedPokemon = PokeDex.Where(i => i.InventoryItemData.PokedexEntry.TimesCaptured >= 1).Select(i => i.InventoryItemData.PokedexEntry.PokemonId);
-                        var pokemonToCapture = Enum.GetValues(typeof(PokemonId)).Cast<PokemonId>().Except(capturedPokemon);
+                        var capturedPokemon =
+                            PokeDex.Where(i => i.InventoryItemData.PokedexEntry.TimesCaptured >= 1)
+                                .Select(i => i.InventoryItemData.PokedexEntry.PokemonId);
+                        var pokemonToCapture =
+                            Enum.GetValues(typeof(PokemonId)).Cast<PokemonId>().Except(capturedPokemon);
                         pokemonIds = pokemonOnlyList.Union(pokemonToCapture).ToList();
                     }
                     else
@@ -211,16 +218,16 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                     if (session.LogicSettings.UseSnipeLocationServer)
                     {
                         var locationsToSnipe = SnipeLocations?.Where(q =>
-                             (!session.LogicSettings.UseTransferIvForSnipe ||
-                              (q.IV == 0 && !session.LogicSettings.SnipeIgnoreUnknownIv) ||
-                              (q.IV >= session.Inventory.GetPokemonTransferFilter(q.Id).KeepMinIvPercentage)) &&
-                             !LocsVisited.Contains(new PokemonLocation(q.Latitude, q.Longitude))
-                             && !(q.ExpirationTimestamp != default(DateTime) &&
-                                  q.ExpirationTimestamp > new DateTime(2016) &&
-                                  // make absolutely sure that the server sent a correct datetime
-                                  q.ExpirationTimestamp < DateTime.Now) &&
-                             (q.Id == PokemonId.Missingno || pokemonIds.Contains(q.Id))).ToList() ??
-                                                new List<SniperInfo>();
+                            (!session.LogicSettings.UseTransferIvForSnipe ||
+                             (q.IV == 0 && !session.LogicSettings.SnipeIgnoreUnknownIv) ||
+                             (q.IV >= session.Inventory.GetPokemonTransferFilter(q.Id).KeepMinIvPercentage)) &&
+                            !LocsVisited.Contains(new PokemonLocation(q.Latitude, q.Longitude))
+                            && !(q.ExpirationTimestamp != default(DateTime) &&
+                                 q.ExpirationTimestamp > new DateTime(2016) &&
+                                 // make absolutely sure that the server sent a correct datetime
+                                 q.ExpirationTimestamp < DateTime.Now) &&
+                            (q.Id == PokemonId.Missingno || pokemonIds.Contains(q.Id))).ToList() ??
+                                               new List<SniperInfo>();
 
                         var _locationsToSnipe = locationsToSnipe.OrderBy(q => q.ExpirationTimestamp).ToList();
 
@@ -228,7 +235,8 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                         {
                             foreach (var location in _locationsToSnipe)
                             {
-                                if ((location.ExpirationTimestamp > DateTime.Now.AddSeconds(10)) && (!LocsVisited.Contains(new PokemonLocation(location.Latitude, location.Longitude))))
+                                if ((location.ExpirationTimestamp > DateTime.Now.AddSeconds(10)) &&
+                                    !LocsVisited.Contains(new PokemonLocation(location.Latitude, location.Longitude)))
                                 {
                                     session.EventDispatcher.Send(new SnipeScanEvent
                                     {
@@ -238,10 +246,15 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                                         Iv = location.IV
                                     });
 
-                                    if (!await CheckPokeballsToSnipe(session.LogicSettings.MinPokeballsWhileSnipe + 1, session, cancellationToken))
+                                    if (
+                                        !await
+                                            CheckPokeballsToSnipe(session.LogicSettings.MinPokeballsWhileSnipe + 1,
+                                                session, cancellationToken))
                                         return;
 
-                                    await Snipe(session, pokemonIds, location.Latitude, location.Longitude, cancellationToken);
+                                    await
+                                        Snipe(session, pokemonIds, location.Latitude, location.Longitude,
+                                            cancellationToken);
                                 }
                             }
                         }
@@ -254,7 +267,8 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                         {
                             foreach (var location in _locationsToSnipe)
                             {
-                                if ((location.ExpirationTimestamp > DateTime.Now.AddSeconds(10)) && (!LocsVisited.Contains(new PokemonLocation(location.Latitude, location.Longitude))))
+                                if ((location.ExpirationTimestamp > DateTime.Now.AddSeconds(10)) &&
+                                    !LocsVisited.Contains(new PokemonLocation(location.Latitude, location.Longitude)))
                                 {
                                     session.EventDispatcher.Send(new SnipeScanEvent
                                     {
@@ -264,10 +278,15 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                                         Iv = location.IV
                                     });
 
-                                    if (!await CheckPokeballsToSnipe(session.LogicSettings.MinPokeballsWhileSnipe + 1, session, cancellationToken))
+                                    if (
+                                        !await
+                                            CheckPokeballsToSnipe(session.LogicSettings.MinPokeballsWhileSnipe + 1,
+                                                session, cancellationToken))
                                         return;
-                                    
-                                    await Snipe(session, pokemonIds, location.Latitude, location.Longitude, cancellationToken);
+
+                                    await
+                                        Snipe(session, pokemonIds, location.Latitude, location.Longitude,
+                                            cancellationToken);
                                 }
                             }
                         }
@@ -280,7 +299,8 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                         {
                             foreach (var location in _locationsToSnipe)
                             {
-                                if ((location.ExpirationTimestamp > DateTime.Now.AddSeconds(10)) && (!LocsVisited.Contains(new PokemonLocation(location.Latitude, location.Longitude))))
+                                if ((location.ExpirationTimestamp > DateTime.Now.AddSeconds(10)) &&
+                                    !LocsVisited.Contains(new PokemonLocation(location.Latitude, location.Longitude)))
                                 {
                                     session.EventDispatcher.Send(new SnipeScanEvent
                                     {
@@ -290,10 +310,15 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                                         Iv = location.IV
                                     });
 
-                                    if (!await CheckPokeballsToSnipe(session.LogicSettings.MinPokeballsWhileSnipe + 1, session, cancellationToken))
+                                    if (
+                                        !await
+                                            CheckPokeballsToSnipe(session.LogicSettings.MinPokeballsWhileSnipe + 1,
+                                                session, cancellationToken))
                                         return;
-                                    
-                                    await Snipe(session, pokemonIds, location.Latitude, location.Longitude, cancellationToken);
+
+                                    await
+                                        Snipe(session, pokemonIds, location.Latitude, location.Longitude,
+                                            cancellationToken);
                                 }
                             }
                         }
@@ -306,7 +331,8 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                         {
                             foreach (var location in _locationsToSnipe)
                             {
-                                if ((location.ExpirationTimestamp > DateTime.Now.AddSeconds(10)) && (!LocsVisited.Contains(new PokemonLocation(location.Latitude, location.Longitude))))
+                                if ((location.ExpirationTimestamp > DateTime.Now.AddSeconds(10)) &&
+                                    !LocsVisited.Contains(new PokemonLocation(location.Latitude, location.Longitude)))
                                 {
                                     session.EventDispatcher.Send(new SnipeScanEvent
                                     {
@@ -316,10 +342,15 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                                         Iv = location.IV
                                     });
 
-                                    if (!await CheckPokeballsToSnipe(session.LogicSettings.MinPokeballsWhileSnipe + 1, session, cancellationToken))
+                                    if (
+                                        !await
+                                            CheckPokeballsToSnipe(session.LogicSettings.MinPokeballsWhileSnipe + 1,
+                                                session, cancellationToken))
                                         return;
 
-                                    await Snipe(session, pokemonIds, location.Latitude, location.Longitude, cancellationToken);
+                                    await
+                                        Snipe(session, pokemonIds, location.Latitude, location.Longitude,
+                                            cancellationToken);
                                 }
                             }
                         }
@@ -343,7 +374,12 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                             {
                                 var filteredPokemon = scanResult.pokemons.Where(q => pokemonIds.Contains(q.pokemon_name));
                                 var notVisitedPokemon = filteredPokemon.Where(q => !LocsVisited.Contains(q));
-                                var notExpiredPokemon = notVisitedPokemon.Where(q => q.expires < (DateTime.Now.ToUniversalTime() - (new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc))).TotalMilliseconds);
+                                var notExpiredPokemon =
+                                    notVisitedPokemon.Where(
+                                        q =>
+                                            q.expires <
+                                            (DateTime.Now.ToUniversalTime() -
+                                             new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds);
 
                                 if (notExpiredPokemon.Any())
                                     locationsToSnipe.AddRange(notExpiredPokemon);
@@ -355,22 +391,38 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                             {
                                 foreach (var pokemonLocation in _locationsToSnipe)
                                 {
-                                    if ((pokemonLocation.expires > (((DateTime.Now.ToUniversalTime() - (new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc))).TotalMilliseconds) + 10000)) && (!LocsVisited.Contains(new PokemonLocation(pokemonLocation.latitude, pokemonLocation.longitude))))
+                                    if ((pokemonLocation.expires >
+                                         (DateTime.Now.ToUniversalTime() -
+                                          new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds + 10000) &&
+                                        !LocsVisited.Contains(new PokemonLocation(pokemonLocation.latitude,
+                                            pokemonLocation.longitude)))
                                     {
-                                        if (!await CheckPokeballsToSnipe(session.LogicSettings.MinPokeballsWhileSnipe + 1, session, cancellationToken))
+                                        if (
+                                            !await
+                                                CheckPokeballsToSnipe(session.LogicSettings.MinPokeballsWhileSnipe + 1,
+                                                    session, cancellationToken))
                                             return;
-                                        
-                                        await Snipe(session, pokemonIds, location.Latitude, location.Longitude, cancellationToken);
+
+                                        await
+                                            Snipe(session, pokemonIds, location.Latitude, location.Longitude,
+                                                cancellationToken);
                                     }
                                 }
                             }
-                            else if (session.LogicSettings.UseSnipeLocationServer && !string.IsNullOrEmpty(scanResult.Status) && scanResult.Status.Contains("fail"))
-                                session.EventDispatcher.Send(new SnipeEvent{Message = session.Translation.GetTranslation(TranslationString.SnipeServerOffline)});
+                            else if (session.LogicSettings.UseSnipeLocationServer &&
+                                     !string.IsNullOrEmpty(scanResult.Status) && scanResult.Status.Contains("fail"))
+                                session.EventDispatcher.Send(new SnipeEvent
+                                {
+                                    Message =
+                                        session.Translation.GetTranslation(TranslationString.SnipeServerOffline)
+                                });
                             else
-                                session.EventDispatcher.Send(new SnipeEvent{Message = session.Translation.GetTranslation(TranslationString.NoPokemonToSnipe)});
+                                session.EventDispatcher.Send(new SnipeEvent
+                                {
+                                    Message = session.Translation.GetTranslation(TranslationString.NoPokemonToSnipe)
+                                });
                         }
                     }
-
                 }
             }
         }
@@ -385,7 +437,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             var CurrentLongitude = session.Client.CurrentLongitude;
             var catchedPokemon = false;
 
-            session.EventDispatcher.Send(new SnipeModeEvent { Active = true });
+            session.EventDispatcher.Send(new SnipeModeEvent {Active = true});
 
             List<MapPokemon> catchablePokemon;
             try
@@ -407,7 +459,9 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             }
             finally
             {
-                await session.Client.Player.UpdatePlayerLocation(CurrentLatitude, CurrentLongitude, session.Client.CurrentAltitude);
+                await
+                    session.Client.Player.UpdatePlayerLocation(CurrentLatitude, CurrentLongitude,
+                        session.Client.CurrentAltitude);
             }
 
             if (catchablePokemon.Count == 0)
@@ -417,24 +471,27 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                 if (!LocsVisited.Contains(new PokemonLocation(latitude, longitude)))
                     LocsVisited.Add(new PokemonLocation(latitude, longitude));
             }
-            
+
             foreach (var pokemon in catchablePokemon)
             {
                 EncounterResponse encounter;
                 try
                 {
-                    await session.Client.Player.UpdatePlayerLocation(latitude, longitude, session.Client.CurrentAltitude);
+                    await
+                        session.Client.Player.UpdatePlayerLocation(latitude, longitude, session.Client.CurrentAltitude);
 
-                    encounter = session.Client.Encounter.EncounterPokemon(pokemon.EncounterId, pokemon.SpawnPointId).Result;
+                    encounter =
+                        session.Client.Encounter.EncounterPokemon(pokemon.EncounterId, pokemon.SpawnPointId).Result;
                 }
                 finally
                 {
-                    await session.Client.Player.UpdatePlayerLocation(CurrentLatitude, CurrentLongitude, session.Client.CurrentAltitude);
+                    await
+                        session.Client.Player.UpdatePlayerLocation(CurrentLatitude, CurrentLongitude,
+                            session.Client.CurrentAltitude);
                 }
 
                 if (encounter.Status == EncounterResponse.Types.Status.EncounterSuccess)
                 {
-
                     if (!LocsVisited.Contains(new PokemonLocation(latitude, longitude)))
                         LocsVisited.Add(new PokemonLocation(latitude, longitude));
                     //Also add exact pokemon location to LocsVisited, some times the server one differ a little.
@@ -496,14 +553,13 @@ namespace PokemonGo.RocketBot.Logic.Tasks
 
             _lastSnipe = DateTime.Now;
 
-            session.EventDispatcher.Send(new SnipeModeEvent { Active = false });
+            session.EventDispatcher.Send(new SnipeModeEvent {Active = false});
             await Task.Delay(session.LogicSettings.DelayBetweenPlayerActions, cancellationToken);
-
         }
 
         private static ScanResult SnipeScanForPokemon(ISession session, Location location)
         {
-            var formatter = new NumberFormatInfo { NumberDecimalSeparator = "." };
+            var formatter = new NumberFormatInfo {NumberDecimalSeparator = "."};
 
             var offset = session.LogicSettings.SnipingScanOffset;
             // 0.003 = half a mile; maximum 0.06 is 10 miles
@@ -531,14 +587,19 @@ namespace PokemonGo.RocketBot.Logic.Tasks
 
                 var resp = request.GetResponse();
                 var reader = new StreamReader(resp.GetResponseStream());
-                var fullresp = reader.ReadToEnd().Replace(" M", "Male").Replace(" F", "Female").Replace("Farfetch'd", "Farfetchd").Replace("Mr.Maleime", "MrMime");
+                var fullresp =
+                    reader.ReadToEnd()
+                        .Replace(" M", "Male")
+                        .Replace(" F", "Female")
+                        .Replace("Farfetch'd", "Farfetchd")
+                        .Replace("Mr.Maleime", "MrMime");
 
                 scanResult = JsonConvert.DeserializeObject<ScanResult>(fullresp);
             }
             catch (Exception ex)
             {
                 // most likely System.IO.IOException
-                session.EventDispatcher.Send(new ErrorEvent { Message = ex.Message });
+                session.EventDispatcher.Send(new ErrorEvent {Message = ex.Message});
                 scanResult = new ScanResult
                 {
                     Status = "fail",
@@ -551,38 +612,43 @@ namespace PokemonGo.RocketBot.Logic.Tasks
         private static List<SniperInfo> GetSniperInfoFrom_pokezz(ISession session, List<PokemonId> pokemonIds)
         {
             var options = new IO.Options();
-            options.Transports = Quobject.Collections.Immutable.ImmutableList.Create<string>("websocket");
+            options.Transports = ImmutableList.Create("websocket");
 
             var socket = IO.Socket("http://pokezz.com", options);
 
             var hasError = false;
 
-            ManualResetEventSlim waitforbroadcast = new ManualResetEventSlim(false);
+            var waitforbroadcast = new ManualResetEventSlim(false);
 
-            List<PokemonLocation_pokezz> pokemons = new List<PokemonLocation_pokezz>();
+            var pokemons = new List<PokemonLocation_pokezz>();
 
-            socket.On("pokemons", (msg) =>
+            socket.On("pokemons", msg =>
             {
                 socket.Close();
-                JArray data = JArray.FromObject(msg);
+                var data = JArray.FromObject(msg);
 
                 foreach (var pokeToken in data.Children())
                 {
-                    var Token = pokeToken.ToString().Replace(" M", "Male").Replace(" F", "Female").Replace("Farfetch'd", "Farfetchd").Replace("Mr.Maleime", "MrMime");
+                    var Token =
+                        pokeToken.ToString()
+                            .Replace(" M", "Male")
+                            .Replace(" F", "Female")
+                            .Replace("Farfetch'd", "Farfetchd")
+                            .Replace("Mr.Maleime", "MrMime");
                     pokemons.Add(JToken.Parse(Token).ToObject<PokemonLocation_pokezz>());
                 }
 
                 waitforbroadcast.Set();
             });
 
-            socket.On(Quobject.SocketIoClientDotNet.Client.Socket.EVENT_ERROR, () =>
+            socket.On(Socket.EVENT_ERROR, () =>
             {
                 socket.Close();
                 hasError = true;
                 waitforbroadcast.Set();
             });
 
-            socket.On(Quobject.SocketIoClientDotNet.Client.Socket.EVENT_CONNECT_ERROR, () =>
+            socket.On(Socket.EVENT_CONNECT_ERROR, () =>
             {
                 socket.Close();
                 hasError = true;
@@ -599,7 +665,8 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                     SnipInfo.Latitude = pokemon.lat;
                     SnipInfo.Longitude = pokemon.lng;
                     SnipInfo.TimeStampAdded = DateTime.Now;
-                    SnipInfo.ExpirationTimestamp = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(Math.Round(pokemon.time / 1000d)).ToLocalTime();
+                    SnipInfo.ExpirationTimestamp =
+                        new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(Math.Round(pokemon.time/1000d)).ToLocalTime();
                     SnipInfo.IV = pokemon._iv;
                     if (pokemon.verified || !session.LogicSettings.GetOnlyVerifiedSniperInfoFromPokezz)
                         SnipeLocations.Add(SnipInfo);
@@ -607,28 +674,24 @@ namespace PokemonGo.RocketBot.Logic.Tasks
 
                 var locationsToSnipe = SnipeLocations?.Where(q =>
                     (!session.LogicSettings.UseTransferIvForSnipe ||
-                    (q.IV == 0 && !session.LogicSettings.SnipeIgnoreUnknownIv) ||
-                    (q.IV >= session.Inventory.GetPokemonTransferFilter(q.Id).KeepMinIvPercentage)) &&
+                     (q.IV == 0 && !session.LogicSettings.SnipeIgnoreUnknownIv) ||
+                     (q.IV >= session.Inventory.GetPokemonTransferFilter(q.Id).KeepMinIvPercentage)) &&
                     !LocsVisited.Contains(new PokemonLocation(q.Latitude, q.Longitude))
                     && !(q.ExpirationTimestamp != default(DateTime) &&
-                    q.ExpirationTimestamp > new DateTime(2016) &&
-                    // make absolutely sure that the server sent a correct datetime
-                    q.ExpirationTimestamp < DateTime.Now) &&
+                         q.ExpirationTimestamp > new DateTime(2016) &&
+                         // make absolutely sure that the server sent a correct datetime
+                         q.ExpirationTimestamp < DateTime.Now) &&
                     (q.Id == PokemonId.Missingno || pokemonIds.Contains(q.Id))).ToList() ??
-                    new List<SniperInfo>();
+                                       new List<SniperInfo>();
 
                 return locationsToSnipe.OrderBy(q => q.ExpirationTimestamp).ToList();
             }
-            else
-            {
-                session.EventDispatcher.Send(new ErrorEvent {Message = "(Pokezz.com) Connection Error"});
-                return new List<SniperInfo>();
-            }
+            session.EventDispatcher.Send(new ErrorEvent {Message = "(Pokezz.com) Connection Error"});
+            return new List<SniperInfo>();
         }
 
         private static List<SniperInfo> GetSniperInfoFrom_pokesnipers(ISession session, List<PokemonId> pokemonIds)
         {
-
             var uri = $"http://pokesnipers.com/api/v1/pokemon.json";
 
             ScanResult_pokesnipers scanResult_pokesnipers;
@@ -640,7 +703,12 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                 var client = new HttpClient(handler);
 
                 // Use the HttpClient as usual. Any JS challenge will be solved automatically for you.
-                var fullresp = client.GetStringAsync(uri).Result.Replace(" M", "Male").Replace(" F", "Female").Replace("Farfetch'd", "Farfetchd").Replace("Mr.Maleime", "MrMime");
+                var fullresp =
+                    client.GetStringAsync(uri)
+                        .Result.Replace(" M", "Male")
+                        .Replace(" F", "Female")
+                        .Replace("Farfetch'd", "Farfetchd")
+                        .Replace("Mr.Maleime", "MrMime");
 
                 scanResult_pokesnipers = JsonConvert.DeserializeObject<ScanResult_pokesnipers>(fullresp);
             }
@@ -658,7 +726,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                     {
                         var SnipInfo = new SniperInfo();
                         SnipInfo.Id = pokemon.name;
-                        string[] coordsArray = pokemon.coords.Split(',');
+                        var coordsArray = pokemon.coords.Split(',');
                         SnipInfo.Latitude = Convert.ToDouble(coordsArray[0], CultureInfo.InvariantCulture);
                         SnipInfo.Longitude = Convert.ToDouble(coordsArray[1], CultureInfo.InvariantCulture);
                         SnipInfo.TimeStampAdded = DateTime.Now;
@@ -673,25 +741,23 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                 }
                 var locationsToSnipe = SnipeLocations?.Where(q =>
                     (!session.LogicSettings.UseTransferIvForSnipe ||
-                    (q.IV == 0 && !session.LogicSettings.SnipeIgnoreUnknownIv) ||
-                    (q.IV >= session.Inventory.GetPokemonTransferFilter(q.Id).KeepMinIvPercentage)) &&
+                     (q.IV == 0 && !session.LogicSettings.SnipeIgnoreUnknownIv) ||
+                     (q.IV >= session.Inventory.GetPokemonTransferFilter(q.Id).KeepMinIvPercentage)) &&
                     !LocsVisited.Contains(new PokemonLocation(q.Latitude, q.Longitude))
                     && !(q.ExpirationTimestamp != default(DateTime) &&
-                    q.ExpirationTimestamp > new DateTime(2016) &&
-                    // make absolutely sure that the server sent a correct datetime
-                    q.ExpirationTimestamp < DateTime.Now) &&
+                         q.ExpirationTimestamp > new DateTime(2016) &&
+                         // make absolutely sure that the server sent a correct datetime
+                         q.ExpirationTimestamp < DateTime.Now) &&
                     (q.Id == PokemonId.Missingno || pokemonIds.Contains(q.Id))).ToList() ??
-                    new List<SniperInfo>();
+                                       new List<SniperInfo>();
 
                 return locationsToSnipe.OrderBy(q => q.ExpirationTimestamp).ToList();
             }
-            else
-                return new List<SniperInfo>();
+            return new List<SniperInfo>();
         }
 
         private static List<SniperInfo> GetSniperInfoFrom_pokewatchers(ISession session, List<PokemonId> pokemonIds)
         {
-
             var uri = $"http://pokewatchers.com/api.php?act=grab";
 
             ScanResult_pokewatchers scanResult_pokewatchers;
@@ -703,14 +769,19 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                 var client = new HttpClient(handler);
 
                 // Use the HttpClient as usual. Any JS challenge will be solved automatically for you.
-                var fullresp = "{ \"pokemons\":" + client.GetStringAsync(uri).Result.Replace(" M", "Male").Replace(" F", "Female").Replace("Farfetch'd", "Farfetchd").Replace("Mr.Maleime", "MrMime") +"}";
+                var fullresp = "{ \"pokemons\":" +
+                               client.GetStringAsync(uri)
+                                   .Result.Replace(" M", "Male")
+                                   .Replace(" F", "Female")
+                                   .Replace("Farfetch'd", "Farfetchd")
+                                   .Replace("Mr.Maleime", "MrMime") + "}";
 
                 scanResult_pokewatchers = JsonConvert.DeserializeObject<ScanResult_pokewatchers>(fullresp);
             }
             catch (Exception ex)
             {
                 // most likely System.IO.IOException
-                session.EventDispatcher.Send(new ErrorEvent { Message = "(PokeWatchers.com) " + ex.Message });
+                session.EventDispatcher.Send(new ErrorEvent {Message = "(PokeWatchers.com) " + ex.Message});
                 return new List<SniperInfo>();
             }
             if (scanResult_pokewatchers.pokemons != null)
@@ -721,11 +792,15 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                     {
                         var SnipInfo = new SniperInfo();
                         SnipInfo.Id = pokemon.pokemon;
-                        string[] coordsArray = pokemon.cords.Split(',');
+                        var coordsArray = pokemon.cords.Split(',');
                         SnipInfo.Latitude = Convert.ToDouble(coordsArray[0], CultureInfo.InvariantCulture);
                         SnipInfo.Longitude = Convert.ToDouble(coordsArray[1], CultureInfo.InvariantCulture);
-                        SnipInfo.TimeStampAdded = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(Math.Round(pokemon.timeadded / 1000d)).ToLocalTime();
-                        SnipInfo.ExpirationTimestamp = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(Math.Round(pokemon.timeend / 1000d)).ToLocalTime();
+                        SnipInfo.TimeStampAdded =
+                            new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(Math.Round(pokemon.timeadded/1000d))
+                                .ToLocalTime();
+                        SnipInfo.ExpirationTimestamp =
+                            new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(Math.Round(pokemon.timeend/1000d))
+                                .ToLocalTime();
                         SnipeLocations.Add(SnipInfo);
                     }
                     catch
@@ -734,20 +809,19 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                 }
                 var locationsToSnipe = SnipeLocations?.Where(q =>
                     (!session.LogicSettings.UseTransferIvForSnipe ||
-                    (q.IV == 0 && !session.LogicSettings.SnipeIgnoreUnknownIv) ||
-                    (q.IV >= session.Inventory.GetPokemonTransferFilter(q.Id).KeepMinIvPercentage)) &&
+                     (q.IV == 0 && !session.LogicSettings.SnipeIgnoreUnknownIv) ||
+                     (q.IV >= session.Inventory.GetPokemonTransferFilter(q.Id).KeepMinIvPercentage)) &&
                     !LocsVisited.Contains(new PokemonLocation(q.Latitude, q.Longitude))
                     && !(q.ExpirationTimestamp != default(DateTime) &&
-                    q.ExpirationTimestamp > new DateTime(2016) &&
-                    // make absolutely sure that the server sent a correct datetime
-                    q.ExpirationTimestamp < DateTime.Now) &&
+                         q.ExpirationTimestamp > new DateTime(2016) &&
+                         // make absolutely sure that the server sent a correct datetime
+                         q.ExpirationTimestamp < DateTime.Now) &&
                     (q.Id == PokemonId.Missingno || pokemonIds.Contains(q.Id))).ToList() ??
-                    new List<SniperInfo>();
+                                       new List<SniperInfo>();
 
                 return locationsToSnipe.OrderBy(q => q.ExpirationTimestamp).ToList();
             }
-            else
-                return new List<SniperInfo>();
+            return new List<SniperInfo>();
         }
 
         public static async Task Start(Session session, CancellationToken cancellationToken)
@@ -784,9 +858,12 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                             SnipeLocations.RemoveAll(x => DateTime.Now > x.TimeStampAdded.AddMinutes(15));
                             SnipeLocations.Add(info);
                         }
-                        catch (System.IO.IOException)
+                        catch (IOException)
                         {
-                            session.EventDispatcher.Send(new ErrorEvent {Message = "The connection to the sniping location server was lost."});
+                            session.EventDispatcher.Send(new ErrorEvent
+                            {
+                                Message = "The connection to the sniping location server was lost."
+                            });
                         }
                     }
                 }
@@ -797,7 +874,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                 catch (Exception ex)
                 {
                     // most likely System.IO.IOException
-                    session.EventDispatcher.Send(new ErrorEvent { Message = ex.ToString() });
+                    session.EventDispatcher.Send(new ErrorEvent {Message = ex.ToString()});
                 }
                 await Task.Delay(100, cancellationToken);
             }
