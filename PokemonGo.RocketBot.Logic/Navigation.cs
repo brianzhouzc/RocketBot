@@ -22,6 +22,8 @@ namespace PokemonGo.RocketBot.Logic
 {
     public delegate void UpdatePositionDelegate(double lat, double lng);
 
+    public delegate void GetHumanizeRouteDelegate(List<GeoCoordinate> route, GeoCoordinate destination);
+
     public class Navigation
     {
         private const double SpeedDownTo = 10/3.6;
@@ -209,6 +211,8 @@ namespace PokemonGo.RocketBot.Logic
 
                 foreach (var item in route)
                     points.Add(new GeoCoordinate(item.ToArray()[1], item.ToArray()[0]));
+
+                OnGetHumanizeRouteEvent(points, targetLocation);
 
                 for (var i = 0; i < points.Count; i++)
                 {
@@ -413,5 +417,11 @@ namespace PokemonGo.RocketBot.Logic
         }
 
         public event UpdatePositionDelegate UpdatePositionEvent;
+        public static event GetHumanizeRouteDelegate GetHumanizeRouteEvent;
+
+        protected virtual void OnGetHumanizeRouteEvent(List<GeoCoordinate> route, GeoCoordinate destination)
+        {
+            GetHumanizeRouteEvent?.Invoke(route, destination);
+        }
     }
 }

@@ -14,6 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
+using GeoCoordinatePortable;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
@@ -54,6 +55,7 @@ namespace PokemonGo.RocketBot.Window.Forms
         private readonly List<PointLatLng> _playerLocations = new List<PointLatLng>();
 
         private readonly GMapOverlay _playerOverlay = new GMapOverlay("players");
+        private readonly GMapOverlay _playerRouteOverlay = new GMapOverlay("playerroutes");
         private readonly GMapOverlay _pokemonsOverlay = new GMapOverlay("pokemons");
         private readonly GMapOverlay _pokestopsOverlay = new GMapOverlay("pokestops");
         private readonly GMapOverlay _searchAreaOverlay = new GMapOverlay("areas");
@@ -61,6 +63,7 @@ namespace PokemonGo.RocketBot.Window.Forms
         private PointLatLng _currentLatLng;
         private ConsoleLogger _logger;
         private StateMachine _machine;
+        private List<PointLatLng> _routePoints;
         private GlobalSettings _settings;
 
         public MainForm()
@@ -79,6 +82,11 @@ namespace PokemonGo.RocketBot.Window.Forms
             Analytics.Initialize("UzL1tnZa9Yw2qcJWRIbcwGFmWGuovXez");
             Analytics.Client.Identify(MachineIdHelper.GetMachineId(), new Traits());
             Analytics.Client.Track(MachineIdHelper.GetMachineId(), "App started");
+
+            speedLable.Parent = gMapControl1;
+            showMoreCheckBox.Parent = gMapControl1;
+            followTrainerCheckBox.Parent = gMapControl1;
+            togglePrecalRoute.Parent = gMapControl1;
 
             InitializeBot();
             InitializePokemonForm();
@@ -110,6 +118,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             gMapControl1.Overlays.Add(_pokestopsOverlay);
             gMapControl1.Overlays.Add(_pokemonsOverlay);
             gMapControl1.Overlays.Add(_playerOverlay);
+            gMapControl1.Overlays.Add(_playerRouteOverlay);
 
             _playerMarker = new GMapMarkerTrainer(new PointLatLng(lat, lng),
                 ResourceHelper.GetImage("Trainer_Front"));
@@ -213,6 +222,11 @@ namespace PokemonGo.RocketBot.Window.Forms
                     _session.EventDispatcher.Send(new OptimizeRouteEvent {OptimizedRoute = optimizedroute});
             RouteOptimizeUtil.RouteOptimizeEvent += InitializePokestopsAndRoute;
 
+            Navigation.GetHumanizeRouteEvent +=
+                (route, destination) =>
+                    _session.EventDispatcher.Send(new GetHumanizeRouteEvent {Route = route, Destination = destination});
+            Navigation.GetHumanizeRouteEvent += UpdateMap;
+
             FarmPokestopsTask.LootPokestopEvent +=
                 pokestop => _session.EventDispatcher.Send(new LootPokestopEvent {Pokestop = pokestop});
             FarmPokestopsTask.LootPokestopEvent += UpdateMap;
@@ -255,10 +269,10 @@ namespace PokemonGo.RocketBot.Window.Forms
                     (from pokeStop in pokeStops
                         where pokeStop != null
                         select new PointLatLng(pokeStop.Latitude, pokeStop.Longitude)).ToList();
-                foreach(var pks in pokeStops)
-                    Logger.Write(pks.Latitude + ", " + pks.Longitude);
 
-                // Temporary removed it since the route is calculated on the fly with gmap api's
+                _routePoints = routePoint;
+                togglePrecalRoute.Enabled = true;
+
                 var route = new GMapRoute(routePoint, "Walking Path")
                 {
                     Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
@@ -286,6 +300,54 @@ namespace PokemonGo.RocketBot.Window.Forms
                 _playerOverlay.Routes.Clear();
                 _playerOverlay.Routes.Add(route);
             }, null);
+        }
+
+        private void UpdateMap(List<GeoCoordinate> route, GeoCoordinate destination)
+        {
+            var routePointLatLngs = new List<PointLatLng>();
+            foreach (var item in route)
+            {
+                routePointLatLngs.Add(new PointLatLng(item.Latitude, item.Longitude));
+            }
+            var routes = new GMapRoute(routePointLatLngs, routePointLatLngs.ToString())
+            {
+                Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4) {DashStyle = DashStyle.Dash}
+            };
+            _playerRouteOverlay.Routes.Add(routes);
+            /* Logger.Write("new call");
+             List<PointLatLng> routePointLatLngs = new List<PointLatLng>();
+             Logger.Write("new route size: " +route.Count);
+             PointLatLng destinationPointLatLng = new PointLatLng(destination.Latitude, destination.Longitude);
+             foreach (var item in route)
+             {
+                 routePointLatLngs.Add(new PointLatLng(item.Latitude, item.Longitude));
+             }
+
+             List<PointLatLng> routePointsDistinct = new List<PointLatLng>(_routePoints.Distinct());
+
+             int listPosition;
+             for (listPosition = 0; listPosition < routePointsDistinct.Count; listPosition++)
+             {
+                 Logger.Write("listPosition: " + listPosition);
+                 var item = routePointsDistinct[listPosition];
+                 if (item == destinationPointLatLng)
+                     break;
+             }
+
+             if (listPosition == 0)
+                 return;
+
+             //routePointsDistinct.Remove(destinationPointLatLng);
+             routePointsDistinct.InsertRange(listPosition, routePointLatLngs);
+             //routePointsDistinct.Remove(routePointsDistinct[listPosition - 1]);
+
+
+             _pokestopsOverlay.Routes.Clear();
+             var routes = new GMapRoute(routePointsDistinct, "Walking Path")
+             {
+                 Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
+             };
+             _pokestopsOverlay.Routes.Add(routes);*/
         }
 
         private void UpdateMap(FortData pokestop)
@@ -342,6 +404,8 @@ namespace PokemonGo.RocketBot.Window.Forms
                         ? new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("Trainer_Right"))
                         : new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("Trainer_Left"));
                 _playerOverlay.Markers.Add(_playerMarker);
+                if (followTrainerCheckBox.Checked)
+                    gMapControl1.Position = latlng;
             }, null);
 
             _currentLatLng = latlng;
@@ -403,6 +467,54 @@ namespace PokemonGo.RocketBot.Window.Forms
         {
         }
 
+        private void gMapControl1_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void showMoreCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (showMoreCheckBox.Checked)
+            {
+                followTrainerCheckBox.Visible = true;
+                togglePrecalRoute.Visible = true;
+            }
+            else
+            {
+                followTrainerCheckBox.Visible = false;
+                togglePrecalRoute.Visible = false;
+            }
+        }
+
+        private void followTrainerCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (followTrainerCheckBox.Checked)
+            {
+                gMapControl1.CanDragMap = false;
+                gMapControl1.Position = _currentLatLng;
+            }
+            else
+            {
+                gMapControl1.CanDragMap = true;
+            }
+        }
+
+        private void togglePrecalRoute_CheckedChanged(object sender, EventArgs e)
+        {
+            if (togglePrecalRoute.Checked)
+            {
+                _pokestopsOverlay.Routes.Clear();
+                var route = new GMapRoute(_routePoints, "Walking Path")
+                {
+                    Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
+                };
+                _pokestopsOverlay.Routes.Add(route);
+            }
+            else
+            {
+                _pokestopsOverlay.Routes.Clear();
+            }
+        }
+
         #region INTERFACE
 
         public static void ColoredConsoleWrite(Color color, string text)
@@ -419,6 +531,16 @@ namespace PokemonGo.RocketBot.Window.Forms
             Instance.logTextBox.ScrollToCaret();
             Instance.logTextBox.SelectionColor = color;
             Instance.logTextBox.AppendText(message);
+        }
+
+        public static void SetSpeedLable(string text)
+        {
+            if (Instance.InvokeRequired)
+            {
+                Instance.Invoke(new Action<string>(SetSpeedLable), text);
+                return;
+            }
+            Instance.speedLable.Text = text;
         }
 
         public static void SetStatusText(string text)
@@ -791,7 +913,10 @@ namespace PokemonGo.RocketBot.Window.Forms
                 var inventoryAppliedItems =
                     await _session.Inventory.GetAppliedItems();
 
-                var appliedItems = inventoryAppliedItems.Where(aItems => aItems?.Item != null).SelectMany(aItems => aItems.Item).ToDictionary(item => item.ItemId, item => Utils.FromUnixTimeUtc(item.ExpireMs));
+                var appliedItems =
+                    inventoryAppliedItems.Where(aItems => aItems?.Item != null)
+                        .SelectMany(aItems => aItems.Item)
+                        .ToDictionary(item => item.ItemId, item => Utils.FromUnixTimeUtc(item.ExpireMs));
 
                 PokemonObject.Initilize(itemTemplates);
 
@@ -827,7 +952,8 @@ namespace PokemonGo.RocketBot.Window.Forms
                     inventory.InventoryDelta.InventoryItems
                         .Select(i => i.InventoryItemData?.PokemonData)
                         .Count(p => p != null && p.IsEgg);
-                lblPokemonList.Text = $"{pokemoncount + eggcount} / {profile.PlayerData.MaxPokemonStorage} ({pokemoncount} pokemon, {eggcount} eggs)";
+                lblPokemonList.Text =
+                    $"{pokemoncount + eggcount} / {profile.PlayerData.MaxPokemonStorage} ({pokemoncount} pokemon, {eggcount} eggs)";
 
                 var items =
                     inventory.InventoryDelta.InventoryItems
@@ -1029,10 +1155,5 @@ namespace PokemonGo.RocketBot.Window.Forms
         }
 
         #endregion POKEMON LIST
-
-        private void gMapControl1_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

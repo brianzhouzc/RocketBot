@@ -7,6 +7,7 @@ using PokemonGo.RocketBot.Logic.Common;
 using PokemonGo.RocketBot.Logic.Event;
 using PokemonGo.RocketBot.Logic.Logging;
 using PokemonGo.RocketBot.Logic.State;
+using PokemonGo.RocketBot.Window.Forms;
 using POGOProtos.Enums;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Networking.Responses;
@@ -21,11 +22,8 @@ namespace PokemonGo.RocketBot.Window
         private static void HandleEvent(HumanWalkingEvent humanWalkingEvent, ISession session)
         {
             if (session.LogicSettings.ShowVariantWalking)
-                Logger.Write(
-                    session.Translation.GetTranslation(TranslationString.HumanWalkingVariant,
-                    humanWalkingEvent.OldWalkingSpeed,
-                    humanWalkingEvent.CurrentWalkingSpeed),
-                    LogLevel.Info, ConsoleColor.DarkCyan);
+                MainForm.SetSpeedLable("Current Speed: " + Math.Round(humanWalkingEvent.CurrentWalkingSpeed, 2) +
+                                       " km/h");
         }
 
         private static void HandleEvent(ProfileEvent profileEvent, ISession session)
