@@ -391,7 +391,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 : _deviceInfos.Where(d => d.DeviceBrand.ToLower() != "apple").ToList();
             var selectIndex = _deviceHelper.GetRandomIndex(candidateDevices.Count);
 
-            DeviceIdTb.Text = candidateDevices[selectIndex].DeviceId == "8525f6d8251f71b7"
+            DeviceIdTb.Text = candidateDevices[selectIndex].DeviceId == "8525f5d8201f78b5"
                 ? _deviceHelper.RandomString(16, "0123456789abcdef")
                 : candidateDevices[selectIndex].DeviceId;
             AndroidBoardNameTb.Text = candidateDevices[selectIndex].AndroidBoardName;
