@@ -123,7 +123,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                             if ((int) fortSearch.CooldownCompleteTimestampMs != 0)
                             {
                                 break;
-                                    // Check if successfully looted, if so program can continue as this was "false alarm".
+                                // Check if successfully looted, if so program can continue as this was "false alarm".
                             }
 
                             fortTry += 1;

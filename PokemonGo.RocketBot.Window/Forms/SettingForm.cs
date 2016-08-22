@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -17,16 +16,16 @@ namespace PokemonGo.RocketBot.Window.Forms
 {
     internal partial class SettingsForm : Form
     {
-        private readonly GlobalSettings _setting;
-        private readonly DeviceHelper _deviceHelper;
-        private readonly List<DeviceInfo> _deviceInfos;
-        private TabPage _tabAdvSettingTab;
+        private const int DefaultZoomLevel = 15;
 
         private static readonly string ConfigFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Config");
         private static readonly string AuthFilePath = Path.Combine(ConfigFolderPath, "auth.json");
         private static readonly string ConfigFilePath = Path.Combine(ConfigFolderPath, "config.json");
         private static readonly string LanguagePath = Path.Combine(ConfigFolderPath, "Translations");
-        private const int DefaultZoomLevel = 15;
+        private readonly DeviceHelper _deviceHelper;
+        private readonly List<DeviceInfo> _deviceInfos;
+        private readonly GlobalSettings _setting;
+        private TabPage _tabAdvSettingTab;
 
         public SettingsForm(ref GlobalSettings settings)
         {
@@ -36,7 +35,9 @@ namespace PokemonGo.RocketBot.Window.Forms
             _deviceHelper = new DeviceHelper();
             _deviceInfos = _deviceHelper.DeviceBucket;
 
-            foreach (var pokemon in Enum.GetValues(typeof(PokemonId)).Cast<PokemonId>().Where(id => id != PokemonId.Missingno))
+            foreach (
+                var pokemon in
+                    Enum.GetValues(typeof(PokemonId)).Cast<PokemonId>().Where(id => id != PokemonId.Missingno))
             {
                 clbIgnore.Items.Add(pokemon);
                 clbTransfer.Items.Add(pokemon);
@@ -50,6 +51,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             GetLanguageList();
 
             #region Advanced Setting Init
+
             //proxy
             proxyGb.Visible = _setting.EnableAdvancedSettings;
             //advanced tab
@@ -67,17 +69,24 @@ namespace PokemonGo.RocketBot.Window.Forms
             #endregion
 
             #region Login Type and info
+
             authTypeCb.Text = _setting.Auth.AuthType.ToString();
-            UserLoginBox.Text = _setting.Auth.AuthType == AuthType.Google ? _setting.Auth.GoogleUsername : _setting.Auth.PtcUsername;
-            UserPasswordBox.Text = _setting.Auth.AuthType == AuthType.Google ? _setting.Auth.GooglePassword : _setting.Auth.PtcPassword;
+            UserLoginBox.Text = _setting.Auth.AuthType == AuthType.Google
+                ? _setting.Auth.GoogleUsername
+                : _setting.Auth.PtcUsername;
+            UserPasswordBox.Text = _setting.Auth.AuthType == AuthType.Google
+                ? _setting.Auth.GooglePassword
+                : _setting.Auth.PtcPassword;
 
             //proxy
             useProxyCb.Checked = _setting.Auth.UseProxy;
             useProxyAuthCb.Checked = _setting.Auth.UseProxy && _setting.Auth.UseProxyAuthentication;
             ToggleProxyCtrls();
+
             #endregion
 
             #region Map Info
+
             //use google provider
             gMapCtrl.MapProvider = GoogleMapProvider.Instance;
             //get tiles from server only
@@ -98,9 +107,11 @@ namespace PokemonGo.RocketBot.Window.Forms
             gMapCtrl.DisableFocusOnMouseEnter = true;
 
             tbWalkingSpeed.Text = _setting.WalkingSpeedInKilometerPerHour.ToString(CultureInfo.InvariantCulture);
+
             #endregion
 
             #region Device Info
+
             //by default, select one from Necro's device dictionary
             DeviceIdTb.Text = _setting.Auth.DeviceId;
             AndroidBoardNameTb.Text = _setting.Auth.AndroidBoardName;
@@ -116,6 +127,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             FirmwareTypeTb.Text = _setting.Auth.FirmwareType;
             FirmwareFingerprintTb.Text = _setting.Auth.FirmwareFingerprint;
             deviceTypeCb.SelectedIndex = _setting.Auth.DeviceBrand.ToLower() == "apple" ? 0 : 1;
+
             #endregion
 
             #region Pokemon Info
@@ -131,7 +143,8 @@ namespace PokemonGo.RocketBot.Window.Forms
 
             tbUseBerriesMinCp.Text = _setting.UseBerriesMinCp.ToString();
             tbUseBerriesMinIv.Text = _setting.UseBerriesMinIv.ToString(CultureInfo.InvariantCulture);
-            tbUseBerriesBelowCatchProbability.Text = _setting.UseBerriesBelowCatchProbability.ToString(CultureInfo.InvariantCulture);
+            tbUseBerriesBelowCatchProbability.Text =
+                _setting.UseBerriesBelowCatchProbability.ToString(CultureInfo.InvariantCulture);
             cbUseBerriesOperator.SelectedIndex = _setting.UseBerriesOperator == "and" ? 0 : 1;
 
             tbUseGreatBallAboveCp.Text = _setting.UseGreatBallAboveCp.ToString();
@@ -139,14 +152,18 @@ namespace PokemonGo.RocketBot.Window.Forms
             tbUseMasterBallAboveCp.Text = _setting.UseMasterBallAboveCp.ToString();
             tbUseGreatBallAboveIv.Text = _setting.UseGreatBallAboveIv.ToString(CultureInfo.InvariantCulture);
             tbUseUltraBallAboveIv.Text = _setting.UseUltraBallAboveIv.ToString(CultureInfo.InvariantCulture);
-            tbUseGreatBallBelowCatchProbability.Text = _setting.UseGreatBallBelowCatchProbability.ToString(CultureInfo.InvariantCulture);
-            tbUseUltraBallBelowCatchProbability.Text = _setting.UseUltraBallBelowCatchProbability.ToString(CultureInfo.InvariantCulture);
-            tbUseMasterBallBelowCatchProbability.Text = _setting.UseMasterBallBelowCatchProbability.ToString(CultureInfo.InvariantCulture);
+            tbUseGreatBallBelowCatchProbability.Text =
+                _setting.UseGreatBallBelowCatchProbability.ToString(CultureInfo.InvariantCulture);
+            tbUseUltraBallBelowCatchProbability.Text =
+                _setting.UseUltraBallBelowCatchProbability.ToString(CultureInfo.InvariantCulture);
+            tbUseMasterBallBelowCatchProbability.Text =
+                _setting.UseMasterBallBelowCatchProbability.ToString(CultureInfo.InvariantCulture);
 
             foreach (var poke in _setting.PokemonsToIgnore)
             {
                 clbIgnore.SetItemChecked(clbIgnore.FindStringExact(poke.ToString()), true);
             }
+
             #endregion
 
             #region Transfer
@@ -166,9 +183,11 @@ namespace PokemonGo.RocketBot.Window.Forms
             {
                 clbTransfer.SetItemChecked(clbTransfer.FindStringExact(poke.ToString()), true);
             }
+
             #endregion
 
             #region Powerup
+
             //focuse to use filter list
             _setting.UseLevelUpList = true;
 
@@ -197,6 +216,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 label30.Visible = true;
                 tbPowerUpMinCP.Visible = true;
             }
+
             #endregion
 
             #region Evo
@@ -205,18 +225,21 @@ namespace PokemonGo.RocketBot.Window.Forms
             tbEvoAboveIV.Text = _setting.EvolveAboveIvValue.ToString(CultureInfo.InvariantCulture);
             cbEvolveAllPokemonWithEnoughCandy.Checked = _setting.EvolveAllPokemonWithEnoughCandy;
             cbKeepPokemonsThatCanEvolve.Checked = _setting.KeepPokemonsThatCanEvolve;
-            tbEvolveKeptPokemonsAtStorageUsagePercentage.Text = _setting.EvolveKeptPokemonsAtStorageUsagePercentage.ToString(CultureInfo.InvariantCulture);
+            tbEvolveKeptPokemonsAtStorageUsagePercentage.Text =
+                _setting.EvolveKeptPokemonsAtStorageUsagePercentage.ToString(CultureInfo.InvariantCulture);
             cbUseLuckyEggsWhileEvolving.Checked = _setting.UseLuckyEggsWhileEvolving;
             tbUseLuckyEggsMinPokemonAmount.Text = _setting.UseLuckyEggsMinPokemonAmount.ToString();
             foreach (var poke in _setting.PokemonsToEvolve)
             {
                 clbEvolve.SetItemChecked(clbEvolve.FindStringExact(poke.ToString()), true);
             }
+
             #endregion
 
             #endregion
 
             #region Item Info
+
             cbUseLuckyEggConstantly.Checked = _setting.UseLuckyEggConstantly;
             cbUseIncenseConstantly.Checked = _setting.UseIncenseConstantly;
             tbTotalAmountOfPokeballsToKeep.Text = _setting.TotalAmountOfPokeballsToKeep.ToString();
@@ -224,14 +247,16 @@ namespace PokemonGo.RocketBot.Window.Forms
             tbTotalAmountOfRevivesToKeep.Text = _setting.TotalAmountOfRevivesToKeep.ToString();
             tbTotalAmountOfBerriesToKeep.Text = _setting.TotalAmountOfBerriesToKeep.ToString();
             cbVerboseRecycling.Checked = _setting.VerboseRecycling;
-            tbRecycleInventoryAtUsagePercentage.Text = _setting.RecycleInventoryAtUsagePercentage.ToString(CultureInfo.InvariantCulture);
+            tbRecycleInventoryAtUsagePercentage.Text =
+                _setting.RecycleInventoryAtUsagePercentage.ToString(CultureInfo.InvariantCulture);
 
             #endregion
 
             #region Advance Settings
 
             cbDisableHumanWalking.Checked = _setting.DisableHumanWalking;
-            tbWalkingSpeedOffSetInKilometerPerHour.Text = _setting.WalkingSpeedVariant.ToString(CultureInfo.InvariantCulture);
+            tbWalkingSpeedOffSetInKilometerPerHour.Text =
+                _setting.WalkingSpeedVariant.ToString(CultureInfo.InvariantCulture);
             tbMaxSpawnLocationOffset.Text = _setting.MaxSpawnLocationOffset.ToString();
             tbMaxTravelDistanceInMeters.Text = _setting.MaxTravelDistanceInMeters.ToString();
 
@@ -256,9 +281,10 @@ namespace PokemonGo.RocketBot.Window.Forms
         }
 
         #region private methods
+
         private static int ConvertStringToInt(string input)
         {
-            int output = 0;
+            var output = 0;
             int.TryParse(input, out output);
             return output;
         }
@@ -283,31 +309,32 @@ namespace PokemonGo.RocketBot.Window.Forms
         }
 
         /// <summary>
-        /// Get languale list from Translations folder and populate it to combo box
+        ///     Get languale list from Translations folder and populate it to combo box
         /// </summary>
         private void GetLanguageList()
         {
-            var languages = new List<string> { "en" };
+            var languages = new List<string> {"en"};
             var langFiles = Directory.GetFiles(LanguagePath, "*.json", SearchOption.TopDirectoryOnly);
-            languages.AddRange(langFiles.Select(langFileName => Path.GetFileNameWithoutExtension(langFileName)?.Replace("translation.", ""))
-                     .Where(langCode => langCode != "en"));
+            languages.AddRange(langFiles.Select(
+                langFileName => Path.GetFileNameWithoutExtension(langFileName)?.Replace("translation.", ""))
+                .Where(langCode => langCode != "en"));
             cbLanguage.DataSource = languages;
         }
 
         /// <summary>
-        /// Update location lat and lon to textboxes
+        ///     Update location lat and lon to textboxes
         /// </summary>
         private void UpdateLocationInfo()
         {
             //not rounding it, need to have correct position to prevent map drifting
             tbLatitude.Text = gMapCtrl.Position.Lat.ToString(CultureInfo.InvariantCulture);
-            tbLongitude.Text = gMapCtrl.Position.Lng.ToString(CultureInfo.InvariantCulture); 
+            tbLongitude.Text = gMapCtrl.Position.Lng.ToString(CultureInfo.InvariantCulture);
             //update trackbar
-            trackBar.Value = (int)Math.Round(gMapCtrl.Zoom);
+            trackBar.Value = (int) Math.Round(gMapCtrl.Zoom);
         }
 
         /// <summary>
-        /// Update map location base on giving lng and lat
+        ///     Update map location base on giving lng and lat
         /// </summary>
         /// <param name="lng"></param>
         /// <param name="lat"></param>
@@ -377,17 +404,20 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private static void ListSelectAllHandler(CheckedListBox targetList, bool setToValue)
         {
-            for (int index = 0; index < targetList.Items.Count; index++)
+            for (var index = 0; index < targetList.Items.Count; index++)
             {
                 targetList.SetItemChecked(index, setToValue);
             }
         }
+
         #endregion
 
         #region Events
+
         private void saveBtn_Click(object sender, EventArgs e)
         {
             #region Auth Settings
+
             _setting.Auth.AuthType = authTypeCb.Text == @"Google" ? AuthType.Google : AuthType.Ptc;
             if (_setting.Auth.AuthType == AuthType.Google)
             {
@@ -426,6 +456,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             _setting.Auth.FirmwareFingerprint = FirmwareFingerprintTb.Text;
 
             _setting.Auth.Save(AuthFilePath);
+
             #endregion
 
             #region Bot Settings
@@ -433,9 +464,11 @@ namespace PokemonGo.RocketBot.Window.Forms
             _setting.TranslationLanguageCode = cbLanguage.Text;
 
             #region Location
+
             _setting.DefaultLatitude = ConvertStringToDouble(tbLatitude.Text);
             _setting.DefaultLongitude = ConvertStringToDouble(tbLongitude.Text);
             _setting.WalkingSpeedInKilometerPerHour = ConvertStringToInt(tbWalkingSpeed.Text);
+
             #endregion
 
             #region Pokemon
@@ -462,10 +495,13 @@ namespace PokemonGo.RocketBot.Window.Forms
             _setting.UseUltraBallAboveIv = ConvertStringToDouble(tbUseUltraBallAboveIv.Text);
             _setting.UseGreatBallBelowCatchProbability = ConvertStringToDouble(tbUseGreatBallBelowCatchProbability.Text);
             _setting.UseUltraBallBelowCatchProbability = ConvertStringToDouble(tbUseUltraBallBelowCatchProbability.Text);
-            _setting.UseMasterBallBelowCatchProbability = ConvertStringToDouble(tbUseMasterBallBelowCatchProbability.Text);
+            _setting.UseMasterBallBelowCatchProbability =
+                ConvertStringToDouble(tbUseMasterBallBelowCatchProbability.Text);
+
             #endregion
 
             #region Transfer
+
             _setting.PrioritizeIvOverCp = cbPrioritizeIvOverCp.Checked;
             _setting.KeepMinCp = ConvertStringToInt(tbKeepMinCp.Text);
             _setting.KeepMinIvPercentage = ConvertStringToFloat(tbKeepMinIV.Text);
@@ -478,9 +514,11 @@ namespace PokemonGo.RocketBot.Window.Forms
             _setting.KeepMinDuplicatePokemon = ConvertStringToInt(tbKeepMinDuplicatePokemon.Text);
             _setting.UseKeepMinLvl = cbUseKeepMinLvl.Checked;
             _setting.PokemonsNotToTransfer = ConvertClbToList(clbTransfer);
+
             #endregion
 
             #region PowerUp
+
             _setting.UseLevelUpList = true;
 
             _setting.AutomaticallyLevelUpPokemon = cbAutoPowerUp.Checked;
@@ -491,17 +529,21 @@ namespace PokemonGo.RocketBot.Window.Forms
             _setting.UpgradePokemonIvMinimum = ConvertStringToFloat(tbPowerUpMinIV.Text);
             _setting.UpgradePokemonCpMinimum = ConvertStringToFloat(tbPowerUpMinCP.Text);
             _setting.PokemonsToLevelUp = ConvertClbToList(clbPowerUp);
+
             #endregion
 
             #region Evo
+
             _setting.EvolveAllPokemonAboveIv = cbEvoAllAboveIV.Checked;
             _setting.EvolveAboveIvValue = ConvertStringToFloat(tbEvoAboveIV.Text);
             _setting.EvolveAllPokemonWithEnoughCandy = cbEvolveAllPokemonWithEnoughCandy.Checked;
             _setting.KeepPokemonsThatCanEvolve = cbKeepPokemonsThatCanEvolve.Checked;
             _setting.UseLuckyEggsWhileEvolving = cbUseLuckyEggsWhileEvolving.Checked;
-            _setting.EvolveKeptPokemonsAtStorageUsagePercentage = ConvertStringToDouble(tbEvolveKeptPokemonsAtStorageUsagePercentage.Text);
+            _setting.EvolveKeptPokemonsAtStorageUsagePercentage =
+                ConvertStringToDouble(tbEvolveKeptPokemonsAtStorageUsagePercentage.Text);
             _setting.UseLuckyEggsMinPokemonAmount = ConvertStringToInt(tbUseLuckyEggsMinPokemonAmount.Text);
             _setting.PokemonsToEvolve = ConvertClbToList(clbEvolve);
+
             #endregion
 
             #endregion
@@ -516,6 +558,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             _setting.TotalAmountOfBerriesToKeep = ConvertStringToInt(tbTotalAmountOfBerriesToKeep.Text);
             _setting.VerboseRecycling = cbVerboseRecycling.Checked;
             _setting.RecycleInventoryAtUsagePercentage = ConvertStringToDouble(tbRecycleInventoryAtUsagePercentage.Text);
+
             #endregion
 
             #region Advanced Settings
@@ -541,9 +584,11 @@ namespace PokemonGo.RocketBot.Window.Forms
             _setting.ForceExcellentThrowOverIv = ConvertStringToDouble(tbForceExcellentThrowOverIv.Text);
             _setting.ForceGreatThrowOverCp = ConvertStringToInt(tbForceGreatThrowOverCp.Text);
             _setting.ForceExcellentThrowOverCp = ConvertStringToInt(tbForceExcellentThrowOverCp.Text);
+
             #endregion
 
             _setting.Save(ConfigFilePath);
+
             #endregion
 
             Close();
@@ -611,7 +656,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private void AdressBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar != (char)Keys.Enter)
+            if (e.KeyChar != (char) Keys.Enter)
             {
                 return;
             }
@@ -704,6 +749,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 tabControl.TabPages.Remove(_tabAdvSettingTab);
             }
         }
+
         #endregion
     }
 }
