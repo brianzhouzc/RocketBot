@@ -361,7 +361,6 @@
             this.GoogleApiBox.Location = new System.Drawing.Point(140, 142);
             this.GoogleApiBox.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.GoogleApiBox.Name = "GoogleApiBox";
-            this.GoogleApiBox.PasswordChar = '*';
             this.GoogleApiBox.Size = new System.Drawing.Size(184, 23);
             this.GoogleApiBox.TabIndex = 33;
             // 
@@ -2611,10 +2610,10 @@
             // saveBtn
             // 
             this.saveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveBtn.Location = new System.Drawing.Point(541, 540);
+            this.saveBtn.Location = new System.Drawing.Point(518, 540);
             this.saveBtn.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.saveBtn.Name = "saveBtn";
-            this.saveBtn.Size = new System.Drawing.Size(263, 32);
+            this.saveBtn.Size = new System.Drawing.Size(286, 32);
             this.saveBtn.TabIndex = 29;
             this.saveBtn.Text = "Save (This will automatically restart RocketBot)";
             this.saveBtn.UseVisualStyleBackColor = true;
