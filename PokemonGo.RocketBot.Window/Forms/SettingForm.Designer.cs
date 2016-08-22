@@ -233,9 +233,11 @@
             this.label51 = new System.Windows.Forms.Label();
             this.tbRandomRecycleValue = new System.Windows.Forms.TextBox();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.cbShowWalkingSpeed = new System.Windows.Forms.CheckBox();
+            this.cbUseWalkingSpeedVariant = new System.Windows.Forms.CheckBox();
             this.cbDisableHumanWalking = new System.Windows.Forms.CheckBox();
             this.label57 = new System.Windows.Forms.Label();
-            this.tbWalkingSpeedOffSetInKilometerPerHour = new System.Windows.Forms.TextBox();
+            this.tbWalkingSpeedVariantInKilometerPerHour = new System.Windows.Forms.TextBox();
             this.label58 = new System.Windows.Forms.Label();
             this.tbMaxSpawnLocationOffset = new System.Windows.Forms.TextBox();
             this.label59 = new System.Windows.Forms.Label();
@@ -1436,7 +1438,7 @@
             this.clbIgnore.Location = new System.Drawing.Point(6, 44);
             this.clbIgnore.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbIgnore.Name = "clbIgnore";
-            this.clbIgnore.Size = new System.Drawing.Size(259, 220);
+            this.clbIgnore.Size = new System.Drawing.Size(259, 166);
             this.clbIgnore.TabIndex = 0;
             // 
             // tBMaxBerriesToUsePerPokemon
@@ -1498,7 +1500,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(220, 440);
+            this.groupBox1.Size = new System.Drawing.Size(220, 446);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Exclude Transfer";
@@ -1843,7 +1845,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox4.Size = new System.Drawing.Size(220, 443);
+            this.groupBox4.Size = new System.Drawing.Size(220, 449);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Power Up";
@@ -2023,7 +2025,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox3.Size = new System.Drawing.Size(220, 443);
+            this.groupBox3.Size = new System.Drawing.Size(220, 449);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Evolve";
@@ -2415,7 +2417,7 @@
             this.groupBox17.Controls.Add(this.cbRandomizeRecycle);
             this.groupBox17.Controls.Add(this.label51);
             this.groupBox17.Controls.Add(this.tbRandomRecycleValue);
-            this.groupBox17.Location = new System.Drawing.Point(8, 283);
+            this.groupBox17.Location = new System.Drawing.Point(8, 332);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(311, 85);
             this.groupBox17.TabIndex = 19;
@@ -2451,19 +2453,41 @@
             // 
             // groupBox16
             // 
+            this.groupBox16.Controls.Add(this.cbShowWalkingSpeed);
+            this.groupBox16.Controls.Add(this.cbUseWalkingSpeedVariant);
             this.groupBox16.Controls.Add(this.cbDisableHumanWalking);
             this.groupBox16.Controls.Add(this.label57);
-            this.groupBox16.Controls.Add(this.tbWalkingSpeedOffSetInKilometerPerHour);
+            this.groupBox16.Controls.Add(this.tbWalkingSpeedVariantInKilometerPerHour);
             this.groupBox16.Controls.Add(this.label58);
             this.groupBox16.Controls.Add(this.tbMaxSpawnLocationOffset);
             this.groupBox16.Controls.Add(this.label59);
             this.groupBox16.Controls.Add(this.tbMaxTravelDistanceInMeters);
             this.groupBox16.Location = new System.Drawing.Point(8, 7);
             this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(311, 151);
+            this.groupBox16.Size = new System.Drawing.Size(311, 200);
             this.groupBox16.TabIndex = 19;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Walking Behavior";
+            // 
+            // cbShowWalkingSpeed
+            // 
+            this.cbShowWalkingSpeed.AutoSize = true;
+            this.cbShowWalkingSpeed.Location = new System.Drawing.Point(9, 109);
+            this.cbShowWalkingSpeed.Name = "cbShowWalkingSpeed";
+            this.cbShowWalkingSpeed.Size = new System.Drawing.Size(136, 19);
+            this.cbShowWalkingSpeed.TabIndex = 18;
+            this.cbShowWalkingSpeed.Text = "Show Walking Speed";
+            this.cbShowWalkingSpeed.UseVisualStyleBackColor = true;
+            // 
+            // cbUseWalkingSpeedVariant
+            // 
+            this.cbUseWalkingSpeedVariant.AutoSize = true;
+            this.cbUseWalkingSpeedVariant.Location = new System.Drawing.Point(9, 51);
+            this.cbUseWalkingSpeedVariant.Name = "cbUseWalkingSpeedVariant";
+            this.cbUseWalkingSpeedVariant.Size = new System.Drawing.Size(165, 19);
+            this.cbUseWalkingSpeedVariant.TabIndex = 17;
+            this.cbUseWalkingSpeedVariant.Text = "Use Walking Speed Variant";
+            this.cbUseWalkingSpeedVariant.UseVisualStyleBackColor = true;
             // 
             // cbDisableHumanWalking
             // 
@@ -2478,24 +2502,24 @@
             // label57
             // 
             this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(6, 52);
+            this.label57.Location = new System.Drawing.Point(6, 81);
             this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(167, 15);
+            this.label57.Size = new System.Drawing.Size(170, 15);
             this.label57.TabIndex = 14;
-            this.label57.Text = "Walking Speed OffSet (KM/H):";
+            this.label57.Text = "Walking Speed Variant (KM/H):";
             // 
-            // tbWalkingSpeedOffSetInKilometerPerHour
+            // tbWalkingSpeedVariantInKilometerPerHour
             // 
-            this.tbWalkingSpeedOffSetInKilometerPerHour.Location = new System.Drawing.Point(179, 49);
-            this.tbWalkingSpeedOffSetInKilometerPerHour.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.tbWalkingSpeedOffSetInKilometerPerHour.Name = "tbWalkingSpeedOffSetInKilometerPerHour";
-            this.tbWalkingSpeedOffSetInKilometerPerHour.Size = new System.Drawing.Size(126, 23);
-            this.tbWalkingSpeedOffSetInKilometerPerHour.TabIndex = 15;
+            this.tbWalkingSpeedVariantInKilometerPerHour.Location = new System.Drawing.Point(179, 78);
+            this.tbWalkingSpeedVariantInKilometerPerHour.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.tbWalkingSpeedVariantInKilometerPerHour.Name = "tbWalkingSpeedVariantInKilometerPerHour";
+            this.tbWalkingSpeedVariantInKilometerPerHour.Size = new System.Drawing.Size(126, 23);
+            this.tbWalkingSpeedVariantInKilometerPerHour.TabIndex = 15;
             // 
             // label58
             // 
             this.label58.AutoSize = true;
-            this.label58.Location = new System.Drawing.Point(6, 85);
+            this.label58.Location = new System.Drawing.Point(6, 139);
             this.label58.Name = "label58";
             this.label58.Size = new System.Drawing.Size(154, 15);
             this.label58.TabIndex = 14;
@@ -2503,7 +2527,7 @@
             // 
             // tbMaxSpawnLocationOffset
             // 
-            this.tbMaxSpawnLocationOffset.Location = new System.Drawing.Point(179, 82);
+            this.tbMaxSpawnLocationOffset.Location = new System.Drawing.Point(179, 136);
             this.tbMaxSpawnLocationOffset.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.tbMaxSpawnLocationOffset.Name = "tbMaxSpawnLocationOffset";
             this.tbMaxSpawnLocationOffset.Size = new System.Drawing.Size(126, 23);
@@ -2512,7 +2536,7 @@
             // label59
             // 
             this.label59.AutoSize = true;
-            this.label59.Location = new System.Drawing.Point(6, 118);
+            this.label59.Location = new System.Drawing.Point(6, 172);
             this.label59.Name = "label59";
             this.label59.Size = new System.Drawing.Size(161, 15);
             this.label59.TabIndex = 14;
@@ -2520,7 +2544,7 @@
             // 
             // tbMaxTravelDistanceInMeters
             // 
-            this.tbMaxTravelDistanceInMeters.Location = new System.Drawing.Point(179, 115);
+            this.tbMaxTravelDistanceInMeters.Location = new System.Drawing.Point(179, 169);
             this.tbMaxTravelDistanceInMeters.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.tbMaxTravelDistanceInMeters.Name = "tbMaxTravelDistanceInMeters";
             this.tbMaxTravelDistanceInMeters.Size = new System.Drawing.Size(126, 23);
@@ -2533,7 +2557,7 @@
             this.groupBox15.Controls.Add(this.tbDelayBetweenPlayerActions);
             this.groupBox15.Controls.Add(this.label50);
             this.groupBox15.Controls.Add(this.tbDelayBetweenPokemonCatch);
-            this.groupBox15.Location = new System.Drawing.Point(8, 164);
+            this.groupBox15.Location = new System.Drawing.Point(8, 213);
             this.groupBox15.Name = "groupBox15";
             this.groupBox15.Size = new System.Drawing.Size(311, 113);
             this.groupBox15.TabIndex = 18;
@@ -2857,7 +2881,7 @@
         private System.Windows.Forms.GroupBox groupBox16;
         private System.Windows.Forms.CheckBox cbDisableHumanWalking;
         private System.Windows.Forms.Label label57;
-        private System.Windows.Forms.TextBox tbWalkingSpeedOffSetInKilometerPerHour;
+        private System.Windows.Forms.TextBox tbWalkingSpeedVariantInKilometerPerHour;
         private System.Windows.Forms.Label label58;
         private System.Windows.Forms.TextBox tbMaxSpawnLocationOffset;
         private System.Windows.Forms.Label label59;
@@ -2892,5 +2916,7 @@
         private System.Windows.Forms.Label label65;
         private System.Windows.Forms.TextBox GoogleApiBox;
         private System.Windows.Forms.Label GoogleApiLabel;
+        private System.Windows.Forms.CheckBox cbShowWalkingSpeed;
+        private System.Windows.Forms.CheckBox cbUseWalkingSpeedVariant;
     }
 }

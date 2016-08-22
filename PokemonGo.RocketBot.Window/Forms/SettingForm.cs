@@ -11,6 +11,7 @@ using PokemonGo.RocketAPI.Enums;
 using PokemonGo.RocketBot.Logic;
 using PokemonGo.RocketBot.Window.Helpers;
 using POGOProtos.Enums;
+using System.Reflection;
 
 namespace PokemonGo.RocketBot.Window.Forms
 {
@@ -258,8 +259,10 @@ namespace PokemonGo.RocketBot.Window.Forms
             #region Advance Settings
 
             cbDisableHumanWalking.Checked = _setting.DisableHumanWalking;
-            tbWalkingSpeedOffSetInKilometerPerHour.Text =
+            cbUseWalkingSpeedVariant.Checked = _setting.UseWalkingSpeedVariant;
+            tbWalkingSpeedVariantInKilometerPerHour.Text =
                 _setting.WalkingSpeedVariant.ToString(CultureInfo.InvariantCulture);
+            cbShowWalkingSpeed.Checked = _setting.ShowVariantWalking;
             tbMaxSpawnLocationOffset.Text = _setting.MaxSpawnLocationOffset.ToString();
             tbMaxTravelDistanceInMeters.Text = _setting.MaxTravelDistanceInMeters.ToString();
 
@@ -569,7 +572,9 @@ namespace PokemonGo.RocketBot.Window.Forms
             #region Advanced Settings
 
             _setting.DisableHumanWalking = cbDisableHumanWalking.Checked;
-            _setting.WalkingSpeedVariant = ConvertStringToDouble(tbWalkingSpeedOffSetInKilometerPerHour.Text);
+            _setting.UseWalkingSpeedVariant = cbUseWalkingSpeedVariant.Checked;
+            _setting.WalkingSpeedVariant = ConvertStringToDouble(tbWalkingSpeedVariantInKilometerPerHour.Text);
+            _setting.ShowVariantWalking = cbShowWalkingSpeed.Checked;
             _setting.MaxSpawnLocationOffset = ConvertStringToInt(tbMaxSpawnLocationOffset.Text);
             _setting.MaxTravelDistanceInMeters = ConvertStringToInt(tbMaxTravelDistanceInMeters.Text);
 
