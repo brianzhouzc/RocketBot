@@ -145,6 +145,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
             var profilePath = Path.Combine(Directory.GetCurrentDirectory(), subPath);
             var profileConfigPath = Path.Combine(profilePath, "config");
+            var authFile = Path.Combine(profileConfigPath, "auth.json");
             var configFile = Path.Combine(profileConfigPath, "config.json");
 
             BoolNeedsSetup = false;
@@ -154,7 +155,8 @@ namespace PokemonGo.RocketBot.Window.Forms
                 /** if (!VersionCheckState.IsLatest())
                     settings = GlobalSettings.Load(subPath, true);
                 else **/
-                _settings = GlobalSettings.Load(subPath);
+                _settings = GlobalSettings.Load(subPath, true);
+                _settings.Auth.Load(authFile);
             }
             else
             {

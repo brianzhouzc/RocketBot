@@ -449,6 +449,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             _setting.Auth.UseProxyUsername = proxyUserTb.Text;
             _setting.Auth.UseProxyPassword = proxyPwTb.Text;
 
+            _setting.Auth.DevicePackageName = "custom";
             _setting.Auth.DeviceId = DeviceIdTb.Text;
             _setting.Auth.AndroidBoardName = AndroidBoardNameTb.Text;
             _setting.Auth.AndroidBootloader = AndroidBootloaderTb.Text;
@@ -598,10 +599,10 @@ namespace PokemonGo.RocketBot.Window.Forms
             #endregion
 
             _setting.Save(ConfigFilePath);
-            Application.Restart();
 
             #endregion
 
+            Application.Restart();
             Close();
         }
 
