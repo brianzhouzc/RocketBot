@@ -598,6 +598,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             #endregion
 
             _setting.Save(ConfigFilePath);
+            Application.Restart();
 
             #endregion
 

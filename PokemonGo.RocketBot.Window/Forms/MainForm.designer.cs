@@ -37,7 +37,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.startStopBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.todoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
@@ -122,7 +122,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startStopBotToolStripMenuItem,
-            this.todoToolStripMenuItem});
+            this.settingToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1254, 25);
@@ -136,12 +136,12 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.startStopBotToolStripMenuItem.Text = "▶ Start Bot";
             this.startStopBotToolStripMenuItem.Click += new System.EventHandler(this.startStopBotToolStripMenuItem_Click);
             // 
-            // todoToolStripMenuItem
+            // settingToolStripMenuItem
             // 
-            this.todoToolStripMenuItem.Name = "todoToolStripMenuItem";
-            this.todoToolStripMenuItem.Size = new System.Drawing.Size(66, 21);
-            this.todoToolStripMenuItem.Text = "Settings";
-            this.todoToolStripMenuItem.Click += new System.EventHandler(this.todoToolStripMenuItem_Click);
+            this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
+            this.settingToolStripMenuItem.Size = new System.Drawing.Size(66, 21);
+            this.settingToolStripMenuItem.Text = "Settings";
+            this.settingToolStripMenuItem.Click += new System.EventHandler(this.todoToolStripMenuItem_Click);
             // 
             // showAllToolStripMenuItem
             // 
@@ -553,7 +553,7 @@ namespace PokemonGo.RocketBot.Window.Forms
         private System.Windows.Forms.RichTextBox logTextBox;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem todoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem settingToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.ToolStripMenuItem startStopBotToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem;
