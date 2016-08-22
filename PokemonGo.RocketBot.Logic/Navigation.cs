@@ -116,7 +116,7 @@ namespace PokemonGo.RocketBot.Logic
             try
             {
                 var web = WebRequest.Create(
-                    $"https://maps.googleapis.com/maps/api/directions/json?origin={start.Latitude},{start.Longitude}&destination={dest.Latitude},{dest.Longitude}&mode=walking&units=metric&key={session.LogicSettings.GoogleAPIKey}");
+                    $"https://maps.googleapis.com/maps/api/directions/json?origin={start.Latitude},{start.Longitude}&destination={dest.Latitude},{dest.Longitude}&mode=walking&units=metric&key={session.LogicSettings.GoogleApiKey}");
                 web.Credentials = CredentialCache.DefaultCredentials;
 
                 string strResponse;

@@ -307,9 +307,9 @@ namespace PokemonGo.RocketBot.Logic
         public bool StartupWelcomeDelay;
         //Telegram
         [DefaultValue(false)]
-        public bool UseTelegramAPI;
+        public bool UseTelegramApi;
         [DefaultValue(null)]
-        public string TelegramAPIKey;
+        public string TelegramApiKey;
 
         //console options
         [DefaultValue(0)]
@@ -351,8 +351,6 @@ namespace PokemonGo.RocketBot.Logic
         public double DefaultLongitude;
         [DefaultValue(19.0)]
         public double WalkingSpeedInKilometerPerHour;
-        [DefaultValue(2)]
-        public double WalkingSpeedOffSetInKilometerPerHour;
         [DefaultValue(true)]
         public bool UseWalkingSpeedVariant;
         [DefaultValue(1.2)]
@@ -1301,7 +1299,7 @@ namespace PokemonGo.RocketBot.Logic
             _settings = settings;
         }
 
-        public string GoogleAPIKey => _settings.Auth.GoogleApiKey;
+        public string GoogleApiKey => _settings.Auth.GoogleApiKey;
         public string ProfilePath => _settings.ProfilePath;
         public string ProfileConfigPath => _settings.ProfileConfigPath;
         public string GeneralConfigPath => _settings.GeneralConfigPath;
@@ -1333,7 +1331,6 @@ namespace PokemonGo.RocketBot.Logic
         public float UpgradePokemonCpMinimum => _settings.UpgradePokemonCpMinimum;
         public string UpgradePokemonMinimumStatsOperator => _settings.UpgradePokemonMinimumStatsOperator;
         public double WalkingSpeedInKilometerPerHour => _settings.WalkingSpeedInKilometerPerHour;
-        public double WalkingSpeedOffSetInKilometerPerHour => _settings.WalkingSpeedOffSetInKilometerPerHour;
         public bool UseWalkingSpeedVariant => _settings.UseWalkingSpeedVariant;
         public double WalkingSpeedVariant => _settings.WalkingSpeedVariant;
         public bool ShowVariantWalking => _settings.ShowVariantWalking;
@@ -1396,8 +1393,8 @@ namespace PokemonGo.RocketBot.Logic
         public bool StartupWelcomeDelay => _settings.StartupWelcomeDelay;
         public bool SnipeAtPokestops => _settings.SnipeAtPokestops;
 
-        public bool UseTelegramAPI => _settings.UseTelegramAPI;
-        public string TelegramAPIKey => _settings.TelegramAPIKey;
+        public bool UseTelegramAPI => _settings.UseTelegramApi;
+        public string TelegramAPIKey => _settings.TelegramApiKey;
 
         public int MinPokeballsToSnipe => _settings.MinPokeballsToSnipe;
         public int MinPokeballsWhileSnipe => _settings.MinPokeballsWhileSnipe;
