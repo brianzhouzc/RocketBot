@@ -391,7 +391,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 : _deviceInfos.Where(d => d.DeviceBrand.ToLower() != "apple").ToList();
             var selectIndex = _deviceHelper.GetRandomIndex(candidateDevices.Count);
 
-            DeviceIdTb.Text = candidateDevices[selectIndex].DeviceId == "8525f6d8251f71b7"
+            DeviceIdTb.Text = candidateDevices[selectIndex].DeviceId == "8525f5d8201f78b5"
                 ? _deviceHelper.RandomString(16, "0123456789abcdef")
                 : candidateDevices[selectIndex].DeviceId;
             AndroidBoardNameTb.Text = candidateDevices[selectIndex].AndroidBoardName;
@@ -449,6 +449,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             _setting.Auth.UseProxyUsername = proxyUserTb.Text;
             _setting.Auth.UseProxyPassword = proxyPwTb.Text;
 
+            _setting.Auth.DevicePackageName = "custom";
             _setting.Auth.DeviceId = DeviceIdTb.Text;
             _setting.Auth.AndroidBoardName = AndroidBoardNameTb.Text;
             _setting.Auth.AndroidBootloader = AndroidBootloaderTb.Text;
@@ -598,10 +599,10 @@ namespace PokemonGo.RocketBot.Window.Forms
             #endregion
 
             _setting.Save(ConfigFilePath);
-            Application.Restart();
 
             #endregion
 
+            Application.Restart();
             Close();
         }
 

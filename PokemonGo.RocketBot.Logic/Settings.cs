@@ -305,11 +305,11 @@ namespace PokemonGo.RocketBot.Logic
         [DefaultValue(-73.968285)] public double DefaultLongitude;
 
         //delays
-        [DefaultValue(500)] public int DelayBetweenPlayerActions;
+        [DefaultValue(2000)] public int DelayBetweenPlayerActions;
 
-        [DefaultValue(100)] public int DelayBetweenPokemonCatch;
+        [DefaultValue(2000)] public int DelayBetweenPokemonCatch;
 
-        [DefaultValue(false)] public bool DelayBetweenRecycleActions;
+        [DefaultValue(true)] public bool DelayBetweenRecycleActions;
 
         [DefaultValue(true)] public bool DetailedCountsBeforeRecycling;
 

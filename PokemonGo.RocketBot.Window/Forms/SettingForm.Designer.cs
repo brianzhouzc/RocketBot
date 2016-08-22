@@ -1437,7 +1437,7 @@
             this.clbIgnore.Location = new System.Drawing.Point(6, 44);
             this.clbIgnore.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbIgnore.Name = "clbIgnore";
-            this.clbIgnore.Size = new System.Drawing.Size(259, 148);
+            this.clbIgnore.Size = new System.Drawing.Size(259, 112);
             this.clbIgnore.TabIndex = 0;
             // 
             // tBMaxBerriesToUsePerPokemon
@@ -1499,7 +1499,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(220, 448);
+            this.groupBox1.Size = new System.Drawing.Size(220, 452);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Exclude Transfer";
@@ -1844,7 +1844,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox4.Size = new System.Drawing.Size(220, 451);
+            this.groupBox4.Size = new System.Drawing.Size(220, 455);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Power Up";
@@ -2024,7 +2024,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox3.Size = new System.Drawing.Size(220, 451);
+            this.groupBox3.Size = new System.Drawing.Size(220, 455);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Evolve";
@@ -2103,10 +2103,10 @@
             // 
             // tbRecycleInventoryAtUsagePercentage
             // 
-            this.tbRecycleInventoryAtUsagePercentage.Location = new System.Drawing.Point(222, 46);
+            this.tbRecycleInventoryAtUsagePercentage.Location = new System.Drawing.Point(241, 46);
             this.tbRecycleInventoryAtUsagePercentage.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.tbRecycleInventoryAtUsagePercentage.Name = "tbRecycleInventoryAtUsagePercentage";
-            this.tbRecycleInventoryAtUsagePercentage.Size = new System.Drawing.Size(83, 23);
+            this.tbRecycleInventoryAtUsagePercentage.Size = new System.Drawing.Size(64, 23);
             this.tbRecycleInventoryAtUsagePercentage.TabIndex = 15;
             // 
             // groupBox13
@@ -2444,10 +2444,10 @@
             // 
             // tbRandomRecycleValue
             // 
-            this.tbRandomRecycleValue.Location = new System.Drawing.Point(179, 46);
+            this.tbRandomRecycleValue.Location = new System.Drawing.Point(182, 46);
             this.tbRandomRecycleValue.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.tbRandomRecycleValue.Name = "tbRandomRecycleValue";
-            this.tbRandomRecycleValue.Size = new System.Drawing.Size(126, 23);
+            this.tbRandomRecycleValue.Size = new System.Drawing.Size(123, 23);
             this.tbRandomRecycleValue.TabIndex = 15;
             // 
             // groupBox16
@@ -2509,10 +2509,10 @@
             // 
             // tbWalkingSpeedVariantInKilometerPerHour
             // 
-            this.tbWalkingSpeedVariantInKilometerPerHour.Location = new System.Drawing.Point(179, 78);
+            this.tbWalkingSpeedVariantInKilometerPerHour.Location = new System.Drawing.Point(182, 78);
             this.tbWalkingSpeedVariantInKilometerPerHour.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.tbWalkingSpeedVariantInKilometerPerHour.Name = "tbWalkingSpeedVariantInKilometerPerHour";
-            this.tbWalkingSpeedVariantInKilometerPerHour.Size = new System.Drawing.Size(126, 23);
+            this.tbWalkingSpeedVariantInKilometerPerHour.Size = new System.Drawing.Size(123, 23);
             this.tbWalkingSpeedVariantInKilometerPerHour.TabIndex = 15;
             // 
             // label58
@@ -2526,10 +2526,10 @@
             // 
             // tbMaxSpawnLocationOffset
             // 
-            this.tbMaxSpawnLocationOffset.Location = new System.Drawing.Point(179, 136);
+            this.tbMaxSpawnLocationOffset.Location = new System.Drawing.Point(182, 136);
             this.tbMaxSpawnLocationOffset.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.tbMaxSpawnLocationOffset.Name = "tbMaxSpawnLocationOffset";
-            this.tbMaxSpawnLocationOffset.Size = new System.Drawing.Size(126, 23);
+            this.tbMaxSpawnLocationOffset.Size = new System.Drawing.Size(123, 23);
             this.tbMaxSpawnLocationOffset.TabIndex = 15;
             // 
             // label59
@@ -2543,10 +2543,10 @@
             // 
             // tbMaxTravelDistanceInMeters
             // 
-            this.tbMaxTravelDistanceInMeters.Location = new System.Drawing.Point(179, 169);
+            this.tbMaxTravelDistanceInMeters.Location = new System.Drawing.Point(182, 169);
             this.tbMaxTravelDistanceInMeters.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.tbMaxTravelDistanceInMeters.Name = "tbMaxTravelDistanceInMeters";
-            this.tbMaxTravelDistanceInMeters.Size = new System.Drawing.Size(126, 23);
+            this.tbMaxTravelDistanceInMeters.Size = new System.Drawing.Size(123, 23);
             this.tbMaxTravelDistanceInMeters.TabIndex = 15;
             // 
             // groupBox15
@@ -2584,10 +2584,10 @@
             // 
             // tbDelayBetweenPlayerActions
             // 
-            this.tbDelayBetweenPlayerActions.Location = new System.Drawing.Point(179, 21);
+            this.tbDelayBetweenPlayerActions.Location = new System.Drawing.Point(182, 21);
             this.tbDelayBetweenPlayerActions.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.tbDelayBetweenPlayerActions.Name = "tbDelayBetweenPlayerActions";
-            this.tbDelayBetweenPlayerActions.Size = new System.Drawing.Size(126, 23);
+            this.tbDelayBetweenPlayerActions.Size = new System.Drawing.Size(123, 23);
             this.tbDelayBetweenPlayerActions.TabIndex = 15;
             // 
             // label50
@@ -2601,10 +2601,10 @@
             // 
             // tbDelayBetweenPokemonCatch
             // 
-            this.tbDelayBetweenPokemonCatch.Location = new System.Drawing.Point(179, 54);
+            this.tbDelayBetweenPokemonCatch.Location = new System.Drawing.Point(182, 54);
             this.tbDelayBetweenPokemonCatch.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.tbDelayBetweenPokemonCatch.Name = "tbDelayBetweenPokemonCatch";
-            this.tbDelayBetweenPokemonCatch.Size = new System.Drawing.Size(126, 23);
+            this.tbDelayBetweenPokemonCatch.Size = new System.Drawing.Size(123, 23);
             this.tbDelayBetweenPokemonCatch.TabIndex = 15;
             // 
             // saveBtn
