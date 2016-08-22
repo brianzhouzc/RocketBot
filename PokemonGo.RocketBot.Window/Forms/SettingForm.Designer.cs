@@ -33,6 +33,8 @@
             this.cancelBtn = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabAuth = new System.Windows.Forms.TabPage();
+            this.GoogleApiBox = new System.Windows.Forms.TextBox();
+            this.GoogleApiLabel = new System.Windows.Forms.Label();
             this.tbWalkingSpeed = new System.Windows.Forms.TextBox();
             this.TravelSpeedText = new System.Windows.Forms.Label();
             this.cbLanguage = new System.Windows.Forms.ComboBox();
@@ -245,8 +247,6 @@
             this.label50 = new System.Windows.Forms.Label();
             this.tbDelayBetweenPokemonCatch = new System.Windows.Forms.TextBox();
             this.saveBtn = new System.Windows.Forms.Button();
-            this.GoogleApiBox = new System.Windows.Forms.TextBox();
-            this.GoogleApiLabel = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabAuth.SuspendLayout();
             this.proxyGb.SuspendLayout();
@@ -353,6 +353,24 @@
             this.tabAuth.Size = new System.Drawing.Size(920, 479);
             this.tabAuth.TabIndex = 0;
             this.tabAuth.Text = "Auth";
+            // 
+            // GoogleApiBox
+            // 
+            this.GoogleApiBox.Location = new System.Drawing.Point(140, 142);
+            this.GoogleApiBox.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.GoogleApiBox.Name = "GoogleApiBox";
+            this.GoogleApiBox.PasswordChar = '*';
+            this.GoogleApiBox.Size = new System.Drawing.Size(184, 23);
+            this.GoogleApiBox.TabIndex = 33;
+            // 
+            // GoogleApiLabel
+            // 
+            this.GoogleApiLabel.AutoSize = true;
+            this.GoogleApiLabel.Location = new System.Drawing.Point(6, 144);
+            this.GoogleApiLabel.Name = "GoogleApiLabel";
+            this.GoogleApiLabel.Size = new System.Drawing.Size(91, 15);
+            this.GoogleApiLabel.TabIndex = 32;
+            this.GoogleApiLabel.Text = "Google API Key:";
             // 
             // tbWalkingSpeed
             // 
@@ -1072,7 +1090,8 @@
             // 
             // tcPokemonDetail
             // 
-            this.tcPokemonDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.tcPokemonDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tcPokemonDetail.Controls.Add(this.tabCatch);
             this.tcPokemonDetail.Controls.Add(this.tabTransfer);
@@ -1226,6 +1245,8 @@
             // 
             // groupBox9
             // 
+            this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox9.Controls.Add(this.label2);
             this.groupBox9.Controls.Add(this.tbUseMasterBallBelowCatchProbability);
             this.groupBox9.Controls.Add(this.tbUseGreatBallAboveCp);
@@ -1406,7 +1427,8 @@
             // 
             // clbIgnore
             // 
-            this.clbIgnore.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.clbIgnore.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.clbIgnore.CheckOnClick = true;
             this.clbIgnore.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1476,7 +1498,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(220, 457);
+            this.groupBox1.Size = new System.Drawing.Size(220, 440);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Exclude Transfer";
@@ -1495,15 +1517,16 @@
             // 
             // clbTransfer
             // 
-            this.clbTransfer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.clbTransfer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.clbTransfer.CheckOnClick = true;
             this.clbTransfer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clbTransfer.FormattingEnabled = true;
-            this.clbTransfer.Location = new System.Drawing.Point(6, 44);
+            this.clbTransfer.Location = new System.Drawing.Point(6, 40);
             this.clbTransfer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbTransfer.Name = "clbTransfer";
-            this.clbTransfer.Size = new System.Drawing.Size(207, 400);
+            this.clbTransfer.Size = new System.Drawing.Size(207, 364);
             this.clbTransfer.TabIndex = 0;
             // 
             // groupBox8
@@ -1812,6 +1835,8 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox4.Controls.Add(this.cbPowerUpAll);
             this.groupBox4.Controls.Add(this.clbPowerUp);
             this.groupBox4.Location = new System.Drawing.Point(323, 4);
@@ -1837,7 +1862,8 @@
             // 
             // clbPowerUp
             // 
-            this.clbPowerUp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.clbPowerUp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.clbPowerUp.CheckOnClick = true;
             this.clbPowerUp.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1997,7 +2023,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox3.Size = new System.Drawing.Size(220, 463);
+            this.groupBox3.Size = new System.Drawing.Size(220, 443);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Evolve";
@@ -2025,7 +2051,7 @@
             this.clbEvolve.Location = new System.Drawing.Point(6, 44);
             this.clbEvolve.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbEvolve.Name = "clbEvolve";
-            this.clbEvolve.Size = new System.Drawing.Size(207, 382);
+            this.clbEvolve.Size = new System.Drawing.Size(207, 346);
             this.clbEvolve.TabIndex = 0;
             // 
             // tabItems
@@ -2569,24 +2595,6 @@
             this.saveBtn.Text = "Save";
             this.saveBtn.UseVisualStyleBackColor = true;
             this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
-            // 
-            // GoogleApiBox
-            // 
-            this.GoogleApiBox.Location = new System.Drawing.Point(140, 142);
-            this.GoogleApiBox.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.GoogleApiBox.Name = "GoogleApiBox";
-            this.GoogleApiBox.PasswordChar = '*';
-            this.GoogleApiBox.Size = new System.Drawing.Size(184, 23);
-            this.GoogleApiBox.TabIndex = 33;
-            // 
-            // GoogleApiLabel
-            // 
-            this.GoogleApiLabel.AutoSize = true;
-            this.GoogleApiLabel.Location = new System.Drawing.Point(6, 144);
-            this.GoogleApiLabel.Name = "GoogleApiLabel";
-            this.GoogleApiLabel.Size = new System.Drawing.Size(91, 15);
-            this.GoogleApiLabel.TabIndex = 32;
-            this.GoogleApiLabel.Text = "Google API Key:";
             // 
             // SettingsForm
             // 
