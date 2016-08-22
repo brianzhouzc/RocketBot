@@ -245,6 +245,8 @@
             this.label50 = new System.Windows.Forms.Label();
             this.tbDelayBetweenPokemonCatch = new System.Windows.Forms.TextBox();
             this.saveBtn = new System.Windows.Forms.Button();
+            this.GoogleApiBox = new System.Windows.Forms.TextBox();
+            this.GoogleApiLabel = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabAuth.SuspendLayout();
             this.proxyGb.SuspendLayout();
@@ -322,6 +324,8 @@
             // tabAuth
             // 
             this.tabAuth.BackColor = System.Drawing.SystemColors.Control;
+            this.tabAuth.Controls.Add(this.GoogleApiBox);
+            this.tabAuth.Controls.Add(this.GoogleApiLabel);
             this.tabAuth.Controls.Add(this.tbWalkingSpeed);
             this.tabAuth.Controls.Add(this.TravelSpeedText);
             this.tabAuth.Controls.Add(this.cbLanguage);
@@ -352,7 +356,7 @@
             // 
             // tbWalkingSpeed
             // 
-            this.tbWalkingSpeed.Location = new System.Drawing.Point(140, 208);
+            this.tbWalkingSpeed.Location = new System.Drawing.Point(140, 241);
             this.tbWalkingSpeed.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.tbWalkingSpeed.Name = "tbWalkingSpeed";
             this.tbWalkingSpeed.Size = new System.Drawing.Size(184, 23);
@@ -361,7 +365,7 @@
             // TravelSpeedText
             // 
             this.TravelSpeedText.AutoSize = true;
-            this.TravelSpeedText.Location = new System.Drawing.Point(6, 211);
+            this.TravelSpeedText.Location = new System.Drawing.Point(6, 244);
             this.TravelSpeedText.Name = "TravelSpeedText";
             this.TravelSpeedText.Size = new System.Drawing.Size(131, 15);
             this.TravelSpeedText.TabIndex = 31;
@@ -401,7 +405,7 @@
             this.proxyGb.Controls.Add(this.label19);
             this.proxyGb.Controls.Add(this.useProxyCb);
             this.proxyGb.Controls.Add(this.label23);
-            this.proxyGb.Location = new System.Drawing.Point(9, 240);
+            this.proxyGb.Location = new System.Drawing.Point(9, 272);
             this.proxyGb.Name = "proxyGb";
             this.proxyGb.Size = new System.Drawing.Size(315, 195);
             this.proxyGb.TabIndex = 27;
@@ -608,16 +612,17 @@
             // 
             // tbLatitude
             // 
-            this.tbLatitude.Location = new System.Drawing.Point(140, 142);
+            this.tbLatitude.Location = new System.Drawing.Point(140, 175);
             this.tbLatitude.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.tbLatitude.Name = "tbLatitude";
             this.tbLatitude.Size = new System.Drawing.Size(184, 23);
             this.tbLatitude.TabIndex = 13;
+            this.tbLatitude.TextChanged += new System.EventHandler(this.tbLatitude_TextChanged);
             this.tbLatitude.Leave += new System.EventHandler(this.latitudeText_Leave);
             // 
             // tbLongitude
             // 
-            this.tbLongitude.Location = new System.Drawing.Point(140, 175);
+            this.tbLongitude.Location = new System.Drawing.Point(140, 208);
             this.tbLongitude.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.tbLongitude.Name = "tbLongitude";
             this.tbLongitude.Size = new System.Drawing.Size(184, 23);
@@ -636,7 +641,7 @@
             // longiLabel
             // 
             this.longiLabel.AutoSize = true;
-            this.longiLabel.Location = new System.Drawing.Point(6, 177);
+            this.longiLabel.Location = new System.Drawing.Point(6, 210);
             this.longiLabel.Name = "longiLabel";
             this.longiLabel.Size = new System.Drawing.Size(64, 15);
             this.longiLabel.TabIndex = 5;
@@ -658,11 +663,12 @@
             // latLabel
             // 
             this.latLabel.AutoSize = true;
-            this.latLabel.Location = new System.Drawing.Point(6, 144);
+            this.latLabel.Location = new System.Drawing.Point(6, 177);
             this.latLabel.Name = "latLabel";
             this.latLabel.Size = new System.Drawing.Size(53, 15);
             this.latLabel.TabIndex = 4;
             this.latLabel.Text = "Latitude:";
+            this.latLabel.Click += new System.EventHandler(this.latLabel_Click);
             // 
             // UserLabel
             // 
@@ -1470,7 +1476,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(220, 455);
+            this.groupBox1.Size = new System.Drawing.Size(220, 457);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Exclude Transfer";
@@ -1494,7 +1500,7 @@
             this.clbTransfer.CheckOnClick = true;
             this.clbTransfer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clbTransfer.FormattingEnabled = true;
-            this.clbTransfer.Location = new System.Drawing.Point(6, 42);
+            this.clbTransfer.Location = new System.Drawing.Point(6, 44);
             this.clbTransfer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbTransfer.Name = "clbTransfer";
             this.clbTransfer.Size = new System.Drawing.Size(207, 400);
@@ -1991,7 +1997,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox3.Size = new System.Drawing.Size(220, 461);
+            this.groupBox3.Size = new System.Drawing.Size(220, 463);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Evolve";
@@ -2564,6 +2570,24 @@
             this.saveBtn.UseVisualStyleBackColor = true;
             this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
             // 
+            // GoogleApiBox
+            // 
+            this.GoogleApiBox.Location = new System.Drawing.Point(140, 142);
+            this.GoogleApiBox.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.GoogleApiBox.Name = "GoogleApiBox";
+            this.GoogleApiBox.PasswordChar = '*';
+            this.GoogleApiBox.Size = new System.Drawing.Size(184, 23);
+            this.GoogleApiBox.TabIndex = 33;
+            // 
+            // GoogleApiLabel
+            // 
+            this.GoogleApiLabel.AutoSize = true;
+            this.GoogleApiLabel.Location = new System.Drawing.Point(6, 144);
+            this.GoogleApiLabel.Name = "GoogleApiLabel";
+            this.GoogleApiLabel.Size = new System.Drawing.Size(91, 15);
+            this.GoogleApiLabel.TabIndex = 32;
+            this.GoogleApiLabel.Text = "Google API Key:";
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -2858,5 +2882,7 @@
         private System.Windows.Forms.TextBox tbCurveThrowChance;
         private System.Windows.Forms.TextBox tbExcellentThrowChance;
         private System.Windows.Forms.Label label65;
+        private System.Windows.Forms.TextBox GoogleApiBox;
+        private System.Windows.Forms.Label GoogleApiLabel;
     }
 }

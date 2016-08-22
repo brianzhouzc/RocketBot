@@ -78,6 +78,9 @@ namespace PokemonGo.RocketBot.Window.Forms
                 ? _setting.Auth.GooglePassword
                 : _setting.Auth.PtcPassword;
 
+            //google api
+            GoogleApiBox.Text = _setting.Auth.GoogleApiKey;
+
             //proxy
             useProxyCb.Checked = _setting.Auth.UseProxy;
             useProxyAuthCb.Checked = _setting.Auth.UseProxy && _setting.Auth.UseProxyAuthentication;
@@ -313,7 +316,7 @@ namespace PokemonGo.RocketBot.Window.Forms
         /// </summary>
         private void GetLanguageList()
         {
-            var languages = new List<string> {"en"};
+            var languages = new List<string> { "en" };
             var langFiles = Directory.GetFiles(LanguagePath, "*.json", SearchOption.TopDirectoryOnly);
             languages.AddRange(langFiles.Select(
                 langFileName => Path.GetFileNameWithoutExtension(langFileName)?.Replace("translation.", ""))
@@ -330,7 +333,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             tbLatitude.Text = gMapCtrl.Position.Lat.ToString(CultureInfo.InvariantCulture);
             tbLongitude.Text = gMapCtrl.Position.Lng.ToString(CultureInfo.InvariantCulture);
             //update trackbar
-            trackBar.Value = (int) Math.Round(gMapCtrl.Zoom);
+            trackBar.Value = (int)Math.Round(gMapCtrl.Zoom);
         }
 
         /// <summary>
@@ -433,6 +436,8 @@ namespace PokemonGo.RocketBot.Window.Forms
                 _setting.Auth.PtcUsername = UserLoginBox.Text;
                 _setting.Auth.PtcPassword = UserPasswordBox.Text;
             }
+
+            _setting.Auth.GoogleApiKey = GoogleApiBox.Text;
 
             _setting.Auth.UseProxy = useProxyCb.Checked;
             _setting.Auth.UseProxyHost = proxyHostTb.Text;
@@ -656,7 +661,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private void AdressBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar != (char) Keys.Enter)
+            if (e.KeyChar != (char)Keys.Enter)
             {
                 return;
             }
@@ -751,5 +756,15 @@ namespace PokemonGo.RocketBot.Window.Forms
         }
 
         #endregion
+
+        private void latLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbLatitude_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
