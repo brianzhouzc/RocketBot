@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using GMap.NET;
 using GMap.NET.MapProviders;
@@ -285,6 +287,31 @@ namespace PokemonGo.RocketBot.Window.Forms
             #endregion
         }
 
+        #region Help button for API key
+
+        protected override void OnLoad(EventArgs e)
+        {
+            var btn = new Button {Size = new Size(25, GoogleApiBox.ClientSize.Height + 2)};
+            btn.Location = new Point(GoogleApiBox.ClientSize.Width - btn.Width, -1);
+            btn.Cursor = Cursors.Default;
+            btn.Image = ResourceHelper.GetImage("question");
+            btn.Click += googleapihep_click;
+            GoogleApiBox.Controls.Add(btn);
+            // Send EM_SETMARGINS to prevent text from disappearing underneath the button
+            SendMessage(GoogleApiBox.Handle, 0xd3, (IntPtr) 2, (IntPtr) (btn.Width << 16));
+            base.OnLoad(e);
+        }
+
+        private void googleapihep_click(object sender, EventArgs e)
+        {
+            Process.Start("https://developers.google.com/maps/documentation/directions/get-api-key");
+        }
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
+
+        #endregion
+
         #region private methods
 
         private static int ConvertStringToInt(string input)
@@ -318,7 +345,7 @@ namespace PokemonGo.RocketBot.Window.Forms
         /// </summary>
         private void GetLanguageList()
         {
-            var languages = new List<string> { "en" };
+            var languages = new List<string> {"en"};
             var langFiles = Directory.GetFiles(LanguagePath, "*.json", SearchOption.TopDirectoryOnly);
             languages.AddRange(langFiles.Select(
                 langFileName => Path.GetFileNameWithoutExtension(langFileName)?.Replace("translation.", ""))
@@ -335,7 +362,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             tbLatitude.Text = gMapCtrl.Position.Lat.ToString(CultureInfo.InvariantCulture);
             tbLongitude.Text = gMapCtrl.Position.Lng.ToString(CultureInfo.InvariantCulture);
             //update trackbar
-            trackBar.Value = (int)Math.Round(gMapCtrl.Zoom);
+            trackBar.Value = (int) Math.Round(gMapCtrl.Zoom);
         }
 
         /// <summary>
@@ -616,7 +643,6 @@ namespace PokemonGo.RocketBot.Window.Forms
                 Application.Restart();
                 Close();
             }
-
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)
@@ -681,7 +707,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private void AdressBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar != (char)Keys.Enter)
+            if (e.KeyChar != (char) Keys.Enter)
             {
                 return;
             }
