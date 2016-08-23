@@ -11,7 +11,6 @@ using PokemonGo.RocketAPI.Enums;
 using PokemonGo.RocketBot.Logic;
 using PokemonGo.RocketBot.Window.Helpers;
 using POGOProtos.Enums;
-using System.Reflection;
 
 namespace PokemonGo.RocketBot.Window.Forms
 {
@@ -286,6 +285,14 @@ namespace PokemonGo.RocketBot.Window.Forms
             #endregion
         }
 
+        private void latLabel_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void tbLatitude_TextChanged(object sender, EventArgs e)
+        {
+        }
+
         #region private methods
 
         private static int ConvertStringToInt(string input)
@@ -319,7 +326,7 @@ namespace PokemonGo.RocketBot.Window.Forms
         /// </summary>
         private void GetLanguageList()
         {
-            var languages = new List<string> { "en" };
+            var languages = new List<string> {"en"};
             var langFiles = Directory.GetFiles(LanguagePath, "*.json", SearchOption.TopDirectoryOnly);
             languages.AddRange(langFiles.Select(
                 langFileName => Path.GetFileNameWithoutExtension(langFileName)?.Replace("translation.", ""))
@@ -336,7 +343,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             tbLatitude.Text = gMapCtrl.Position.Lat.ToString(CultureInfo.InvariantCulture);
             tbLongitude.Text = gMapCtrl.Position.Lng.ToString(CultureInfo.InvariantCulture);
             //update trackbar
-            trackBar.Value = (int)Math.Round(gMapCtrl.Zoom);
+            trackBar.Value = (int) Math.Round(gMapCtrl.Zoom);
         }
 
         /// <summary>
@@ -668,7 +675,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private void AdressBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar != (char)Keys.Enter)
+            if (e.KeyChar != (char) Keys.Enter)
             {
                 return;
             }
@@ -763,15 +770,5 @@ namespace PokemonGo.RocketBot.Window.Forms
         }
 
         #endregion
-
-        private void latLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tbLatitude_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

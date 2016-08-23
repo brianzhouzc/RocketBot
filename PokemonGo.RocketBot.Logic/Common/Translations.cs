@@ -206,8 +206,7 @@ namespace PokemonGo.RocketBot.Logic.Common
             ItemTypeNameHandling = TypeNameHandling.Arrays,
             ItemConverterType = typeof(KeyValuePairConverter),
             ObjectCreationHandling = ObjectCreationHandling.Replace,
-            DefaultValueHandling = DefaultValueHandling.Populate)]
-        private readonly
+            DefaultValueHandling = DefaultValueHandling.Populate)] private readonly
             List<KeyValuePair<PokemonMove, string>> _pokemonMovesetTranslationStrings =
                 new List<KeyValuePair<PokemonMove, string>>
                 {
@@ -397,8 +396,7 @@ namespace PokemonGo.RocketBot.Logic.Common
             ItemTypeNameHandling = TypeNameHandling.Arrays,
             ItemConverterType = typeof(KeyValuePairConverter),
             ObjectCreationHandling = ObjectCreationHandling.Replace,
-            DefaultValueHandling = DefaultValueHandling.Populate)]
-        private readonly
+            DefaultValueHandling = DefaultValueHandling.Populate)] private readonly
             List<KeyValuePair<PokemonId, string>> _pokemonTranslationStrings = new List<KeyValuePair<PokemonId, string>>
             {
                 new KeyValuePair<PokemonId, string>((PokemonId) 001, "Bulbasaur"),
@@ -890,7 +888,7 @@ namespace PokemonGo.RocketBot.Logic.Common
                 var input = File.ReadAllText(fullPath);
 
                 var jsonSettings = new JsonSerializerSettings();
-                jsonSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
+                jsonSettings.Converters.Add(new StringEnumConverter {CamelCaseText = true});
                 jsonSettings.ObjectCreationHandling = ObjectCreationHandling.Replace;
                 jsonSettings.DefaultValueHandling = DefaultValueHandling.Populate;
 
@@ -941,7 +939,7 @@ namespace PokemonGo.RocketBot.Logic.Common
         public void Save(string fullPath)
         {
             var output = JsonConvert.SerializeObject(this, Formatting.Indented,
-                new StringEnumConverter { CamelCaseText = true });
+                new StringEnumConverter {CamelCaseText = true});
 
             var folder = Path.GetDirectoryName(fullPath);
             if (folder != null && !Directory.Exists(folder))

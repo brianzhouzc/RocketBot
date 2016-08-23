@@ -66,7 +66,7 @@ namespace PokemonGo.RocketBot.Window.Models
                     TranslationString.LogEntryEvolved) ?? "EVOLVED";
 
             LevelUp =
-                 session?.Translation.GetTranslation(
+                session?.Translation.GetTranslation(
                     TranslationString.LogEntryLevelUp) ?? "LEVELUP";
 
             Farming =

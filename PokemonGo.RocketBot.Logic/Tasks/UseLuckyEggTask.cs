@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using PokemonGo.RocketBot.Logic.Logging;
 using PokemonGo.RocketBot.Logic.State;
 using POGOProtos.Networking.Responses;
-using PokemonGo.RocketBot.Logic.Logging;
 
 namespace PokemonGo.RocketBot.Logic.Tasks
 {

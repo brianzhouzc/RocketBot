@@ -125,7 +125,7 @@ namespace PokemonGo.RocketBot.Logic
                 }
                 if (string.IsNullOrEmpty(DeviceId) || DeviceId == "8525f5d8201f78b5")
                     DeviceId = RandomString(16, "0123456789abcdef");
-                        // changed to random hex as full alphabet letters could have been flagged
+                // changed to random hex as full alphabet letters could have been flagged
 
                 // Jurann: Note that some device IDs I saw when adding devices had smaller numbers, only 12 or 14 chars instead of 16 - probably not important but noted here anyway
 
