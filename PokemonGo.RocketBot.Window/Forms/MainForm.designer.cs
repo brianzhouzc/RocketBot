@@ -180,7 +180,6 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.gMapControl1.Size = new System.Drawing.Size(605, 219);
             this.gMapControl1.TabIndex = 23;
             this.gMapControl1.Zoom = 0D;
-            this.gMapControl1.Load += new System.EventHandler(this.gMapControl1_Load);
             // 
             // olvPokemonList
             // 
@@ -237,7 +236,6 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.olvPokemonList.UseCompatibleStateImageBehavior = false;
             this.olvPokemonList.View = System.Windows.Forms.View.Details;
             this.olvPokemonList.ButtonClick += new System.EventHandler<BrightIdeasSoftware.CellClickEventArgs>(this.olvPokemonList_ButtonClick);
-            this.olvPokemonList.SelectedIndexChanged += new System.EventHandler(this.olvPokemonList_SelectedIndexChanged);
             // 
             // pkmnName
             // 

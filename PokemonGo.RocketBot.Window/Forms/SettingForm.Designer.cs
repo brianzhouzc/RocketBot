@@ -636,7 +636,6 @@
             this.tbLatitude.Name = "tbLatitude";
             this.tbLatitude.Size = new System.Drawing.Size(184, 23);
             this.tbLatitude.TabIndex = 13;
-            this.tbLatitude.TextChanged += new System.EventHandler(this.tbLatitude_TextChanged);
             this.tbLatitude.Leave += new System.EventHandler(this.latitudeText_Leave);
             // 
             // tbLongitude
@@ -687,7 +686,6 @@
             this.latLabel.Size = new System.Drawing.Size(53, 15);
             this.latLabel.TabIndex = 4;
             this.latLabel.Text = "Latitude:";
-            this.latLabel.Click += new System.EventHandler(this.latLabel_Click);
             // 
             // UserLabel
             // 

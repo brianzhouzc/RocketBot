@@ -27,5 +27,10 @@ namespace PokemonGo.RocketBot.Window.Helpers
 
             return newImage;
         }
+
+        public static Image GetPokemonImage(int pokemonId)
+        {
+            return GetImage("Pokemon_" + pokemonId);
+        }
     }
 }

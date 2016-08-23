@@ -11,7 +11,7 @@ using PokemonGo.RocketBot.Logic.Utils;
 
 namespace PokemonGo.RocketBot.Logic.Tasks
 {
-    public class TransferPokemonTask
+    public class TransferSpecificPokemonTask
     {
         public static async Task Execute(ISession session, ulong pokemonId)
         {

@@ -83,8 +83,9 @@ namespace PokemonGo.RocketBot.Logic.Tasks
 
                 session.EventDispatcher.Send(new FortTargetEvent {Name = fortInfo.Name, Distance = distance});
 
-                await session.Navigation.Move(new GeoCoordinate(pokeStop.Latitude, pokeStop.Longitude,
-                    LocationUtils.getElevation(pokeStop.Latitude, pokeStop.Longitude)),
+                var targetLocation = new GeoCoordinate(pokeStop.Latitude, pokeStop.Longitude,
+                    LocationUtils.getElevation(pokeStop.Latitude, pokeStop.Longitude));
+                await session.Navigation.Move(targetLocation,
                     async () =>
                     {
                         // Catch normal map Pokemon
@@ -95,6 +96,12 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                     },
                     session,
                     cancellationToken);
+
+                //Check if pokestop is in range, if not, move to pokestop without google routing
+                if (
+                    LocationUtils.CalculateDistanceInMeters(targetLocation,
+                        new GeoCoordinate(session.Client.CurrentLatitude, session.Client.CurrentLongitude)) >= 30)
+                    await session.Navigation.Move(targetLocation, null, session, cancellationToken, true);
 
                 //Catch Lure Pokemon
                 if (pokeStop.LureInfo != null)
