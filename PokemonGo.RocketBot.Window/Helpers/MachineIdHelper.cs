@@ -1,4 +1,5 @@
-﻿using System.Management;
+﻿using System;
+using System.Management;
 
 namespace PokemonGo.RocketBot.Window.Helpers
 {
@@ -12,7 +13,7 @@ namespace PokemonGo.RocketBot.Window.Helpers
 
             foreach (var o in moc)
             {
-                var mo = (ManagementObject) o;
+                var mo = (ManagementObject)o;
                 cpuInfo = mo.Properties["processorID"].Value.ToString();
                 break;
             }
@@ -30,7 +31,16 @@ namespace PokemonGo.RocketBot.Window.Helpers
 
         public static string GetMachineId()
         {
-            return GetCpuId() + GetHardDriveId();
+            string id;
+            try
+            {
+                id = GetCpuId() + GetHardDriveId();
+            }
+            catch (Exception)
+            {
+                id = "BF00LIKELYVIRTUALMACHINE";
+            }
+            return id;
         }
     }
 }
