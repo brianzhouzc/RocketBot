@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonGo.RocketAPI", "Poke
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POGOProtos", "POGOProtos\POGOProtos.csproj", "{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonGo.RocketBot.WPF", "PokemonGo.RocketBot.WPF\PokemonGo.RocketBot.WPF.csproj", "{ED62DE38-9400-4984-8868-DF7849428D1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -98,6 +100,22 @@ Global
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.v4.0-Release|Any CPU.Build.0 = Release|Any CPU
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.v4.0-Release|x86.ActiveCfg = Release|x86
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.v4.0-Release|x86.Build.0 = Release|x86
+		{ED62DE38-9400-4984-8868-DF7849428D1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED62DE38-9400-4984-8868-DF7849428D1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED62DE38-9400-4984-8868-DF7849428D1B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ED62DE38-9400-4984-8868-DF7849428D1B}.Debug|x86.Build.0 = Debug|Any CPU
+		{ED62DE38-9400-4984-8868-DF7849428D1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED62DE38-9400-4984-8868-DF7849428D1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED62DE38-9400-4984-8868-DF7849428D1B}.Release|x86.ActiveCfg = Release|Any CPU
+		{ED62DE38-9400-4984-8868-DF7849428D1B}.Release|x86.Build.0 = Release|Any CPU
+		{ED62DE38-9400-4984-8868-DF7849428D1B}.v4.0-Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED62DE38-9400-4984-8868-DF7849428D1B}.v4.0-Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED62DE38-9400-4984-8868-DF7849428D1B}.v4.0-Debug|x86.ActiveCfg = Debug|Any CPU
+		{ED62DE38-9400-4984-8868-DF7849428D1B}.v4.0-Debug|x86.Build.0 = Debug|Any CPU
+		{ED62DE38-9400-4984-8868-DF7849428D1B}.v4.0-Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED62DE38-9400-4984-8868-DF7849428D1B}.v4.0-Release|Any CPU.Build.0 = Release|Any CPU
+		{ED62DE38-9400-4984-8868-DF7849428D1B}.v4.0-Release|x86.ActiveCfg = Release|Any CPU
+		{ED62DE38-9400-4984-8868-DF7849428D1B}.v4.0-Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
