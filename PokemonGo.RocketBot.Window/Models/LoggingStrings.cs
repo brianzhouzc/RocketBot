@@ -17,6 +17,8 @@ namespace PokemonGo.RocketBot.Window.Models
 
         internal static string Evolved;
 
+        internal static string LevelUp;
+
         internal static string Farming;
 
         internal static string Info;
@@ -62,6 +64,10 @@ namespace PokemonGo.RocketBot.Window.Models
             Evolved =
                 session?.Translation.GetTranslation(
                     TranslationString.LogEntryEvolved) ?? "EVOLVED";
+
+            LevelUp =
+                 session?.Translation.GetTranslation(
+                    TranslationString.LogEntryLevelUp) ?? "LEVELUP";
 
             Farming =
                 session?.Translation.GetTranslation(

@@ -602,7 +602,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 var key = pokemon.PokemonId.ToString();
                 if (!olvPokemonList.SmallImageList.Images.ContainsKey(key))
                 {
-                    var img = GetPokemonImage((int)pokemon.PokemonId);
+                    var img = ResourceHelper.GetPokemonImage((int)pokemon.PokemonId);
                     olvPokemonList.SmallImageList.Images.Add(key, img);
                 }
                 return key;
@@ -731,17 +731,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             SetState(false);
             foreach (var pokemon in pokemons)
             {
-                var transferPokemonResponse = await _session.Client.Inventory.TransferPokemon(pokemon.Id);
-                if (transferPokemonResponse.Result == ReleasePokemonResponse.Types.Result.Success)
-                {
-                    Logger.Write(
-                        $"{pokemon.PokemonId} was transferred. {transferPokemonResponse.CandyAwarded} candy awarded",
-                        LogLevel.Transfer);
-                }
-                else
-                {
-                    Logger.Write($"{pokemon.PokemonId} could not be transferred", LogLevel.Error);
-                }
+                await TransferSpecificPokemonTask.Execute(_session, pokemon.Id);
             }
             await ReloadPokemonList();
         }
@@ -751,15 +741,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             SetState(false);
             foreach (var pokemon in pokemons)
             {
-                var evolvePokemonResponse = await _session.Client.Inventory.UpgradePokemon(pokemon.Id);
-                if (evolvePokemonResponse.Result == UpgradePokemonResponse.Types.Result.Success)
-                {
-                    Logger.Write($"{pokemon.PokemonId} successfully upgraded.");
-                }
-                else
-                {
-                    Logger.Write($"{pokemon.PokemonId} could not be upgraded");
-                }
+                await LevelUpSpecificPokemonTask.Execute(_session, pokemon.Id);
             }
             await ReloadPokemonList();
         }
@@ -769,16 +751,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             SetState(false);
             foreach (var pokemon in pokemons)
             {
-                var evolvePokemonResponse = await _session.Client.Inventory.EvolvePokemon(pokemon.Id);
-                if (evolvePokemonResponse.Result == EvolvePokemonResponse.Types.Result.Success)
-                {
-                    Logger.Write(
-                        $"{pokemon.PokemonId} successfully evolved into {evolvePokemonResponse.EvolvedPokemonData.PokemonId}\n{evolvePokemonResponse.ExperienceAwarded} experience awarded\n{evolvePokemonResponse.CandyAwarded} candy awarded");
-                }
-                else
-                {
-                    Logger.Write($"{pokemon.PokemonId} could not be evolved");
-                }
+                await EvolveSpecificPokemonTask.Execute(_session, pokemon.Id);
             }
             await ReloadPokemonList();
         }
@@ -886,23 +859,9 @@ namespace PokemonGo.RocketBot.Window.Forms
                     }
                     continue;
                 }
-                var response = await _session.Client.Inventory.NicknamePokemon(pokemon.Id, newName.ToString());
-                if (response.Result == NicknamePokemonResponse.Types.Result.Success)
-                {
-                    Logger.Write($"Successfully renamed {pokemon.PokemonId} to \"{newName}\"");
-                }
-                else
-                {
-                    Logger.Write($"Failed renaming {pokemon.PokemonId} to \"{newName}\"");
-                }
-                await Task.Delay(1500);
+                await RenameSpecificPokemonTask.Execute(_session, pokemon, nickname);
             }
             await ReloadPokemonList();
-        }
-
-        private Image GetPokemonImage(int pokemonId)
-        {
-            return ResourceHelper.GetImage("Pokemon_" + pokemonId);
         }
 
         private async Task ReloadPokemonList()
@@ -1016,29 +975,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                                 SetState(true);
                                 return;
                             }
-                            var response = await _session.Client.Inventory.UseItemXpBoost();
-                            switch (response.Result)
-                            {
-                                case UseItemXpBoostResponse.Types.Result.Success:
-                                    Logger.Write($"Using a Lucky Egg");
-                                    Logger.Write($"Lucky Egg valid until: {DateTime.Now.AddMinutes(30)}");
-                                    break;
-                                case UseItemXpBoostResponse.Types.Result.ErrorXpBoostAlreadyActive:
-                                    Logger.Write($"A Lucky Egg is already active!", LogLevel.Warning);
-                                    break;
-                                case UseItemXpBoostResponse.Types.Result.ErrorLocationUnset:
-                                    Logger.Write($"Bot must be running first!", LogLevel.Error);
-                                    break;
-                                case UseItemXpBoostResponse.Types.Result.Unset:
-                                    break;
-                                case UseItemXpBoostResponse.Types.Result.ErrorInvalidItemType:
-                                    break;
-                                case UseItemXpBoostResponse.Types.Result.ErrorNoItemsRemaining:
-                                    break;
-                                default:
-                                    Logger.Write($"Failed using a Lucky Egg!", LogLevel.Error);
-                                    break;
-                            }
+                            await UseLuckyEggTask.Execute(_session);
                         }
                         break;
                     case ItemId.ItemIncenseOrdinary:
@@ -1049,101 +986,12 @@ namespace PokemonGo.RocketBot.Window.Forms
                                 SetState(true);
                                 return;
                             }
-                            var response = await _session.Client.Inventory.UseIncense(ItemId.ItemIncenseOrdinary);
-                            switch (response.Result)
-                            {
-                                case UseIncenseResponse.Types.Result.Success:
-                                    Logger.Write($"Incense valid until: {DateTime.Now.AddMinutes(30)}");
-                                    break;
-                                case UseIncenseResponse.Types.Result.IncenseAlreadyActive:
-                                    Logger.Write($"An incense is already active!", LogLevel.Warning);
-                                    break;
-                                case UseIncenseResponse.Types.Result.LocationUnset:
-                                    Logger.Write($"Bot must be running first!", LogLevel.Error);
-                                    break;
-                                case UseIncenseResponse.Types.Result.Unknown:
-                                    break;
-                                case UseIncenseResponse.Types.Result.NoneInInventory:
-                                    break;
-                                default:
-                                    Logger.Write($"Failed using an incense!", LogLevel.Error);
-                                    break;
-                            }
+                            await UseIncenseTask.Execute(_session);
                         }
-                        break;
-                    case ItemId.ItemUnknown:
-                        break;
-                    case ItemId.ItemPokeBall:
-                        break;
-                    case ItemId.ItemGreatBall:
-                        break;
-                    case ItemId.ItemUltraBall:
-                        break;
-                    case ItemId.ItemMasterBall:
-                        break;
-                    case ItemId.ItemPotion:
-                        break;
-                    case ItemId.ItemSuperPotion:
-                        break;
-                    case ItemId.ItemHyperPotion:
-                        break;
-                    case ItemId.ItemMaxPotion:
-                        break;
-                    case ItemId.ItemRevive:
-                        break;
-                    case ItemId.ItemMaxRevive:
-                        break;
-                    case ItemId.ItemIncenseSpicy:
-                        break;
-                    case ItemId.ItemIncenseCool:
-                        break;
-                    case ItemId.ItemIncenseFloral:
-                        break;
-                    case ItemId.ItemTroyDisk:
-                        break;
-                    case ItemId.ItemXAttack:
-                        break;
-                    case ItemId.ItemXDefense:
-                        break;
-                    case ItemId.ItemXMiracle:
-                        break;
-                    case ItemId.ItemRazzBerry:
-                        break;
-                    case ItemId.ItemBlukBerry:
-                        break;
-                    case ItemId.ItemNanabBerry:
-                        break;
-                    case ItemId.ItemWeparBerry:
-                        break;
-                    case ItemId.ItemPinapBerry:
-                        break;
-                    case ItemId.ItemSpecialCamera:
-                        break;
-                    case ItemId.ItemIncubatorBasicUnlimited:
-                        break;
-                    case ItemId.ItemIncubatorBasic:
-                        break;
-                    case ItemId.ItemPokemonStorageUpgrade:
-                        break;
-                    case ItemId.ItemItemStorageUpgrade:
                         break;
                     default:
                         {
-                            var response =
-                                await
-                                    _session.Client.Inventory.RecycleItem(item.ItemId, decimal.ToInt32(form.numCount.Value));
-                            if (response.Result == RecycleInventoryItemResponse.Types.Result.Success)
-                            {
-                                Logger.Write(
-                                    $"Recycled {decimal.ToInt32(form.numCount.Value)}x {item.ItemId.ToString().Substring(4)}",
-                                    LogLevel.Recycling);
-                            }
-                            else
-                            {
-                                Logger.Write(
-                                    $"Unable to recycle {decimal.ToInt32(form.numCount.Value)}x {item.ItemId.ToString().Substring(4)}",
-                                    LogLevel.Error);
-                            }
+                            await RecycleSpecificItemTask.Execute(_session, item.ItemId, decimal.ToInt32(form.numCount.Value));
                         }
                         break;
                 }

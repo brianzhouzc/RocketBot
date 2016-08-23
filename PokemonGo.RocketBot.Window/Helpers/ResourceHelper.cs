@@ -7,18 +7,18 @@ namespace PokemonGo.RocketBot.Window.Helpers
     {
         public static Image GetImage(string name)
         {
-            return (Image) Properties.Resources.ResourceManager.GetObject(name);
+            return (Image)Properties.Resources.ResourceManager.GetObject(name);
         }
 
         public static Image GetImage(string name, int maxHeight, int maxWidth)
         {
             var image = GetImage(name);
-            var ratioX = (double) maxWidth/image.Width;
-            var ratioY = (double) maxHeight/image.Height;
+            var ratioX = (double)maxWidth / image.Width;
+            var ratioY = (double)maxHeight / image.Height;
             var ratio = Math.Min(ratioX, ratioY);
 
-            var newWidth = (int) (image.Width*ratio);
-            var newHeight = (int) (image.Height*ratio);
+            var newWidth = (int)(image.Width * ratio);
+            var newHeight = (int)(image.Height * ratio);
 
             var newImage = new Bitmap(newWidth, newHeight);
 
@@ -26,6 +26,11 @@ namespace PokemonGo.RocketBot.Window.Helpers
                 graphics.DrawImage(image, 0, 0, newWidth, newHeight);
 
             return newImage;
+        }
+
+        public static Image GetPokemonImage(int pokemonId)
+        {
+            return GetImage("Pokemon_" + pokemonId);
         }
     }
 }

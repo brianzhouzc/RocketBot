@@ -158,6 +158,7 @@
     <Compile Include="Tasks\GetPokeDexCount.cs" />
     <Compile Include="Tasks\InventoryListTask.cs" />
     <Compile Include="Tasks\LevelUpPokemonTask.cs" />
+    <Compile Include="Tasks\LevelUpSpecificPokemonTask.cs" />
     <Compile Include="Tasks\PokemonListTask.cs" />
     <Compile Include="Tasks\Farm.cs" />
     <Compile Include="Settings.cs" />
@@ -184,12 +185,13 @@
     <Compile Include="Tasks\Login.cs" />
     <Compile Include="Tasks\RecycleItemsTask.cs" />
     <Compile Include="Tasks\RenamePokemonTask.cs" />
+    <Compile Include="Tasks\RenameSpecificPokemonTask.cs" />
     <Compile Include="Tasks\SnipePokemonTask.cs" />
     <Compile Include="Tasks\TransferDuplicatePokemonTask.cs" />
     <Compile Include="Event\UseLuckyEggEvent.cs" />
     <Compile Include="State\VersionCheckState.cs" />
     <Compile Include="Event\WarnEvent.cs" />
-    <Compile Include="Tasks\TransferPokemonTask.cs" />
+    <Compile Include="Tasks\TransferSpecificPokemonTask.cs" />
     <Compile Include="Tasks\TransferWeakPokemonTask.cs" />
     <Compile Include="Tasks\UseIncenseConstantlyTask.cs" />
     <Compile Include="Tasks\UseIncubatorsTask.cs" />

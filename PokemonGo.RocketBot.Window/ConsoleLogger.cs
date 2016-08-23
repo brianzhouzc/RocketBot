@@ -96,6 +96,10 @@ namespace PokemonGo.RocketBot.Window
                     MainForm.ColoredConsoleWrite(Color.Yellow,
                         $"[{DateTime.Now.ToString("HH:mm:ss")}] ({LoggingStrings.Evolved}) {message}");
                     break;
+                case LogLevel.LevelUp:
+                    MainForm.ColoredConsoleWrite(Color.Yellow,
+                        $"[{DateTime.Now.ToString("HH:mm:ss")}] ({LoggingStrings.LevelUp}) {message}");
+                    break;
                 case LogLevel.Berry:
                     MainForm.ColoredConsoleWrite(Color.DarkGoldenrod,
                         $"[{DateTime.Now.ToString("HH:mm:ss")}] ({LoggingStrings.Berry}) {message}");
