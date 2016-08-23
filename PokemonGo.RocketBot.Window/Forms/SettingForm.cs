@@ -285,14 +285,6 @@ namespace PokemonGo.RocketBot.Window.Forms
             #endregion
         }
 
-        private void latLabel_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void tbLatitude_TextChanged(object sender, EventArgs e)
-        {
-        }
-
         #region private methods
 
         private static int ConvertStringToInt(string input)
