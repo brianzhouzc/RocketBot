@@ -910,9 +910,9 @@ namespace PokemonGo.RocketBot.Logic.Common
                     Logger.Write($"[ERROR] Issue loading translations: {ex}", LogLevel.Warning);
                     Logger.Write("[Request] Rebuild the translations folder? Y/N");
 
-                    var strInput = Console.ReadLine().ToLower();
+                    var strInput = Console.ReadLine()?.ToLower();
 
-                    if (strInput.Equals("y"))
+                    if (strInput == null || strInput.Equals("y"))
                     {
                         // Currently this section can only rebuild the EN translations file \\
                         // This is because default values cannot be supplied from other languages \\
