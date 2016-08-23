@@ -322,7 +322,7 @@ namespace PokemonGo.RocketBot.Logic
         [DefaultValue(false)] public bool EnableAdvancedSettings;
 
         //customizable catch
-        [DefaultValue(false)] public bool EnableHumanizedThrows;
+        [DefaultValue(true)] public bool EnableHumanizedThrows;
 
         //evolve
         [DefaultValue(95)] public float EvolveAboveIvValue;
