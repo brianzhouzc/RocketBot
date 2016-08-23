@@ -174,7 +174,7 @@ namespace PokemonGo.RocketBot.Logic
         bool SnipePokemonNotInPokedex { get; }
         bool RandomizeRecycle { get; }
         int RandomRecycleValue { get; }
-        bool DelayBetweenRecycleActions { get; }
+        int DelayBetweenRecycle{ get; }
         int TotalAmountOfPokeballsToKeep { get; }
         int TotalAmountOfPotionsToKeep { get; }
         int TotalAmountOfRevivesToKeep { get; }

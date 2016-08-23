@@ -243,7 +243,8 @@
             this.label59 = new System.Windows.Forms.Label();
             this.tbMaxTravelDistanceInMeters = new System.Windows.Forms.TextBox();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
-            this.cbDelayBetweenRecycleActions = new System.Windows.Forms.CheckBox();
+            this.label48 = new System.Windows.Forms.Label();
+            this.tbDelayBetweenRecycle = new System.Windows.Forms.TextBox();
             this.label49 = new System.Windows.Forms.Label();
             this.tbDelayBetweenPlayerActions = new System.Windows.Forms.TextBox();
             this.label50 = new System.Windows.Forms.Label();
@@ -1435,7 +1436,7 @@
             this.clbIgnore.Location = new System.Drawing.Point(6, 44);
             this.clbIgnore.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbIgnore.Name = "clbIgnore";
-            this.clbIgnore.Size = new System.Drawing.Size(259, 112);
+            this.clbIgnore.Size = new System.Drawing.Size(259, 76);
             this.clbIgnore.TabIndex = 0;
             // 
             // tBMaxBerriesToUsePerPokemon
@@ -1497,7 +1498,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(220, 452);
+            this.groupBox1.Size = new System.Drawing.Size(220, 456);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Exclude Transfer";
@@ -1842,7 +1843,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox4.Size = new System.Drawing.Size(220, 455);
+            this.groupBox4.Size = new System.Drawing.Size(220, 459);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Power Up";
@@ -2022,7 +2023,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox3.Size = new System.Drawing.Size(220, 455);
+            this.groupBox3.Size = new System.Drawing.Size(220, 459);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Evolve";
@@ -2414,9 +2415,9 @@
             this.groupBox17.Controls.Add(this.cbRandomizeRecycle);
             this.groupBox17.Controls.Add(this.label51);
             this.groupBox17.Controls.Add(this.tbRandomRecycleValue);
-            this.groupBox17.Location = new System.Drawing.Point(8, 332);
+            this.groupBox17.Location = new System.Drawing.Point(325, 297);
             this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(311, 85);
+            this.groupBox17.Size = new System.Drawing.Size(358, 85);
             this.groupBox17.TabIndex = 19;
             this.groupBox17.TabStop = false;
             this.groupBox17.Text = "Recycle Behavior";
@@ -2442,7 +2443,7 @@
             // 
             // tbRandomRecycleValue
             // 
-            this.tbRandomRecycleValue.Location = new System.Drawing.Point(182, 46);
+            this.tbRandomRecycleValue.Location = new System.Drawing.Point(226, 46);
             this.tbRandomRecycleValue.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.tbRandomRecycleValue.Name = "tbRandomRecycleValue";
             this.tbRandomRecycleValue.Size = new System.Drawing.Size(123, 23);
@@ -2549,27 +2550,35 @@
             // 
             // groupBox15
             // 
-            this.groupBox15.Controls.Add(this.cbDelayBetweenRecycleActions);
+            this.groupBox15.Controls.Add(this.label48);
+            this.groupBox15.Controls.Add(this.tbDelayBetweenRecycle);
             this.groupBox15.Controls.Add(this.label49);
             this.groupBox15.Controls.Add(this.tbDelayBetweenPlayerActions);
             this.groupBox15.Controls.Add(this.label50);
             this.groupBox15.Controls.Add(this.tbDelayBetweenPokemonCatch);
             this.groupBox15.Location = new System.Drawing.Point(8, 213);
             this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(311, 113);
+            this.groupBox15.Size = new System.Drawing.Size(311, 169);
             this.groupBox15.TabIndex = 18;
             this.groupBox15.TabStop = false;
-            this.groupBox15.Text = "Auction Behavior";
+            this.groupBox15.Text = "Action Behavior";
             // 
-            // cbDelayBetweenRecycleActions
+            // label48
             // 
-            this.cbDelayBetweenRecycleActions.AutoSize = true;
-            this.cbDelayBetweenRecycleActions.Location = new System.Drawing.Point(9, 85);
-            this.cbDelayBetweenRecycleActions.Name = "cbDelayBetweenRecycleActions";
-            this.cbDelayBetweenRecycleActions.Size = new System.Drawing.Size(189, 19);
-            this.cbDelayBetweenRecycleActions.TabIndex = 17;
-            this.cbDelayBetweenRecycleActions.Text = "Delay Between Recycle Actions";
-            this.cbDelayBetweenRecycleActions.UseVisualStyleBackColor = true;
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(6, 90);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(168, 15);
+            this.label48.TabIndex = 21;
+            this.label48.Text = "Delay Between Recycling (ms):";
+            // 
+            // tbDelayBetweenRecycle
+            // 
+            this.tbDelayBetweenRecycle.Location = new System.Drawing.Point(182, 87);
+            this.tbDelayBetweenRecycle.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.tbDelayBetweenRecycle.Name = "tbDelayBetweenRecycle";
+            this.tbDelayBetweenRecycle.Size = new System.Drawing.Size(123, 23);
+            this.tbDelayBetweenRecycle.TabIndex = 22;
             // 
             // label49
             // 
@@ -2888,7 +2897,6 @@
         private System.Windows.Forms.TextBox tbDelayBetweenPlayerActions;
         private System.Windows.Forms.Label label50;
         private System.Windows.Forms.TextBox tbDelayBetweenPokemonCatch;
-        private System.Windows.Forms.CheckBox cbDelayBetweenRecycleActions;
         private System.Windows.Forms.GroupBox groupBox17;
         private System.Windows.Forms.CheckBox cbRandomizeRecycle;
         private System.Windows.Forms.Label label51;
@@ -2915,5 +2923,7 @@
         private System.Windows.Forms.Label GoogleApiLabel;
         private System.Windows.Forms.CheckBox cbShowWalkingSpeed;
         private System.Windows.Forms.CheckBox cbUseWalkingSpeedVariant;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.TextBox tbDelayBetweenRecycle;
     }
 }

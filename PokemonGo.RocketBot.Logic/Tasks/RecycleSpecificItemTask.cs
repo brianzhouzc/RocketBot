@@ -3,6 +3,7 @@ using PokemonGo.RocketBot.Logic.Logging;
 using PokemonGo.RocketBot.Logic.State;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Networking.Responses;
+using PokemonGo.RocketBot.Logic.Utils;
 
 namespace PokemonGo.RocketBot.Logic.Tasks
 {
@@ -23,6 +24,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                     $"Unable to recycle {count}x {itemId.ToString().Substring(4)}",
                     LogLevel.Error);
             }
+            DelayingUtils.Delay(session.LogicSettings.DelayBetweenPlayerActions, 500);
         }
     }
 }

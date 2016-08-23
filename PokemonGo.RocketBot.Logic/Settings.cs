@@ -309,7 +309,7 @@ namespace PokemonGo.RocketBot.Logic
 
         [DefaultValue(2000)] public int DelayBetweenPokemonCatch;
 
-        [DefaultValue(true)] public bool DelayBetweenRecycleActions;
+        [DefaultValue(500)] public int DelayBetweenRecycle;
 
         [DefaultValue(true)] public bool DetailedCountsBeforeRecycling;
 
@@ -1380,6 +1380,7 @@ namespace PokemonGo.RocketBot.Logic
         public int ForceExcellentThrowOverCp => _settings.ForceExcellentThrowOverCp;
         public int DelayBetweenPokemonCatch => _settings.DelayBetweenPokemonCatch;
         public int DelayBetweenPlayerActions => _settings.DelayBetweenPlayerActions;
+        public int DelayBetweenRecycle => _settings.DelayBetweenRecycle;
         public bool UsePokemonToNotCatchFilter => _settings.UsePokemonToNotCatchFilter;
         public bool UsePokemonSniperFilterOnly => _settings.UsePokemonSniperFilterOnly;
         public int KeepMinDuplicatePokemon => _settings.KeepMinDuplicatePokemon;
@@ -1440,7 +1441,6 @@ namespace PokemonGo.RocketBot.Logic
         public bool SnipePokemonNotInPokedex => _settings.SnipePokemonNotInPokedex;
         public bool RandomizeRecycle => _settings.RandomizeRecycle;
         public int RandomRecycleValue => _settings.RandomRecycleValue;
-        public bool DelayBetweenRecycleActions => _settings.DelayBetweenRecycleActions;
         public int TotalAmountOfPokeballsToKeep => _settings.TotalAmountOfPokeballsToKeep;
         public int TotalAmountOfPotionsToKeep => _settings.TotalAmountOfPotionsToKeep;
         public int TotalAmountOfRevivesToKeep => _settings.TotalAmountOfRevivesToKeep;
