@@ -50,7 +50,10 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
-            GetLanguageList();
+            var languageList = GetLanguageList();
+            var languageIndex = languageList.IndexOf(_setting.TranslationLanguageCode);
+            cbLanguage.DataSource = languageList;
+            cbLanguage.SelectedIndex = languageIndex == -1 ? 0 : languageIndex;
 
             #region Advanced Setting Init
 
@@ -343,14 +346,14 @@ namespace PokemonGo.RocketBot.Window.Forms
         /// <summary>
         ///     Get languale list from Translations folder and populate it to combo box
         /// </summary>
-        private void GetLanguageList()
+        private List<string> GetLanguageList()
         {
             var languages = new List<string> {"en"};
             var langFiles = Directory.GetFiles(LanguagePath, "*.json", SearchOption.TopDirectoryOnly);
             languages.AddRange(langFiles.Select(
                 langFileName => Path.GetFileNameWithoutExtension(langFileName)?.Replace("translation.", ""))
                 .Where(langCode => langCode != "en"));
-            cbLanguage.DataSource = languages;
+            return languages;
         }
 
         /// <summary>
