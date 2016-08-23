@@ -285,6 +285,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             }, null);
         }
 
+        #region UPDATEMAP
         private void UpdateMap()
         {
             SynchronizationContext.Post(o =>
@@ -385,6 +386,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 }
             }, null);
         }
+        #endregion
 
         private void Navigation_UpdatePositionEvent(double lat, double lng)
         {
@@ -457,14 +459,6 @@ namespace PokemonGo.RocketBot.Window.Forms
                 return
                     wC.DownloadString(
                         "https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/Beta-Build/src/RocketBotGUI/Properties/AssemblyInfo.cs");
-        }
-
-        private void olvPokemonList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void gMapControl1_Load(object sender, EventArgs e)
-        {
         }
 
         private void showMoreCheckBox_CheckedChanged(object sender, EventArgs e)

@@ -184,6 +184,7 @@
     <Compile Include="Tasks\FarmPokestopsTask.cs" />
     <Compile Include="Tasks\Login.cs" />
     <Compile Include="Tasks\RecycleItemsTask.cs" />
+    <Compile Include="Tasks\RecycleSpecificItemTask.cs" />
     <Compile Include="Tasks\RenamePokemonTask.cs" />
     <Compile Include="Tasks\RenameSpecificPokemonTask.cs" />
     <Compile Include="Tasks\SnipePokemonTask.cs" />
@@ -194,8 +195,10 @@
     <Compile Include="Tasks\TransferSpecificPokemonTask.cs" />
     <Compile Include="Tasks\TransferWeakPokemonTask.cs" />
     <Compile Include="Tasks\UseIncenseConstantlyTask.cs" />
+    <Compile Include="Tasks\UseIncenseTask.cs" />
     <Compile Include="Tasks\UseIncubatorsTask.cs" />
     <Compile Include="Tasks\UseLuckyEggConstantlyTask.cs" />
+    <Compile Include="Tasks\UseLuckyEggTask.cs" />
     <Compile Include="Tasks\UseNearbyPokestopsTask.cs" />
     <Compile Include="Utils\DelayingUtils.cs" />
     <Compile Include="Utils\DeviceInfoHelper.cs" />
