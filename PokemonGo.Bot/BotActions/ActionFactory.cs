@@ -8,13 +8,11 @@ namespace PokemonGo.Bot.BotActions
 {
     public class ActionFactory
     {
-        readonly Client client;
         readonly BotViewModel bot;
 
-        public ActionFactory(BotViewModel bot, Client client)
+        public ActionFactory(BotViewModel bot)
         {
             this.bot = bot;
-            this.client = client;
         }
 
         public BotAction Get(BotActionType action)
@@ -22,10 +20,10 @@ namespace PokemonGo.Bot.BotActions
             switch (action)
             {
                 case BotActionType.Farm:
-                    return new FarmingAction(bot, client);
+                    return new FarmingAction(bot);
 
                 case BotActionType.ForceUnban:
-                    return new ForceUnbanAction(bot, client);
+                    return new ForceUnbanAction(bot);
 
                 case BotActionType.TransferPokemon:
                     return new TransferPokemonWithAlgorithmAction(bot);

@@ -8,7 +8,7 @@
              xmlns:b="clr-namespace:PokemonGo.WPF.Behaviors"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance vm:ConsoleViewModel, IsDesignTimeCreatable=True}">
-    <ListView ItemsSource="{Binding Lines}" Background="Black" b:ListBoxBehavior.ScrollOnNewItem="True">
+    <ListView ItemsSource="{Binding Lines}" Background="Black" b:ListBoxBehavior.ScrollOnNewItem="True" VirtualizingPanel.ScrollUnit="Pixel">
         <ListView.ItemTemplate>
             <DataTemplate>
                 <StackPanel Orientation="Horizontal">
@@ -27,7 +27,6 @@
         </ListView.ItemTemplate>
         <ListView.ItemContainerStyle>
             <Style TargetType="ListViewItem">
-                <Setter Property="IsSelected" Value="{Binding Content.IsSelected, Mode=TwoWay, RelativeSource={RelativeSource Self}}"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="ListViewItem">

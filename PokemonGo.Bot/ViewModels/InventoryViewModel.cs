@@ -1,10 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using POGOProtos.Data.Player;
 using POGOProtos.Inventory;
 using POGOProtos.Inventory.Item;
 using PokemonGo.Bot.TransferPokemonAlgorithms;
-using PokemonGo.RocketAPI;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,9 +12,6 @@ namespace PokemonGo.Bot.ViewModels
 {
     public class InventoryViewModel : ViewModelBase
     {
-
-        public AsyncRelayCommand Load { get; }
-
         public AsyncRelayCommand TransferPokemonWithAlgorithm { get; }
 
         Task ExecuteTransferPokemonWithAlgorithmAsync(TransferPokemonAlgorithm transferAlgorithm)
@@ -25,8 +20,6 @@ namespace PokemonGo.Bot.ViewModels
             var pokemonToTransfer = algorithm.Apply(Pokemon);
             return Task.WhenAll(pokemonToTransfer.Select(p => p.Transfer.ExecuteAsync()));
         }
-
-        public AsyncRelayCommand<ItemType> Recycle { get; }
 
         TransferPokemonAlgorithm transferPokemonAlgorithm;
 
@@ -46,9 +39,70 @@ namespace PokemonGo.Bot.ViewModels
             }
         }
 
-        private void UpdateCandy(InventoryDelta inventory)
+        public ObservableCollection<CaughtPokemonViewModel> Pokemon { get; }
+        public ObservableCollection<ItemViewModel> Items { get; }
+        public ObservableCollection<EggViewModel> Eggs { get; }
+        public ObservableCollection<EggIncubatorViewModel> EggIncubators { get; }
+
+        readonly TransferPokemonAlgorithmFactory transferPokemonAlgorithmFactory;
+
+        PlayerViewModel player;
+
+        public PlayerViewModel Player
         {
-            foreach (var candy in inventory?.InventoryItems.Select(i => i.InventoryItemData?.Candy).Where(c => c != null))
+            get { return player; }
+            set { if (Player != value) { player = value; RaisePropertyChanged(); } }
+        }
+
+        public InventoryViewModel(SessionViewModel session, TransferPokemonAlgorithmFactory transferPokemonAlgorithmFactory)
+        {
+            this.transferPokemonAlgorithmFactory = transferPokemonAlgorithmFactory;
+            TransferPokemonAlgorithm = transferPokemonAlgorithmFactory.GetDefaultFromSettings();
+            this.session = session;
+
+            Pokemon = new ObservableCollection<CaughtPokemonViewModel>();
+            Eggs = new ObservableCollection<EggViewModel>();
+            EggIncubators = new ObservableCollection<EggIncubatorViewModel>();
+            Items = new ObservableCollection<ItemViewModel>();
+            TransferPokemonWithAlgorithm = new AsyncRelayCommand(async () => await ExecuteTransferPokemonWithAlgorithmAsync(TransferPokemonAlgorithm));
+        }
+
+        internal void UpdateWith(IEnumerable<InventoryItem> inventory)
+        {
+            if (inventory != null)
+            {
+                UpdatePlayer(inventory);
+                UpdatePokemon(inventory);
+                UpdateEggIncubators(inventory);
+                UpdateEggs(inventory);
+                UpdateItems(inventory);
+                UpdateCandy(inventory);
+            }
+        }
+
+        void UpdateItems(IEnumerable<InventoryItem> inventory)
+        {
+            Items.UpdateWith(inventory.Select(i => i.InventoryItemData?.Item).Where(i => i != null).Select(i => new ItemViewModel(i, session)));
+        }
+
+        void UpdateEggs(IEnumerable<InventoryItem> inventory)
+        {
+            Eggs.UpdateWith(inventory.Select(i => i.InventoryItemData?.PokemonData).Where(p => (p?.IsEgg).GetValueOrDefault()).Select(p => new EggViewModel(p, EggIncubators, Player.KmWalked)));
+        }
+
+        void UpdateEggIncubators(IEnumerable<InventoryItem> inventory)
+        {
+            EggIncubators.UpdateWith(inventory.Select(i => i.InventoryItemData?.EggIncubators).Where(i => i != null).SelectMany(i => i?.EggIncubator).Where(i => i != null).Select(i => new EggIncubatorViewModel(i, session)));
+        }
+
+        void UpdatePokemon(IEnumerable<InventoryItem> inventory)
+        {
+            Pokemon.UpdateWith(inventory.Select(i => i.InventoryItemData?.PokemonData).Where(p => p?.PokemonId > 0).Select(p => new CaughtPokemonViewModel(p, session, this)));
+        }
+
+        void UpdateCandy(IEnumerable<InventoryItem> inventory)
+        {
+            foreach (var candy in inventory.Select(i => i.InventoryItemData?.Candy).Where(c => c != null))
             {
                 var familyId = (int)candy.FamilyId;
                 SetCandyForFamily(candy.Candy_, familyId);
@@ -56,6 +110,7 @@ namespace PokemonGo.Bot.ViewModels
         }
 
         readonly IDictionary<int, int> candyForFamily = new Dictionary<int, int>();
+        readonly SessionViewModel session;
 
         public void SetCandyForFamily(int amount, int familyId)
         {
@@ -79,62 +134,17 @@ namespace PokemonGo.Bot.ViewModels
             SetCandyForFamily(GetCandyForFamily(familyId) + amount, familyId);
         }
 
-        void UpdatePlayer(InventoryDelta value)
+        void UpdatePlayer(IEnumerable<InventoryItem> inventory)
         {
-            var playerStats = value.InventoryItems.Where(i => i.InventoryItemData.PlayerStats != null).Select(i => i.InventoryItemData.PlayerStats).FirstOrDefault();
-            Player.Xp = playerStats.Experience;
-            Player.NextLevelXP = playerStats.NextLevelXp;
-            Player.PrevLevelXp = playerStats.PrevLevelXp;
-            Player.Level = playerStats.Level;
-        }
-
-        public ObservableCollection<CaughtPokemonViewModel> Pokemon { get; }
-        public ObservableCollection<ItemViewModel> Items { get; }
-        public ObservableCollection<EggViewModel> Eggs { get; }
-        public ObservableCollection<EggIncubatorViewModel> EggIncubators { get; }
-
-        readonly Client client;
-        readonly TransferPokemonAlgorithmFactory transferPokemonAlgorithmFactory;
-
-        PlayerViewModel player;
-        public PlayerViewModel Player
-        {
-            get { return player; }
-            set { if (Player != value) { player = value; RaisePropertyChanged(); } }
-        }
-
-        public InventoryViewModel(Client client, TransferPokemonAlgorithmFactory transferPokemonAlgorithmFactory)
-        {
-            this.transferPokemonAlgorithmFactory = transferPokemonAlgorithmFactory;
-            TransferPokemonAlgorithm = transferPokemonAlgorithmFactory.GetDefaultFromSettings();
-            this.client = client;
-
-            Pokemon = new ObservableCollection<CaughtPokemonViewModel>();
-            Eggs = new ObservableCollection<EggViewModel>();
-            EggIncubators = new ObservableCollection<EggIncubatorViewModel>();
-            Items = new ObservableCollection<ItemViewModel>();
-
-            Load = new AsyncRelayCommand(async () =>
+            var playerStats = inventory.Where(i => i.InventoryItemData?.PlayerStats != null).Select(i => i.InventoryItemData.PlayerStats).FirstOrDefault();
+            if (playerStats != null)
             {
-                var itemTemplaceResponse = await client.Download.GetItemTemplates();
-                if(itemTemplaceResponse.Success)
-                {
-                    var templates = itemTemplaceResponse.ItemTemplates;
-                }
-                var inventoryResponse = await client.Inventory.GetInventory();
-                if(inventoryResponse.Success)
-                {
-                    var inventory = inventoryResponse.InventoryDelta;
-                    Pokemon.UpdateWith(inventory?.InventoryItems.Select(i => i.InventoryItemData?.PokemonData).Where(p => p?.PokemonId > 0).Select(p => new CaughtPokemonViewModel(p, client, this)));
-                    EggIncubators.UpdateWith(inventory?.InventoryItems.Select(i => i.InventoryItemData?.EggIncubators).Where(i => i != null).SelectMany(i => i?.EggIncubator).Where(i => i != null).Select(i => new EggIncubatorViewModel(i, client)));
-                    Eggs.UpdateWith(inventory?.InventoryItems.Select(i => i.InventoryItemData?.PokemonData).Where(p => (p?.IsEgg).GetValueOrDefault()).Select(p => new EggViewModel(p, EggIncubators)));
-                    Items.UpdateWith(inventory?.InventoryItems.Select(i => i.InventoryItemData?.Item).Where(i => i != null).Select(i => new ItemViewModel(i)));
-                    UpdateCandy(inventory);
-                    UpdatePlayer(inventory);
-                }
-            });
-            TransferPokemonWithAlgorithm = new AsyncRelayCommand(async () => await ExecuteTransferPokemonWithAlgorithmAsync(TransferPokemonAlgorithm));
-            Recycle = new AsyncRelayCommand<ItemType>(async itemType => await client.Inventory.RecycleItem((ItemId)itemType, 1));
+                Player.Xp = playerStats.Experience;
+                Player.NextLevelXP = playerStats.NextLevelXp;
+                Player.PrevLevelXp = playerStats.PrevLevelXp;
+                Player.Level = playerStats.Level;
+                Player.KmWalked = playerStats.KmWalked;
+            }
         }
     }
 }

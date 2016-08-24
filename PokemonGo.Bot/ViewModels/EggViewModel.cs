@@ -1,11 +1,13 @@
-﻿using POGOProtos.Data;
+﻿using GalaSoft.MvvmLight.Command;
+using POGOProtos.Data;
+using PokemonGo.Bot.MVVMLightUtils;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace PokemonGo.Bot.ViewModels
 {
-    public class EggViewModel : PokemonDataViewModel
+    public class EggViewModel : PokemonDataViewModel, IUpdateable<EggViewModel>
     {
         string incubatorId;
 
@@ -37,19 +39,39 @@ namespace PokemonGo.Bot.ViewModels
             set { if (KmWalked != value) { kmWalked = value; RaisePropertyChanged(); } }
         }
 
+        public double KmWalkedStart { get; }
         public double KmTarget { get; }
 
         public ObservableCollection<EggIncubatorViewModel> EggIncubators { get; }
 
-        public EggViewModel(PokemonData pokemon, ObservableCollection<EggIncubatorViewModel> eggIncubators) : base(pokemon)
+        public EggViewModel(PokemonData pokemon, ObservableCollection<EggIncubatorViewModel> eggIncubators, float playerKmWalked) : base(pokemon)
         {
             if (!pokemon.IsEgg)
                 throw new ArgumentOutOfRangeException(nameof(pokemon.PokemonId), $"{pokemon} is not an egg.");
 
+
             EggIncubators = eggIncubators;
             IncubatorId = pokemon.EggIncubatorId;
-            KmWalked = pokemon.EggKmWalkedStart;
+            KmWalkedStart = pokemon.EggKmWalkedStart;
             KmTarget = pokemon.EggKmWalkedTarget;
+
+            if (IsInIncubator)
+            {
+                var incubator = EggIncubators.SingleOrDefault(i => i.Id == IncubatorId);
+                if (incubator != null)
+                {
+                    KmWalked = playerKmWalked - incubator.StartKmWalked;
+                }
+            }
+        }
+
+        public void UpdateWith(EggViewModel other)
+        {
+            IncubatorId = other.IncubatorId;
+            KmWalked = other.KmWalked;
+            EggIncubators.UpdateWith(other.EggIncubators);
+
+            base.UpdateWith(other);
         }
     }
 }

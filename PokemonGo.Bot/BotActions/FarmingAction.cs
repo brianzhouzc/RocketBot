@@ -1,11 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
-using PokemonGo.Bot.Utils;
 using PokemonGo.Bot.ViewModels;
-using PokemonGo.RocketAPI;
-using PokemonGo.RocketAPI.Bot;
 using PokemonGo.RocketAPI.Bot.utils;
-using PokemonGo.RocketAPI.Extensions;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -15,28 +10,22 @@ namespace PokemonGo.Bot.BotActions
 {
     public class FarmingAction : BotAction
     {
-        readonly Client client;
         bool shouldStop;
         IEnumerable<PokestopViewModel> route;
 
-        public FarmingAction(BotViewModel bot, Client client) : base(bot, "Farm")
+        public FarmingAction(BotViewModel bot) : base(bot, "Farm")
         {
-            this.client = client;
         }
 
         [SuppressMessage("Await.Warning", "CS4014:Await.Warning", Justification = "ExecuteAsync runs in an infinite loop.")]
         protected override async Task OnStartAsync()
         {
-            if (!bot.Player.IsLoggedIn)
-                await bot.Player.Login.ExecuteAsync();
-
-            await CalculateRouteAsync();
+            CalculateRoute();
             await ExecuteAsync();
         }
 
-        async Task CalculateRouteAsync()
+        void CalculateRoute()
         {
-            //await bot.Map.GetMapObjects.ExecuteAsync();
             var pokestopsNotOnCooldown = bot.Map.Pokestops.Where(p => p.IsActive);
             route = RouteOptimizer.Optimize(pokestopsNotOnCooldown, bot.Player.Position);
             Route.Clear();
@@ -76,7 +65,6 @@ namespace PokemonGo.Bot.BotActions
 
         async Task TransferUnwantedPokemonAsync()
         {
-            await bot.Player.Inventory.Load.ExecuteAsync();
             await new TransferPokemonWithAlgorithmAction(bot).StartAsync();
         }
 
@@ -96,7 +84,7 @@ namespace PokemonGo.Bot.BotActions
         async Task FarmPokestopAsync(PokestopViewModel currentPokeStop)
         {
             await bot.Player.Move.ExecuteAsync(currentPokeStop.Position);
-            var fortInfo = await client.Fort.GetFort(currentPokeStop.Id, currentPokeStop.Position.Latitude, currentPokeStop.Position.Longitude);
+            await currentPokeStop.Details.ExecuteAsync();
             await currentPokeStop.Search.ExecuteAsync();
         }
     }

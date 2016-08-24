@@ -5,11 +5,36 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:PokemonGo.WPF.Views"
              xmlns:converters="clr-namespace:PokemonGo.WPF.Converters"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d"
              d:DesignHeight="50" d:DesignWidth="200">
     <UserControl.Resources>
         <converters:ItemTypeToImagePathConverter x:Key="imageConverter"/>
     </UserControl.Resources>
+    <UserControl.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Recycle 1" Command="{Binding Recycle}">
+                <MenuItem.CommandParameter>
+                    <system:Int32>1</system:Int32>
+                </MenuItem.CommandParameter>
+            </MenuItem>
+            <MenuItem Header="Recycle 5" Command="{Binding Recycle}">
+                <MenuItem.CommandParameter>
+                    <system:Int32>5</system:Int32>
+                </MenuItem.CommandParameter>
+            </MenuItem>
+            <MenuItem Header="Recycle 10" Command="{Binding Recycle}">
+                <MenuItem.CommandParameter>
+                    <system:Int32>10</system:Int32>
+                </MenuItem.CommandParameter>
+            </MenuItem>
+            <MenuItem Header="Recycle 50" Command="{Binding Recycle}">
+                <MenuItem.CommandParameter>
+                    <system:Int32>50</system:Int32>
+                </MenuItem.CommandParameter>
+            </MenuItem>
+        </ContextMenu>
+    </UserControl.ContextMenu>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>

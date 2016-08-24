@@ -1,10 +1,9 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Fort;
 using POGOProtos.Networking.Responses;
-using PokemonGo.Bot.Enums;
 using PokemonGo.Bot.Messages;
-using PokemonGo.RocketAPI;
-using PokemonGo.RocketAPI.Extensions;
+using PokemonGo.Bot.MVVMLightUtils;
 using System;
 using System.Linq;
 using System.Text;
@@ -13,7 +12,7 @@ using System.Windows.Threading;
 
 namespace PokemonGo.Bot.ViewModels
 {
-    public class PokestopViewModel : FortViewModel
+    public class PokestopViewModel : FortViewModel, IUpdateable<PokestopViewModel>
     {
         bool isActive;
 
@@ -24,55 +23,72 @@ namespace PokemonGo.Bot.ViewModels
         }
 
         bool isNear;
+
         public bool IsNear
         {
             get { return isNear; }
             set { if (IsNear != value) { isNear = value; RaisePropertyChanged(); } }
         }
 
+        bool hasLureModuleActive;
+        public bool HasLureModuleActive
+        {
+            get { return hasLureModuleActive; }
+            set { if (HasLureModuleActive != value) { hasLureModuleActive = value; RaisePropertyChanged(); } }
+        }
+
+
+
         public AsyncRelayCommand Search { get; }
 
         DispatcherTimer isActiveTimer;
-        long cooldownCompleteTimestampMs;
         readonly PlayerViewModel player;
+        DateTimeOffset cooldownCompletedUtc;
 
-        public PokestopViewModel(FortData fort, Client client, PlayerViewModel player)
-            : base(fort, client)
+        public PokestopViewModel(FortData fort, SessionViewModel session, PlayerViewModel player)
+            : base(fort, session)
         {
             this.player = player;
-            InitializeTimer(fort.CooldownCompleteTimestampMs);
+            HasLureModuleActive = !fort.ActiveFortModifier.IsEmpty;
+            InitializeIsActiveTimer(fort.CooldownCompleteTimestampMs);
             CalculateIsNear();
             player.PropertyChanged += Player_PropertyChanged;
 
             Search = new AsyncRelayCommand(async () =>
             {
-                var searchResult = await client.Fort.SearchFort(Id, Position.Latitude, Position.Longitude);
-                InitializeTimer(searchResult.CooldownCompleteTimestampMs);
+                var searchResult = await session.SearchFort(Id, Position.Latitude, Position.Longitude);
+                InitializeIsActiveTimer(searchResult.CooldownCompleteTimestampMs);
                 if (searchResult.Result == FortSearchResponse.Types.Result.Success ||
                     searchResult.Result == FortSearchResponse.Types.Result.InventoryFull)
                 {
                     var sb = new StringBuilder("Pokestop successfully farmed.");
                     sb.AppendFormat(" {0}Xp", searchResult.ExperienceAwarded);
                     player.Xp += searchResult.ExperienceAwarded;
-                    foreach (var item in searchResult.ItemsAwarded)
+                    foreach (var itemGroup in searchResult.ItemsAwarded.GroupBy(i => i.ItemId))
                     {
+                        // since 3 pokeballs are returned as 3x one pokeball, we group here to get a nicer display.
+                        var item = new ItemAward
+                        {
+                            ItemCount = itemGroup.Sum(i => i.ItemCount),
+                            ItemId = itemGroup.Key
+                        };
                         var itemInInventory = player.Inventory.Items.SingleOrDefault(i => (int)i.ItemType == (int)item.ItemId);
                         if (itemInInventory == null)
                         {
-                            itemInInventory = new ItemViewModel(item);
+                            itemInInventory = new ItemViewModel(item, session);
                             player.Inventory.Items.Add(itemInInventory);
                         }
                         else
                         {
                             itemInInventory.Count += item.ItemCount;
                         }
-                        sb.AppendFormat(" - {0}x {1}", item.ItemCount, Enum.GetName(typeof(ItemType), itemInInventory.ItemType));
+                        sb.AppendFormat(" - {0}x {1}", item.ItemCount, Enum.GetName(typeof(Enums.ItemType), itemInInventory.ItemType));
                     }
 
                     if (searchResult.PokemonDataEgg != null)
                     {
                         sb.AppendFormat("- 1x Egg ({0}km)", searchResult.PokemonDataEgg.EggKmWalkedTarget);
-                        player.Inventory.Eggs.Add(new EggViewModel(searchResult.PokemonDataEgg, player.Inventory.EggIncubators));
+                        player.Inventory.Eggs.Add(new EggViewModel(searchResult.PokemonDataEgg, player.Inventory.EggIncubators, player.KmWalked));
                     }
                     MessengerInstance.Send(new Message(Colors.Green, sb.ToString()));
                 }
@@ -101,21 +117,23 @@ namespace PokemonGo.Bot.ViewModels
             IsNear = player.Position.DistanceTo(Position) <= 10;
         }
 
-        void InitializeTimer(long cooldownComplete)
+        void InitializeIsActiveTimer(long cooldownCompleteTimestampMs)
         {
-            cooldownCompleteTimestampMs = cooldownComplete;
+            cooldownCompletedUtc = DateTimeOffset.FromUnixTimeMilliseconds(cooldownCompleteTimestampMs);
+            InitializeIsActiveTimer();
+        }
 
-            if (cooldownCompleteTimestampMs > DateTime.UtcNow.ToUnixTime())
+        void InitializeIsActiveTimer()
+        {
+            var completedIn = (cooldownCompletedUtc - DateTime.UtcNow);
+
+            if (completedIn.Ticks > 0)
             {
                 IsActive = false;
-                if (isActiveTimer == null)
-                {
-                    isActiveTimer = new DispatcherTimer();
-                    isActiveTimer.Tick += IsActiveTimer_Tick;
-                    isActiveTimer.Interval = TimeSpan.FromSeconds(1);
-                }
-                if (!isActiveTimer.IsEnabled)
-                    isActiveTimer.Start();
+                isActiveTimer = new DispatcherTimer();
+                isActiveTimer.Tick += IsActiveTimer_Tick;
+                isActiveTimer.Interval = completedIn;
+                isActiveTimer.Start();
             }
             else
             {
@@ -125,11 +143,20 @@ namespace PokemonGo.Bot.ViewModels
 
         void IsActiveTimer_Tick(object sender, System.EventArgs e)
         {
-            if (cooldownCompleteTimestampMs <= DateTime.UtcNow.ToUnixTime())
-            {
-                isActiveTimer.Tick -= IsActiveTimer_Tick;
-                IsActive = true;
-            }
+            isActiveTimer.Tick -= IsActiveTimer_Tick;
+            IsActive = true;
+        }
+
+        public void UpdateWith(PokestopViewModel other)
+        {
+            if (!Equals(other))
+                throw new ArgumentException($"Expected a pokestop with Id {Id} but got {Id}.", nameof(other));
+
+            IsActive = other.IsActive;
+            IsNear = other.IsNear;
+            HasLureModuleActive = other.HasLureModuleActive;
+            cooldownCompletedUtc = other.cooldownCompletedUtc;
+            InitializeIsActiveTimer();
         }
     }
 }

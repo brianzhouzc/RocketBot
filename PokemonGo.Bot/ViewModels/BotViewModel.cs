@@ -12,7 +12,6 @@ namespace PokemonGo.Bot.ViewModels
     public class BotViewModel : ViewModelBase
     {
         public PlayerViewModel Player { get; }
-        readonly Client client;
 
         BotAction currentAction;
 
@@ -39,14 +38,13 @@ namespace PokemonGo.Bot.ViewModels
 
         public MapViewModel Map { get; }
 
-        public BotViewModel(Client client, PlayerViewModel player, MapViewModel map)
+        public BotViewModel(PlayerViewModel player, MapViewModel map)
         {
             Map = map;
-            this.client = client;
             Start = new RelayCommand(AdvanceToNextAction, HasNextAction);
             Stop = new RelayCommand(StopCurrentAction, IsExecutingAction);
             Player = player;
-            actionFactory = new ActionFactory(this, client);
+            actionFactory = new ActionFactory(this);
             AddAction = new RelayCommand<BotActionType>(param =>
             {
                 UpcomingActions.Add(actionFactory.Get(param));

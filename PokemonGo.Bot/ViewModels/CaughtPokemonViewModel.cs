@@ -9,12 +9,13 @@ using GalaSoft.MvvmLight.Command;
 using PokemonGo.Bot.Messages;
 using POGOProtos.Networking.Responses;
 using System.Windows.Media;
+using PokemonGo.Bot.MVVMLightUtils;
 
 namespace PokemonGo.Bot.ViewModels
 {
-    public class CaughtPokemonViewModel : PokemonDataViewModel
+    public class CaughtPokemonViewModel : PokemonDataViewModel, IUpdateable<CaughtPokemonViewModel>
     {
-        readonly Client client;
+        readonly SessionViewModel session;
 
         public AsyncRelayCommand Transfer { get; }
         public AsyncRelayCommand ToggleFavorite { get; }
@@ -28,18 +29,18 @@ namespace PokemonGo.Bot.ViewModels
             set { if (Candy != value) { candy = value; RaisePropertyChanged(); } }
         }
 
-        public CaughtPokemonViewModel(PokemonData pokemon, Client client, InventoryViewModel inventory) : base(pokemon)
+        public CaughtPokemonViewModel(PokemonData pokemon, SessionViewModel session, InventoryViewModel inventory) : base(pokemon)
         {
             if (Id == 0)
                 throw new ArgumentException("This is not a caught pokemon.", nameof(pokemon));
 
-            this.client = client;
+            this.session = session;
 
             Candy = inventory.GetCandyForFamily(FamilyId);
 
             Transfer = new AsyncRelayCommand(async () =>
             {
-                var response = await client.Inventory.TransferPokemon(Id);
+                var response = await session.TransferPokemon(Id);
                 if(response.Result == ReleasePokemonResponse.Types.Result.Success)
                 {
                     inventory.Pokemon.Remove(this);
@@ -54,13 +55,13 @@ namespace PokemonGo.Bot.ViewModels
             ToggleFavorite = new AsyncRelayCommand(async () =>
             {
                 var targetValue = !IsFavorite;
-                var response = await client.Inventory.SetFavoritePokemon(Id, targetValue);
+                var response = await session.SetFavoritePokemon(Id, targetValue);
                 if (response.Result == SetFavoritePokemonResponse.Types.Result.Success)
                     IsFavorite = targetValue;
             });
             Evolve = new AsyncRelayCommand(async () =>
             {
-                var response = await client.Inventory.EvolvePokemon(Id);
+                var response = await session.EvolvePokemon(Id);
                 if(response.Result == EvolvePokemonResponse.Types.Result.Success)
                 {
                     inventory.AddCandyForFamily(Candy, FamilyId);
@@ -71,12 +72,21 @@ namespace PokemonGo.Bot.ViewModels
             });
             Upgrade = new AsyncRelayCommand(async () =>
             {
-                var response = await client.Inventory.UpgradePokemon(Id);
+                var response = await session.UpgradePokemon(Id);
                 if(response.Result == UpgradePokemonResponse.Types.Result.Success)
                 {
                     CombatPoints = response.UpgradedPokemon.Cp;
                 }
             });
+        }
+
+        public void UpdateWith(CaughtPokemonViewModel other)
+        {
+            if (!Equals(other))
+                throw new ArgumentException($"Expected a {Name} with Id {Id} but got a {other?.Name} with Id {other?.Id}", nameof(other));
+
+            Candy = other.Candy;
+            base.UpdateWith(other);
         }
     }
 }

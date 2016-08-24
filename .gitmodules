@@ -1,5 +1,4 @@
-[submodule "Pokemon-Go-Rocket-API"]
-
-path = Pokemon-Go-Rocket-API
-
-url = https://github.com/Gabrola/Pokemon-Go-Rocket-API
+[submodule "POGOLib"]
+	path = POGOLib
+	url = https://github.com/AeonLucid/POGOLib
+	branch = proper-pcl

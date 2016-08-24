@@ -51,7 +51,7 @@ namespace PokemonGo.RocketAPI.Bot.utils
         //    }), pokeStops);
         //}
 
-        private static List<PokestopViewModel> Optimize2Opt(List<PokestopViewModel> pokeStops, out bool isOptimized)
+        static List<PokestopViewModel> Optimize2Opt(List<PokestopViewModel> pokeStops, out bool isOptimized)
         {
             var n = pokeStops.Count;
             var bestGain = 0f;
@@ -119,17 +119,17 @@ namespace PokemonGo.RocketAPI.Bot.utils
             return pokeStops;
         }
 
-        private static PokestopViewModel FindNN(IEnumerable<PokestopViewModel> pokeStops, double cLatitude, double cLongitude)
+        static PokestopViewModel FindNN(IEnumerable<PokestopViewModel> pokeStops, double cLatitude, double cLongitude)
         {
             return pokeStops.OrderBy(p => GetDistance(cLatitude, cLongitude, p.Position.Latitude, p.Position.Longitude)).First();
         }
 
-        private static float GetDistance(PokestopViewModel a, PokestopViewModel b)
+        static float GetDistance(PokestopViewModel a, PokestopViewModel b)
         {
             return GetDistance(a.Position.Latitude, a.Position.Longitude, b.Position.Latitude, b.Position.Longitude);
         }
 
-        private static float GetDistance(double lat1, double lng1, double lat2, double lng2)
+        static float GetDistance(double lat1, double lng1, double lat2, double lng2)
         {
             var R = 6371e3;
             Func<double, float> toRad = x => (float)(x * (Math.PI / 180));

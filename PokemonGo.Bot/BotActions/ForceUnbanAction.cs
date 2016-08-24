@@ -7,12 +7,10 @@ namespace PokemonGo.Bot.BotActions
 {
     public class ForceUnbanAction : BotAction
     {
-        private readonly Client client;
-        private bool shouldStop;
+        bool shouldStop;
 
-        public ForceUnbanAction(BotViewModel bot, Client client) : base(bot, "Force unban")
+        public ForceUnbanAction(BotViewModel bot) : base(bot, "Force unban")
         {
-            this.client = client;
         }
 
         protected override Task OnStartAsync() => ForceUnbanAsync();
@@ -23,28 +21,27 @@ namespace PokemonGo.Bot.BotActions
             return Task.CompletedTask;
         }
 
-        private async Task<PokestopViewModel> GetNearestPokestopNotOnCooldownAsync()
+        PokestopViewModel GetNearestPokestopNotOnCooldown()
         {
-            await bot.Map.GetMapObjects.ExecuteAsync();
             var pokestopsNotOnCooldown = bot.Map.Pokestops.Where(p => p.IsActive);
             var nearestPokeStop = pokestopsNotOnCooldown.OrderBy(p => bot.Player.Position.DistanceTo(p.Position)).FirstOrDefault();
             return nearestPokeStop;
         }
 
-        private async Task ForceUnbanAsync()
+        async Task ForceUnbanAsync()
         {
-            var pokestop = await GetNearestPokestopNotOnCooldownAsync();
+            var pokestop = GetNearestPokestopNotOnCooldown();
             Route.Clear();
             Route.Add(pokestop.Position);
             RaisePropertyChanged(nameof(Route));
             await bot.Player.Move.ExecuteAsync(pokestop.Position);
-            var fortInfo = await client.Fort.GetFort(pokestop.Id, pokestop.Position.Latitude, pokestop.Position.Longitude);
+            await pokestop.Details.ExecuteAsync();
             var unbanned = false;
+            var startXp = bot.Player.Xp;
             while (!unbanned || !shouldStop)
             {
-                // TODO use PokestopViewModel
-                var fortSearch = await client.Fort.SearchFort(pokestop.Id, pokestop.Position.Latitude, pokestop.Position.Longitude);
-                if (fortSearch.ExperienceAwarded > 0)
+                var fortSearch = pokestop.Search.ExecuteAsync();
+                if (bot.Player.Xp > startXp)
                     unbanned = true;
             }
             await StopAsync();

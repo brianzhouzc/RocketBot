@@ -28,7 +28,7 @@
         </Grid.RowDefinitions>
 
         <Menu Width="Auto" Height="20" Grid.Row="0" Grid.ColumnSpan="2">
-            <MenuItem Header="Login" Command="{Binding Player.Login}" />
+            <MenuItem Header="Login" Command="{Binding Session.Login}" />
             <MenuItem Header="Settings" Click="MenuItem_Click"/>
             <MenuItem Header="AddAction">
                 <MenuItem Header="Farm" Command="{Binding Bot.AddAction}" CommandParameter="{x:Static actions:BotActionType.Farm}" />

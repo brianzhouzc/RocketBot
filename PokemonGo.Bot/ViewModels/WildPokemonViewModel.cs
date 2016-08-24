@@ -1,9 +1,12 @@
-﻿using POGOProtos.Data;
+﻿using System;
+using POGOProtos.Data;
 using POGOProtos.Map.Pokemon;
+using PokemonGo.Bot.MVVMLightUtils;
+using POGOProtos.Map.Fort;
 
 namespace PokemonGo.Bot.ViewModels
 {
-    public class WildPokemonViewModel : PokemonDataViewModel
+    public class WildPokemonViewModel : PokemonDataViewModel, IUpdateable<WildPokemonViewModel>
     {
         public WildPokemonViewModel(WildPokemon pokemon) : base(pokemon.PokemonData)
         {
@@ -14,10 +17,36 @@ namespace PokemonGo.Bot.ViewModels
             TimeTillHiddenMs = pokemon.TimeTillHiddenMs;
         }
 
+        public WildPokemonViewModel(PokemonData pokemon, FortData fort)
+            : base(pokemon)
+        {
+            EncounterId = fort.LureInfo.EncounterId;
+            LastModifiedTimestampMs = fort.LastModifiedTimestampMs;
+            Position = new Position2DViewModel(fort.Latitude, fort.Longitude);
+            SpawnpointId = fort.LureInfo.FortId;
+            TimeTillHiddenMs = fort.LureInfo.LureExpiresTimestampMs;
+        }
+
         public ulong EncounterId { get; }
         public long LastModifiedTimestampMs { get; }
         public string SpawnpointId { get; }
-        public int TimeTillHiddenMs { get; }
+        long timeTillHiddenMs;
+        public long TimeTillHiddenMs
+        {
+            get { return timeTillHiddenMs; }
+            set { if (TimeTillHiddenMs != value) { timeTillHiddenMs = value; RaisePropertyChanged(); } }
+        }
+
+
         Position2DViewModel Position { get; }
+
+        public void UpdateWith(WildPokemonViewModel other)
+        {
+            if (!Equals(other))
+                throw new ArgumentException($"Expected a {Name} with Id {Id} but got a {other?.Name} with Id {other?.Id}", nameof(other));
+
+            TimeTillHiddenMs = other.TimeTillHiddenMs;
+            base.UpdateWith(other);
+        }
     }
 }

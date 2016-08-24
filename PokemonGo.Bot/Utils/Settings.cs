@@ -3,9 +3,6 @@ using GalaSoft.MvvmLight.Command;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using PokemonGo.Bot.TransferPokemonAlgorithms;
-using PokemonGo.Bot.ViewModels;
-using PokemonGo.RocketAPI;
-using PokemonGo.RocketAPI.Enums;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,10 +10,12 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using POGOProtos.Settings;
+using POGOProtos.Networking.Responses;
 
 namespace PokemonGo.Bot.Utils
 {
-    public class Settings : ViewModelBase, ISettings
+    public class Settings : ViewModelBase
     {
         public AuthType AuthType { get; set; }
 
@@ -25,21 +24,6 @@ namespace PokemonGo.Bot.Utils
         public double DefaultLatitude { get; set; }
 
         public double DefaultLongitude { get; set; }
-
-        [IgnoreDataMember]
-        public string GooglePassword { get { return Password; } set { throw new InvalidOperationException($"Use {nameof(Password)}."); } }
-
-        [IgnoreDataMember]
-        public string GoogleRefreshToken { get; set; }
-
-        [IgnoreDataMember]
-        public string GoogleUsername { get { return Username; } set { throw new InvalidOperationException($"Use {nameof(Username)}."); } }
-
-        [IgnoreDataMember]
-        public string PtcPassword { get { return Password; } set { throw new InvalidOperationException($"Use {nameof(Password)}."); } }
-
-        [IgnoreDataMember]
-        public string PtcUsername { get { return Username; } set { throw new InvalidOperationException($"Use {nameof(Username)}."); } }
 
         public string Username { get; set; }
 
@@ -59,9 +43,6 @@ namespace PokemonGo.Bot.Utils
         public double MinTravelSpeedInKmH { get; set; }
         public double MaxTravelSpeedInKmH { get; set; }
 
-        [IgnoreDataMember]
-        internal Client Client { get; set; }
-
         MapSettings map;
 
         [IgnoreDataMember]
@@ -80,36 +61,27 @@ namespace PokemonGo.Bot.Utils
             set { if (PokemonUpgrade != value) { pokemonUpgrade = value; RaisePropertyChanged(); } }
         }
 
-        RocketAPI.Enums.AuthType ISettings.AuthType { get { return (RocketAPI.Enums.AuthType)AuthType; }  set { throw new InvalidOperationException($"use {nameof(AuthType)} from Settings class."); } }
-
         private string loadedFromFile;
         public Settings()
         {
             Save = new AsyncRelayCommand(SaveToFileAsync);
         }
-        public async Task DownloadSettingsAsync()
+
+        internal void UpdateWith(GlobalSettings globalSettings)
         {
-            var response = await Client.Download.GetSettings();
-            if (response.Settings != null)
-            {
-                var forstSettings = response.Settings.FortSettings;
-                var inventorySettings = response.Settings.InventorySettings;
-                var levelSettings = response.Settings.LevelSettings;
-                Map = new PokemonGo.Bot.Utils.MapSettings(response.Settings.MapSettings);
-            }
+            var forstSettings = globalSettings.FortSettings;
+            var inventorySettings = globalSettings.InventorySettings;
+            var levelSettings = globalSettings.LevelSettings;
+            Map = new PokemonGo.Bot.Utils.MapSettings(globalSettings.MapSettings);
         }
 
-        public async Task DownloadItemTemplatesAsync()
+        internal void UpdateWith(DownloadItemTemplatesResponse templates)
         {
-            var response = await Client.Download.GetItemTemplates();
-            if (response.Success)
+            var itemTemplates = templates.ItemTemplates;
+            var pokemonUpgradeTemplate = itemTemplates.SingleOrDefault(t => t.PokemonUpgrades != null)?.PokemonUpgrades;
+            if (pokemonUpgradeTemplate != null)
             {
-                var itemTemplates = response.ItemTemplates;
-                var pokemonUpgradeTemplate = response.ItemTemplates.SingleOrDefault(t => t.PokemonUpgrades != null)?.PokemonUpgrades;
-                if (pokemonUpgradeTemplate != null)
-                {
-                    PokemonUpgrade = new PokemonUpgradeSettings(pokemonUpgradeTemplate);
-                }
+                PokemonUpgrade = new PokemonUpgradeSettings(pokemonUpgradeTemplate);
             }
         }
 

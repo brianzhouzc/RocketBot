@@ -6,7 +6,7 @@ namespace PokemonGo.Bot.ViewModels
 {
     public class PokemonDataViewModel : PokemonViewModel
     {
-        private int combatPoints;
+        int combatPoints;
 
         public int CombatPoints
         {
@@ -14,7 +14,7 @@ namespace PokemonGo.Bot.ViewModels
             set { if (CombatPoints != value) { combatPoints = value; RaisePropertyChanged(); } }
         }
 
-        private bool isFavorite;
+        bool isFavorite;
 
         public bool IsFavorite
         {
@@ -30,7 +30,7 @@ namespace PokemonGo.Bot.ViewModels
         public string Move1 { get; }
         public string Move2 { get; }
 
-        private string nickname;
+        string nickname;
 
         public string Nickname
         {
@@ -41,7 +41,7 @@ namespace PokemonGo.Bot.ViewModels
         public float HeightInMeters { get; }
         public float WeightInKilograms { get; }
 
-        private int stamina;
+        int stamina;
 
         public int Stamina
         {
@@ -49,7 +49,7 @@ namespace PokemonGo.Bot.ViewModels
             set { if (Stamina != value) { stamina = value; RaisePropertyChanged(); } }
         }
 
-        private int staminaMax;
+        int staminaMax;
 
         public int StaminaMax
         {
@@ -71,6 +71,17 @@ namespace PokemonGo.Bot.ViewModels
             WeightInKilograms = pokemon.WeightKg;
             Stamina = pokemon.Stamina;
             StaminaMax = pokemon.StaminaMax;
+        }
+
+        public void UpdateWith(PokemonDataViewModel other)
+        {
+            if (!Equals(other))
+                throw new ArgumentException($"Expected a {Name} with Id {Id} but got a {other?.Name} with Id {other?.Id}", nameof(other));
+
+            CombatPoints = other.CombatPoints;
+            IsFavorite = other.IsFavorite;
+            Nickname = other.Nickname;
+            Stamina = other.Stamina;
         }
     }
 }

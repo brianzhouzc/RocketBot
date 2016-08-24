@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using POGOProtos.Data;
 using POGOProtos.Enums;
 using PokemonGo.Bot.Messages;
 using PokemonGo.Bot.Utils;
@@ -16,10 +17,6 @@ namespace PokemonGo.Bot.ViewModels
     public class PlayerViewModel : ViewModelBase
     {
         readonly MapViewModel map;
-        readonly Client client;
-
-        public AsyncRelayCommand Login { get; }
-        public AsyncRelayCommand LoadProfile { get; }
 
         public InventoryViewModel Inventory { get; }
 
@@ -87,12 +84,27 @@ namespace PokemonGo.Bot.ViewModels
             set { if (Team != value) { team = value; RaisePropertyChanged(); } }
         }
 
+        float kmWalked;
+        public float KmWalked
+        {
+            get { return kmWalked; }
+            set { if (KmWalked != value) { kmWalked = value; RaisePropertyChanged(); } }
+        }
+
         Position3DViewModel position;
 
         public Position3DViewModel Position
         {
             get { return position; }
-            set { if (Position != value) { position = value; RaisePropertyChanged(); } }
+            set
+            {
+                if (Position != value)
+                {
+                    position = value;
+                    session.SetPosition(position);
+                    RaisePropertyChanged();
+                }
+            }
         }
 
         bool isLoggedIn;
@@ -122,9 +134,10 @@ namespace PokemonGo.Bot.ViewModels
 
         Random random = new Random(DateTime.Now.Millisecond);
         readonly Settings settings;
+        readonly SessionViewModel session;
 
         double GetRandomTravelSpeed() => random.NextDouble() * (maxSpeedInmetersPerMillisecond - minSpeedInmetersPerMillisecond) + minSpeedInmetersPerMillisecond;
-        private async Task MoveToAsync(Position3DViewModel newPosition)
+        async Task MoveToAsync(Position3DViewModel newPosition)
         {
             var waitTime = Position.DistanceTo(newPosition) / GetRandomTravelSpeed();
             var startTime = DateTime.Now;
@@ -138,53 +151,39 @@ namespace PokemonGo.Bot.ViewModels
                 var msTraveled = (now - startTime).TotalMilliseconds;
                 var currentPosition = startPosition + (targetVector * (msTraveled / waitTime));
                 Position = currentPosition;
-                await Task.WhenAll(map.SetPosition.ExecuteAsync(position), Task.Delay(100));
+                await Task.Delay(100);
 
                 now = DateTime.Now;
             }
             Position = newPosition;
         }
 
-        public PlayerViewModel(Client client, InventoryViewModel inventory, MapViewModel map, Settings settings)
+        public PlayerViewModel(InventoryViewModel inventory, MapViewModel map, Settings settings, SessionViewModel session)
         {
-            this.client = client;
             this.map = map;
             this.settings = settings;
+            this.session = session;
             Inventory = inventory;
             minSpeedInmetersPerMillisecond = settings.MinTravelSpeedInKmH / 3600.0;
             maxSpeedInmetersPerMillisecond = settings.MaxTravelSpeedInKmH / 3600.0;
 
-            Position = new Position3DViewModel(client.CurrentLatitude, client.CurrentLongitude, client.CurrentAltitude);
-            LoadProfile = new AsyncRelayCommand(async () =>
-            {
-                var profile = (await client.Player.GetPlayer()).PlayerData;
-                Username = profile.Username;
-                Team = Enum.GetName(typeof(TeamColor), profile.Team);
-                Stardust = profile.Currencies.Where(c => c.Name == "STARDUST").Sum(c => c.Amount);
-                Pokecoins = profile.Currencies.Where(c => c.Name == "POKECOIN").Sum(c => c.Amount);
-            });
+            Position = new Position3DViewModel(settings.DefaultLatitude, settings.DefaultLongitude, settings.DefaultAltitude);
 
-            Login = new AsyncRelayCommand(async () =>
-            {
-                // We do not use Task.WhenAll here because this is the order in which the android app executes these requests.
-                MessengerInstance.Send<Message>(new Message("Login"));
-                await client.Login.DoLogin();
-                MessengerInstance.Send<Message>(new Message("LoadProfile"));
-                await LoadProfile.ExecuteAsync();
-                MessengerInstance.Send<Message>(new Message("GetMapObjects"));
-                await map.GetMapObjects.ExecuteAsync();
-                MessengerInstance.Send<Message>(new Message("LoadInventory"));
-                await Inventory.Load.ExecuteAsync();
-                await settings.DownloadSettingsAsync();
-                await settings.DownloadItemTemplatesAsync();
-                IsLoggedIn = true;
-            });
+
             Move = new AsyncRelayCommand<Position2DViewModel>(MoveToAsync);
 
             var xpTimer = new DispatcherTimer();
             xpTimer.Tick += XpTimer_Tick;
             xpTimer.Interval = TimeSpan.FromSeconds(10);
             xpTimer.Start();
+        }
+
+        internal void UpdateWith(PlayerData profile)
+        {
+            Username = profile.Username;
+            Team = Enum.GetName(typeof(TeamColor), profile.Team);
+            Stardust = profile.Currencies.Where(c => c.Name == "STARDUST").Sum(c => c.Amount);
+            Pokecoins = profile.Currencies.Where(c => c.Name == "POKECOIN").Sum(c => c.Amount);
         }
 
         private void XpTimer_Tick(object sender, EventArgs e)

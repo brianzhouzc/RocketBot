@@ -7,6 +7,8 @@ namespace PokemonGo.Bot.ViewModels
     {
         public double Latitude { get; }
         public double Longitude { get; }
+        const int R = 6371000;
+        const double PiBy180 = Math.PI / 180;
 
         public Position2DViewModel(double lat, double lon)
         {
@@ -16,16 +18,16 @@ namespace PokemonGo.Bot.ViewModels
 
         public double DistanceTo(Position2DViewModel other)
         {
-            var R = 6371e3;
-            Func<double, float> toRad = x => (float)(x * (Math.PI / 180));
-            var lat1 = toRad(Latitude);
-            var lat2 = toRad(other.Latitude);
-            var dLat = toRad(other.Latitude - Latitude);
-            var dLng = toRad(other.Longitude - Longitude);
+            var lat1 = ToRadians(Latitude);
+            var lat2 = ToRadians(other.Latitude);
+            var dLat = ToRadians(other.Latitude - Latitude);
+            var dLng = ToRadians(other.Longitude - Longitude);
             var h = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) + Math.Cos(lat1) * Math.Cos(lat2) * Math.Sin(dLng / 2) * Math.Sin(dLng / 2);
             var c = 2 * Math.Atan2(Math.Sqrt(h), Math.Sqrt(1 - h));
             return R * c;
         }
+
+        protected static double ToRadians(double degrees) => degrees * PiBy180;
 
         public Position3DViewModel To3D(double alt)
             => new Position3DViewModel(Latitude, Longitude, alt);

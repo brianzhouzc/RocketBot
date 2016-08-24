@@ -3,13 +3,14 @@ using GalaSoft.MvvmLight.Command;
 using POGOProtos.Inventory;
 using POGOProtos.Networking.Responses;
 using PokemonGo.Bot.Messages;
+using PokemonGo.Bot.MVVMLightUtils;
 using PokemonGo.RocketAPI;
 using System;
 using System.Windows.Media;
 
 namespace PokemonGo.Bot.ViewModels
 {
-    public class EggIncubatorViewModel : ViewModelBase
+    public class EggIncubatorViewModel : ViewModelBase, IUpdateable<EggIncubatorViewModel>
     {
         public string Id { get; }
         public bool IsUnlimited { get; }
@@ -56,7 +57,7 @@ namespace PokemonGo.Bot.ViewModels
 
         public AsyncRelayCommand<EggViewModel> PutEggIntoIncubator { get; }
 
-        public EggIncubatorViewModel(EggIncubator incubator, Client client)
+        public EggIncubatorViewModel(EggIncubator incubator, SessionViewModel session)
         {
             Id = incubator.Id;
             IsUnlimited = incubator.ItemId == POGOProtos.Inventory.Item.ItemId.ItemIncubatorBasicUnlimited;
@@ -67,7 +68,7 @@ namespace PokemonGo.Bot.ViewModels
 
             PutEggIntoIncubator = new AsyncRelayCommand<EggViewModel>(async egg =>
             {
-                var response = await client.Inventory.UseItemEggIncubator(Id, egg.Id);
+                var response = await session.UseItemEggIncubator(Id, egg.Id);
                 if (response.Result == UseItemEggIncubatorResponse.Types.Result.Success)
                 {
                     egg.IncubatorId = Id;
@@ -79,6 +80,24 @@ namespace PokemonGo.Bot.ViewModels
                 }
             },
             _ => !IsInUse);
+        }
+
+        public override int GetHashCode() => Id.GetHashCode();
+        public override bool Equals(object obj) => Equals(obj as EggIncubatorViewModel);
+        public bool Equals(EggIncubatorViewModel other) => Id == other?.Id;
+
+        public override string ToString()
+            => $"{Id} - {(IsInUse ? "In use" : "Not in use")} - {(IsUnlimited ? "Unlimited" : $"{UsesRemaining} uses remaining.")}";
+
+        public void UpdateWith(EggIncubatorViewModel other)
+        {
+            if (!Equals(other))
+                throw new ArgumentException($"Expected an Incubator with Id {Id} but got {other?.Id}");
+
+            PokemonId = other.PokemonId;
+            StartKmWalked = other.StartKmWalked;
+            TargetKmWalked = other.TargetKmWalked;
+            UsesRemaining = other.UsesRemaining;
         }
     }
 }

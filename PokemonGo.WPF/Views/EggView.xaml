@@ -32,7 +32,7 @@
             </Image.Source>
         </Image>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <TextBlock Text="{Binding KmWalked}"/>
+            <TextBlock Text="{Binding KmWalked, StringFormat=N2}"/>
             <TextBlock Text=" / "/>
             <TextBlock Text="{Binding KmTarget}"/>
         </StackPanel>
