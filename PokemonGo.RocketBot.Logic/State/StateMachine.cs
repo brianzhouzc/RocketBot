@@ -19,6 +19,7 @@ namespace PokemonGo.RocketBot.Logic.State
         public Task AsyncStart(IState initialState, Session session,
             CancellationToken cancellationToken = default(CancellationToken))
         {
+            Logger.Write("started 3");
             return Task.Run(() => Start(initialState, session, cancellationToken), cancellationToken);
         }
 
@@ -30,6 +31,7 @@ namespace PokemonGo.RocketBot.Logic.State
         public async Task Start(IState initialState, Session session,
             CancellationToken cancellationToken = default(CancellationToken))
         {
+            Logger.Write("started 2");
             var state = initialState;
             var profilePath = Path.Combine(Directory.GetCurrentDirectory(), "");
             var profileConfigPath = Path.Combine(profilePath, "config");
