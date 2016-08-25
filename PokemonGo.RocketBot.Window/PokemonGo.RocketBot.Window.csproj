@@ -202,6 +202,7 @@
     <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="Helpers\S2GMapDrawer.cs" />
     <Compile Include="Helpers\TimeHelper.cs" />
+    <Compile Include="Helpers\VersionHelper.cs" />
     <Compile Include="Models\GMapMarkerPokestops.cs" />
     <Compile Include="Models\GMapMarkerTrainer.cs" />
     <Compile Include="Models\LoggingStrings.cs" />

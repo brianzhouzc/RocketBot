@@ -72,7 +72,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Text = @"RocketBot v" + Assembly.GetExecutingAssembly().GetName().Version;
+            Text = @"RocketBot v" + Application.ProductVersion;
 
             //User activity tracking, help us get more information to make RocketBot better
             //Everything is anonymous
