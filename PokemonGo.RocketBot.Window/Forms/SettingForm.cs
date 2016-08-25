@@ -294,14 +294,14 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         protected override void OnLoad(EventArgs e)
         {
-            var btn = new Button { Size = new Size(25, GoogleApiBox.ClientSize.Height + 2) };
+            var btn = new Button {Size = new Size(25, GoogleApiBox.ClientSize.Height + 2)};
             btn.Location = new Point(GoogleApiBox.ClientSize.Width - btn.Width, -1);
             btn.Cursor = Cursors.Default;
             btn.Image = ResourceHelper.GetImage("question");
             btn.Click += googleapihep_click;
             GoogleApiBox.Controls.Add(btn);
             // Send EM_SETMARGINS to prevent text from disappearing underneath the button
-            SendMessage(GoogleApiBox.Handle, 0xd3, (IntPtr)2, (IntPtr)(btn.Width << 16));
+            SendMessage(GoogleApiBox.Handle, 0xd3, (IntPtr) 2, (IntPtr) (btn.Width << 16));
             base.OnLoad(e);
         }
 
@@ -348,7 +348,7 @@ namespace PokemonGo.RocketBot.Window.Forms
         /// </summary>
         private List<string> GetLanguageList()
         {
-            var languages = new List<string> { "en" };
+            var languages = new List<string> {"en"};
             var langFiles = Directory.GetFiles(LanguagePath, "*.json", SearchOption.TopDirectoryOnly);
             languages.AddRange(langFiles.Select(
                 langFileName => Path.GetFileNameWithoutExtension(langFileName)?.Replace("translation.", ""))
@@ -365,7 +365,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             tbLatitude.Text = gMapCtrl.Position.Lat.ToString(CultureInfo.InvariantCulture);
             tbLongitude.Text = gMapCtrl.Position.Lng.ToString(CultureInfo.InvariantCulture);
             //update trackbar
-            trackBar.Value = (int)Math.Round(gMapCtrl.Zoom);
+            trackBar.Value = (int) Math.Round(gMapCtrl.Zoom);
         }
 
         /// <summary>
@@ -710,7 +710,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private void AdressBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar != (char)Keys.Enter)
+            if (e.KeyChar != (char) Keys.Enter)
             {
                 return;
             }

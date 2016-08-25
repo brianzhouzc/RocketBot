@@ -13,7 +13,7 @@ namespace PokemonGo.RocketBot.Window.Helpers
 
             foreach (var o in moc)
             {
-                var mo = (ManagementObject)o;
+                var mo = (ManagementObject) o;
                 cpuInfo = mo.Properties["processorID"].Value.ToString();
                 break;
             }
