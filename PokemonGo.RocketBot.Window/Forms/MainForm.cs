@@ -874,7 +874,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 var appliedItems =
                     inventoryAppliedItems.Where(aItems => aItems?.Item != null)
                         .SelectMany(aItems => aItems.Item)
-                        .ToDictionary(item => item.ItemId, item => TimeHelper.FromUnixTimeUtc(item.ExpireMs));
+                        .ToDictionary(item => item.ItemId, item => Utils.FromUnixTimeUtc(item.ExpireMs));
 
                 PokemonObject.Initilize(itemTemplates);
 
