@@ -4,29 +4,57 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:PokemonGo.WPF.Views"
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:behaviors="clr-namespace:PokemonGo.WPF.Behaviors"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="630" Width="630">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="pokemon" Source="{Binding Pokemon}" behaviors:CollectionViewSourceBehavior.SortProperty="{Binding ElementName=pokemonSort, Path=SelectedItem}"/>
+    </UserControl.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="330"/>
             <ColumnDefinition Width="80"/>
             <ColumnDefinition Width="220"/>
         </Grid.ColumnDefinitions>
-        <ListView ItemsSource="{Binding Pokemon}" >
+        <ComboBox x:Name="pokemonSort">
+            <system:String>PokemonId</system:String>
+            <system:String>Name</system:String>
+            <system:String>Nickname</system:String>
+            <system:String>IsFavorite</system:String>
+            <system:String>CombatPoints</system:String>
+            <system:String>PerfectPercentage</system:String>
+            <system:String>IndividualAttack</system:String>
+            <system:String>IndividualDefense</system:String>
+            <system:String>IndividualStamina</system:String>
+            <system:String>Stamina</system:String>
+            <system:String>StaminaMax</system:String>
+            <system:String>Candy</system:String>
+            <system:String>Move1</system:String>
+            <system:String>Move2</system:String>
+            <system:String>HeightInMeters</system:String>
+            <system:String>WeightInKilograms</system:String>
+        </ComboBox>
+        <ListView ItemsSource="{Binding Source={StaticResource pokemon}}" Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <local:CaughtPokemonView />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView ItemsSource="{Binding Eggs}" Grid.Column="1">
+        <ListView ItemsSource="{Binding Eggs}" Grid.Column="1" Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <local:EggView />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView ItemsSource="{Binding Items}" Grid.Column="2">
+        <ListView ItemsSource="{Binding Items}" Grid.Column="2" Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <local:ItemView />

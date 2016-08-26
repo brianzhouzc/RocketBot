@@ -80,6 +80,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\CollectionViewSourceBehavior.cs" />
     <Compile Include="Behaviors\ListBoxBehavior.cs" />
     <Compile Include="Converters\EventArgsToPositionConverter.cs" />
     <Compile Include="Converters\EggToImagePathConverter.cs" />
