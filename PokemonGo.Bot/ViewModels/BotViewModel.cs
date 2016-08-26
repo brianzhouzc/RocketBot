@@ -34,7 +34,32 @@ namespace PokemonGo.Bot.ViewModels
 
         public ObservableCollection<BotAction> UpcomingActions { get; } = new ObservableCollection<BotAction>();
         readonly ActionFactory actionFactory;
-        public RelayCommand<BotActionType> AddAction { get; }
+        #region AddAction
+
+        RelayCommand<BotActionType> addAction;
+
+        public RelayCommand<BotActionType> AddAction
+        {
+            get
+            {
+                if (addAction == null)
+                    addAction = new RelayCommand<BotActionType>(ExecuteAddAction, CanExecuteAddAction);
+
+                return addAction;
+            }
+        }
+
+        void ExecuteAddAction(BotActionType param)
+        {
+            UpcomingActions.Add(actionFactory.Get(param));
+            Start.RaiseCanExecuteChanged();
+            Stop.RaiseCanExecuteChanged();
+        }
+
+        bool CanExecuteAddAction(BotActionType param) => true;
+
+        #endregion AddAction
+
 
         public MapViewModel Map { get; }
 
@@ -45,12 +70,6 @@ namespace PokemonGo.Bot.ViewModels
             Stop = new RelayCommand(StopCurrentAction, IsExecutingAction);
             Player = player;
             actionFactory = new ActionFactory(this);
-            AddAction = new RelayCommand<BotActionType>(param =>
-            {
-                UpcomingActions.Add(actionFactory.Get(param));
-                Start.RaiseCanExecuteChanged();
-                Stop.RaiseCanExecuteChanged();
-            });
         }
 
         public RelayCommand Stop { get; }

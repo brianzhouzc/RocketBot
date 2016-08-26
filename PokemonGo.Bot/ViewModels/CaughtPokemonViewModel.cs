@@ -16,13 +16,131 @@ namespace PokemonGo.Bot.ViewModels
     public class CaughtPokemonViewModel : PokemonDataViewModel, IUpdateable<CaughtPokemonViewModel>
     {
         readonly SessionViewModel session;
+        readonly InventoryViewModel inventory;
 
-        public AsyncRelayCommand Transfer { get; }
-        public AsyncRelayCommand ToggleFavorite { get; }
-        public AsyncRelayCommand Evolve { get; }
-        public AsyncRelayCommand Upgrade { get; }
+        #region Transfer
+
+        AsyncRelayCommand transfer;
+
+        public AsyncRelayCommand Transfer
+        {
+            get
+            {
+                if (transfer == null)
+                    transfer = new AsyncRelayCommand(ExecuteTransfer, CanExecuteTransfer);
+
+                return transfer;
+            }
+        }
+
+        async Task ExecuteTransfer()
+        {
+            var response = await session.TransferPokemon(Id);
+            if (response.Result == ReleasePokemonResponse.Types.Result.Success)
+            {
+                inventory.Pokemon.Remove(this);
+                inventory.AddCandyForFamily(response.CandyAwarded, FamilyId);
+                MessengerInstance.Send(new Message(Colors.Green, $"Transferred {Name} ({CombatPoints} CP, {PerfectPercentage:P2} IV). Got {response.CandyAwarded} Candy."));
+            }
+            else
+            {
+                MessengerInstance.Send(new Message(Colors.Red, $"Error transferring {Name}: {Enum.GetName(typeof(ReleasePokemonResponse.Types.Result), response.Result)}"));
+            }
+        }
+
+        bool CanExecuteTransfer() => true;
+
+        #endregion Transfer
+
+        #region ToggleFavorite
+
+        AsyncRelayCommand toggleFavorite;
+
+        public AsyncRelayCommand ToggleFavorite
+        {
+            get
+            {
+                if (toggleFavorite == null)
+                    toggleFavorite = new AsyncRelayCommand(ExecuteToggleFavorite, CanExecuteToggleFavorite);
+
+                return toggleFavorite;
+            }
+        }
+
+        async Task ExecuteToggleFavorite()
+        {
+            var targetValue = !IsFavorite;
+            var response = await session.SetFavoritePokemon(Id, targetValue);
+            if (response.Result == SetFavoritePokemonResponse.Types.Result.Success)
+                IsFavorite = targetValue;
+        }
+
+        bool CanExecuteToggleFavorite() => true;
+
+        #endregion ToggleFavorite
+
+        #region Evolve
+
+        AsyncRelayCommand evolve;
+
+        public AsyncRelayCommand Evolve
+        {
+            get
+            {
+                if (evolve == null)
+                    evolve = new AsyncRelayCommand(ExecuteEvolve, CanExecuteEvolve);
+
+                return evolve;
+            }
+        }
+
+        async Task ExecuteEvolve()
+        {
+            var response = await session.EvolvePokemon(Id);
+            if (response.Result == EvolvePokemonResponse.Types.Result.Success)
+            {
+                inventory.AddCandyForFamily(Candy, FamilyId);
+                inventory.Player.Xp += response.ExperienceAwarded;
+                CombatPoints = response.EvolvedPokemonData.Cp;
+                PokemonId = (int)response.EvolvedPokemonData.PokemonId;
+            }
+        }
+
+        bool CanExecuteEvolve() => FindFamily(PokemonId + 1) == FamilyId;
+
+        #endregion Evolve
+
+        #region Upgrade
+
+        AsyncRelayCommand upgrade;
+
+        public AsyncRelayCommand Upgrade
+        {
+            get
+            {
+                if (upgrade == null)
+                    upgrade = new AsyncRelayCommand(ExecuteUpgrade, CanExecuteUpgrade);
+
+                return upgrade;
+            }
+        }
+
+        async Task ExecuteUpgrade()
+        {
+            var response = await session.UpgradePokemon(Id);
+            if (response.Result == UpgradePokemonResponse.Types.Result.Success)
+            {
+                CombatPoints = response.UpgradedPokemon.Cp;
+            }
+        }
+
+        bool CanExecuteUpgrade() => true;
+
+        #endregion Upgrade
+
 
         int candy;
+
         public int Candy
         {
             get { return candy; }
@@ -35,49 +153,9 @@ namespace PokemonGo.Bot.ViewModels
                 throw new ArgumentException("This is not a caught pokemon.", nameof(pokemon));
 
             this.session = session;
+            this.inventory = inventory;
 
             Candy = inventory.GetCandyForFamily(FamilyId);
-
-            Transfer = new AsyncRelayCommand(async () =>
-            {
-                var response = await session.TransferPokemon(Id);
-                if(response.Result == ReleasePokemonResponse.Types.Result.Success)
-                {
-                    inventory.Pokemon.Remove(this);
-                    inventory.AddCandyForFamily(response.CandyAwarded, FamilyId);
-                    MessengerInstance.Send(new Message(Colors.Green, $"Transferred {Name} ({CombatPoints} CP, {PerfectPercentage:P2} IV). Got {response.CandyAwarded} Candy."));
-                }
-                else
-                {
-                    MessengerInstance.Send(new Message(Colors.Red, $"Error transferring {Name}: {Enum.GetName(typeof(ReleasePokemonResponse.Types.Result), response.Result)}"));
-                }
-            });
-            ToggleFavorite = new AsyncRelayCommand(async () =>
-            {
-                var targetValue = !IsFavorite;
-                var response = await session.SetFavoritePokemon(Id, targetValue);
-                if (response.Result == SetFavoritePokemonResponse.Types.Result.Success)
-                    IsFavorite = targetValue;
-            });
-            Evolve = new AsyncRelayCommand(async () =>
-            {
-                var response = await session.EvolvePokemon(Id);
-                if(response.Result == EvolvePokemonResponse.Types.Result.Success)
-                {
-                    inventory.AddCandyForFamily(Candy, FamilyId);
-                    inventory.Player.Xp += response.ExperienceAwarded;
-                    CombatPoints = response.EvolvedPokemonData.Cp;
-                    PokemonId = (int)response.EvolvedPokemonData.PokemonId;
-                }
-            });
-            Upgrade = new AsyncRelayCommand(async () =>
-            {
-                var response = await session.UpgradePokemon(Id);
-                if(response.Result == UpgradePokemonResponse.Types.Result.Success)
-                {
-                    CombatPoints = response.UpgradedPokemon.Cp;
-                }
-            });
         }
 
         public void UpdateWith(CaughtPokemonViewModel other)

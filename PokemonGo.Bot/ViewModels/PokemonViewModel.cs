@@ -12,11 +12,15 @@ namespace PokemonGo.Bot.ViewModels
         {
             Id = id;
             PokemonId = (int)pokemonId;
+            FamilyId = FindFamily(PokemonId);
+        }
 
-            var familyId = PokemonId;
+        public static int FindFamily(int pokemonId)
+        {
+            var familyId = pokemonId;
             while (familyId > 0 && !Enum.IsDefined(typeof(PokemonFamilyId), familyId))
                 familyId--;
-            FamilyId = familyId;
+            return familyId;
         }
 
         int pokemonId;

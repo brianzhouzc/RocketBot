@@ -6,12 +6,14 @@ using PokemonGo.Bot.Messages;
 using PokemonGo.Bot.MVVMLightUtils;
 using PokemonGo.RocketAPI;
 using System;
+using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace PokemonGo.Bot.ViewModels
 {
     public class EggIncubatorViewModel : ViewModelBase, IUpdateable<EggIncubatorViewModel>
     {
+        readonly SessionViewModel session;
         public string Id { get; }
         public bool IsUnlimited { get; }
         ulong pokemonId;
@@ -55,31 +57,48 @@ namespace PokemonGo.Bot.ViewModels
             set { if (UsesRemaining != value) { usesRemaining = value; RaisePropertyChanged(); } }
         }
 
-        public AsyncRelayCommand<EggViewModel> PutEggIntoIncubator { get; }
+        #region PutEggIntoIncubator
+
+        AsyncRelayCommand<EggViewModel> putEggIntoIncubator;
+
+        public AsyncRelayCommand<EggViewModel> PutEggIntoIncubator
+        {
+            get
+            {
+                if (putEggIntoIncubator == null)
+                    putEggIntoIncubator = new AsyncRelayCommand<EggViewModel>(ExecutePutEggIntoIncubator, CanExecutePutEggIntoIncubator);
+
+                return putEggIntoIncubator;
+            }
+        }
+
+        async Task ExecutePutEggIntoIncubator(EggViewModel param)
+        {
+            var response = await session.UseItemEggIncubator(Id, param.Id);
+            if (response.Result == UseItemEggIncubatorResponse.Types.Result.Success)
+            {
+                param.IncubatorId = Id;
+                PokemonId = param.Id;
+            }
+            else
+            {
+                MessengerInstance.Send(new Message(Colors.Red, $"Failed to put Egg into Incubator. Response was {Enum.GetName(typeof(UseItemEggIncubatorResponse.Types.Result), response.Result)}."));
+            }
+        }
+
+        bool CanExecutePutEggIntoIncubator(EggViewModel param) => !IsInUse;
+
+        #endregion PutEggIntoIncubator
 
         public EggIncubatorViewModel(EggIncubator incubator, SessionViewModel session)
         {
+            this.session = session;
             Id = incubator.Id;
             IsUnlimited = incubator.ItemId == POGOProtos.Inventory.Item.ItemId.ItemIncubatorBasicUnlimited;
             PokemonId = incubator.PokemonId;
             StartKmWalked = incubator.StartKmWalked;
             TargetKmWalked = incubator.TargetKmWalked;
             UsesRemaining = incubator.UsesRemaining;
-
-            PutEggIntoIncubator = new AsyncRelayCommand<EggViewModel>(async egg =>
-            {
-                var response = await session.UseItemEggIncubator(Id, egg.Id);
-                if (response.Result == UseItemEggIncubatorResponse.Types.Result.Success)
-                {
-                    egg.IncubatorId = Id;
-                    PokemonId = egg.Id;
-                }
-                else
-                {
-                    MessengerInstance.Send(new Message(Colors.Red, $"Failed to put Egg into Incubator. Response was {Enum.GetName(typeof(UseItemEggIncubatorResponse.Types.Result), response.Result)}."));
-                }
-            },
-            _ => !IsInUse);
         }
 
         public override int GetHashCode() => Id.GetHashCode();

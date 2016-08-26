@@ -17,7 +17,10 @@ namespace PokemonGo.Bot.ViewModels
 {
     public class SessionViewModel : ViewModelBase
     {
-        public AsyncRelayCommand Login { get; }
+        readonly MainViewModel main;
+        Session session;
+        PtcLoginProvider loginProvider;
+
         bool isLoggedIn;
 
         public bool IsLoggedIn
@@ -33,38 +36,54 @@ namespace PokemonGo.Bot.ViewModels
                 }
             }
         }
+        #region Login
 
-        readonly MainViewModel main;
-        Session session;
-        PtcLoginProvider loginProvider;
+        AsyncRelayCommand login;
+
+        public AsyncRelayCommand Login
+        {
+            get
+            {
+                if (login == null)
+                    login = new AsyncRelayCommand(ExecuteLogin, CanExecuteLogin);
+
+                return login;
+            }
+        }
+
+        async Task ExecuteLogin()
+        {
+            MessengerInstance.Send(new Message("Logging in"));
+
+            if (main.Settings.AuthType == AuthType.Google)
+                MessengerInstance.Send(new Message(Colors.Red, "Google Login is not supported at the moment."));
+            else
+            {
+                loginProvider = new PtcLoginProvider(main.Settings.Username, main.Settings.Password);
+                session = await POGOLib.Net.Authentication.Login.GetSession(loginProvider, main.Player.Position.Latitude, main.Player.Position.Longitude);
+                session.Map.Update += Map_Update;
+                session.Player.Inventory.Update += Inventory_Update;
+                IsLoggedIn = await session.Startup();
+                main.Settings.UpdateWith(session.GlobalSettings);
+                var templates = await DownloadItemTemplates();
+                main.Settings.UpdateWith(templates);
+                main.Player.UpdateWith(session.Player.Data);
+            }
+
+            if (IsLoggedIn)
+                MessengerInstance.Send(new Message(Colors.Green, "Login successfull."));
+            else
+                MessengerInstance.Send(new Message(Colors.Red, "Login unsuccessfull."));
+        }
+
+        bool CanExecuteLogin() => !IsLoggedIn;
+
+        #endregion Login
+
+
         public SessionViewModel(MainViewModel main)
         {
             this.main = main;
-
-            Login = new AsyncRelayCommand(async () =>
-            {
-                MessengerInstance.Send(new Message("Logging in"));
-
-                if (main.Settings.AuthType == AuthType.Google)
-                    MessengerInstance.Send(new Message(Colors.Red, "Google Login is not supported at the moment."));
-                else
-                {
-                    loginProvider = new PtcLoginProvider(main.Settings.Username, main.Settings.Password);
-                    session = await POGOLib.Net.Authentication.Login.GetSession(loginProvider, main.Player.Position.Latitude, main.Player.Position.Longitude);
-                    session.Map.Update += Map_Update;
-                    session.Player.Inventory.Update += Inventory_Update;
-                    IsLoggedIn = await session.Startup();
-                    main.Settings.UpdateWith(session.GlobalSettings);
-                    var templates = await DownloadItemTemplates();
-                    main.Settings.UpdateWith(templates);
-                }
-
-                if (IsLoggedIn)
-                    MessengerInstance.Send(new Message(Colors.Green, "Login successfull."));
-                else
-                    MessengerInstance.Send(new Message(Colors.Red, "Login unsuccessfull."));
-            },
-            () => !IsLoggedIn);
         }
         void Inventory_Update(object sender, EventArgs e)
         {

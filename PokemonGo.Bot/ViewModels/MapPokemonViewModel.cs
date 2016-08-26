@@ -10,115 +10,153 @@ using System.Linq;
 using System.Windows.Media;
 using System;
 using POGOProtos.Map.Fort;
+using System.Threading.Tasks;
+using POGOProtos.Data;
 
 namespace PokemonGo.Bot.ViewModels
 {
     public class MapPokemonViewModel : PokemonViewModel, IUpdateable<MapPokemonViewModel>
     {
         readonly SessionViewModel session;
+        readonly Settings settings;
+        readonly PlayerViewModel player;
+        readonly MapViewModel map;
+        readonly bool isPokemonFromLure;
+        readonly FortData fort;
+
+        AsyncRelayCommand @catch;
+
+        public AsyncRelayCommand Catch
+        {
+            get
+            {
+                if (@catch == null)
+                    @catch = new AsyncRelayCommand(ExecuteCatchCommand);
+
+                return @catch;
+            }
+        }
+
+        async Task ExecuteCatchCommand()
+        {
+            var encounterPokemonResponse = await Encounter();
+
+            int pokeballCount;
+            CatchPokemonResponse caughtPokemonResponse = null;
+            do
+            {
+                // returns an exception at the moment.
+                //if (settings.UseRazzBerryWhenPokemonIsAboveCP <= pokemonCP ||
+                //    settings.UseRazzBerryWhenCatchProbabilityIsBelow <= encounterPokemonResponse.CaptureProbability.CaptureProbability_.First())
+                //    await session.UseCaptureItem(pokemon.EncounterId, POGOProtos.Inventory.Item.ItemId.ItemRazzBerry, pokemon.SpawnPointId);
+
+                // TODO calculate pokeball based on encountered pokemon
+                var pokeballs = player.Inventory.Items.FirstOrDefault(i => i.ItemType == Enums.ItemType.ItemPokeBall);
+                pokeballCount = pokeballs.Count;
+                if (pokeballCount > 0)
+                {
+                    caughtPokemonResponse = await session.CatchPokemon(EncounterId, SpawnPointId, POGOProtos.Inventory.Item.ItemId.ItemPokeBall);
+                    pokeballs.Count--;
+                }
+                else
+                {
+                    MessengerInstance.Send(new Message(Colors.Yellow, "No pokeballs left."));
+                }
+            } while (pokeballCount > 0 && (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed || caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchEscape));
+
+            if (caughtPokemonResponse != null)
+            {
+                if (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchSuccess)
+                {
+                    encounterPokemonResponse.PokemonData.Id = caughtPokemonResponse.CapturedPokemonId;
+                    var caughtPokemon = new CaughtPokemonViewModel(encounterPokemonResponse.PokemonData, session, player.Inventory);
+                    var xp = caughtPokemonResponse.CaptureAward.Xp.Sum();
+                    player.Xp += xp;
+                    var stardust = caughtPokemonResponse.CaptureAward.Stardust.Sum();
+                    player.Stardust += stardust;
+                    var candy = caughtPokemonResponse.CaptureAward.Candy.Sum();
+                    player.Inventory.AddCandyForFamily(candy, caughtPokemon.FamilyId);
+                    MessengerInstance.Send(new Message(Colors.Green, $"Caught a {encounterPokemonResponse.Pokemon.Name}. {xp} Xp - {candy} Candy - {stardust} Stardust."));
+                    player.Inventory.Pokemon.AddOrUpdate(caughtPokemon);
+                    map.CatchablePokemon.Remove(this);
+                }
+                else if (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchFlee)
+                {
+                    MessengerInstance.Send(new Message(Colors.Red, $"Failed to catch a {encounterPokemonResponse.Pokemon.Name}, because it fled."));
+                }
+            }
+        }
+
+        async Task<EncounterResponse> Encounter()
+        {
+            WildPokemonViewModel pokemonEncounter = null;
+            PokemonData pokemonData = null;
+            if (!isPokemonFromLure)
+            {
+                var encounterPokemonResponse = await session.EncounterPokemon(EncounterId, SpawnPointId);
+                if (encounterPokemonResponse.Status == POGOProtos.Networking.Responses.EncounterResponse.Types.Status.EncounterSuccess)
+                {
+                    pokemonEncounter = new WildPokemonViewModel(encounterPokemonResponse.WildPokemon);
+                    pokemonData = encounterPokemonResponse.WildPokemon.PokemonData;
+                }
+            }
+            else
+            {
+                var encounterPokemonResponse = await session.EncounterDiskPokemon(EncounterId, SpawnPointId);
+                if (encounterPokemonResponse.Result == DiskEncounterResponse.Types.Result.Success)
+                {
+                    pokemonEncounter = new WildPokemonViewModel(encounterPokemonResponse.PokemonData, fort);
+                    pokemonData = encounterPokemonResponse.PokemonData;
+                }
+            }
+
+            return new EncounterResponse(pokemonEncounter, pokemonData);
+        }
+
+        class EncounterResponse
+        {
+            public EncounterResponse(WildPokemonViewModel pokemon, PokemonData pokemonData)
+            {
+                IsSuccess = pokemon != null;
+                Pokemon = pokemon;
+                PokemonData = pokemonData;
+            }
+            public bool IsSuccess { get; }
+            public WildPokemonViewModel Pokemon { get; }
+            public PokemonData PokemonData { get; }
+        }
+
 
         public MapPokemonViewModel(MapPokemon pokemon, SessionViewModel session, Settings settings, PlayerViewModel player, MapViewModel map)
             : base(pokemon.PokemonId, pokemon.EncounterId)
         {
             this.session = session;
+            this.settings = settings;
+            this.player = player;
+            this.map = map;
+
             EncounterId = pokemon.EncounterId;
             ExpirationTimestampMs = pokemon.ExpirationTimestampMs;
             SpawnPointId = pokemon.SpawnPointId;
             Position = new Position2DViewModel(pokemon.Latitude, pokemon.Longitude);
-
-            Catch = new AsyncRelayCommand(async () =>
-            {
-                var encounterPokemonResponse = await session.EncounterPokemon(pokemon.EncounterId, pokemon.SpawnPointId);
-                if (encounterPokemonResponse.Status == EncounterResponse.Types.Status.EncounterSuccess)
-                {
-                    var pokemonEncounter = new WildPokemonViewModel(encounterPokemonResponse.WildPokemon);
-                    var pokemonCP = pokemonEncounter.CombatPoints;
-                    var pokemonIV = pokemonEncounter.PerfectPercentage;
-                    CatchPokemonResponse caughtPokemonResponse;
-                    do
-                    {
-                        // returns an exception at the moment.
-                        //if (settings.UseRazzBerryWhenPokemonIsAboveCP <= pokemonCP ||
-                        //    settings.UseRazzBerryWhenCatchProbabilityIsBelow <= encounterPokemonResponse.CaptureProbability.CaptureProbability_.First())
-                        //    await session.UseCaptureItem(pokemon.EncounterId, POGOProtos.Inventory.Item.ItemId.ItemRazzBerry, pokemon.SpawnPointId);
-
-                        // TODO calculate pokeball based on encountered pokemon
-                        caughtPokemonResponse = await session.CatchPokemon(pokemon.EncounterId, pokemon.SpawnPointId, POGOProtos.Inventory.Item.ItemId.ItemPokeBall);
-                    } while (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed || caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchEscape);
-
-                    if (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchSuccess)
-                    {
-                        encounterPokemonResponse.WildPokemon.PokemonData.Id = caughtPokemonResponse.CapturedPokemonId;
-                        var caughtPokemon = new CaughtPokemonViewModel(encounterPokemonResponse.WildPokemon.PokemonData, session, player.Inventory);
-                        var xp = caughtPokemonResponse.CaptureAward.Xp.Sum();
-                        player.Xp += xp;
-                        var stardust = caughtPokemonResponse.CaptureAward.Stardust.Sum();
-                        player.Stardust += stardust;
-                        var candy = caughtPokemonResponse.CaptureAward.Candy.Sum();
-                        player.Inventory.AddCandyForFamily(candy, caughtPokemon.FamilyId);
-                        MessengerInstance.Send(new Message(Colors.Green, $"Caught a {pokemonEncounter.Name}. {xp} Xp - {candy} Candy - {stardust} Stardust."));
-                        player.Inventory.Pokemon.AddOrUpdate(caughtPokemon);
-                        map.CatchablePokemon.Remove(this);
-                    }
-                    else if (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchFlee)
-                    {
-                        MessengerInstance.Send(new Message(Colors.Red, $"Failed to catch a {pokemonEncounter.Name}, because it fled."));
-                    }
-                }
-            });
         }
 
 
         public MapPokemonViewModel(FortData fort, SessionViewModel session, Settings settings, PlayerViewModel player, MapViewModel map)
             : base(fort.LureInfo.ActivePokemonId, fort.LureInfo.EncounterId)
         {
-            var lureInfo = fort.LureInfo;
             this.session = session;
+            this.settings = settings;
+            this.player = player;
+            this.map = map;
+
+            isPokemonFromLure = true;
+            this.fort = fort;
+            var lureInfo = fort.LureInfo;
             EncounterId = lureInfo.EncounterId;
             ExpirationTimestampMs = lureInfo.LureExpiresTimestampMs;
             SpawnPointId = lureInfo.FortId;
             Position = new Position2DViewModel(fort.Latitude, fort.Longitude);
-
-            Catch = new AsyncRelayCommand(async () =>
-            {
-                var encounterPokemonResponse = await session.EncounterDiskPokemon(lureInfo.EncounterId, lureInfo.FortId);
-                if (encounterPokemonResponse.Result == DiskEncounterResponse.Types.Result.Success)
-                {
-                    var pokemonEncounter = new WildPokemonViewModel(encounterPokemonResponse.PokemonData, fort);
-                    var pokemonCP = pokemonEncounter.CombatPoints;
-                    var pokemonIV = pokemonEncounter.PerfectPercentage;
-                    CatchPokemonResponse caughtPokemonResponse;
-                    do
-                    {
-                        // returns an exception at the moment.
-                        //if (settings.UseRazzBerryWhenPokemonIsAboveCP <= pokemonCP ||
-                        //    settings.UseRazzBerryWhenCatchProbabilityIsBelow <= encounterPokemonResponse.CaptureProbability.CaptureProbability_.First())
-                        //    await session.UseCaptureItem(pokemon.EncounterId, POGOProtos.Inventory.Item.ItemId.ItemRazzBerry, pokemon.SpawnPointId);
-
-                        // TODO calculate pokeball based on encountered pokemon
-                        caughtPokemonResponse = await session.CatchPokemon(lureInfo.EncounterId, lureInfo.FortId, POGOProtos.Inventory.Item.ItemId.ItemPokeBall);
-                    } while (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed || caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchEscape);
-
-                    if (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchSuccess)
-                    {
-                        encounterPokemonResponse.PokemonData.Id = caughtPokemonResponse.CapturedPokemonId;
-                        var caughtPokemon = new CaughtPokemonViewModel(encounterPokemonResponse.PokemonData, session, player.Inventory);
-                        var xp = caughtPokemonResponse.CaptureAward.Xp.Sum();
-                        player.Xp += xp;
-                        var stardust = caughtPokemonResponse.CaptureAward.Stardust.Sum();
-                        player.Stardust += stardust;
-                        var candy = caughtPokemonResponse.CaptureAward.Candy.Sum();
-                        player.Inventory.AddCandyForFamily(candy, caughtPokemon.FamilyId);
-                        MessengerInstance.Send(new Message(Colors.Green, $"Caught a {pokemonEncounter.Name}. {xp} Xp - {candy} Candy - {stardust} Stardust."));
-                        player.Inventory.Pokemon.AddOrUpdate(caughtPokemon);
-                        map.CatchablePokemon.Remove(this);
-                    }
-                    else if (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchFlee)
-                    {
-                        MessengerInstance.Send(new Message(Colors.Red, $"Failed to catch a {pokemonEncounter.Name}, because it fled."));
-                    }
-                }
-            });
         }
 
         public ulong EncounterId { get; }
@@ -126,8 +164,6 @@ namespace PokemonGo.Bot.ViewModels
 
         public Position2DViewModel Position { get; }
         public string SpawnPointId { get; }
-
-        public AsyncRelayCommand Catch { get; }
 
         public override bool Equals(object obj) => Equals(obj as MapPokemonViewModel);
 

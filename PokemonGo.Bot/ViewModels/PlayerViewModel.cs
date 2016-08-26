@@ -102,6 +102,10 @@ namespace PokemonGo.Bot.ViewModels
                 {
                     position = value;
                     session.SetPosition(position);
+                    foreach (var pokestop in map.Pokestops)
+                    {
+                        pokestop.CalculateIsNear();
+                    }
                     RaisePropertyChanged();
                 }
             }
@@ -125,10 +129,27 @@ namespace PokemonGo.Bot.ViewModels
         readonly double minSpeedInmetersPerMillisecond;
         readonly double maxSpeedInmetersPerMillisecond;
 
-        public AsyncRelayCommand<Position2DViewModel> Move { get; }
+        #region Move
 
-        Task MoveToAsync(Position2DViewModel newPosition)
-            => MoveToAsync(newPosition.To3D(Position.Altitute));
+        AsyncRelayCommand<Position2DViewModel> move;
+
+        public AsyncRelayCommand<Position2DViewModel> Move
+        {
+            get
+            {
+                if (move == null)
+                    move = new AsyncRelayCommand<Position2DViewModel>(ExecuteMove, CanExecuteMove);
+
+                return move;
+            }
+        }
+
+        Task ExecuteMove(Position2DViewModel param)
+            => MoveToAsync(param.To3D(Position.Altitute));
+
+        bool CanExecuteMove(Position2DViewModel param) => true;
+
+        #endregion Move
 
         Queue<KeyValuePair<DateTime, long>> xPValuesInLastHours = new Queue<KeyValuePair<DateTime, long>>();
 
@@ -168,9 +189,6 @@ namespace PokemonGo.Bot.ViewModels
             maxSpeedInmetersPerMillisecond = settings.MaxTravelSpeedInKmH / 3600.0;
 
             Position = new Position3DViewModel(settings.DefaultLatitude, settings.DefaultLongitude, settings.DefaultAltitude);
-
-
-            Move = new AsyncRelayCommand<Position2DViewModel>(MoveToAsync);
 
             var xpTimer = new DispatcherTimer();
             xpTimer.Tick += XpTimer_Tick;

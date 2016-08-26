@@ -3,22 +3,49 @@ using GalaSoft.MvvmLight.Command;
 using POGOProtos.Inventory.Item;
 using PokemonGo.Bot.MVVMLightUtils;
 using System;
+using System.Threading.Tasks;
 
 namespace PokemonGo.Bot.ViewModels
 {
     public class ItemViewModel : ViewModelBase, IUpdateable<ItemViewModel>
     {
+        readonly SessionViewModel session;
+
         int count;
 
         public int Count
         {
             get { return count; }
-            set { if (Count != value) { count = value; RaisePropertyChanged(); Recycle?.RaiseCanExecuteChanged(); } }
+            set { if (Count != value) { count = value; RaisePropertyChanged(); recycle?.RaiseCanExecuteChanged(); } }
         }
 
         public Enums.ItemType ItemType { get; }
 
-        public AsyncRelayCommand<int> Recycle { get; }
+        #region Recycle
+
+        AsyncRelayCommand<int> recycle;
+
+        public AsyncRelayCommand<int> Recycle
+        {
+            get
+            {
+                if (recycle == null)
+                    recycle = new AsyncRelayCommand<int>(ExecuteRecycle, CanExecuteRecycle);
+
+                return recycle;
+            }
+        }
+
+        async Task ExecuteRecycle(int param)
+        {
+            await session.RecycleInventoryItem((ItemId)ItemType, param);
+            Count -= param;
+        }
+
+        bool CanExecuteRecycle(int param) => param <= Count;
+
+        #endregion Recycle
+
 
         public ItemViewModel(ItemData item, SessionViewModel session)
             : this(item.Count, (Enums.ItemType)item.ItemId, session)
@@ -32,19 +59,9 @@ namespace PokemonGo.Bot.ViewModels
 
         ItemViewModel(int count, Enums.ItemType itemType, SessionViewModel session)
         {
+            this.session = session;
             Count = count;
             ItemType = itemType;
-
-            Recycle = new AsyncRelayCommand<int>(async i =>
-            {
-                await session.RecycleInventoryItem((ItemId)ItemType, i);
-                Count -= i;
-            },
-            i =>
-            {
-                System.Diagnostics.Debug.WriteLine($"i: {i} Count: {Count} {i <= Count}");
-                return true;
-            });
         }
 
         public override int GetHashCode() => ItemType.GetHashCode();

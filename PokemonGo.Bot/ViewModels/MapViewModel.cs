@@ -54,21 +54,21 @@ namespace PokemonGo.Bot.ViewModels
 
         internal void UpdateWith(IEnumerable<MapCell> mapCells)
         {
-            var pokestopsFromResponse = mapCells.SelectMany(m => m.Forts).Where(f => f.Type == FortType.Checkpoint).Select(f => new PokestopViewModel(f, session, Player));
+            var pokestopsFromResponse = mapCells.SelectMany(m => m.Forts).Where(f => f.Type == FortType.Checkpoint).Select(f => new PokestopViewModel(f, session, Player)).ToList();
             if (pokestopsFromResponse.Any())
                 Pokestops.UpdateWith(pokestopsFromResponse);
 
-            var gymsFromResponse = mapCells.SelectMany(m => m.Forts).Where(f => f.Type == FortType.Gym).Select(f => new GymViewModel(f, session));
+            var gymsFromResponse = mapCells.SelectMany(m => m.Forts).Where(f => f.Type == FortType.Gym).Select(f => new GymViewModel(f, session)).ToList();
             if (gymsFromResponse.Any())
                 Gyms.UpdateWith(gymsFromResponse);
 
-            var wildPokemonFromResponse = mapCells.SelectMany(m => m.WildPokemons).Select(p => new WildPokemonViewModel(p));
+            var wildPokemonFromResponse = mapCells.SelectMany(m => m.WildPokemons).Select(p => new WildPokemonViewModel(p)).ToList();
             if (wildPokemonFromResponse.Any())
                 WildPokemon.UpdateWith(wildPokemonFromResponse);
 
             var catchablePokemonFromLure = mapCells.SelectMany(m => m.Forts).Where(f => f.LureInfo != null).Select(f => new MapPokemonViewModel(f, session, settings, player, this));
             var catchablePokemonFromResponse = mapCells.SelectMany(m => m.CatchablePokemons).Select(p => new MapPokemonViewModel(p, session, settings, Player, this));
-            var catchablePokemon = catchablePokemonFromLure.Concat(catchablePokemonFromResponse);
+            var catchablePokemon = catchablePokemonFromLure.Concat(catchablePokemonFromResponse).ToList();
             if (catchablePokemon.Any())
                 CatchablePokemon.UpdateWith(catchablePokemon);
         }

@@ -12,14 +12,31 @@ namespace PokemonGo.Bot.ViewModels
 {
     public class InventoryViewModel : ViewModelBase
     {
-        public AsyncRelayCommand TransferPokemonWithAlgorithm { get; }
+        #region TransferPokemonWithAlgorithm
 
-        Task ExecuteTransferPokemonWithAlgorithmAsync(TransferPokemonAlgorithm transferAlgorithm)
+        AsyncRelayCommand transferPokemonWithAlgorithm;
+
+        public AsyncRelayCommand TransferPokemonWithAlgorithm
         {
-            var algorithm = transferPokemonAlgorithmFactory.Get(transferAlgorithm);
+            get
+            {
+                if (transferPokemonWithAlgorithm == null)
+                    transferPokemonWithAlgorithm = new AsyncRelayCommand(ExecuteTransferPokemonWithAlgorithm, CanExecuteTransferPokemonWithAlgorithm);
+
+                return transferPokemonWithAlgorithm;
+            }
+        }
+
+        Task ExecuteTransferPokemonWithAlgorithm()
+        {
+            var algorithm = transferPokemonAlgorithmFactory.Get(TransferPokemonAlgorithm);
             var pokemonToTransfer = algorithm.Apply(Pokemon);
             return Task.WhenAll(pokemonToTransfer.Select(p => p.Transfer.ExecuteAsync()));
         }
+
+        bool CanExecuteTransferPokemonWithAlgorithm() => true;
+
+        #endregion TransferPokemonWithAlgorithm
 
         TransferPokemonAlgorithm transferPokemonAlgorithm;
 
@@ -64,7 +81,6 @@ namespace PokemonGo.Bot.ViewModels
             Eggs = new ObservableCollection<EggViewModel>();
             EggIncubators = new ObservableCollection<EggIncubatorViewModel>();
             Items = new ObservableCollection<ItemViewModel>();
-            TransferPokemonWithAlgorithm = new AsyncRelayCommand(async () => await ExecuteTransferPokemonWithAlgorithmAsync(TransferPokemonAlgorithm));
         }
 
         internal void UpdateWith(IEnumerable<InventoryItem> inventory)

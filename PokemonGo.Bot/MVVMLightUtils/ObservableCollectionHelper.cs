@@ -21,19 +21,16 @@ namespace GalaSoft.MvvmLight.Command
             {
                 // remove old items
                 source.Remove(item);
+
+                // dispose the removed item if needed
+                var disposable = item as IDisposable;
+                if (disposable != null)
+                    disposable.Dispose();
             }
 
             foreach (var item in items)
             {
-                var indexInSource = source.IndexOf(item);
-
-                // add new items
-                if (indexInSource < 0)
-                    source.Add(item);
-
-                // update existing items
-                else
-                    source[indexInSource].UpdateWith(item);
+                AddOrUpdate(source, item);
             }
         }
 
@@ -48,7 +45,14 @@ namespace GalaSoft.MvvmLight.Command
 
             // update existing items
             else
+            {
                 source[indexInSource].UpdateWith(item);
+
+                // dispose the item that was used to update if needed
+                var disposable = item as IDisposable;
+                if (disposable != null)
+                    disposable.Dispose();
+            }
         }
 
         public static void AddRange<T>(this ICollection<T> source, IEnumerable<T> items)
