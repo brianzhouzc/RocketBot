@@ -15,6 +15,7 @@ using PokemonGo.RocketBot.Logic.Event;
 using PokemonGo.RocketBot.Logic.State;
 using PokemonGo.RocketBot.Logic.Utils;
 using POGOProtos.Networking.Responses;
+using PokemonGo.RocketAPI.Helpers;
 
 #endregion
 
@@ -105,7 +106,6 @@ namespace PokemonGo.RocketBot.Logic
                     });
                 }
             }
-
             return _currentWalkingSpeed / 3.6;
         }
 
@@ -231,6 +231,8 @@ namespace PokemonGo.RocketBot.Logic
                         await
                             _client.Player.UpdatePlayerLocation(waypoint.Latitude, waypoint.Longitude,
                                 waypoint.Altitude);
+                   // Logging.Logger.Write("You are at alt " + _client.CurrentAltitude); for making sure alt is right
+                   // Logging.Logger.Write("waypoint is at alt " + waypoint.Altitude);
 
                     UpdatePositionEvent?.Invoke(waypoint.Latitude, waypoint.Longitude);
 
@@ -257,6 +259,7 @@ namespace PokemonGo.RocketBot.Logic
 
                         if (session.LogicSettings.UseWalkingSpeedVariant)
                             speedInMetersPerSecond = MinorWalkingSpeedVariant(session);
+                        RequestBuilder.currentSpeed = speedInMetersPerSecond;
 
                         nextWaypointDistance = Math.Min(currentDistanceToTarget,
                             millisecondsUntilGetUpdatePlayerLocationResponse / 1000 * speedInMetersPerSecond);
@@ -296,11 +299,13 @@ namespace PokemonGo.RocketBot.Logic
 
                 //Initial walking
                 var requestSendDateTime = DateTime.Now;
+
                 var result =
                     await
                         _client.Player.UpdatePlayerLocation(waypoint.Latitude, waypoint.Longitude,
                             waypoint.Altitude);
-
+                // Logging.Logger.Write("You are at alt " + _client.CurrentAltitude);
+                // Logging.Logger.Write("waypoint is at alt " + waypoint.Altitude);
                 UpdatePositionEvent?.Invoke(waypoint.Latitude, waypoint.Longitude);
 
                 do
@@ -308,7 +313,7 @@ namespace PokemonGo.RocketBot.Logic
                     var speedInMetersPerSecond = session.LogicSettings.UseWalkingSpeedVariant
                         ? MajorWalkingSpeedVariant(session)
                         : session.LogicSettings.WalkingSpeedInKilometerPerHour / 3.6;
-                    cancellationToken.ThrowIfCancellationRequested();
+                    cancellationToken.ThrowIfCancellationRequested(); 
 
                     var millisecondsUntilGetUpdatePlayerLocationResponse =
                         (DateTime.Now - requestSendDateTime).TotalMilliseconds;
@@ -337,7 +342,8 @@ namespace PokemonGo.RocketBot.Logic
                         await
                             _client.Player.UpdatePlayerLocation(waypoint.Latitude, waypoint.Longitude,
                                 waypoint.Altitude);
-
+                    // Logging.Logger.Write("You are at alt " + _client.CurrentAltitude);
+                    // Logging.Logger.Write("waypoint is at alt " + waypoint.Altitude);
                     UpdatePositionEvent?.Invoke(waypoint.Latitude, waypoint.Longitude);
 
 
@@ -368,7 +374,7 @@ namespace PokemonGo.RocketBot.Logic
             var nextWaypointBearing = LocationUtils.DegreeBearing(sourceLocation, targetLocation);
             var nextWaypointDistance = speedInMetersPerSecond;
             var waypoint = LocationUtils.CreateWaypoint(sourceLocation, nextWaypointDistance, nextWaypointBearing,
-                Convert.ToDouble(trk.Ele, CultureInfo.InvariantCulture));
+                (Convert.ToDouble(trk.Ele, CultureInfo.InvariantCulture))- 30);
             var requestSendDateTime = DateTime.Now;
             var result =
                 await
@@ -397,6 +403,7 @@ namespace PokemonGo.RocketBot.Logic
 
                 if (session.LogicSettings.UseWalkingSpeedVariant)
                     speedInMetersPerSecond = MinorWalkingSpeedVariant(session);
+                RequestBuilder.currentSpeed = speedInMetersPerSecond;
 
                 nextWaypointDistance = Math.Min(currentDistanceToTarget,
                     millisecondsUntilGetUpdatePlayerLocationResponse / 1000 * speedInMetersPerSecond);
@@ -408,7 +415,8 @@ namespace PokemonGo.RocketBot.Logic
                     await
                         _client.Player.UpdatePlayerLocation(waypoint.Latitude, waypoint.Longitude,
                             waypoint.Altitude);
-
+                // Logging.Logger.Write("You are at alt " + _client.CurrentAltitude);
+                // Logging.Logger.Write("waypoint is at alt " + waypoint.Altitude);
                 UpdatePositionEvent?.Invoke(waypoint.Latitude, waypoint.Longitude);
 
                 if (functionExecutedWhileWalking != null)

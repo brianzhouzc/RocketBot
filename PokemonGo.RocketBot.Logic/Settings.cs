@@ -19,6 +19,7 @@ using PokemonGo.RocketBot.Logic.State;
 using PokemonGo.RocketBot.Logic.Utils;
 using POGOProtos.Enums;
 using POGOProtos.Inventory.Item;
+using Google.Protobuf;
 
 #endregion
 
@@ -1183,6 +1184,8 @@ namespace PokemonGo.RocketBot.Logic
             get { return null; }
             set { GoogleRefreshToken = null; }
         }
+
+        public ByteString SessionHash { get; set; }
 
         AuthType ISettings.AuthType
         {

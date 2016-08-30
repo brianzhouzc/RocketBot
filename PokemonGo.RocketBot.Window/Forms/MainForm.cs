@@ -74,7 +74,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Text = @"RocketBot v" + Assembly.GetExecutingAssembly().GetName().Version;
+            Text = @"RocketBot v" + Application.ProductVersion;
 
             //User activity tracking, help us get more information to make RocketBot better
             //Everything is anonymous
@@ -339,7 +339,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                             match.Groups[3],
                             match.Groups[4]));
                 // makes sense to display your version and say what the current one is on github
-                Logger.Write("Your version is " + Assembly.GetExecutingAssembly().GetName().Version);
+                Logger.Write("Your version is " + Application.ProductVersion);
                 Logger.Write("Github version is " + gitVersion);
                 Logger.Write("You can find it at www.GitHub.com/TheUnnameOrganization/RocketBot/releases");
             }
@@ -354,7 +354,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             using (var wC = new WebClient())
                 return
                     wC.DownloadString(
-                        "https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/Beta-Build/src/RocketBotGUI/Properties/AssemblyInfo.cs");
+                        "https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/PokemonGo.RocketBot.Window/Properties/AssemblyInfo.cs");
         }
 
         private void showMoreCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -556,7 +556,6 @@ namespace PokemonGo.RocketBot.Window.Forms
         private void startStopBotToolStripMenuItem_Click(object sender, EventArgs e)
         {
             startStopBotToolStripMenuItem.Enabled = false;
-            settingToolStripMenuItem.Enabled = false;
             Task.Run(StartBot);
         }
 
