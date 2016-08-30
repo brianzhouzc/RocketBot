@@ -20,6 +20,7 @@ namespace PokemonGo.Bot.ViewModels
         }
 
         public Enums.ItemType ItemType { get; }
+        public string Name { get; }
 
         #region Recycle
 
@@ -62,6 +63,7 @@ namespace PokemonGo.Bot.ViewModels
             this.session = session;
             Count = count;
             ItemType = itemType;
+            Name = Enum.GetName(typeof(Enums.ItemType), ItemType);
         }
 
         public override int GetHashCode() => ItemType.GetHashCode();

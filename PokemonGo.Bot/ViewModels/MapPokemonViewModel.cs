@@ -40,51 +40,62 @@ namespace PokemonGo.Bot.ViewModels
         async Task ExecuteCatchCommand()
         {
             var encounterPokemonResponse = await Encounter();
-
-            int pokeballCount;
-            CatchPokemonResponse caughtPokemonResponse = null;
-            do
+            if (encounterPokemonResponse.IsSuccess)
             {
-                // returns an exception at the moment.
-                //if (settings.UseRazzBerryWhenPokemonIsAboveCP <= pokemonCP ||
-                //    settings.UseRazzBerryWhenCatchProbabilityIsBelow <= encounterPokemonResponse.CaptureProbability.CaptureProbability_.First())
-                //    await session.UseCaptureItem(pokemon.EncounterId, POGOProtos.Inventory.Item.ItemId.ItemRazzBerry, pokemon.SpawnPointId);
+                MessengerInstance.Send(new Message(Colors.Green, $"Encountered a {encounterPokemonResponse.Pokemon.Name}"));
+                var pokeball = GetPokeBall();
+                CatchPokemonResponse caughtPokemonResponse = null;
+                do
+                {
+                    // returns an exception at the moment.
+                    //if (settings.UseRazzBerryWhenPokemonIsAboveCP <= pokemonCP ||
+                    //    settings.UseRazzBerryWhenCatchProbabilityIsBelow <= encounterPokemonResponse.CaptureProbability.CaptureProbability_.First())
+                    //    await session.UseCaptureItem(pokemon.EncounterId, POGOProtos.Inventory.Item.ItemId.ItemRazzBerry, pokemon.SpawnPointId);
 
-                // TODO calculate pokeball based on encountered pokemon
-                var pokeballs = player.Inventory.Items.FirstOrDefault(i => i.ItemType == Enums.ItemType.ItemPokeBall);
-                pokeballCount = pokeballs.Count;
-                if (pokeballCount > 0)
-                {
-                    caughtPokemonResponse = await session.CatchPokemon(EncounterId, SpawnPointId, POGOProtos.Inventory.Item.ItemId.ItemPokeBall);
-                    pokeballs.Count--;
-                }
-                else
-                {
-                    MessengerInstance.Send(new Message(Colors.Yellow, "No pokeballs left."));
-                }
-            } while (pokeballCount > 0 && (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed || caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchEscape));
+                    // TODO calculate pokeball based on encountered pokemon
+                    if (pokeball.Count > 0)
+                    {
+                        MessengerInstance.Send(new Message(Colors.Green, $"Using a {pokeball.Name}"));
+                        pokeball.Count--;
+                        caughtPokemonResponse = await session.CatchPokemon(EncounterId, SpawnPointId, (POGOProtos.Inventory.Item.ItemId)pokeball.ItemType);
+                    }
+                    else
+                    {
+                        MessengerInstance.Send(new Message(Colors.Yellow, "No pokeballs left."));
+                    }
+                } while (pokeball.Count > 0 && (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed || caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchEscape));
 
-            if (caughtPokemonResponse != null)
-            {
-                if (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchSuccess)
+                if (caughtPokemonResponse != null)
                 {
-                    encounterPokemonResponse.PokemonData.Id = caughtPokemonResponse.CapturedPokemonId;
-                    var caughtPokemon = new CaughtPokemonViewModel(encounterPokemonResponse.PokemonData, session, player.Inventory);
-                    var xp = caughtPokemonResponse.CaptureAward.Xp.Sum();
-                    player.Xp += xp;
-                    var stardust = caughtPokemonResponse.CaptureAward.Stardust.Sum();
-                    player.Stardust += stardust;
-                    var candy = caughtPokemonResponse.CaptureAward.Candy.Sum();
-                    player.Inventory.AddCandyForFamily(candy, caughtPokemon.FamilyId);
-                    MessengerInstance.Send(new Message(Colors.Green, $"Caught a {encounterPokemonResponse.Pokemon.Name}. {xp} Xp - {candy} Candy - {stardust} Stardust."));
-                    player.Inventory.Pokemon.AddOrUpdate(caughtPokemon);
-                    map.CatchablePokemon.Remove(this);
-                }
-                else if (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchFlee)
-                {
-                    MessengerInstance.Send(new Message(Colors.Red, $"Failed to catch a {encounterPokemonResponse.Pokemon.Name}, because it fled."));
+                    if (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchSuccess)
+                    {
+                        encounterPokemonResponse.PokemonData.Id = caughtPokemonResponse.CapturedPokemonId;
+                        var caughtPokemon = new CaughtPokemonViewModel(encounterPokemonResponse.PokemonData, session, player.Inventory);
+                        var xp = caughtPokemonResponse.CaptureAward.Xp.Sum();
+                        player.Xp += xp;
+                        var stardust = caughtPokemonResponse.CaptureAward.Stardust.Sum();
+                        player.Stardust += stardust;
+                        var candy = caughtPokemonResponse.CaptureAward.Candy.Sum();
+                        player.Inventory.AddCandyForFamily(candy, caughtPokemon.FamilyId);
+                        MessengerInstance.Send(new Message(Colors.Green, $"Caught a {encounterPokemonResponse.Pokemon.Name}. {xp} Xp - {candy} Candy - {stardust} Stardust."));
+                        player.Inventory.Pokemon.AddOrUpdate(caughtPokemon);
+                        map.CatchablePokemon.Remove(this);
+                    }
+                    else if (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchFlee)
+                    {
+                        MessengerInstance.Send(new Message(Colors.Red, $"Failed to catch a {encounterPokemonResponse.Pokemon.Name}, because it fled."));
+                    }
                 }
             }
+        }
+
+        private ItemViewModel GetPokeBall()
+        {
+            var pokeballs = player.Inventory.Items.FirstOrDefault(i => i.ItemType == Enums.ItemType.ItemPokeBall);
+            if (pokeballs.Count > 0)
+                return pokeballs;
+            var greatBalls = player.Inventory.Items.FirstOrDefault(i => i.ItemType == Enums.ItemType.ItemGreatBall);
+            return greatBalls;
         }
 
         async Task<EncounterResponse> Encounter()

@@ -48,11 +48,11 @@ namespace PokemonGo.Bot.BotActions
             while (!shouldStop)
             {
                 var currentPokeStop = enumerator.Current;
+                await TransferPokemonWhileMoving(currentPokeStop);
 
                 await FarmPokestopAsync(currentPokeStop);
 
                 await CatchNearbyPokemonAsync();
-                await TransferUnwantedPokemonAsync();
 
                 // queue next pokestop for farming
                 if (!enumerator.MoveNext())
@@ -83,9 +83,13 @@ namespace PokemonGo.Bot.BotActions
 
         async Task FarmPokestopAsync(PokestopViewModel currentPokeStop)
         {
-            await bot.Player.Move.ExecuteAsync(currentPokeStop.Position);
-            await currentPokeStop.Details.ExecuteAsync();
-            await currentPokeStop.Search.ExecuteAsync();
+            // get the pokestop from the map again as this one might have been disposed.
+            currentPokeStop = bot.Map.Pokestops.SingleOrDefault(p => p.Id == currentPokeStop.Id);
+            if (currentPokeStop != null)
+            {
+                await currentPokeStop.Details.ExecuteAsync();
+                await currentPokeStop.Search.ExecuteAsync();
+            }
         }
     }
 }
