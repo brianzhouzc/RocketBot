@@ -19,8 +19,8 @@ namespace PokemonGo.Bot.Utils
         public int AllowedLevelsAbovePlayer { get; }
         public int UpgradesPerLevel { get; }
 
-        public int GetCandyCostForUpgradeToLevel(int level) => candyCost[level - 1];
+        public int GetCandyCostForUpgradeFromLevel(int level) => candyCost[level - 1];
 
-        public int GetStardustCostForUpgradeToLevel(int level) => stardustCost[level - 1];
+        public int GetStardustCostForUpgradeFromLevel(int level) => stardustCost[level - 1];
     }
 }

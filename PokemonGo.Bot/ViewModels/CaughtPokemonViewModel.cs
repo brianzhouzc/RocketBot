@@ -132,7 +132,7 @@ namespace PokemonGo.Bot.ViewModels
             }
         }
 
-        bool CanExecuteUpgrade() => true;
+        bool CanExecuteUpgrade() => CandyToUpgrade <= Candy;
 
         #endregion Upgrade
 
@@ -141,7 +141,7 @@ namespace PokemonGo.Bot.ViewModels
         public int Candy
         {
             get { return candy; }
-            set { if (Candy != value) { candy = value; RaisePropertyChanged(); Evolve.RaiseCanExecuteChanged(); } }
+            set { if (Candy != value) { candy = value; RaisePropertyChanged(); Evolve.RaiseCanExecuteChanged(); Upgrade.RaiseCanExecuteChanged(); } }
         }
 
         int candyToEvolve;
@@ -158,6 +158,20 @@ namespace PokemonGo.Bot.ViewModels
         {
             get { return level; }
             set { if (Level != value) { level = value; RaisePropertyChanged(); } }
+        }
+
+        int candyToUpgrade;
+        public int CandyToUpgrade
+        {
+            get { return candyToUpgrade; }
+            set { if (CandyToUpgrade != value) { candyToUpgrade = value; RaisePropertyChanged(); Upgrade.RaiseCanExecuteChanged(); } }
+        }
+
+        int stardustToupgrade;
+        public int StardustToUpgrade
+        {
+            get { return stardustToupgrade; }
+            set { if (StardustToUpgrade != value) { stardustToupgrade = value; RaisePropertyChanged(); Upgrade.RaiseCanExecuteChanged(); } }
         }
 
         public CaughtPokemonViewModel(PokemonData pokemon, SessionViewModel session, InventoryViewModel inventory, Settings settings) : base(pokemon)
@@ -177,7 +191,9 @@ namespace PokemonGo.Bot.ViewModels
         {
             var pokemonSettings = settings.Pokemon[PokemonId];
             CandyToEvolve = pokemonSettings.CandyToEvolve;
-            Level = settings.PlayerLevel.CpMultiplier.IndexOf(CpMultiplier);
+            Level = settings.PlayerLevel.GetLevelFromCpMultiplier(CpMultiplier);
+            CandyToUpgrade = settings.PokemonUpgrade.GetCandyCostForUpgradeFromLevel(Level);
+            StardustToUpgrade = settings.PokemonUpgrade.GetStardustCostForUpgradeFromLevel(Level);
         }
 
         public void UpdateWith(CaughtPokemonViewModel other)

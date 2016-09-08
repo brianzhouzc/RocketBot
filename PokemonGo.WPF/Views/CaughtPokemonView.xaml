@@ -14,7 +14,17 @@
     <UserControl.ContextMenu>
         <ContextMenu>
             <MenuItem Header="Transfer" Command="{Binding Transfer}" />
-            <MenuItem Header="Upgrade" Command="{Binding Upgrade}" />
+            <MenuItem Command="{Binding Upgrade}">
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Upgrade"/>
+                        <TextBlock Text="{Binding CandyToUpgrade}" Margin="10,0,0,0" />
+                        <local:CandyImageView DataContext="{Binding PokemonId}" Width="15" Height="15" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding StardustToUpgrade}" Margin="10,0,0,0" />
+                        <Image Source="pack://siteoforigin:,,,/Images/Player/stardust.png" Width="15" Height="15"/>
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
             <MenuItem Command="{Binding Evolve}">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
