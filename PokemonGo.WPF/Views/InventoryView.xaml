@@ -16,6 +16,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition/>
+            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="330"/>
@@ -61,5 +62,20 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
+            <TextBlock Text="{Binding NumPokemon}"/>
+            <TextBlock Text="/"/>
+            <TextBlock Text="{Binding MaxPokemon}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center">
+            <TextBlock Text="{Binding NumEggs}"/>
+            <TextBlock Text="/"/>
+            <TextBlock Text="{Binding MaxEggs}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center">
+            <TextBlock Text="{Binding NumItems}"/>
+            <TextBlock Text="/"/>
+            <TextBlock Text="{Binding MaxItems}"/>
+        </StackPanel>
     </Grid>
 </UserControl>

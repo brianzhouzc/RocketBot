@@ -1,11 +1,13 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using POGOProtos.Inventory;
-using POGOProtos.Inventory.Item;
 using PokemonGo.Bot.TransferPokemonAlgorithms;
+using PokemonGo.Bot.Utils;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PokemonGo.Bot.ViewModels
@@ -71,19 +73,88 @@ namespace PokemonGo.Bot.ViewModels
             set { if (Player != value) { player = value; RaisePropertyChanged(); } }
         }
 
-        public InventoryViewModel(SessionViewModel session, TransferPokemonAlgorithmFactory transferPokemonAlgorithmFactory)
-        {
-            this.transferPokemonAlgorithmFactory = transferPokemonAlgorithmFactory;
-            TransferPokemonAlgorithm = transferPokemonAlgorithmFactory.GetDefaultFromSettings();
-            this.session = session;
+        readonly Settings settings;
+        int maxItems;
 
+        public int MaxItems
+        {
+            get { return maxItems; }
+            set { if (MaxItems != value) { maxItems = value; RaisePropertyChanged(); } }
+        }
+        int numItems;
+        public int NumItems
+        {
+            get { return numItems; }
+            set { if (NumItems != value) { numItems = value; RaisePropertyChanged(); } }
+        }
+
+
+        int maxPokemon;
+
+        public int MaxPokemon
+        {
+            get { return maxPokemon; }
+            set { if (MaxPokemon != value) { maxPokemon = value; RaisePropertyChanged(); } }
+        }
+        int numPokemon;
+        public int NumPokemon
+        {
+            get { return numPokemon; }
+            set { if (NumPokemon != value) { numPokemon = value; RaisePropertyChanged(); } }
+        }
+
+
+        int maxEggs;
+
+        public int MaxEggs
+        {
+            get { return maxEggs; }
+            set { if (MaxEggs != value) { maxEggs = value; RaisePropertyChanged(); } }
+        }
+        int numEggs;
+        public int NumEggs
+        {
+            get { return numEggs; }
+            set { if (NumEggs != value) { numEggs = value; RaisePropertyChanged(); } }
+        }
+
+
+
+        public InventoryViewModel(SessionViewModel session, TransferPokemonAlgorithmFactory transferPokemonAlgorithmFactory, Settings settings)
+        {
             Pokemon = new ObservableCollection<CaughtPokemonViewModel>();
             Eggs = new ObservableCollection<EggViewModel>();
             EggIncubators = new ObservableCollection<EggIncubatorViewModel>();
             Items = new ObservableCollection<ItemViewModel>();
+
+            this.settings = settings;
+            this.transferPokemonAlgorithmFactory = transferPokemonAlgorithmFactory;
+            TransferPokemonAlgorithm = transferPokemonAlgorithmFactory.GetDefaultFromSettings();
+            this.session = session;
+            UpdateCount();
+            settings.PropertyChanged += Settings_PropertyChanged;
         }
 
-        internal void UpdateWith(IEnumerable<InventoryItem> inventory)
+        void Settings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName == nameof(settings.Inventory))
+            {
+                UpdateCount();
+            }
+        }
+
+        void UpdateCount()
+        {
+            MaxItems = settings.Inventory.BaseBagItems;
+            MaxPokemon = settings.Inventory.BasePokemon;
+            MaxEggs = settings.Inventory.BaseEggs;
+
+            NumItems = Items.Sum(i => i.Count);
+            NumPokemon = Pokemon.Count;
+            NumEggs = Eggs.Count;
+        }
+
+        internal async Task UpdateWith(IEnumerable<InventoryItem> inventory)
         {
             if (inventory != null)
             {
@@ -93,7 +164,119 @@ namespace PokemonGo.Bot.ViewModels
                 UpdateEggs(inventory);
                 UpdateItems(inventory);
                 UpdateCandy(inventory);
+
+                UpdateCount();
+
+                await AutoManageInventory();
             }
+        }
+
+        const int minFreeItemSlots = 10;
+        const int maxFreeItemSlots = 30;
+        bool isCurrentlyAutomanaging;
+        async Task AutoManageInventory()
+        {
+            if (isCurrentlyAutomanaging)
+                return;
+
+            try
+            {
+                isCurrentlyAutomanaging = true;
+
+                if (!settings.AutoManageInventory)
+                    return; // do not auto manage
+
+                if (MaxItems == 0)
+                    return; // do not throw away everything if the settings are not downloaded yet
+
+                // count the different item types
+                var numItems = 0;
+                var numPotions = 0;
+                var numRevive = 0;
+                var numPokeballs = 0;
+                var numBerries = 0;
+                foreach (var item in Items.ToList())
+                {
+                    numItems += item.Count;
+                    if (potionItemTypes.Contains(item.ItemType))
+                        numPotions += item.Count;
+                    else if (reviveItemTypes.Contains(item.ItemType))
+                        numRevive += item.Count;
+                    else if (pokeballItemTypes.Contains(item.ItemType))
+                        numPokeballs += item.Count;
+                    else if (berryItemTypes.Contains(item.ItemType))
+                        numBerries += item.Count;
+                }
+
+                if (numItems < maxItems - minFreeItemSlots)
+                    return; // we have enough free item slots
+
+                var numItemsToRecycle = numItems - (maxItems - maxFreeItemSlots);
+
+                // the recycling order was chosen to guarantee a maximum of pokeballs to catch em all :)
+
+                // first recycle berries because the api to use berries is broken
+                var recycledBerries = await TryRecycleAsync(berryItemTypes, numItemsToRecycle, settings.MinBerries, numBerries);
+                numItemsToRecycle -= recycledBerries;
+                if (numItemsToRecycle <= 0)
+                    return;
+
+                // then recycle potions
+                var recycledPotions = await TryRecycleAsync(potionItemTypes, numItemsToRecycle, settings.MinPotions, numPotions);
+                numItemsToRecycle -= recycledPotions;
+                if (numItemsToRecycle <= 0)
+                    return;
+
+                // then recycle revive
+                var recycledRevive = await TryRecycleAsync(reviveItemTypes, numItemsToRecycle, settings.MinRevive, numRevive);
+                numItemsToRecycle -= recycledRevive;
+                if (numItemsToRecycle <= 0)
+                    return;
+
+                // at last recycle pokeballs
+                var recycledPokeballs = await TryRecycleAsync(pokeballItemTypes, numItemsToRecycle, settings.MinPokeballs, numPokeballs);
+            }
+            finally
+            {
+                isCurrentlyAutomanaging = false;
+            }
+        }
+
+        static ISet<Enums.ItemType> potionItemTypes = new HashSet<Enums.ItemType> { Enums.ItemType.ItemPotion, Enums.ItemType.ItemSuperPotion, Enums.ItemType.ItemHyperPotion, Enums.ItemType.ItemMaxPotion };
+        static ISet<Enums.ItemType> reviveItemTypes = new HashSet<Enums.ItemType> { Enums.ItemType.ItemRevive, Enums.ItemType.ItemMaxRevive };
+        static ISet<Enums.ItemType> pokeballItemTypes = new HashSet<Enums.ItemType> { Enums.ItemType.ItemPokeBall, Enums.ItemType.ItemGreatBall, Enums.ItemType.ItemUltraBall, Enums.ItemType.ItemMasterBall };
+        static ISet<Enums.ItemType> berryItemTypes = new HashSet<Enums.ItemType> { Enums.ItemType.ItemRazzBerry, Enums.ItemType.ItemBlukBerry, Enums.ItemType.ItemNanabBerry, Enums.ItemType.ItemPinapBerry, Enums.ItemType.ItemWeparBerry };
+
+        ItemViewModel GetItem(Enums.ItemType itemType) => Items.FirstOrDefault(i => i.ItemType == itemType);
+
+        async Task<int> TryRecycleAsync(IEnumerable<Enums.ItemType> itemTypes, int maxItemsToRecycle, int minItemsForType, int numItemsForType)
+        {
+            var sumRecycledItems = 0;
+            foreach (var itemType in itemTypes)
+            {
+                var recycledItems = await TryRecycleAsync(GetItem(itemType), maxItemsToRecycle, minItemsForType, numItemsForType);
+                maxItemsToRecycle -= recycledItems;
+                numItemsForType -= recycledItems;
+                sumRecycledItems += recycledItems;
+            }
+
+            return sumRecycledItems;
+        }
+
+        static async Task<int> TryRecycleAsync(ItemViewModel item, int maxItemsToRecycle, int minItemsForType, int numItemsForType)
+        {
+            if (item == null)
+                return 0;
+
+            var maxItemsToRecycleForType = Math.Min(maxItemsToRecycle, numItemsForType - minItemsForType);
+            if (maxItemsToRecycleForType <= 0)
+                return 0;
+
+            var numItemsToRecycle = Math.Min(item.Count, maxItemsToRecycleForType);
+
+            await item.Recycle.ExecuteAsync(numItemsToRecycle);
+
+            return numItemsToRecycle;
         }
 
         void UpdateItems(IEnumerable<InventoryItem> inventory)

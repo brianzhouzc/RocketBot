@@ -41,6 +41,11 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Label Content="Default Latitude" Grid.Row="0" Grid.Column="0" Height="25"/>
         <TextBox Text="{Binding DefaultLatitude}" Grid.Row="0" Grid.Column="1" Height="25"/>
@@ -68,6 +73,16 @@
         <TextBox Text="{Binding MinTravelSpeedInKmH}" Grid.Row="11" Grid.Column="1" Height="25"/>
         <Label Content="Maximum travel speed in km/h" Grid.Row="12" Grid.Column="0" Height="25"/>
         <TextBox Text="{Binding MaxTravelSpeedInKmH}" Grid.Row="12" Grid.Column="1" Height="25"/>
-        <Button Content="Save" Command="{Binding Save}" Grid.Row="13" Grid.Column="1" Height="25"/>
+        <Label Content="Auto Inventory management" Grid.Row="13" Grid.Column="0" Height="25"/>
+        <CheckBox IsChecked="{Binding AutoManageInventory}" Grid.Row="13" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" />
+        <Label Content="Minimum number of Revive" Grid.Row="14" Grid.Column="0" Height="25"/>
+        <TextBox Text="{Binding MinRevive}" Grid.Row="14" Grid.Column="1" Height="25"/>
+        <Label Content="Minimum number of Pokeballs" Grid.Row="15" Grid.Column="0" Height="25"/>
+        <TextBox Text="{Binding MinPokeballs}" Grid.Row="15" Grid.Column="1" Height="25"/>
+        <Label Content="Minimum number of Potions" Grid.Row="16" Grid.Column="0" Height="25"/>
+        <TextBox Text="{Binding MinPotions}" Grid.Row="16" Grid.Column="1" Height="25"/>
+        <Label Content="Minimum number of Berries" Grid.Row="17" Grid.Column="0" Height="25"/>
+        <TextBox Text="{Binding MinBerries}" Grid.Row="17" Grid.Column="1" Height="25"/>
+        <Button Content="Save" Command="{Binding Save}" Grid.Row="18" Grid.Column="1" Height="25"/>
     </Grid>
 </UserControl>

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace PokemonGo.Bot.ViewModels
 {
-    public class EggViewModel : PokemonDataViewModel, IUpdateable<EggViewModel>
+    public class EggViewModel : PokemonDataViewModel, IUpdateable<EggViewModel>, IComparable<EggViewModel>
     {
         string incubatorId;
 
@@ -72,6 +72,18 @@ namespace PokemonGo.Bot.ViewModels
             EggIncubators.UpdateWith(other.EggIncubators);
 
             base.UpdateWith(other);
+        }
+
+        public int CompareTo(EggViewModel other)
+        {
+            var result = Nullable.Compare(IsInUnlimitedIncubator, other?.IsInUnlimitedIncubator);
+            if (result == 0)
+                result = Nullable.Compare(IsInNormalIncubator, other?.IsInNormalIncubator);
+            if (result == 0)
+                result = Nullable.Compare(KmTarget, other?.KmTarget);
+            if (result == 0)
+                result = Nullable.Compare(KmWalked, other?.KmWalked);
+            return result;
         }
     }
 }

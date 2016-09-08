@@ -85,9 +85,9 @@ namespace PokemonGo.Bot.ViewModels
         {
             this.main = main;
         }
-        void Inventory_Update(object sender, EventArgs e)
+        async void Inventory_Update(object sender, EventArgs e)
         {
-            main.Player.Inventory.UpdateWith(session.Player.Inventory.InventoryItems);
+            await main.Player.Inventory.UpdateWith(session.Player.Inventory.InventoryItems);
         }
 
         void Map_Update(object sender, EventArgs e)
@@ -142,14 +142,22 @@ namespace PokemonGo.Bot.ViewModels
             where TResult : IMessage<TResult>, new()
             where TMessage : IMessage<TMessage>
         {
-            var response = await session.RpcClient.SendRemoteProcedureCall(new Request
+            try
             {
-                RequestType = type,
-                RequestMessage = message.ToByteString()
-            });
+                var response = await session.RpcClient.SendRemoteProcedureCall(new Request
+                {
+                    RequestType = type,
+                    RequestMessage = message.ToByteString()
+                });
 
-            var parser = new MessageParser<TResult>(() => new TResult());
-            return parser.ParseFrom(response);
+                var parser = new MessageParser<TResult>(() => new TResult());
+                return parser.ParseFrom(response);
+            }
+            catch(Exception e)
+            {
+                MessengerInstance.Send(new Message(Colors.Red, e.ToString()));
+                return default(TResult);
+            }
         }
 
         Task<DownloadItemTemplatesResponse> DownloadItemTemplates()

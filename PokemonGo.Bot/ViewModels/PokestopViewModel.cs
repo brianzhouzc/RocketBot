@@ -4,6 +4,7 @@ using POGOProtos.Map.Fort;
 using POGOProtos.Networking.Responses;
 using PokemonGo.Bot.Messages;
 using PokemonGo.Bot.MVVMLightUtils;
+using PokemonGo.Bot.Utils;
 using System;
 using System.Linq;
 using System.Text;
@@ -106,10 +107,12 @@ namespace PokemonGo.Bot.ViewModels
         DispatcherTimer isActiveTimer;
         PlayerViewModel player;
         DateTimeOffset cooldownCompletedUtc;
+        readonly Settings settings;
 
-        public PokestopViewModel(FortData fort, SessionViewModel session, PlayerViewModel player)
+        public PokestopViewModel(FortData fort, SessionViewModel session, PlayerViewModel player, Settings settings)
             : base(fort, session)
         {
+            this.settings = settings;
             this.player = player;
             HasLureModuleActive = !fort.ActiveFortModifier.IsEmpty;
             InitializeIsActiveTimer(fort.CooldownCompleteTimestampMs);
@@ -127,7 +130,7 @@ namespace PokemonGo.Bot.ViewModels
 
         public void CalculateIsNear()
         {
-            IsNear = player.Position.IsInRange(Position, 10);
+            IsNear = player.Position.IsInRange(Position, settings.Fort.InteractionRangeMeters);
         }
 
         void InitializeIsActiveTimer(long cooldownCompleteTimestampMs)

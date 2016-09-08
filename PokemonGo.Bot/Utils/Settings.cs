@@ -17,6 +17,15 @@ namespace PokemonGo.Bot.Utils
 {
     public class Settings : ViewModelBase
     {
+        public Settings()
+        {
+            Map = new MapSettings();
+            Level = new LevelSettings();
+            Fort = new FortSettings();
+            Inventory = new InventorySettings();
+
+            Save = new AsyncRelayCommand(SaveToFileAsync);
+        }
         public AuthType AuthType { get; set; }
 
         public double DefaultAltitude { get; set; }
@@ -43,6 +52,12 @@ namespace PokemonGo.Bot.Utils
         public double MinTravelSpeedInKmH { get; set; }
         public double MaxTravelSpeedInKmH { get; set; }
 
+        public bool AutoManageInventory { get; set; }
+        public int MinRevive { get; set; }
+        public int MinPokeballs { get; set; }
+        public int MinPotions { get; set; }
+        public int MinBerries { get; set; }
+
         MapSettings map;
 
         [IgnoreDataMember]
@@ -61,17 +76,37 @@ namespace PokemonGo.Bot.Utils
             set { if (PokemonUpgrade != value) { pokemonUpgrade = value; RaisePropertyChanged(); } }
         }
 
-        private string loadedFromFile;
-        public Settings()
+        FortSettings fort;
+        [IgnoreDataMember]
+        public FortSettings Fort
         {
-            Save = new AsyncRelayCommand(SaveToFileAsync);
+            get { return fort; }
+            set { if (Fort != value) { fort = value; RaisePropertyChanged(); } }
         }
+
+        InventorySettings inventory;
+        [IgnoreDataMember]
+        public InventorySettings Inventory
+        {
+            get { return inventory; }
+            set { if (Inventory != value) { inventory = value; RaisePropertyChanged(); } }
+        }
+
+        LevelSettings level;
+        [IgnoreDataMember]
+        public LevelSettings Level
+        {
+            get { return level; }
+            set { if (Level != value) { level = value; RaisePropertyChanged(); } }
+        }
+
+        private string loadedFromFile;
 
         internal void UpdateWith(GlobalSettings globalSettings)
         {
-            var forstSettings = globalSettings.FortSettings;
-            var inventorySettings = globalSettings.InventorySettings;
-            var levelSettings = globalSettings.LevelSettings;
+            Fort = new PokemonGo.Bot.Utils.FortSettings(globalSettings.FortSettings);
+            Inventory = new PokemonGo.Bot.Utils.InventorySettings(globalSettings.InventorySettings);
+            Level = new PokemonGo.Bot.Utils.LevelSettings(globalSettings.LevelSettings);
             Map = new PokemonGo.Bot.Utils.MapSettings(globalSettings.MapSettings);
         }
 

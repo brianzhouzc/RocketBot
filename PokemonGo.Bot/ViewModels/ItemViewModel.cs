@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PokemonGo.Bot.ViewModels
 {
-    public class ItemViewModel : ViewModelBase, IUpdateable<ItemViewModel>
+    public class ItemViewModel : ViewModelBase, IUpdateable<ItemViewModel>, IComparable<ItemViewModel>
     {
         readonly SessionViewModel session;
 
@@ -39,8 +39,9 @@ namespace PokemonGo.Bot.ViewModels
 
         async Task ExecuteRecycle(int param)
         {
-            await session.RecycleInventoryItem((ItemId)ItemType, param);
-            Count -= param;
+            if(param > 0)
+                await session.RecycleInventoryItem((ItemId)ItemType, param);
+            //Count -= param; this is automatically done because the response contains an inventory update
         }
 
         bool CanExecuteRecycle(int param) => param <= Count;
@@ -79,5 +80,7 @@ namespace PokemonGo.Bot.ViewModels
 
             Count = other.Count;
         }
+
+        public int CompareTo(ItemViewModel other) => Nullable.Compare(ItemType, other?.ItemType);
     }
 }

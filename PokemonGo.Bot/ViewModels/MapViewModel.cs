@@ -54,7 +54,7 @@ namespace PokemonGo.Bot.ViewModels
 
         internal void UpdateWith(IEnumerable<MapCell> mapCells)
         {
-            var pokestopsFromResponse = mapCells.SelectMany(m => m.Forts).Where(f => f.Type == FortType.Checkpoint).Select(f => new PokestopViewModel(f, session, Player)).ToList();
+            var pokestopsFromResponse = mapCells.SelectMany(m => m.Forts).Where(f => f.Type == FortType.Checkpoint).Select(f => new PokestopViewModel(f, session, Player, settings)).ToList();
             if (pokestopsFromResponse.Any())
                 Pokestops.UpdateWith(pokestopsFromResponse);
 

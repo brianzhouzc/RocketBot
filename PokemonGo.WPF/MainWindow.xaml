@@ -17,9 +17,9 @@
     </Window.DataContext>
     <Grid DataContext="{StaticResource mainViewModel}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="630"/>
             <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="500"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>

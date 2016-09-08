@@ -5,6 +5,10 @@
     /// </summary>
     public class MapSettings
     {
+        public MapSettings()
+        {
+        }
+
         public MapSettings(POGOProtos.Settings.MapSettings mapSettings)
         {
             EncounterRangeMeters = mapSettings.EncounterRangeMeters;

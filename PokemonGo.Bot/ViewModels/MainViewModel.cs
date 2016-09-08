@@ -14,7 +14,7 @@ namespace PokemonGo.Bot.ViewModels
             Settings = Settings.LoadFromFile(settingsFile);
             Session = new SessionViewModel(this);
             var transferPokemonAlgorithmFactory = new TransferPokemonAlgorithmFactory(Settings);
-            var inventory = new InventoryViewModel(Session, transferPokemonAlgorithmFactory);
+            var inventory = new InventoryViewModel(Session, transferPokemonAlgorithmFactory, Settings);
             Map = new MapViewModel(Session, Settings);
             Player = new PlayerViewModel(inventory, Map, Settings, Session);
             Map.Player = Player;

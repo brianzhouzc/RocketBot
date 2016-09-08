@@ -85,6 +85,9 @@
     <Compile Include="MVVMLightUtils\AsyncRelayCommand.cs" />
     <Compile Include="MVVMLightUtils\IUpdateable.cs" />
     <Compile Include="MVVMLightUtils\ObservableCollectionHelper.cs" />
+    <Compile Include="Utils\FortSettings.cs" />
+    <Compile Include="Utils\InventorySettings.cs" />
+    <Compile Include="Utils\LevelSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BotActions\BotAction.cs" />
     <Compile Include="TransferPokemonAlgorithms\ITranferPokemonAlgorithm.cs" />
