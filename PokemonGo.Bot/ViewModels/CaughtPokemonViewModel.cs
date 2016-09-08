@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GalaSoft.MvvmLight.Command;
 using POGOProtos.Data;
-using PokemonGo.RocketAPI;
-using GalaSoft.MvvmLight.Command;
-using PokemonGo.Bot.Messages;
 using POGOProtos.Networking.Responses;
-using System.Windows.Media;
+using PokemonGo.Bot.Messages;
 using PokemonGo.Bot.MVVMLightUtils;
+using PokemonGo.Bot.Utils;
+using System;
+using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace PokemonGo.Bot.ViewModels
 {
@@ -17,6 +14,7 @@ namespace PokemonGo.Bot.ViewModels
     {
         readonly SessionViewModel session;
         readonly InventoryViewModel inventory;
+        readonly Settings settings;
 
         #region Transfer
 
@@ -106,7 +104,7 @@ namespace PokemonGo.Bot.ViewModels
             }
         }
 
-        bool CanExecuteEvolve() => FindFamily(PokemonId + 1) == FamilyId;
+        bool CanExecuteEvolve() => CandyToEvolve > 0 && CandyToEvolve <= Candy;
 
         #endregion Evolve
 
@@ -138,24 +136,48 @@ namespace PokemonGo.Bot.ViewModels
 
         #endregion Upgrade
 
-
         int candy;
 
         public int Candy
         {
             get { return candy; }
-            set { if (Candy != value) { candy = value; RaisePropertyChanged(); } }
+            set { if (Candy != value) { candy = value; RaisePropertyChanged(); Evolve.RaiseCanExecuteChanged(); } }
         }
 
-        public CaughtPokemonViewModel(PokemonData pokemon, SessionViewModel session, InventoryViewModel inventory) : base(pokemon)
+        int candyToEvolve;
+
+        public int CandyToEvolve
+        {
+            get { return candyToEvolve; }
+            set { if (CandyToEvolve != value) { candyToEvolve = value; RaisePropertyChanged(); Evolve.RaiseCanExecuteChanged(); } }
+        }
+
+        int level;
+
+        public int Level
+        {
+            get { return level; }
+            set { if (Level != value) { level = value; RaisePropertyChanged(); } }
+        }
+
+        public CaughtPokemonViewModel(PokemonData pokemon, SessionViewModel session, InventoryViewModel inventory, Settings settings) : base(pokemon)
         {
             if (Id == 0)
                 throw new ArgumentException("This is not a caught pokemon.", nameof(pokemon));
 
             this.session = session;
             this.inventory = inventory;
+            this.settings = settings;
 
             Candy = inventory.GetCandyForFamily(FamilyId);
+            CalculateLevel();
+        }
+
+        void CalculateLevel()
+        {
+            var pokemonSettings = settings.Pokemon[PokemonId];
+            CandyToEvolve = pokemonSettings.CandyToEvolve;
+            Level = settings.PlayerLevel.CpMultiplier.IndexOf(CpMultiplier);
         }
 
         public void UpdateWith(CaughtPokemonViewModel other)
@@ -163,8 +185,10 @@ namespace PokemonGo.Bot.ViewModels
             if (!Equals(other))
                 throw new ArgumentException($"Expected a {Name} with Id {Id} but got a {other?.Name} with Id {other?.Id}", nameof(other));
 
-            Candy = other.Candy;
             base.UpdateWith(other);
+
+            Candy = other.Candy;
+            CalculateLevel();
         }
     }
 }

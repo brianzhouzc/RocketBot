@@ -70,7 +70,7 @@ namespace PokemonGo.Bot.ViewModels
                     if (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchSuccess)
                     {
                         encounterPokemonResponse.PokemonData.Id = caughtPokemonResponse.CapturedPokemonId;
-                        var caughtPokemon = new CaughtPokemonViewModel(encounterPokemonResponse.PokemonData, session, player.Inventory);
+                        var caughtPokemon = new CaughtPokemonViewModel(encounterPokemonResponse.PokemonData, session, player.Inventory, settings);
                         var xp = caughtPokemonResponse.CaptureAward.Xp.Sum();
                         player.Xp += xp;
                         var stardust = caughtPokemonResponse.CaptureAward.Stardust.Sum();

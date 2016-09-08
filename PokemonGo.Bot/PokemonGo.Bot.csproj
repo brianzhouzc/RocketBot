@@ -103,6 +103,8 @@
     <Compile Include="TransferPokemonAlgorithms\TransferPokemonAlgorithmFactory.cs" />
     <Compile Include="Utils\AuthType.cs" />
     <Compile Include="Utils\MapSettings.cs" />
+    <Compile Include="Utils\PlayerLevelSettings.cs" />
+    <Compile Include="Utils\PokemonSettings.cs" />
     <Compile Include="Utils\PokemonUpgradeSettings.cs" />
     <Compile Include="Utils\RouteOptimizer.cs" />
     <Compile Include="Utils\Settings.cs" />

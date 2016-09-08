@@ -57,6 +57,15 @@ namespace PokemonGo.Bot.ViewModels
             set { if (StaminaMax != value) { staminaMax = value; RaisePropertyChanged(); } }
         }
 
+        float cpMultiplier;
+        public float CpMultiplier
+        {
+            get { return cpMultiplier; }
+            set { if (CpMultiplier != value) { cpMultiplier = value; RaisePropertyChanged(); } }
+        }
+
+
+
         public PokemonDataViewModel(PokemonData pokemon) : base(pokemon.PokemonId, pokemon.Id)
         {
             CombatPoints = pokemon.Cp;
@@ -71,6 +80,8 @@ namespace PokemonGo.Bot.ViewModels
             WeightInKilograms = pokemon.WeightKg;
             Stamina = pokemon.Stamina;
             StaminaMax = pokemon.StaminaMax;
+            CpMultiplier = pokemon.CpMultiplier;
+
         }
 
         public void UpdateWith(PokemonDataViewModel other)

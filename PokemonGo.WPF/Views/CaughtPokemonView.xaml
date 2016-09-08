@@ -9,14 +9,21 @@
              Height="50" Width="300">
     <UserControl.Resources>
         <converters:PokemonToImagePathConverter x:Key="imageConverter" />
-        <converters:PokemonToCandyColorConverter x:Key="candyColorConverter" />
         <BooleanToVisibilityConverter x:Key="boolToVis"/>
     </UserControl.Resources>
     <UserControl.ContextMenu>
         <ContextMenu>
             <MenuItem Header="Transfer" Command="{Binding Transfer}" />
             <MenuItem Header="Upgrade" Command="{Binding Upgrade}" />
-            <MenuItem Header="Evolve" Command="{Binding Evolve}" />
+            <MenuItem Command="{Binding Evolve}">
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Evolve"/>
+                        <TextBlock Text="{Binding CandyToEvolve}" Margin="10,0,0,0" />
+                        <local:CandyImageView DataContext="{Binding PokemonId}" Width="15" Height="15" VerticalAlignment="Center" />
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
             <MenuItem Header="Toggle Favorite" Command="{Binding ToggleFavorite}" />
         </ContextMenu>
     </UserControl.ContextMenu>
@@ -68,25 +75,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="{Binding Move1}" Grid.ColumnSpan="3"/>
             <TextBlock Text="{Binding Move2}" Grid.Row="1" Grid.ColumnSpan="3"/>
-            <Image Source="pack://siteoforigin:,,,/Images/Interface/candy_painted_base_color.png" Grid.Row="2"/>
-            <Rectangle Grid.Row="2">
-                <Rectangle.Fill>
-                    <SolidColorBrush Color="{Binding PokemonId, Converter={StaticResource candyColorConverter}, ConverterParameter=0}" Opacity="0.5"/>
-                </Rectangle.Fill>
-                <Rectangle.OpacityMask>
-                    <ImageBrush ImageSource="pack://siteoforigin:,,,/Images/Interface/candy_painted_base_color.png" />
-                </Rectangle.OpacityMask>
-            </Rectangle>
-            <Image Source="pack://siteoforigin:,,,/Images/Interface/candy_painted_secondary_color.png" Grid.Row="2"/>
-            <Rectangle Grid.Row="2">
-                <Rectangle.Fill>
-                    <SolidColorBrush Color="{Binding PokemonId, Converter={StaticResource candyColorConverter}, ConverterParameter=1}" Opacity="0.5"/>
-                </Rectangle.Fill>
-                <Rectangle.OpacityMask>
-                    <ImageBrush ImageSource="pack://siteoforigin:,,,/Images/Interface/candy_painted_secondary_color.png" />
-                </Rectangle.OpacityMask>
-            </Rectangle>
-            <Image Source="pack://siteoforigin:,,,/Images/Interface/candy_painted_highlight.png" Grid.Row="2"/>
+            <local:CandyImageView DataContext="{Binding PokemonId}" Grid.Row="2"/>
             <TextBlock Text="{Binding Candy}" Grid.Row="2" Grid.Column="1"/>
             <Image Source="pack://siteoforigin:,,,/Images/Interface/ic_fav.png" Grid.Row="2" Grid.Column="2"/>
             <Image Source="pack://siteoforigin:,,,/Images/Interface/ic_fav_pressed.png" Visibility="{Binding IsFavorite, Converter={StaticResource boolToVis}}" Grid.Row="2" Grid.Column="2"/>

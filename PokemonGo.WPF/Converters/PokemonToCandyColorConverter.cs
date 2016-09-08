@@ -14,6 +14,9 @@ namespace PokemonGo.WPF.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value == null)
+                return Colors.Red;
+
             var number = (int)value;
             var colorIndex = System.Convert.ToInt32(parameter);
             if (number > 0)
@@ -31,7 +34,7 @@ namespace PokemonGo.WPF.Converters
                 return colorIndex == 0 ? colors.Item1 : colors.Item2;
             }
 
-            return null;
+            return Colors.Red;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

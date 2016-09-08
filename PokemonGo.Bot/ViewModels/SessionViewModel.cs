@@ -61,13 +61,17 @@ namespace PokemonGo.Bot.ViewModels
             {
                 loginProvider = new PtcLoginProvider(main.Settings.Username, main.Settings.Password);
                 session = await POGOLib.Net.Authentication.Login.GetSession(loginProvider, main.Player.Position.Latitude, main.Player.Position.Longitude);
-                session.Map.Update += Map_Update;
-                session.Player.Inventory.Update += Inventory_Update;
                 IsLoggedIn = await session.Startup();
                 main.Settings.UpdateWith(session.GlobalSettings);
                 var templates = await DownloadItemTemplates();
                 main.Settings.UpdateWith(templates);
                 main.Player.UpdateWith(session.Player.Data);
+
+                // update after the settings have been downloaded
+                session.Map.Update += Map_Update;
+                session.Player.Inventory.Update += Inventory_Update;
+                Map_Update(null, null);
+                Inventory_Update(null, null);
             }
 
             if (IsLoggedIn)

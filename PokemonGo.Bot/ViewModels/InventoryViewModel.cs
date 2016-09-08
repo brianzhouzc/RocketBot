@@ -273,6 +273,8 @@ namespace PokemonGo.Bot.ViewModels
                 return 0;
 
             var numItemsToRecycle = Math.Min(item.Count, maxItemsToRecycleForType);
+            if (numItemsToRecycle <= 0)
+                return 0;
 
             await item.Recycle.ExecuteAsync(numItemsToRecycle);
 
@@ -296,7 +298,7 @@ namespace PokemonGo.Bot.ViewModels
 
         void UpdatePokemon(IEnumerable<InventoryItem> inventory)
         {
-            Pokemon.UpdateWith(inventory.Select(i => i.InventoryItemData?.PokemonData).Where(p => p?.PokemonId > 0).Select(p => new CaughtPokemonViewModel(p, session, this)));
+            Pokemon.UpdateWith(inventory.Select(i => i.InventoryItemData?.PokemonData).Where(p => p?.PokemonId > 0).Select(p => new CaughtPokemonViewModel(p, session, this, settings)));
         }
 
         void UpdateCandy(IEnumerable<InventoryItem> inventory)

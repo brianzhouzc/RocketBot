@@ -104,10 +104,14 @@ namespace PokemonGo.Bot.Utils
 
         internal void UpdateWith(GlobalSettings globalSettings)
         {
-            Fort = new PokemonGo.Bot.Utils.FortSettings(globalSettings.FortSettings);
-            Inventory = new PokemonGo.Bot.Utils.InventorySettings(globalSettings.InventorySettings);
-            Level = new PokemonGo.Bot.Utils.LevelSettings(globalSettings.LevelSettings);
-            Map = new PokemonGo.Bot.Utils.MapSettings(globalSettings.MapSettings);
+            if(globalSettings.FortSettings != null)
+                Fort = new PokemonGo.Bot.Utils.FortSettings(globalSettings.FortSettings);
+            if (globalSettings.InventorySettings != null)
+                Inventory = new PokemonGo.Bot.Utils.InventorySettings(globalSettings.InventorySettings);
+            if (globalSettings.LevelSettings != null)
+                Level = new PokemonGo.Bot.Utils.LevelSettings(globalSettings.LevelSettings);
+            if (globalSettings.MapSettings != null)
+                Map = new PokemonGo.Bot.Utils.MapSettings(globalSettings.MapSettings);
         }
 
         internal void UpdateWith(DownloadItemTemplatesResponse templates)
@@ -118,7 +122,32 @@ namespace PokemonGo.Bot.Utils
             {
                 PokemonUpgrade = new PokemonUpgradeSettings(pokemonUpgradeTemplate);
             }
+            var pokemonTemplate = itemTemplates.Where(t => t.PokemonSettings != null)?.Select(t => t.PokemonSettings);
+            Pokemon = pokemonTemplate.ToDictionary(p => (int)p.PokemonId, p => new PokemonSettings(p));
+            var playerLevelTemplate = itemTemplates.SingleOrDefault(t => t.PlayerLevel != null)?.PlayerLevel;
+            if (playerLevelTemplate != null)
+            {
+                PlayerLevel = new PlayerLevelSettings(playerLevelTemplate);
+            }
         }
+
+        IDictionary<int, PokemonSettings> pokemon;
+        [IgnoreDataMember]
+        public IDictionary<int, PokemonSettings> Pokemon
+        {
+            get { return pokemon; }
+            set { if (Pokemon != value) { pokemon = value; RaisePropertyChanged(); } }
+        }
+
+        PlayerLevelSettings playerLevel;
+        [IgnoreDataMember]
+        public PlayerLevelSettings PlayerLevel
+        {
+            get { return playerLevel; }
+            set { if (PlayerLevel != value) { playerLevel = value; RaisePropertyChanged(); } }
+        }
+
+
 
         public static Settings LoadFromJson(string json) => JsonConvert.DeserializeObject<Settings>(json);
         public static Settings LoadFromFile(string file)
@@ -160,6 +189,7 @@ namespace PokemonGo.Bot.Utils
 
         [IgnoreDataMember]
         public AsyncRelayCommand Save { get; }
+
         public string SaveToJson() => JsonConvert.SerializeObject(this, Formatting.Indented, new StringEnumConverter());
 
         public async Task SaveToFileAsync()

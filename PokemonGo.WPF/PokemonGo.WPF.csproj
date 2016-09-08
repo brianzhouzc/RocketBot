@@ -101,6 +101,9 @@
     <Compile Include="Views\BotView.xaml.cs">
       <DependentUpon>BotView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CandyImageView.xaml.cs">
+      <DependentUpon>CandyImageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CaughtPokemonView.xaml.cs">
       <DependentUpon>CaughtPokemonView.xaml</DependentUpon>
     </Compile>
@@ -149,6 +152,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BotView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CandyImageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
