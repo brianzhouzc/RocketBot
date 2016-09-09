@@ -95,7 +95,11 @@ namespace PokemonGo.Bot.ViewModels
             if (pokeballs.Count > 0)
                 return pokeballs;
             var greatBalls = player.Inventory.Items.FirstOrDefault(i => i.ItemType == Enums.ItemType.ItemGreatBall);
-            return greatBalls;
+            if(greatBalls.Count > 0)
+                return greatBalls;
+            var ultraBalls = player.Inventory.Items.FirstOrDefault(i => i.ItemType == Enums.ItemType.ItemUltraBall);
+            return ultraBalls;
+            // do not use a master ball automatically
         }
 
         async Task<EncounterResponse> Encounter()

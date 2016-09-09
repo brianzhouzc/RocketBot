@@ -19,7 +19,7 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Upgrade"/>
                         <TextBlock Text="{Binding CandyToUpgrade}" Margin="10,0,0,0" />
-                        <local:CandyImageView DataContext="{Binding PokemonId}" Width="15" Height="15" VerticalAlignment="Center" />
+                        <local:CandyImageView DataContext="{Binding FamilyId}" Width="15" Height="15" VerticalAlignment="Center" />
                         <TextBlock Text="{Binding StardustToUpgrade}" Margin="10,0,0,0" />
                         <Image Source="pack://siteoforigin:,,,/Images/Player/stardust.png" Width="15" Height="15"/>
                     </StackPanel>
@@ -30,7 +30,7 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Evolve"/>
                         <TextBlock Text="{Binding CandyToEvolve}" Margin="10,0,0,0" />
-                        <local:CandyImageView DataContext="{Binding PokemonId}" Width="15" Height="15" VerticalAlignment="Center" />
+                        <local:CandyImageView DataContext="{Binding FamilyId}" Width="15" Height="15" VerticalAlignment="Center" />
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
@@ -85,7 +85,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="{Binding Move1}" Grid.ColumnSpan="3"/>
             <TextBlock Text="{Binding Move2}" Grid.Row="1" Grid.ColumnSpan="3"/>
-            <local:CandyImageView DataContext="{Binding PokemonId}" Grid.Row="2"/>
+            <local:CandyImageView DataContext="{Binding FamilyId}" Grid.Row="2"/>
             <TextBlock Text="{Binding Candy}" Grid.Row="2" Grid.Column="1"/>
             <Image Source="pack://siteoforigin:,,,/Images/Interface/ic_fav.png" Grid.Row="2" Grid.Column="2"/>
             <Image Source="pack://siteoforigin:,,,/Images/Interface/ic_fav_pressed.png" Visibility="{Binding IsFavorite, Converter={StaticResource boolToVis}}" Grid.Row="2" Grid.Column="2"/>
