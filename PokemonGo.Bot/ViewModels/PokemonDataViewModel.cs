@@ -1,5 +1,6 @@
 ﻿using POGOProtos.Data;
 using POGOProtos.Enums;
+using PokemonGo.Bot.Utils;
 using System;
 
 namespace PokemonGo.Bot.ViewModels
@@ -64,9 +65,7 @@ namespace PokemonGo.Bot.ViewModels
             set { if (CpMultiplier != value) { cpMultiplier = value; RaisePropertyChanged(); } }
         }
 
-
-
-        public PokemonDataViewModel(PokemonData pokemon) : base(pokemon.PokemonId, pokemon.Id)
+        public PokemonDataViewModel(PokemonData pokemon, Settings settings) : base(pokemon.PokemonId, pokemon.Id, settings)
         {
             CombatPoints = pokemon.Cp;
             IsFavorite = pokemon.Favorite != 0;
@@ -81,7 +80,6 @@ namespace PokemonGo.Bot.ViewModels
             Stamina = pokemon.Stamina;
             StaminaMax = pokemon.StaminaMax;
             CpMultiplier = pokemon.CpMultiplier;
-
         }
 
         public void UpdateWith(PokemonDataViewModel other)

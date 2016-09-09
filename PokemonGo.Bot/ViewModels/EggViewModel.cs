@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using POGOProtos.Data;
 using PokemonGo.Bot.MVVMLightUtils;
+using PokemonGo.Bot.Utils;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -44,7 +45,7 @@ namespace PokemonGo.Bot.ViewModels
 
         public ObservableCollection<EggIncubatorViewModel> EggIncubators { get; }
 
-        public EggViewModel(PokemonData pokemon, ObservableCollection<EggIncubatorViewModel> eggIncubators, float playerKmWalked) : base(pokemon)
+        public EggViewModel(PokemonData pokemon, ObservableCollection<EggIncubatorViewModel> eggIncubators, float playerKmWalked, Settings settings) : base(pokemon, settings)
         {
             if (!pokemon.IsEgg)
                 throw new ArgumentOutOfRangeException(nameof(pokemon.PokemonId), $"{pokemon} is not an egg.");

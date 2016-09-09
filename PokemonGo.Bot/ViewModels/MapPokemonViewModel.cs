@@ -18,7 +18,6 @@ namespace PokemonGo.Bot.ViewModels
     public class MapPokemonViewModel : PokemonViewModel, IUpdateable<MapPokemonViewModel>
     {
         readonly SessionViewModel session;
-        readonly Settings settings;
         readonly PlayerViewModel player;
         readonly MapViewModel map;
         readonly bool isPokemonFromLure;
@@ -111,7 +110,7 @@ namespace PokemonGo.Bot.ViewModels
                 var encounterPokemonResponse = await session.EncounterPokemon(EncounterId, SpawnPointId);
                 if (encounterPokemonResponse.Status == POGOProtos.Networking.Responses.EncounterResponse.Types.Status.EncounterSuccess)
                 {
-                    pokemonEncounter = new WildPokemonViewModel(encounterPokemonResponse.WildPokemon);
+                    pokemonEncounter = new WildPokemonViewModel(encounterPokemonResponse.WildPokemon, settings);
                     pokemonData = encounterPokemonResponse.WildPokemon.PokemonData;
                 }
             }
@@ -120,7 +119,7 @@ namespace PokemonGo.Bot.ViewModels
                 var encounterPokemonResponse = await session.EncounterDiskPokemon(EncounterId, SpawnPointId);
                 if (encounterPokemonResponse.Result == DiskEncounterResponse.Types.Result.Success)
                 {
-                    pokemonEncounter = new WildPokemonViewModel(encounterPokemonResponse.PokemonData, fort);
+                    pokemonEncounter = new WildPokemonViewModel(encounterPokemonResponse.PokemonData, fort, settings);
                     pokemonData = encounterPokemonResponse.PokemonData;
                 }
             }
@@ -143,10 +142,9 @@ namespace PokemonGo.Bot.ViewModels
 
 
         public MapPokemonViewModel(MapPokemon pokemon, SessionViewModel session, Settings settings, PlayerViewModel player, MapViewModel map)
-            : base(pokemon.PokemonId, pokemon.EncounterId)
+            : base(pokemon.PokemonId, pokemon.EncounterId, settings)
         {
             this.session = session;
-            this.settings = settings;
             this.player = player;
             this.map = map;
 
@@ -158,10 +156,9 @@ namespace PokemonGo.Bot.ViewModels
 
 
         public MapPokemonViewModel(FortData fort, SessionViewModel session, Settings settings, PlayerViewModel player, MapViewModel map)
-            : base(fort.LureInfo.ActivePokemonId, fort.LureInfo.EncounterId)
+            : base(fort.LureInfo.ActivePokemonId, fort.LureInfo.EncounterId, settings)
         {
             this.session = session;
-            this.settings = settings;
             this.player = player;
             this.map = map;
 

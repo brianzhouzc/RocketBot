@@ -13,6 +13,7 @@ namespace PokemonGo.Bot.Utils
             BaseDefense = pokemonSettings.Stats.BaseDefense;
             BaseStamina = pokemonSettings.Stats.BaseStamina;
         }
+        public PokemonSettings() { }
 
         public int BaseAttack { get; }
         public int BaseDefense { get; }

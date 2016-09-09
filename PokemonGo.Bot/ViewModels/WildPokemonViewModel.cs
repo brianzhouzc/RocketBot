@@ -3,12 +3,13 @@ using POGOProtos.Data;
 using POGOProtos.Map.Pokemon;
 using PokemonGo.Bot.MVVMLightUtils;
 using POGOProtos.Map.Fort;
+using PokemonGo.Bot.Utils;
 
 namespace PokemonGo.Bot.ViewModels
 {
     public class WildPokemonViewModel : PokemonDataViewModel, IUpdateable<WildPokemonViewModel>
     {
-        public WildPokemonViewModel(WildPokemon pokemon) : base(pokemon.PokemonData)
+        public WildPokemonViewModel(WildPokemon pokemon, Settings settings) : base(pokemon.PokemonData, settings)
         {
             EncounterId = pokemon.EncounterId;
             LastModifiedTimestampMs = pokemon.LastModifiedTimestampMs;
@@ -17,8 +18,8 @@ namespace PokemonGo.Bot.ViewModels
             TimeTillHiddenMs = pokemon.TimeTillHiddenMs;
         }
 
-        public WildPokemonViewModel(PokemonData pokemon, FortData fort)
-            : base(pokemon)
+        public WildPokemonViewModel(PokemonData pokemon, FortData fort, Settings settings)
+            : base(pokemon, settings)
         {
             EncounterId = fort.LureInfo.EncounterId;
             LastModifiedTimestampMs = fort.LastModifiedTimestampMs;

@@ -123,7 +123,7 @@ namespace PokemonGo.Bot.Utils
                 PokemonUpgrade = new PokemonUpgradeSettings(pokemonUpgradeTemplate);
             }
             var pokemonTemplate = itemTemplates.Where(t => t.PokemonSettings != null)?.Select(t => t.PokemonSettings);
-            Pokemon = pokemonTemplate.ToDictionary(p => (int)p.PokemonId, p => new PokemonSettings(p));
+            pokemon = pokemonTemplate.ToDictionary(p => (int)p.PokemonId, p => new PokemonSettings(p));
             var playerLevelTemplate = itemTemplates.SingleOrDefault(t => t.PlayerLevel != null)?.PlayerLevel;
             if (playerLevelTemplate != null)
             {
@@ -132,11 +132,12 @@ namespace PokemonGo.Bot.Utils
         }
 
         IDictionary<int, PokemonSettings> pokemon;
-        [IgnoreDataMember]
-        public IDictionary<int, PokemonSettings> Pokemon
+        public PokemonSettings GetPokemonSettings(int pokemonId)
         {
-            get { return pokemon; }
-            set { if (Pokemon != value) { pokemon = value; RaisePropertyChanged(); } }
+            PokemonSettings pokemonSettings;
+            if (pokemon.TryGetValue(pokemonId, out pokemonSettings))
+                return pokemonSettings;
+            return new PokemonSettings();
         }
 
         PlayerLevelSettings playerLevel;

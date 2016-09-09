@@ -288,7 +288,7 @@ namespace PokemonGo.Bot.ViewModels
 
         void UpdateEggs(IEnumerable<InventoryItem> inventory)
         {
-            Eggs.UpdateWith(inventory.Select(i => i.InventoryItemData?.PokemonData).Where(p => (p?.IsEgg).GetValueOrDefault()).Select(p => new EggViewModel(p, EggIncubators, Player.KmWalked)));
+            Eggs.UpdateWith(inventory.Select(i => i.InventoryItemData?.PokemonData).Where(p => (p?.IsEgg).GetValueOrDefault()).Select(p => new EggViewModel(p, EggIncubators, Player.KmWalked, settings)));
         }
 
         void UpdateEggIncubators(IEnumerable<InventoryItem> inventory)

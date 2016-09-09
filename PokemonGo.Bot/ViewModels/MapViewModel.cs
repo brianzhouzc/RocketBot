@@ -62,7 +62,7 @@ namespace PokemonGo.Bot.ViewModels
             if (gymsFromResponse.Any())
                 Gyms.UpdateWith(gymsFromResponse);
 
-            var wildPokemonFromResponse = mapCells.SelectMany(m => m.WildPokemons).Select(p => new WildPokemonViewModel(p)).ToList();
+            var wildPokemonFromResponse = mapCells.SelectMany(m => m.WildPokemons).Select(p => new WildPokemonViewModel(p, settings)).ToList();
             if (wildPokemonFromResponse.Any())
                 WildPokemon.UpdateWith(wildPokemonFromResponse);
 

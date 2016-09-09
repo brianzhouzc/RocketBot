@@ -14,7 +14,6 @@ namespace PokemonGo.Bot.ViewModels
     {
         readonly SessionViewModel session;
         readonly InventoryViewModel inventory;
-        readonly Settings settings;
 
         #region Transfer
 
@@ -144,14 +143,6 @@ namespace PokemonGo.Bot.ViewModels
             set { if (Candy != value) { candy = value; RaisePropertyChanged(); Evolve.RaiseCanExecuteChanged(); Upgrade.RaiseCanExecuteChanged(); } }
         }
 
-        int candyToEvolve;
-
-        public int CandyToEvolve
-        {
-            get { return candyToEvolve; }
-            set { if (CandyToEvolve != value) { candyToEvolve = value; RaisePropertyChanged(); Evolve.RaiseCanExecuteChanged(); } }
-        }
-
         int level;
 
         public int Level
@@ -174,14 +165,13 @@ namespace PokemonGo.Bot.ViewModels
             set { if (StardustToUpgrade != value) { stardustToupgrade = value; RaisePropertyChanged(); Upgrade.RaiseCanExecuteChanged(); } }
         }
 
-        public CaughtPokemonViewModel(PokemonData pokemon, SessionViewModel session, InventoryViewModel inventory, Settings settings) : base(pokemon)
+        public CaughtPokemonViewModel(PokemonData pokemon, SessionViewModel session, InventoryViewModel inventory, Settings settings) : base(pokemon, settings)
         {
             if (Id == 0)
                 throw new ArgumentException("This is not a caught pokemon.", nameof(pokemon));
 
             this.session = session;
             this.inventory = inventory;
-            this.settings = settings;
 
             Candy = inventory.GetCandyForFamily(FamilyId);
             CalculateLevel();
@@ -189,8 +179,7 @@ namespace PokemonGo.Bot.ViewModels
 
         void CalculateLevel()
         {
-            var pokemonSettings = settings.Pokemon[PokemonId];
-            CandyToEvolve = pokemonSettings.CandyToEvolve;
+            var pokemonSettings = settings.GetPokemonSettings(PokemonId);
             Level = settings.PlayerLevel.GetLevelFromCpMultiplier(CpMultiplier);
             CandyToUpgrade = settings.PokemonUpgrade.GetCandyCostForUpgradeFromLevel(Level);
             StardustToUpgrade = settings.PokemonUpgrade.GetStardustCostForUpgradeFromLevel(Level);
