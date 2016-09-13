@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using Google.Protobuf;
 using POGOLib.Net;
+using POGOLib.Net.Authentication.Providers;
 using POGOLib.Pokemon;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Networking.Requests;

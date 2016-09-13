@@ -1,4 +1,4 @@
 [submodule "POGOLib"]
 	path = POGOLib
 	url = https://github.com/AeonLucid/POGOLib
-	branch = proper-pcl
+	branch = netstandard-convert

@@ -43,6 +43,10 @@
       <HintPath>$(SolutionDir)packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="GeoCoordinate.NetStandard1, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GeoCoordinate.NetStandard1.1.0.0\lib\netstandard1.0\GeoCoordinate.NetStandard1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Google.Protobuf, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Protobuf.3.0.0\lib\net45\Google.Protobuf.dll</HintPath>
       <Private>True</Private>
@@ -53,6 +57,14 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="POGOProtos.NetStandard1, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\POGOProtos.NetStandard1.1.0.0\lib\netstandard1.0\POGOProtos.NetStandard1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PokemonGoEncryptSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PokemonGoEncryptSharp.NetStandard1.1.0.0\lib\netstandard1.0\PokemonGoEncryptSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -140,8 +152,8 @@
     <Analyzer Include="..\packages\codecracker.CSharp.1.0.0\analyzers\dotnet\cs\CodeCracker.CSharp.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\POGOLib\POGOLib\POGOLib.csproj">
-      <Project>{ae7c8436-eab8-407c-83cf-d9ea62f1c781}</Project>
+    <ProjectReference Include="..\POGOLib\src\POGOLib\POGOLib.csproj">
+      <Project>{cd4c6557-8a33-40d9-952b-a10694d3f042}</Project>
       <Name>POGOLib</Name>
     </ProjectReference>
   </ItemGroup>

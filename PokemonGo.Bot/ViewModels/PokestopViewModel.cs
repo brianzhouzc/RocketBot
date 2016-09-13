@@ -114,7 +114,7 @@ namespace PokemonGo.Bot.ViewModels
         {
             this.settings = settings;
             this.player = player;
-            HasLureModuleActive = !fort.ActiveFortModifier.IsEmpty;
+            HasLureModuleActive = fort.ActiveFortModifier.Any(i => i == ItemId.ItemTroyDisk);
             InitializeIsActiveTimer(fort.CooldownCompleteTimestampMs);
             CalculateIsNear();
             //player.PropertyChanged += Player_PropertyChanged;
