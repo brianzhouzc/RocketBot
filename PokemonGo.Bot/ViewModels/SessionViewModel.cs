@@ -92,6 +92,7 @@ namespace PokemonGo.Bot.ViewModels
         async void Inventory_Update(object sender, EventArgs e)
         {
             await main.Player.Inventory.UpdateWith(session.Player.Inventory.InventoryItems);
+            main.Player.UpdateWith(session.Player.Data);
         }
 
         void Map_Update(object sender, EventArgs e)

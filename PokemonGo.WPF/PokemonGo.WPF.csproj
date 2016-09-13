@@ -82,6 +82,7 @@
     </ApplicationDefinition>
     <Compile Include="Behaviors\CollectionViewSourceBehavior.cs" />
     <Compile Include="Behaviors\ListBoxBehavior.cs" />
+    <Compile Include="Converters\EggIncubatorToImagePathConverter.cs" />
     <Compile Include="Converters\EventArgsToPositionConverter.cs" />
     <Compile Include="Converters\EggToImagePathConverter.cs" />
     <Compile Include="Converters\PokemonToCandyColorConverter.cs" />

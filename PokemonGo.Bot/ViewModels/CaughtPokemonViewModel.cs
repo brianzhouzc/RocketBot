@@ -94,13 +94,6 @@ namespace PokemonGo.Bot.ViewModels
         async Task ExecuteEvolve()
         {
             var response = await session.EvolvePokemon(Id);
-            if (response.Result == EvolvePokemonResponse.Types.Result.Success)
-            {
-                inventory.AddCandyForFamily(Candy, FamilyId);
-                inventory.Player.Xp += response.ExperienceAwarded;
-                CombatPoints = response.EvolvedPokemonData.Cp;
-                PokemonId = (int)response.EvolvedPokemonData.PokemonId;
-            }
         }
 
         bool CanExecuteEvolve() => CandyToEvolve > 0 && CandyToEvolve <= Candy;
@@ -125,10 +118,6 @@ namespace PokemonGo.Bot.ViewModels
         async Task ExecuteUpgrade()
         {
             var response = await session.UpgradePokemon(Id);
-            if (response.Result == UpgradePokemonResponse.Types.Result.Success)
-            {
-                CombatPoints = response.UpgradedPokemon.Cp;
-            }
         }
 
         bool CanExecuteUpgrade() => CandyToUpgrade <= Candy;

@@ -9,12 +9,29 @@
              d:DesignHeight="58" d:DesignWidth="40">
     <UserControl.Resources>
         <converters:EggToImagePathConverter x:Key="eggToImagePathConverter"/>
+        <converters:EggIncubatorToImagePathConverter x:Key="eggIncubatorToImagePathConverter"/>
         <DataTemplate x:Key="incubatorTemplate">
-            <MenuItem Header="{Binding Id}" Command="{Binding PutEggIntoIncubator}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"/>
+            <MenuItem Command="{Binding PutEggIntoIncubator}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
+                <MenuItem.Header>
+                    <Image Width="40" Height="40">
+                        <Image.Source>
+                            <MultiBinding Converter="{StaticResource eggIncubatorToImagePathConverter}">
+                                <Binding Path="IsUnlimited" Mode="OneWay"/>
+                                <Binding Path="IsInUse" Mode="OneWay"/>
+                            </MultiBinding>
+                        </Image.Source>
+                    </Image>
+                </MenuItem.Header>
+            </MenuItem>
         </DataTemplate>
     </UserControl.Resources>
     <UserControl.ContextMenu>
         <ContextMenu>
+            <ContextMenu.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ContextMenu.ItemsPanel>
             <MenuItem Header="Put into Incubator" ItemsSource="{Binding EggIncubators}" ItemTemplate="{StaticResource incubatorTemplate}"/>
         </ContextMenu>
     </UserControl.ContextMenu>
