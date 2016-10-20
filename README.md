@@ -138,6 +138,7 @@ We are not accepting donations currently :) If you really wanna contribute, cons
 * *cp* - transfers all Pokémon below the CP threshold in the app.config, EXCEPT for those types specified in program.cs in TransferAllWeakPokemon
 * *leaveStrongest* - transfers all but the highest CP Pokémon of each type SPECIFIED IN program.cs in TransferAllButStrongestUnwantedPokemon (those that aren't specified are untouched)
 * *duplicate* - same as above but for all Pokémon (no need to specify type), (will not transfer favorited Pokémon)
+* *IV Duplicate* - same as above but Compare IV with duplicate Pokémon (no need to specify type), (will not transfer favorited Pokémon)
 * *all* - transfers all Pokémon
 
 ## TransferCPThreshold
