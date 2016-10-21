@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 [assembly: AssemblyTitle("RocketBot 2.0")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("PokemonGo - RocketBot")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("PokemonGo.RocketBot.Window")]
@@ -39,5 +39,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("2.0.0")]
+[assembly: AssemblyVersion("2.0.0.1")]
 [assembly: AssemblyFileVersion("2.0.0")]
