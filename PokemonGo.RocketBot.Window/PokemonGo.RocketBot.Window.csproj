@@ -532,13 +532,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\POGOProtos-Rocket\POGOProtos.csproj">
+    <ProjectReference Include="..\POGOProtos-Rocket\POGOProtos-Rocket.csproj">
       <Project>{a03a7bb2-4f0b-467b-84b2-9a76e6aae6fb}</Project>
-      <Name>POGOProtos</Name>
+      <Name>POGOProtos-Rocket</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PokemonGo.RocketAPI-Rocket\PokemonGo.RocketAPI.csproj">
+    <ProjectReference Include="..\PokemonGo.RocketAPI-Rocket\PokemonGo.RocketAPI-Rocket.csproj">
       <Project>{05d2da44-1b8e-4cf7-94ed-4d52451cd095}</Project>
-      <Name>PokemonGo.RocketAPI</Name>
+      <Name>PokemonGo.RocketAPI-Rocket</Name>
     </ProjectReference>
     <ProjectReference Include="..\PokemonGo.RocketBot.Logic\PokemonGo.RocketBot.Logic.csproj">
       <Project>{0739e40d-c589-4aeb-93e5-ee8cd6773c60}</Project>
