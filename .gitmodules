@@ -1,6 +1,6 @@
-[submodule "POGOProtos-Rocket"]
-	path = POGOProtos-Rocket
+[submodule "POGOProtos"]
+	path = POGOProtos
 	url = https://github.com/Furtif/POGOProtos.git
-[submodule "PokemonGo.RocketAPI-Rocket"]
-	path = PokemonGo.RocketAPI-Rocket
+[submodule "PokemonGo.RocketAPI"]
+	path = PokemonGo.RocketAPI
 	url = https://github.com/Furtif/PokemonGo.RocketAPI.git
