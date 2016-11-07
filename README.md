@@ -1,3 +1,18 @@
+## Versioning
+
+We are following [semantic versioning](http://semver.org/) for POGOProtos.  Every version will be mapped to their current PokémonGo version.
+
+| Version      | Android       | IOS           |
+|--------------|---------------|---------------|
+| 2.0.0        | 0.43.4        | 1.13.4        |
+
+## Preparation
+
+Current recommended protoc version: "Protocol Buffers v3.1.0".
+
+You can find download links [here](https://github.com/google/protobuf/releases).
+
+
 <!-- define variables -->
 [1.1]: http://i.imgur.com/M4fJ65n.png (ATTENTION)
 [1.2]: https://discordapp.com/api/guilds/208485545439920128/widget.png?style=banner2 (DISCORD)
