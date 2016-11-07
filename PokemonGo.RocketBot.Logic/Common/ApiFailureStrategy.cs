@@ -175,5 +175,10 @@ namespace PokemonGo.RocketBot.Logic.Common
                 });
             }
         }
+
+        public void HandleCaptcha(string challengeUrl, ICaptchaResponseHandler captchaResponseHandler)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -442,7 +442,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             List<MapPokemon> catchablePokemon;
             try
             {
-                await session.Client.Player.UpdatePlayerLocation(latitude, longitude, session.Client.CurrentAltitude);
+                await session.Client.Player.UpdatePlayerLocation(latitude, longitude, session.Client.CurrentAltitude, (float) session.Client.CurrentSpeed);
 
                 session.EventDispatcher.Send(new UpdatePositionEvent
                 {
@@ -461,7 +461,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             {
                 await
                     session.Client.Player.UpdatePlayerLocation(CurrentLatitude, CurrentLongitude,
-                        session.Client.CurrentAltitude);
+                        session.Client.CurrentAltitude, (float)session.Client.CurrentSpeed);
             }
 
             if (catchablePokemon.Count == 0)
@@ -478,7 +478,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                 try
                 {
                     await
-                        session.Client.Player.UpdatePlayerLocation(latitude, longitude, session.Client.CurrentAltitude);
+                        session.Client.Player.UpdatePlayerLocation(latitude, longitude, session.Client.CurrentAltitude, (float)session.Client.CurrentSpeed);
 
                     encounter =
                         session.Client.Encounter.EncounterPokemon(pokemon.EncounterId, pokemon.SpawnPointId).Result;
@@ -487,7 +487,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                 {
                     await
                         session.Client.Player.UpdatePlayerLocation(CurrentLatitude, CurrentLongitude,
-                            session.Client.CurrentAltitude);
+                            session.Client.CurrentAltitude, (float)session.Client.CurrentSpeed);
                 }
 
                 if (encounter.Status == EncounterResponse.Types.Status.EncounterSuccess)

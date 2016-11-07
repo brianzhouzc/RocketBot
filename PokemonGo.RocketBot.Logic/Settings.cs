@@ -19,6 +19,7 @@ using PokemonGo.RocketBot.Logic.State;
 using PokemonGo.RocketBot.Logic.Utils;
 using POGOProtos.Enums;
 using POGOProtos.Inventory.Item;
+using Google.Protobuf;
 
 #endregion
 
@@ -1305,6 +1306,32 @@ namespace PokemonGo.RocketBot.Logic
         {
             get { return _settings.Auth.FirmwareFingerprint; }
             set { _settings.Auth.FirmwareFingerprint = value; }
+        }
+
+        public string DevicePlatform
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+               throw new NotImplementedException();
+            }
+        }
+
+        public ByteString SessionHash
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
 
         #endregion Device Config Values
