@@ -4,13 +4,16 @@ We are following [semantic versioning](http://semver.org/) for POGOProtos.  Ever
 
 | Version      | Android       | IOS           |
 |--------------|---------------|---------------|
+| 2.1.0-beta   | 0.45.0        | 1.15.0        |
+| 2.0.1        | 0.43.4        | 1.13.4        |
 | 2.0.0        | 0.43.4        | 1.13.4        |
 
-## Preparation
+If you want to figure out the current version in an automated system, use this file.
 
-Current recommended protoc version: "Protocol Buffers v3.1.0".
+https://raw.githubusercontent.com/AeonLucid/POGOProtos/master/.current-version
 
-You can find download links [here](https://github.com/google/protobuf/releases).
+*Note: This file will contain pre-release versions too.*
+
 
 
 <!-- define variables -->
