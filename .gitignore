@@ -254,3 +254,5 @@ paket-files/
 
 # CodeRush
 .cr/
+/POGOProtos/
+/PokemonGo.RocketAPI/
