@@ -178,7 +178,22 @@ namespace PokemonGo.RocketBot.Logic.Common
 
         public void HandleCaptcha(string challengeUrl, ICaptchaResponseHandler captchaResponseHandler)
         {
-            throw new NotImplementedException();
+            // TODO Show captcha get token and pass it back.
+            // string token = "";
+            // captchaResponseHandler.SetCaptchaToken(token);
+
+            _session.EventDispatcher.Send(new ErrorEvent
+            {
+                Message = _session.Translation.GetTranslation(TranslationString.CaptchaShown)
+            });
+
+            _session.EventDispatcher.Send(new WarnEvent
+            {
+                Message = _session.Translation.GetTranslation(TranslationString.ExitNowAfterEnterKey)
+            });
+
+            Console.ReadKey();
+            Environment.Exit(0);
         }
     }
 }

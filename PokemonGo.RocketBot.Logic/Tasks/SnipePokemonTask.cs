@@ -487,7 +487,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                 {
                     await
                         session.Client.Player.UpdatePlayerLocation(CurrentLatitude, CurrentLongitude,
-                            session.Client.CurrentAltitude, session.Client.CurrentSpeed);
+                            session.Client.CurrentAltitude,session.Client.CurrentSpeed);
                 }
 
                 if (encounter.Status == EncounterResponse.Types.Status.EncounterSuccess)

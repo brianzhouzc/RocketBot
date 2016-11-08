@@ -34,8 +34,11 @@ namespace PokemonGo.RocketBot.Logic
         [DefaultValue("1.0.0.0000")] public string AndroidBootloader;
 
         public AuthType AuthType;
+        public ByteString SessionHash;
 
         [DefaultValue("HTC")] public string DeviceBrand;
+
+        [DefaultValue("android")] public string DevicePlatform;
 
         [DefaultValue("8525f5d8201f78b5")] public string DeviceId;
 
@@ -50,13 +53,12 @@ namespace PokemonGo.RocketBot.Logic
 
         [DefaultValue("pmewl_00531")] public string FirmwareBrand;
 
-        [DefaultValue("htc/pmewl_00531/htc_pmewl:6.0.1/MMB29M/770927.1:user/release-keys")] public string
-            FirmwareFingerprint;
+        [DefaultValue("htc/pmewl_00531/htc_pmewl:6.0.1/MMB29M/770927.1:user/release-keys")] public string FirmwareFingerprint;
 
         [DefaultValue("release-keys")] public string FirmwareTags;
 
         [DefaultValue("user")] public string FirmwareType;
-
+       
         public string GoogleApiKey;
         public string GooglePassword;
         public string GoogleUsername;
@@ -1188,21 +1190,18 @@ namespace PokemonGo.RocketBot.Logic
         AuthType ISettings.AuthType
         {
             get { return _settings.Auth.AuthType; }
-
             set { _settings.Auth.AuthType = value; }
         }
 
         string ISettings.GoogleUsername
         {
             get { return _settings.Auth.GoogleUsername; }
-
             set { _settings.Auth.GoogleUsername = value; }
         }
 
         string ISettings.GooglePassword
         {
             get { return _settings.Auth.GooglePassword; }
-
             set { _settings.Auth.GooglePassword = value; }
         }
 
@@ -1310,29 +1309,15 @@ namespace PokemonGo.RocketBot.Logic
 
         public string DevicePlatform
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-               throw new NotImplementedException();
-            }
+            get { return _settings.Auth.DevicePlatform; }
+            set { _settings.Auth.DevicePlatform = value; }
         }
 
         public ByteString SessionHash
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+            get { return _settings.Auth.SessionHash; }
+            set { _settings.Auth.SessionHash = value; }
+         }
 
         #endregion Device Config Values
     }
