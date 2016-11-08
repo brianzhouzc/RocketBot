@@ -1,3 +1,19 @@
+## Versioning
+
+We are following [semantic versioning](http://semver.org/) for POGOProtos.  Every version will be mapped to their current PokémonGo version.
+
+| Version      | Android       | IOS           |
+|--------------|---------------|---------------|
+| 2.1.0-beta   | 0.45.0        | 1.15.0        |
+| 2.0.1        | 0.43.4        | 1.13.4        |
+| 2.0.0        | 0.43.4        | 1.13.4        |
+
+If you want to figure out the current version in an automated system, use this file.
+
+https://raw.githubusercontent.com/AeonLucid/POGOProtos/master/.current-version
+
+*Note: This file will contain pre-release versions too.*
+
 <!-- define variables -->
 [1.1]: http://i.imgur.com/M4fJ65n.png (ATTENTION)
 [1.2]: https://discordapp.com/api/guilds/208485545439920128/widget.png?style=banner2 (DISCORD)
