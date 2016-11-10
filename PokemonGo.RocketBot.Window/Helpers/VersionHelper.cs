@@ -14,7 +14,7 @@ namespace PokemonGo.RocketBot.Window.Helpers
             {
                 var match =
                     new Regex(
-                        @"\[assembly\: AssemblyVersion\(""(\d{1,})\.(\d{1,})\.(\d{1,})""\)\]")
+                        @"\[assembly\: AssemblyVersion\(""(\d{1,})\.(\d{1,})\.(\d{1,}).(\d{1,})""\)\]")
                         .Match(DownloadServerVersion());
 
                 if (!match.Success) return;
