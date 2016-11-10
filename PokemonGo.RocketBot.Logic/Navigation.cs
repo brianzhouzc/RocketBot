@@ -230,7 +230,7 @@ namespace PokemonGo.RocketBot.Logic
                     result =
                         await
                             _client.Player.UpdatePlayerLocation(waypoint.Latitude, waypoint.Longitude,
-                                waypoint.Altitude);
+                                waypoint.Altitude, (float) waypoint.Speed);
 
                     UpdatePositionEvent?.Invoke(waypoint.Latitude, waypoint.Longitude);
 
@@ -268,7 +268,7 @@ namespace PokemonGo.RocketBot.Logic
                         result =
                             await
                                 _client.Player.UpdatePlayerLocation(waypoint.Latitude, waypoint.Longitude,
-                                    waypoint.Altitude);
+                                    waypoint.Altitude,(float) waypoint.Speed);
 
                         UpdatePositionEvent?.Invoke(waypoint.Latitude, waypoint.Longitude);
 
@@ -299,7 +299,7 @@ namespace PokemonGo.RocketBot.Logic
                 var result =
                     await
                         _client.Player.UpdatePlayerLocation(waypoint.Latitude, waypoint.Longitude,
-                            waypoint.Altitude);
+                            waypoint.Altitude, (float) waypoint.Speed);
 
                 UpdatePositionEvent?.Invoke(waypoint.Latitude, waypoint.Longitude);
 
@@ -336,7 +336,7 @@ namespace PokemonGo.RocketBot.Logic
                     result =
                         await
                             _client.Player.UpdatePlayerLocation(waypoint.Latitude, waypoint.Longitude,
-                                waypoint.Altitude);
+                                waypoint.Altitude, (float) waypoint.Speed);
 
                     UpdatePositionEvent?.Invoke(waypoint.Latitude, waypoint.Longitude);
 
@@ -372,7 +372,7 @@ namespace PokemonGo.RocketBot.Logic
             var requestSendDateTime = DateTime.Now;
             var result =
                 await
-                    _client.Player.UpdatePlayerLocation(waypoint.Latitude, waypoint.Longitude, waypoint.Altitude);
+                    _client.Player.UpdatePlayerLocation(waypoint.Latitude, waypoint.Longitude, waypoint.Altitude,(float) waypoint.Speed);
 
             UpdatePositionEvent?.Invoke(waypoint.Latitude, waypoint.Longitude);
 
@@ -407,7 +407,7 @@ namespace PokemonGo.RocketBot.Logic
                 result =
                     await
                         _client.Player.UpdatePlayerLocation(waypoint.Latitude, waypoint.Longitude,
-                            waypoint.Altitude);
+                            waypoint.Altitude,(float) waypoint.Speed);
 
                 UpdatePositionEvent?.Invoke(waypoint.Latitude, waypoint.Longitude);
 
