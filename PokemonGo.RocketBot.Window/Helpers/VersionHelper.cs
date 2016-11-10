@@ -12,7 +12,7 @@ namespace PokemonGo.RocketBot.Window.Helpers
         {
             try
             {
-                Logger.Write("You can find it at www.GitHub.com/TheUnnameOrganization/RocketBot/releases");
+                Logger.Write("You can find it at www.GitHub.com/TheUnnameOrganization/RocketBot/releases",LogLevel.Update);
                 Logger.Write("Your version is " + Application.ProductVersion);
                 var match =
                     new Regex(
