@@ -19,6 +19,7 @@ using PokemonGo.RocketBot.Logic.State;
 using PokemonGo.RocketBot.Logic.Utils;
 using POGOProtos.Enums;
 using POGOProtos.Inventory.Item;
+using Google.Protobuf;
 
 #endregion
 
@@ -27,29 +28,45 @@ namespace PokemonGo.RocketBot.Logic
     public class AuthSettings
     {
         [JsonIgnore] private string _filePath;
+
         [DefaultValue("msm8996")] public string AndroidBoardName;
+
         [DefaultValue("1.0.0.0000")] public string AndroidBootloader;
 
         public AuthType AuthType;
+        public ByteString SessionHash;
+
         [DefaultValue("HTC")] public string DeviceBrand;
+
+        [DefaultValue("android")] public string DevicePlatform;
+
         [DefaultValue("8525f5d8201f78b5")] public string DeviceId;
+
         [DefaultValue("HTC 10")] public string DeviceModel;
+
         [DefaultValue("qcom")] public string DeviceModelBoot;
+
         [DefaultValue("pmewl_00531")] public string DeviceModelIdentifier;
+
         // device data
         [DefaultValue("random")] public string DevicePackageName;
+
         [DefaultValue("pmewl_00531")] public string FirmwareBrand;
 
-        [DefaultValue("htc/pmewl_00531/htc_pmewl:6.0.1/MMB29M/770927.1:user/release-keys")] public string
-            FirmwareFingerprint;
+        [DefaultValue("htc/pmewl_00531/htc_pmewl:6.0.1/MMB29M/770927.1:user/release-keys")] public string FirmwareFingerprint;
 
         [DefaultValue("release-keys")] public string FirmwareTags;
+
         [DefaultValue("user")] public string FirmwareType;
+       
         public string GoogleApiKey;
         public string GooglePassword;
         public string GoogleUsername;
+
         [DefaultValue("HTC")] public string HardwareManufacturer;
+
         [DefaultValue("HTC 10")] public string HardwareModel;
+
         public string PtcPassword;
         public string PtcUsername;
         public bool UseProxy;
@@ -98,7 +115,7 @@ namespace PokemonGo.RocketBot.Logic
                 {
                     // User requested a specific device package, check to see if it exists and if so, set it up - otherwise fall-back to random package
                     var keepDevId = DeviceId;
-                    SetDevInfoByKey();
+                    SetDevInfoByKey(DevicePackageName);
                     DeviceId = keepDevId;
                 }
                 if (DevicePackageName.Equals("random", StringComparison.InvariantCultureIgnoreCase))
@@ -107,7 +124,7 @@ namespace PokemonGo.RocketBot.Logic
                     var rnd = new Random();
                     var rndIdx = rnd.Next(0, DeviceInfoHelper.DeviceInfoSets.Keys.Count - 1);
                     DevicePackageName = DeviceInfoHelper.DeviceInfoSets.Keys.ToArray()[rndIdx];
-                    SetDevInfoByKey();
+                    SetDevInfoByKey(DevicePackageName);
                 }
                 if (string.IsNullOrEmpty(DeviceId) || DeviceId == "8525f5d8201f78b5")
                     DeviceId = RandomString(16, "0123456789abcdef");
@@ -173,19 +190,19 @@ namespace PokemonGo.RocketBot.Logic
         {
             using (var tempWebClient = new NecroWebClient())
             {
-                var unproxiedIp = WebClientExtensions.DownloadString(tempWebClient,
+                var unproxiedIP = WebClientExtensions.DownloadString(tempWebClient,
                     new Uri("https://api.ipify.org/?format=text"));
                 if (UseProxy)
                 {
                     tempWebClient.Proxy = InitProxy();
                     var proxiedIPres = WebClientExtensions.DownloadString(tempWebClient,
                         new Uri("https://api.ipify.org/?format=text"));
-                    var proxiedIp = proxiedIPres == null ? "INVALID PROXY" : proxiedIPres;
+                    var proxiedIP = proxiedIPres == null ? "INVALID PROXY" : proxiedIPres;
                     Logger.Write(
-                        $"Your IP is: {unproxiedIp} / Proxy IP is: {proxiedIp}",
-                        LogLevel.Info, unproxiedIp == proxiedIp ? ConsoleColor.Red : ConsoleColor.Green);
+                        $"Your IP is: {unproxiedIP} / Proxy IP is: {proxiedIP}",
+                        LogLevel.Info, unproxiedIP == proxiedIP ? ConsoleColor.Red : ConsoleColor.Green);
 
-                    if (unproxiedIp == proxiedIp || proxiedIPres == null)
+                    if (unproxiedIP == proxiedIP || proxiedIPres == null)
                     {
                         Logger.Write("Press any key to exit so you can fix your proxy settings...",
                             LogLevel.Info, ConsoleColor.Red);
@@ -196,7 +213,7 @@ namespace PokemonGo.RocketBot.Logic
                 else
                 {
                     Logger.Write(
-                        $"Your IP is: {unproxiedIp}",
+                        $"Your IP is: {unproxiedIP}",
                         LogLevel.Info, ConsoleColor.Red);
                 }
             }
@@ -226,7 +243,7 @@ namespace PokemonGo.RocketBot.Logic
             }
         }
 
-        private void SetDevInfoByKey()
+        private void SetDevInfoByKey(string devKey)
         {
             if (DeviceInfoHelper.DeviceInfoSets.ContainsKey(DevicePackageName))
             {
@@ -236,15 +253,12 @@ namespace PokemonGo.RocketBot.Logic
                 DeviceId = DeviceInfoHelper.DeviceInfoSets[DevicePackageName]["DeviceId"];
                 DeviceModel = DeviceInfoHelper.DeviceInfoSets[DevicePackageName]["DeviceModel"];
                 DeviceModelBoot = DeviceInfoHelper.DeviceInfoSets[DevicePackageName]["DeviceModelBoot"];
-                DeviceModelIdentifier =
-                    DeviceInfoHelper.DeviceInfoSets[DevicePackageName]["DeviceModelIdentifier"];
+                DeviceModelIdentifier = DeviceInfoHelper.DeviceInfoSets[DevicePackageName]["DeviceModelIdentifier"];
                 FirmwareBrand = DeviceInfoHelper.DeviceInfoSets[DevicePackageName]["FirmwareBrand"];
-                FirmwareFingerprint =
-                    DeviceInfoHelper.DeviceInfoSets[DevicePackageName]["FirmwareFingerprint"];
+                FirmwareFingerprint = DeviceInfoHelper.DeviceInfoSets[DevicePackageName]["FirmwareFingerprint"];
                 FirmwareTags = DeviceInfoHelper.DeviceInfoSets[DevicePackageName]["FirmwareTags"];
                 FirmwareType = DeviceInfoHelper.DeviceInfoSets[DevicePackageName]["FirmwareType"];
-                HardwareManufacturer =
-                    DeviceInfoHelper.DeviceInfoSets[DevicePackageName]["HardwareManufacturer"];
+                HardwareManufacturer = DeviceInfoHelper.DeviceInfoSets[DevicePackageName]["HardwareManufacturer"];
                 HardwareModel = DeviceInfoHelper.DeviceInfoSets[DevicePackageName]["HardwareModel"];
             }
             else
@@ -270,54 +284,91 @@ namespace PokemonGo.RocketBot.Logic
     public class GlobalSettings
     {
         //console options
-        [DefaultValue(10)] public int AmountOfPokemonToDisplayOnStart;
+        [DefaultValue(0)] public int AmountOfPokemonToDisplayOnStart;
+
         [DefaultValue(5)] public int AmountOfTimesToUpgradeLoop;
+
         [JsonIgnore] public AuthSettings Auth = new AuthSettings();
+
         [DefaultValue(false)] public bool AutoFavoritePokemon;
+
         //powerup
         [DefaultValue(false)] public bool AutomaticallyLevelUpPokemon;
+
         //autoupdate
         [DefaultValue(true)] public bool AutoUpdate;
+
         //pokemon
         [DefaultValue(true)] public bool CatchPokemon;
+
         [DefaultValue(90)] public int CurveThrowChance;
+
         [DefaultValue(40.785091)] public double DefaultLatitude;
+
         [DefaultValue(-73.968285)] public double DefaultLongitude;
+
         //delays
-        [DefaultValue(500)] public int DelayBetweenPlayerActions;
-        [DefaultValue(100)] public int DelayBetweenPokemonCatch;
-        [DefaultValue(false)] public bool DelayBetweenRecycleActions;
+        [DefaultValue(2000)] public int DelayBetweenPlayerActions;
+
+        [DefaultValue(2000)] public int DelayBetweenPokemonCatch;
+
+        [DefaultValue(500)] public int DelayBetweenRecycle;
+
         [DefaultValue(true)] public bool DetailedCountsBeforeRecycling;
+
         //position
         [DefaultValue(false)] public bool DisableHumanWalking;
+
         //dump stats
         [DefaultValue(false)] public bool DumpPokemonStats;
+
+        [DefaultValue(false)] public bool EnableAdvancedSettings;
+
         //customizable catch
-        [DefaultValue(false)] public bool EnableHumanizedThrows;
+        [DefaultValue(true)] public bool EnableHumanizedThrows;
+
         //evolve
         [DefaultValue(95)] public float EvolveAboveIvValue;
+
         [DefaultValue(false)] public bool EvolveAllPokemonAboveIv;
+
         [DefaultValue(true)] public bool EvolveAllPokemonWithEnoughCandy;
+
         [DefaultValue(90.0)] public double EvolveKeptPokemonsAtStorageUsagePercentage;
+
         [DefaultValue(10)] public int ExcellentThrowChance;
+
         //softban related
         [DefaultValue(false)] public bool FastSoftBanBypass;
+
         //favorite
         [DefaultValue(95)] public float FavoriteMinIvPercentage;
+
         [DefaultValue(1500)] public int ForceExcellentThrowOverCp;
+
         [DefaultValue(95.00)] public double ForceExcellentThrowOverIv;
+
         [DefaultValue(1000)] public int ForceGreatThrowOverCp;
+
         [DefaultValue(90.00)] public double ForceGreatThrowOverIv;
+
         [JsonIgnore] public string GeneralConfigPath;
+
         [DefaultValue(5000)] public int GetMinStarDustForLevelUp;
+
         [DefaultValue(true)] public bool GetOnlyVerifiedSniperInfoFromPokezz;
+
         [DefaultValue(true)] public bool GetSniperInfoFromPokeSnipers;
+
         [DefaultValue(true)] public bool GetSniperInfoFromPokeWatchers;
+
         [DefaultValue(true)] public bool GetSniperInfoFromPokezz;
+
         [DefaultValue("GPXPath.GPX")] public string GpxFile;
+
         [DefaultValue(30)] public int GreatThrowChance;
 
-        [JsonIgnore] public bool IsGui;
+        [JsonIgnore] public bool isGui;
 
         public List<KeyValuePair<ItemId, int>> ItemRecycleFilter = new List<KeyValuePair<ItemId, int>>
         {
@@ -340,24 +391,36 @@ namespace PokemonGo.RocketBot.Logic
 
         //keeping
         [DefaultValue(1250)] public int KeepMinCp;
+
         [DefaultValue(0)] public int KeepMinDuplicatePokemon;
+
         [DefaultValue(90)] public float KeepMinIvPercentage;
+
         [DefaultValue(6)] public int KeepMinLvl;
+
         [DefaultValue("or")] public string KeepMinOperator;
+
         [DefaultValue(false)] public bool KeepPokemonsThatCanEvolve;
+
         [DefaultValue("iv")] public string LevelUpByCPorIv;
 
         [DefaultValue(3)] public int MaxBerriesToUsePerPokemon;
+
         //amounts
         [DefaultValue(6)] public int MaxPokeballsPerPokemon;
 
+        [DefaultValue(10)] public int MaxSpawnLocationOffset;
 
-        public int MaxSpawnLocationOffset;
         [DefaultValue(1000)] public int MaxTravelDistanceInMeters;
+
         [DefaultValue(60000)] public int MinDelayBetweenSnipes;
+
         [DefaultValue(20)] public int MinPokeballsToSnipe;
+
         [DefaultValue(0)] public int MinPokeballsWhileSnipe;
+
         [DefaultValue(40)] public int NiceThrowChance;
+
         [DefaultValue(true)] public bool OnlyUpgradeFavorites;
 
 
@@ -571,80 +634,138 @@ namespace PokemonGo.RocketBot.Logic
         };
 
         [DefaultValue(false)] public bool PrioritizeIvOverCp;
+
         [JsonIgnore] public string ProfileConfigPath;
+
         [JsonIgnore] public string ProfilePath;
+
         [DefaultValue(false)] public bool RandomizeRecycle;
+
         [DefaultValue(5)] public int RandomRecycleValue;
+
         [DefaultValue(90.0)] public double RecycleInventoryAtUsagePercentage;
+
         [DefaultValue(true)] public bool RenameOnlyAboveIv;
+
         //rename
         [DefaultValue(false)] public bool RenamePokemon;
+
         [DefaultValue("{1}_{0}")] public string RenameTemplate;
+
         [DefaultValue(true)] public bool ShowVariantWalking;
+
         [DefaultValue(false)] public bool SnipeAtPokestops;
+
         [DefaultValue(false)] public bool SnipeIgnoreUnknownIv;
+
         [DefaultValue("localhost")] public string SnipeLocationServer;
+
         [DefaultValue(16969)] public int SnipeLocationServerPort;
+
         [DefaultValue(false)] public bool SnipePokemonNotInPokedex;
+
         [DefaultValue(true)] public bool SnipeWithSkiplagged;
+
         [DefaultValue(0.005)] public double SnipingScanOffset;
+
         //pressakeyshit
         [DefaultValue(false)] public bool StartupWelcomeDelay;
+
         [DefaultValue(null)] public string TelegramApiKey;
+
         [DefaultValue(50)] public int TotalAmountOfBerriesToKeep;
+
         [DefaultValue(120)] public int TotalAmountOfPokeballsToKeep;
+
         [DefaultValue(80)] public int TotalAmountOfPotionsToKeep;
+
         [DefaultValue(60)] public int TotalAmountOfRevivesToKeep;
+
         [DefaultValue(true)] public bool TransferConfigAndAuthOnUpdate;
+
         [DefaultValue(true)] public bool TransferDuplicatePokemon;
+
         [DefaultValue(true)] public bool TransferDuplicatePokemonOnCapture;
+
         //transfer
         [DefaultValue(false)] public bool TransferWeakPokemon;
 
         [DefaultValue("en")] public string TranslationLanguageCode;
+
         [DefaultValue(1000)] public float UpgradePokemonCpMinimum;
+
         [DefaultValue(95)] public float UpgradePokemonIvMinimum;
+
         [DefaultValue("and")] public string UpgradePokemonMinimumStatsOperator;
+
         [DefaultValue(0.20)] public double UseBerriesBelowCatchProbability;
+
         [DefaultValue(1000)] public int UseBerriesMinCp;
+
         [DefaultValue(90)] public float UseBerriesMinIv;
+
         [DefaultValue("or")] public string UseBerriesOperator;
+
         //lucky, incense and berries
         [DefaultValue(true)] public bool UseEggIncubators;
+
         //gpx
         [DefaultValue(false)] public bool UseGpxPathing;
+
         //balls
         [DefaultValue(1000)] public int UseGreatBallAboveCp;
+
         [DefaultValue(85.0)] public double UseGreatBallAboveIv;
+
         [DefaultValue(0.2)] public double UseGreatBallBelowCatchProbability;
+
         [DefaultValue(false)] public bool UseIncenseConstantly;
+
         [DefaultValue(false)] public bool UseKeepMinLvl;
 
         [DefaultValue(true)] public bool UseLevelUpList;
+
         [DefaultValue(false)] public bool UseLuckyEggConstantly;
+
         [DefaultValue(30)] public int UseLuckyEggsMinPokemonAmount;
+
         [DefaultValue(false)] public bool UseLuckyEggsWhileEvolving;
+
         [DefaultValue(1500)] public int UseMasterBallAboveCp;
+
         [DefaultValue(0.05)] public double UseMasterBallBelowCatchProbability;
+
         [DefaultValue(false)] public bool UsePokemonSniperFilterOnly;
+
         //notcatch
         [DefaultValue(false)] public bool UsePokemonToNotCatchFilter;
+
         //snipe
         [DefaultValue(false)] public bool UseSnipeLocationServer;
+
         //Telegram
         [DefaultValue(false)] public bool UseTelegramApi;
+
         [DefaultValue(false)] public bool UseTransferIvForSnipe;
+
         [DefaultValue(1250)] public int UseUltraBallAboveCp;
+
         [DefaultValue(95.0)] public double UseUltraBallAboveIv;
+
         [DefaultValue(0.1)] public double UseUltraBallBelowCatchProbability;
+
         [DefaultValue(true)] public bool UseWalkingSpeedVariant;
+
         //websockets
         [DefaultValue(false)] public bool UseWebsocket;
+
         //recycle
         [DefaultValue(true)] public bool VerboseRecycling;
+
         [DefaultValue(19.0)] public double WalkingSpeedInKilometerPerHour;
-        [DefaultValue(2)] public double WalkingSpeedOffSetInKilometerPerHour;
+
         [DefaultValue(1.2)] public double WalkingSpeedVariant;
+
         [DefaultValue(14251)] public int WebSocketPort;
 
         public GlobalSettings()
@@ -669,7 +790,7 @@ namespace PokemonGo.RocketBot.Logic
 
         public static GlobalSettings Load(string path, bool boolSkipSave = false)
         {
-            GlobalSettings settings;
+            GlobalSettings settings = null;
             var isGui =
                 AppDomain.CurrentDomain.GetAssemblies().SingleOrDefault(a => a.FullName.Contains("PoGo.NecroBot.GUI")) !=
                 null;
@@ -683,7 +804,7 @@ namespace PokemonGo.RocketBot.Logic
                 try
                 {
                     //if the file exists, load the settings
-                    string input;
+                    var input = "";
                     var count = 0;
                     while (true)
                     {
@@ -703,6 +824,7 @@ namespace PokemonGo.RocketBot.Logic
                             Thread.Sleep(1000);
                         }
                     }
+                    ;
 
                     var jsonSettings = new JsonSerializerSettings();
                     jsonSettings.Converters.Add(new StringEnumConverter {CamelCaseText = true});
@@ -741,7 +863,7 @@ namespace PokemonGo.RocketBot.Logic
             settings.ProfilePath = profilePath;
             settings.ProfileConfigPath = profileConfigPath;
             settings.GeneralConfigPath = Path.Combine(Directory.GetCurrentDirectory(), "config");
-            settings.IsGui = isGui;
+            settings.isGui = isGui;
 
             if (!boolSkipSave || !settings.AutoUpdate)
             {
@@ -763,23 +885,18 @@ namespace PokemonGo.RocketBot.Logic
 
             while (true)
             {
-                var readLine = Console.ReadLine();
-                if (readLine != null)
-                {
-                    var strInput = readLine.ToLower();
+                var strInput = Console.ReadLine().ToLower();
 
-                    switch (strInput)
-                    {
-                        case "y":
-                            return true;
-                        case "n":
-                            Logger.Write(translator.GetTranslation(TranslationString.FirstStartAutoGenSettings));
-                            return false;
-                        default:
-                            Logger.Write(translator.GetTranslation(TranslationString.PromptError, "Y", "N"),
-                                LogLevel.Error);
-                            continue;
-                    }
+                switch (strInput)
+                {
+                    case "y":
+                        return true;
+                    case "n":
+                        Logger.Write(translator.GetTranslation(TranslationString.FirstStartAutoGenSettings));
+                        return false;
+                    default:
+                        Logger.Write(translator.GetTranslation(TranslationString.PromptError, "Y", "N"), LogLevel.Error);
+                        continue;
                 }
             }
         }
@@ -806,7 +923,6 @@ namespace PokemonGo.RocketBot.Logic
             var boolBreak = false;
             while (!boolBreak)
             {
-                // ReSharper disable once PossibleNullReferenceException
                 strInput = Console.ReadLine().ToLower();
 
                 switch (strInput)
@@ -842,7 +958,6 @@ namespace PokemonGo.RocketBot.Logic
 
             while (true)
             {
-                // ReSharper disable once PossibleNullReferenceException
                 strInput = Console.ReadLine().ToLower();
 
                 switch (strInput)
@@ -897,7 +1012,6 @@ namespace PokemonGo.RocketBot.Logic
             var boolBreak = false;
             while (!boolBreak)
             {
-                // ReSharper disable once PossibleNullReferenceException
                 var strInput = Console.ReadLine().ToLower();
 
                 switch (strInput)
@@ -921,7 +1035,6 @@ namespace PokemonGo.RocketBot.Logic
             {
                 try
                 {
-                    // ReSharper disable once AssignNullToNotNullAttribute
                     var dblInput = double.Parse(Console.ReadLine());
                     settings.DefaultLatitude = dblInput;
                     Logger.Write(translator.GetTranslation(TranslationString.FirstStartSetupDefaultLatConfirm, dblInput));
@@ -939,7 +1052,6 @@ namespace PokemonGo.RocketBot.Logic
             {
                 try
                 {
-                    // ReSharper disable once AssignNullToNotNullAttribute
                     var dblInput = double.Parse(Console.ReadLine());
                     settings.DefaultLongitude = dblInput;
                     Logger.Write(translator.GetTranslation(TranslationString.FirstStartSetupDefaultLongConfirm, dblInput));
@@ -983,7 +1095,7 @@ namespace PokemonGo.RocketBot.Logic
     public class ClientSettings : ISettings
     {
         // Never spawn at the same position.
-        private readonly Random _rand = new Random();
+        private readonly Random _rand = new Random(DateTime.Now.Millisecond);
         private readonly GlobalSettings _settings;
 
         public ClientSettings(GlobalSettings settings)
@@ -1024,8 +1136,7 @@ namespace PokemonGo.RocketBot.Logic
                 return
                     LocationUtils.getElevation(_settings.DefaultLatitude, _settings.DefaultLongitude) +
                     _rand.NextDouble()*
-                    (5/
-                     Math.Cos(LocationUtils.getElevation(_settings.DefaultLatitude, _settings.DefaultLongitude)));
+                    (5/Math.Cos(LocationUtils.getElevation(_settings.DefaultLatitude, _settings.DefaultLongitude)));
             }
 
 
@@ -1073,31 +1184,24 @@ namespace PokemonGo.RocketBot.Logic
         public string GoogleRefreshToken
         {
             get { return null; }
-            set
-            {
-                if (value == null) throw new ArgumentNullException(nameof(value));
-                GoogleRefreshToken = null;
-            }
+            set { GoogleRefreshToken = null; }
         }
 
         AuthType ISettings.AuthType
         {
             get { return _settings.Auth.AuthType; }
-
             set { _settings.Auth.AuthType = value; }
         }
 
         string ISettings.GoogleUsername
         {
             get { return _settings.Auth.GoogleUsername; }
-
             set { _settings.Auth.GoogleUsername = value; }
         }
 
         string ISettings.GooglePassword
         {
             get { return _settings.Auth.GooglePassword; }
-
             set { _settings.Auth.GooglePassword = value; }
         }
 
@@ -1203,6 +1307,18 @@ namespace PokemonGo.RocketBot.Logic
             set { _settings.Auth.FirmwareFingerprint = value; }
         }
 
+        public string DevicePlatform
+        {
+            get { return _settings.Auth.DevicePlatform; }
+            set { _settings.Auth.DevicePlatform = value; }
+        }
+
+        public ByteString SessionHash
+        {
+            get { return _settings.Auth.SessionHash; }
+            set { _settings.Auth.SessionHash = value; }
+         }
+
         #endregion Device Config Values
     }
 
@@ -1216,7 +1332,7 @@ namespace PokemonGo.RocketBot.Logic
             _settings = settings;
         }
 
-        public string GoogleAPIKey => _settings.Auth.GoogleApiKey;
+        public string GoogleApiKey => _settings.Auth.GoogleApiKey;
         public string ProfilePath => _settings.ProfilePath;
         public string ProfileConfigPath => _settings.ProfileConfigPath;
         public string GeneralConfigPath => _settings.GeneralConfigPath;
@@ -1248,7 +1364,6 @@ namespace PokemonGo.RocketBot.Logic
         public float UpgradePokemonCpMinimum => _settings.UpgradePokemonCpMinimum;
         public string UpgradePokemonMinimumStatsOperator => _settings.UpgradePokemonMinimumStatsOperator;
         public double WalkingSpeedInKilometerPerHour => _settings.WalkingSpeedInKilometerPerHour;
-        public double WalkingSpeedOffSetInKilometerPerHour => _settings.WalkingSpeedOffSetInKilometerPerHour;
         public bool UseWalkingSpeedVariant => _settings.UseWalkingSpeedVariant;
         public double WalkingSpeedVariant => _settings.WalkingSpeedVariant;
         public bool ShowVariantWalking => _settings.ShowVariantWalking;
@@ -1277,6 +1392,7 @@ namespace PokemonGo.RocketBot.Logic
         public int ForceExcellentThrowOverCp => _settings.ForceExcellentThrowOverCp;
         public int DelayBetweenPokemonCatch => _settings.DelayBetweenPokemonCatch;
         public int DelayBetweenPlayerActions => _settings.DelayBetweenPlayerActions;
+        public int DelayBetweenRecycle => _settings.DelayBetweenRecycle;
         public bool UsePokemonToNotCatchFilter => _settings.UsePokemonToNotCatchFilter;
         public bool UsePokemonSniperFilterOnly => _settings.UsePokemonSniperFilterOnly;
         public int KeepMinDuplicatePokemon => _settings.KeepMinDuplicatePokemon;
@@ -1337,7 +1453,6 @@ namespace PokemonGo.RocketBot.Logic
         public bool SnipePokemonNotInPokedex => _settings.SnipePokemonNotInPokedex;
         public bool RandomizeRecycle => _settings.RandomizeRecycle;
         public int RandomRecycleValue => _settings.RandomRecycleValue;
-        public bool DelayBetweenRecycleActions => _settings.DelayBetweenRecycleActions;
         public int TotalAmountOfPokeballsToKeep => _settings.TotalAmountOfPokeballsToKeep;
         public int TotalAmountOfPotionsToKeep => _settings.TotalAmountOfPotionsToKeep;
         public int TotalAmountOfRevivesToKeep => _settings.TotalAmountOfRevivesToKeep;

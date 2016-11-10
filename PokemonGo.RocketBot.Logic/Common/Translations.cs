@@ -78,6 +78,7 @@ namespace PokemonGo.RocketBot.Logic.Common
         LogEntryPkmn,
         LogEntryTransfered,
         LogEntryEvolved,
+        LogEntryLevelUp,
         LogEntryBerry,
         LogEntryEgg,
         LogEntryDebug,
@@ -196,7 +197,9 @@ namespace PokemonGo.RocketBot.Logic.Common
         PokedexCatchedTelegram,
         PokedexPokemonCatchedTelegram,
         PokedexNeededTelegram,
-        PokedexPokemonNeededTelegram
+        PokedexPokemonNeededTelegram,
+        ExitNowAfterEnterKey,
+        CaptchaShown
     }
 
     public class Translation : ITranslation
@@ -389,7 +392,7 @@ namespace PokemonGo.RocketBot.Logic.Common
                     new KeyValuePair<PokemonMove, string>(PokemonMove.SteelWingFast, "SteelWingFast"),
                     new KeyValuePair<PokemonMove, string>(PokemonMove.FireFangFast, "FireFangFast"),
                     new KeyValuePair<PokemonMove, string>(PokemonMove.RockSmashFast, "RockSmashFast")
-                };
+           };
 
         [JsonProperty("PokemonStrings",
             ItemTypeNameHandling = TypeNameHandling.Arrays,
@@ -640,6 +643,7 @@ namespace PokemonGo.RocketBot.Logic.Common
             new KeyValuePair<TranslationString, string>(TranslationString.LogEntryPkmn, "PKMN"),
             new KeyValuePair<TranslationString, string>(TranslationString.LogEntryTransfered, "TRANSFERRED"),
             new KeyValuePair<TranslationString, string>(TranslationString.LogEntryEvolved, "EVOLVED"),
+            new KeyValuePair<TranslationString, string>(TranslationString.LogEntryLevelUp, "LEVELUP"),
             new KeyValuePair<TranslationString, string>(TranslationString.LogEntryBerry, "BERRY"),
             new KeyValuePair<TranslationString, string>(TranslationString.LogEntryEgg, "EGG"),
             new KeyValuePair<TranslationString, string>(TranslationString.LogEntryDebug, "DEBUG"),
@@ -841,7 +845,9 @@ namespace PokemonGo.RocketBot.Logic.Common
             new KeyValuePair<TranslationString, string>(TranslationString.PokedexNeededTelegram,
                 "--- Pokedex needed --- \n"),
             new KeyValuePair<TranslationString, string>(TranslationString.PokedexPokemonNeededTelegram,
-                "#{0}# Name: {1} \n")
+                "#{0}# Name: {1} \n"),
+            new KeyValuePair<TranslationString, string>(TranslationString.ExitNowAfterEnterKey, "The bot will now exit after hitting the enter key."),
+            new KeyValuePair<TranslationString, string>(TranslationString.CaptchaShown, "Captcha is being shown and will need to be solved.")
         };
 
         public string GetTranslation(TranslationString translationString, params object[] data)
@@ -908,9 +914,9 @@ namespace PokemonGo.RocketBot.Logic.Common
                     Logger.Write($"[ERROR] Issue loading translations: {ex}", LogLevel.Warning);
                     Logger.Write("[Request] Rebuild the translations folder? Y/N");
 
-                    var strInput = Console.ReadLine().ToLower();
+                    var strInput = Console.ReadLine()?.ToLower();
 
-                    if (strInput.Equals("y"))
+                    if (strInput == null || strInput.Equals("y"))
                     {
                         // Currently this section can only rebuild the EN translations file \\
                         // This is because default values cannot be supplied from other languages \\

@@ -6,10 +6,7 @@ using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -36,7 +33,6 @@ using POGOProtos.Inventory;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Fort;
 using POGOProtos.Map.Pokemon;
-using POGOProtos.Networking.Responses;
 using Segment;
 using Segment.Model;
 using Logger = PokemonGo.RocketBot.Logic.Logging.Logger;
@@ -75,7 +71,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Text = @"RocketBot v" + Assembly.GetExecutingAssembly().GetName().Version;
+            Text = @"RocketBot v" + Application.ProductVersion;
 
             //User activity tracking, help us get more information to make RocketBot better
             //Everything is anonymous
@@ -91,10 +87,10 @@ namespace PokemonGo.RocketBot.Window.Forms
             InitializeBot();
             InitializePokemonForm();
             InitializeMap();
-            CheckVersion();
+            VersionHelper.CheckVersion();
             if (BoolNeedsSetup)
             {
-                startStopBotToolStripMenuItem.Enabled = false;
+                //startStopBotToolStripMenuItem.Enabled = false;
                 Logger.Write("First time here? Go to settings to set your basic info.");
                 GlobalSettings.Load("");
             }
@@ -145,6 +141,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
             var profilePath = Path.Combine(Directory.GetCurrentDirectory(), subPath);
             var profileConfigPath = Path.Combine(profilePath, "config");
+            var authFile = Path.Combine(profileConfigPath, "auth.json");
             var configFile = Path.Combine(profileConfigPath, "config.json");
 
             BoolNeedsSetup = false;
@@ -154,7 +151,8 @@ namespace PokemonGo.RocketBot.Window.Forms
                 /** if (!VersionCheckState.IsLatest())
                     settings = GlobalSettings.Load(subPath, true);
                 else **/
-                _settings = GlobalSettings.Load(subPath);
+                _settings = GlobalSettings.Load(subPath, true);
+                _settings.Auth.Load(authFile);
             }
             else
             {
@@ -170,12 +168,6 @@ namespace PokemonGo.RocketBot.Window.Forms
 
             _session = new Session(new ClientSettings(_settings), new LogicSettings(_settings));
 
-            if (BoolNeedsSetup)
-            {
-                menuStrip1.ShowItemToolTips = true;
-                startStopBotToolStripMenuItem.ToolTipText = @"Please goto settings and enter your basic info";
-                return;
-            }
             _session.Client.ApiFailure = new ApiFailureStrategy(_session);
 
             _machine = new StateMachine();
@@ -214,31 +206,31 @@ namespace PokemonGo.RocketBot.Window.Forms
             Logger.SetLoggerContext(_session);
 
             _session.Navigation.UpdatePositionEvent +=
-                (lat, lng) => _session.EventDispatcher.Send(new UpdatePositionEvent {Latitude = lat, Longitude = lng});
+                (lat, lng) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng });
             _session.Navigation.UpdatePositionEvent += Navigation_UpdatePositionEvent;
 
             RouteOptimizeUtil.RouteOptimizeEvent +=
                 optimizedroute =>
-                    _session.EventDispatcher.Send(new OptimizeRouteEvent {OptimizedRoute = optimizedroute});
+                    _session.EventDispatcher.Send(new OptimizeRouteEvent { OptimizedRoute = optimizedroute });
             RouteOptimizeUtil.RouteOptimizeEvent += InitializePokestopsAndRoute;
 
             Navigation.GetHumanizeRouteEvent +=
                 (route, destination) =>
-                    _session.EventDispatcher.Send(new GetHumanizeRouteEvent {Route = route, Destination = destination});
+                    _session.EventDispatcher.Send(new GetHumanizeRouteEvent { Route = route, Destination = destination });
             Navigation.GetHumanizeRouteEvent += UpdateMap;
 
             FarmPokestopsTask.LootPokestopEvent +=
-                pokestop => _session.EventDispatcher.Send(new LootPokestopEvent {Pokestop = pokestop});
+                pokestop => _session.EventDispatcher.Send(new LootPokestopEvent { Pokestop = pokestop });
             FarmPokestopsTask.LootPokestopEvent += UpdateMap;
 
             CatchNearbyPokemonsTask.PokemonEncounterEvent +=
                 mappokemons =>
-                    _session.EventDispatcher.Send(new PokemonsEncounterEvent {EncounterPokemons = mappokemons});
+                    _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
             CatchNearbyPokemonsTask.PokemonEncounterEvent += UpdateMap;
 
             CatchIncensePokemonsTask.PokemonEncounterEvent +=
                 mappokemons =>
-                    _session.EventDispatcher.Send(new PokemonsEncounterEvent {EncounterPokemons = mappokemons});
+                    _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
             CatchIncensePokemonsTask.PokemonEncounterEvent += UpdateMap;
         }
 
@@ -267,8 +259,8 @@ namespace PokemonGo.RocketBot.Window.Forms
                 _playerLocations.Clear();
                 var routePoint =
                     (from pokeStop in pokeStops
-                        where pokeStop != null
-                        select new PointLatLng(pokeStop.Latitude, pokeStop.Longitude)).ToList();
+                     where pokeStop != null
+                     select new PointLatLng(pokeStop.Latitude, pokeStop.Longitude)).ToList();
 
                 _routePoints = routePoint;
                 togglePrecalRoute.Enabled = true;
@@ -289,13 +281,95 @@ namespace PokemonGo.RocketBot.Window.Forms
             }, null);
         }
 
+        private void Navigation_UpdatePositionEvent(double lat, double lng)
+        {
+            var latlng = new PointLatLng(lat, lng);
+
+            _playerLocations.Add(latlng);
+            var currentlatlng = _currentLatLng;
+            SynchronizationContext.Post(o =>
+            {
+                _playerOverlay.Markers.Remove(_playerMarker);
+                if (!currentlatlng.IsEmpty)
+                    _playerMarker = currentlatlng.Lng < latlng.Lng
+                        ? new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("Trainer_Right"))
+                        : new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("Trainer_Left"));
+                _playerOverlay.Markers.Add(_playerMarker);
+                if (followTrainerCheckBox.Checked)
+                    gMapControl1.Position = latlng;
+            }, null);
+
+            _currentLatLng = latlng;
+            UpdateMap();
+            SaveLocationToDisk(lat, lng);
+        }
+
+        private static void SaveLocationToDisk(double lat, double lng)
+        {
+            var coordsPath = Path.Combine(Directory.GetCurrentDirectory(), subPath, "Config", "LastPos.ini");
+
+            File.WriteAllText(coordsPath, $"{lat}:{lng}");
+        }
+
+        private static void UnhandledExceptionEventHandler(object obj, UnhandledExceptionEventArgs args)
+        {
+            Logger.Write("Exception caught, writing LogBuffer.", force: true);
+            throw new Exception();
+        }
+
+        private void showMoreCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (showMoreCheckBox.Checked)
+            {
+                followTrainerCheckBox.Visible = true;
+                togglePrecalRoute.Visible = true;
+            }
+            else
+            {
+                followTrainerCheckBox.Visible = false;
+                togglePrecalRoute.Visible = false;
+            }
+        }
+
+        private void followTrainerCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (followTrainerCheckBox.Checked)
+            {
+                gMapControl1.CanDragMap = false;
+                gMapControl1.Position = _currentLatLng;
+            }
+            else
+            {
+                gMapControl1.CanDragMap = true;
+            }
+        }
+
+        private void togglePrecalRoute_CheckedChanged(object sender, EventArgs e)
+        {
+            if (togglePrecalRoute.Checked)
+            {
+                _pokestopsOverlay.Routes.Clear();
+                var route = new GMapRoute(_routePoints, "Walking Path")
+                {
+                    Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
+                };
+                _pokestopsOverlay.Routes.Add(route);
+            }
+            else
+            {
+                _pokestopsOverlay.Routes.Clear();
+            }
+        }
+
+        #region UPDATEMAP
+
         private void UpdateMap()
         {
             SynchronizationContext.Post(o =>
             {
                 var route = new GMapRoute(_playerLocations, "step")
                 {
-                    Stroke = new Pen(Color.FromArgb(175, 175, 175), 2) {DashStyle = DashStyle.Dot}
+                    Stroke = new Pen(Color.FromArgb(175, 175, 175), 2) { DashStyle = DashStyle.Dot }
                 };
                 _playerOverlay.Routes.Clear();
                 _playerOverlay.Routes.Add(route);
@@ -311,7 +385,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             }
             var routes = new GMapRoute(routePointLatLngs, routePointLatLngs.ToString())
             {
-                Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4) {DashStyle = DashStyle.Dash}
+                Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4) { DashStyle = DashStyle.Dash }
             };
             _playerRouteOverlay.Routes.Add(routes);
             /* Logger.Write("new call");
@@ -390,130 +464,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             }, null);
         }
 
-        private void Navigation_UpdatePositionEvent(double lat, double lng)
-        {
-            var latlng = new PointLatLng(lat, lng);
-
-            _playerLocations.Add(latlng);
-            var currentlatlng = _currentLatLng;
-            SynchronizationContext.Post(o =>
-            {
-                _playerOverlay.Markers.Remove(_playerMarker);
-                if (!currentlatlng.IsEmpty)
-                    _playerMarker = currentlatlng.Lng < latlng.Lng
-                        ? new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("Trainer_Right"))
-                        : new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("Trainer_Left"));
-                _playerOverlay.Markers.Add(_playerMarker);
-                if (followTrainerCheckBox.Checked)
-                    gMapControl1.Position = latlng;
-            }, null);
-
-            _currentLatLng = latlng;
-            UpdateMap();
-            SaveLocationToDisk(lat, lng);
-        }
-
-        private static void SaveLocationToDisk(double lat, double lng)
-        {
-            var coordsPath = Path.Combine(Directory.GetCurrentDirectory(), subPath, "Config", "LastPos.ini");
-
-            File.WriteAllText(coordsPath, $"{lat}:{lng}");
-        }
-
-        private static void UnhandledExceptionEventHandler(object obj, UnhandledExceptionEventArgs args)
-        {
-            Logger.Write("Exception caught, writing LogBuffer.", force: true);
-            throw new Exception();
-        }
-
-        public void CheckVersion()
-        {
-            try
-            {
-                var match =
-                    new Regex(
-                        @"\[assembly\: AssemblyVersion\(""(\d{1,})\.(\d{1,})\.(\d{1,})\.(\d{1,})""\)\]")
-                        .Match(DownloadServerVersion());
-
-                if (!match.Success) return;
-                var gitVersion =
-                    new Version(
-                        string.Format(
-                            "{0}.{1}.{2}.{3}",
-                            match.Groups[1],
-                            match.Groups[2],
-                            match.Groups[3],
-                            match.Groups[4]));
-                // makes sense to display your version and say what the current one is on github
-                Logger.Write("Your version is " + Assembly.GetExecutingAssembly().GetName().Version);
-                Logger.Write("Github version is " + gitVersion);
-                Logger.Write("You can find it at www.GitHub.com/TheUnnameOrganization/RocketBot/releases");
-            }
-            catch (Exception)
-            {
-                Logger.Write("Unable to check for updates now...", LogLevel.Error);
-            }
-        }
-
-        private static string DownloadServerVersion()
-        {
-            using (var wC = new WebClient())
-                return
-                    wC.DownloadString(
-                        "https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/Beta-Build/src/RocketBotGUI/Properties/AssemblyInfo.cs");
-        }
-
-        private void olvPokemonList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void gMapControl1_Load(object sender, EventArgs e)
-        {
-        }
-
-        private void showMoreCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (showMoreCheckBox.Checked)
-            {
-                followTrainerCheckBox.Visible = true;
-                togglePrecalRoute.Visible = true;
-            }
-            else
-            {
-                followTrainerCheckBox.Visible = false;
-                togglePrecalRoute.Visible = false;
-            }
-        }
-
-        private void followTrainerCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (followTrainerCheckBox.Checked)
-            {
-                gMapControl1.CanDragMap = false;
-                gMapControl1.Position = _currentLatLng;
-            }
-            else
-            {
-                gMapControl1.CanDragMap = true;
-            }
-        }
-
-        private void togglePrecalRoute_CheckedChanged(object sender, EventArgs e)
-        {
-            if (togglePrecalRoute.Checked)
-            {
-                _pokestopsOverlay.Routes.Clear();
-                var route = new GMapRoute(_routePoints, "Walking Path")
-                {
-                    Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
-                };
-                _pokestopsOverlay.Routes.Add(route);
-            }
-            else
-            {
-                _pokestopsOverlay.Routes.Clear();
-            }
-        }
+        #endregion
 
         #region INTERFACE
 
@@ -564,20 +515,35 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private void startStopBotToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            startStopBotToolStripMenuItem.Enabled = false;
-            Task.Run(StartBot);
+            if (startStopBotToolStripMenuItem.Text.Equals("■ Exit"))
+            {
+                Environment.Exit(0);
+            }
+            else
+            {
+                startStopBotToolStripMenuItem.Text = "■ Exit";
+                // startStopBotToolStripMenuItem.Enabled = false;
+                Task.Run(StartBot);
+            }
         }
 
         private void todoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form settingsForm = new SettingsForm();
+            Form settingsForm = new SettingsForm(ref _settings);
             settingsForm.ShowDialog();
+            var newLocation = new PointLatLng(_settings.DefaultLatitude, _settings.DefaultLongitude);
+            gMapControl1.Position = newLocation;
+            _playerMarker.Position = newLocation;
+            _playerLocations.Clear();
+            _playerLocations.Add(newLocation);
+            UpdateMap();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Analytics.Client.Track(MachineIdHelper.GetMachineId(), "App stopped");
-            Environment.Exit(0);
+            Analytics.Dispose();
+            //Environment.Exit(0);
         }
 
         #endregion EVENTS
@@ -590,7 +556,7 @@ namespace PokemonGo.RocketBot.Window.Forms
         {
             //olvPokemonList.ButtonClick += PokemonListButton_Click;
 
-            pkmnName.ImageGetter = delegate(object rowObject)
+            pkmnName.ImageGetter = delegate (object rowObject)
             {
                 var pokemon = rowObject as PokemonObject;
 
@@ -598,13 +564,13 @@ namespace PokemonGo.RocketBot.Window.Forms
                 var key = pokemon.PokemonId.ToString();
                 if (!olvPokemonList.SmallImageList.Images.ContainsKey(key))
                 {
-                    var img = GetPokemonImage((int) pokemon.PokemonId);
+                    var img = ResourceHelper.GetPokemonImage((int)pokemon.PokemonId);
                     olvPokemonList.SmallImageList.Images.Add(key, img);
                 }
                 return key;
             };
 
-            olvPokemonList.FormatRow += delegate(object sender, FormatRowEventArgs e)
+            olvPokemonList.FormatRow += delegate (object sender, FormatRowEventArgs e)
             {
                 var pok = e.Model as PokemonObject;
                 if (olvPokemonList.Objects
@@ -624,7 +590,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 }
             };
 
-            cmsPokemonList.Opening += delegate(object sender, CancelEventArgs e)
+            cmsPokemonList.Opening += delegate (object sender, CancelEventArgs e)
             {
                 e.Cancel = false;
                 cmsPokemonList.Items.Clear();
@@ -647,7 +613,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 item.Click += delegate { TransferPokemon(pokemons); };
                 cmsPokemonList.Items.Add(item);
 
-                item = new ToolStripMenuItem {Text = @"Rename"};
+                item = new ToolStripMenuItem { Text = @"Rename" };
                 item.Click += delegate
                 {
                     using (var form = count == 1 ? new NicknamePokemonForm(pokemonObject) : new NicknamePokemonForm())
@@ -662,30 +628,30 @@ namespace PokemonGo.RocketBot.Window.Forms
 
                 if (canAllEvolve)
                 {
-                    item = new ToolStripMenuItem {Text = $"Evolve {count} pokemon"};
+                    item = new ToolStripMenuItem { Text = $"Evolve {count} pokemon" };
                     item.Click += delegate { EvolvePokemon(pokemons); };
                     cmsPokemonList.Items.Add(item);
                 }
 
                 if (count != 1) return;
-                item = new ToolStripMenuItem {Text = @"PowerUp"};
+                item = new ToolStripMenuItem { Text = @"PowerUp" };
                 item.Click += delegate { PowerUpPokemon(pokemons); };
                 cmsPokemonList.Items.Add(item);
                 cmsPokemonList.Items.Add(separator);
 
-                item = new ToolStripMenuItem {Text = @"Transfer Clean Up (Keep highest IV)"};
+                item = new ToolStripMenuItem { Text = @"Transfer Clean Up (Keep highest IV)" };
                 item.Click += delegate { CleanUpTransferPokemon(pokemonObject, "IV"); };
                 cmsPokemonList.Items.Add(item);
 
-                item = new ToolStripMenuItem {Text = @"Transfer Clean Up (Keep highest CP)"};
+                item = new ToolStripMenuItem { Text = @"Transfer Clean Up (Keep highest CP)" };
                 item.Click += delegate { CleanUpTransferPokemon(pokemonObject, "CP"); };
                 cmsPokemonList.Items.Add(item);
 
-                item = new ToolStripMenuItem {Text = @"Evolve Clean Up (Highest IV)"};
+                item = new ToolStripMenuItem { Text = @"Evolve Clean Up (Highest IV)" };
                 item.Click += delegate { CleanUpEvolvePokemon(pokemonObject, "IV"); };
                 cmsPokemonList.Items.Add(item);
 
-                item = new ToolStripMenuItem {Text = @"Evolve Clean Up (Highest CP)"};
+                item = new ToolStripMenuItem { Text = @"Evolve Clean Up (Highest CP)" };
                 item.Click += delegate { CleanUpEvolvePokemon(pokemonObject, "CP"); };
                 cmsPokemonList.Items.Add(item);
 
@@ -702,17 +668,17 @@ namespace PokemonGo.RocketBot.Window.Forms
                 if (cName.Equals("Transfer"))
                 {
                     // ReSharper disable once PossibleNullReferenceException
-                    TransferPokemon(new List<PokemonData> {pokemon.PokemonData});
+                    TransferPokemon(new List<PokemonData> { pokemon.PokemonData });
                 }
                 else if (cName.Equals("Power Up"))
                 {
                     // ReSharper disable once PossibleNullReferenceException
-                    PowerUpPokemon(new List<PokemonData> {pokemon.PokemonData});
+                    PowerUpPokemon(new List<PokemonData> { pokemon.PokemonData });
                 }
                 else if (cName.Equals("Evolve"))
                 {
                     // ReSharper disable once PossibleNullReferenceException
-                    EvolvePokemon(new List<PokemonData> {pokemon.PokemonData});
+                    EvolvePokemon(new List<PokemonData> { pokemon.PokemonData });
                 }
             }
             catch (Exception ex)
@@ -727,17 +693,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             SetState(false);
             foreach (var pokemon in pokemons)
             {
-                var transferPokemonResponse = await _session.Client.Inventory.TransferPokemon(pokemon.Id);
-                if (transferPokemonResponse.Result == ReleasePokemonResponse.Types.Result.Success)
-                {
-                    Logger.Write(
-                        $"{pokemon.PokemonId} was transferred. {transferPokemonResponse.CandyAwarded} candy awarded",
-                        LogLevel.Transfer);
-                }
-                else
-                {
-                    Logger.Write($"{pokemon.PokemonId} could not be transferred", LogLevel.Error);
-                }
+                await TransferSpecificPokemonTask.Execute(_session, pokemon.Id);
             }
             await ReloadPokemonList();
         }
@@ -747,15 +703,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             SetState(false);
             foreach (var pokemon in pokemons)
             {
-                var evolvePokemonResponse = await _session.Client.Inventory.UpgradePokemon(pokemon.Id);
-                if (evolvePokemonResponse.Result == UpgradePokemonResponse.Types.Result.Success)
-                {
-                    Logger.Write($"{pokemon.PokemonId} successfully upgraded.");
-                }
-                else
-                {
-                    Logger.Write($"{pokemon.PokemonId} could not be upgraded");
-                }
+                await LevelUpSpecificPokemonTask.Execute(_session, pokemon.Id);
             }
             await ReloadPokemonList();
         }
@@ -765,16 +713,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             SetState(false);
             foreach (var pokemon in pokemons)
             {
-                var evolvePokemonResponse = await _session.Client.Inventory.EvolvePokemon(pokemon.Id);
-                if (evolvePokemonResponse.Result == EvolvePokemonResponse.Types.Result.Success)
-                {
-                    Logger.Write(
-                        $"{pokemon.PokemonId} successfully evolved into {evolvePokemonResponse.EvolvedPokemonData.PokemonId}\n{evolvePokemonResponse.ExperienceAwarded} experience awarded\n{evolvePokemonResponse.CandyAwarded} candy awarded");
-                }
-                else
-                {
-                    Logger.Write($"{pokemon.PokemonId} could not be evolved");
-                }
+                await EvolveSpecificPokemonTask.Execute(_session, pokemon.Id);
             }
             await ReloadPokemonList();
         }
@@ -882,23 +821,9 @@ namespace PokemonGo.RocketBot.Window.Forms
                     }
                     continue;
                 }
-                var response = await _session.Client.Inventory.NicknamePokemon(pokemon.Id, newName.ToString());
-                if (response.Result == NicknamePokemonResponse.Types.Result.Success)
-                {
-                    Logger.Write($"Successfully renamed {pokemon.PokemonId} to \"{newName}\"");
-                }
-                else
-                {
-                    Logger.Write($"Failed renaming {pokemon.PokemonId} to \"{newName}\"");
-                }
-                await Task.Delay(1500);
+                await RenameSpecificPokemonTask.Execute(_session, pokemon, nickname);
             }
             await ReloadPokemonList();
-        }
-
-        private Image GetPokemonImage(int pokemonId)
-        {
-            return ResourceHelper.GetImage("Pokemon_" + pokemonId);
         }
 
         private async Task ReloadPokemonList()
@@ -916,7 +841,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 var appliedItems =
                     inventoryAppliedItems.Where(aItems => aItems?.Item != null)
                         .SelectMany(aItems => aItems.Item)
-                        .ToDictionary(item => item.ItemId, item => Utils.FromUnixTimeUtc(item.ExpireMs));
+                        .ToDictionary(item => item.ItemId, item => TimeHelper.FromUnixTimeUtc(item.ExpireMs));
 
                 PokemonObject.Initilize(itemTemplates);
 
@@ -935,7 +860,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 foreach (var pokemon in pokemons)
                 {
                     var pokemonObject = new PokemonObject(pokemon);
-                    var family = _families.First(i => (int) i.FamilyId <= (int) pokemon.PokemonId);
+                    var family = _families.First(i => (int)i.FamilyId <= (int)pokemon.PokemonId);
                     pokemonObject.Candy = family.Candy_;
                     pokemonObjects.Add(pokemonObject);
                 }
@@ -995,7 +920,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private async void ItemBox_ItemClick(object sender, EventArgs e)
         {
-            var item = (ItemData) sender;
+            var item = (ItemData)sender;
 
             using (var form = new ItemForm(item))
             {
@@ -1005,142 +930,32 @@ namespace PokemonGo.RocketBot.Window.Forms
                 switch (item.ItemId)
                 {
                     case ItemId.ItemLuckyEgg:
-                    {
-                        if (_session.Client == null)
                         {
-                            Logger.Write($"Bot must be running first!", LogLevel.Warning);
-                            SetState(true);
-                            return;
+                            if (_session.Client == null)
+                            {
+                                Logger.Write($"Bot must be running first!", LogLevel.Warning);
+                                SetState(true);
+                                return;
+                            }
+                            await UseLuckyEggTask.Execute(_session);
                         }
-                        var response = await _session.Client.Inventory.UseItemXpBoost();
-                        switch (response.Result)
-                        {
-                            case UseItemXpBoostResponse.Types.Result.Success:
-                                Logger.Write($"Using a Lucky Egg");
-                                Logger.Write($"Lucky Egg valid until: {DateTime.Now.AddMinutes(30)}");
-                                break;
-                            case UseItemXpBoostResponse.Types.Result.ErrorXpBoostAlreadyActive:
-                                Logger.Write($"A Lucky Egg is already active!", LogLevel.Warning);
-                                break;
-                            case UseItemXpBoostResponse.Types.Result.ErrorLocationUnset:
-                                Logger.Write($"Bot must be running first!", LogLevel.Error);
-                                break;
-                            case UseItemXpBoostResponse.Types.Result.Unset:
-                                break;
-                            case UseItemXpBoostResponse.Types.Result.ErrorInvalidItemType:
-                                break;
-                            case UseItemXpBoostResponse.Types.Result.ErrorNoItemsRemaining:
-                                break;
-                            default:
-                                Logger.Write($"Failed using a Lucky Egg!", LogLevel.Error);
-                                break;
-                        }
-                    }
                         break;
                     case ItemId.ItemIncenseOrdinary:
-                    {
-                        if (_session.Client == null)
                         {
-                            Logger.Write($"Bot must be running first!", LogLevel.Error);
-                            SetState(true);
-                            return;
-                        }
-                        var response = await _session.Client.Inventory.UseIncense(ItemId.ItemIncenseOrdinary);
-                        switch (response.Result)
-                        {
-                            case UseIncenseResponse.Types.Result.Success:
-                                Logger.Write($"Incense valid until: {DateTime.Now.AddMinutes(30)}");
-                                break;
-                            case UseIncenseResponse.Types.Result.IncenseAlreadyActive:
-                                Logger.Write($"An incense is already active!", LogLevel.Warning);
-                                break;
-                            case UseIncenseResponse.Types.Result.LocationUnset:
+                            if (_session.Client == null)
+                            {
                                 Logger.Write($"Bot must be running first!", LogLevel.Error);
-                                break;
-                            case UseIncenseResponse.Types.Result.Unknown:
-                                break;
-                            case UseIncenseResponse.Types.Result.NoneInInventory:
-                                break;
-                            default:
-                                Logger.Write($"Failed using an incense!", LogLevel.Error);
-                                break;
+                                SetState(true);
+                                return;
+                            }
+                            await UseIncenseTask.Execute(_session);
                         }
-                    }
-                        break;
-                    case ItemId.ItemUnknown:
-                        break;
-                    case ItemId.ItemPokeBall:
-                        break;
-                    case ItemId.ItemGreatBall:
-                        break;
-                    case ItemId.ItemUltraBall:
-                        break;
-                    case ItemId.ItemMasterBall:
-                        break;
-                    case ItemId.ItemPotion:
-                        break;
-                    case ItemId.ItemSuperPotion:
-                        break;
-                    case ItemId.ItemHyperPotion:
-                        break;
-                    case ItemId.ItemMaxPotion:
-                        break;
-                    case ItemId.ItemRevive:
-                        break;
-                    case ItemId.ItemMaxRevive:
-                        break;
-                    case ItemId.ItemIncenseSpicy:
-                        break;
-                    case ItemId.ItemIncenseCool:
-                        break;
-                    case ItemId.ItemIncenseFloral:
-                        break;
-                    case ItemId.ItemTroyDisk:
-                        break;
-                    case ItemId.ItemXAttack:
-                        break;
-                    case ItemId.ItemXDefense:
-                        break;
-                    case ItemId.ItemXMiracle:
-                        break;
-                    case ItemId.ItemRazzBerry:
-                        break;
-                    case ItemId.ItemBlukBerry:
-                        break;
-                    case ItemId.ItemNanabBerry:
-                        break;
-                    case ItemId.ItemWeparBerry:
-                        break;
-                    case ItemId.ItemPinapBerry:
-                        break;
-                    case ItemId.ItemSpecialCamera:
-                        break;
-                    case ItemId.ItemIncubatorBasicUnlimited:
-                        break;
-                    case ItemId.ItemIncubatorBasic:
-                        break;
-                    case ItemId.ItemPokemonStorageUpgrade:
-                        break;
-                    case ItemId.ItemItemStorageUpgrade:
                         break;
                     default:
-                    {
-                        var response =
+                        {
                             await
-                                _session.Client.Inventory.RecycleItem(item.ItemId, decimal.ToInt32(form.numCount.Value));
-                        if (response.Result == RecycleInventoryItemResponse.Types.Result.Success)
-                        {
-                            Logger.Write(
-                                $"Recycled {decimal.ToInt32(form.numCount.Value)}x {item.ItemId.ToString().Substring(4)}",
-                                LogLevel.Recycling);
+                                RecycleSpecificItemTask.Execute(_session, item.ItemId, decimal.ToInt32(form.numCount.Value));
                         }
-                        else
-                        {
-                            Logger.Write(
-                                $"Unable to recycle {decimal.ToInt32(form.numCount.Value)}x {item.ItemId.ToString().Substring(4)}",
-                                LogLevel.Error);
-                        }
-                    }
                         break;
                 }
                 await ReloadPokemonList();

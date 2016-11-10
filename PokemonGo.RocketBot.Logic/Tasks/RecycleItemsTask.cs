@@ -24,7 +24,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             cancellationToken.ThrowIfCancellationRequested();
 
             var currentTotalItems = await session.Inventory.GetTotalItemCount();
-            if (session.Profile.PlayerData.MaxItemStorage*session.LogicSettings.RecycleInventoryAtUsagePercentage/100.0f >
+            if (session.Profile.PlayerData.MaxItemStorage * session.LogicSettings.RecycleInventoryAtUsagePercentage / 100.0f >
                 currentTotalItems)
                 return;
 
@@ -91,7 +91,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
 
             await session.Inventory.RefreshCachedInventory();
             currentTotalItems = await session.Inventory.GetTotalItemCount();
-            if (session.Profile.PlayerData.MaxItemStorage*session.LogicSettings.RecycleInventoryAtUsagePercentage/100.0f >
+            if (session.Profile.PlayerData.MaxItemStorage * session.LogicSettings.RecycleInventoryAtUsagePercentage / 100.0f >
                 currentTotalItems)
                 return;
 
@@ -104,9 +104,8 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                 await session.Client.Inventory.RecycleItem(item.ItemId, item.Count);
 
                 if (session.LogicSettings.VerboseRecycling)
-                    session.EventDispatcher.Send(new ItemRecycledEvent {Id = item.ItemId, Count = item.Count});
-                if (session.LogicSettings.DelayBetweenRecycleActions)
-                    DelayingUtils.Delay(session.LogicSettings.DelayBetweenPlayerActions, 500);
+                    session.EventDispatcher.Send(new ItemRecycledEvent { Id = item.ItemId, Count = item.Count });
+                DelayingUtils.Delay(session.LogicSettings.DelayBetweenPlayerActions, 500);
             }
 
             await session.Inventory.RefreshCachedInventory();
@@ -126,9 +125,8 @@ namespace PokemonGo.RocketBot.Logic.Tasks
                 cancellationToken.ThrowIfCancellationRequested();
                 await session.Client.Inventory.RecycleItem(item, itemsToRecycle);
                 if (session.LogicSettings.VerboseRecycling)
-                    session.EventDispatcher.Send(new ItemRecycledEvent {Id = item, Count = itemsToRecycle});
-                if (session.LogicSettings.DelayBetweenRecycleActions)
-                    DelayingUtils.Delay(session.LogicSettings.DelayBetweenPlayerActions, 500);
+                    session.EventDispatcher.Send(new ItemRecycledEvent { Id = item, Count = itemsToRecycle });
+                DelayingUtils.Delay(session.LogicSettings.DelayBetweenPlayerActions, 500);
             }
         }
 
@@ -140,7 +138,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             var masterBallsCount = await session.Inventory.GetItemAmountByType(ItemId.ItemMasterBall);
 
             var totalBallsCount = pokeBallsCount + greatBallsCount + ultraBallsCount + masterBallsCount;
-            var random = rnd.Next(-1*session.LogicSettings.RandomRecycleValue,
+            var random = rnd.Next(-1 * session.LogicSettings.RandomRecycleValue,
                 session.LogicSettings.RandomRecycleValue + 1);
 
             if (totalBallsCount > session.LogicSettings.TotalAmountOfPokeballsToKeep)
@@ -181,7 +179,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             var maxPotionCount = await session.Inventory.GetItemAmountByType(ItemId.ItemMaxPotion);
 
             var totalPotionsCount = potionCount + superPotionCount + hyperPotionsCount + maxPotionCount;
-            var random = rnd.Next(-1*session.LogicSettings.RandomRecycleValue,
+            var random = rnd.Next(-1 * session.LogicSettings.RandomRecycleValue,
                 session.LogicSettings.RandomRecycleValue + 1);
             if (totalPotionsCount > session.LogicSettings.TotalAmountOfPotionsToKeep)
             {
@@ -222,7 +220,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             var maxReviveCount = await session.Inventory.GetItemAmountByType(ItemId.ItemMaxRevive);
 
             var totalRevivesCount = reviveCount + maxReviveCount;
-            var random = rnd.Next(-1*session.LogicSettings.RandomRecycleValue,
+            var random = rnd.Next(-1 * session.LogicSettings.RandomRecycleValue,
                 session.LogicSettings.RandomRecycleValue + 1);
             if (totalRevivesCount > session.LogicSettings.TotalAmountOfRevivesToKeep)
             {
@@ -255,7 +253,7 @@ namespace PokemonGo.RocketBot.Logic.Tasks
             var wepar = await session.Inventory.GetItemAmountByType(ItemId.ItemWeparBerry);
 
             var totalBerryCount = razz + bluk + nanab + pinap + wepar;
-            var random = rnd.Next(-1*session.LogicSettings.RandomRecycleValue,
+            var random = rnd.Next(-1 * session.LogicSettings.RandomRecycleValue,
                 session.LogicSettings.RandomRecycleValue + 1);
             if (totalBerryCount > session.LogicSettings.TotalAmountOfBerriesToKeep)
             {
