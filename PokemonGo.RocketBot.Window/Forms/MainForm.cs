@@ -515,8 +515,16 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private void startStopBotToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            startStopBotToolStripMenuItem.Enabled = false;
-            Task.Run(StartBot);
+            if (startStopBotToolStripMenuItem.Text.Equals("■ Exit"))
+            {
+                Environment.Exit(0);
+            }
+            else
+            {
+                startStopBotToolStripMenuItem.Text = "■ Exit";
+                // startStopBotToolStripMenuItem.Enabled = false;
+                Task.Run(StartBot);
+            }
         }
 
         private void todoToolStripMenuItem_Click(object sender, EventArgs e)
