@@ -1,16 +1,20 @@
-﻿{
+{
   "TranslationStrings": [
     {
+      "Key": "humanWalkingVariant",
+      "Value": "A velocidade de caminhada foi alterada, {0:n2} Km/h to {1:n2} Km/h"
+    },
+	{
       "Key": "pokeball",
-      "Value": "Poké Bola Normal"
+      "Value": "PokeBall"
     },
     {
       "Key": "greatPokeball",
-      "Value": "Poké Bola Great"
+      "Value": "GreatBall"
     },
     {
       "Key": "ultraPokeball",
-      "Value": "Poké Bola Ultra"
+      "Value": "UltraBall"
     },
     {
       "Key": "masterPokeball",
@@ -31,7 +35,7 @@
     },
     {
       "Key": "farmPokestopsNoUsableFound",
-      "Value": "Não foram encontradas PokeStops na sua área. Os Servidores (Google Login / PTC Login) Cairam?"
+      "Value": "Não foram encontradas PokeStops na sua área. A distância máxima não é pequena demais?"
     },
     {
       "Key": "eventFortUsed",
@@ -39,11 +43,11 @@
     },
     {
       "Key": "eventFortFailed",
-      "Value": "Nome: {0} INFO: O looting falhou, possível softban. Desbanindo em: {1}/{2}"
+      "Value": "Nome: {0} INFO: O loot falhou, possível softban. Anulando banimento em: {1}/{2}"
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "Chegando ao Pokestop: {0} ({1}m) ({2} segundos)"
+      "Value": "Indo para o Pokestop: {0}  DISTÂNCIA:({1}metros) TEMPO:({2} segundos)"
     },
     {
       "Key": "eventProfileLogin",
@@ -67,7 +71,7 @@
     },
     {
       "Key": "eventPokemonTransferred",
-      "Value": "{0}\t- CP: {1}  IV: {2}%   [Melhor CP: {3}  IV: {4}%] (Doces: {5})"
+      "Value": "{0}\t- CP: {1}  IV: {2}%   [Melhor CP: {3}  Melhor IV: {4}%] (Candies: {5})"
     },
     {
       "Key": "eventItemRecycled",
@@ -89,16 +93,16 @@
     },
     {
       "Key": "waitingForMorePokemonToEvolve",
-      "Value": "Esperando evoluir {0} Pokemon(s) até que mais {1} sejam capturados! ({2}/{3} para {4}% do inventário)"
+      "Value": "Esperando para evoluir {0} Pokemon(s) até que mais {1} sejam capturados! ({2}/{3} para {4}% do inventário)"
     },
     {
       "Key": "useLuckyEggsMinPokemonAmountTooHigh",
       "Value":
-        "Ovos da sorte nunca serão utilizados com a propriedade UseLuckyEggsMinPokemonAmount definida como {0}, em vez disso use um valor <= {1}"
+        "LuckyEggs nunca serão utilizados com a propriedade UseLuckyEggsMinPokemonAmount definida como {0}, em vez disso use um valor <=(menor ou igual) {1}"
     },
     {
       "Key": "catchMorePokemonToUseLuckyEgg",
-      "Value": "Capture mais {0} Pokemons para usar o Ovo da Sorte!"
+      "Value": "Capture mais {0} Pokemons para usar o LuckyEgg!"
     },
     {
       "Key": "eventUseBerry",
@@ -118,7 +122,7 @@
     },
     {
       "Key": "candies",
-      "Value": "Doces: {0}"
+      "Value": "Candies: {0}"
     },
     {
       "Key": "unhandledGpxData",
@@ -126,7 +130,7 @@
     },
     {
       "Key": "displayHighestsHeader",
-      "Value": "Pokémons"
+      "Value": "Pokemons"
     },
     {
       "Key": "commonWordPerfect",
@@ -142,15 +146,15 @@
     },
     {
       "Key": "displayHighestsCpHeader",
-      "Value": "Exibindo maior CP"
+      "Value": "Exibindo os pokemons com maior CP"
     },
     {
       "Key": "displayHighestsPerfectHeader",
-      "Value": "Exibindo os mais perfeitos"
+      "Value": "Exibindo os pokemons mais perfeitos"
     },
     {
       "Key": "displayHighestsLevelHeader",
-      "Value": "Exibindo os com level mais alto"
+      "Value": "Exibindo os pokemons com level mais alto"
     },
     {
       "Key": "welcomeWarning",
@@ -182,7 +186,7 @@
     },
     {
       "Key": "logEntryPokestop",
-      "Value": "POKÉSTOP"
+      "Value": "POKESTOP"
     },
     {
       "Key": "logEntryFarming",
@@ -190,7 +194,7 @@
     },
     {
       "Key": "logEntrySniper",
-      "Value": "CAPTURA"
+      "Value": "SNIPER"
     },
     {
       "Key": "logEntryRecycling",
@@ -198,7 +202,7 @@
     },
     {
       "Key": "logEntryPKMN",
-      "Value": "POKÉMON"
+      "Value": "POKEMON"
     },
     {
       "Key": "logEntryTransfered",
@@ -210,7 +214,7 @@
     },
     {
       "Key": "logEntryBerry",
-      "Value": "FRUTA"
+      "Value": "BERRY"
     },
     {
       "Key": "logEntryEgg",
@@ -224,15 +228,31 @@
       "Key": "logEntryUpdate",
       "Value": "ATUALIZAÇÃO"
     },
+	{
+      "Key": "logEntryNew",
+      "Value": "NOVO"
+    },
     {
+      "Key": "logEntrySoftBan",
+      "Value": "SOFTBAN"
+    },
+	{
       "Key": "loggingIn",
-      "Value": "Entrando utilizando {0}"
+      "Value": "Entrando com {0}"
     },
     {
       "Key": "ptcOffline",
       "Value": "Os Servidores PTC provavelmente estão offline ou suas credenciais são inválidas. Tente o Google."
     },
     {
+      "Key": "accessTokenExpired",
+      "Value": "PTC Login Token expirou. Entrando novamente..."
+    },
+	{
+      "Key": "invalidResponse",
+      "Value": "Recebido uma resposta invalida do servidor Niantic."
+    },
+	{
       "Key": "tryingAgainIn",
       "Value": "Tentando novamente em {0} segundos..."
     },
@@ -250,11 +270,11 @@
     },
     {
       "Key": "couldntCopyToClipboard2",
-      "Value": "Vá para: {0} & e informe {1}"
+      "Value": "Vá para: {0} e informe {1}"
     },
     {
       "Key": "realisticTravelDetected",
-      "Value": "Movimentos realistas detectados, utilizando UserSettings.settings"
+      "Value": "Movimentos realistas detectados, utilizando configurações padrões dentro do config.json"
     },
     {
       "Key": "notRealisticTravel",
@@ -294,15 +314,15 @@
     },
     {
       "Key": "lookingForIncensePokemon",
-      "Value": "Procurando por incenso de pokémon..."
+      "Value": "Procurando por incenso..."
     },
     {
       "Key": "lookingForPokemon",
-      "Value": "Procurando por pokémon..."
+      "Value": "Procurando por pokemon..."
     },
     {
       "Key": "lookingForLurePokemon",
-      "Value": "Procurando por lure nos Pokéstops..."
+      "Value": "Procurando por lure nos Pokestops..."
     },
     {
       "Key": "pokemonSkipped",
@@ -326,7 +346,7 @@
     },
     {
       "Key": "CurrentMiscItemInv",
-      "Value": "Berrys: {0} | Incense: {1} | LuckyEggs: {2} | Lures: {3}"
+      "Value": "Berries: {0} | Incense: {1} | LuckyEggs: {2} | Lures: {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
@@ -339,12 +359,12 @@
     },
     {
       "Key": "invFullTransferring",
-      "Value": "Inventário de Pokémons cheio. Transferindo pokémons..."
+      "Value": "Inventário de Pokemons cheio. Transferindo pokemons..."
     },
     {
       "Key": "invFullTransferManually",
       "Value":
-        "O inventário de Pokémons está cheio. Por favor transfira seus pokémons manualmente ou altere a propriedade TransferDuplicatePokemon para true nas configurações..."
+        "O inventário de Pokemons está cheio. Por favor transfira seus pokemons manualmente ou altere a propriedade TransferDuplicatePokemon para true nas configurações..."
     },
     {
       "Key": "invFullPokestopLooting",
@@ -356,7 +376,7 @@
     },
     {
       "Key": "encounterProblemLurePokemon",
-      "Value": "Problema encontrado: Atraindo pokémon {0}"
+      "Value": "Problema encontrado: Lure Pokemon {0}"
     },
     {
       "Key": "desiredDestTooFar",
@@ -364,7 +384,7 @@
     },
     {
       "Key": "pokemonRename",
-      "Value": "Pokémon {0} ({1}) renomeado de {2} para {3}."
+      "Value": "Pokemon {0} ({1}) renomeado de {2} para {3}."
     },
     {
       "Key": "pokemonFavorite",
@@ -404,11 +424,11 @@
     },
     {
       "Key": "catchTypeLure",
-      "Value": "Atraído"
+      "Value": "Atraído por Lure"
     },
     {
       "Key": "catchTypeIncense",
-      "Value": "Incenso"
+      "Value": "Atraído por Incenso"
     },
     {
       "Key": "webSocketFailStart",
@@ -420,6 +440,22 @@
         "{0} - Sessão {1} - Lvl: {2} | EXP/H: {3:n0} | P/H: {4:n0} | Stardust: {5:n0} | Transferidos: {6:n0} | Reciclados: {7:n0}"
     },
     {
+      "Key": "statsTemplateString",
+      "Value": "{0} - Sessão {1} - Lvl: {2} | EXP/H: {3:n0} | P/H: {4:n0} | Stardust: {5:n0} | Transferidos: {6:n0} | Reciclados: {7:n0}"
+    },
+    {
+      "Key": "profileStatsTemplateString",
+      "Value": "----- LVL {0} | {1} ----- \n Experiência : {2}/{3} \n Pokemons pegos: {4} \n Pokemons implantados: {5} \n Pokestops visitados: {6} \n Ovos chocados: {7} \n Pokemons evoluídos : {8} \n Entradas na Pokedex: {9} \n KM caminhados: {10}  \n Pokemons: {11}/{12}"
+    },
+    {
+      "Key": "showPokeTemplate",
+      "Value": "\n CP: {0} | IV: {1}% | Nome: {2}"
+    },
+    {
+      "Key": "helpTemplate",
+      "Value": "Comandos: \n \n /top <cp/iv> <amount> - Exibe seu melhor pokemon. \n /all <cp/iv> - Exibe todos seus pokemons. \n /profile - Exibe seu perfil. \n /loc - Exibe sua localidade. \n /items - Exibe seus itens. \n /status - Exibe o status do bot. \n /pokedex - Exibe sua pokedex "
+    },
+	{
       "Key": "statsXpTemplateString",
       "Value": "{0} (próximo nível em {1}h {2}m | {3:n0}/{4:n0} XP)"
     },
@@ -447,28 +483,28 @@
     {
       "Key": "missingCredentialsGoogle",
       "Value":
-        "Você precisa informar o GoogleUsername e GooglePassword no arquivo auth.json! Nota : Após o Update 0.7.5 é nessesario colocar as informações em auth.json e authgoogle.json dependendo de como veio o bot, verifique se o seu bot possui os dois arquivos e em caso contrário preencha-os!"
+        "Você precisa informar o GoogleUsername e GooglePassword no arquivo auth.json!"
     },
     {
       "Key": "missingCredentialsPtc",
       "Value":
-        "Você precisa informar o PtcUsername e PtcPassword no arquivo auth.json! Nota : Após o Update 0.7.5 é nessesario colocar as informações em auth.json e authptc.json dependendo de como veio o bot, verifique se o seu bot possui os dois arquivos e em caso contrário preencha-os!"
+        "Você precisa informar o PtcUsername e PtcPassword no arquivo auth.json!"
     },
     {
       "Key": "snipeScan",
-      "Value": "[Captura] Verificando por Pokémon em {0}..."
+      "Value": "[SNIPER] Verificando por Pokemon em {0}..."
     },
     {
       "Key": "snipeScanEx",
-      "Value": "[Captura] Tentando Capturar um {0} com {1} IV em {2}..."
+      "Value": "[SNIPER] Tentando Capturar um {0} com {1} IV em {2}..."
     },
     {
       "Key": "noPokemonToSnipe",
-      "Value": "[Captura] Nenhum Pokémon encontrado!"
+      "Value": "[SNIPER] Nenhum Pokemon encontrado!"
     },
     {
       "Key": "notEnoughPokeballsToSnipe",
-      "Value": "Sem pokébolas suficientes para começar a captura! ({0}/{1})"
+      "Value": "Sem pokebolas suficientes para começar a captura! ({0}/{1})"
     },
     {
       "Key": "displayHighestMove1Header",
@@ -480,7 +516,7 @@
     },
     {
       "Key": "displayHighestCandy",
-      "Value": "Doce"
+      "Value": "Candy"
     },
     {
       "Key": "iPBannedError",
@@ -492,15 +528,15 @@
     },
     {
       "Key": "useLuckyEggActive",
-      "Value": "Ovo da Sorte já está ativo"
+      "Value": "Lucky Egg já está ativo"
     },
     {
       "Key": "usedLuckyEgg",
-      "Value": "Ovo da Sorte utilizado"
+      "Value": "Lucky Egg utilizado"
     },
     {
       "Key": "useLuckyEggAmount",
-      "Value": "Ovos da sorte no inventário: {0}"
+      "Value": "Lucky Eggs no inventário: {0}"
     },
     {
       "Key": "noIncenseAvailable",
@@ -512,7 +548,7 @@
     },
     {
       "Key": "useIncenseAmount",
-      "Value": "Incenso no Inventário: {0}"
+      "Value": "Incensos no Inventário: {0}"
     },
     {
       "Key": "usedIncense",
@@ -528,7 +564,7 @@
     },
     {
       "Key": "pkmNotEnoughRessources",
-      "Value": "Fortalecimento do Pokemon falhado, sem recursos suficientes."
+      "Value": "Falha ao dar upgrade no pokemon, sem recursos suficientes. Verifique seu startdust e seus candies."
     },
     {
       "Key": "snipeServerOffline",
@@ -626,25 +662,29 @@
       "Key": "firstStartSetupDefaultLongConfirm",
       "Value": "Longitude aceita: {0}"
     },
+	{
+      "Key": "softBanBypassed",
+      "Value": "Softban evitado!"
+    },
     {
       "Key": "firstStartSetupCompleted",
       "Value": "### CONFIGURAÇÃO COMPLETA ###"
     },
     {
       "Key": "PokedexCatchedTelegram",
-      "Value": "--- Pokedex catched --- \n"
+      "Value": "--- Pokedex(Capturados) --- \n"
     },
     {
       "Key": "PokedexPokemonCatchedTelegram",
-      "Value": "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"
+      "Value": "#{0} Nome: {1} | Capturados: {2} | Encontrados: {3} \n"
     },
     {
       "Key": "PokedexNeededTelegram",
-      "Value": "--- Pokedex needed --- \n"
+      "Value": "--- Pokedex(Necessário) --- \n"
     },
     {
       "Key": "PokedexPokemonNeededTelegram",
-      "Value": "#{0} Name: {1} \n"
+      "Value": "#{0} Nome: {1} \n"
     }
   ],
   "PokemonStrings": [
@@ -1253,18 +1293,18 @@
       "Value": "Mew"
     }
   ],
-  "PokemonMovesetStrings": [
+   "PokemonMovesetStrings": [
     {
       "Key": "moveUnset",
       "Value": "MoveUnset"
     },
     {
       "Key": "thunderShock",
-      "Value": "Choque Do Trovao"
+      "Value": "ThunderShock"
     },
     {
       "Key": "quickAttack",
-      "Value": "Ataque Rapido"
+      "Value": "QuickAttack"
     },
     {
       "Key": "scratch",
@@ -1284,7 +1324,7 @@
     },
     {
       "Key": "razorLeaf",
-      "Value": "Folha Navalha"
+      "Value": "RazorLeaf"
     },
     {
       "Key": "takeDown",
@@ -1352,7 +1392,7 @@
     },
     {
       "Key": "flamethrower",
-      "Value": "Lança Chamas"
+      "Value": "Flamethrower"
     },
     {
       "Key": "suckerPunch",
