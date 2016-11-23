@@ -51,7 +51,7 @@ namespace PokemonGo.RocketBot.Window
 
         public double GetIV
         {
-            get { return Math.Round(PokemonInfo.CalculatePokemonPerfection(PokemonData)/100, 2); }
+            get { return Math.Round(PokemonInfo.CalculatePokemonPerfection(PokemonData)/100, 4); }
         }
 
         public double GetLv
