@@ -6,7 +6,6 @@ using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -168,8 +167,6 @@ namespace PokemonGo.RocketBot.Window.Forms
             }
 
             _session = new Session(new ClientSettings(_settings), new LogicSettings(_settings));
-
-            _session.Client.ApiFailure = new ApiFailureStrategy(_session);
 
             _machine = new StateMachine();
             var stats = new Statistics();
@@ -516,8 +513,16 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private void startStopBotToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            startStopBotToolStripMenuItem.Enabled = false;
-            Task.Run(StartBot);
+            if (startStopBotToolStripMenuItem.Text.Equals("■ Exit"))
+            {
+                Environment.Exit(0);
+            }
+            else
+            {
+                startStopBotToolStripMenuItem.Text = "■ Exit";
+                // startStopBotToolStripMenuItem.Enabled = false;
+                Task.Run(StartBot);
+            }
         }
 
         private void todoToolStripMenuItem_Click(object sender, EventArgs e)

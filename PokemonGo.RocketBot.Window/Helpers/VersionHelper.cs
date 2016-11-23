@@ -12,19 +12,19 @@ namespace PokemonGo.RocketBot.Window.Helpers
         {
             try
             {
+                Logger.Write("You can find it at www.GitHub.com/TheUnnameOrganization/RocketBot/releases");
+                Logger.Write("Your version is " + Application.ProductVersion);
                 var match =
                     new Regex(
-                        @"\[assembly\: AssemblyVersion\(""(\d{1,})\.(\d{1,})\.(\d{1,})""\)\]")
+                       @"\[assembly\: AssemblyVersion\(""(\d{1,})\.(\d{1,})\.(\d{1,})\.(\d{1,})""\)\]")
                         .Match(DownloadServerVersion());
 
                 if (!match.Success) return;
                 var gitVersion =
                     new Version(
-                        $"{match.Groups[1]}.{match.Groups[2]}.{match.Groups[3]}");
+                        $"{match.Groups[1]}.{match.Groups[2]}.{match.Groups[3]}.{match.Groups[4]}");
                 // makes sense to display your version and say what the current one is on github
-                Logger.Write("Your version is " + Application.ProductVersion);
                 Logger.Write("Github version is " + gitVersion);
-                Logger.Write("You can find it at www.GitHub.com/TheUnnameOrganization/RocketBot/releases");
             }
             catch (Exception)
             {

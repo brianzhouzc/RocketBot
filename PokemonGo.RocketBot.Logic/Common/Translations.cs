@@ -197,7 +197,9 @@ namespace PokemonGo.RocketBot.Logic.Common
         PokedexCatchedTelegram,
         PokedexPokemonCatchedTelegram,
         PokedexNeededTelegram,
-        PokedexPokemonNeededTelegram
+        PokedexPokemonNeededTelegram,
+        ExitNowAfterEnterKey,
+        CaptchaShown
     }
 
     public class Translation : ITranslation
@@ -390,7 +392,7 @@ namespace PokemonGo.RocketBot.Logic.Common
                     new KeyValuePair<PokemonMove, string>(PokemonMove.SteelWingFast, "SteelWingFast"),
                     new KeyValuePair<PokemonMove, string>(PokemonMove.FireFangFast, "FireFangFast"),
                     new KeyValuePair<PokemonMove, string>(PokemonMove.RockSmashFast, "RockSmashFast")
-                };
+           };
 
         [JsonProperty("PokemonStrings",
             ItemTypeNameHandling = TypeNameHandling.Arrays,
@@ -843,7 +845,9 @@ namespace PokemonGo.RocketBot.Logic.Common
             new KeyValuePair<TranslationString, string>(TranslationString.PokedexNeededTelegram,
                 "--- Pokedex needed --- \n"),
             new KeyValuePair<TranslationString, string>(TranslationString.PokedexPokemonNeededTelegram,
-                "#{0}# Name: {1} \n")
+                "#{0}# Name: {1} \n"),
+            new KeyValuePair<TranslationString, string>(TranslationString.ExitNowAfterEnterKey, "The bot will now exit after hitting the enter key."),
+            new KeyValuePair<TranslationString, string>(TranslationString.CaptchaShown, "Captcha is being shown and will need to be solved.")
         };
 
         public string GetTranslation(TranslationString translationString, params object[] data)
