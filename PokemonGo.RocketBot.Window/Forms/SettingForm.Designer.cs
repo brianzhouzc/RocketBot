@@ -2622,7 +2622,7 @@
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(286, 32);
             this.saveBtn.TabIndex = 29;
-            this.saveBtn.Text = "Save (This will automatically restart RocketBot)";
+            this.saveBtn.Text = "Save and restart";
             this.saveBtn.UseVisualStyleBackColor = true;
             this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
             // 
@@ -2640,7 +2640,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "SettingsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Bot Settings";
+            this.Text = "RocketBot Settings";
             this.Load += new System.EventHandler(this.SettingsForm_Load);
             this.tabControl.ResumeLayout(false);
             this.tabAuth.ResumeLayout(false);

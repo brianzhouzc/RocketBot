@@ -27,14 +27,11 @@ using PokemonGo.RocketBot.Logic.Tasks;
 using PokemonGo.RocketBot.Logic.Utils;
 using PokemonGo.RocketBot.Window.Helpers;
 using PokemonGo.RocketBot.Window.Models;
-using PokemonGo.RocketBot.Window.Plugin;
 using POGOProtos.Data;
 using POGOProtos.Inventory;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Fort;
 using POGOProtos.Map.Pokemon;
-using Segment;
-using Segment.Model;
 using Logger = PokemonGo.RocketBot.Logic.Logging.Logger;
 
 namespace PokemonGo.RocketBot.Window.Forms
@@ -71,14 +68,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Text = @"RocketBot v" + Application.ProductVersion;
-
-            //User activity tracking, help us get more information to make RocketBot better
-            //Everything is anonymous
-            Analytics.Initialize("UzL1tnZa9Yw2qcJWRIbcwGFmWGuovXez");
-            Analytics.Client.Identify(MachineIdHelper.GetMachineId(), new Traits());
-            Analytics.Client.Track(MachineIdHelper.GetMachineId(), "App started");
-
+            Text = @"RocketBot v" + Application.ProductVersion + " -  API version 0.45.0";
             speedLable.Parent = gMapControl1;
             showMoreCheckBox.Parent = gMapControl1;
             followTrainerCheckBox.Parent = gMapControl1;
@@ -90,9 +80,21 @@ namespace PokemonGo.RocketBot.Window.Forms
             VersionHelper.CheckVersion();
             if (BoolNeedsSetup)
             {
-                //startStopBotToolStripMenuItem.Enabled = false;
-                Logger.Write("First time here? Go to settings to set your basic info.");
+                startStopBotToolStripMenuItem.Enabled = false;
+                showMoreCheckBox.Enabled = false;
+                btnRefresh.Enabled = false;
+                Logger.Write("First time here? Go to settings to set your basic info.",LogLevel.Error);
+            }
+             else
+            {
+                btnRefresh.Enabled = false;
                 GlobalSettings.Load("");
+            }
+            if (VersionHelper.CheckKillSwitch())
+            {
+                startStopBotToolStripMenuItem.Enabled = false;
+                showMoreCheckBox.Enabled = false;
+                btnRefresh.Enabled = false;
             }
         }
 
@@ -148,9 +150,6 @@ namespace PokemonGo.RocketBot.Window.Forms
 
             if (File.Exists(configFile))
             {
-                /** if (!VersionCheckState.IsLatest())
-                    settings = GlobalSettings.Load(subPath, true);
-                else **/
                 _settings = GlobalSettings.Load(subPath, true);
                 _settings.Auth.Load(authFile);
             }
@@ -168,7 +167,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
             _session = new Session(new ClientSettings(_settings), new LogicSettings(_settings));
 
-            _machine = new StateMachine();
+             _machine = new StateMachine();
             var stats = new Statistics();
 
             // var strVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(3); NOT USED ATM
@@ -192,14 +191,6 @@ namespace PokemonGo.RocketBot.Window.Forms
                 _session.EventDispatcher.EventReceived += evt => websocket.Listen(evt, _session);
             }
 
-            var plugins = new PluginManager(new PluginInitializerInfo
-            {
-                Logger = _logger,
-                Session = _session,
-                Settings = _settings,
-                Statistics = stats
-            });
-            plugins.InitPlugins();
             _machine.SetFailureState(new LoginState());
             Logger.SetLoggerContext(_session);
 
@@ -231,21 +222,16 @@ namespace PokemonGo.RocketBot.Window.Forms
                     _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
             CatchIncensePokemonsTask.PokemonEncounterEvent += UpdateMap;
         }
-
         private async Task StartBot()
         {
             await _machine.AsyncStart(new VersionCheckState(), _session);
-
             if (_settings.UseTelegramApi)
             {
                 _session.Telegram = new TelegramService(_settings.TelegramApiKey, _session);
             }
-
             _settings.CheckProxy();
-
             QuitEvent.WaitOne();
         }
-
         private void InitializePokestopsAndRoute(List<FortData> pokeStops)
         {
             SynchronizationContext.Post(o =>
@@ -278,7 +264,6 @@ namespace PokemonGo.RocketBot.Window.Forms
                 }
             }, null);
         }
-
         private void Navigation_UpdatePositionEvent(double lat, double lng)
         {
             var latlng = new PointLatLng(lat, lng);
@@ -476,7 +461,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 Instance.Invoke(new Action<Color, string>(ColoredConsoleWrite), color, message);
                 return;
             }
-            Instance.logTextBox.SelectionStart = Instance.logTextBox.Text.Length;
+            Instance.logTextBox.SelectionStart = Instance.logTextBox.Text.Length +1;
             Instance.logTextBox.ScrollToCaret();
             Instance.logTextBox.SelectionColor = color;
             Instance.logTextBox.AppendText(message);
@@ -515,12 +500,13 @@ namespace PokemonGo.RocketBot.Window.Forms
         {
             if (startStopBotToolStripMenuItem.Text.Equals("■ Exit"))
             {
-                Environment.Exit(0);
+                Application.Exit();
             }
             else
             {
                 startStopBotToolStripMenuItem.Text = "■ Exit";
-                // startStopBotToolStripMenuItem.Enabled = false;
+                btnRefresh.Enabled = true;
+                settingToolStripMenuItem.Enabled = false;
                 Task.Run(StartBot);
             }
         }
@@ -536,18 +522,9 @@ namespace PokemonGo.RocketBot.Window.Forms
             _playerLocations.Add(newLocation);
             UpdateMap();
         }
-
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Analytics.Client.Track(MachineIdHelper.GetMachineId(), "App stopped");
-            Analytics.Dispose();
-            //Environment.Exit(0);
-        }
-
         #endregion EVENTS
-
+       
         #region POKEMON LIST
-
         private IEnumerable<Candy> _families;
 
         private void InitializePokemonForm()
@@ -833,8 +810,7 @@ namespace PokemonGo.RocketBot.Window.Forms
                 var itemTemplates = await _session.Client.Download.GetItemTemplates();
                 var inventory = await _session.Inventory.GetCachedInventory();
                 var profile = await _session.Client.Player.GetPlayer();
-                var inventoryAppliedItems =
-                    await _session.Inventory.GetAppliedItems();
+                var inventoryAppliedItems = await _session.Inventory.GetAppliedItems();
 
                 var appliedItems =
                     inventoryAppliedItems.Where(aItems => aItems?.Item != null)
@@ -889,17 +865,16 @@ namespace PokemonGo.RocketBot.Window.Forms
                         .Where(i => i != null)
                         .Sum(i => i.Count) + 1;
 
-                flpItems.Controls.Clear();
-                foreach (var item in items)
-                {
-                    var box = new ItemBox(item);
-                    if (appliedItems.ContainsKey(item.ItemId))
-                        box.expires = appliedItems[item.ItemId];
-                    box.ItemClick += ItemBox_ItemClick;
-                    flpItems.Controls.Add(box);
-                }
-
-                lblInventory.Text = itemscount + @" / " + profile.PlayerData.MaxItemStorage;
+                    flpItems.Controls.Clear();
+                    foreach (var item in items)
+                    {
+                        var box = new ItemBox(item);
+                        if (appliedItems.ContainsKey(item.ItemId))
+                            box.expires = appliedItems[item.ItemId];
+                        box.ItemClick += ItemBox_ItemClick;
+                        flpItems.Controls.Add(box);
+                    }
+            lblInventory.Text = itemscount + @" / " + profile.PlayerData.MaxItemStorage;
             }
             catch (ArgumentNullException)
             {
@@ -912,7 +887,6 @@ namespace PokemonGo.RocketBot.Window.Forms
             {
                 Logger.Write(ex.ToString(), LogLevel.Error);
             }
-
             SetState(true);
         }
 

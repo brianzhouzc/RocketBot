@@ -1,30 +1,25 @@
 ﻿using System;
 using System.Net;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using PokemonGo.RocketBot.Logic.Logging;
+using PokemonGo.RocketBot.Logic.State;
+using PokemonGo.RocketBot.Logic.Utils;
 
 namespace PokemonGo.RocketBot.Window.Helpers
 {
     public class VersionHelper
     {
+        private static readonly Uri StrKillSwitchUri =
+     new Uri("https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/KillSwitch.txt");
+
         public static void CheckVersion()
-        {
+        {           
             try
             {
-                Logger.Write("You can find it at www.GitHub.com/TheUnnameOrganization/RocketBot/releases");
+                Logger.Write("You can find it at https://github.com/TheUnnameOrganization/RocketBot/releases");
                 Logger.Write("Your version is " + Application.ProductVersion);
-                var match =
-                    new Regex(
-                       @"\[assembly\: AssemblyVersion\(""(\d{1,})\.(\d{1,})\.(\d{1,})\.(\d{1,})""\)\]")
-                        .Match(DownloadServerVersion());
-
-                if (!match.Success) return;
-                var gitVersion =
-                    new Version(
-                        $"{match.Groups[1]}.{match.Groups[2]}.{match.Groups[3]}.{match.Groups[4]}");
-                // makes sense to display your version and say what the current one is on github
-                Logger.Write("Github version is " + gitVersion);
+                VersionCheckState.IsLatest();
+                Logger.Write("GitHub version is " + VersionCheckState.RemoteVersion);
             }
             catch (Exception)
             {
@@ -32,12 +27,40 @@ namespace PokemonGo.RocketBot.Window.Helpers
             }
         }
 
-        private static string DownloadServerVersion()
+        public static bool CheckKillSwitch()
         {
             using (var wC = new WebClient())
-                return
-                    wC.DownloadString(
-                        "https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/PokemonGo.RocketBot.Window/Properties/AssemblyInfo.cs");
+            {
+                try
+                {
+                    var strResponse = WebClientExtensions.DownloadString(wC, StrKillSwitchUri);
+
+                    if (strResponse == null)
+                        return false;
+
+                    var strSplit = strResponse.Split(';');
+
+                    if (strSplit.Length > 1)
+                    {
+                        var strStatus = strSplit[0];
+                        var strReason = strSplit[1];
+
+                        if (strStatus.ToLower().Contains("disable"))
+                        {
+                            Logger.Write(strReason + $"\n", LogLevel.Warning);
+                            Logger.Write("The bot will now close.", LogLevel.Error);
+                            return true;
+                        }
+                    }
+                    else
+                        return false;
+                }
+                catch (WebException)
+                {
+                    // ignored
+                }
+            }
+            return false;
         }
     }
 }

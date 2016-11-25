@@ -84,7 +84,8 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject />
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Analytics.NET, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -195,6 +196,12 @@
     <Compile Include="Helpers\S2GMapDrawer.cs" />
     <Compile Include="Helpers\TimeHelper.cs" />
     <Compile Include="Helpers\VersionHelper.cs" />
+    <Compile Include="Forms\ItemSetting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\ItemSetting.Designer.cs">
+      <DependentUpon>ItemSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\GMapMarkerPokestops.cs" />
     <Compile Include="Models\GMapMarkerTrainer.cs" />
     <Compile Include="Models\LoggingStrings.cs" />
@@ -204,9 +211,6 @@
     <Compile Include="Forms\NicknamePokemonForm.designer.cs">
       <DependentUpon>NicknamePokemonForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Plugin\INecroPlugin.cs" />
-    <Compile Include="Plugin\PluginInitializerInfo.cs" />
-    <Compile Include="Plugin\PluginManager.cs" />
     <Compile Include="PokemomObject.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -334,9 +338,6 @@
     </Content>
     <None Include="supersocket.cmd" />
     <None Include="supersocket.sh" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\Items\ItemBlukBerry.png" />
@@ -537,6 +538,9 @@
     <EmbeddedResource Include="Forms\SettingForm.resx">
       <DependentUpon>SettingForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ItemSetting.resx">
+      <DependentUpon>ItemSetting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -545,7 +549,7 @@
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 和 x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 et x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -555,11 +559,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\NecroBot\FeroxRev\PokemonGo.RocketAPI.csproj">
+    <ProjectReference Include="..\FeroxRev\PokemonGo.RocketAPI.csproj">
       <Project>{05d2da44-1b8e-4cf7-94ed-4d52451cd095}</Project>
       <Name>PokemonGo.RocketAPI</Name>
     </ProjectReference>
-    <ProjectReference Include="$(SolutionDir)\PokemonGo.RocketBot.Logic\PokemonGo.RocketBot.Logic.csproj">
+    <ProjectReference Include="..\PokemonGo.RocketBot.Logic\PokemonGo.RocketBot.Logic.csproj">
       <Project>{0739e40d-c589-4aeb-93e5-ee8cd6773c60}</Project>
       <Name>PokemonGo.RocketBot.Logic</Name>
     </ProjectReference>

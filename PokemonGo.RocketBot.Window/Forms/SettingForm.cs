@@ -506,7 +506,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
                 #endregion
 
-                #region Bot Settings
+                #region RocketBot Settings
 
                 _setting.TranslationLanguageCode = cbLanguage.Text;
 

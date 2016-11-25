@@ -127,8 +127,9 @@ namespace PokemonGo.RocketBot.Window
             }
         }
 
-        public void lineSelect(int lineChar = 0, int linesUp = 1)
+       public void lineSelect(int lineChar = 0, int linesUp = 1)
         {
+            return;
         }
 
         public event LogWriteHandler OnLogWrite;
@@ -139,8 +140,17 @@ namespace PokemonGo.RocketBot.Window
     /// </summary>
     public class LogWriteEventArgs
     {
-        public string Message { get; set; }
-        public LogLevel Level { get; set; }
-        public ConsoleColor Color { get; set; }
+        public string Message {
+            get { return Message; }
+            set { Message = value; }
+        }
+        public LogLevel Level {
+            get { return Level; }
+            set { Level = value; }
+        }
+        public ConsoleColor Color {
+            get { return Color; }
+            set { Color = value; }
+        }
     }
 }

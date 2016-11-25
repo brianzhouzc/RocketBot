@@ -199,5 +199,6 @@ namespace PokemonGo.RocketBot.Logic
         SnipeSettings PokemonToSnipe { get; }
 
         bool StartupWelcomeDelay { get; }
+        bool CheckForUpdates { get; }
     }
 }

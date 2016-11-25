@@ -55,7 +55,7 @@ namespace PokemonGo.RocketBot.Logic
             _client = client;
             _logicSettings = logicSettings;
         }
-
+       private Caching.LRUCache<ItemId, int> pokeballCache = new Caching.LRUCache<ItemId, int>(capacity: 10);
         public async Task DeletePokemonFromInvById(ulong id)
         {
             var inventory = await GetCachedInventory();
@@ -70,19 +70,16 @@ namespace PokemonGo.RocketBot.Logic
         {
             return await GetLevelUpRewards(inv.GetPlayerStats().Result.FirstOrDefault().Level);
         }
-
         public async Task<GetInventoryResponse> GetCachedInventory()
         {
             if (_player == null) GetPlayerData();
             var now = DateTime.UtcNow;
 
-            if (_lastRefresh.AddSeconds(30).Ticks > now.Ticks)
+            if (_cachedInventory != null && _lastRefresh.AddSeconds(60).Ticks > now.Ticks)
                 return _cachedInventory;
 
             return await RefreshCachedInventory();
         }
-
-
         public async Task<IEnumerable<PokemonData>> GetDuplicatePokemonToTransfer(
             IEnumerable<PokemonId> pokemonsNotToTransfer, IEnumerable<PokemonId> pokemonsToEvolve,
             bool keepPokemonsThatCanEvolve = false, bool prioritizeIVoverCp = false
@@ -108,7 +105,7 @@ namespace PokemonGo.RocketBot.Logic
 
                             return
                                 !pokemonTransferFilter.MovesOperator.BoolFunc(
-                                    pokemonTransferFilter.Moves.Intersect(new[] {p.Move1, p.Move2}).Any(),
+                                    pokemonTransferFilter.Moves.Intersect(new[] { p.Move1, p.Move2 }).Any(),
                                     pokemonTransferFilter.KeepMinOperator.BoolFunc(
                                         p.Cp >= pokemonTransferFilter.KeepMinCp,
                                         PokemonInfo.CalculatePokemonPerfection(p) >=
@@ -147,11 +144,11 @@ namespace PokemonGo.RocketBot.Logic
                     settings.CandyToEvolve > 0 &&
                     settings.EvolutionIds.Count != 0)
                 {
-                    var possibleCountToEvolve = familyCandy.Candy_/settings.CandyToEvolve;
+                    var possibleCountToEvolve = familyCandy.Candy_ / settings.CandyToEvolve;
                     amountToKeepInStorage = Math.Max(amountToKeepInStorage, possibleCountToEvolve);
 
                     //remain candy
-                    modFromEvolve = familyCandy.Candy_%settings.CandyToEvolve;
+                    modFromEvolve = familyCandy.Candy_ % settings.CandyToEvolve;
                 }
 
                 var inStorage = myPokemonList.Count(data => data.PokemonId == pokemonGroupToTransfer.Key);
@@ -173,9 +170,9 @@ namespace PokemonGo.RocketBot.Logic
                     // its an solution in fixed numbers of equations with two variables 
                     // (N = X + Y, X + C >= Y * E) -> (X >= (N * E - C / 1 + E)
                     // where N - current canBeRemoved,  X - new canBeRemoved, Y - possible to keep more, E - CandyToEvolve, C - modFromEvolve(remain candy) ) )
-                    canBeRemoved = (settings.CandyToEvolve*canBeRemoved - modFromEvolve.Value)/
+                    canBeRemoved = (settings.CandyToEvolve * canBeRemoved - modFromEvolve.Value) /
                                    (1 + settings.CandyToEvolve) +
-                                   Math.Sign((settings.CandyToEvolve*canBeRemoved - modFromEvolve.Value)%
+                                   Math.Sign((settings.CandyToEvolve * canBeRemoved - modFromEvolve.Value) %
                                              (1 + settings.CandyToEvolve));
                 }
 
@@ -209,10 +206,8 @@ namespace PokemonGo.RocketBot.Logic
                  : myPokemonList.Where(x => x.PokemonId == data.PokemonId)
                 .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
                 .FirstOrDefault()) ?? data;
-
                 var perfection = PokemonInfo.CalculatePokemonPerfection(data);
                 var cp = data.Cp;
-
                 var bestPerfection = PokemonInfo.CalculatePokemonPerfection(bestPokemonOfType);
                 var bestCp = bestPokemonOfType.Cp;
             });
@@ -222,7 +217,6 @@ namespace PokemonGo.RocketBot.Logic
 
             return results;
         }
-
         public async Task<IEnumerable<EggIncubator>> GetEggIncubators()
         {
             var inventory = await GetCachedInventory();
@@ -232,7 +226,6 @@ namespace PokemonGo.RocketBot.Logic
                     .SelectMany(i => i.InventoryItemData.EggIncubators.EggIncubator)
                     .Where(i => i != null);
         }
-
         public async Task<IEnumerable<PokemonData>> GetEggs()
         {
             var inventory = await GetCachedInventory();
@@ -240,56 +233,62 @@ namespace PokemonGo.RocketBot.Logic
                 inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PokemonData)
                     .Where(p => p != null && p.IsEgg);
         }
-
         public async Task<PokemonData> GetHighestPokemonOfTypeByCp(PokemonData pokemon)
         {
             var myPokemon = await GetPokemons();
-            var pokemons = myPokemon.ToList();
-            return pokemons.Where(x => x.PokemonId == pokemon.PokemonId)
-                .OrderByDescending(x => x.Cp)
-                .FirstOrDefault();
+            if (myPokemon != null)
+            {
+                var pokemons = myPokemon.ToList();
+                if (pokemons != null && 0 < pokemons.Count)
+                {
+                    return pokemons.Where(x => x.PokemonId == pokemon.PokemonId)
+                        .OrderByDescending(x => x.Cp)
+                        .FirstOrDefault();
+                }
+            }
+            return null;
         }
-
         public int GetStarDust()
         {
             GetPlayerData();
             return _player.PlayerData.Currencies[1].Amount;
         }
-
         public async void GetPlayerData()
         {
             _player = await _client.Player.GetPlayer();
         }
-
         public async Task<PokemonData> GetHighestPokemonOfTypeByIv(PokemonData pokemon)
         {
             var myPokemon = await GetPokemons();
-            var pokemons = myPokemon.ToList();
-            return pokemons.Where(x => x.PokemonId == pokemon.PokemonId)
-                .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
-                .FirstOrDefault();
+            if (myPokemon != null)
+            {
+                var pokemons = myPokemon.ToList();
+                if (pokemons != null && 0 < pokemons.Count)
+                {
+                    return pokemons.Where(x => x.PokemonId == pokemon.PokemonId)
+                        .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
+                        .FirstOrDefault();
+                }
+            }
+            return null;
         }
-
         public async Task<IEnumerable<PokemonData>> GetHighestsCp(int limit)
         {
             var myPokemon = await GetPokemons();
             var pokemons = myPokemon.ToList();
             return pokemons.OrderByDescending(x => x.Cp).ThenBy(n => n.StaminaMax).Take(limit);
         }
-
         public async Task<IEnumerable<PokemonData>> GetHighestsPerfect(int limit)
         {
             var myPokemon = await GetPokemons();
             var pokemons = myPokemon.ToList();
             return pokemons.OrderByDescending(PokemonInfo.CalculatePokemonPerfection).Take(limit);
         }
-
         public async Task<int> GetItemAmountByType(ItemId type)
         {
             var pokeballs = await GetItems();
             return pokeballs.FirstOrDefault(i => i.ItemId == type)?.Count ?? 0;
         }
-
         public async Task<IEnumerable<ItemData>> GetItems()
         {
             var inventory = await GetCachedInventory();
@@ -297,23 +296,20 @@ namespace PokemonGo.RocketBot.Logic
                 .Select(i => i.InventoryItemData?.Item)
                 .Where(p => p != null);
         }
-
         public async Task<IEnumerable<AppliedItems>> GetAppliedItems()
         {
-            var inventory = await GetCachedInventory();
-            return
-                inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.AppliedItems)
-                    .Where(p => p != null);
+                var inventory = await GetCachedInventory();
+                return inventory.InventoryDelta.InventoryItems
+                 .Select(i => i.InventoryItemData?.AppliedItems)
+                 .Where(p => p != null);
         }
-
         public async Task<int> GetTotalItemCount()
         {
             var myItems = (await GetItems()).ToList();
-            var myItemCount = 0;
+            int myItemCount = 0;
             foreach (var myItem in myItems) myItemCount += myItem.Count;
             return myItemCount;
         }
-
         public async Task<IEnumerable<ItemData>> GetItemsToRecycle(ISession session)
         {
             var itemsToRecycle = new List<ItemData>();
@@ -336,13 +332,11 @@ namespace PokemonGo.RocketBot.Logic
 
             return itemsToRecycle;
         }
-
         public double GetPerfect(PokemonData poke)
         {
             var result = PokemonInfo.CalculatePokemonPerfection(poke);
             return result;
         }
-
         public async Task<IEnumerable<PlayerStats>> GetPlayerStats()
         {
             var inventory = await GetCachedInventory();
@@ -350,44 +344,54 @@ namespace PokemonGo.RocketBot.Logic
                 .Select(i => i.InventoryItemData?.PlayerStats)
                 .Where(p => p != null);
         }
-
         public async Task<UseItemXpBoostResponse> UseLuckyEggConstantly()
         {
             var UseLuckyEgg = await _client.Inventory.UseItemXpBoost();
             return UseLuckyEgg;
         }
-
         public async Task<UseIncenseResponse> UseIncenseConstantly()
         {
             var UseIncense = await _client.Inventory.UseIncense(ItemId.ItemIncenseOrdinary);
             return UseIncense;
         }
-
         public async Task<List<InventoryItem>> GetPokeDexItems()
         {
-            var PokeDex = new List<InventoryItem>();
+            List<InventoryItem> PokeDex = new List<InventoryItem>();
             var inventory = await _client.Inventory.GetInventory();
 
             return (from items in inventory.InventoryDelta.InventoryItems
-                where items.InventoryItemData?.PokedexEntry != null
-                select items).ToList();
+                    where items.InventoryItemData?.PokedexEntry != null
+                    select items).ToList();
         }
-
-        public async Task<List<Candy>> GetPokemonFamilies()
+        public async Task<List<Candy>> GetPokemonFamilies(int retries = 0)
         {
+            if (retries > 3) return null;
+
+            IEnumerable<Candy> families = null;
             var inventory = await GetCachedInventory();
+            if (inventory == null || inventory.InventoryDelta == null || inventory.InventoryDelta.InventoryItems == null)
+            {
+                DelayingUtils.Delay(3000, 3000);
+                inventory = await GetCachedInventory();
+            }
 
-            var families = from item in inventory.InventoryDelta.InventoryItems
-                where item.InventoryItemData?.Candy != null
-                where item.InventoryItemData?.Candy.FamilyId != PokemonFamilyId.FamilyUnset
-                group item by item.InventoryItemData?.Candy.FamilyId
-                into family
-                select new Candy
-                {
-                    FamilyId = family.First().InventoryItemData.Candy.FamilyId,
-                    Candy_ = family.First().InventoryItemData.Candy.Candy_
-                };
-
+            try
+            {
+                families = from item in inventory.InventoryDelta.InventoryItems
+                           where item.InventoryItemData?.Candy != null
+                           where item.InventoryItemData?.Candy.FamilyId != PokemonFamilyId.FamilyUnset
+                           group item by item.InventoryItemData?.Candy.FamilyId into family
+                           select new Candy
+                           {
+                               FamilyId = family.First().InventoryItemData.Candy.FamilyId,
+                               Candy_ = family.First().InventoryItemData.Candy.Candy_
+                           };
+            }
+            catch (NullReferenceException)
+            {
+                DelayingUtils.Delay(3000, 3000);
+                return await GetPokemonFamilies(++retries);
+            }
 
             return families.ToList();
         }
@@ -396,30 +400,26 @@ namespace PokemonGo.RocketBot.Logic
         {
             var inventory = await GetCachedInventory();
             return
-                inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PokemonData)
-                    .Where(p => p != null && p.PokemonId > 0);
+            inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PokemonData)
+                .Where(p => p != null && p.PokemonId > 0);
         }
-
         public async Task<IEnumerable<PokemonData>> GetFaveriotPokemon()
         {
             var inventory = await GetPokemons();
             return
                 inventory.Where(i => i.Favorite == 1);
-        }
 
+        }
         public async Task<IEnumerable<PokemonSettings>> GetPokemonSettings()
         {
             if (_templates == null || _pokemonSettings == null)
             {
                 _templates = await _client.Download.GetItemTemplates();
-                _pokemonSettings =
-                    _templates.ItemTemplates.Select(i => i.PokemonSettings)
-                        .Where(p => p != null && p.FamilyId != PokemonFamilyId.FamilyUnset);
+                _pokemonSettings = _templates.ItemTemplates.Select(i => i.PokemonSettings).Where(p => p != null && p.FamilyId != PokemonFamilyId.FamilyUnset);
             }
 
             return _pokemonSettings;
         }
-
         public async Task<IEnumerable<PokemonData>> GetPokemonToEvolve(IEnumerable<PokemonId> filter = null)
         {
             var myPokemon = await GetPokemons();
@@ -430,7 +430,7 @@ namespace PokemonGo.RocketBot.Logic
             {
                 myPokemon =
                     myPokemon.Where(
-                        p => pokemonIds.Contains(p.PokemonId) ||
+                        p => (pokemonIds.Contains(p.PokemonId)) ||
                              (_logicSettings.EvolveAllPokemonAboveIv &&
                               (PokemonInfo.CalculatePokemonPerfection(p) >= _logicSettings.EvolveAboveIvValue)));
             }
@@ -460,7 +460,7 @@ namespace PokemonGo.RocketBot.Logic
                 //DO NOT CHANGE! TESTED AND WORKS
                 var pokemonCandyNeededAlready =
                     (pokemonToEvolve.Count(
-                        p => pokemonSettings.Single(x => x.PokemonId == p.PokemonId).FamilyId == settings.FamilyId) + 1)*
+                        p => pokemonSettings.Single(x => x.PokemonId == p.PokemonId).FamilyId == settings.FamilyId) + 1) *
                     settings.CandyToEvolve;
 
                 if (familyCandy.Candy_ >= pokemonCandyNeededAlready)
@@ -471,7 +471,6 @@ namespace PokemonGo.RocketBot.Logic
 
             return pokemonToEvolve;
         }
-
         public async Task<LevelUpRewardsResponse> GetLevelUpRewards(int level)
         {
             if (_level == 0 || level > _level)
@@ -482,7 +481,6 @@ namespace PokemonGo.RocketBot.Logic
 
             return new LevelUpRewardsResponse();
         }
-
         public async Task<List<PokemonData>> GetPokemonToUpgrade()
         {
             var upgradePokemon = new List<PokemonData>();
@@ -510,7 +508,6 @@ namespace PokemonGo.RocketBot.Logic
                 ? highestPokemonForUpgrade.OrderByDescending(PokemonInfo.CalculatePokemonPerfection).ToList()
                 : highestPokemonForUpgrade.OrderByDescending(p => p.Cp).ToList();
         }
-
         public TransferFilter GetPokemonTransferFilter(PokemonId pokemon)
         {
             if (_logicSettings.PokemonsTransferFilter != null &&
@@ -518,11 +515,9 @@ namespace PokemonGo.RocketBot.Logic
             {
                 return _logicSettings.PokemonsTransferFilter[pokemon];
             }
-            return new TransferFilter(_logicSettings.KeepMinCp, _logicSettings.KeepMinLvl, _logicSettings.UseKeepMinLvl,
-                _logicSettings.KeepMinIvPercentage,
+            return new TransferFilter(_logicSettings.KeepMinCp, _logicSettings.KeepMinLvl, _logicSettings.UseKeepMinLvl, _logicSettings.KeepMinIvPercentage,
                 _logicSettings.KeepMinOperator, _logicSettings.KeepMinDuplicatePokemon);
         }
-
         public async Task<GetInventoryResponse> RefreshCachedInventory()
         {
             var now = DateTime.UtcNow;
@@ -540,11 +535,34 @@ namespace PokemonGo.RocketBot.Logic
                 ss.Release();
             }
         }
-
         public async Task<UpgradePokemonResponse> UpgradePokemon(ulong pokemonid)
         {
             var upgradeResult = await _client.Inventory.UpgradePokemon(pokemonid);
+
+            // Immediately refresh inventory after upgrade.
+            await RefreshCachedInventory();
+
             return upgradeResult;
         }
+        public async Task<int> GetCachedPokeballCount(ItemId pokeballId)
+        {
+            int pokeballCount;
+            if (!pokeballCache.TryGetValue(pokeballId, out pokeballCount))
+            {
+                await RefreshCachedInventory();
+                pokeballCount = await GetItemAmountByType(pokeballId);
+                pokeballCache.Add(pokeballId, pokeballCount);
+            }
+
+            return pokeballCount;
+        }
+        public async Task<IEnumerable<PokemonData>> GetHighestCpForGym(int limit)
+        {
+            var myPokemon = await GetPokemons();
+            // var pokemons = myPokemon.Where(i => !i.DeployedFortId.Any() && i.Stamina == i.StaminaMax);
+            var pokemons = myPokemon.Where(i => !i.DeployedFortId.Any());
+            return pokemons.OrderByDescending(x => x.Cp).ThenBy(n => n.StaminaMax).Take(limit);
+        }
+
     }
 }
