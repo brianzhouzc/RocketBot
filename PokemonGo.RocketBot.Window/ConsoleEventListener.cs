@@ -318,6 +318,7 @@ namespace PokemonGo.RocketBot.Window
             var candy = session.Translation.GetTranslation(TranslationString.DisplayHighestCandy);
 
             Logger.Write($"====== {strHeader} ======", LogLevel.Info, ConsoleColor.Yellow);
+            
             foreach (var pokemon in displayHighestsPokemonEvent.PokemonList)
             {
                 var strMove1 = session.Translation.GetPokemonMovesetTranslation(pokemon.Item5);

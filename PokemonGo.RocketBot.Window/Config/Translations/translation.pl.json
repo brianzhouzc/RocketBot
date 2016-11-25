@@ -284,7 +284,7 @@
     },
     {
       "Key": "gotUpToDateVersion",
-      "Value": "Wspaniale! Twoja wersja programu NecroBot jest aktualna! (v{0})"
+      "Value": "Wspaniale! Twoja wersja programu RocketBot jest aktualna! ({0})"
     },
     {
       "Key": "autoUpdaterDisabled",

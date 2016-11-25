@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using POGOProtos.Inventory.Item;
 
-namespace PokemonGo.RocketAPI.Window {
+namespace PokemonGo.RocketBot.Window {
     public partial class ItemSetting : UserControl {
 
         private ItemData itemData_;

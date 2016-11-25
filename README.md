@@ -1,16 +1,28 @@
-# Pokemon-Go-Rocket-API
+<!-- define variables -->
+[1.1]: http://i.imgur.com/M4fJ65n.png (ATTENTION)
+[1.2]: https://discordapp.com/api/guilds/208485545439920128/widget.png?style=banner2 (DISCORD)
+
+<!-- title -->
+# RocketBot
+<!-- disclaimer -->
+![alt text][1.1] <strong><em> The contents of this repo are a proof of concept and are for educational use only </em></strong>![alt text][1.1]<br/>
 [![Stories in Ready](https://badge.waffle.io/1461748123/Pokemon-Go-Rocket-API.svg?label=accepted&title=Accepted)](http://waffle.io/1461748123/Pokemon-Go-Rocket-API)
 [![Stories in Ready](https://badge.waffle.io/1461748123/Pokemon-Go-Rocket-API.svg?label=in%20progress&title=In Progress)](http://waffle.io/1461748123/Pokemon-Go-Rocket-API)
 [![Stories in Ready](https://badge.waffle.io/1461748123/Pokemon-Go-Rocket-API.png?label=ready&title=Ready)](https://waffle.io/1461748123/Pokemon-Go-Rocket-API)
 
-## Official discord channel for user and developer discussions.
-* https://discord.gg/y6EU2qY
+<p align="center">
+  <a href="https://discord.gg/y6EU2qY">
+    <img alt="Logo" src="https://discordapp.com/api/guilds/208485545439920128/widget.png?style=banner2">
+  </a>
+</p>
 
-## Window
-![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/Beta-Build/MainForm.png)  
-![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/Beta-Build/SettingForm.png)
-![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/Beta-Build/DeviceSettingForm.png)
-
+## Images
+![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/Images/MainForm.png)  
+![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/Images/SettingForm.png)
+![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/Images/SettingForm_2.png)
+![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/Images/SettingForm_3.png)
+![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/Images/SettingForm_4.png)
+![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/Images/SettingForm_5.png)
 
 A Pokémon Go bot in C#
 
