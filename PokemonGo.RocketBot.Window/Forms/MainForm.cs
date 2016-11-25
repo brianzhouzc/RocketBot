@@ -68,7 +68,7 @@ namespace PokemonGo.RocketBot.Window.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Text = @"RocketBot v" + Application.ProductVersion + " -  API version 0.45.0";
+            Text = @"RocketBot v" + Application.ProductVersion;
             speedLable.Parent = gMapControl1;
             showMoreCheckBox.Parent = gMapControl1;
             followTrainerCheckBox.Parent = gMapControl1;
@@ -78,23 +78,21 @@ namespace PokemonGo.RocketBot.Window.Forms
             InitializePokemonForm();
             InitializeMap();
             VersionHelper.CheckVersion();
+            showMoreCheckBox.Enabled = false;
+            btnRefresh.Enabled = false;
+
             if (BoolNeedsSetup)
             {
-                startStopBotToolStripMenuItem.Enabled = false;
-                showMoreCheckBox.Enabled = false;
-                btnRefresh.Enabled = false;
+                startStopBotToolStripMenuItem.Text = "■ Exit";
                 Logger.Write("First time here? Go to settings to set your basic info.",LogLevel.Error);
             }
              else
             {
-                btnRefresh.Enabled = false;
                 GlobalSettings.Load("");
             }
             if (VersionHelper.CheckKillSwitch())
             {
-                startStopBotToolStripMenuItem.Enabled = false;
-                showMoreCheckBox.Enabled = false;
-                btnRefresh.Enabled = false;
+                startStopBotToolStripMenuItem.Text = "■ Exit";
             }
         }
 
