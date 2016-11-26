@@ -1,4 +1,4 @@
-﻿namespace PokemonGo.RocketAPI.Window {
+﻿namespace PokemonGo.RocketBot.Window {
     partial class ItemSetting {
         /// <summary> 
         /// Required designer variable.

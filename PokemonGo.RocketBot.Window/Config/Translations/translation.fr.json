@@ -281,7 +281,7 @@
     },
     {
       "Key": "gotUpToDateVersion",
-      "Value": "NecroBot v{0} est à jour."
+      "Value": "RocketBot {0} est à jour."
     },
     {
       "Key": "autoUpdaterDisabled",

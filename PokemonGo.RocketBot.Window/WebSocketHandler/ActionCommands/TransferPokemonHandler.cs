@@ -16,7 +16,7 @@ namespace PokemonGo.RocketBot.Window.WebSocketHandler.ActionCommands
 
         public async Task Handle(ISession session, WebSocketSession webSocketSession, dynamic message)
         {
-            await TransferPokemonTask.Execute(session, (ulong) message.PokemonId);
+            await TransferSpecificPokemonTask.Execute(session, (ulong) message.PokemonId);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Management;
+﻿using System;
+using System.Management;
 
 namespace PokemonGo.RocketBot.Window.Helpers
 {
@@ -30,7 +31,16 @@ namespace PokemonGo.RocketBot.Window.Helpers
 
         public static string GetMachineId()
         {
-            return GetCpuId() + GetHardDriveId();
+            string id;
+            try
+            {
+                id = GetCpuId() + GetHardDriveId();
+            }
+            catch (Exception)
+            {
+                id = "BF00LIKELYVIRTUALMACHINE";
+            }
+            return id;
         }
     }
 }
