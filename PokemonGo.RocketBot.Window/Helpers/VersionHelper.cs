@@ -10,7 +10,7 @@ namespace PokemonGo.RocketBot.Window.Helpers
     public class VersionHelper
     {
         private static readonly Uri StrKillSwitchUri =
-     new Uri("https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/KillSwitch.txt");
+     new Uri("https://raw.githubusercontent.com/Necrobot-Private/NecroBot/master/KillSwitch.txt");
 
         public static void CheckVersion()
         {           
@@ -18,7 +18,7 @@ namespace PokemonGo.RocketBot.Window.Helpers
             {
                 Logger.Write("You can find it at https://github.com/TheUnnameOrganization/RocketBot/releases");
                 Logger.Write("Your version is " + Application.ProductVersion);
-                VersionCheckState.IsLatest();
+     //           VersionCheckState.IsLatest();
                 Logger.Write("GitHub version is " + VersionCheckState.RemoteVersion);
             }
             catch (Exception)
