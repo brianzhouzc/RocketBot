@@ -135,8 +135,8 @@
       <HintPath>$(SolutionDir)\packages\ObjectListView.Official.2.9.1\lib\net20\ObjectListView.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="POGOProtos.NetStandard1, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\POGOProtos.NetStandard1.2.2.0\lib\net45\POGOProtos.NetStandard1.dll</HintPath>
+    <Reference Include="POGOProtos.NetStandard1, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\POGOProtos.NetStandard1.2.3.0\lib\net45\POGOProtos.NetStandard1.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="S2Geometry, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -152,15 +152,23 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleEventListener.cs" />
@@ -558,11 +566,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FeroxRev\PokemonGo.RocketAPI.csproj">
+    <ProjectReference Include="$(SolutionDir)\FeroxRev\PokemonGo.RocketAPI.csproj">
       <Project>{05d2da44-1b8e-4cf7-94ed-4d52451cd095}</Project>
       <Name>PokemonGo.RocketAPI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PokemonGo.RocketBot.Logic\PokemonGo.RocketBot.Logic.csproj">
+    <ProjectReference Include="$(SolutionDir)\PokemonGo.RocketBot.Logic\PokemonGo.RocketBot.Logic.csproj">
       <Project>{0739e40d-c589-4aeb-93e5-ee8cd6773c60}</Project>
       <Name>PokemonGo.RocketBot.Logic</Name>
     </ProjectReference>
