@@ -242,7 +242,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             this.pkmnName.AspectName = "PokemonId";
             this.pkmnName.AspectToStringFormat = "";
             this.pkmnName.Text = "Name";
-            this.pkmnName.Width = 120;
+            this.pkmnName.Width = 60;
             // 
             // pkmnCP
             // 
@@ -279,13 +279,13 @@ namespace PokemonGo.RocketBot.Window.Forms
             // 
             this.pkmnCandy.AspectName = "Candy";
             this.pkmnCandy.Text = "Candy";
-            this.pkmnCandy.Width = 46;
+            this.pkmnCandy.Width = 40;
             // 
             // pkmnCandyToEvolve
             // 
             this.pkmnCandyToEvolve.AspectName = "CandyToEvolve";
             this.pkmnCandyToEvolve.Text = "CtE";
-            this.pkmnCandyToEvolve.Width = 31;
+            this.pkmnCandyToEvolve.Width = 20;
             // 
             // pkmnEvolveTimes
             // 
@@ -297,7 +297,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             // 
             this.pkmnNickname.AspectName = "Nickname";
             this.pkmnNickname.Text = "Nickname";
-            this.pkmnNickname.Width = 80;
+            this.pkmnNickname.Width = 40;
             // 
             // pkmnLevel
             // 
