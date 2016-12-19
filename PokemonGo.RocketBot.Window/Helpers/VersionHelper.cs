@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net;
 using System.Windows.Forms;
-using PokemonGo.RocketBot.Logic.Logging;
-using PokemonGo.RocketBot.Logic.State;
-using PokemonGo.RocketBot.Logic.Utils;
+using PoGo.NecroBot.Logic.Forms_Gui.Logging;
+using PoGo.NecroBot.Logic.Forms_Gui.State;
+using PoGo.NecroBot.Logic.Forms_Gui.Utils;
 
 namespace PokemonGo.RocketBot.Window.Helpers
 {

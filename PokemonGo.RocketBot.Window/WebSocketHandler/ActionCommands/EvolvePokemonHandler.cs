@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using PokemonGo.RocketBot.Logic.State;
-using PokemonGo.RocketBot.Logic.Tasks;
+using PoGo.NecroBot.Logic.Forms_Gui.State;
+using PoGo.NecroBot.Logic.Forms_Gui.Tasks;
 using SuperSocket.WebSocket;
 
 namespace PokemonGo.RocketBot.Window.WebSocketHandler.ActionCommands

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
-using PokemonGo.RocketBot.Logic.Utils;
+using PoGo.NecroBot.Logic.Forms_Gui.Utils;
 
 namespace PokemonGo.RocketBot.Window.Helpers
 {

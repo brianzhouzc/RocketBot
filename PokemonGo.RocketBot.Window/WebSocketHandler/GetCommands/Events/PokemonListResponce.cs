@@ -1,4 +1,4 @@
-﻿using PokemonGo.RocketBot.Logic.Event;
+﻿using PoGo.NecroBot.Logic.Forms_Gui.Event;
 
 namespace PokemonGo.RocketBot.Window.WebSocketHandler.GetCommands.Events
 {

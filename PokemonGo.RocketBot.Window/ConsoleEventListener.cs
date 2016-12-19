@@ -3,10 +3,10 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using PokemonGo.RocketBot.Logic.Common;
-using PokemonGo.RocketBot.Logic.Event;
-using PokemonGo.RocketBot.Logic.Logging;
-using PokemonGo.RocketBot.Logic.State;
+using PoGo.NecroBot.Logic.Forms_Gui.Common;
+using PoGo.NecroBot.Logic.Forms_Gui.Event;
+using PoGo.NecroBot.Logic.Forms_Gui.Logging;
+using PoGo.NecroBot.Logic.Forms_Gui.State;
 using PokemonGo.RocketBot.Window.Forms;
 using POGOProtos.Enums;
 using POGOProtos.Inventory.Item;

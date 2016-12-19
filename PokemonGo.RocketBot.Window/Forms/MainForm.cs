@@ -16,15 +16,15 @@ using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using PokemonGo.RocketAPI.Helpers;
-using PokemonGo.RocketBot.Logic;
-using PokemonGo.RocketBot.Logic.Common;
-using PokemonGo.RocketBot.Logic.Event;
-using PokemonGo.RocketBot.Logic.Logging;
-using PokemonGo.RocketBot.Logic.PoGoUtils;
-using PokemonGo.RocketBot.Logic.Service;
-using PokemonGo.RocketBot.Logic.State;
-using PokemonGo.RocketBot.Logic.Tasks;
-using PokemonGo.RocketBot.Logic.Utils;
+using PoGo.NecroBot.Logic.Forms_Gui;
+using PoGo.NecroBot.Logic.Forms_Gui.Common;
+using PoGo.NecroBot.Logic.Forms_Gui.Event;
+using PoGo.NecroBot.Logic.Forms_Gui.Logging;
+using PoGo.NecroBot.Logic.PoGoUtils;
+using PoGo.NecroBot.Logic.Forms_Gui.Service;
+using PoGo.NecroBot.Logic.Forms_Gui.State;
+using PoGo.NecroBot.Logic.Forms_Gui.Tasks;
+using PoGo.NecroBot.Logic.Forms_Gui.Utils;
 using PokemonGo.RocketBot.Window.Helpers;
 using PokemonGo.RocketBot.Window.Models;
 using POGOProtos.Data;
@@ -32,7 +32,7 @@ using POGOProtos.Inventory;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Fort;
 using POGOProtos.Map.Pokemon;
-using Logger = PokemonGo.RocketBot.Logic.Logging.Logger;
+using Logger = PoGo.NecroBot.Logic.Forms_Gui.Logging.Logger;
 
 namespace PokemonGo.RocketBot.Window.Forms
 {

@@ -1,5 +1,5 @@
-using PokemonGo.RocketBot.Logic.Common;
-using PokemonGo.RocketBot.Logic.State;
+using PoGo.NecroBot.Logic.Forms_Gui.Common;
+using PoGo.NecroBot.Logic.Forms_Gui.State;
 
 namespace PokemonGo.RocketBot.Window.Models
 {

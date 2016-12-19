@@ -1,4 +1,4 @@
-﻿using PokemonGo.RocketBot.Logic.PoGoUtils;
+﻿using PoGo.NecroBot.Logic.PoGoUtils;
 using POGOProtos.Data;
 
 namespace PokemonGo.RocketBot.Window.WebSocketHandler.GetCommands.Helpers

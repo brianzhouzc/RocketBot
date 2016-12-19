@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PokemonGo.RocketBot.Logic.State;
+using PoGo.NecroBot.Logic.Forms_Gui.State;
 using SuperSocket.WebSocket;
 
 namespace PokemonGo.RocketBot.Window.WebSocketHandler

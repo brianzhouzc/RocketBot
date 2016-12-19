@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using PokemonGo.RocketAPI.Enums;
-using PokemonGo.RocketBot.Logic;
+using PoGo.NecroBot.Logic.Forms_Gui;
 using PokemonGo.RocketBot.Window.Helpers;
 using POGOProtos.Enums;
 

@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using PokemonGo.RocketBot.Logic.State;
+using PoGo.NecroBot.Logic.Forms_Gui.State;
 using PokemonGo.RocketBot.Window.WebSocketHandler.GetCommands.Events;
 using PokemonGo.RocketBot.Window.WebSocketHandler.GetCommands.Helpers;
 using POGOProtos.Inventory.Item;
