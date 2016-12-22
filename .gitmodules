@@ -4,4 +4,4 @@
 	branch = master
 [submodule "PoGo.NecroBot.Logic"]
   	path = PoGo.NecroBot.Logic
-    url = https://github.com/Furtif/NecroBot/PoGo.NecroBot.Logic	
+        url = https://github.com/Furtif/NecroBot/PoGo.NecroBot.Logic.git	
