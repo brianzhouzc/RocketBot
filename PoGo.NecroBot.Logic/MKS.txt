@@ -1,3 +1,0 @@
-MasterStatus=ENABLED;
-Status;
-Exit
