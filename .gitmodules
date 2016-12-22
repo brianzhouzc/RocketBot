@@ -2,4 +2,6 @@
 	path = FeroxRev
 	url = https://github.com/Necrobot-Private/PokemonGo.RocketAPI.git
 	branch = master
-	
+[submodule "PoGo.NecroBot.Logic"]
+  	path = PoGo.NecroBot.Logic
+    url = https://github.com/Furtif/NecroBot/PoGo.NecroBot.Logic	
