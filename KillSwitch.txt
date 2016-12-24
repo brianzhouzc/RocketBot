@@ -1,6 +1,6 @@
 BotStatus=DISABLED;
 //================================================================//
-                POKEMON GO FORCING 0.49.1 API
+                POKEMON GO FORCING 0.51.1 API
 //================================================================//
 THIS BOT IS USING 0.45 API CONTINUED BOTTING WILL FLAG ACCOUNT FOR BAN
 //================================================================//
