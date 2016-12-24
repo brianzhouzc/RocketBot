@@ -183,12 +183,6 @@ namespace PokemonGo.RocketBot.Window.Forms
             _session.EventDispatcher.EventReceived += evt => listener.Listen(evt, _session);
             _session.EventDispatcher.EventReceived += evt => aggregator.Listen(evt, _session);
 
-            if (_settings.UseWebsocket)
-            {
-                var websocket = new WebSocketInterface(_settings.WebSocketPort, _session);
-                _session.EventDispatcher.EventReceived += evt => websocket.Listen(evt, _session);
-            }
-
             _machine.SetFailureState(new LoginState());
             Logger.SetLoggerContext(_session);
 
