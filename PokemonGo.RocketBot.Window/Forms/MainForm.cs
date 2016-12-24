@@ -92,7 +92,21 @@ namespace PokemonGo.RocketBot.Window.Forms
             }
             if (VersionHelper.CheckKillSwitch())
             {
-                startStopBotToolStripMenuItem.Text = "■ Exit";
+                DialogResult result = MessageBox.Show("Old Api description here", "OLD API", MessageBoxButtons.YesNoCancel);
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        {
+                            DialogResult result1 = MessageBox.Show("Risk of BAN !!!!", "Sure??", MessageBoxButtons.YesNo);
+                            switch (result1)
+                            {
+                                case DialogResult.No: { Application.Exit(); break; }
+                            }
+                            break;
+                        }
+                    case DialogResult.No: { startStopBotToolStripMenuItem.Text = "■ Exit"; break; }
+                    case DialogResult.Cancel: { Application.Exit(); break; }
+                }
             }
         }
 
