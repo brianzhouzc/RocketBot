@@ -488,6 +488,7 @@ namespace NecroBot2.Forms
         {
             if (startStopBotToolStripMenuItem.Text.Equals("■ Exit"))
             {
+                Environment.Exit(0);
                 Application.Exit();
             }
             else
