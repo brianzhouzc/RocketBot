@@ -84,31 +84,15 @@ namespace PokemonGo.RocketBot.Window.Forms
             if (BoolNeedsSetup)
             {
                 startStopBotToolStripMenuItem.Text = "■ Exit";
-                Logger.Write("First time here? Go to settings to set your basic info.",LogLevel.Error);
+                Logger.Write("First time here? Go to settings to set your basic info.", LogLevel.Error);
             }
-             else
+            else
             {
                 GlobalSettings.Load("");
             }
-            if (VersionHelper.CheckKillSwitch())
-            {
-                DialogResult result = MessageBox.Show("Old Api description here", "OLD API", MessageBoxButtons.YesNoCancel);
-                switch (result)
-                {
-                    case DialogResult.Yes:
-                        {
-                            DialogResult result1 = MessageBox.Show("Risk of BAN !!!!", "Sure??", MessageBoxButtons.YesNo);
-                            switch (result1)
-                            {
-                                case DialogResult.No: { Application.Exit(); break; }
-                            }
-                            break;
-                        }
-                    case DialogResult.No: { startStopBotToolStripMenuItem.Text = "■ Exit"; break; }
-                    case DialogResult.Cancel: { Application.Exit(); break; }
-                }
-            }
+            VersionHelper.CheckKillSwitch();
         }
+             
 
         private void InitializeMap()
         {
