@@ -68,7 +68,7 @@ namespace NecroBot2.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Text = @"NecroBot2 " + Application.ProductVersion;
+            Text = Application.ProductName + " " + Application.ProductVersion;
             speedLable.Parent = gMapControl1;
             showMoreCheckBox.Parent = gMapControl1;
             followTrainerCheckBox.Parent = gMapControl1;

@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("NecroBot-Private Team")]
-[assembly: AssemblyProduct("NecroBot2")]
+[assembly: AssemblyProduct("RocketBot")]
 [assembly: AssemblyCopyright("Copyright NecroBot-Private Team © 2016")]
 [assembly: AssemblyTrademark("NecroBot-Private Team")]
 [assembly: AssemblyCulture("")]
