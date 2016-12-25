@@ -46,12 +46,12 @@ namespace NecroBot2.Helpers
 
                         if (strStatus.ToLower().Contains("disable"))
                         {
-                            DialogResult result = MessageBox.Show(strReason, Application.ProductName + " - Use Old API detected", MessageBoxButtons.YesNo);
+                            DialogResult result = MessageBox.Show(strReason, Application.ProductName + " - Use Old API detected", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                             switch (result)
                             {
                                 case DialogResult.Yes:
                                     {
-                                        DialogResult result1 = MessageBox.Show("!!! You risk permanent BAN !!!\n\n " + Application.ProductName + " is not responsible for any banned account.\n\n Are you sure you want to continue?", Application.ProductName + " -Are you sure??", MessageBoxButtons.YesNo);
+                                        DialogResult result1 = MessageBox.Show("!!! You risk permanent BAN !!!\n\n " + Application.ProductName + " is not responsible for any banned account.\n\n Are you sure you want to continue?", Application.ProductName + " -Are you sure??", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                                         switch (result1)
                                         {
                                             case DialogResult.No: { Application.Exit(); break; }
@@ -61,7 +61,7 @@ namespace NecroBot2.Helpers
                                 case DialogResult.No: { Application.Exit(); break; }
                             }
                             Logger.Write(strReason + $"\n", LogLevel.Warning);
-                            Logger.Write("The robot should be closed.", LogLevel.Warning);
+                            Logger.Write("The robot should be closed.\n", LogLevel.Warning);
                             return true;
                         }
                     }
