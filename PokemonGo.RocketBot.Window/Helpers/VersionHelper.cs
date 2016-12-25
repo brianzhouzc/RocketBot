@@ -47,12 +47,12 @@ namespace PokemonGo.RocketBot.Window.Helpers
 
                         if (strStatus.ToLower().Contains("disable"))
                         {
-                            DialogResult result = MessageBox.Show(strReason, "Use Old API detected", MessageBoxButtons.YesNo);
+                            DialogResult result = MessageBox.Show(strReason, Application.ProductName + " - Use Old API detected", MessageBoxButtons.YesNo);
                             switch (result)
                             {
                                 case DialogResult.Yes:
                                     {
-                                        DialogResult result1 = MessageBox.Show("You risk permanent BAN! NecroBot is not responsible for any banned account. Are you sure you want to continue?", "Are you sure??", MessageBoxButtons.YesNo);
+                                        DialogResult result1 = MessageBox.Show("You risk permanent BAN! NecroBot is not responsible for any banned account. Are you sure you want to continue?", Application.ProductName + " -Are you sure??", MessageBoxButtons.YesNo);
                                         switch (result1)
                                         {
                                             case DialogResult.No: { Application.Exit(); break; }

@@ -78,6 +78,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             InitializePokemonForm();
             InitializeMap();
             VersionHelper.CheckVersion();
+            VersionHelper.CheckKillSwitch();
             showMoreCheckBox.Enabled = false;
             btnRefresh.Enabled = false;
 
@@ -90,9 +91,7 @@ namespace PokemonGo.RocketBot.Window.Forms
             {
                 GlobalSettings.Load("");
             }
-            VersionHelper.CheckKillSwitch();
         }
-             
 
         private void InitializeMap()
         {
