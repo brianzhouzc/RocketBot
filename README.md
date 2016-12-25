@@ -159,3 +159,5 @@ We are not accepting donations currently :) If you really wanna contribute, cons
 ## EvolveAllGivenPokemons
 * *false* - Evolves no Pokémon.
 * *true* - Evolves all Pokémon.
+
+## [Credits](https://github.com/Necrobot-Private)
