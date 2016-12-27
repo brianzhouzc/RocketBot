@@ -7,18 +7,20 @@ using POGOProtos.Enums;
 namespace PoGo.NecroBot.Logic.Model.Settings
 {
     [JsonObject(Description = "", ItemRequired = Required.DisallowNull)] //Dont set Title
-    public class SnipeFilter
+    public class SnipeFilter    : BaseConfig
     {
-        public SnipeFilter()
+        public SnipeFilter(): base()
         {
             Moves = new List<List<PokemonMove>>();
         }
 
-        public SnipeFilter(int snipeMinIV, List<List<PokemonMove>> moves = null)
+        public SnipeFilter(int snipeMinIV, List<List<PokemonMove>> moves = null)   :base()
         {
+            
             this.Operator = "or";
             this.SnipeIV = snipeMinIV;
             this.Moves = moves;
+            this.VerifiedOnly = false;
         }
 
         [JsonIgnore]
@@ -40,8 +42,13 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [ExcelConfig(Key = "Operator", Description = "Operator logic check between move and IV", Position = 4)]
         [EnumDataType(typeof(Operator))]
         [DefaultValue("or")]
-        [JsonProperty(Required = Required.Default, DefaultValueHandling = DefaultValueHandling.Populate, Order = 2)]
+        [JsonProperty(Required = Required.Default, DefaultValueHandling = DefaultValueHandling.Populate, Order = 4)]
         public string Operator { get; set; }
+
+        [ExcelConfig(Key = "Verified Only", Description = "Only catch pokemon that has been verified", Position = 5)]
+        [DefaultValue(false)]
+        [JsonProperty(Required = Required.Default, DefaultValueHandling = DefaultValueHandling.Populate, Order = 5)]
+        public bool VerifiedOnly { get; set; }
 
         internal static Dictionary<PokemonId, SnipeFilter> SniperFilterDefault()
         {
@@ -50,7 +57,9 @@ namespace PoGo.NecroBot.Logic.Model.Settings
                 { PokemonId.Lapras, new SnipeFilter(0, new List<List<PokemonMove>>() { }) },
                 { PokemonId.Dragonite, new SnipeFilter(0, new List<List<PokemonMove>>() { }) },
                 { PokemonId.Snorlax, new SnipeFilter(0, new List<List<PokemonMove>>() { }) },
-                { PokemonId.Dratini, new SnipeFilter(0, new List<List<PokemonMove>>() { }) }
+                { PokemonId.Dratini, new SnipeFilter(0, new List<List<PokemonMove>>() { }) },
+                { PokemonId.Rhyhorn, new SnipeFilter(0, new List<List<PokemonMove>>() { }) },
+                { PokemonId.Abra, new SnipeFilter(0, new List<List<PokemonMove>>() { }) }
             };
         }
     }

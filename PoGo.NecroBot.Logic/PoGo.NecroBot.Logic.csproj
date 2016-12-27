@@ -12,6 +12,8 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,6 +50,14 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="C5, Version=2.4.5947.17248, Culture=neutral, PublicKeyToken=282361b99ded7e8e, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\C5.2.4.5947.17249\lib\net45\C5.dll</HintPath>
@@ -55,6 +65,10 @@
     </Reference>
     <Reference Include="CloudFlareUtilities, Version=0.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\CloudFlareUtilities.0.2.1-alpha\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\CloudFlareUtilities.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="crypto, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\Portable.BouncyCastle.1.8.1.1\lib\netstandard1.0\crypto.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EngineIoClientDotNet, Version=0.9.22.0, Culture=neutral, processorArchitecture=MSIL">
@@ -65,12 +79,16 @@
       <HintPath>$(SolutionDir)\packages\EPPlus.4.1.0\lib\net40\EPPlus.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="GeoCoordinatePortable, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\GeoCoordinate.1.1.0\lib\portable-net45+wp80+win+wpa81\GeoCoordinatePortable.dll</HintPath>
+    <Reference Include="GeoCoordinate.NetStandard1, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\GeoCoordinate.NetStandard1.1.0.0\lib\netstandard1.0\GeoCoordinate.NetStandard1.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Google.Protobuf, Version=3.1.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\Google.Protobuf.3.1.0\lib\net45\Google.Protobuf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GPSOAuthSharp.NetStandard1, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\GPSOAuthSharp.NetStandard1.1.0.0\lib\netstandard1.1\GPSOAuthSharp.NetStandard1.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="LiteDB, Version=2.0.4.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
@@ -97,9 +115,6 @@
       <HintPath>$(SolutionDir)\packages\POGOProtos.NetStandard1.2.4.0\lib\net45\POGOProtos.NetStandard1.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="PushbulletSharp, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\PushBulletSharp.2.3.3\lib\portable-windows8+net45\PushbulletSharp.dll</HintPath>
-    </Reference>
     <Reference Include="S2Geometry, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\S2Geometry.1.0.3\lib\portable-net45+wp8+win8\S2Geometry.dll</HintPath>
       <Private>True</Private>
@@ -111,6 +126,7 @@
     <Reference Include="System">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core">
       <Private>True</Private>
@@ -119,6 +135,7 @@
       <HintPath>$(SolutionDir)\packages\System.Diagnostics.DiagnosticSource.4.0.0\lib\portable-net45+win8+wpa81\System.Diagnostics.DiagnosticSource.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem">
       <Private>True</Private>
@@ -131,6 +148,7 @@
       <HintPath>$(SolutionDir)\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
@@ -139,8 +157,17 @@
     <Reference Include="System.Xml">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="Telegram.Bot, Version=10.3.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\Telegram.Bot.10.3.1\lib\net45\Telegram.Bot.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebDriver, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\Selenium.WebDriver.3.0.1\lib\net40\WebDriver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebDriver.Support, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\Selenium.Support.3.0.1\lib\net40\WebDriver.Support.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="WebSocket4Net, Version=0.14.1.0, Culture=neutral, PublicKeyToken=eb4e154b696bf72a, processorArchitecture=MSIL">
@@ -149,6 +176,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Captcha\Anti-Captcha\AnticaptchaApiWrapper.cs" />
+    <Compile Include="Captcha\Anti-Captcha\AntiCaptchaClient.cs" />
+    <Compile Include="Captcha\Anti-Captcha\AnticaptchaResult.cs" />
+    <Compile Include="Captcha\Anti-Captcha\AnticaptchaTask.cs" />
+    <Compile Include="Captcha\Anti-Captcha\HttpHelper.cs" />
+    <Compile Include="Captcha\CaptchaManager.cs" />
+    <Compile Include="Captcha\CaptchaSolutionClient.cs" />
+    <Compile Include="Captcha\TwoCaptchaClient.cs" />
     <Compile Include="Common\PokemonGradeHelper.cs" />
     <Compile Include="DataDumper\IDumper.cs" />
     <Compile Include="DataDumper\Dumper.cs" />
@@ -203,108 +238,6 @@
     <Compile Include="Logging\FileLogger.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Logging\LoggingStrings.cs" />
-    <Compile Include="Forms_Gui\Common\Translations.cs" />
-    <Compile Include="Forms_Gui\DataDumper\Dumper.cs" />
-    <Compile Include="Forms_Gui\DataDumper\IDumper.cs" />
-    <Compile Include="Forms_Gui\Event\DisplayHighestsPokemonEvent.cs" />
-    <Compile Include="Forms_Gui\Event\EggHatchedEvent.cs" />
-    <Compile Include="Forms_Gui\Event\EggIncubatorStatusEvent.cs" />
-    <Compile Include="Forms_Gui\Event\EggsListEvent.cs" />
-    <Compile Include="Forms_Gui\Event\ErrorEvent.cs" />
-    <Compile Include="Forms_Gui\Event\EventDispatcher.cs" />
-    <Compile Include="Forms_Gui\Event\EvolveCountEvent.cs" />
-    <Compile Include="Forms_Gui\Event\FortFailedEvent.cs" />
-    <Compile Include="Forms_Gui\Event\FortTargetEvent.cs" />
-    <Compile Include="Forms_Gui\Event\FortUsedEvent.cs" />
-    <Compile Include="Forms_Gui\Event\GetHumanizeRouteEvent.cs" />
-    <Compile Include="Forms_Gui\Event\HumanWalkingEvent.cs" />
-    <Compile Include="Forms_Gui\Event\IEvent.cs" />
-    <Compile Include="Forms_Gui\Event\InventoryListEvent.cs" />
-    <Compile Include="Forms_Gui\Event\ItemRecycledEvent.cs" />
-    <Compile Include="Forms_Gui\Event\LootPokestopEvent.cs" />
-    <Compile Include="Forms_Gui\Event\NoPokeballEvent.cs" />
-    <Compile Include="Forms_Gui\Event\NoticeEvent.cs" />
-    <Compile Include="Forms_Gui\Event\OptimizeRouteEvent.cs" />
-    <Compile Include="Forms_Gui\Event\PokemonCaptureEvent.cs" />
-    <Compile Include="Forms_Gui\Event\PokemonEvolveEvent.cs" />
-    <Compile Include="Forms_Gui\Event\PokemonListEvent.cs" />
-    <Compile Include="Forms_Gui\Event\PokemonsEncounterEvent.cs" />
-    <Compile Include="Forms_Gui\Event\PokeStopListEvent.cs" />
-    <Compile Include="Forms_Gui\Event\ProfileEvent.cs" />
-    <Compile Include="Forms_Gui\Event\SnipeEvent.cs" />
-    <Compile Include="Forms_Gui\Event\SnipeModeEvent.cs" />
-    <Compile Include="Forms_Gui\Event\SnipeScanEvent.cs" />
-    <Compile Include="Forms_Gui\Event\TransferPokemonEvent.cs" />
-    <Compile Include="Forms_Gui\Event\UpdateEvent.cs" />
-    <Compile Include="Forms_Gui\Event\UpdatePositionEvent.cs" />
-    <Compile Include="Forms_Gui\Event\UseBerryEvent.cs" />
-    <Compile Include="Forms_Gui\Event\UseLuckyEggEvent.cs" />
-    <Compile Include="Forms_Gui\Event\WarnEvent.cs" />
-    <Compile Include="Forms_Gui\ILogicSettings.cs" />
-    <Compile Include="Forms_Gui\Inventory.cs" />
-    <Compile Include="Forms_Gui\Logging\ILogger.cs" />
-    <Compile Include="Forms_Gui\Logging\Logger.cs" />
-    <Compile Include="Forms_Gui\Navigation.cs" />
-    <Compile Include="Forms_Gui\Service\BotService.cs" />
-    <Compile Include="Forms_Gui\Service\TelegramService.cs" />
-    <Compile Include="Forms_Gui\Settings.cs" />
-    <Compile Include="Forms_Gui\State\FarmState.cs" />
-    <Compile Include="Forms_Gui\State\InfoState.cs" />
-    <Compile Include="Forms_Gui\State\IState.cs" />
-    <Compile Include="Forms_Gui\State\LoginState.cs" />
-    <Compile Include="Forms_Gui\State\PositionCheckState.cs" />
-    <Compile Include="Forms_Gui\State\Session.cs" />
-    <Compile Include="Forms_Gui\State\StateMachine.cs" />
-    <Compile Include="Forms_Gui\State\VersionCheckState.cs" />
-    <Compile Include="Forms_Gui\StatisticsAggregator.cs" />
-    <Compile Include="Forms_Gui\Tasks\CatchIncensePokemonsTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\CatchLurePokemonsTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\CatchNearbyPokemonsTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\CatchPokemonTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\DisplayPokemonStatsTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\EggsListTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\EvolvePokemonTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\EvolveSpecificPokemonTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\Farm.cs" />
-    <Compile Include="Forms_Gui\Tasks\FarmPokestopsGPXTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\FarmPokestopsTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\FavoritePokemonTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\GetPokeDexCount.cs" />
-    <Compile Include="Forms_Gui\Tasks\InventoryListTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\LevelUpPokemonTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\LevelUpSpecificPokemonTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\Login.cs" />
-    <Compile Include="Forms_Gui\Tasks\PokemonListTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\RecycleItemsTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\RecycleSpecificItemTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\RenamePokemonTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\RenameSpecificPokemonTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\SnipePokemonTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\TransferDuplicatePokemonTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\TransferSpecificPokemonTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\TransferWeakPokemonTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\UseIncenseConstantlyTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\UseIncenseTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\UseIncubatorsTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\UseLuckyEggConstantlyTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\UseLuckyEggTask.cs" />
-    <Compile Include="Forms_Gui\Tasks\UseNearbyPokestopsTask.cs" />
-    <Compile Include="Forms_Gui\Utils\DelayingUtils.cs" />
-    <Compile Include="Forms_Gui\Utils\DeviceInfoHelper.cs" />
-    <Compile Include="Forms_Gui\Utils\dijkstras.cs" />
-    <Compile Include="Forms_Gui\Utils\EggWalker.cs" />
-    <Compile Include="Forms_Gui\Utils\ErrorHandler.cs" />
-    <Compile Include="Forms_Gui\Utils\GPXReader.cs" />
-    <Compile Include="Forms_Gui\Utils\JitterUtils.cs" />
-    <Compile Include="Forms_Gui\Utils\LocationUtils.cs" />
-    <Compile Include="Forms_Gui\Utils\NecroWebClient.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Forms_Gui\Utils\RouteOptimizeUtil.cs" />
-    <Compile Include="Forms_Gui\Utils\Statistics.cs" />
-    <Compile Include="Forms_Gui\Utils\StringUtils.cs" />
-    <Compile Include="Forms_Gui\Utils\WebClientExtensions.cs" />
-    <Compile Include="Forms_Gui\Utils\WebUtils.cs" />
     <Compile Include="Model\BotActions.cs" />
     <Compile Include="Exceptions\ActiveSwitchByPokemonException.cs" />
     <Compile Include="Model\Google\GoogleObjects\Address_Components.cs" />
@@ -330,11 +263,14 @@
     <Compile Include="Model\PokemonGrade.cs" />
     <Compile Include="Model\Settings\AuthConfig.cs" />
     <Compile Include="Model\Settings\AuthSettings.cs" />
+    <Compile Include="Model\Settings\BaseConfig.cs" />
     <Compile Include="Model\Settings\CatchConfig.cs" />
     <Compile Include="Model\Settings\ClientSettings.cs" />
+    <Compile Include="Model\Settings\CaptchaConfig.cs" />
     <Compile Include="Model\Settings\ConsoleConfig.cs" />
     <Compile Include="Model\Settings\CustomCatchConfig.cs" />
     <Compile Include="Model\Settings\DataSharingConfig.cs" />
+    <Compile Include="Model\Settings\APIConfig.cs" />
     <Compile Include="Model\Settings\DeviceConfig.cs" />
     <Compile Include="Model\Settings\EvolveConfig.cs" />
     <Compile Include="Model\Settings\CatchFilter.cs" />
@@ -350,6 +286,7 @@
     <Compile Include="Model\Settings\Location.cs" />
     <Compile Include="Model\Settings\LocationConfig.cs" />
     <Compile Include="Model\Settings\MultipleBotConfig.cs" />
+    <Compile Include="Model\Settings\NotificationConfig.cs" />
     <Compile Include="Model\Settings\PlayerConfig.cs" />
     <Compile Include="Model\Settings\PokemonConfig.cs" />
     <Compile Include="Model\Settings\PokeStopConfig.cs" />
@@ -381,6 +318,20 @@
     <Compile Include="Service\GoogleDirectionsService.cs" />
     <Compile Include="Service\Elevation\GoogleElevationService.cs" />
     <Compile Include="Service\Elevation\MapQuestElevationService.cs" />
+    <Compile Include="Service\TelegramCommand\AccountsCommand.cs" />
+    <Compile Include="Service\TelegramCommand\SnipeCommand.cs" />
+    <Compile Include="Service\TelegramCommand\RecycleCommand.cs" />
+    <Compile Include="Service\TelegramCommand\LogsCommand.cs" />
+    <Compile Include="Service\TelegramCommand\RestartCommand.cs" />
+    <Compile Include="Service\TelegramCommand\ExitCommand.cs" />
+    <Compile Include="Service\TelegramCommand\TopCommand.cs" />
+    <Compile Include="Service\TelegramCommand\AllCommand.cs" />
+    <Compile Include="Service\TelegramCommand\ProfileCommand.cs" />
+    <Compile Include="Service\TelegramCommand\PokedexCommand.cs" />
+    <Compile Include="Service\TelegramCommand\ICommand.cs" />
+    <Compile Include="Service\TelegramCommand\HelpCommand.cs" />
+    <Compile Include="Service\TelegramCommand\ItemsCommand.cs" />
+    <Compile Include="Service\TelegramCommand\StatusCommand.cs" />
     <Compile Include="Service\TelegramService.cs" />
     <Compile Include="Model\Settings\LogicSettings.cs" />
     <Compile Include="Service\MapzenDirectionsService.cs" />
@@ -477,6 +428,7 @@
     <Compile Include="Utils\NecroWebClient.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Utils\PushNotificationClient.cs" />
     <Compile Include="Utils\Statistics.cs" />
     <Compile Include="Utils\StringUtils.cs" />
     <Compile Include="Utils\WebClientExtensions.cs" />
@@ -490,13 +442,20 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="$(SolutionDir)\FeroxRev\PokemonGo.RocketAPI.csproj">
+    <ProjectReference Include="..\FeroxRev\PokemonGo.RocketAPI.csproj">
       <Project>{05d2da44-1b8e-4cf7-94ed-4d52451cd095}</Project>
       <Name>PokemonGo.RocketAPI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.26.0\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.26.0\build\Selenium.WebDriver.ChromeDriver.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.26.0\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.26.0\build\Selenium.WebDriver.ChromeDriver.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

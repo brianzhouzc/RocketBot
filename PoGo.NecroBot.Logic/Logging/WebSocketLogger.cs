@@ -4,6 +4,7 @@ using System;
 using System.Text;
 using PoGo.NecroBot.Logic.Event;
 using System.Collections.Concurrent;
+using System.IO;
 using PoGo.NecroBot.Logic.State;
 
 #endregion

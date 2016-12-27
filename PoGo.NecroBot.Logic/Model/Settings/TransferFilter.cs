@@ -13,7 +13,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
     }
 
     [JsonObject(Description = "", ItemRequired = Required.DisallowNull)] //Dont set Title
-    public class TransferFilter
+    public class TransferFilter 
     {
         public TransferFilter()
         {

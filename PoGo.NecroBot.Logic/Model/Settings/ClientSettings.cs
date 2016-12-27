@@ -218,5 +218,22 @@ namespace PoGo.NecroBot.Logic.Model.Settings
             
             set { }
         }
+
+        public bool UsePogoDevHashServer
+        {
+            get { return _settings.Auth.APIConfig.UsePogoDevAPI; }
+            set { _settings.Auth.APIConfig.UsePogoDevAPI = value; }
+        }
+        public bool UseLegacyAPI
+        {
+            get { return _settings.Auth.APIConfig.UseLegacyAPI; }
+            set { _settings.Auth.APIConfig.UseLegacyAPI = value; }
+        }
+        public string AuthAPIKey
+        {
+            get { return _settings.Auth.APIConfig.AuthAPIKey; }
+            set { _settings.Auth.APIConfig.AuthAPIKey = value; }
+        }
+
     }
 }

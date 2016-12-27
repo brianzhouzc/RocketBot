@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace PoGo.NecroBot.Logic.Model.Settings
 {
     [JsonObject(Title = "YoursWalk Config", Description = "Set your yourswalk settings.", ItemRequired = Required.DisallowNull)]
-    public class YoursWalkConfig
+    public class YoursWalkConfig  : BaseConfig
     {
         internal enum YoursWalkTravelModes
         {
@@ -20,15 +20,17 @@ namespace PoGo.NecroBot.Logic.Model.Settings
             mofa
         }
 
+        public YoursWalkConfig() :base() { }
+
         [ExcelConfig (Description = "Use your walk api to resolve path for bot moving", Position =1)]
         [DefaultValue(false)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 1)]
-        public bool UseYoursWalk = false;
+        public bool UseYoursWalk { get; set; }
 
         [ExcelConfig(Description = "Set heuricstic for moving: motorcar, bicycle, foot..", Position = 2)]
         [DefaultValue("bicycle")]
         [EnumDataType(typeof(YoursWalkTravelModes))]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 2)]
-        public string YoursWalkHeuristic = "bicycle";
+        public string YoursWalkHeuristic { get; set; }
     }
 }

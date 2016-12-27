@@ -5,9 +5,10 @@ using Newtonsoft.Json;
 namespace PoGo.NecroBot.Logic.Model.Settings
 {
     [JsonObject(Title = "Player Config", Description = "Set your player settings.", ItemRequired = Required.DisallowNull)]
-    public class PlayerConfig
+    public class PlayerConfig  :BaseConfig
     {
-        [DefaultValue(4000)]
+        public PlayerConfig() :base() { }
+
         [Range(0, 999999)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 1)]
         public int DelayBetweenPlayerActions = 4000;
@@ -39,6 +40,6 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [ExcelConfig(Description = "Set delay time for random action", Position = 6)]
         [DefaultValue(true)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 6)]
-        public bool UseNearActionRandom = true;
+        public bool UseNearActionRandom { get; set; }
     }
 }

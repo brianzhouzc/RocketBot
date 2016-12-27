@@ -53,7 +53,6 @@ namespace PoGo.NecroBot.Logic.Tasks
         
         public static async Task StartFastPokemapAsync(ISession session , CancellationToken cancellationToken)
         {
-            // TODO: ???
             return;
             double defaultLatitude = session.Settings.DefaultLatitude;
             double defaultLongitude = session.Settings.DefaultLongitude;
@@ -106,7 +105,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                                 chunk.Add(pItem);
                             }
                         }
-                        await PostProcessDataFetched(chunk, false);
+                        PostProcessDataFetched(chunk, false);
                     }
                     catch
                     {
@@ -119,7 +118,6 @@ namespace PoGo.NecroBot.Logic.Tasks
 
         private static void StartAsyncPollingTask(ISession session, CancellationToken cancellationToken)
         {
-            // TODO: ???
             return;
             if (!session.LogicSettings.HumanWalkingSnipeUseFastPokemap) return;
 
@@ -177,6 +175,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                 var p = (PokemonId)Enum.Parse(typeof(PokemonId), realName.ToString());
                 return (int)p;
             }
+            
             catch (Exception)
             {
 
@@ -216,7 +215,6 @@ namespace PoGo.NecroBot.Logic.Tasks
 
         private static async Task<List<SnipePokemonInfo>> FetchFromFastPokemap(double lat, double lng)
         {
-            // TODO: ???
             return new List<SnipePokemonInfo>();
             List<SnipePokemonInfo> results = new List<SnipePokemonInfo>();
             if (!_setting.HumanWalkingSnipeUseFastPokemap) return results;

@@ -22,17 +22,20 @@ namespace PoGo.NecroBot.Logic.Tasks
 
             if (session.LogicSettings.AutoFavoritePokemon)
                 await FavoritePokemonTask.Execute(session, cancellationToken);
-
-            await session.Inventory.RefreshCachedInventory();
+            if (session.LogicSettings.EvolveAllPokemonWithEnoughCandy ||
+                      session.LogicSettings.EvolveAllPokemonAboveIv ||
+                      session.LogicSettings.UseLuckyEggsWhileEvolving ||
+                      session.LogicSettings.KeepPokemonsThatCanEvolve)
+                await session.Inventory.RefreshCachedInventory();
             var duplicatePokemons =
                 await
                     session.Inventory.GetDuplicatePokemonToTransfer(
                         session.LogicSettings.PokemonsNotToTransfer,
-                        session.LogicSettings.PokemonsToEvolve, 
+                        session.LogicSettings.PokemonsToEvolve,
                         session.LogicSettings.KeepPokemonsThatCanEvolve,
                         session.LogicSettings.PrioritizeIvOverCp);
 
-            var orderedPokemon = duplicatePokemons.OrderBy( poke => poke.Cp );
+            var orderedPokemon = duplicatePokemons.OrderBy(poke => poke.Cp);
 
             var pokemonSettings = await session.Inventory.GetPokemonSettings();
             var pokemonFamilies = await session.Inventory.GetPokemonFamilies();
@@ -52,7 +55,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                 var family = pokemonFamilies.FirstOrDefault(q => q.FamilyId == setting.FamilyId);
 
                 family.Candy_++;
-                
+
                 session.EventDispatcher.Send(new TransferPokemonEvent
                 {
                     Id = duplicatePokemon.PokemonId,

@@ -37,6 +37,9 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Ignore, Order = 3)]
         public DeviceConfig DeviceConfig = new DeviceConfig();
 
+        [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Ignore, Order = 3)]
+        public APIConfig APIConfig = new APIConfig();
+
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 4)]
         [DefaultValue(false)]
         public bool AllowMultipleBot = false;
@@ -73,10 +76,13 @@ namespace PoGo.NecroBot.Logic.Model.Settings
                 generator.GenerationProviders.Add(strEnumGen);
                 // generate json schema 
                 var type = typeof(AuthSettings);
-                var schema = generator.Generate(type);
-                schema.Title = type.Name;
-                //
-                _schema = schema;
+                try {
+                    var schema = generator.Generate(type);
+                    schema.Title = type.Name;
+                    //
+                    _schema = schema;
+                }
+                catch(Exception ex) { }
                 return _schema;
             }
         }
@@ -276,6 +282,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
                 else
                     Logger.Write("JSON Exception: " + exception.Message, LogLevel.Error);
             }
+            
         }
 
         private static void MigrateSettings(int schemaVersion, JObject settings, string configFile, string schemaFile)

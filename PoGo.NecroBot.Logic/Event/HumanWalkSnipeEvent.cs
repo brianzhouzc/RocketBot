@@ -1,10 +1,12 @@
 ﻿#region using directives
 
 using System.Collections.Generic;
+using PoGo.NecroBot.Logic.Model;
 using PoGo.NecroBot.Logic.Model.Settings;
 using PoGo.NecroBot.Logic.Tasks;
 using POGOProtos.Enums;
 using POGOProtos.Map.Fort;
+using Location = PoGo.NecroBot.Logic.Model.Settings.Location;
 
 #endregion
 

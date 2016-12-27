@@ -5,6 +5,8 @@ using GeoCoordinatePortable;
 using System.Threading.Tasks;
 using POGOProtos.Networking.Responses;
 using PoGo.NecroBot.Logic.State;
+using PokemonGo.RocketAPI;
+using PoGo.NecroBot.Logic.Service;
 using PoGo.NecroBot.Logic.Service.Elevation;
 
 #endregion

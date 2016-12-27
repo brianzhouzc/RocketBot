@@ -28,6 +28,7 @@ using Quobject.Collections.Immutable;
 using Quobject.SocketIoClientDotNet.Client;
 using Socket = Quobject.SocketIoClientDotNet.Client.Socket;
 using PoGo.NecroBot.Logic.Exceptions;
+using PokemonGo.RocketAPI.Exceptions;
 
 #endregion
 
@@ -465,8 +466,8 @@ namespace PoGo.NecroBot.Logic.Tasks
         public static async Task Snipe(ISession session, IEnumerable<PokemonId> pokemonIds, double latitude,
             double longitude, CancellationToken cancellationToken)
         {
-            if (LocsVisited.Contains(new PokemonLocation(latitude, longitude)))
-                return;
+            //if (LocsVisited.Contains(new PokemonLocation(latitude, longitude)))
+            //    return;
 
             var currentLatitude = session.Client.CurrentLatitude;
             var currentLongitude = session.Client.CurrentLongitude;
@@ -475,25 +476,36 @@ namespace PoGo.NecroBot.Logic.Tasks
             session.EventDispatcher.Send(new SnipeModeEvent {Active = true});
 
             List<MapPokemon> catchablePokemon;
+            int retry = 5;
+
             try
             {
-                await
-                    LocationUtils.UpdatePlayerLocationWithAltitude(session,
-                        new GeoCoordinate(latitude, longitude, session.Client.CurrentAltitude), 0); // Set speed to 0 for random speed.
-
-                session.EventDispatcher.Send(new UpdatePositionEvent
+                do
                 {
-                    Longitude = longitude,
-                    Latitude = latitude
-                });
+                    retry--;
+                    await
+                        LocationUtils.UpdatePlayerLocationWithAltitude(session,
+                            new GeoCoordinate(latitude, longitude, 10d), 0); // Set speed to 0 for random speed.
+                    await Task.Delay(1000);
+                    latitude += 0.00000001;
+                    longitude += 0.00000001;
 
-                var mapObjects = session.Client.Map.GetMapObjects().Result;
-                session.AddForts(mapObjects.Item1.MapCells.SelectMany(p => p.Forts).ToList());
-                catchablePokemon =
-                    mapObjects.Item1.MapCells.SelectMany(q => q.CatchablePokemons)
-                        .Where(q => pokemonIds.Contains(q.PokemonId))
-                        .OrderByDescending(pokemon => PokemonInfo.CalculateMaxCpMultiplier(pokemon.PokemonId))
-                        .ToList();
+                    session.EventDispatcher.Send(new UpdatePositionEvent
+                    {
+                        Longitude = longitude,
+                        Latitude = latitude
+                    });
+                    await Task.Delay(1000);
+                    var mapObjects = session.Client.Map.GetMapObjects().Result;
+                    //session.AddForts(mapObjects.Item1.MapCells.SelectMany(p => p.Forts).ToList());
+                    catchablePokemon =
+                        mapObjects.Item1.MapCells.SelectMany(q => q.CatchablePokemons)
+                            .Where(q => pokemonIds.Contains(q.PokemonId))
+                            .OrderByDescending(pokemon => PokemonInfo.CalculateMaxCpMultiplier(pokemon.PokemonId))
+                            .ToList();
+                } while (catchablePokemon.Count == 0 && retry > 0);
+                
+
             }
             finally
             {
@@ -649,7 +661,13 @@ namespace PoGo.NecroBot.Logic.Tasks
             {
                 throw asx;
             }
+            catch (CaptchaException cex)
+            {
+                throw cex;
+            }
+
             catch (Exception ex)
+
             {
                 // most likely System.IO.IOException
                 session.EventDispatcher.Send(new ErrorEvent {Message = ex.Message});
@@ -700,6 +718,11 @@ namespace PoGo.NecroBot.Logic.Tasks
 
                         pokemons.Add(pokezzElement);
                     }
+                    catch (CaptchaException cex)
+                    {
+                        throw cex;
+                    }
+                 
                     catch (Exception)
                     {
                         // Just in case Pokezz changes their implementation, let's catch the error and set the error flag.

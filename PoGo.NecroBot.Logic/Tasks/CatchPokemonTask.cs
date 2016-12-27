@@ -25,54 +25,9 @@ namespace PoGo.NecroBot.Logic.Tasks
 {
     public static class CatchPokemonTask
     {
-        public static bool _catchPokemonLimitReached = false;
-        public static bool _catchPokemonTimerReached = false;
         public static int AmountOfBerries;
         private static Random Random => new Random((int)DateTime.Now.Ticks);
-
-        private static bool CatchThresholdExceeds(ISession session, CancellationToken cancellationToken)
-        {
-            if (!session.LogicSettings.UseCatchLimit) return false;
-
-            // Skip Catching if we have reached the user set limits. Note that we currently
-            // never refresh these switches. The bot will simply pause Catching and stay
-            // paused until restarted. One improvement could be to check if enough time
-            // has passed and then resume operation. I'm not sure if this functionality
-            // really is desireable though. Personally never run the but that long w/o
-            // restarting anyway. Perhaps better to shutdown instead? ~moj
-            if (_catchPokemonLimitReached || _catchPokemonTimerReached) return true;
-
-            session.Stats.CleanOutExpiredStats();
-
-            var timeDiff = (DateTime.Now - session.Stats.StartTime);
-            
-            // Check if user defined max AMOUNT of Catches reached
-            if (session.Stats.GetNumPokemonsInLast24Hours() >= session.LogicSettings.CatchPokemonLimit)
-            {
-                session.EventDispatcher.Send(new ErrorEvent
-                {
-                    Message = session.Translation.GetTranslation(TranslationString.CatchLimitReached)
-                });
-                
-                _catchPokemonLimitReached = true;
-                return true;
-            }
-
-            // Check if user defined TIME since start reached
-            else if (timeDiff.TotalSeconds >= session.LogicSettings.CatchPokemonLimitMinutes * 60)
-            {
-                session.EventDispatcher.Send(new ErrorEvent
-                {
-                    Message = session.Translation.GetTranslation(TranslationString.CatchTimerReached)
-                });
-                
-                _catchPokemonTimerReached = true;
-                return true;
-            }
-
-            return false;
-        }
-
+       
         // Structure of calling Tasks
 
         // ## From CatchNearbyPokemonTask
@@ -112,9 +67,15 @@ namespace PoGo.NecroBot.Logic.Tasks
             // If the encounter is null nothing will work below, so exit now
             if (encounter == null) return true;
             // Exit if user defined max limits reached
-            if (CatchThresholdExceeds(session, cancellationToken))
-                return false;
+            if (session.Stats.CatchThresholdExceeds(session))
+            {
+                if(session.LogicSettings.MultipleBotConfig.SwitchOnCatchLimit)
+                {
+                    throw new Exceptions.ActiveSwitchByRuleException() { MatchedRule = SwitchRules.CatchLimitReached, ReachedValue = session.LogicSettings.CatchPokemonLimit };
+                }
 
+                return false;
+            }
             using (var block = new BlockableScope(session, Model.BotActions.Catch))
             {
                 if (!await block.WaitToRun()) return true;
@@ -216,6 +177,10 @@ namespace PoGo.NecroBot.Logic.Tasks
                     Move1 = PokemonInfo.GetPokemonMove1(encounteredPokemon).ToString(),
                     Move2 = PokemonInfo.GetPokemonMove2(encounteredPokemon).ToString(),
                 };
+
+                //add catch to avoid snipe duplicate
+                string uniqueCacheKey = $"{session.Settings.PtcUsername}{session.Settings.GoogleUsername}{Math.Round(encounterEV.Latitude, 6)}{encounterEV.PokemonId}{Math.Round(encounterEV.Longitude, 6)}";
+                session.Cache.Add(uniqueCacheKey, encounterEV, DateTime.Now.AddMinutes(15));
 
                 session.EventDispatcher.Send(encounterEV);
 
@@ -436,19 +401,19 @@ namespace PoGo.NecroBot.Logic.Tasks
                 } while (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed ||
                          caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchEscape);
 
-                if (MultipleBotConfig.IsMultiBotActive(session.LogicSettings))
+                if (session.LogicSettings.AllowMultipleBot)
                 {
                     if (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchFlee)
                     {
                         CatchFleeContinuouslyCount++;
-                        if (CatchFleeContinuouslyCount > 10)
+                        if (CatchFleeContinuouslyCount > session.LogicSettings.MultipleBotConfig.CatchFleeCount)
                         {
                             CatchFleeContinuouslyCount = 0;
 
                             throw new ActiveSwitchByRuleException()
                             {
                                 MatchedRule = SwitchRules.CatchFlee,
-                                ReachedValue = 10
+                                ReachedValue = session.LogicSettings.MultipleBotConfig.CatchFleeCount
                             };
                         }
                     }

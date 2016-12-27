@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using GeoCoordinatePortable;
+using Newtonsoft.Json;
 using PoGo.NecroBot.Logic.Common;
 using PoGo.NecroBot.Logic.Event;
 using PoGo.NecroBot.Logic.Interfaces.Configuration;
@@ -6,6 +7,7 @@ using PoGo.NecroBot.Logic.Logging;
 using PoGo.NecroBot.Logic.Model;
 using PoGo.NecroBot.Logic.Model.Settings;
 using PoGo.NecroBot.Logic.State;
+using PoGo.NecroBot.Logic.Strategies.Walk;
 using PoGo.NecroBot.Logic.Utils;
 using POGOProtos.Enums;
 using POGOProtos.Inventory.Item;
@@ -13,9 +15,15 @@ using POGOProtos.Map.Fort;
 using POGOProtos.Networking.Responses;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using WebSocket4Net;
 
 namespace PoGo.NecroBot.Logic.Tasks
 {

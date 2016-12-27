@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using PoGo.NecroBot.Logic.Model.Settings;
 using POGOProtos.Enums;
 using POGOProtos.Inventory.Item;
+using System.Threading;
 
 #endregion
 
 namespace PoGo.NecroBot.Logic.Interfaces.Configuration
 {
+
     public interface ILogicSettings
     {
         bool UseWebsocket { get; }
@@ -37,6 +39,8 @@ namespace PoGo.NecroBot.Logic.Interfaces.Configuration
         bool ShowVariantWalking { get; }
         bool RandomlyPauseAtStops { get; }
         bool FastSoftBanBypass { get; }
+        int ByPassSpinCount { get; }
+
         bool EvolveAllPokemonWithEnoughCandy { get; }
         bool KeepPokemonsThatCanEvolve { get; }
 
@@ -82,7 +86,7 @@ namespace PoGo.NecroBot.Logic.Interfaces.Configuration
         bool UseLuckyEggConstantly { get; }
         int MaxBerriesToUsePerPokemon { get; }
         bool UseIncenseConstantly { get; }
-        int UseBerriesMinCp { get; }
+        float UseBerriesMinCp { get; }
         float UseBerriesMinIv { get; }
         double UseBerriesBelowCatchProbability { get; }
         string UseBerriesOperator { get; }
@@ -148,6 +152,7 @@ namespace PoGo.NecroBot.Logic.Interfaces.Configuration
         ICollection<PokemonId> PokemonsToEvolve { get; }
         ICollection<PokemonId> PokemonsToLevelUp { get; }
 
+        NotificationConfig NotificationConfig { get; }
         ICollection<PokemonId> PokemonsNotToTransfer { get; }
 
         ICollection<PokemonId> PokemonsNotToCatch { get; }
@@ -233,6 +238,10 @@ namespace PoGo.NecroBot.Logic.Interfaces.Configuration
         int GymCollectRewardAfter { get; }
         List<AuthConfig> Bots { get; }
         bool AllowMultipleBot { get; }
-        
+        CaptchaConfig CaptchaConfig { get;  }
+
+
+
+
     }
 }

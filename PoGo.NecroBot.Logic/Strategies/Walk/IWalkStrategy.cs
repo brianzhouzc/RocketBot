@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using GeoCoordinatePortable;
 using PoGo.NecroBot.Logic.State;
 using POGOProtos.Networking.Responses;
 using PoGo.NecroBot.Logic.Model;

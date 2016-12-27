@@ -8,6 +8,8 @@ using PoGo.NecroBot.Logic.State;
 using PokemonGo.RocketAPI;
 using POGOProtos.Networking.Responses;
 using PoGo.NecroBot.Logic.Model.Mapzen;
+using PoGo.NecroBot.Logic.Event;
+using PoGo.NecroBot.Logic.Utils;
 using PoGo.NecroBot.Logic.Model;
 
 namespace PoGo.NecroBot.Logic.Strategies.Walk

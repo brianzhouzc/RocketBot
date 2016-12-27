@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using GeoCoordinatePortable;
+using PoGo.NecroBot.Logic.Model.Google.GoogleObjects;
 
 namespace PoGo.NecroBot.Logic.Model.Google
 {

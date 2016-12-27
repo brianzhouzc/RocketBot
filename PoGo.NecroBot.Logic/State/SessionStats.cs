@@ -1,8 +1,10 @@
 ﻿using LiteDB;
+using PoGo.NecroBot.Logic.Common;
 using PoGo.NecroBot.Logic.Event;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 
 namespace PoGo.NecroBot.Logic.State
 {
@@ -15,7 +17,7 @@ namespace PoGo.NecroBot.Logic.State
         public int SnipeCount { get; set; }
         public DateTime LastSnipeTime { get; set; }
         public DateTime StartTime { get; set; }
-        
+        private ISession ownerSession;
         private LiteDatabase db;
         private LiteCollection<PokeStopTimestamp> pokestopTimestampCollection;
         private LiteCollection<PokemonTimestamp> pokemonTimestampCollection;
@@ -30,10 +32,92 @@ namespace PoGo.NecroBot.Logic.State
             public Int64 Timestamp { get; set; }
         }
 
+        public bool SearchThresholdExceeds(ISession session)
+        {
+            if (!session.LogicSettings.UsePokeStopLimit) return false;
+            //if (_pokestopLimitReached || _pokestopTimerReached) return true;
+
+            this.CleanOutExpiredStats();
+
+            // Check if user defined max Pokestops reached
+            var timeDiff = (DateTime.Now - session.Stats.StartTime);
+
+            if (this.GetNumPokestopsInLast24Hours() >= session.LogicSettings.PokeStopLimit)
+            {
+                session.EventDispatcher.Send(new ErrorEvent
+                {
+                    Message = session.Translation.GetTranslation(TranslationString.PokestopLimitReached)
+                });
+
+                //_pokestopLimitReached = true;
+                return true;
+            }
+
+            // Check if user defined time since start reached
+            else if (timeDiff.TotalSeconds >= session.LogicSettings.PokeStopLimitMinutes * 60)
+            {
+                session.EventDispatcher.Send(new ErrorEvent
+                {
+                    Message = session.Translation.GetTranslation(TranslationString.PokestopTimerReached)
+                });
+
+                //_pokestopTimerReached = true;
+                return true;
+            }
+
+            return false; // Continue running
+        }
+
+
+        public bool CatchThresholdExceeds(ISession session)
+        {
+            if (!session.LogicSettings.UseCatchLimit) return false;
+
+            this.CleanOutExpiredStats();
+
+            var timeDiff = (DateTime.Now - session.Stats.StartTime);
+
+            // Check if user defined max AMOUNT of Catches reached
+            if (GetNumPokemonsInLast24Hours() >= session.LogicSettings.CatchPokemonLimit)
+            {
+                session.EventDispatcher.Send(new ErrorEvent
+                {
+                    Message = session.Translation.GetTranslation(TranslationString.CatchLimitReached)
+                });
+
+                // _catchPokemonLimitReached = true;
+                return true;
+            }
+
+            // Check if user defined TIME since start reached
+            else if (timeDiff.TotalSeconds >= session.LogicSettings.CatchPokemonLimitMinutes * 60)
+            {
+                session.EventDispatcher.Send(new ErrorEvent
+                {
+                    Message = session.Translation.GetTranslation(TranslationString.CatchTimerReached)
+                });
+
+                //_catchPokemonTimerReached = true;
+                return true;
+            }
+
+            return false;
+        }
+        public bool IsPokestopLimit(ISession session)
+        {
+            if (!session.LogicSettings.UsePokeStopLimit) return false;
+
+            this.CleanOutExpiredStats();
+
+            if (GetNumPokestopsInLast24Hours() >= session.LogicSettings.PokeStopLimitMinutes)
+                return true;
+            //TODO - Other logic should come here, but I don't think we need
+            return false;
+        }
         public SessionStats(ISession session)
         {                                                                                                                           
             StartTime = DateTime.Now;
-
+            ownerSession = session;
             InitializeDatabase(session);
             LoadLegacyData(session);
         }

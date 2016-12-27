@@ -17,6 +17,7 @@ using POGOProtos.Enums;
 using PoGo.NecroBot.Logic.Event.Gym;
 using PokemonGo.RocketAPI.Extensions;
 using PokemonGo.RocketAPI.Helpers;
+using PokemonGo.RocketAPI.Rpc;
 using POGOProtos.Data;
 using POGOProtos.Data.Battle;
 

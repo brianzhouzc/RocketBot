@@ -130,6 +130,12 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public List<PokemonId> PokemonsToIgnore = CatchConfig.PokemonsToIgnoreDefault();
 
+        [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Ignore)]
+
+        [ExcelConfig(SheetName = "CaptchaConfig", Description = "Captcha config to define the way you prefer to resolve captcha")]
+        public CaptchaConfig CaptchaConfig = new CaptchaConfig();
+
+
         [ExcelConfig(SheetName = "PokemonsTransferFilter", Description = "Setting up pokemon filter rules")]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Dictionary<PokemonId, TransferFilter> PokemonsTransferFilter = TransferFilter.TransferFilterDefault();
@@ -151,6 +157,10 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [ExcelConfig (Description ="Setting up bot to use multiple account" , SheetName = "MultipleBotConfig")]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public MultipleBotConfig MultipleBotConfig = MultipleBotConfig.Default();
+
+        [ExcelConfig(Description = "Setting up notifications setting", SheetName = "NotificationConfig")]
+        [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public NotificationConfig NotificationConfig = new NotificationConfig();
 
         [ExcelConfig(SheetName = "SnipePokemonFilter", Description ="Setup list pokemon for auto snipe")]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -223,6 +233,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
                 return _schema;
             }
         }
+
 
         //private JObject _jsonObject;
         //public JObject JsonObject

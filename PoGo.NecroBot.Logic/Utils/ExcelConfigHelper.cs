@@ -5,12 +5,16 @@ using PoGo.NecroBot.Logic.Model.Settings;
 using POGOProtos.Enums;
 using POGOProtos.Inventory.Item;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace PoGo.NecroBot.Logic.Utils
 {
@@ -68,10 +72,11 @@ namespace PoGo.NecroBot.Logic.Utils
 
         private static void BackwardCompitableUpdate(GlobalSettings setting)
         {      
-            foreach (var item in setting.PokemonsTransferFilter)
-            {
-                item.Value.AllowTransfer = true;
-            }
+            //foreach (var item in setting.PokemonsTransferFilter)
+            //{
+            //    setting.PokemonsTransferFilter[item].AllowTransfer = true;
+            //    item.Value.AllowTransfer = true;
+            //}
             foreach (var item in setting.PokemonsNotToTransfer)
             {
                 if (setting.PokemonsTransferFilter.ContainsKey(item))

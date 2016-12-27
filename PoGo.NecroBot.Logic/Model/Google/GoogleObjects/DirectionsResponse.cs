@@ -1,4 +1,7 @@
-﻿namespace PoGo.NecroBot.Logic.Model.Google.GoogleObjects
+﻿using System.Collections.Generic;
+using GeoCoordinatePortable;
+
+namespace PoGo.NecroBot.Logic.Model.Google.GoogleObjects
 {
     public class DirectionsResponse
     {

@@ -266,7 +266,10 @@ namespace PoGo.NecroBot.Logic.Common
         FirstStartSetupWalkingSpeedVariantConfirm,
         MinimumClientVersionException,
         ExitNowAfterEnterKey,
-        CaptchaShown
+        CaptchaShown,
+        FailedSendNotification,
+        TelegramBotStarted,
+        TelegramNeedChatId
     }
 
     public class Translation : ITranslation
@@ -606,7 +609,10 @@ namespace PoGo.NecroBot.Logic.Common
             new KeyValuePair<TranslationString, string>(TranslationString.MinimumClientVersionException, "(KILLSWITCH) We have detected a Pokemon API change. The bot emulates API version {0}, which is no longer supported.  Minimum API version is now {1}."),
             new KeyValuePair<TranslationString, string>(TranslationString.ExitNowAfterEnterKey, "The bot will now exit after hitting the enter key."),
             new KeyValuePair<TranslationString, string>(TranslationString.CaptchaShown, "Captcha is being shown and will need to be solved."),
-            new KeyValuePair<TranslationString, string>(TranslationString.CatchPokemonDisable,"Too few Pokeballs. Temporarily disabling the catching of wild Pokemon for {0} min or until we have {1} balls again.")
+            new KeyValuePair<TranslationString, string>(TranslationString.CatchPokemonDisable,"Too few Pokeballs. Temporarily disabling the catching of wild Pokemon for {0} min or until we have {1} balls again.")   ,
+            new KeyValuePair<TranslationString, string>(TranslationString.FailedSendNotification,"Notification sending failed."),
+            new KeyValuePair<TranslationString, string>(TranslationString.TelegramBotStarted, "Bot has been started") ,
+            new KeyValuePair<TranslationString, string>(TranslationString.TelegramNeedChatId, "To received notification from telgram, please initial a first message chat with bot.") ,
         };
 
         [JsonProperty("PokemonStrings",

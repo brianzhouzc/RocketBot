@@ -56,7 +56,7 @@
   <PropertyGroup>
     <ManifestCertificateThumbprint>FABFDFD920EF90E9348A803A9225ADFB5B8BF8AB</ManifestCertificateThumbprint>
   </PropertyGroup>
-   <PropertyGroup>
+  <PropertyGroup>
     <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
@@ -195,8 +195,10 @@
     <Compile Include="Forms\MainForm.designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DeviceInfoHelper.cs" />
     <Compile Include="Helpers\MachineIdHelper.cs" />
     <Compile Include="Helpers\ResourceHelper.cs" />
+    <Compile Include="Helpers\RouteOptimizeUtil.cs" />
     <Compile Include="Helpers\S2GMapDrawer.cs" />
     <Compile Include="Helpers\TimeHelper.cs" />
     <Compile Include="Helpers\VersionHelper.cs" />
@@ -208,7 +210,6 @@
     </Compile>
     <Compile Include="Models\GMapMarkerPokestops.cs" />
     <Compile Include="Models\GMapMarkerTrainer.cs" />
-    <Compile Include="Models\LoggingStrings.cs" />
     <Compile Include="Forms\NicknamePokemonForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -224,6 +225,11 @@
     <Compile Include="Resources\ProgressBar.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tasks\RecycleSpecificItemTask.cs" />
+    <Compile Include="Tasks\RenameSpecificPokemonTask.cs" />
+    <Compile Include="Tasks\TransferSpecificPokemonTask.cs" />
+    <Compile Include="Tasks\UseIncenseTask.cs" />
+    <Compile Include="Tasks\UseLuckyEggTask.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -543,6 +549,7 @@
       <Name>PoGo.NecroBot.Logic</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

@@ -5,14 +5,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using GeoCoordinatePortable;
 using PoGo.NecroBot.Logic.Common;
 using PoGo.NecroBot.Logic.Event;
 using PoGo.NecroBot.Logic.Logging;
 using PoGo.NecroBot.Logic.State;
+using PoGo.NecroBot.Logic.Strategies.Walk;
 using PoGo.NecroBot.Logic.Utils;
 using PokemonGo.RocketAPI.Extensions;
 using POGOProtos.Map.Fort;
 using POGOProtos.Networking.Responses;
+using PoGo.NecroBot.Logic.Event.Gym;
 using PoGo.NecroBot.Logic.Model;
 using PoGo.NecroBot.Logic.Exceptions;
 using PoGo.NecroBot.Logic.Model.Settings;
@@ -42,42 +45,6 @@ namespace PoGo.NecroBot.Logic.Tasks
             _pokestopTimerReached = false;
         }
 
-        private static bool SearchThresholdExceeds(ISession session)
-        {
-            if (!session.LogicSettings.UsePokeStopLimit) return false;
-            if (_pokestopLimitReached || _pokestopTimerReached) return true;
-
-            session.Stats.CleanOutExpiredStats();
-
-            // Check if user defined max Pokestops reached
-            var timeDiff = (DateTime.Now - session.Stats.StartTime);
-
-            if (session.Stats.GetNumPokestopsInLast24Hours() >= session.LogicSettings.PokeStopLimit)
-            {
-                session.EventDispatcher.Send(new ErrorEvent
-                {
-                    Message = session.Translation.GetTranslation(TranslationString.PokestopLimitReached)
-                });
-                
-                _pokestopLimitReached = true;
-                return true;
-            }
-
-            // Check if user defined time since start reached
-            else if (timeDiff.TotalSeconds >= session.LogicSettings.PokeStopLimitMinutes * 60)
-            {
-                session.EventDispatcher.Send(new ErrorEvent
-                {
-                    Message = session.Translation.GetTranslation(TranslationString.PokestopTimerReached)
-                });
-                
-                _pokestopTimerReached = true;
-                return true;
-            }
-
-            return false; // Continue running
-        }
-
         public static async Task Execute(ISession session, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -92,7 +59,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                 cancellationToken.ThrowIfCancellationRequested();
                 // Exit this task if both catching and looting has reached its limits
                 if ((UseNearbyPokestopsTask._pokestopLimitReached || UseNearbyPokestopsTask._pokestopTimerReached) &&
-                    (CatchPokemonTask._catchPokemonLimitReached || CatchPokemonTask._catchPokemonTimerReached))
+                    session.Stats.CatchThresholdExceeds(session))
                     return;
                 var fortInfo = pokeStop.Id == SetMoveToTargetTask.TARGET_ID ? SetMoveToTargetTask.FortInfo : await session.Client.Fort.GetFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
 
@@ -101,6 +68,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                 await DoActionAtPokeStop(session, cancellationToken, pokeStop, fortInfo);
 
                 await UseGymBattleTask.Execute(session, cancellationToken, pokeStop, fortInfo);
+
 
                 if (session.LogicSettings.SnipeAtPokestops || session.LogicSettings.UseSnipeLocationServer)
                     await SnipePokemonTask.Execute(session, cancellationToken);
@@ -111,6 +79,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                     session.AddForts(new List<FortData>() { pokeStop }); //replace object in memory.
                 }
 
+                await MSniperServiceTask.Execute(session, cancellationToken);
                 if (session.LogicSettings.EnableHumanWalkingSnipe)
                 {
                     await HumanWalkSnipeTask.Execute(session, cancellationToken, pokeStop, fortInfo);
@@ -140,7 +109,6 @@ namespace PoGo.NecroBot.Logic.Tasks
                 await session.Navigation.Move(pokeStopDestination,
                  async () =>
                  {
-                     await MSniperServiceTask.Execute(session, cancellationToken);
 
                      await OnWalkingToPokeStopOrGym(session, pokeStop, cancellationToken);
                  },
@@ -151,12 +119,20 @@ namespace PoGo.NecroBot.Logic.Tasks
                 await eggWalker.ApplyDistance(distance, cancellationToken);
             }
         }
+        private static DateTime lastCatch = DateTime.Now;
         private static async Task OnWalkingToPokeStopOrGym(ISession session, FortData pokeStop, CancellationToken cancellationToken)
         {
-            // Catch normal map Pokemon
-            await CatchNearbyPokemonsTask.Execute(session, cancellationToken);
-            //Catch Incense Pokemon
-            await CatchIncensePokemonsTask.Execute(session, cancellationToken);
+            await MSniperServiceTask.Execute(session, cancellationToken);
+
+            //to avoid api call when walking.
+            if (lastCatch < DateTime.Now.AddSeconds(-2))
+            {
+                // Catch normal map Pokemon
+                await CatchNearbyPokemonsTask.Execute(session, cancellationToken);
+                //Catch Incense Pokemon
+                await CatchIncensePokemonsTask.Execute(session, cancellationToken);
+                lastCatch = DateTime.Now;
+            }
 
             if (!session.LogicSettings.UseGpxPathing)
             {
@@ -322,19 +298,23 @@ namespace PoGo.NecroBot.Logic.Tasks
             if (pokeStop.CooldownCompleteTimestampMs > DateTime.UtcNow.ToUnixTime())
                 return;
 
+            if (session.Stats.SearchThresholdExceeds(session))
+            {
+                if (session.LogicSettings.MultipleBotConfig.SwitchOnPokestopLimit)
+                {
+                    throw new Exceptions.ActiveSwitchByRuleException() { MatchedRule = SwitchRules.SpinPokestopReached, ReachedValue = session.LogicSettings.PokeStopLimit };
+                }
+                return;
+            }
+
             FortSearchResponse fortSearch;
             var timesZeroXPawarded = 0;
             var fortTry = 0; //Current check
-            const int retryNumber = 50; //How many times it needs to check to clear softban
-            const int zeroCheck = 5; //How many times it checks fort before it thinks it's softban
+            int retryNumber = session.LogicSettings.ByPassSpinCount; //How many times it needs to check to clear softban
+            int zeroCheck = Math.Min(5, retryNumber); //How many times it checks fort before it thinks it's softban
             do
             {
                 cancellationToken.ThrowIfCancellationRequested();
-
-                if (SearchThresholdExceeds(session))
-                {
-                    break;
-                }
 
                 fortSearch =
                     await session.Client.Fort.SearchFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
@@ -371,6 +351,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                 }
                 else
                 {
+                    softbanCount = 0;
                     if (fortTry != 0)
                     {
                         session.EventDispatcher.Send(new FortFailedEvent
@@ -411,7 +392,7 @@ namespace PoGo.NecroBot.Logic.Tasks
             } while (fortTry < retryNumber - zeroCheck);
             //Stop trying if softban is cleaned earlier or if 40 times fort looting failed.
 
-            if (MultipleBotConfig.IsMultiBotActive(session.LogicSettings))
+            if (session.LogicSettings.AllowMultipleBot)
             {
                 if (fortTry >= retryNumber - zeroCheck)
                 {
@@ -423,13 +404,12 @@ namespace PoGo.NecroBot.Logic.Tasks
                         session.LogicSettings.MultipleBotConfig.PokestopSoftbanCount <= softbanCount)
                     {
                         softbanCount = 0;
-                        session.CancellationTokenSource.Cancel();
 
                         //Activate switcher by pokestop
                         throw new ActiveSwitchByRuleException()
                         {
                             MatchedRule = SwitchRules.PokestopSoftban,
-                            ReachedValue = softbanCount
+                            ReachedValue = session.LogicSettings.MultipleBotConfig.PokestopSoftbanCount
                         };
                     }
                 }
