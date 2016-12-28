@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using POGOProtos.Data;
+using PoGo.NecroBot.Logic.Event;
 
 #endregion
 

@@ -3,9 +3,9 @@
 using System;
 using PokemonGo.RocketAPI.Enums;
 using PokemonGo.RocketAPI.Exceptions;
-using NecroBot2.Logic.Common;
-using NecroBot2.Logic.Event;
-using NecroBot2.Logic.State;
+using PoGo.NecroBot.Logic.Common;
+using PoGo.NecroBot.Logic.Event;
+using PoGo.NecroBot.Logic.State;
 
 #endregion
 

@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using NecroBot2.Logic.Event;
-using NecroBot2.Logic.PoGoUtils;
-using NecroBot2.Logic.State;
+using PoGo.NecroBot.Logic.Event;
+using PoGo.NecroBot.Logic.PoGoUtils;
+using PoGo.NecroBot.Logic.State;
 using POGOProtos.Inventory.Item;
 
 #endregion

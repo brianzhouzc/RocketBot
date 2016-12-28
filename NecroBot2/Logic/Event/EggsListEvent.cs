@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using POGOProtos.Inventory;
+using PoGo.NecroBot.Logic.Event;
 
 #endregion
 

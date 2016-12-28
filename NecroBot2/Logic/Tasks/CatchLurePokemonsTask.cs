@@ -2,10 +2,10 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using NecroBot2.Logic.Common;
-using NecroBot2.Logic.Event;
-using NecroBot2.Logic.Logging;
-using NecroBot2.Logic.State;
+using PoGo.NecroBot.Logic.Common;
+using PoGo.NecroBot.Logic.Event;
+using PoGo.NecroBot.Logic.Logging;
+using PoGo.NecroBot.Logic.State;
 using POGOProtos.Map.Fort;
 using POGOProtos.Networking.Responses;
 

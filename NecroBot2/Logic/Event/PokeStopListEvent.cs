@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using POGOProtos.Map.Fort;
+using PoGo.NecroBot.Logic.Event;
 
 #endregion
 

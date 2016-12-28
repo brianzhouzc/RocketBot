@@ -1,5 +1,6 @@
 ﻿#region using directives
 
+using PoGo.NecroBot.Logic.Event;
 using POGOProtos.Inventory.Item;
 
 #endregion

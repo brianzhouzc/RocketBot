@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using NecroBot2.Logic.Logging;
-using NecroBot2.Logic.PoGoUtils;
-using NecroBot2.Logic.State;
+using PoGo.NecroBot.Logic.Logging;
+using PoGo.NecroBot.Logic.PoGoUtils;
+using PoGo.NecroBot.Logic.State;
 using POGOProtos.Data;
 
 #endregion

@@ -1,5 +1,49 @@
-﻿{
+{
   "TranslationStrings": [
+    {
+      "Key": "HumanWalkSnipeNotEnoughtBalls",
+      "Value": "(HUMAN WALK) Não há pokebolas suficiente ara iniciar captura ({0})/{1}"
+    },
+    {
+      "Key": "HumanWalkSnipe",
+      "Value": "(HUMAN WALK SNIPE) Encontrou {0} desova | lat: {1}, lng: {2}, dist {3:0.00}m, expira em {05:00} min {04:00} seg | Tempo de caminhada estimado: {07:00} min {06:00} sec | Spin: {8} | Captura: {9}"
+    },
+    {
+      "Key": "HumanWalkSnipeUpdate",
+      "Value": "(HUMAN WALK SNIPE) Encontrado {0} de acordo com o filtro. Human walking sniper não vai capturar todos, mas vai tentar capturar o máximo possível"
+    },
+    {
+      "Key": "HumanWalkSnipeAddedPokestop",
+      "Value": "(HUMAN WALK SNIPE) Você {0:0.00m} do pokestop mais próximo. Reiniciar farm neste lugar com {1} pokestops"
+    },
+    {
+      "Key": "HumanWalkSnipeDestinationReached",
+      "Value": "(HUMAN WALK SNIPE) Destino alcançado | lat: {0}, lng: {1}"
+    },
+    {
+      "Key": "SniperCount",
+      "Value": "Contagem sniper {0}"
+    },
+    {
+      "Key": "SnipeExceeds",
+      "Value": "Sniper precisa descansar um pouco antes de sua conta ser banida"
+    },
+    {
+      "Key": "CatchExceeds",
+      "Value": "Você está capturando muito rápido. Você não pode pegar outro em {0} segundos"
+    },
+    {
+      "Key": "PokeStopExceeds",
+      "Value": "Você está visitando pokestops muito rápido. VOcê não pode visitar outro em {0} segundos"
+    },
+    {
+      "Key": "Only10kmEggs",
+      "Value": "Jogador abaixo do nivel 20, guardando ovo de 10 Km para mais tarde"
+    },
+    {
+      "Key": "GoogleAPIWarning",
+      "Value": "Sem uma Api do Google, você terá o limite de cota livre de 2500, se atingir a cota máxima, tente mudar seu IP. Para configurar o \"GoogleAPIKey\", pegar a chave de API no link: https://developers.google.com/maps/documentation/directions/get-api-key"
+    },
     {
       "Key": "pokeball",
       "Value": "Poké Bola Normal"
@@ -26,8 +70,7 @@
     },
     {
       "Key": "farmPokestopsOutsideRadius",
-      "Value":
-        "Você está fora do seu raio definido! Caminhando para o início ({0}m de distância) em 5 segundos. Suas coordenadas em LastPos.ini estão corretas?"
+      "Value": "Você está fora do seu raio definido! Caminhando para o início ({0}m de distância) em 5 segundos. Suas coordenadas em LastPos.ini estão corretas?"
     },
     {
       "Key": "farmPokestopsNoUsableFound",
@@ -35,15 +78,23 @@
     },
     {
       "Key": "eventFortUsed",
-      "Value": "Nome: {0} XP: {1}, Gemas: {2}, Itens: {3}, Lat: {4}, Long: {5}"
+      "Value": "Nome: {0} XP: {1}, Gemas: {2}, Itens: {3}, Lat: {4}, Long: {5}, Alt: {6}"
     },
     {
       "Key": "eventFortFailed",
       "Value": "Nome: {0} INFO: O looting falhou, possível softban. Desbanindo em: {1}/{2}"
     },
     {
+      "Key": "gym",
+      "Value": "Gym"
+    },
+    {
+      "Key": "pokestop",
+      "Value": "Pokestop"
+    },
+    {
       "Key": "eventFortTargeted",
-      "Value": "Chegando ao Pokestop: {0} ({1}m) ({2} segundos)"
+      "Value": "Chegando ao {0}: {1} ({2}m) ({3} segundos) (rota {4})"
     },
     {
       "Key": "eventProfileLogin",
@@ -75,13 +126,11 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value":
-        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m distancia | com uma {9} (restando {10}). | {11} EXP adquirida | {12} | lat: {13} long: {14}"
+      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m distancia | com uma {9} (restando {10}). | {11} EXP adquirida | {12} | lat: {13} long: {14} | Move1: {15} Move2: {16}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value":
-        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | com uma {9} (restando {10}). | lat: {11} long: {12}"
+      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | com uma {9} (restando {10}). | lat: {11} long: {12} | Move1: {13} Move2: {14}"
     },
     {
       "Key": "eventNoPokeballs",
@@ -93,8 +142,7 @@
     },
     {
       "Key": "useLuckyEggsMinPokemonAmountTooHigh",
-      "Value":
-        "Ovos da sorte nunca serão utilizados com a propriedade UseLuckyEggsMinPokemonAmount definida como {0}, em vez disso use um valor <= {1}"
+      "Value": "Ovos da sorte nunca serão utilizados com a propriedade UseLuckyEggsMinPokemonAmount definida como {0}, em vez disso use um valor <= {1}"
     },
     {
       "Key": "catchMorePokemonToUseLuckyEgg",
@@ -330,8 +378,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value":
-        "[Configuração Inválida] Seu limite de itens combinados (pokebolas+poções+revives={0}) está acima da capacidade máxima de seu inventário ({1})"
+      "Value": "[Configuração Inválida] Seu limite de itens combinados (pokebolas+poções+revives={0}) está acima da capacidade máxima de seu inventário ({1})"
     },
     {
       "Key": "recyclingQuietly",
@@ -343,8 +390,7 @@
     },
     {
       "Key": "invFullTransferManually",
-      "Value":
-        "O inventário de Pokémons está cheio. Por favor transfira seus pokémons manualmente ou altere a propriedade TransferDuplicatePokemon para true nas configurações..."
+      "Value": "O inventário de Pokémons está cheio. Por favor transfira seus pokémons manualmente ou altere a propriedade TransferDuplicatePokemon para true nas configurações..."
     },
     {
       "Key": "invFullPokestopLooting",
@@ -416,8 +462,7 @@
     },
     {
       "Key": "statsTemplateString",
-      "Value":
-        "{0} - Sessão {1} - Lvl: {2} | EXP/H: {3:n0} | P/H: {4:n0} | Stardust: {5:n0} | Transferidos: {6:n0} | Reciclados: {7:n0}"
+      "Value": "{0} - Sessão {1} - Lvl: {2} | EXP/H: {3:n0} | P/H: {4:n0} | Stardust: {5:n0} | Transferidos: {6:n0} | Reciclados: {7:n0}"
     },
     {
       "Key": "statsXpTemplateString",
@@ -425,12 +470,11 @@
     },
     {
       "Key": "requireInputText",
-      "Value": "Pressione enter para iníciar o bot..."
+      "Value": "Pressione enter para continuar..."
     },
     {
       "Key": "googleTwoFactorAuth",
-      "Value":
-        "Como você possui o Google Two Factor Auth ativado, você precisará informar o App Specific Password no arquivo auth.json"
+      "Value": "Como você possui o Google Two Factor Auth ativado, você precisará informar o App Specific Password no arquivo auth.json"
     },
     {
       "Key": "googleTwoFactorAuthExplanation",
@@ -442,17 +486,15 @@
     },
     {
       "Key": "googleOffline",
-      "Value": "Google servers are probably down, Please be patient and start the bot later."
+      "Value": "Servidores do Google estão offline provavelmente, por favor seja paciente e iniciar o bot mais tarde."
     },
     {
       "Key": "missingCredentialsGoogle",
-      "Value":
-        "Você precisa informar o GoogleUsername e GooglePassword no arquivo auth.json! Nota : Após o Update 0.7.5 é nessesario colocar as informações em auth.json e authgoogle.json dependendo de como veio o bot, verifique se o seu bot possui os dois arquivos e em caso contrário preencha-os!"
+      "Value": "Você precisa informar o GoogleUsername e GooglePassword no arquivo auth.json!"
     },
     {
       "Key": "missingCredentialsPtc",
-      "Value":
-        "Você precisa informar o PtcUsername e PtcPassword no arquivo auth.json! Nota : Após o Update 0.7.5 é nessesario colocar as informações em auth.json e authptc.json dependendo de como veio o bot, verifique se o seu bot possui os dois arquivos e em caso contrário preencha-os!"
+      "Value": "Você precisa informar o PtcUsername e PtcPassword no arquivo auth.json!"
     },
     {
       "Key": "snipeScan",
@@ -611,20 +653,12 @@
       "Value": "[ERRO] Por favor informe apenas um VALOR, por exemplo: {0}"
     },
     {
-      "Key": "firstStartSetupDefaultLatPrompt",
-      "Value": "Por favor informe a Latitude (Botão direito do mouse para colar)"
+      "Key": "firstStartSetupDefaultLatLongPrompt",
+      "Value": "Por favor digite uma Latitude e Longitude (Botão direito do mouse para colar) - Formato: Valor, Valor"
     },
     {
-      "Key": "firstStartSetupDefaultLatConfirm",
-      "Value": "Lattitude aceita: {0}"
-    },
-    {
-      "Key": "firstStartSetupDefaultLongPrompt",
-      "Value": "Por favor informe a Longitude (Botão direito do mouse para colar)"
-    },
-    {
-      "Key": "firstStartSetupDefaultLongConfirm",
-      "Value": "Longitude aceita: {0}"
+      "Key": "firstStartSetupDefaultLatLongConfirm",
+      "Value": "Latitude e Longitude aceitos: {0}"
     },
     {
       "Key": "firstStartSetupCompleted",
@@ -645,6 +679,34 @@
     {
       "Key": "PokedexPokemonNeededTelegram",
       "Value": "#{0} Name: {1} \n"
+    },
+    {
+      "Key": "Proxied",
+      "Value": "Seu IP: {0} | IP do Proxy: {1}"
+    },
+    {
+      "Key": "FixProxySettings",
+      "Value": "Pressione qualquer tecla para sair, e corrigir suas configurações de proxy..."
+    },
+    {
+      "Key": "Unproxied",
+      "Value": "Seu IP: {0}"
+    },
+    {
+      "Key": "HighestsPokemoHeader",
+      "Value": "====== {0} ======"
+    },
+    {
+      "Key": "HighestsPokemoCell",
+      "Value": "# CP {0}/{1} | ({2}% {3})\t| Lvl {4}\t {5}: {6}\t {7}: {8} {9}: {10} {11}: {12}"
+    },
+    {
+      "Key": "HumanWalkingVariant",
+      "Value": "Velocidade de Caminhada: Foi alterado, {0:n2} Km/h para {1:n2} Km/h"
+    },
+    {
+      "Key": "AccountBanned",
+      "Value": "Provável Ban Permanente!"
     }
   ],
   "PokemonStrings": [

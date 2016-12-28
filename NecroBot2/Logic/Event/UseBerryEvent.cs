@@ -1,4 +1,5 @@
-﻿using POGOProtos.Inventory.Item;
+﻿using PoGo.NecroBot.Logic.Event;
+using POGOProtos.Inventory.Item;
 
 namespace NecroBot2.Logic.Event
 {

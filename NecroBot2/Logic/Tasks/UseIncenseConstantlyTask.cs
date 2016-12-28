@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using NecroBot2.Logic.Common;
-using NecroBot2.Logic.Logging;
-using NecroBot2.Logic.State;
+using PoGo.NecroBot.Logic.Common;
+using PoGo.NecroBot.Logic.Logging;
+using PoGo.NecroBot.Logic.State;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Networking.Responses;
 

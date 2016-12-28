@@ -1,7 +1,7 @@
 ﻿#region using directives
 
 using System.Threading;
-using NecroBot2.Logic.State;
+using PoGo.NecroBot.Logic.State;
 
 #endregion
 
@@ -70,11 +70,11 @@ namespace NecroBot2.Logic.Tasks
 
             if (_session.LogicSettings.UseGpxPathing)
             {
-                FarmPokestopsGpxTask.Execute(_session, cancellationToken).Wait(cancellationToken);
+                PoGo.NecroBot.Logic.Tasks.FarmPokestopsGpxTask.Execute(_session, cancellationToken).Wait(cancellationToken);
             }
             else
             {
-                FarmPokestopsTask.Execute(_session, cancellationToken).Wait(cancellationToken);
+                PoGo.NecroBot.Logic.Tasks.FarmPokestopsTask.Execute(_session, cancellationToken).Wait(cancellationToken);
             }
 
             GetPokeDexCount.Execute(_session, cancellationToken).Wait(cancellationToken);
