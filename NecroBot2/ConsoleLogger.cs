@@ -2,10 +2,10 @@
 
 using System;
 using System.Drawing;
-using PoGo.NecroBot.Logic.Logging;
-using PoGo.NecroBot.Logic.State;
+using NecroBot2.Logic.Logging;
+using NecroBot2.Logic.State;
 using NecroBot2.Forms;
-using System.Text;
+using NecroBot2.Models;
 
 #endregion
 
@@ -37,10 +37,6 @@ namespace NecroBot2
             _session = session;
             LoggingStrings.SetStrings(_session);
         }
-        public void TurnOffLogBuffering()
-        {
-           // throw new NotImplementedException();
-        }
 
         /// <summary>
         ///     Log a specific message by LogLevel. Won't log if the LogLevel is greater than the maxLogLevel set.
@@ -48,17 +44,14 @@ namespace NecroBot2
         /// <param name="message">The message to log. The current time will be prepended.</param>
         /// <param name="level">Optional. Default <see cref="LogLevel.Info" />.</param>
         /// <param name="color">Optional. Default is auotmatic</param>
-
-        /// <param name="color">Optional. Default is auotmatic</param>
         public void Write(string message, LogLevel level = LogLevel.Info, ConsoleColor color = ConsoleColor.Black)
         {
             // Remember to change to a font that supports your language, otherwise it'll still show as ???.
-           // Console.OutputEncoding = Encoding.UTF8;
             if (level > _maxLogLevel)
                 return;
 
             // Fire log write event.
-            OnLogWrite?.Invoke(this, new LogWriteEventArgs { Message = message, Level = level, Color = color });
+            OnLogWrite?.Invoke(this, new LogWriteEventArgs {Message = message, Level = level, Color = color});
             message = message + "\r\n";
             // ReSharper disable once SwitchStatementMissingSomeCases
             switch (level)
@@ -105,7 +98,7 @@ namespace NecroBot2
                     break;
                 case LogLevel.LevelUp:
                     MainForm.ColoredConsoleWrite(Color.Yellow,
-                        $"[{DateTime.Now.ToString("HH:mm:ss")}] ({LoggingStrings.Evolved}) {message}");
+                        $"[{DateTime.Now.ToString("HH:mm:ss")}] ({LoggingStrings.LevelUp}) {message}");
                     break;
                 case LogLevel.Berry:
                     MainForm.ColoredConsoleWrite(Color.DarkGoldenrod,
@@ -134,9 +127,9 @@ namespace NecroBot2
             }
         }
 
-        public void lineSelect(int lineChar = 0, int linesUp = 1)
+       public void lineSelect(int lineChar = 0, int linesUp = 1)
         {
-            Console.SetCursorPosition(lineChar, Console.CursorTop - linesUp);
+            return;
         }
 
         public event LogWriteHandler OnLogWrite;
@@ -147,18 +140,15 @@ namespace NecroBot2
     /// </summary>
     public class LogWriteEventArgs
     {
-        public string Message
-        {
+        public string Message {
             get { return Message; }
             set { Message = value; }
         }
-        public LogLevel Level
-        {
+        public LogLevel Level {
             get { return Level; }
             set { Level = value; }
         }
-        public ConsoleColor Color
-        {
+        public ConsoleColor Color {
             get { return Color; }
             set { Color = value; }
         }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using PoGo.NecroBot.Logic.PoGoUtils;
+using NecroBot2.Logic.PoGoUtils;
 using POGOProtos.Data;
 using POGOProtos.Enums;
 using POGOProtos.Networking.Responses;

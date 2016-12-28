@@ -1,0 +1,7 @@
+﻿namespace NecroBot2.Logic.Event
+{
+    public class UseLuckyEggEvent : IEvent
+    {
+        public int Count;
+    }
+}

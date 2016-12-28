@@ -15,27 +15,24 @@ using GeoCoordinatePortable;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
+using PokemonGo.RocketAPI.Helpers;
+using NecroBot2.Logic.PoGoUtils;
+using NecroBot2.Logic;
+using NecroBot2.Logic.Common;
+using NecroBot2.Logic.Event;
+using NecroBot2.Logic.Logging;
+using NecroBot2.Logic.Service;
+using NecroBot2.Logic.State;
+using NecroBot2.Logic.Tasks;
+using NecroBot2.Logic.Utils;
+using NecroBot2.Helpers;
+using NecroBot2.Models;
 using POGOProtos.Data;
 using POGOProtos.Inventory;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Fort;
 using POGOProtos.Map.Pokemon;
-using PokemonGo.RocketAPI.Helpers;
-using PoGo.NecroBot.Logic;
-using PoGo.NecroBot.Logic.PoGoUtils;
-using PoGo.NecroBot.Logic.Common;
-using PoGo.NecroBot.Logic.Event;
-using PoGo.NecroBot.Logic.Logging;
-using PoGo.NecroBot.Logic.Service;
-using PoGo.NecroBot.Logic.State;
-using PoGo.NecroBot.Logic.Tasks;
-using PoGo.NecroBot.Logic.Utils;
-using PoGo.NecroBot.Logic.Model.Settings;
-using PoGo.NecroBot.Logic.Service.Elevation;
-using Logger = PoGo.NecroBot.Logic.Logging.Logger;
-using NecroBot2.Helpers;
-using NecroBot2.Models;
-using NecroBot2.Tasks;
+using Logger = NecroBot2.Logic.Logging.Logger;
 
 namespace NecroBot2.Forms
 {
@@ -115,11 +112,14 @@ namespace NecroBot2.Forms
             gMapControl1.Overlays.Add(_playerOverlay);
             gMapControl1.Overlays.Add(_playerRouteOverlay);
 
-            _playerMarker = new GMapMarkerTrainer(new PointLatLng(lat, lng), ResourceHelper.GetImage("Trainer_Front"));
+            _playerMarker = new GMapMarkerTrainer(new PointLatLng(lat, lng),
+                ResourceHelper.GetImage("Trainer_Front"));
             _playerOverlay.Markers.Add(_playerMarker);
             _playerMarker.Position = new PointLatLng(lat, lng);
             _searchAreaOverlay.Polygons.Clear();
-            S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(lng, lat), _searchAreaOverlay);
+            S2GMapDrawer.DrawS2Cells(
+                S2Helper.GetNearbyCellIds(lng, lat),
+                _searchAreaOverlay);
         }
 
         private void InitializeBot()
@@ -133,20 +133,19 @@ namespace NecroBot2.Forms
             AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionEventHandler;
 
             _logger = new ConsoleLogger(LogLevel.LevelUp);
-            Logger.AddLogger(_logger, subPath);
+            Logger.SetLogger(_logger, subPath);
 
             var profilePath = Path.Combine(Directory.GetCurrentDirectory(), subPath);
             var profileConfigPath = Path.Combine(profilePath, "config");
             var authFile = Path.Combine(profileConfigPath, "auth.json");
             var configFile = Path.Combine(profileConfigPath, "config.json");
 
-            GlobalSettings _settings;
             BoolNeedsSetup = false;
 
             if (File.Exists(configFile))
             {
                 _settings = GlobalSettings.Load(subPath, true);
-          //      _settings.Auth(authFile);
+                _settings.Auth.Load(authFile);
             }
             else
             {
@@ -155,32 +154,11 @@ namespace NecroBot2.Forms
                     ProfilePath = profilePath,
                     ProfileConfigPath = profileConfigPath,
                     GeneralConfigPath = Path.Combine(Directory.GetCurrentDirectory(), "config"),
-                    ConsoleConfig = { TranslationLanguageCode = strCulture }
+                    TranslationLanguageCode = strCulture
                 };
-             BoolNeedsSetup = true;
+                BoolNeedsSetup = true;
             }
-
-            var lastPosFile = Path.Combine(profileConfigPath, "LastPos.ini");
-            if (File.Exists(lastPosFile) && _settings.LocationConfig.StartFromLastPosition)
-            {
-                var text = File.ReadAllText(lastPosFile);
-                var crds = text.Split(':');
-                try
-                {
-                    var lat = double.Parse(crds[0]);
-                    var lng = double.Parse(crds[1]);
-                    _settings.LocationConfig.DefaultLatitude = lat;
-                    _settings.LocationConfig.DefaultLongitude = lng;
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
-            }
-
-            IElevationService elevationService = new ElevationService(_settings);
-
-            _session = new Session(new ClientSettings(_settings, elevationService), new LogicSettings(_settings), elevationService);
+            _session = new Session(new ClientSettings(_settings), new LogicSettings(_settings));
 
              _machine = new StateMachine();
             var stats = new Statistics();
@@ -203,17 +181,16 @@ namespace NecroBot2.Forms
             _machine.SetFailureState(new LoginState());
             Logger.SetLoggerContext(_session);
 
-            _session.Navigation.WalkStrategy.UpdatePositionEvent +=
+            _session.Navigation.UpdatePositionEvent +=
                 (lat, lng) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng });
-            _session.Navigation.WalkStrategy.UpdatePositionEvent += Navigation_UpdatePositionEvent;
-//TODO : 
-/*
+            _session.Navigation.UpdatePositionEvent += Navigation_UpdatePositionEvent;
+
             RouteOptimizeUtil.RouteOptimizeEvent +=
                 optimizedroute =>
-                    _session.EventDispatcher.Send(new RouteOptimizeEvent { OptimizedRoute = optimizedroute });
+                    _session.EventDispatcher.Send(new OptimizeRouteEvent { OptimizedRoute = optimizedroute });
             RouteOptimizeUtil.RouteOptimizeEvent += InitializePokestopsAndRoute;
 
-            _session.Navigation.GetHumanizeRouteEvent +=
+            Navigation.GetHumanizeRouteEvent +=
                 (route, destination) =>
                     _session.EventDispatcher.Send(new GetHumanizeRouteEvent { Route = route, Destination = destination });
             Navigation.GetHumanizeRouteEvent += UpdateMap;
@@ -231,15 +208,15 @@ namespace NecroBot2.Forms
                 mappokemons =>
                     _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
             CatchIncensePokemonsTask.PokemonEncounterEvent += UpdateMap;
-*/
         }
-
         private async Task StartBot()
         {
-            await _machine.AsyncStart(new VersionCheckState(), _session, subPath, false);
-            if (_settings.TelegramConfig.UseTelegramAPI)
-                _session.Telegram = new TelegramService(_settings.TelegramConfig.TelegramAPIKey, _session);
-            _settings.CheckProxy(_session.Translation);
+            await _machine.AsyncStart(new VersionCheckState(), _session);
+            if (_settings.UseTelegramApi)
+            {
+                _session.Telegram = new TelegramService(_settings.TelegramApiKey, _session);
+            }
+            _settings.CheckProxy();
             QuitEvent.WaitOne();
         }
         private void InitializePokestopsAndRoute(List<FortData> pokeStops)
@@ -526,7 +503,7 @@ namespace NecroBot2.Forms
         {
             Form settingsForm = new SettingsForm(ref _settings);
             settingsForm.ShowDialog();
-            var newLocation = new PointLatLng(_settings.LocationConfig.DefaultLatitude, _settings.LocationConfig.DefaultLongitude);
+            var newLocation = new PointLatLng(_settings.DefaultLatitude, _settings.DefaultLongitude);
             gMapControl1.Position = newLocation;
             _playerMarker.Position = newLocation;
             _playerLocations.Clear();
