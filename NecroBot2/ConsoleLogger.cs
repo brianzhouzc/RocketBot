@@ -47,6 +47,7 @@ namespace NecroBot2
         public void Write(string message, LogLevel level = LogLevel.Info, ConsoleColor color = ConsoleColor.Black)
         {
             // Remember to change to a font that supports your language, otherwise it'll still show as ???.
+            //Console.OutputEncoding = Encoding.UTF8;
             if (level > _maxLogLevel)
                 return;
 
@@ -127,9 +128,9 @@ namespace NecroBot2
             }
         }
 
-       public void lineSelect(int lineChar = 0, int linesUp = 1)
+        public void lineSelect(int lineChar = 0, int linesUp = 1)
         {
-            return;
+            Console.SetCursorPosition(lineChar, Console.CursorTop - linesUp);
         }
 
         public event LogWriteHandler OnLogWrite;
