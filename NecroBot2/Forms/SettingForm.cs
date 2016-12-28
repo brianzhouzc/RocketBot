@@ -52,7 +52,7 @@ namespace NecroBot2.Forms
         {
             var languageList = GetLanguageList();
             var languageIndex = languageList.IndexOf(_setting.TranslationLanguageCode);
-            Text = Application.ProductName + " Settings";
+            Text = Application.ProductName + " " + Application.ProductVersion + " - Settings";
             cbLanguage.DataSource = languageList;
             cbLanguage.SelectedIndex = languageIndex == -1 ? 0 : languageIndex;
 

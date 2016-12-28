@@ -59,7 +59,7 @@ namespace NecroBot2.Logic
         public string UseProxyUsername;
         public bool UsePogoDevAPI;
         public string AuthAPIKey;
-        public bool UseLegacyAPI;
+        public bool UseLegacyAPI = true;
 
         public AuthSettings()
         {
