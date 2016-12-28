@@ -672,7 +672,7 @@
             this.authTypeCb.FormattingEnabled = true;
             this.authTypeCb.Items.AddRange(new object[] {
             "Google",
-            "PTC"});
+            "ptc"});
             this.authTypeCb.Location = new System.Drawing.Point(140, 43);
             this.authTypeCb.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.authTypeCb.Name = "authTypeCb";
