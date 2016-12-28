@@ -137,7 +137,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="POGOProtos.NetStandard1, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\POGOProtos.NetStandard1.2.4.1\lib\net45\POGOProtos.NetStandard1.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\POGOProtos.NetStandard1.2.4.1\lib\net45\POGOProtos.NetStandard1.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="S2Geometry, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
