@@ -1,5 +1,49 @@
-﻿{
+{
   "TranslationStrings": [
+    {
+      "Key": "HumanWalkSnipeNotEnoughtBalls",
+      "Value": "(HUMAN WALK) Not enought balls to activate catch Em-All mode. ({0})/{1}"
+    },
+    {
+      "Key": "HumanWalkSnipe",
+      "Value": "(HUMAN WALK) Found {0} spawning | lat: {1}, lng: {2}, dist {3:0.00}m , expired in {4:00} min {5:00} sec | Walk time est : {6:00} min {7:00} sec | Spin: {8} | Catch : {9} | Speed : {10:0.00}km/h"
+    },
+    {
+      "Key": "HumanWalkSnipeUpdate",
+      "Value": "(HUMAN WALK) Found {0} pokemon matched with you filters. Human walking sniper won't catch em all, but try to catch as many as possible"
+    },
+    {
+      "Key": "HumanWalkSnipeAddedPokestop",
+      "Value": "(HUMAN WALK) You are {0:0.00m} away from nearest pokestop. Restart farming at this place with {1} pokestops"
+    },
+    {
+      "Key": "HumanWalkSnipeDestinationReached",
+      "Value": "(HUMAN WALK) destination reached | lat: {0}, lng: {1} | wait  {3:0.00} sec"
+    },
+    {
+      "Key": "SniperCount",
+      "Value": "Sniper count {0}"
+    },
+    {
+      "Key": "SnipeExceeds",
+      "Value": "Sniper need to take a rest before your account is banned"
+    },
+    {
+      "Key": "CatchExceeds",
+      "Value": "You are catching too fast. Your cannot catch another one until {0} seconds later"
+    },
+    {
+      "Key": "PokeStopExceeds",
+      "Value": "You are visiting pokestops too fast. Your cannot visit another one until {0} seconds later"
+    },
+    {
+      "Key": "Only10kmEggs",
+      "Value": "Player below level 20, saving this 10 km Egg for later"
+    },
+    {
+      "Key": "GoogleAPIWarning",
+      "Value": "Without a Google Api, you will have 2500 free quota limit, if you reach the maximum quota, try to change your IP. To configure \"GoogleAPIKey\", get API Key in link: https://developers.google.com/maps/documentation/directions/get-api-key"
+    },
     {
       "Key": "pokeball",
       "Value": "Poké Ball"
@@ -26,8 +70,7 @@
     },
     {
       "Key": "farmPokestopsOutsideRadius",
-      "Value":
-        "Mevcut konum, tanımlanan yarıçapın dışında kalıyor! 5 saniye sonra {0}m'lik mesafeye yürümeye başlanacak. \"LastPos.ini\" dosyasındaki mevcut konum doğru mu?"
+      "Value": "Mevcut konum, tanımlanan yarıçapın dışında kalıyor! 5 saniye sonra {0}m'lik mesafeye yürümeye başlanacak. \"LastPos.ini\" dosyasındaki mevcut konum doğru mu?"
     },
     {
       "Key": "farmPokestopsNoUsableFound",
@@ -39,11 +82,19 @@
     },
     {
       "Key": "eventFortFailed",
-      "Value": "İsim: {0} BİLGİ: Eşya toplama başarısız oldu. Soft ban yemiş olabilirsiniz. Ban açılıyor: {1}/{2}"
+      "Value": "İsim: {0} BİLGİ: Eşya toplama başarısız oldu. Geçici ban yemiş olabilirsiniz. Ban açılıyor: {1}/{2}"
+    },
+    {
+      "Key": "gym",
+      "Value": "Gym"
+    },
+    {
+      "Key": "pokestop",
+      "Value": "PokéStop"
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "{1}m mesafedeki \"{0}\" PokéStop'una {2} saniye sonra varılacak."
+      "Value": "(route {4}) {3} saniye sonra {2}m mesafedeki \"{1}\" adlı {0}'a varılacak."
     },
     {
       "Key": "eventProfileLogin",
@@ -75,13 +126,11 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value":
-        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Yakalama Şansı: {7}% | Mesafe: {8}m | {9} kullanıldı ({10} tane kaldı) | {11}XP kazanıldı | {12} | Enlem: {13} Boylam: {14}"
+      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Yakalama Şansı: {7}% | Mesafe: {8}m | {9} kullanıldı ({10} tane kaldı) | {11}XP kazanıldı | {12} | Enlem: {13} Boylam: {14} | Move1: {15} Move2: {16}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value":
-        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Yakalama Şansı: {7}% | Mesafe: {8}m | {9} kullanıldı ({10} tane kaldı) | Enlem: {11} Boylam: {12}"
+      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Yakalama Şansı: {7}% | Mesafe: {8}m | {9} kullanıldı ({10} tane kaldı) | Enlem: {11} Boylam: {12} | Move1: {13} Move2: {14}"
     },
     {
       "Key": "eventNoPokeballs",
@@ -89,13 +138,11 @@
     },
     {
       "Key": "waitingForMorePokemonToEvolve",
-      "Value":
-        "{0} Pokémon geliştirilmeyi(evolve) bekliyor! {1} Pokémon daha yakalandığında Pokémon taşıma limitinin {4}%'i dolacak. ({2}/{3})"
+      "Value": "{0} Pokémon geliştirilmeyi(evolve) bekliyor! {1} Pokémon daha yakalandığında Pokémon taşıma limitinin {4}%'i dolacak. ({2}/{3})"
     },
     {
       "Key": "useLuckyEggsMinPokemonAmountTooHigh",
-      "Value":
-        "\"UseLuckyEggsMinPokemonAmount\" değeri {0} olarak ayarlanmış ve çok yüksek. {1}'den küçük bir değer girilmesi lazım."
+      "Value": "\"UseLuckyEggsMinPokemonAmount\" değeri {0} olarak ayarlanmış ve çok yüksek. {1}'den küçük bir değer girilmesi lazım."
     },
     {
       "Key": "catchMorePokemonToUseLuckyEgg",
@@ -155,8 +202,7 @@
     },
     {
       "Key": "welcomeWarning",
-      "Value":
-        "Varsayılan enlem(DefaultLatitude) ve boylam(DefaultLongitude) değerlerinin doğrulundan emin olun. Aksi halde programı kapatın! Enlem: {0} Boylam: {1}"
+      "Value": "Varsayılan enlem(DefaultLatitude) ve boylam(DefaultLongitude) değerlerinin doğrulundan emin olun. Aksi halde programı kapatın! Enlem: {0} Boylam: {1}"
     },
     {
       "Key": "incubatorPuttingEgg",
@@ -168,8 +214,7 @@
     },
     {
       "Key": "incubatorEggHatched",
-      "Value":
-        "Kuluçka makinesindeki(Incubator) Yumurta(Egg) çatladı: Çıkan Pokémon: {0} | Lvl: {1} CP: ({2}/{3}) IV: {4}%"
+      "Value": "Kuluçka makinesindeki(Incubator) Yumurta(Egg) çatladı: Çıkan Pokémon: {0} | Lvl: {1} CP: ({2}/{3}) IV: {4}%"
     },
     {
       "Key": "logEntryError",
@@ -209,7 +254,7 @@
     },
     {
       "Key": "logEntryEvolved",
-      "Value": "GELİŞTİRİLDİ"
+      "Value": "GELİŞTİRME"
     },
     {
       "Key": "logEntryBerry",
@@ -233,7 +278,7 @@
     },
     {
       "Key": "logEntrySoftBan",
-      "Value": "SOFT BAN"
+      "Value": "GEÇİCİ BAN"
     },
     {
       "Key": "loggingIn",
@@ -277,8 +322,7 @@
     },
     {
       "Key": "notRealisticTravel",
-      "Value":
-        "{0} konumunda gerçekçi gezinme geçerli değil. \"LastPos.ini\" dosyasındaki son kaydedilen koordinatlar kullanılıyor."
+      "Value": "{0} konumunda gerçekçi gezinme geçerli değil. \"LastPos.ini\" dosyasındaki son kaydedilen koordinatlar kullanılıyor."
     },
     {
       "Key": "coordinatesAreInvalid",
@@ -350,8 +394,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value":
-        "[Geçersiz Ayar] Tüm eşyaların toplamı (Pokétopları+Potionlar+Revivelar={0}) taşınabilecek eşya limitinden ({1}) daha fazla olamaz."
+      "Value": "[Geçersiz Ayar] Tüm eşyaların toplamı (Pokétopları+Potionlar+Revivelar={0}) taşınabilecek eşya limitinden ({1}) daha fazla olamaz."
     },
     {
       "Key": "recyclingQuietly",
@@ -363,8 +406,7 @@
     },
     {
       "Key": "invFullTransferManually",
-      "Value":
-        "Taşınabilecek Pokémon limiti doldu! Pokémonları elle aktararak yer açın ya da ayarlardan \"TransferDuplicatePokemon\" değerini \"true\" yapın."
+      "Value": "Taşınabilecek Pokémon limiti doldu! Pokémonları elle aktararak yer açın ya da ayarlardan \"TransferDuplicatePokemon\" değerini \"true\" yapın."
     },
     {
       "Key": "invFullPokestopLooting",
@@ -436,22 +478,23 @@
     },
     {
       "Key": "statsTemplateString",
-      "Value":
-        "{0} - Süre {1} - Seviye: {2} | XP/SA: {3:n0} | P/SA: {4:n0} | Stardust: {5:n0} | Aktarılan Pokémon: {6:n0} | Atılan Eşya: {7:n0}"
+      "Value": "{0} - Süre {1} - Seviye: {2} | XP/SA: {3:n0} | P/SA: {4:n0} | Stardust: {5:n0} | Aktarılan Pokémon: {6:n0} | Atılan Eşya: {7:n0}"
     },
     {
       "Key": "profileStatsTemplateString",
-      "Value":
-        "----- SEVİYE {0} | {1} ----- \n Tecrübe(XP): {2}/{3} \n Yakalanan Pokémon: {4} \n Görülen Pokémon: {5} \n Ziyaret Edilen Pokéstop: {6} \n Çatlatılan Yumurta(Egg): {7} \n Geliştirilen(Evolve) Pokémon: {8} \n Pokédex Kayıtları: {9} \n Yürünen Mesafe: {10}km  \n Pokémonlar: {11}/{12}"
+      "Value": "----- SEVİYE {0} | {1} ----- \n Tecrübe(XP): {2}/{3} \n Yakalanan Pokémon: {4} \n Karşılaşılan Pokémon: {5} \n Ziyaret Edilen Pokéstop: {6} \n Çatlatılan Yumurta(Egg): {7} \n Geliştirilen(Evolve) Pokémon: {8} \n Pokédex Kayıtları: {9} \n Yürünen Mesafe: {10}km  \n Pokémonlar: {11}/{12}"
     },
     {
       "Key": "showPokeTemplate",
       "Value": "\n CP: {0} | IV: {1}% | İsim: {2}"
     },
     {
+      "Key": "showPokeSkillTemplate",
+      "Value": "\n CP: {0} | IV: {1}% | Move: {2} + {3} | İsim: {4}"
+    },
+    {
       "Key": "helpTemplate",
-      "Value":
-        "Komutlar: \n \n /top <cp/iv> <sayı> - En iyi Pokémonları gösterir. \n /all <cp/iv> - Bütün Pokémonları gösterir. \n /profile - Profili gösterir. \n /loc - Konumu gösterir. \n /items - Eşyaları gösterir. \n /status - Bot durumunu gösterir."
+      "Value": "Komutlar: \n \n /top <cp/iv> <sayı> - En iyi Pokémonları gösterir. \n /all <cp/iv> - Bütün Pokémonları gösterir. \n /profile - Profili gösterir. \n /loc - Konumu gösterir. \n /items - Eşyaları gösterir. \n /status - Bot durumunu gösterir. \n /pokedex - Pokédex'i gösterir."
     },
     {
       "Key": "statsXpTemplateString",
@@ -463,13 +506,11 @@
     },
     {
       "Key": "googleTwoFactorAuth",
-      "Value":
-        "\"Google İki Aşamalı Doğrulama\" etkinleştirilmiş olduğundan dolayı \"auth.json\" dosyasına uygulamaya özel şifrenin eklenmesi gerekiyor."
+      "Value": "\"Google İki Aşamalı Doğrulama\" etkinleştirilmiş olduğundan dolayı \"auth.json\" dosyasına uygulamaya özel şifrenin eklenmesi gerekiyor."
     },
     {
       "Key": "googleTwoFactorAuthExplanation",
-      "Value":
-        "\"Google Uygulama Şifreleri\" sayfası açılıyor. Lütfen yeni bir uygulama şifresi oluşturun. (Aygıt olarak \"Diğer\" seçeneğini seçin.)"
+      "Value": "\"Google Uygulama Şifreleri\" sayfası açılıyor. Lütfen yeni bir uygulama şifresi oluşturun. (Aygıt olarak \"Diğer\" seçeneğini seçin.)"
     },
     {
       "Key": "googleError",
@@ -497,7 +538,7 @@
     },
     {
       "Key": "noPokemonToSnipe",
-      "Value": "Bu konumda nişan alınacak Pokémon bulunamadı!"
+      "Value": "Bu konumda nişan alınacak Pokémon bulunamadı! Süresi dolmuş olabilir."
     },
     {
       "Key": "notEnoughPokeballsToSnipe",
@@ -553,11 +594,11 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "Görülen Pokémon Sayısı: {0}/151, Yakalanan Pokémon Sayısı: {1}/151"
+      "Value": "Karşılaşılan Pokémon Sayısı: {0}/151, Yakalanan Pokémon Sayısı: {1}/151"
     },
     {
       "Key": "pkmPotentialEvolveCount",
-      "Value": "[Geliştirme] Potansiyel geliştirme(evolve) sayısı: {0}"
+      "Value": "Geliştirilecek(evolve) Pokémon sayısı: {0}"
     },
     {
       "Key": "pkmNotEnoughRessources",
@@ -589,8 +630,7 @@
     },
     {
       "Key": "firstStartAutoGenSettings",
-      "Value":
-        "\"auth.json\" ve \"config.json\" dosyaları otomatik olarak oluşturuldu. Programı çalıştırmadan önce elle doldurmanız gerekiyor."
+      "Value": "\"auth.json\" ve \"config.json\" dosyaları otomatik olarak oluşturuldu. Programı çalıştırmadan önce elle doldurmanız gerekiyor."
     },
     {
       "Key": "firstStartSetupAccount",
@@ -645,20 +685,12 @@
       "Value": "[HATA] Lütfen sadece DEĞER girin (Örnek: {0})"
     },
     {
-      "Key": "firstStartSetupDefaultLatPrompt",
-      "Value": "Lütfen bir enlem(latitude) girin. (Sağ tıklayıp yapıştırabilirsiniz.)"
+      "Key": "firstStartSetupDefaultLatLongPrompt",
+      "Value": "Please enter a Latitude and Longitude (Right click to paste) - Format: Value, Value"
     },
     {
-      "Key": "firstStartSetupDefaultLatConfirm",
-      "Value": "Enlem(lattitude) onaylandı: {0}"
-    },
-    {
-      "Key": "firstStartSetupDefaultLongPrompt",
-      "Value": "Lütfen bir boylam(longitude) girin. (Sağ tıklayıp yapıştırabilirsiniz.)"
-    },
-    {
-      "Key": "firstStartSetupDefaultLongConfirm",
-      "Value": "Boylam(longitude) onaylandı: {0}"
+      "Key": "firstStartSetupDefaultLatLongConfirm",
+      "Value": "Lattitude and Longitude accepted: {0}"
     },
     {
       "Key": "firstStartSetupCompleted",
@@ -666,19 +698,47 @@
     },
     {
       "Key": "PokedexCatchedTelegram",
-      "Value": "--- Pokedex catched --- \n"
+      "Value": "--- Pokédex Yakalandı --- \n"
     },
     {
       "Key": "PokedexPokemonCatchedTelegram",
-      "Value": "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"
+      "Value": "#{0} İsim: {1} | Yakalanan: {2} | Karşılaşılan: {3} \n"
     },
     {
       "Key": "PokedexNeededTelegram",
-      "Value": "--- Pokedex needed --- \n"
+      "Value": "--- Pokédex Gerekiyor --- \n"
     },
     {
       "Key": "PokedexPokemonNeededTelegram",
-      "Value": "#{0} Name: {1} \n"
+      "Value": "#{0} İsim: {1} \n"
+    },
+    {
+      "Key": "Proxied",
+      "Value": "Your IP is: {0} | Proxy IP is: {1}"
+    },
+    {
+      "Key": "FixProxySettings",
+      "Value": "Press any key to exit so you can fix your proxy settings..."
+    },
+    {
+      "Key": "Unproxied",
+      "Value": " Your IP is: {0}"
+    },
+    {
+      "Key": "HighestsPokemoHeader",
+      "Value": "====== {0} ======"
+    },
+    {
+      "Key": "HighestsPokemoCell",
+      "Value": "# CP {0}/{1} | ({2}% {3})\t| Lvl {4}\t {5}: {6}\t {7}: {8} {9}: {10} {11}: {12}"
+    },
+    {
+      "Key": "HumanWalkingVariant",
+      "Value": "Walking Speed: Has been changed, {0:n2} Km/h to {1:n2} Km/h"
+    },
+    {
+      "Key": "AccountBanned",
+      "Value": "Probably Permanent Ban!"
     }
   ],
   "PokemonStrings": [

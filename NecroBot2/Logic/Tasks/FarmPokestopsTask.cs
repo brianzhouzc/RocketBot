@@ -7,13 +7,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using GeoCoordinatePortable;
 using PokemonGo.RocketAPI.Extensions;
-using NecroBot2.Logic.Common;
-using NecroBot2.Logic.Event;
-using NecroBot2.Logic.Logging;
-using NecroBot2.Logic.State;
-using NecroBot2.Logic.Utils;
+using PoGo.NecroBot.Logic.Common;
+using PoGo.NecroBot.Logic.Event;
+using PoGo.NecroBot.Logic.Logging;
+using PoGo.NecroBot.Logic.State;
+using PoGo.NecroBot.Logic.Utils;
 using POGOProtos.Map.Fort;
 using POGOProtos.Networking.Responses;
+using NecroBot2.Helpers;
+using PoGo.NecroBot.Logic.Tasks;
 
 #endregion
 
@@ -41,15 +43,17 @@ namespace NecroBot2.Logic.Tasks
                 Logger.Write(
                     session.Translation.GetTranslation(TranslationString.FarmPokestopsOutsideRadius, distanceFromStart),
                     LogLevel.Warning);
-
+//TODO:
+/*
                 await session.Navigation.Move(new GeoCoordinate(
                     session.Settings.DefaultLatitude,
                     session.Settings.DefaultLongitude,
-                    LocationUtils.getElevation(session.Settings.DefaultLatitude,
+                    LocationUtils.getElevation(session.ElevationService, session.Settings.DefaultLatitude,
                         session.Settings.DefaultLongitude)),
                     null,
                     session,
                     cancellationToken);
+*/
             }
 
             var pokestopList = await GetPokeStops(session);
@@ -84,7 +88,9 @@ namespace NecroBot2.Logic.Tasks
                 session.EventDispatcher.Send(new FortTargetEvent {Name = fortInfo.Name, Distance = distance});
 
                 var targetLocation = new GeoCoordinate(pokeStop.Latitude, pokeStop.Longitude,
-                    LocationUtils.getElevation(pokeStop.Latitude, pokeStop.Longitude));
+                    LocationUtils.getElevation(session.ElevationService, pokeStop.Latitude, pokeStop.Longitude));
+//TODO:
+/*
                 await session.Navigation.Move(targetLocation,
                     async () =>
                     {
@@ -96,13 +102,15 @@ namespace NecroBot2.Logic.Tasks
                     },
                     session,
                     cancellationToken);
-
+*/
                 //Check if pokestop is in range, if not, move to pokestop without google routing
                 if (
                     LocationUtils.CalculateDistanceInMeters(targetLocation,
                         new GeoCoordinate(session.Client.CurrentLatitude, session.Client.CurrentLongitude)) >= 30)
+//TODO:
+/*
                     await session.Navigation.Move(targetLocation, null, session, cancellationToken, true);
-
+*/
                 //Catch Lure Pokemon
                 if (pokeStop.LureInfo != null)
                 {

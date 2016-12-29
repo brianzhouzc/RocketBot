@@ -1,4 +1,5 @@
-﻿using POGOProtos.Map.Fort;
+﻿using PoGo.NecroBot.Logic.Event;
+using POGOProtos.Map.Fort;
 
 namespace NecroBot2.Logic.Event
 {

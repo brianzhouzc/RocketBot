@@ -1,6 +1,50 @@
 ﻿{
   "TranslationStrings": [
     {
+      "Key": "HumanWalkSnipeNotEnoughtBalls",
+      "Value": "(HUMAN WALK) Not enought balls to activate catch Em-All mode. ({0})/{1}"
+    },
+    {
+      "Key": "HumanWalkSnipe",
+      "Value": "(HUMAN WALK) Found {0} spawning | lat: {1}, lng: {2}, dist {3:0.00}m , expired in {4:00} min {5:00} sec | Walk time est : {6:00} min {7:00} sec | Spin: {8} | Catch : {9} | Speed : {10:0.00}km/h"
+    },
+    {
+      "Key": "HumanWalkSnipeUpdate",
+      "Value": "(HUMAN WALK) Found {0} pokemon matched with you filters. Human walking sniper won't catch em all, but try to catch as many as possible"
+    },
+    {
+      "Key": "HumanWalkSnipeAddedPokestop",
+      "Value": "(HUMAN WALK) You are {0:0.00m} away from nearest pokestop. Restart farming at this place with {1} pokestops"
+    },
+    {
+      "Key": "HumanWalkSnipeDestinationReached",
+      "Value": "(HUMAN WALK) destination reached | lat: {0}, lng: {1} | wait  {3:0.00} sec"
+    },
+    {
+      "Key": "SniperCount",
+      "Value": "Sniper count {0}"
+    },
+    {
+      "Key": "SnipeExceeds",
+      "Value": "Sniper need to take a rest before your account is banned"
+    },
+    {
+      "Key": "CatchExceeds",
+      "Value": "You are catching too fast. Your cannot catch another one until {0} seconds later"
+    },
+    {
+      "Key": "PokeStopExceeds",
+      "Value": "You are visiting pokestops too fast. Your cannot visit another one until {0} seconds later"
+    },
+    {
+      "Key": "Only10kmEggs",
+      "Value": "Player below level 20, saving this 10 km Egg for later"
+    },
+    {
+      "Key": "GoogleAPIWarning",
+      "Value": "Without a Google Api, you will have 2500 free quota limit, if you reach the maximum quota, try to change your IP. To configure \"GoogleAPIKey\", get API Key in link: https://developers.google.com/maps/documentation/directions/get-api-key"
+    },
+    {
       "Key": "pokeball",
       "Value": "Poké Ball"
     },
@@ -26,25 +70,31 @@
     },
     {
       "Key": "farmPokestopsOutsideRadius",
-      "Value":
-        "Ets fora del radi definit! Caminant cap a la posició inicial (a {0}m) en 5 segons. És correcte el teu arxiu Coords.ini?"
+      "Value": "Ets fora del radi definit! Caminant cap a la posició inicial (a {0}m) en 5 segons. És correcte el teu arxiu Coords.ini?"
     },
     {
       "Key": "farmPokestopsNoUsableFound",
-      "Value":
-        "No s'han trobat pokeparades disponibles dins la teva àrea. Has configurat una distància màxima massa petita?"
+      "Value": "No s'han trobat pokeparades disponibles dins la teva àrea. Has configurat una distància màxima massa petita?"
     },
     {
       "Key": "eventFortUsed",
-      "Value": "Nom: {0} XP: {1}, Gemmes: {2}, Objectes: {3}, Lat: {4}, Long: {5}"
+      "Value": "Nom: {0} XP: {1}, Gemmes: {2}, Objectes: {3}, Lat: {4}, Long: {5}, Alt: {6}"
     },
     {
       "Key": "eventFortFailed",
       "Value": "El desplaçament ha fallat, possible SoftBan. Eliminant SoftBan en: {0}/{1} intents"
     },
     {
+      "Key": "gym",
+      "Value": "Gym"
+    },
+    {
+      "Key": "pokestop",
+      "Value":  "la Pokeparada"
+    },
+    {
       "Key": "eventFortTargeted",
-      "Value": "Viatjant cap a la Pokeparada: {0} ({1}m)({2}segons)"
+      "Value": "Viatjant cap a {0}: {1} ({2}m) ({3}segons) (route {4})"
     },
     {
       "Key": "eventProfileLogin",
@@ -76,13 +126,11 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value":
-        "({0}) | ({1}) {2} Nvll: {3} PC: ({4}/{5}) IV: {6}% | Probabilitat: {7}% | Dist {8}m | amb una {9} (en queden {10}). | {11} punts d'EXP obtinguts | lat: {12} long: {13}"
+      "Value": "({0}) | ({1}) {2} Nvll: {3} PC: ({4}/{5}) IV: {6}% | Probabilitat: {7}% | Dist {8}m | amb una {9} (en queden {10}). | {11} punts d'EXP obtinguts | lat: {12} long: {13} | Move1: {14} Move2: {15}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value":
-        "({0}) | ({1}) {2} Nvll: {3} PC: ({4}/{5}) IV: {6}% | Probabilitat: {7}% | Dist {8}m | amb una {9} (en queden {10}). | lat: {11} long: {12}"
+      "Value": "({0}) | ({1}) {2} Nvll: {3} PC: ({4}/{5}) IV: {6}% | Probabilitat: {7}% | Dist {8}m | amb una {9} (en queden {10}). | lat: {11} long: {12} | Move1: {13} Move2: {14}"
     },
     {
       "Key": "eventNoPokeballs",
@@ -94,8 +142,7 @@
     },
     {
       "Key": "useLuckyEggsMinPokemonAmountTooHigh",
-      "Value":
-        "Mai es farà servir cap Ou de la Sort quan UseLuckyEggsMinPokemonAmount estigui definit com a {0}, en comptes, fes servir <= {1}"
+      "Value": "Mai es farà servir cap Ou de la Sort quan UseLuckyEggsMinPokemonAmount estigui definit com a {0}, en comptes, fes servir <= {1}"
     },
     {
       "Key": "catchMorePokemonToUseLuckyEgg",
@@ -109,6 +156,8 @@
       "Key": "itemRazzBerry",
       "Value": "Baia"
     },
+
+
     {
       "Key": "catchStatusAttempt",
       "Value": "{0} Intent #{1}"
@@ -155,8 +204,7 @@
     },
     {
       "Key": "welcomeWarning",
-      "Value":
-        "Asegura't que la Latitud i la Longitud són correctes. Surt del programa si no és així! Lat: {0} Lng: {1}"
+      "Value": "Asegura't que la Latitud i la Longitud són correctes. Surt del programa si no és així! Lat: {0} Lng: {1}"
     },
     {
       "Key": "incubatorPuttingEgg",
@@ -232,8 +280,7 @@
     },
     {
       "Key": "ptcOffline",
-      "Value":
-        "Els servidors de PTC probablement han caigut o les teves dades d'accés són incorrectes. Prova amb Google."
+      "Value": "Els servidors de PTC probablement han caigut o les teves dades d'accés són incorrectes. Prova amb Google."
     },
     {
       "Key": "tryingAgainIn",
@@ -337,8 +384,7 @@
     },
     {
       "Key": "invFullTransferManually",
-      "Value":
-        "L'inventari de pokemon està ple. Si us plau, transfereix els pokemons manualment o activa l'opció TransferDuplicatePokemon dins l'arxiu de Configuració posant-la com a (True)..."
+      "Value": "L'inventari de pokemon està ple. Si us plau, transfereix els pokemons manualment o activa l'opció TransferDuplicatePokemon dins l'arxiu de Configuració posant-la com a (True)..."
     },
     {
       "Key": "invFullPokestopLooting",
@@ -364,6 +410,7 @@
       "Key": "pokemonFavorite",
       "Value": "{0}% perfect {1} (CP {2}) *favorited*."
     },
+
     {
       "Key": "pokemonIgnoreFilter",
       "Value": "[Filtre de Pokemons Ignorats] - Ignorant {0} tal i com s'ha definit en la configuració actual."
@@ -410,8 +457,7 @@
     },
     {
       "Key": "statsTemplateString",
-      "Value":
-        "{0} - Actiu {1} - Nivell: {2} | EXP/H: {3:n0} | P/H: {4:n0} | P.Estel·lar: {5:n0} | Transferit: {6:n0} | Reciclat: {7:n0}"
+      "Value": "{0} - Actiu {1} - Nivell: {2} | EXP/H: {3:n0} | P/H: {4:n0} | P.Estel·lar: {5:n0} | Transferit: {6:n0} | Reciclat: {7:n0}"
     },
     {
       "Key": "statsXpTemplateString",
@@ -423,13 +469,11 @@
     },
     {
       "Key": "googleTwoFactorAuth",
-      "Value":
-        "Com tens habilitada l'autenticació en 2 passos de Google, hauràs d'inserir una contrasenya específica de l'APP dins de l'arxiu auth.json"
+      "Value": "Com tens habilitada l'autenticació en 2 passos de Google, hauràs d'inserir una contrasenya específica de l'APP dins de l'arxiu auth.json"
     },
     {
       "Key": "googleTwoFactorAuthExplanation",
-      "Value":
-        "Obrint Google App-Passwords. Si us plau, crea una nova contrasenya en l'APP (utilitzar en un altre dispositiu)"
+      "Value": "Obrint Google App-Passwords. Si us plau, crea una nova contrasenya en l'APP (utilitzar en un altre dispositiu)"
     },
     {
       "Key": "googleError",
@@ -477,8 +521,7 @@
     },
     {
       "Key": "ipBannedError",
-      "Value":
-        "Connexió refusada. És possible que la teva IP hagi estat posada a la llista negra per part de Niantic. Sortint..."
+      "Value": "Connexió refusada. És possible que la teva IP hagi estat posada a la llista negra per part de Niantic. Sortint..."
     },
     {
       "Key": "noEggsAvailable",
@@ -559,6 +602,34 @@
     {
       "Key": "PokedexPokemonNeededTelegram",
       "Value": "#{0} Name: {1} \n"
+    },
+    {
+      "Key": "Proxied",
+      "Value": "Your IP is: {0} | Proxy IP is: {1}"
+    },
+    {
+      "Key": "FixProxySettings",
+      "Value": "Press any key to exit so you can fix your proxy settings..."
+    },
+    {
+      "Key": "Unproxied",
+      "Value": " Your IP is: {0}"
+    },
+    {
+      "Key": "HighestsPokemoHeader",
+      "Value": "====== {0} ======"
+    },
+    {
+      "Key": "HighestsPokemoCell",
+      "Value": "# CP {0}/{1} | ({2}% {3})\t| Lvl {4}\t {5}: {6}\t {7}: {8} {9}: {10} {11}: {12}"
+    },
+    {
+      "Key": "HumanWalkingVariant",
+      "Value": "Walking Speed: Has been changed, {0:n2} Km/h to {1:n2} Km/h"
+    },
+    {
+      "Key": "AccountBanned",
+      "Value": "Probably Permanent Ban!"
     }
   ],
   "PokemonStrings": [
