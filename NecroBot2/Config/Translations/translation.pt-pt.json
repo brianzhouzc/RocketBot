@@ -1,6 +1,50 @@
 ﻿{
   "TranslationStrings": [
     {
+      "Key": "HumanWalkSnipeNotEnoughtBalls",
+      "Value": "(HUMAN WALK) Not enought balls to activate catch Em-All mode. ({0})/{1}"
+    },
+    {
+      "Key": "HumanWalkSnipe",
+      "Value": "(HUMAN WALK) Found {0} spawning | lat: {1}, lng: {2}, dist {3:0.00}m , expired in {4:00} min {5:00} sec | Walk time est : {6:00} min {7:00} sec | Spin: {8} | Catch : {9} | Speed : {10:0.00}km/h"
+    },
+    {
+      "Key": "HumanWalkSnipeUpdate",
+      "Value": "(HUMAN WALK) Found {0} pokemon matched with you filters. Human walking sniper won't catch em all, but try to catch as many as possible"
+    },
+    {
+      "Key": "HumanWalkSnipeAddedPokestop",
+      "Value": "(HUMAN WALK) You are {0:0.00m} away from nearest pokestop. Restart farming at this place with {1} pokestops"
+    },
+    {
+      "Key": "HumanWalkSnipeDestinationReached",
+      "Value": "(HUMAN WALK) destination reached | lat: {0}, lng: {1} | wait  {3:0.00} sec"
+    },
+    {
+      "Key": "SniperCount",
+      "Value": "Sniper count {0}"
+    },
+    {
+      "Key": "SnipeExceeds",
+      "Value": "Sniper need to take a rest before your account is banned"
+    },
+    {
+      "Key": "CatchExceeds",
+      "Value": "You are catching too fast. Your cannot catch another one until {0} seconds later"
+    },
+    {
+      "Key": "PokeStopExceeds",
+      "Value": "You are visiting pokestops too fast. Your cannot visit another one until {0} seconds later"
+    },
+    {
+      "Key": "Only10kmEggs",
+      "Value": "Player below level 20, saving this 10 km Egg for later"
+    },
+    {
+      "Key": "GoogleAPIWarning",
+      "Value": "Without a Google Api, you will have 2500 free quota limit, if you reach the maximum quota, try to change your IP. To configure \"GoogleAPIKey\", get API Key in link: https://developers.google.com/maps/documentation/directions/get-api-key"
+    },
+    {
       "Key": "pokeball",
       "Value": "PokeBall"
     },
@@ -22,8 +66,7 @@
     },
     {
       "Key": "farmPokestopsOutsideRadius",
-      "Value":
-        "Estás fora do raio definido! A caminhar para o início ({0}m) em 5 segundos. As coordenadas em LastPos.ini estão corretas?"
+      "Value": "Estás fora do raio definido! A caminhar para o início ({0}m) em 5 segundos. As coordenadas em LastPos.ini estão corretas?"
     },
     {
       "Key": "farmPokestopsNoUsableFound",
@@ -38,8 +81,16 @@
       "Value": "Nome: {0} INFO: O drop falhou, softban possível. Desbloqueio em: {1}/{2}"
     },
     {
+      "Key": "gym",
+      "Value": "Gym"
+    },
+    {
+      "Key": "pokestop",
+      "Value": "Pokestop"
+    },
+    {
       "Key": "eventFortTargeted",
-      "Value": "A chegar ao Pokestop: {0} em ({1}m)"
+      "Value": "A chegar ao {0}: {1} em ({2}m) ({3} seconds) (route {4})"
     },
     {
       "Key": "eventProfileLogin",
@@ -47,7 +98,7 @@
     },
     {
       "Key": "eventUsedLuckyEgg",
-      "Value": "Ovo da Sorte utilizado, a restar: {0}"
+      "Value": "Ovo da Sorte utilizado, restam: {0}"
     },
     {
       "Key": "eventPokemonEvolvedSuccess",
@@ -67,13 +118,11 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value":
-        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | with a {9} ({10} left). | {11} EXP earned | {12} | lat: {13} long: {14}"
+      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | com uma {9} ({10} restantes). | {11} EXP ganha | {12} | lat: {13} long: {14} | Move1: {15} Move2: {16}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value":
-        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | with a {9} ({10} left). | lat: {11} long: {12}"
+      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | com uma {9} ({10} restantes). | lat: {11} long: {12} | Move1: {13} Move2: {14}"
     },
     {
       "Key": "eventNoPokeballs",
@@ -129,11 +178,11 @@
     },
     {
       "Key": "incubatorPuttingEgg",
-      "Value": "Colocando ovo na incubadora: restando {0:0.00}km"
+      "Value": "A colocar ovo na incubadora: restam {0:0.00}km"
     },
     {
       "Key": "incubatorStatusUpdate",
-      "Value": "Status da incubadora atualizado: restando {0:0.00}km"
+      "Value": "Status da incubadora atualizado: restam {0:0.00}km"
     },
     {
       "Key": "incubatorEggHatched",
@@ -193,7 +242,7 @@
     },
     {
       "Key": "loggingIn",
-      "Value": "Entrando utilizando {0}"
+      "Value": "A entrar como {0}"
     },
     {
       "Key": "ptcOffline",
@@ -201,15 +250,15 @@
     },
     {
       "Key": "tryingAgainIn",
-      "Value": "Tentando novamente em {0} segundos..."
+      "Value": "A tentar novamente dentro de {0} segundos..."
     },
     {
       "Key": "accountNotVerified",
-      "Value": "Conta não verificada! Saindo..."
+      "Value": "Conta não verificada! A sair..."
     },
     {
       "Key": "openingGoogleDevicePage",
-      "Value": "Abrindo a página de dispositivos Google. Cola o código utilizando CTRL+V"
+      "Value": "A abrir a página de dispositivos Google. Cola o código utilizando CTRL+V"
     },
     {
       "Key": "couldntCopyToClipboard",
@@ -221,7 +270,7 @@
     },
     {
       "Key": "realisticTravelDetected",
-      "Value": "Movimentos realistas detectados, utilizando UserSettings.settings"
+      "Value": "Movimentos realistas detectados, a utilizar UserSettings.settings"
     },
     {
       "Key": "notRealisticTravel",
@@ -241,15 +290,15 @@
     },
     {
       "Key": "downloadingUpdate",
-      "Value": "Transferindo e aplicando a atualização..."
+      "Value": "A transferir e instalar a atualização..."
     },
     {
       "Key": "finishedDownloadingRelease",
-      "Value": "Finalizando o download da última versão..."
+      "Value": "A finalizar o download da última versão..."
     },
     {
       "Key": "finishedUnpackingFiles",
-      "Value": "Terminando de descompactar os ficheiros..."
+      "Value": "A terminar de descompactar os ficheiros..."
     },
     {
       "Key": "updateFinished",
@@ -257,15 +306,15 @@
     },
     {
       "Key": "lookingForIncensePokemon",
-      "Value": "Procurando por incenso de pokémon..."
+      "Value": "A procurar por incenso de pokémon..."
     },
     {
       "Key": "lookingForPokemon",
-      "Value": "Procurando por pokémon..."
+      "Value": "A procurar pokémon..."
     },
     {
       "Key": "lookingForLurePokemon",
-      "Value": "Procurando por atrator de pokémons..."
+      "Value": "A procurar atrator de pokémons..."
     },
     {
       "Key": "pokemonSkipped",
@@ -273,12 +322,11 @@
     },
     {
       "Key": "invFullTransferring",
-      "Value": "Inventário de Pokémons cheio. Transferindo pokémons..."
+      "Value": "Inventário de Pokémons cheio, a transferir pokémons..."
     },
     {
       "Key": "invFullTransferManually",
-      "Value":
-        "O inventário de Pokémons está cheio. Transfere os pokémons manualmente ou altera TransferDuplicatePokemon para true nas configurações..."
+      "Value": "O inventário de Pokémons está cheio. Transfere os pokémons manualmente ou altera TransferDuplicatePokemon para true nas configurações..."
     },
     {
       "Key": "invFullPokestopLooting",
@@ -290,7 +338,7 @@
     },
     {
       "Key": "encounterProblemLurePokemon",
-      "Value": "Problema encontrado: Atraindo pokémon {0}"
+      "Value": "Problema encontrado: A atrair pokémon {0}"
     },
     {
       "Key": "desiredDestTooFar",
@@ -302,7 +350,7 @@
     },
     {
       "Key": "pokemonIgnoreFilter",
-      "Value": "[Lista de pokémons ignorados] - Ignorando {0} como definido nas configurações"
+      "Value": "[Lista de pokémons ignorados] - A ignorar {0} como definido nas configurações"
     },
     {
       "Key": "catchStatusAttempt",
@@ -346,8 +394,7 @@
     },
     {
       "Key": "statsTemplateString",
-      "Value":
-        "{0} - Sessão {1} - Lvl: {2} | EXP/H: {3:0} | P/H: {4:0} | Stardust: {5:0} | Transferidos: {6:0} | Reciclados: {7:0}"
+      "Value": "{0} - Sessão {1} - Lvl: {2} | EXP/H: {3:0} | P/H: {4:0} | Stardust: {5:0} | Transferidos: {6:0} | Reciclados: {7:0}"
     },
     {
       "Key": "statsXpTemplateString",
@@ -359,12 +406,11 @@
     },
     {
       "Key": "googleTwoFactorAuth",
-      "Value":
-        "Como tens o Google Two Factor Auth ativado, precisarás de definir o App Specific Password no ficheiro auth.json"
+      "Value": "Como tens o Google Two Factor Auth ativado, precisarás de definir o App Specific Password no ficheiro auth.json"
     },
     {
       "Key": "googleTwoFactorAuthExplanation",
-      "Value": "Abrindo Google App-Passwords. Faz um novo App Password (utilize Outro como Dispositivo)"
+      "Value": "A abrir Google App-Passwords. Faz um novo App Password (utilize Outro como Dispositivo)"
     },
     {
       "Key": "googleError",
@@ -372,7 +418,7 @@
     },
     {
       "Key": "googleOffline",
-      "Value": "Google servers are probably down, Please be patient and start the bot later."
+      "Value": "Os servidores da google provavelmente estão offline. Sê paciente e tenta iniciar o bot novamente, mais tarde."
     },
     {
       "Key": "missingCredentialsGoogle",
@@ -396,7 +442,7 @@
     },
     {
       "Key": "PokedexPokemonCatchedTelegram",
-      "Value": "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"
+      "Value": "#{0} Nome: {1} | Capturados: {2} | Encontrados: {3} \n"
     },
     {
       "Key": "PokedexNeededTelegram",
@@ -404,10 +450,38 @@
     },
     {
       "Key": "PokedexPokemonNeededTelegram",
-      "Value": "#{0} Name: {1} \n"
+      "Value": "#{0} Nome: {1} \n"
+    },
+    {
+      "Key": "Proxied",
+      "Value": "Your IP is: {0} | Proxy IP is: {1}"
+    },
+    {
+      "Key": "FixProxySettings",
+      "Value": "Press any key to exit so you can fix your proxy settings..."
+    },
+    {
+      "Key": "Unproxied",
+      "Value": " Your IP is: {0}"
+    },
+    {
+      "Key": "HighestsPokemoHeader",
+      "Value": "====== {0} ======"
+    },
+    {
+      "Key": "HighestsPokemoCell",
+      "Value": "# CP {0}/{1} | ({2}% {3})\t| Lvl {4}\t {5}: {6}\t {7}: {8} {9}: {10} {11}: {12}"
+    },
+    {
+      "Key": "HumanWalkingVariant",
+      "Value": "Walking Speed: Has been changed, {0:n2} Km/h to {1:n2} Km/h"
+    },
+    {
+      "Key": "AccountBanned",
+      "Value": "Probably Permanent Ban!"
     }
   ],
-  "PokemonStrings": [
+	"PokemonStrings": [
     {
       "Key": "bulbasaur",
       "Value": "Bulbasaur"

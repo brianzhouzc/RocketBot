@@ -1,11 +1,11 @@
 #region using directives
 
 using System;
-using System.Drawing;
-using NecroBot2.Logic.Logging;
-using NecroBot2.Logic.State;
+using System.Text;
+using PoGo.NecroBot.Logic.Logging;
+using PoGo.NecroBot.Logic.State;
 using NecroBot2.Forms;
-using NecroBot2.Models;
+using System.Drawing;
 
 #endregion
 
@@ -14,13 +14,13 @@ namespace NecroBot2
     /// <summary>
     ///     The ConsoleLogger is a simple logger which writes all logs to the Console.
     /// </summary>
-    public class ConsoleLogger : ILogger
+    internal class ConsoleLogger : ILogger
     {
         // Log write event definition.
         public delegate void LogWriteHandler(object sender, LogWriteEventArgs e);
 
         private readonly LogLevel _maxLogLevel;
-        private ISession _session;
+		//private ISession _session;
 
         /// <summary>
         ///     To create a ConsoleLogger, we must define a maximum log level.
@@ -32,10 +32,14 @@ namespace NecroBot2
             _maxLogLevel = maxLogLevel;
         }
 
+        public void TurnOffLogBuffering()
+        {
+            // No need for buffering
+        }
+
         public void SetSession(ISession session)
         {
-            _session = session;
-            LoggingStrings.SetStrings(_session);
+            // No need for session
         }
 
         /// <summary>
@@ -51,79 +55,81 @@ namespace NecroBot2
             if (level > _maxLogLevel)
                 return;
 
+            var finalMessage = Logger.GetFinalMessage(message, level, color);
+            //  Console.WriteLine(finalMessage);
+
             // Fire log write event.
-            OnLogWrite?.Invoke(this, new LogWriteEventArgs {Message = message, Level = level, Color = color});
-            message = message + "\r\n";
+            finalMessage = finalMessage + "\r\n";
+            OnLogWrite?.Invoke(this, new LogWriteEventArgs { Message = finalMessage, Level = level, Color = color });
+           
             // ReSharper disable once SwitchStatementMissingSomeCases
             switch (level)
             {
-                case LogLevel.Error:
-                    MainForm.ColoredConsoleWrite(Color.Red,
-                        $"[{DateTime.Now.ToString("HH:mm:ss")}] ({LoggingStrings.Error}) {message}");
-                    break;
-                case LogLevel.Warning:
-                    MainForm.ColoredConsoleWrite(Color.Goldenrod,
-                        $"[{DateTime.Now.ToString("HH:mm:ss")}] ({LoggingStrings.Attention}) {message}");
-                    break;
-                case LogLevel.Info:
-                    MainForm.ColoredConsoleWrite(Color.DarkCyan,
-                        $"[{DateTime.Now.ToString("HH:mm:ss")}] ({LoggingStrings.Info}) {message}");
-                    break;
-                case LogLevel.Pokestop:
-                    MainForm.ColoredConsoleWrite(Color.Cyan,
-                        $"[{DateTime.Now.ToString("HH:mm:ss")}] ({LoggingStrings.Pokestop}) {message}");
-                    break;
-                case LogLevel.Farming:
-                    MainForm.ColoredConsoleWrite(Color.Magenta,
-                        $"[{DateTime.Now.ToString("HH:mm:ss")}] ({LoggingStrings.Farming}) {message}");
-                    break;
-                case LogLevel.Sniper:
-                    MainForm.ColoredConsoleWrite(Color.White,
-                        $"[{DateTime.Now.ToString("HH:mm:ss")}] ({LoggingStrings.Sniper}) {message}");
-                    break;
-                case LogLevel.Recycling:
-                    MainForm.ColoredConsoleWrite(Color.DarkMagenta,
-                        $"[{DateTime.Now.ToString("HH:mm:ss")}] ({LoggingStrings.Recycling}) {message}");
+                case LogLevel.Berry:
+                    MainForm.ColoredConsoleWrite(Color.DarkGoldenrod, finalMessage);
                     break;
                 case LogLevel.Caught:
-                    MainForm.ColoredConsoleWrite(Color.Green,
-                        $"[{DateTime.Now.ToString("HH:mm:ss")}] ({LoggingStrings.Pkmn}) {message}");
-                    break;
-                case LogLevel.Transfer:
-                    MainForm.ColoredConsoleWrite(Color.DarkGreen,
-                        $"[{DateTime.Now.ToString("HH:mm:ss")}] ({LoggingStrings.Transferred}) {message}");
-                    break;
-                case LogLevel.Evolve:
-                    MainForm.ColoredConsoleWrite(Color.Yellow,
-                        $"[{DateTime.Now.ToString("HH:mm:ss")}] ({LoggingStrings.Evolved}) {message}");
-                    break;
-                case LogLevel.LevelUp:
-                    MainForm.ColoredConsoleWrite(Color.Yellow,
-                        $"[{DateTime.Now.ToString("HH:mm:ss")}] ({LoggingStrings.LevelUp}) {message}");
-                    break;
-                case LogLevel.Berry:
-                    MainForm.ColoredConsoleWrite(Color.DarkGoldenrod,
-                        $"[{DateTime.Now.ToString("HH:mm:ss")}] ({LoggingStrings.Berry}) {message}");
-                    break;
-                case LogLevel.Egg:
-                    MainForm.ColoredConsoleWrite(Color.DarkGoldenrod,
-                        $"[{DateTime.Now.ToString("HH:mm:ss")}] ({LoggingStrings.Egg}) {message}");
+                    MainForm.ColoredConsoleWrite(Color.Green, finalMessage);
                     break;
                 case LogLevel.Debug:
-                    MainForm.ColoredConsoleWrite(Color.Gray,
-                        $"[{DateTime.Now.ToString("HH:mm:ss")}] ({LoggingStrings.Debug}) {message}");
+                    MainForm.ColoredConsoleWrite(Color.Gray, finalMessage);
                     break;
-                case LogLevel.Update:
-                    MainForm.ColoredConsoleWrite(Color.White,
-                        $"[{DateTime.Now.ToString("HH:mm:ss")}] ({LoggingStrings.Update}) {message}");
+                case LogLevel.Egg:
+                    MainForm.ColoredConsoleWrite(Color.DarkGoldenrod, finalMessage);
+                    break;
+                case LogLevel.Error:
+                    MainForm.ColoredConsoleWrite(Color.Red, finalMessage);
+                    break;
+                case LogLevel.Evolve:
+                    MainForm.ColoredConsoleWrite(Color.Yellow, finalMessage);
+                    break;
+                case LogLevel.Farming:
+                    MainForm.ColoredConsoleWrite(Color.Magenta, finalMessage);
+                    break;
+                case LogLevel.Flee:
+                    MainForm.ColoredConsoleWrite(Color.Orange, finalMessage);
+                    break;
+                case LogLevel.Gym:
+                    MainForm.ColoredConsoleWrite(Color.LightCyan, finalMessage);
+                    break;
+                case LogLevel.Info:
+                    MainForm.ColoredConsoleWrite(Color.DarkCyan, finalMessage);
+                    break;
+                case LogLevel.LevelUp:
+                    MainForm.ColoredConsoleWrite(Color.Yellow, finalMessage);
                     break;
                 case LogLevel.New:
-                    MainForm.ColoredConsoleWrite(Color.Green,
-                        $"[{DateTime.Now.ToString("HH:mm:ss")}] ({LoggingStrings.New}) {message}");
+                    MainForm.ColoredConsoleWrite(Color.Green, finalMessage);
+                    break;
+                case LogLevel.None:
+                    MainForm.ColoredConsoleWrite(Color.White, finalMessage);
+                    break;
+                case LogLevel.Pokestop:
+                    MainForm.ColoredConsoleWrite(Color.Cyan, finalMessage);
+                    break;
+                case LogLevel.Recycling:
+                    MainForm.ColoredConsoleWrite(Color.DarkMagenta, finalMessage);
+                    break;
+                case LogLevel.Service:
+                    MainForm.ColoredConsoleWrite(Color.LimeGreen, finalMessage);
+                    break;
+                case LogLevel.Sniper:
+                    MainForm.ColoredConsoleWrite(Color.White, finalMessage);
+                    break;
+                case LogLevel.SoftBan:
+                    MainForm.ColoredConsoleWrite(Color.Red, finalMessage);
+                    break;
+                case LogLevel.Transfer:
+                    MainForm.ColoredConsoleWrite(Color.DarkGreen, finalMessage);
+                    break;
+                case LogLevel.Update:
+                    MainForm.ColoredConsoleWrite(Color.White, finalMessage);
+                    break;
+                case LogLevel.Warning:
+                    MainForm.ColoredConsoleWrite(Color.Goldenrod, finalMessage);
                     break;
                 default:
-                    MainForm.ColoredConsoleWrite(Color.White,
-                        $"[{DateTime.Now.ToString("HH:mm:ss")}] ({LoggingStrings.Error}) {message}");
+                    MainForm.ColoredConsoleWrite(Color.White, finalMessage);
                     break;
             }
         }
@@ -132,26 +138,24 @@ namespace NecroBot2
         {
             Console.SetCursorPosition(lineChar, Console.CursorTop - linesUp);
         }
-
+        public class LogWriteEventArgs
+        {
+            public string Message
+            {
+                get { return Message; }
+                set { Message = value; }
+            }
+            public LogLevel Level
+            {
+                get { return Level; }
+                set { Level = value; }
+            }
+            public ConsoleColor Color
+            {
+                get { return Color; }
+                set { Color = value; }
+            }
+        }
         public event LogWriteHandler OnLogWrite;
-    }
-
-    /// <summary>
-    ///     Event args for Log Write Event.
-    /// </summary>
-    public class LogWriteEventArgs
-    {
-        public string Message {
-            get { return Message; }
-            set { Message = value; }
-        }
-        public LogLevel Level {
-            get { return Level; }
-            set { Level = value; }
-        }
-        public ConsoleColor Color {
-            get { return Color; }
-            set { Color = value; }
-        }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net;
 using System.Windows.Forms;
-using NecroBot2.Logic.Logging;
-using NecroBot2.Logic.State;
-using NecroBot2.Logic.Utils;
+using PoGo.NecroBot.Logic.Logging;
+using PoGo.NecroBot.Logic.State;
+using PoGo.NecroBot.Logic.Utils;
 
 namespace NecroBot2.Helpers
 {
