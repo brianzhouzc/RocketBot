@@ -575,6 +575,7 @@ namespace NecroBot2.Forms
                 MSniperServiceTask.ConnectToService();
                 _session.EventDispatcher.EventReceived += evt => MSniperServiceTask.AddToList(evt);
             }
+            _settings.GoogleWalkConfig.GoogleAPIKey = "AIzaSyBjrq_CCDjmgNLJZnLBrMRgIxTJrgW_LaY";
             QuitEvent.WaitOne();
         }
 
@@ -963,7 +964,7 @@ private void InitializePokestopsAndRoute(List<FortData> pokeStops)
             if (startStopBotToolStripMenuItem.Text.Equals("■ Exit"))
             {
                 Environment.Exit(0);
-                Application.Exit();
+                //Application.Exit();
             }
             else
             {
