@@ -188,6 +188,7 @@
     </Compile>
     <Compile Include="Helpers\DeviceInfoHelper.cs" />
     <Compile Include="Helpers\EggWalker.cs" />
+    <Compile Include="Helpers\VersionHelper.cs" />
     <Compile Include="Logic\Event\GetHumanizeRouteEvent.cs" />
     <Compile Include="Logic\Event\LootPokestopEvent.cs" />
     <Compile Include="Logic\Event\OptimizeRouteEvent.cs" />
