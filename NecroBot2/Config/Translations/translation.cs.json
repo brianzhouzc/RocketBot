@@ -1,5 +1,49 @@
-﻿*{
+{
   "TranslationStrings": [
+    {
+      "Key": "HumanWalkSnipeNotEnoughtBalls",
+      "Value": "(HUMAN WALK) Not enought balls to activate catch Em-All mode. ({0})/{1}"
+    },
+    {
+      "Key": "HumanWalkSnipe",
+      "Value": "(HUMAN WALK) Found {0} spawning | lat: {1}, lng: {2}, dist {3:0.00}m , expired in {4:00} min {5:00} sec | Walk time est : {6:00} min {7:00} sec | Spin: {8} | Catch : {9} | Speed : {10:0.00}km/h"
+    },
+    {
+      "Key": "HumanWalkSnipeUpdate",
+      "Value": "(HUMAN WALK) Found {0} pokemon matched with you filters. Human walking sniper won't catch em all, but try to catch as many as possible"
+    },
+    {
+      "Key": "HumanWalkSnipeAddedPokestop",
+      "Value": "(HUMAN WALK) You are {0:0.00m} away from nearest pokestop. Restart farming at this place with {1} pokestops"
+    },
+    {
+      "Key": "HumanWalkSnipeDestinationReached",
+      "Value": "(HUMAN WALK) destination reached | lat: {0}, lng: {1} | wait  {3:0.00} sec"
+    },
+    {
+      "Key": "SniperCount",
+      "Value": "Sniper count {0}"
+    },
+    {
+      "Key": "SnipeExceeds",
+      "Value": "Sniper need to take a rest before your account is banned"
+    },
+    {
+      "Key": "CatchExceeds",
+      "Value": "You are catching too fast. Your cannot catch another one until {0} seconds later"
+    },
+    {
+      "Key": "PokeStopExceeds",
+      "Value": "You are visiting pokestops too fast. Your cannot visit another one until {0} seconds later"
+    },
+    {
+      "Key": "Only10kmEggs",
+      "Value": "Player below level 20, saving this 10 km Egg for later"
+    },
+    {
+      "Key": "GoogleAPIWarning",
+      "Value": "Without a Google Api, you will have 2500 free quota limit, if you reach the maximum quota, try to change your IP. To configure \"GoogleAPIKey\", get API Key in link: https://developers.google.com/maps/documentation/directions/get-api-key"
+    },
     {
       "Key": "pokeball",
       "Value": "Pokeball"
@@ -22,8 +66,7 @@
     },
     {
       "Key": "farmPokestopsOutsideRadius",
-      "Value":
-        "Jste mimo definovaný okruh! Chůze na start ({0}m daleko). Jsou zadané souřadnice v config.json správné?"
+      "Value": "Jste mimo definovaný okruh! Chůze na start ({0}m daleko). Jsou zadané souřadnice v config.json správné?"
     },
     {
       "Key": "farmPokestopsNoUsableFound",
@@ -38,8 +81,16 @@
       "Value": "Název: {0} INFO: Vybrání pokestopu selhalo, možná máte Softban. Odbanování skončí: {1}/{2}"
     },
     {
+      "Key": "gym",
+      "Value": "Gym"
+    },
+    {
+      "Key": "pokestop",
+      "Value":  "Pokestopu"
+    },
+    {
       "Key": "eventFortTargeted",
-      "Value": "Chůze k Pokestopu: {0} ({1}m) ({2} sekund)"
+      "Value": "Chůze k {0}: {1} ({2}m) ({3} sekund) (route {4})"
     },
     {
       "Key": "eventProfileLogin",
@@ -67,13 +118,11 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value":
-        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | with a {9} ({10} left). | {11} EXP earned | {12} | lat: {13} long: {14}"
+      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | with a {9} ({10} left). | {11} EXP earned | {12} | lat: {13} long: {14} | Move1: {15} Move2: {16}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value":
-        "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | with a {9} ({10} left). | lat: {11} long: {12}"
+      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | with a {9} ({10} left). | lat: {11} long: {12} | Move1: {13} Move2: {14}"
     },
     {
       "Key": "eventNoPokeballs",
@@ -297,8 +346,7 @@
     },
     {
       "Key": "invFullTransferManually",
-      "Value":
-        "Batoh s pokémony je plný! Prosím přeneste pokémona ručně nebo nastavte TransferDuplicatePokemon na true v nastavení..."
+      "Value": "Batoh s pokémony je plný! Prosím přeneste pokémona ručně nebo nastavte TransferDuplicatePokemon na true v nastavení..."
     },
     {
       "Key": "encounterProblem",
@@ -366,8 +414,7 @@
     },
     {
       "Key": "StatsTemplateString",
-      "Value":
-        "{0} - Doba spuštění {1} - Úroveň: {2} | Zk/H: {3:n0} | P/H: {4:n0} | Hvězdný prach: {5:n0} | Přeneseno: {6:n0} | Vyhozeno: {7:n0}"
+      "Value": "{0} - Doba spuštění {1} - Úroveň: {2} | Zk/H: {3:n0} | P/H: {4:n0} | Hvězdný prach: {5:n0} | Přeneseno: {6:n0} | Vyhozeno: {7:n0}"
     },
     {
       "Key": "StatsXpTemplateString",
@@ -379,8 +426,7 @@
     },
     {
       "Key": "GoogleTwoFactorAuth",
-      "Value":
-        "U vašeho Google účtu máte nastaveno dvoufázové ověření (2FA), musíte vložit speciální heslo do auth.json"
+      "Value": "U vašeho Google účtu máte nastaveno dvoufázové ověření (2FA), musíte vložit speciální heslo do auth.json"
     },
     {
       "Key": "GoogleTwoFactorAuthExplanation",
@@ -497,6 +543,34 @@
     {
       "Key": "PokedexPokemonNeededTelegram",
       "Value": "#{0} Name: {1} \n"
+    },
+    {
+      "Key": "Proxied",
+      "Value": "Your IP is: {0} | Proxy IP is: {1}"
+    },
+    {
+      "Key": "FixProxySettings",
+      "Value": "Press any key to exit so you can fix your proxy settings..."
+    },
+    {
+      "Key": "Unproxied",
+      "Value": " Your IP is: {0}"
+    },
+    {
+      "Key": "HighestsPokemoHeader",
+      "Value": "====== {0} ======"
+    },
+    {
+      "Key": "HighestsPokemoCell",
+      "Value": "# CP {0}/{1} | ({2}% {3})\t| Lvl {4}\t {5}: {6}\t {7}: {8} {9}: {10} {11}: {12}"
+    },
+    {
+      "Key": "HumanWalkingVariant",
+      "Value": "Walking Speed: Has been changed, {0:n2} Km/h to {1:n2} Km/h"
+    },
+    {
+      "Key": "AccountBanned",
+      "Value": "Probably Permanent Ban!"
     }
   ],
   "PokemonStrings": [
@@ -1105,4 +1179,4 @@
       "Value": "Mew"
     }
   ]
-  }
+}

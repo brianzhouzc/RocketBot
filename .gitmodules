@@ -1,5 +1,5 @@
 [submodule "FeroxRev"]
 	path = FeroxRev
-	url = https://github.com/Necrobot-Private/PokemonGo.RocketAPI.git
-	branch = master
+	url = https://github.com/Furtif/FeroxRev.git
+	branch = Graphical_Interfaces
 	

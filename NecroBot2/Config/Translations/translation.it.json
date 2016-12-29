@@ -1,5 +1,49 @@
-﻿{
+{
   "TranslationStrings": [
+    {
+      "Key": "HumanWalkSnipeNotEnoughtBalls",
+      "Value": "(HUMAN WALK) Non abbastanza pokeball per attivare la modalità Catch'em all! ({0})/{1}"
+    },
+    {
+      "Key": "HumanWalkSnipe",
+      "Value": "(HUMAN WALK) È comparso un {0} | lat: {1}, lng: {2}, dist {3:0.00}m , scomparirà tra {4:00} min {5:00} sec | Tempo di camminata stimato : {6:00} min {7:00} sec | Spin: {8} | Cattura : {9}"
+    },
+    {
+      "Key": "HumanWalkSnipeUpdate",
+      "Value": "(HUMAN WALK) Trovati {0} pokemon che combaciano con i filtri. Human walk sniper non li catturerà tutti, ma cercherà di trovarne comunque il più possibile."
+    },
+    {
+      "Key": "HumanWalkSnipeAddedPokestop",
+      "Value": "(HUMAN WALK) Sei lontano {0:0.00m} dal pokestop più vicino. Ritornando a farmare in questo posto con {1} pokestop."
+    },
+    {
+      "Key": "HumanWalkSnipeDestinationReached",
+      "Value": "(HUMAN WALK) Destinazione raggiunta | lat: {0}, lng: {1}"
+    },
+    {
+      "Key": "SniperCount",
+      "Value": "Numero di snipes: {0}"
+    },
+    {
+      "Key": "SnipeExceeds",
+      "Value": "Lo sniper è stato disattivato in quanto potrebbe far bannare l'account."
+    },
+    {
+      "Key": "CatchExceeds",
+      "Value": "Stai catturando pokemon troppo velocemente. Aspettando altri {0} secondi prima di catturarne altri."
+    },
+    {
+      "Key": "PokeStopExceeds",
+      "Value": "Stai visitando Pokestop troppo velocemente. Aspettando altri {0} secondi prima di visitarne altri."
+    },
+    {
+      "Key": "Only10kmEggs",
+      "Value": "Player sotto il livello 20, mettendo da parte questo uovo da 10 km per dopo"
+    },
+    {
+      "Key": "GoogleAPIWarning",
+      "Value": "Senza una Google API, avrai un limite pari a 2500 richieste. Se raggiungi il limite delle richieste, prova a cambiare il tuo IP. Configura la \"GoogleAPIKey\", ottieni una API Key seguendo il link: https://developers.google.com/maps/documentation/directions/get-api-key"
+    },
     {
       "Key": "pokeball",
       "Value": "PokeBall"
@@ -26,8 +70,7 @@
     },
     {
       "Key": "farmPokestopsOutsideRadius",
-      "Value":
-        "Sei al di fuori dell'area definita! Ritorno all'inizio (distante {0}m) in 5 secondi. Il file LastPos.ini è corretto?"
+      "Value": "Sei al di fuori dell'area definita! Ritorno all'inizio (distante {0}m) in 5 secondi. Il file LastPos.ini è corretto?"
     },
     {
       "Key": "farmPokestopsNoUsableFound",
@@ -42,8 +85,16 @@
       "Value": "Raccolta oggetti fallita, possibile softban. Unban in: {1}/{2}"
     },
     {
+      "Key": "gym",
+      "Value": "Gym"
+    },
+    {
+      "Key": "pokestop",
+      "Value":  "PokeStop"
+    },
+    {
       "Key": "eventFortTargeted",
-      "Value": "Camminando verso il Pokestop: {0} ({1}m) ({2} secondi)"
+      "Value": "Camminando verso il {0}: {1} ({2}m) ({3} secondi) (route {4})"
     },
     {
       "Key": "eventProfileLogin",
@@ -63,7 +114,7 @@
     },
     {
       "Key": "eventPokemonEvolvedFailed",
-      "Value": "Fallita {0}. Il risultato e' stato {1}, evoluzione di {2} interrotta"
+      "Value": "Fallita {0}. Il risultato è stato {1}, evoluzione di {2} interrotta"
     },
     {
       "Key": "eventPokemonTransferred",
@@ -75,13 +126,11 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value":
-        "({0}) | ({1}) {2} Lvl: {3} PL: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | con una {9} ({10} rimanenti). | {11} PE guadagnati | {12} | lat: {13} long: {14}"
+      "Value": "({0}) | ({1}) {2} Lvl: {3} PL: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | con una {9} ({10} rimanenti). | {11} PE guadagnati | {12} | lat: {13} long: {14} | Mossa1: {15} Mossa2: {16}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value":
-        "({0}) | ({1}) {2} Lvl: {3} PL: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | con una {9} ({10} rimanenti). | lat: {11} long: {12}"
+      "Value": "({0}) | ({1}) {2} Lvl: {3} PL: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | con una {9} ({10} rimanenti). | lat: {11} long: {12} | Mossa1: {13} Mossa2: {14}"
     },
     {
       "Key": "eventNoPokeballs",
@@ -165,7 +214,7 @@
     },
     {
       "Key": "incubatorEggHatched",
-      "Value": "{0} e' uscito dall'Uovo"
+      "Value": "{0} è uscito dall'Uovo"
     },
     {
       "Key": "logEntryError",
@@ -225,11 +274,11 @@
     },
     {
       "Key": "loggingIn",
-      "Value": "Log in tramite {0}"
+      "Value": "Login tramite {0}"
     },
     {
       "Key": "ptcOffline",
-      "Value": "I Server PTC sono offline o le tue credenziali sono sbagliate. Prova ad accedere con Google"
+      "Value": "I server PTC sono offline o le tue credenziali sono sbagliate. Prova ad accedere con Google"
     },
     {
       "Key": "tryingAgainIn",
@@ -253,11 +302,11 @@
     },
     {
       "Key": "realisticTravelDetected",
-      "Value": "Spostamenti realistici rilevati, verra' usato UserSettings.settings"
+      "Value": "Spostamenti realistici rilevati, verrà usato UserSettings.settings"
     },
     {
       "Key": "notRealisticTravel",
-      "Value": "Spostamenti non realistici in {0}, verra' usato l'ultimo salvataggio del file LastPos.ini"
+      "Value": "Spostamenti non realistici in {0}, verrà usato l'ultimo salvataggio del file LastPos.ini"
     },
     {
       "Key": "coordinatesAreInvalid",
@@ -265,7 +314,7 @@
     },
     {
       "Key": "gotUpToDateVersion",
-      "Value": "Perfetto! Hai gia' la versione più aggiornata {0}"
+      "Value": "Perfetto! Hai già la versione più aggiornata {0}"
     },
     {
       "Key": "autoUpdaterDisabled",
@@ -309,7 +358,7 @@
     },
     {
       "Key": "zeroPokeballInv",
-      "Value": "Non hai piu' Pokeball, impossibile catturare altri Pokemon!"
+      "Value": "Non hai più Pokeball, impossibile catturare altri Pokemon!"
     },
     {
       "Key": "currentPokeballInv",
@@ -329,8 +378,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value":
-        "[Configurazione Non Valida] La somma degli oggetti (Pokeball+Pozioni+Revitalizzanti={0}) e' maggiore della capacita' massima dell'inventario ({1})"
+      "Value": "[Configurazione Non Valida] La somma degli oggetti (Pokeball+Pozioni+Revitalizzanti={0}) è maggiore della capacità massima dell'inventario ({1})"
     },
     {
       "Key": "recyclingQuietly",
@@ -342,8 +390,7 @@
     },
     {
       "Key": "invFullTransferManually",
-      "Value":
-        "Inventario Pokémon pieno. Trasferisci i Pokemon manualmente o imposta TransferDuplicatePokemon 'true' nelle impostazioni..."
+      "Value": "Inventario Pokémon pieno. Trasferisci i Pokemon manualmente o imposta TransferDuplicatePokemon 'true' nelle impostazioni..."
     },
     {
       "Key": "invFullPokestopLooting",
@@ -359,7 +406,7 @@
     },
     {
       "Key": "desiredDestTooFar",
-      "Value": "La destinazione desiderata {0}, {1} e' troppo lontana dalla posizione attuale {2}, {3}"
+      "Value": "La destinazione desiderata {0}, {1} è troppo lontana dalla posizione attuale {2}, {3}"
     },
     {
       "Key": "pokemonRename",
@@ -415,8 +462,7 @@
     },
     {
       "Key": "statsTemplateString",
-      "Value":
-        "{0} - Tempo di Esecuzione {1} - Lvl: {2} | PE/H: {3:0} | PKMN/H: {4:0} | Polvere di Stella: {5:0} | Trasferiti: {6:0} | Riciclati: {7:0}"
+      "Value": "{0} - Tempo di Esecuzione {1} - Lvl: {2} | PE/H: {3:0} | PKMN/H: {4:0} | Polvere di Stella: {5:0} | Trasferiti: {6:0} | Riciclati: {7:0}"
     },
     {
       "Key": "statsXpTemplateString",
@@ -428,8 +474,7 @@
     },
     {
       "Key": "googleTwoFactorAuth",
-      "Value":
-        "Dato che hai la Verifica in Due Passaggi di Google attivata, devi inserire una Password Specifica per l'app nel file auth.json "
+      "Value": "Dato che hai la Verifica in Due Passaggi di Google attivata, devi inserire una Password Specifica per l'app nel file auth.json "
     },
     {
       "Key": "googleTwoFactorAuthExplanation",
@@ -533,22 +578,50 @@
     },
     {
       "Key": "PokedexCatchedTelegram",
-      "Value": "--- Pokedex catched --- \n"
+      "Value": "--- Pokedex catturati --- \n"
     },
     {
       "Key": "PokedexPokemonCatchedTelegram",
-      "Value": "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"
+      "Value": "#{0} Nome: {1} | Catturati: {2} | Visti: {3} \n"
     },
     {
       "Key": "PokedexNeededTelegram",
-      "Value": "--- Pokedex needed --- \n"
+      "Value": "--- Pokedex da sbloccare --- \n"
     },
     {
       "Key": "PokedexPokemonNeededTelegram",
-      "Value": "#{0} Name: {1} \n"
+      "Value": "#{0} Nome: {1} \n"
+    },
+    {
+      "Key": "Proxied",
+      "Value": "Il tuo IP: {0} | IP del Proxy: {1}"
+    },
+    {
+      "Key": "FixProxySettings",
+      "Value": "Premi qualsiasi tasto per uscire e quindi aggiustare i settaggi del proxy..."
+    },
+    {
+      "Key": "Unproxied",
+      "Value": " Il tuo IP: {0}"
+    },
+    {
+      "Key": "HighestsPokemoHeader",
+      "Value": "====== {0} ======"
+    },
+    {
+      "Key": "HighestsPokemoCell",
+      "Value": "# PL {0}/{1} | ({2}% {3})\t| Lvl {4}\t {5}: {6}\t {7}: {8} {9}: {10} {11}: {12}"
+    },
+    {
+      "Key": "HumanWalkingVariant",
+      "Value": "Velocita di cammino cambiata da {0:n2} Km/h a {1:n2} Km/h"
+    },
+    {
+      "Key": "AccountBanned",
+      "Value": "Probabilmente BANNATO PERMANENTEMENTE!"
     }
   ],
-  "PokemonStrings": [
+	"PokemonStrings": [
     {
       "Key": "bulbasaur",
       "Value": "Bulbasaur"

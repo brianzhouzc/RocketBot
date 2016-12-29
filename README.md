@@ -2,8 +2,14 @@
 [1.1]: http://i.imgur.com/M4fJ65n.png (ATTENTION)
 [1.2]: https://discordapp.com/api/guilds/208485545439920128/widget.png?style=banner2 (DISCORD)
 
-<!-- title -->
-# RocketBot
+<h1>RocketBot now supports Pokémon Go 0.51.2 API using public hashing server from PogoDev.</h1>
+
+<p>
+RocketBot itself is free but now you will need to purchase an API key to run the bot.
+<br/>
+See https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer for pricing for API keys.
+</p>
+
 <!-- disclaimer -->
 ![alt text][1.1] <strong><em> The contents of this repo are a proof of concept and are for educational use only </em></strong>![alt text][1.1]<br/>
 [![Stories in Ready](https://badge.waffle.io/1461748123/Pokemon-Go-Rocket-API.svg?label=accepted&title=Accepted)](http://waffle.io/1461748123/Pokemon-Go-Rocket-API)

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using NecroBot2.Logic.Logging;
-using NecroBot2.Logic.State;
-using NecroBot2.Logic.Utils;
+using PoGo.NecroBot.Logic.Logging;
+using PoGo.NecroBot.Logic.State;
+using PoGo.NecroBot.Logic.Utils;
 using POGOProtos.Networking.Responses;
 
 namespace NecroBot2.Logic.Tasks
