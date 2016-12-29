@@ -75,7 +75,7 @@ namespace NecroBot2.Forms
 
             #region Login Type and info
 
-            authTypeCb.Text = _setting.Auth.AuthConfig.ToString();
+            authTypeCb.Text = _setting.Auth.AuthConfig.AuthType.ToString();
             UserLoginBox.Text = _setting.Auth.AuthConfig.AuthType == AuthType.Google
                 ? _setting.Auth.AuthConfig.GoogleUsername
                 : _setting.Auth.AuthConfig.PtcUsername;
@@ -463,18 +463,50 @@ namespace NecroBot2.Forms
             {
                 #region Auth Settings
 
+                #region Clean
+
+                _setting.Auth.AuthConfig.AuthType = AuthType.Google;
+                _setting.Auth.AuthConfig.GoogleUsername = null;
+                _setting.Auth.AuthConfig.GooglePassword = null;
+                _setting.Auth.AuthConfig.PtcUsername = null;
+                _setting.Auth.AuthConfig.PtcPassword = null;
+                _setting.GoogleWalkConfig.GoogleAPIKey = null;
+                _setting.Auth.ProxyConfig.UseProxy = false;
+                _setting.Auth.ProxyConfig.UseProxyHost = null;
+                _setting.Auth.ProxyConfig.UseProxyPort = null;
+                _setting.Auth.ProxyConfig.UseProxyAuthentication = false;
+                _setting.Auth.ProxyConfig.UseProxyUsername = null;
+                _setting.Auth.ProxyConfig.UseProxyPassword = null;
+                _setting.Auth.DeviceConfig.DevicePackageName = null;
+                _setting.Auth.DeviceConfig.DeviceId = null;
+                _setting.Auth.DeviceConfig.AndroidBoardName = null;
+                _setting.Auth.DeviceConfig.AndroidBootloader = null;
+                _setting.Auth.DeviceConfig.DeviceBrand = null;
+                _setting.Auth.DeviceConfig.DeviceModel = null;
+                _setting.Auth.DeviceConfig.DeviceModelIdentifier = null;
+                _setting.Auth.DeviceConfig.DeviceModelBoot = null;
+                _setting.Auth.DeviceConfig.HardwareManufacturer = null;
+                _setting.Auth.DeviceConfig.HardwareModel = null;
+                _setting.Auth.DeviceConfig.FirmwareBrand = null;
+                _setting.Auth.DeviceConfig.FirmwareTags = null;
+                _setting.Auth.DeviceConfig.FirmwareType = null;
+                _setting.Auth.DeviceConfig.FirmwareFingerprint = null;
+                _setting.Auth.Save(AuthFilePath);
+ 
+          #endregion
+
                 _setting.Auth.AuthConfig.AuthType = authTypeCb.Text == @"Google" ? AuthType.Google : AuthType.Ptc;
                 if (_setting.Auth.AuthConfig.AuthType == AuthType.Google)
                 {
                     _setting.Auth.AuthConfig.GoogleUsername = UserLoginBox.Text;
                     _setting.Auth.AuthConfig.GooglePassword = UserPasswordBox.Text;
-                    _setting.Auth.AuthConfig.PtcUsername = "";
-                    _setting.Auth.AuthConfig.PtcPassword = "";
+                    _setting.Auth.AuthConfig.PtcUsername = null;
+                    _setting.Auth.AuthConfig.PtcPassword = null;
                 }
                 else
                 {
-                    _setting.Auth.AuthConfig.GoogleUsername = "";
-                    _setting.Auth.AuthConfig.GooglePassword = "";
+                    _setting.Auth.AuthConfig.GoogleUsername = null;
+                    _setting.Auth.AuthConfig.GooglePassword = null;
                     _setting.Auth.AuthConfig.PtcUsername = UserLoginBox.Text;
                     _setting.Auth.AuthConfig.PtcPassword = UserPasswordBox.Text;
                 }
@@ -504,8 +536,7 @@ namespace NecroBot2.Forms
                 _setting.Auth.DeviceConfig.FirmwareFingerprint = FirmwareFingerprintTb.Text;
 
                 _setting.Auth.Save(AuthFilePath);
-
-                #endregion
+#endregion
 
                 #region NecroBot2.Form Settings
 
