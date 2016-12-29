@@ -10,6 +10,7 @@ using PoGo.NecroBot.Logic.State;
 using PoGo.NecroBot.Logic.Utils;
 using POGOProtos.Map.Pokemon;
 using POGOProtos.Networking.Responses;
+using PoGo.NecroBot.Logic.Tasks;
 
 #endregion
 

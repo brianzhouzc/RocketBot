@@ -12,6 +12,7 @@ using PoGo.NecroBot.Logic.Utils;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Pokemon;
 using POGOProtos.Networking.Responses;
+using PoGo.NecroBot.Logic.Tasks;
 
 #endregion
 
