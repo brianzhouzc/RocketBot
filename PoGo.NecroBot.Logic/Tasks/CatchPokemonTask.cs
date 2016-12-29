@@ -69,7 +69,7 @@ namespace PoGo.NecroBot.Logic.Tasks
             // Exit if user defined max limits reached
             if (session.Stats.CatchThresholdExceeds(session))
             {
-                if(session.LogicSettings.MultipleBotConfig.SwitchOnCatchLimit)
+                if(session.LogicSettings.AllowMultipleBot && session.LogicSettings.MultipleBotConfig.SwitchOnCatchLimit)
                 {
                     throw new Exceptions.ActiveSwitchByRuleException() { MatchedRule = SwitchRules.CatchLimitReached, ReachedValue = session.LogicSettings.CatchPokemonLimit };
                 }

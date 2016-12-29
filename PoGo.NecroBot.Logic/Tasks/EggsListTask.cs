@@ -16,7 +16,7 @@ namespace PoGo.NecroBot.Logic.Tasks
         public static async Task Execute(ISession session)
         {
             // Refresh inventory so that the player stats are fresh
-            await session.Inventory.RefreshCachedInventory();
+            //await session.Inventory.RefreshCachedInventory();
 
             var playerStats = (await session.Inventory.GetPlayerStats()).FirstOrDefault();
             if (playerStats == null)

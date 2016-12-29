@@ -14,6 +14,7 @@ using POGOProtos.Networking.Responses;
 using POGOProtos.Enums;
 using System.Collections;
 using System;
+using PoGo.NecroBot.Logic.Exceptions;
 
 #endregion
 
@@ -25,6 +26,17 @@ namespace PoGo.NecroBot.Logic.Tasks
         {
             cancellationToken.ThrowIfCancellationRequested();
             if (!session.LogicSettings.CatchPokemon) return;
+
+            if (session.Stats.CatchThresholdExceeds(session))
+            {
+                if (session.LogicSettings.AllowMultipleBot && session.LogicSettings.MultipleBotConfig.SwitchOnCatchLimit)
+                {
+                    throw new Exceptions.ActiveSwitchByRuleException() { MatchedRule = SwitchRules.CatchLimitReached, ReachedValue = session.LogicSettings.CatchPokemonLimit };
+                }
+
+                return;
+            }
+
 
             Logger.Write(session.Translation.GetTranslation(TranslationString.LookingForPokemon), LogLevel.Debug);
 
@@ -136,6 +148,7 @@ namespace PoGo.NecroBot.Logic.Tasks
 
         public static async Task<IOrderedEnumerable<MapPokemon>> GetNearbyPokemons(ISession session)
         {
+            
             var mapObjects = await session.Client.Map.GetMapObjects();
             session.AddForts(mapObjects.Item1.MapCells.SelectMany(p => p.Forts).ToList());
             var pokemons = mapObjects.Item1.MapCells.SelectMany(i => i.CatchablePokemons)

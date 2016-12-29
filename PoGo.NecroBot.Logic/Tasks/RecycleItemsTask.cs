@@ -99,10 +99,13 @@ namespace PoGo.NecroBot.Logic.Tasks
 
             foreach (var item in items)
             {
+                if (item.Count <= 0) continue;
+
                 cancellationToken.ThrowIfCancellationRequested();
 
                 await session.Client.Inventory.RecycleItem(item.ItemId, item.Count);
                 await session.Inventory.UpdateInventoryItem(item.ItemId, -item.Count);
+
                 if (session.LogicSettings.VerboseRecycling)
                     session.EventDispatcher.Send(new ItemRecycledEvent { Id = item.ItemId, Count = item.Count });
 
@@ -123,7 +126,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                 itemsToKeep = Math.Min(itemsToKeep, maxItemToKeep);
             }
             itemsToRecycle = itemCount - itemsToKeep;
-            if (itemsToRecycle != 0)
+            if (itemsToRecycle > 0)
             {
                 _diff -= itemsToRecycle;
                 cancellationToken.ThrowIfCancellationRequested();

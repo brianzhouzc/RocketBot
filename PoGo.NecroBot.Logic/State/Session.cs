@@ -147,13 +147,13 @@ namespace PoGo.NecroBot.Logic.State
         private List<BotActions> botActions = new List<BotActions>();
         public void Reset(ISettings settings, ILogicSettings logicSettings)
         {
-            
             Client = new Client(settings);
             // ferox wants us to set this manually
             Inventory = new Inventory(Client, logicSettings);
             Navigation = new Navigation(Client, logicSettings);
             Navigation.WalkStrategy.UpdatePositionEvent +=
                 (lat, lng) => this.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng });
+          
         }
         //TODO : Need add BotManager to manage all feature related to multibot, 
         public bool ReInitSessionWithNextBot(AuthConfig bot = null, double lat = 0, double lng = 0, double att = 0)

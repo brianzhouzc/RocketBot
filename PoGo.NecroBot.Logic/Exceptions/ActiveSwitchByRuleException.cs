@@ -16,10 +16,17 @@ namespace PoGo.NecroBot.Logic.Exceptions
         PokestopSoftban,
         CatchFlee,
         CatchLimitReached,
-        SpinPokestopReached
+        SpinPokestopReached,
+        EmptyMap
     }
     public class ActiveSwitchByRuleException : Exception
     {
+        public ActiveSwitchByRuleException() { }
+        public ActiveSwitchByRuleException(SwitchRules rule, double value)
+        {
+            this.MatchedRule = rule;
+            this.ReachedValue = value;
+        }
         public SwitchRules MatchedRule { get; set; }
         public double ReachedValue { get; set; }
 

@@ -395,8 +395,10 @@ namespace PoGo.NecroBot.Logic.Tasks
 
         public static async Task Execute(ISession session, CancellationToken cancellationToken)
         {
+            if (session.Stats.CatchThresholdExceeds(session)) return;
+
             if (inProgress || OutOffBallBlock > DateTime.Now)
-                return;
+            return;
             inProgress = true;
 
             var pth = Path.Combine(Directory.GetCurrentDirectory(), "SnipeMS.json");
@@ -412,7 +414,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                 {
                     session.EventDispatcher.Send(new WarnEvent()
                     {
-                        Message = "Your are out of ball because snipe so fast, you can reduce snipe speed by update MinIVForAutoSnipe or SnipePokemonFilters, Auto snipe will be disable in 5 mins"
+                        Message = session.Translation.GetTranslation(Common.TranslationString.AutoSnipeDisabled)
                     });
 
                     OutOffBallBlock = DateTime.Now.AddMinutes(5);
@@ -441,6 +443,8 @@ namespace PoGo.NecroBot.Logic.Tasks
                 }
                 foreach (var location in mSniperLocation2)
                 {
+                    if (session.Stats.CatchThresholdExceeds(session)) break;
+
                     if (location.EncounterId > 0 && session.Cache[location.EncounterId.ToString()] != null) continue;
 
                     //If bot already catch the same pokemon, and very close this location. 

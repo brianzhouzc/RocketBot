@@ -270,7 +270,8 @@ namespace PoGo.NecroBot.Logic.Common
         FailedSendNotification,
         TelegramBotStarted,
         TelegramNeedChatId,
-        BulkTransferFailed
+        BulkTransferFailed,
+        AutoSnipeDisabled
     }
 
     public class Translation : ITranslation
@@ -596,6 +597,7 @@ namespace PoGo.NecroBot.Logic.Common
             new KeyValuePair<TranslationString, string>(TranslationString.AccountBanned, "Probably Permanent Ban!"),
             new KeyValuePair<TranslationString, string>(TranslationString.GoogleAPIWarning, "Without a Google Api, you will have 2500 free quota limit, if you reach the maximum quota, try to change your IP. To configure \"GoogleAPIKey\", get API Key in link: https://developers.google.com/maps/documentation/directions/get-api-key"),
             new KeyValuePair<TranslationString, string>(TranslationString.Only10kmEggs, "Player below level 20, saving this 10 km Egg for later"),
+            new KeyValuePair<TranslationString, string>(TranslationString.AutoSnipeDisabled,"Your are out of ball because snipe so fast, you can reduce snipe speed by update MinIVForAutoSnipe or SnipePokemonFilters, Auto snipe will be disable in 5 mins"),
             new KeyValuePair<TranslationString, string>(TranslationString.SniperCount, "Sniper count {0}"),
             new KeyValuePair<TranslationString, string>(TranslationString.SnipeExceeds, "Sniper need to take a rest before your account is banned"),
             new KeyValuePair<TranslationString, string>(TranslationString.CatchExceeds, "You are catching too fast. Your cannot catch another one until {0} seconds later"),

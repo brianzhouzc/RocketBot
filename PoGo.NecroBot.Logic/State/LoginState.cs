@@ -41,7 +41,6 @@ namespace PoGo.NecroBot.Logic.State
                 if (session.Settings.AuthType == AuthType.Google || session.Settings.AuthType == AuthType.Ptc)
                 {
                     await session.Client.Login.DoLogin();
-                    await LogLoginHistory(session, cancellationToken); 
                 }
                 else
                 {
@@ -187,24 +186,6 @@ namespace PoGo.NecroBot.Logic.State
                 return new BotSwitcherState(this.pokemonToCatch);
             }
             return new LoadSaveState();
-        }
-
-        private async Task LogLoginHistory(ISession session, CancellationToken cancellationToken)
-        {
-            string logFile = $"config\\login{DateTime.Now:dd-MM-yyyy}.log";
-            //if(!File.Exists(logFile) )
-            //{
-            //    File.CreateText(logFile);
-            //}
-
-            await Task.Run(() =>
-            {
-                try {
-                    string username = session.Settings.AuthType == AuthType.Ptc ? session.Settings.PtcUsername : session.Settings.GoogleUsername;
-                    File.AppendAllText(logFile, $"{DateTime.Now:dd-MM-yyyy hh:mm:ss}\t\t{username}\r\n");
-                }
-                catch(Exception) { }
-            });
         }
 
         private static async Task CheckLogin(ISession session, CancellationToken cancellationToken)

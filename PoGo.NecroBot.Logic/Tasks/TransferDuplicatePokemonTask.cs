@@ -86,7 +86,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                 }
         }
 
-        private static async Task PrintPokemonInfo(ISession session, System.Collections.Generic.IEnumerable<POGOProtos.Settings.Master.PokemonSettings> pokemonSettings, System.Collections.Generic.List<POGOProtos.Inventory.Candy> pokemonFamilies, POGOProtos.Data.PokemonData duplicatePokemon)
+        public static async Task PrintPokemonInfo(ISession session, System.Collections.Generic.IEnumerable<POGOProtos.Settings.Master.PokemonSettings> pokemonSettings, System.Collections.Generic.List<POGOProtos.Inventory.Candy> pokemonFamilies, POGOProtos.Data.PokemonData duplicatePokemon)
         {
             var bestPokemonOfType = (session.LogicSettings.PrioritizeIvOverCp
                 ? await session.Inventory.GetHighestPokemonOfTypeByIv(duplicatePokemon)

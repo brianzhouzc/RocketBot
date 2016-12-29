@@ -123,13 +123,14 @@ namespace PoGo.NecroBot.Logic.Tasks
                 if (family.Candy_ < setting.CandyToEvolve) continue;
                 // no cancellationToken.ThrowIfCancellationRequested here, otherwise the lucky egg would be wasted.
                 var evolveResponse = await session.Client.Inventory.EvolvePokemon(pokemon.Id);
-                if(evolveResponse.Result == POGOProtos.Networking.Responses.EvolvePokemonResponse.Types.Result.Success)
+                if (evolveResponse.Result == POGOProtos.Networking.Responses.EvolvePokemonResponse.Types.Result.Success)
                 {
                     family.Candy_ += -setting.CandyToEvolve;
                     await session.Inventory.UpdateCandy(family, -setting.CandyToEvolve);
                     await session.Inventory.DeletePokemonFromInvById(pokemon.Id);
                     await session.Inventory.AddPokemonToCache(evolveResponse.EvolvedPokemonData);
                 }
+                await Task.Delay(50);//hack it to fix log
                 session.EventDispatcher.Send(new PokemonEvolveEvent
                 {
                     Id = pokemon.PokemonId,

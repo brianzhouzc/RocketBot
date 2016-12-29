@@ -42,6 +42,11 @@ namespace PoGo.NecroBot.Logic
         {
             _client = client;
             _logicSettings = logicSettings;
+            //Inventory update will be call everytime getMabObject call
+            client.OnInventoryUpdated += (refreshedInventoryData) =>
+             {
+                 _cachedInventory = refreshedInventoryData;
+             };   
         }
 
         private Caching.LRUCache<ItemId, int> pokeballCache = new Caching.LRUCache<ItemId, int>(capacity: 10);
@@ -246,9 +251,10 @@ namespace PoGo.NecroBot.Logic
 
             return results;
         }
-
+        
         public async Task UpdateCandy(Candy family, int change)
         {
+            return; //in testing, may not need to use this function any more sinceInventory update 
             var lookupItem = (from item in _cachedInventory.InventoryDelta.InventoryItems
                              where item.InventoryItemData?.Candy != null
                              where item.InventoryItemData?.Candy.FamilyId == family.FamilyId
@@ -467,6 +473,7 @@ namespace PoGo.NecroBot.Logic
 
         public async Task AddPokemonToCache(PokemonData data)
         {
+            return;
             _cachedInventory.InventoryDelta.InventoryItems.Add(new InventoryItem()
             {
                 InventoryItemData = new InventoryItemData()

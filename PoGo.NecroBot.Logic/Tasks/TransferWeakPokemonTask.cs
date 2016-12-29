@@ -25,9 +25,16 @@ namespace PoGo.NecroBot.Logic.Tasks
             if (session.LogicSettings.AutoFavoritePokemon)
                 await FavoritePokemonTask.Execute(session, cancellationToken);
 
-           // await session.Inventory.RefreshCachedInventory();
+            await EvolvePokemonTask.Execute(session, cancellationToken);
 
             var pokemons = await session.Inventory.GetPokemons();
+            int buff = session.LogicSettings.BulkTransferStogareBuffer;
+            //check for bag, if bag is nearly full, then process bulk transfer.
+            var maxStorage = session.Profile.PlayerData.MaxPokemonStorage;
+            var totalEggs = await session.Inventory.GetEggs();
+            if ((maxStorage - totalEggs.Count() - buff) > pokemons.Count()) return;
+
+
             var pokemonDatas = pokemons as IList<PokemonData> ?? pokemons.ToList();
             var pokemonsFiltered =
                 pokemonDatas.Where(pokemon => !session.LogicSettings.PokemonsNotToTransfer.Contains(pokemon.PokemonId))
@@ -39,7 +46,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                         .ToList().OrderBy( poke => poke.Cp );
 
             var orderedPokemon = pokemonsFiltered.OrderBy( poke => poke.Cp );
-
+            var pokemonToTransfers = new List<PokemonData>();
             foreach (var pokemon in orderedPokemon )
             {
                 cancellationToken.ThrowIfCancellationRequested();
@@ -50,30 +57,54 @@ namespace PoGo.NecroBot.Logic.Tasks
                     pokemon.Favorite == 1)
                     continue;
 
-                await session.Client.Inventory.TransferPokemon(pokemon.Id);
-                await session.Inventory.DeletePokemonFromInvById(pokemon.Id);
-                var bestPokemonOfType = (session.LogicSettings.PrioritizeIvOverCp
-                    ? await session.Inventory.GetHighestPokemonOfTypeByIv(pokemon)
-                    : await session.Inventory.GetHighestPokemonOfTypeByCp(pokemon)) ?? pokemon;
-
-                var setting = session.Inventory.GetPokemonSettings()
-                    .Result.Single(q => q.PokemonId == pokemon.PokemonId);
-                var family = session.Inventory.GetPokemonFamilies().Result.First(q => q.FamilyId == setting.FamilyId);
-
-                family.Candy_++;
-
-                session.EventDispatcher.Send(new TransferPokemonEvent
+                if (session.LogicSettings.UseBulkTransferPokemon)
                 {
-                    Id = pokemon.PokemonId,
-                    Perfection = PokemonInfo.CalculatePokemonPerfection(pokemon),
-                    Cp = pokemon.Cp,
-                    BestCp = bestPokemonOfType.Cp,
-                    BestPerfection = PokemonInfo.CalculatePokemonPerfection(bestPokemonOfType),
-                    FamilyCandies = family.Candy_
-                });
+                    pokemonToTransfers.Add(pokemon);
+                }
+                else {
+                    await session.Client.Inventory.TransferPokemon(pokemon.Id);
+                    await session.Inventory.DeletePokemonFromInvById(pokemon.Id);
+                    await PrintTransferedPokemonInfo(session, pokemon);
 
-                await DelayingUtils.DelayAsync(session.LogicSettings.TransferActionDelay, 0, cancellationToken);
+                    await DelayingUtils.DelayAsync(session.LogicSettings.TransferActionDelay, 0, cancellationToken);
+                }
             }
+            if (session.LogicSettings.UseBulkTransferPokemon && pokemonToTransfers.Count >0)
+            {
+                var t = await session.Client.Inventory.TransferPokemons(orderedPokemon.Select(x => x.Id).ToList());
+                if (t.Result == POGOProtos.Networking.Responses.ReleasePokemonResponse.Types.Result.Success)
+                {
+                    foreach (var duplicatePokemon in pokemonToTransfers)
+                    {
+                        await session.Inventory.DeletePokemonFromInvById(duplicatePokemon.Id);
+                        await PrintTransferedPokemonInfo(session,  duplicatePokemon);
+                    }
+                }
+                else session.EventDispatcher.Send(new WarnEvent() { Message = session.Translation.GetTranslation(Common.TranslationString.BulkTransferFailed, orderedPokemon.Count()) });
+        }
+        }
+
+        private static async Task PrintTransferedPokemonInfo(ISession session, PokemonData pokemon)
+        {
+            var bestPokemonOfType = (session.LogicSettings.PrioritizeIvOverCp
+                                    ? await session.Inventory.GetHighestPokemonOfTypeByIv(pokemon)
+                                    : await session.Inventory.GetHighestPokemonOfTypeByCp(pokemon)) ?? pokemon;
+
+            var setting = session.Inventory.GetPokemonSettings()
+                .Result.Single(q => q.PokemonId == pokemon.PokemonId);
+            var family = session.Inventory.GetPokemonFamilies().Result.First(q => q.FamilyId == setting.FamilyId);
+
+            family.Candy_++;
+
+            session.EventDispatcher.Send(new TransferPokemonEvent
+            {
+                Id = pokemon.PokemonId,
+                Perfection = PokemonInfo.CalculatePokemonPerfection(pokemon),
+                Cp = pokemon.Cp,
+                BestCp = bestPokemonOfType.Cp,
+                BestPerfection = PokemonInfo.CalculatePokemonPerfection(bestPokemonOfType),
+                FamilyCandies = family.Candy_
+            });
         }
     }
 }
