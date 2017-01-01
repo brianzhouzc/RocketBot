@@ -13,5 +13,7 @@ namespace PoGo.NecroBot.Logic.Event
         public PokemonId Id;
         public ulong UniqueId;
         public EvolvePokemonResponse.Types.Result Result;
+
+        public int Sequence { get; internal set; }
     }
 }

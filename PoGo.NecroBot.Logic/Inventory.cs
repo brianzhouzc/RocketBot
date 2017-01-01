@@ -45,8 +45,10 @@ namespace PoGo.NecroBot.Logic
             //Inventory update will be call everytime getMabObject call
             client.OnInventoryUpdated += (refreshedInventoryData) =>
              {
+                 //Console.WriteLine("################# INVENTORY UPDATE ######################");
                  _cachedInventory = refreshedInventoryData;
-             };   
+                 _lastRefresh = DateTime.Now;
+             };
         }
 
         private Caching.LRUCache<ItemId, int> pokeballCache = new Caching.LRUCache<ItemId, int>(capacity: 10);
@@ -111,7 +113,7 @@ namespace PoGo.NecroBot.Logic
             if (_player == null) GetPlayerData();
             var now = DateTime.UtcNow;
 
-            if (_cachedInventory != null && _lastRefresh.AddSeconds(5*60).Ticks > now.Ticks)
+            if (_cachedInventory != null && _lastRefresh.AddSeconds(5 * 60).Ticks > now.Ticks)
                 return _cachedInventory;
 
             return await RefreshCachedInventory();
@@ -251,15 +253,14 @@ namespace PoGo.NecroBot.Logic
 
             return results;
         }
-        
+
         public async Task UpdateCandy(Candy family, int change)
         {
-            return; //in testing, may not need to use this function any more sinceInventory update 
             var lookupItem = (from item in _cachedInventory.InventoryDelta.InventoryItems
-                             where item.InventoryItemData?.Candy != null
-                             where item.InventoryItemData?.Candy.FamilyId == family.FamilyId
-                             select item.InventoryItemData.Candy).FirstOrDefault();
-            if(lookupItem == null && change >0)
+                              where item.InventoryItemData?.Candy != null
+                              where item.InventoryItemData?.Candy.FamilyId == family.FamilyId
+                              select item.InventoryItemData.Candy).FirstOrDefault();
+            if (lookupItem == null && change > 0)
             {
                 family.Candy_ = change;
                 _cachedInventory.InventoryDelta.InventoryItems.Add(new InventoryItem()
@@ -271,7 +272,7 @@ namespace PoGo.NecroBot.Logic
                 });
             }
             else
-            lookupItem.Candy_ += change;
+                lookupItem.Candy_ += change;
         }
 
         public async Task<IEnumerable<EggIncubator>> GetEggIncubators()
@@ -430,8 +431,8 @@ namespace PoGo.NecroBot.Logic
 
         public async Task<List<InventoryItem>> GetPokeDexItems()
         {
-            List<InventoryItem> PokeDex = new List<InventoryItem>();
-            var inventory = await _client.Inventory.GetInventory();
+            //List<InventoryItem> PokeDex = new List<InventoryItem>();
+            var inventory = await GetCachedInventory(); 
 
             return (from items in inventory.InventoryDelta.InventoryItems
                     where items.InventoryItemData?.PokedexEntry != null
@@ -473,7 +474,6 @@ namespace PoGo.NecroBot.Logic
 
         public async Task AddPokemonToCache(PokemonData data)
         {
-            return;
             _cachedInventory.InventoryDelta.InventoryItems.Add(new InventoryItem()
             {
                 InventoryItemData = new InventoryItemData()
@@ -481,8 +481,23 @@ namespace PoGo.NecroBot.Logic
                     PokemonData = data
                 }
             });
-        }
 
+            var pokedexEntry = (await GetPokeDexItems()).FirstOrDefault(x => x.InventoryItemData?.PokedexEntry?.PokemonId == data.PokemonId);
+
+            if (pokedexEntry == null)
+            {
+                _cachedInventory.InventoryDelta.InventoryItems.Add(new InventoryItem()
+                {
+                    InventoryItemData = new InventoryItemData()
+                    {
+                        PokedexEntry = new PokedexEntry()
+                        {
+                            PokemonId = data.PokemonId
+                        }
+                    }
+                });
+            }
+        }
         public async Task<PokemonData> GetSinglePokemon(ulong id)
         {
             var inventory = await GetCachedInventory();
@@ -579,7 +594,7 @@ namespace PoGo.NecroBot.Logic
             if (_level == 0 || level > _level)
             {
                 _level = level;
-                 
+
                 var rewards = await _client.Player.GetLevelUpRewards(level);
                 foreach (var item in rewards.ItemsAwarded)
                 {

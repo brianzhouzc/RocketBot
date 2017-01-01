@@ -17,7 +17,7 @@ namespace NecroBot2
     internal class ConsoleLogger : ILogger
     {
         // Log write event definition.
-        public delegate void LogWriteHandler(object sender, LogWriteEventArgs e);
+        private delegate void LogWriteHandler(object sender, LogWriteEventArgs e);
 
         private readonly LogLevel _maxLogLevel;
 		//private ISession _session;
@@ -59,7 +59,6 @@ namespace NecroBot2
             //  Console.WriteLine(finalMessage);
 
             // Fire log write event.
-            finalMessage = finalMessage + "\r\n";
             OnLogWrite?.Invoke(this, new LogWriteEventArgs { Message = finalMessage, Level = level, Color = color });
            
             // ReSharper disable once SwitchStatementMissingSomeCases
@@ -136,9 +135,10 @@ namespace NecroBot2
 
         public void lineSelect(int lineChar = 0, int linesUp = 1)
         {
-            Console.SetCursorPosition(lineChar, Console.CursorTop - linesUp);
+            //Console.SetCursorPosition(lineChar, Console.CursorTop - linesUp);
         }
-        public class LogWriteEventArgs
+
+        private class LogWriteEventArgs
         {
             public string Message
             {
@@ -156,6 +156,6 @@ namespace NecroBot2
                 set { Color = value; }
             }
         }
-        public event LogWriteHandler OnLogWrite;
+        private event LogWriteHandler OnLogWrite;
     }
 }

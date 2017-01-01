@@ -10,10 +10,10 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 [assembly: AssemblyTitle("NecroBot-Private for Pokémon GO")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Graphical Interface")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("NecroBot-Private Team")]
-[assembly: AssemblyProduct("RocketBot")]
+[assembly: AssemblyProduct("NecroBot2")]
 [assembly: AssemblyCopyright("Copyright NecroBot-Private Team © 2016")]
 [assembly: AssemblyTrademark("NecroBot-Private Team")]
 [assembly: AssemblyCulture("")]
@@ -39,6 +39,6 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("2.4.1.1")]
-[assembly: AssemblyFileVersion("2.4.1.1")]
-[assembly: AssemblyInformationalVersion("v2.4.1.1")]
+[assembly: AssemblyVersion("2.4.2.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyInformationalVersion("v2.4.2.0")]

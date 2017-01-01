@@ -4,8 +4,8 @@ using PoGo.NecroBot.Logic.Event;
 
 namespace NecroBot2.Logic.Event
 {
-    public class OptimizeRouteEvent : IEvent
+    public class LoadPokestopsEvent : IEvent
     {
-        public List<FortData> OptimizedRoute { get; set; }
+        public List<FortData> PokeStops { get; set; }
     }
 }

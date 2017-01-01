@@ -47,7 +47,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
 
         public string TwoCaptchaAPIKey { get; set; }
      
-        [DefaultValue(true)]
+        [DefaultValue(false)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 4)]
         [ExcelConfig(Position = 8, Description = "Enable Auto captcha solve with Anti-Captcha")]
         public bool EnableAntiCaptcha { get; set; }

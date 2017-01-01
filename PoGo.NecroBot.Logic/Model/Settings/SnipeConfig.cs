@@ -120,8 +120,13 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         public bool ActivateMSniper = true;
 
         [ExcelConfig(Description = "Min IV that bot will automatically snipe pokemon", Position = 21)]
-        [DefaultValue(95)]
+        [DefaultValue(100)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 21)]
         public int MinIVForAutoSnipe { get; set; }
+
+        [ExcelConfig(Description = "Only auto snipe pokemon has been verified (overwriteable by invidual pokemon)", Position = 22)]
+        [DefaultValue(false)]
+        [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 22)]
+        public bool AutosnipeVerifiedOnly { get; set; }
     }
 }

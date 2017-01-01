@@ -51,7 +51,7 @@ namespace PoGo.NecroBot.Logic.Logging
         public void Write(string message, LogLevel level = LogLevel.Info, ConsoleColor color = ConsoleColor.Black)
         {
             // Remember to change to a font that supports your language, otherwise it'll still show as ???.
-            Console.OutputEncoding = Encoding.UTF8;
+            //Console.OutputEncoding = Encoding.UTF8;
             if (level > _maxLogLevel)
                 return;
 

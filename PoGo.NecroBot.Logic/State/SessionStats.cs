@@ -31,8 +31,8 @@ namespace PoGo.NecroBot.Logic.State
         {
             public Int64 Timestamp { get; set; }
         }
-
-        public bool SearchThresholdExceeds(ISession session)
+        DateTime lastPrintPokestopMessage = DateTime.Now;
+        public bool SearchThresholdExceeds(ISession session, bool printMessage)
         {
             if (!session.LogicSettings.UsePokeStopLimit) return false;
             //if (_pokestopLimitReached || _pokestopTimerReached) return true;
@@ -44,11 +44,14 @@ namespace PoGo.NecroBot.Logic.State
 
             if (this.GetNumPokestopsInLast24Hours() >= session.LogicSettings.PokeStopLimit)
             {
-                session.EventDispatcher.Send(new ErrorEvent
+                if (printMessage && lastPrintPokestopMessage.AddSeconds(60) < DateTime.Now)
                 {
-                    Message = session.Translation.GetTranslation(TranslationString.PokestopLimitReached)
-                });
-
+                    lastPrintPokestopMessage = DateTime.Now;
+                    session.EventDispatcher.Send(new ErrorEvent
+                    {
+                        Message = session.Translation.GetTranslation(TranslationString.PokestopLimitReached)
+                    });
+                }
                 //_pokestopLimitReached = true;
                 return true;
             }
@@ -69,7 +72,8 @@ namespace PoGo.NecroBot.Logic.State
         }
 
 
-        public bool CatchThresholdExceeds(ISession session)
+        DateTime lastPrintCatchMessage = DateTime.Now;
+        public bool CatchThresholdExceeds(ISession session, bool printMessage=true)
         {
             if (!session.LogicSettings.UseCatchLimit) return false;
 
@@ -80,11 +84,15 @@ namespace PoGo.NecroBot.Logic.State
             // Check if user defined max AMOUNT of Catches reached
             if (GetNumPokemonsInLast24Hours() >= session.LogicSettings.CatchPokemonLimit)
             {
-                session.EventDispatcher.Send(new ErrorEvent
+                if (printMessage && lastPrintCatchMessage.AddSeconds(60) < DateTime.Now)
                 {
-                    Message = session.Translation.GetTranslation(TranslationString.CatchLimitReached)
-                });
+                    lastPrintCatchMessage = DateTime.Now;
+                    session.EventDispatcher.Send(new ErrorEvent
+                    {
+                        Message = session.Translation.GetTranslation(TranslationString.CatchLimitReached)
+                    });
 
+                }
                 // _catchPokemonLimitReached = true;
                 return true;
             }
