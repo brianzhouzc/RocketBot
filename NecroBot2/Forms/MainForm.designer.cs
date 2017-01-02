@@ -420,8 +420,8 @@ namespace NecroBot2.Forms
             this.togglePrecalRoute.AutoSize = true;
             this.togglePrecalRoute.BackColor = System.Drawing.Color.Transparent;
             this.togglePrecalRoute.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.togglePrecalRoute.Checked = true;
-            this.togglePrecalRoute.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.togglePrecalRoute.Checked = false;
+            this.togglePrecalRoute.CheckState = System.Windows.Forms.CheckState.Unchecked;
             this.togglePrecalRoute.Enabled = false;
             this.togglePrecalRoute.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.togglePrecalRoute.Location = new System.Drawing.Point(420, 53);

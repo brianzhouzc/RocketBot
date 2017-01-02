@@ -85,7 +85,7 @@ namespace NecroBot2.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Text = Application.ProductName + " " + Application.ProductVersion;
+            Text = Application.ProductName + " " + Application.ProductVersion + " | https://github.com/Necrobot-Private";
             speedLable.Parent = gMapControl1;
             showMoreCheckBox.Parent = gMapControl1;
             followTrainerCheckBox.Parent = gMapControl1;
@@ -739,12 +739,14 @@ namespace NecroBot2.Forms
 
                 _routePoints = routePoint;
                 togglePrecalRoute.Enabled = true;
-
-                var route = new GMapRoute(routePoint, "Walking Path")
+                if (togglePrecalRoute.Checked)
                 {
-                    Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
-                };
-                _pokestopsOverlay.Routes.Add(route);
+                    var route = new GMapRoute(routePoint, "Walking Path")
+                    {
+                        Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
+                    };
+                    _pokestopsOverlay.Routes.Add(route);
+                }
 
                 foreach (var pokeStop in pokeStops)
                 {
@@ -775,7 +777,7 @@ namespace NecroBot2.Forms
 
             _currentLatLng = latlng;
             UpdateMap();
-            SaveLocationToDisk(lat, lng);
+            //SaveLocationToDisk(lat, lng);
         }
 
         private void showMoreCheckBox_CheckedChanged(object sender, EventArgs e)

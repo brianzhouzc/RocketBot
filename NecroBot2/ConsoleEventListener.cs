@@ -53,11 +53,12 @@ namespace NecroBot2
         private static void HandleEvent(PokemonEvolveEvent pokemonEvolveEvent, ISession session)
         {
             string strPokemon = session.Translation.GetPokemonTranslation(pokemonEvolveEvent.Id);
-            Logger.Write(pokemonEvolveEvent.Result == EvolvePokemonResponse.Types.Result.Success
+            string logMessage = pokemonEvolveEvent.Result == EvolvePokemonResponse.Types.Result.Success
                 ? session.Translation.GetTranslation(TranslationString.EventPokemonEvolvedSuccess, strPokemon, pokemonEvolveEvent.Exp)
                 : session.Translation.GetTranslation(TranslationString.EventPokemonEvolvedFailed, pokemonEvolveEvent.Id, pokemonEvolveEvent.Result,
-                    strPokemon),
-                LogLevel.Evolve);
+                    strPokemon);
+            logMessage = (pokemonEvolveEvent.Sequence > 0 ? $"{pokemonEvolveEvent.Sequence}. " : "") + logMessage;
+            Logger.Write(logMessage, LogLevel.Evolve);
         }
 
         private static void HandleEvent(TransferPokemonEvent transferPokemonEvent, ISession session)
