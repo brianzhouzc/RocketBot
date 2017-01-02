@@ -273,11 +273,28 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         public static GlobalSettings Load(string path, bool validate = false)
         {
             GlobalSettings settings;
-            var profilePath = Path.Combine(Directory.GetCurrentDirectory(), path);
-            var profileConfigPath = Path.Combine(profilePath, "config");
-            var configFile = Path.Combine(profileConfigPath, "config.json");
-            var schemaFile = Path.Combine(profileConfigPath, "config.schema.json");
-            var shouldExit = false;
+
+            var profilePath = "";
+            var profileConfigPath = "";
+            var configFile = "";
+            var schemaFile = "";
+
+
+            if (Path.IsPathRooted(path))
+            {
+                profileConfigPath = Path.GetDirectoryName(path);
+                configFile = path;
+                schemaFile = path.Replace(".json", ".schema.json");
+
+
+            }
+            else {
+                profilePath = Path.Combine(Directory.GetCurrentDirectory(), path);
+                profileConfigPath = Path.Combine(profilePath, "config");
+                configFile = Path.Combine(profileConfigPath, "config.json");
+                schemaFile = Path.Combine(profileConfigPath, "config.schema.json");
+            }
+                var shouldExit = false;
             int schemaVersionBeforeUpgrade = 0;
 
             if (File.Exists(configFile))

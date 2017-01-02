@@ -12,7 +12,8 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         public EvolveFilter()
         {
             Moves = new List<List<PokemonMove>>();
-            EnableEvolve = true; 
+            EnableEvolve = true;
+            Operator = "or";
         }
 
         

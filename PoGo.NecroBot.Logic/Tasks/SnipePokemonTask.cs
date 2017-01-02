@@ -512,12 +512,12 @@ namespace PoGo.NecroBot.Logic.Tasks
             }
             catch(CaptchaException ex)
             {
-                isCaptchaShow = true;
+                //isCaptchaShow = true;
                 throw ex;
             }
             finally
             {
-                  if(!isCaptchaShow)
+                  //if(!isCaptchaShow)
                 await
                     LocationUtils.UpdatePlayerLocationWithAltitude(session,
                         new GeoCoordinate(currentLatitude, currentLongitude, session.Client.CurrentAltitude), 0); // Set speed to 0 for random speed.

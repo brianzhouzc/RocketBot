@@ -143,7 +143,7 @@ namespace PoGo.NecroBot.Logic.Interfaces.Configuration
         bool VerboseRecycling { get; }
         double RecycleInventoryAtUsagePercentage { get; }
         double EvolveKeptPokemonsAtStorageUsagePercentage { get; }
-        int EvolveKeptPokemonsOverrideStartIfThisManyReady { get; }
+        int EvolveKeptPokemonIfBagHasOverThisManyPokemon { get; }
         bool UseSnipeLimit { get; }
         bool UsePokeStopLimit { get; }
         bool UseCatchLimit { get; }
@@ -241,6 +241,8 @@ namespace PoGo.NecroBot.Logic.Interfaces.Configuration
         bool AllowMultipleBot { get; }
         CaptchaConfig CaptchaConfig { get;  }
         int BulkTransferStogareBuffer { get;  }
+        int BulkTransferSize { get; }
+
         bool AutosnipeVerifiedOnly { get;  }
     }
 }

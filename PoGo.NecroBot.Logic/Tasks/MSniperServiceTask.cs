@@ -326,27 +326,36 @@ namespace PoGo.NecroBot.Logic.Tasks
                 await Task.Delay(1000, cancellationToken);
 
                 encounter = await session.Client.Encounter.EncounterPokemon(encounterId.EncounterId, encounterId.SpawnPointId);
-
+                
+               
             }
             catch (CaptchaException ex)
             {
+                captchaShowed = true;
                 throw ex;
             }
             catch (Exception ex)
             {
-                captchaShowed = true;
                 return false;
             }
             finally
             {
                 if (!captchaShowed)
-                    await LocationUtils.UpdatePlayerLocationWithAltitude(session,
+                {
+                    //TODO - What if udpate location failed 
+                    var response = await LocationUtils.UpdatePlayerLocationWithAltitude(session,
                         new GeoCoordinate(lat, lon, session.Client.CurrentAltitude), 0);  // Speed set to 0 for random speed.
+
+                    
+                }
+                else
+                    session.Client.Player.SetCoordinates(lat, lon, session.Client.CurrentAltitude); //only reset d
             }
 
             if (encounter.Status == EncounterResponse.Types.Status.PokemonInventoryFull)
             {
                 Logger.Write("Pokemon bag full, snipe cancel");
+                await TransferDuplicatePokemonTask.Execute(session, cancellationToken);
                 return false;
             }
             PokemonData encounteredPokemon;
@@ -410,6 +419,8 @@ namespace PoGo.NecroBot.Logic.Tasks
         public static async Task AddSnipeItem(ISession session, MSniperInfo2 item, bool byPassValidation = false)
         {
             if (isBlocking) return;
+            if (Math.Abs(item.Latitude) > 90 || Math.Abs(item.Longitude) > 180) return;
+
             lock (locker)
             {
                 item.AddedTime = DateTime.Now;

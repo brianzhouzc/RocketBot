@@ -71,17 +71,22 @@ namespace PoGo.NecroBot.Logic.Tasks
             }
             if (session.LogicSettings.UseBulkTransferPokemon && pokemonToTransfers.Count >0)
             {
-                var t = await session.Client.Inventory.TransferPokemons(orderedPokemon.Select(x => x.Id).ToList());
-                if (t.Result == POGOProtos.Networking.Responses.ReleasePokemonResponse.Types.Result.Success)
+                int page = orderedPokemon.Count() / session.LogicSettings.BulkTransferSize + 1;
+                for (int i = 0; i < page; i++)
                 {
-                    foreach (var duplicatePokemon in pokemonToTransfers)
+                    var batchTransfer = orderedPokemon.Skip(i * session.LogicSettings.BulkTransferSize).Take(session.LogicSettings.BulkTransferSize);
+                    var t = await session.Client.Inventory.TransferPokemons(batchTransfer.Select(x => x.Id).ToList());
+                    if (t.Result == POGOProtos.Networking.Responses.ReleasePokemonResponse.Types.Result.Success)
                     {
-                        await session.Inventory.DeletePokemonFromInvById(duplicatePokemon.Id);
-                        await PrintTransferedPokemonInfo(session,  duplicatePokemon);
+                        foreach (var duplicatePokemon in batchTransfer)
+                        {
+                            await session.Inventory.DeletePokemonFromInvById(duplicatePokemon.Id);
+                            await PrintTransferedPokemonInfo(session, duplicatePokemon);
+                        }
                     }
+                    else session.EventDispatcher.Send(new WarnEvent() { Message = session.Translation.GetTranslation(Common.TranslationString.BulkTransferFailed, orderedPokemon.Count()) });
                 }
-                else session.EventDispatcher.Send(new WarnEvent() { Message = session.Translation.GetTranslation(Common.TranslationString.BulkTransferFailed, orderedPokemon.Count()) });
-        }
+            }
         }
 
         private static async Task PrintTransferedPokemonInfo(ISession session, PokemonData pokemon)
