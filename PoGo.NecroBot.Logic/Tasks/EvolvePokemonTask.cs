@@ -114,6 +114,7 @@ namespace PoGo.NecroBot.Logic.Tasks
             var pokemonSettings = await session.Inventory.GetPokemonSettings();
             var pokemonFamilies = await session.Inventory.GetPokemonFamilies();
 
+            int sequence = 1;
             foreach (var pokemon in pokemonToEvolve)
             {
                 var setting =
@@ -130,13 +131,14 @@ namespace PoGo.NecroBot.Logic.Tasks
                     await session.Inventory.DeletePokemonFromInvById(pokemon.Id);
                     await session.Inventory.AddPokemonToCache(evolveResponse.EvolvedPokemonData);
                 }
-                await Task.Delay(50);//hack it to fix log
+
                 session.EventDispatcher.Send(new PokemonEvolveEvent
                 {
                     Id = pokemon.PokemonId,
                     Exp = evolveResponse.ExperienceAwarded,
                     UniqueId = pokemon.Id,
-                    Result = evolveResponse.Result
+                    Result = evolveResponse.Result,
+                    Sequence = pokemonToEvolve.Count() ==1?0:sequence++
                 });
 
                 if (!pokemonToEvolve.Last().Equals(pokemon))

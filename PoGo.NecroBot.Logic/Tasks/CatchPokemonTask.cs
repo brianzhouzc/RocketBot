@@ -431,6 +431,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                     {
                         //reset if not catch flee.
                         CatchFleeContinuouslyCount = 0;
+                        MSniperServiceTask.UnblockSnipe();
                     }
                 }
 
@@ -458,7 +459,7 @@ namespace PoGo.NecroBot.Logic.Tasks
         {
             //if distance is very far. that is snip pokemon
 
-            if (LocationUtils.CalculateDistanceInMeters(encounterEV.Latitude, encounterEV.Longitude, session.Client.CurrentLatitude, session.Client.CurrentLongitude) > 2000)
+            if (LocationUtils.CalculateDistanceInMeters(encounterEV.Latitude, encounterEV.Longitude, session.Client.CurrentLatitude, session.Client.CurrentLongitude) > 250)//assume that all pokemon catch from 250+m is snipe
                 return;
 
             if (MultipleBotConfig.IsMultiBotActive(session.LogicSettings) &&

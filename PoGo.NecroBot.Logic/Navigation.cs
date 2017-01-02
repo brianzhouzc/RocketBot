@@ -13,12 +13,21 @@ using PoGo.NecroBot.Logic.Event;
 using System.Collections.Generic;
 using System.Linq;
 using PoGo.NecroBot.Logic.Model;
+using System.Net;
+using System.Diagnostics;
+using System.IO;
+using Newtonsoft.Json.Linq;
+using POGOProtos.Map.Fort;
+using PoGo.NecroBot.Logic.Utils;
+using PokemonGo.RocketAPI.Extensions;
 
 #endregion
 
 namespace PoGo.NecroBot.Logic
 {
     public delegate void GetHumanizeRouteDelegate(List<GeoCoordinate> route, GeoCoordinate destination);
+    public delegate void LoadPokestopsDelegate(List<FortData> pokeStops);
+
 
     public delegate void UpdatePositionDelegate(double lat, double lng);
 
@@ -95,6 +104,24 @@ namespace PoGo.NecroBot.Logic
         {
             cancellationToken.ThrowIfCancellationRequested();
 
+            //add routes to map
+            var points = new List<GeoCoordinate>();
+            var route = Route(session,
+                new GeoCoordinate(
+                    _client.CurrentLatitude,
+                    _client.CurrentLongitude,
+                    _client.CurrentAltitude),
+                targetLocation.ToGeoCoordinate());
+
+            foreach (var item in route)
+                points.Add(new GeoCoordinate(item.ToArray()[1], item.ToArray()[0]));
+
+            //get pokeStops to map
+            var pokeStops = await GetPokeStops(session);
+            OnLoadPokestopsEvent(pokeStops);
+            OnGetHumanizeRouteEvent(points, targetLocation.ToGeoCoordinate());
+            //end code add routes
+
             // If the stretegies become bigger, create a factory for easy management
 
             return await WalkStrategy.Walk(targetLocation, functionExecutedWhileWalking, session, cancellationToken, customWalkingSpeed);
@@ -163,11 +190,123 @@ namespace PoGo.NecroBot.Logic
             return WalkStrategyQueue.First(q => !IsWalkingStrategyBlacklisted(q.GetType()));
         }
 
+        //functions for routes map
+        private List<List<double>> Route(ISession session, GeoCoordinate start, GeoCoordinate dest)
+        {
+            var result = new List<List<double>>();
+
+            try
+            {
+                var web = WebRequest.Create(
+                    $"https://maps.googleapis.com/maps/api/directions/json?origin={start.Latitude},{start.Longitude}&destination={dest.Latitude},{dest.Longitude}&mode=walking&units=metric&key={session.LogicSettings.GoogleApiKey}");
+                web.Credentials = CredentialCache.DefaultCredentials;
+                
+                string strResponse;
+                using (var response = web.GetResponse())
+                {
+                    using (var stream = response.GetResponseStream())
+                    {
+                        Debug.Assert(stream != null, "stream != null");
+                        using (var reader = new StreamReader(stream))
+                            strResponse = reader.ReadToEnd();
+                    }
+                }
+
+                var parseObject = JObject.Parse(strResponse);
+                result = Points(parseObject["routes"][0]["overview_polyline"]["points"].ToString(), 1e5);
+            }
+            catch (WebException e)
+            {
+                session.EventDispatcher.Send(new WarnEvent
+                {
+                    Message = $"Web Exception: {e.Message}"
+                });
+            }
+            catch (NullReferenceException e)
+            {
+                session.EventDispatcher.Send(new WarnEvent
+                {
+                    Message = $"Routing Error: {e.Message}"
+                });
+            }
+
+            return result;
+        }
+
+        public static List<List<double>> Points(string overview, double precision)
+        {
+            if (string.IsNullOrEmpty(overview))
+                throw new ArgumentNullException("Points");
+
+            var polyline = false;
+            int index = 0, lat = 0, lng = 0;
+            var polylineChars = overview.ToCharArray();
+            var result = new List<List<double>>();
+
+            while (index < polylineChars.Length)
+            {
+                int sum = 0, shifter = 0, nextBits;
+                var coordinates = new List<double>();
+
+                do
+                {
+                    nextBits = polylineChars[index++] - 63;
+                    sum |= (nextBits & 0x1f) << shifter;
+                    shifter += 5;
+                } while (nextBits >= 0x20 && index < polylineChars.Length);
+
+                if (index >= polylineChars.Length && (!polyline || nextBits >= 0x20))
+                    break;
+
+                if (!polyline)
+                    lat += (sum & 1) == 1 ? ~(sum >> 1) : sum >> 1;
+                else
+                {
+                    lng += (sum & 1) == 1 ? ~(sum >> 1) : sum >> 1;
+                    coordinates.Add(lng / precision);
+                    coordinates.Add(lat / precision);
+                    result.Add(coordinates);
+                }
+
+                polyline = !polyline;
+            }
+
+            return result;
+        }
+        //end functions routes map
+
+        private static async Task<List<FortData>> GetPokeStops(ISession session)
+        {
+            var mapObjects = await session.Client.Map.GetMapObjects();
+
+            // Wasn't sure how to make this pretty. Edit as needed.
+            var pokeStops = mapObjects.Item1.MapCells.SelectMany(i => i.Forts)
+                .Where(
+                    i =>
+                        i.Type == FortType.Checkpoint &&
+                        i.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime() &&
+                        ( // Make sure PokeStop is within max travel distance, unless it's set to 0.
+                            LocationUtils.CalculateDistanceInMeters(
+                                session.Settings.DefaultLatitude, session.Settings.DefaultLongitude,
+                                i.Latitude, i.Longitude) < session.LogicSettings.MaxTravelDistanceInMeters ||
+                            session.LogicSettings.MaxTravelDistanceInMeters == 0)
+                );
+
+            return pokeStops.ToList();
+        }
+        private static void OnLoadPokestopsEvent(List<FortData> pokeStops)
+        {
+            LoadPokestopsEvent?.Invoke(pokeStops);
+        }
+
+        public static event LoadPokestopsDelegate LoadPokestopsEvent;
+
         public static event GetHumanizeRouteDelegate GetHumanizeRouteEvent;
 
         protected virtual void OnGetHumanizeRouteEvent(List<GeoCoordinate> route, GeoCoordinate destination)
         {
             GetHumanizeRouteEvent?.Invoke(route, destination);
         }
+        //end functions routes map
     }
 }

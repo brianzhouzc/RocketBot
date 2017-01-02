@@ -10,11 +10,14 @@ using PoGo.NecroBot.Logic.Utils;
 using POGOProtos.Map.Pokemon;
 using POGOProtos.Networking.Responses;
 using System;
+using System.Collections.Generic;
 
 #endregion
 
 namespace PoGo.NecroBot.Logic.Tasks
 {
+    public delegate void PokemonsEncounterDelegate(List<MapPokemon> pokemons);
+
     public static class CatchIncensePokemonsTask
     {
         public static async Task Execute(ISession session, CancellationToken cancellationToken)
@@ -37,6 +40,10 @@ namespace PoGo.NecroBot.Logic.Tasks
                     PokemonId = incensePokemon.PokemonId,
                     SpawnPointId = incensePokemon.EncounterLocation
                 };
+
+                //add delegate function
+                OnPokemonEncounterEvent(new List<MapPokemon> { pokemon });
+
                 if (session.Cache.Get(incensePokemon.EncounterId.ToString()) != null) return; //pokemon been ignore before
 
                 if( ( session.LogicSettings.UsePokemonSniperFilterOnly && !session.LogicSettings.PokemonToSnipe.Pokemon.Contains( pokemon.PokemonId ) ) ||
@@ -92,6 +99,12 @@ namespace PoGo.NecroBot.Logic.Tasks
                     }
                 }
             }
+        }
+        public static event PokemonsEncounterDelegate PokemonEncounterEvent;
+
+        private static void OnPokemonEncounterEvent(List<MapPokemon> pokemons)
+        {
+            PokemonEncounterEvent?.Invoke(pokemons);
         }
     }
 }

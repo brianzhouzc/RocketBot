@@ -66,7 +66,7 @@ namespace PoGo.NecroBot.Logic.Captcha
                             string captchaID = response.Remove(0, 3);
                             Logging.Logger.Write($"Captcha has been sent to 2Captcha, Your captcha ID :  {captchaID}");
 
-                            for (int i = 0; i < 24; i++)
+                            for (int i = 0; i < 29; i++)
                             {
                                 WebRequest getAnswer = WebRequest.Create("http://2captcha.com/res.php?key=" + APIKey + "&action=get&id=" + captchaID);
 
@@ -85,16 +85,16 @@ namespace PoGo.NecroBot.Logic.Captcha
                                         {
                                             return answerResponse.Remove(0, 3);
                                         }
-                                        else if (answerResponse != "CAPCHA_NOT_READY")
+                                        else if (answerResponse != "CAPCHA_NOT_READY") 
                                         {
                                             return string.Empty;
                                         }
                                     }
-                                    Logging.Logger.Write($"Response from 2Captcha: {answerResponse}");
+                                    Logging.Logger.Write($"Waiting response captcha from 2Captcha workers...");
 
                                 }
 
-                                await Task.Delay(5000);
+                                await Task.Delay(3000);
                             }
                             return string.Empty;
                         }
