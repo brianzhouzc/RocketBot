@@ -12,6 +12,8 @@ using POGOProtos.Inventory.Item;
 using POGOProtos.Networking.Responses;
 using PoGo.NecroBot.Logic.Event.Gym;
 using POGOProtos.Map.Fort;
+using NecroBot2.Forms;
+
 #endregion
 
 namespace NecroBot2
@@ -367,6 +369,7 @@ namespace NecroBot2
                     humanWalkingEvent.OldWalkingSpeed,
                     humanWalkingEvent.CurrentWalkingSpeed),
                     LogLevel.Info, ConsoleColor.DarkCyan);
+            MainForm.SetSpeedLable("Current Speed: " + Math.Round(humanWalkingEvent.CurrentWalkingSpeed, 2) + " km/h");
         }
 
         private static void HandleEvent(KillSwitchEvent killSwitchEvent, ISession session)

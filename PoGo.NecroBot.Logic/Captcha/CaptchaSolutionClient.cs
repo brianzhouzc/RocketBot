@@ -60,7 +60,7 @@ namespace PoGo.NecroBot.Logic.Captcha
                 }
                 catch (Exception ex)
                 {
-                    Logging.Logger.Write($"(CAPTCHA) - Error occurred when solve captcha");
+                    Logging.Logger.Write($"(CAPTCHA) - Error occurred when solve captcha with Captcha Solutions");
                 }
             }
             return string.Empty;

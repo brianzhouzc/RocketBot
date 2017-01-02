@@ -29,7 +29,6 @@ using PoGo.NecroBot.Logic.State;
 using PoGo.NecroBot.Logic.Utils;
 using PoGo.NecroBot.Logic.Model.Settings;
 using PoGo.NecroBot.Logic.Service.Elevation;
-using Logger = PoGo.NecroBot.Logic.Logging.Logger;
 using NecroBot2.Helpers;
 using NecroBot2.Models;
 using NecroBot2.Logic.Tasks;
@@ -41,6 +40,7 @@ using System.Reflection;
 using System.Diagnostics;
 using PoGo.NecroBot.Logic.Tasks;
 using System.Net;
+using PokemonGo.RocketAPI.Extensions;
 
 namespace NecroBot2.Forms
 {
@@ -51,12 +51,13 @@ namespace NecroBot2.Forms
         private static readonly ManualResetEvent QuitEvent = new ManualResetEvent(false);
         private static string _subPath = "";
         private static bool _enableJsonValidation = true;
-        private static bool _ignoreKillSwitch;
+        private static bool _excelConfigAllow = false;
+        //private static bool _ignoreKillSwitch;
 
         private static readonly Uri StrKillSwitchUri =
-            new Uri("https://raw.githubusercontent.com/Necrobot-Private/Necrobot2/master/KillSwitch.txt");
+            new Uri("https://raw.githubusercontent.com/Furtif/NecroBot/Graphical_Interfaces/KillSwitch.txt");
         private static readonly Uri StrMasterKillSwitchUri =
-            new Uri("https://raw.githubusercontent.com/Silph-Road/NecroBot/master/PoGo.NecroBot.Logic/MKS.txt");
+            new Uri("https://raw.githubusercontent.com/Furtif/NecroBot/Graphical_Interfaces/PoGo.NecroBot.Logic/MKS.txt");
 
         private static Session _session;
 
@@ -71,7 +72,6 @@ namespace NecroBot2.Forms
         private readonly GMapOverlay _searchAreaOverlay = new GMapOverlay("areas");
 
         private PointLatLng _currentLatLng;
-        private ConsoleLogger _logger;
         private StateMachine _machine;
         private List<PointLatLng> _routePoints;
         private GlobalSettings _settings;
@@ -95,20 +95,8 @@ namespace NecroBot2.Forms
             InitializePokemonForm();
             InitializeMap();
             VersionHelper.CheckVersion();
-            VersionHelper.CheckKillSwitch();
-            //showMoreCheckBox.Enabled = false;
             btnRefresh.Enabled = false;
-   /*         if (boolNeedsSetup)
-            {
-                startStopBotToolStripMenuItem.Text = "■ Exit";
-                Logger.Write("First time here? Go to settings to set your basic info.", LogLevel.Error);
-            }
-            else
-            {
-            
-         //       GlobalSettings.Load(_subPath, _enableJsonValidation);
-            }*/
-         }
+        }
 
         private void InitializeMap()
         {
@@ -139,8 +127,6 @@ namespace NecroBot2.Forms
 
         private void InitializeBot()
         {
-
-
             var strCulture = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
 
             var culture = CultureInfo.CreateSpecificCulture("en");
@@ -187,17 +173,20 @@ namespace NecroBot2.Forms
                         break;
                 }
             }
+            */
 
             bool excelConfigAllow = false;
+            /*
             if (commandLine["provider"] != null && commandLine["provider"] == "excel")
             {
+
                 excelConfigAllow = true;
             }
             */
 
             Logger.AddLogger(new ConsoleLogger(LogLevel.Service), _subPath);
-            //Logger.AddLogger(new FileLogger(LogLevel.Service), _subPath);
-            //Logger.AddLogger(new WebSocketLogger(LogLevel.Service), _subPath);
+            Logger.AddLogger(new FileLogger(LogLevel.Service), _subPath);
+            Logger.AddLogger(new WebSocketLogger(LogLevel.Service), _subPath);
 
 
 
@@ -214,7 +203,7 @@ namespace NecroBot2.Forms
             {
                 // Load the settings from the config file
                 settings = GlobalSettings.Load(_subPath, _enableJsonValidation);
-                /*
+                
                 if (excelConfigAllow)
                 {
                     if (!File.Exists(excelConfigFile))
@@ -229,7 +218,7 @@ namespace NecroBot2.Forms
 
                     Logger.Write("Bot will run with your excel config, loading excel config");
                 }
-                */
+                
             }
             else
             {
@@ -371,12 +360,6 @@ namespace NecroBot2.Forms
             _session = new Session(new ClientSettings(settings, elevationService), logicSettings, elevationService, translation);
             Logger.SetLoggerContext(_session);
 
-            if (boolNeedsSetup)
-            {
-                startStopBotToolStripMenuItem.Text = "■ Exit";
-                Logger.Write("First time here? Go to settings to set your basic info.", LogLevel.Error);
-            }
-            
             /*
             if (boolNeedsSetup)
             {
@@ -395,24 +378,30 @@ namespace NecroBot2.Forms
                     return;
                 }
             }
+            */
+            if (boolNeedsSetup)
+            {
+                startStopBotToolStripMenuItem.Text = "■ Exit";
+                Logger.Write("First time here? Go to settings to set your basic info.", LogLevel.Error);
+            }
+
 
             if (excelConfigAllow)
             {
                 ExcelConfigHelper.MigrateFromObject(settings, excelConfigFile);
             }
-        }
 
+            //ProgressBar.Start("NecroBot2 is starting up", 10);
 
-        ProgressBar.Start("NecroBot2 is starting up", 10);
+            
+            if (settings.WebsocketsConfig.UseWebsocket)
+            {
+                var websocket = new WebSocketInterface(settings.WebsocketsConfig.WebSocketPort, _session);
+                _session.EventDispatcher.EventReceived += evt => websocket.Listen(evt, _session);
+            }
+            
 
-        if (settings.WebsocketsConfig.UseWebsocket)
-        {
-            var websocket = new WebSocketInterface(settings.WebsocketsConfig.WebSocketPort, _session);
-            _session.EventDispatcher.EventReceived += evt => websocket.Listen(evt, _session);
-        }
-
-        ProgressBar.Fill(20);
-        */
+            //ProgressBar.Fill(20);
 
             var machine = new StateMachine();
             var stats = new Statistics();
@@ -421,21 +410,24 @@ namespace NecroBot2.Forms
             var strVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(4);
             stats.DirtyEvent +=
                 () =>
+                {
                     SetStatusText($"[Necrobot2 v{strVersion}] " +
                                     stats.GetTemplatedStats(
                                         _session.Translation.GetTranslation(TranslationString.StatsTemplateString),
                                         _session.Translation.GetTranslation(TranslationString.StatsXpTemplateString)));
+                };                   
+                           
             //ProgressBar.Fill(40);
 
             var aggregator = new StatisticsAggregator(stats);
             //ProgressBar.Fill(50);
             var listener = new ConsoleEventListener();
             //ProgressBar.Fill(60);
-            //var snipeEventListener = new SniperEventListener();
+            var snipeEventListener = new SniperEventListener();
 
             _session.EventDispatcher.EventReceived += evt => listener.Listen(evt, _session);
             _session.EventDispatcher.EventReceived += evt => aggregator.Listen(evt, _session);
-            //_session.EventDispatcher.EventReceived += evt => snipeEventListener.Listen(evt, _session);
+            _session.EventDispatcher.EventReceived += evt => snipeEventListener.Listen(evt, _session);
 
             //ProgressBar.Fill(70);
 
@@ -443,38 +435,31 @@ namespace NecroBot2.Forms
             //ProgressBar.Fill(80);
 
             //ProgressBar.Fill(90);
-            /*
+
             _session.Navigation.WalkStrategy.UpdatePositionEvent +=
                 (lat, lng) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng });
             _session.Navigation.WalkStrategy.UpdatePositionEvent += SaveLocationToDisk;
-            */
-            _session.Navigation.WalkStrategy.UpdatePositionEvent +=
-                (lat, lng) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng });
             _session.Navigation.WalkStrategy.UpdatePositionEvent += Navigation_UpdatePositionEvent;
 
-            RouteOptimizeUtil.RouteOptimizeEvent +=
-                optimizedroute =>
-                    _session.EventDispatcher.Send(new OptimizeRouteEvent { OptimizedRoute = optimizedroute });
-            RouteOptimizeUtil.RouteOptimizeEvent += InitializePokestopsAndRoute;
+            Navigation.LoadPokestopsEvent +=
+                pokeStops => _session.EventDispatcher.Send(new LoadPokestopsEvent { PokeStops = pokeStops });
+            Navigation.LoadPokestopsEvent += InitializePokestopsAndRoute;
 
             Navigation.GetHumanizeRouteEvent +=
-                (route, destination) =>
-                    _session.EventDispatcher.Send(new GetHumanizeRouteEvent { Route = route, Destination = destination });
+                (route, destination) => _session.EventDispatcher.Send(new GetHumanizeRouteEvent { Route = route, Destination = destination });
             Navigation.GetHumanizeRouteEvent += UpdateMap;
 
-            Logic.Tasks.FarmPokestopsTask.LootPokestopEvent +=
+            UseNearbyPokestopsTask.LootPokestopEvent +=
                 pokestop => _session.EventDispatcher.Send(new LootPokestopEvent { Pokestop = pokestop });
-            Logic.Tasks.FarmPokestopsTask.LootPokestopEvent += UpdateMap;
+            UseNearbyPokestopsTask.LootPokestopEvent += UpdateMap;
 
-            Logic.Tasks.CatchNearbyPokemonsTask.PokemonEncounterEvent +=
-                mappokemons =>
-                    _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
-            Logic.Tasks.CatchNearbyPokemonsTask.PokemonEncounterEvent += UpdateMap;
+            CatchNearbyPokemonsTask.PokemonEncounterEvent +=
+                mappokemons => _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
+            CatchNearbyPokemonsTask.PokemonEncounterEvent += UpdateMap;
 
-            Logic.Tasks.CatchIncensePokemonsTask.PokemonEncounterEvent +=
-                mappokemons =>
-                    _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
-            Logic.Tasks.CatchIncensePokemonsTask.PokemonEncounterEvent += UpdateMap;
+            CatchIncensePokemonsTask.PokemonEncounterEvent +=
+                mappokemons => _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
+            CatchIncensePokemonsTask.PokemonEncounterEvent += UpdateMap;
 
             //ProgressBar.Fill(100);
 
@@ -534,11 +519,12 @@ namespace NecroBot2.Forms
             }
             _machine = machine;
             _settings = settings;
+            _excelConfigAllow = excelConfigAllow;
         }
 
         private async Task StartBot()
         {
-            await _machine.AsyncStart(new VersionCheckState(), _session, _subPath, false);// excelConfigAllow);
+            await _machine.AsyncStart(new Logic.State.VersionCheckState(), _session, _subPath,  _excelConfigAllow);
             /*
             try
             {
@@ -548,7 +534,7 @@ namespace NecroBot2.Forms
             {
             }
             */
-
+          
             if (_settings.TelegramConfig.UseTelegramAPI)
                 _session.Telegram = new TelegramService(_settings.TelegramConfig.TelegramAPIKey, _session);
 
@@ -561,13 +547,13 @@ namespace NecroBot2.Forms
                 await HumanWalkSnipeTask.StartFastPokemapAsync(_session, _session.CancellationTokenSource.Token);// that need to keep data  live 
             }
 
-            /*
+            
             if (_session.LogicSettings.DataSharingEnable)
             {
-                BotDataSocketClient.StartAsync(_session);
+                await BotDataSocketClient.StartAsync(_session);
                 _session.EventDispatcher.EventReceived += evt => BotDataSocketClient.Listen(evt, _session);
             }
-            */
+            
             _settings.CheckProxy(_session.Translation);
 
             if (_session.LogicSettings.ActivateMSniper)
@@ -575,7 +561,7 @@ namespace NecroBot2.Forms
                 MSniperServiceTask.ConnectToService();
                 _session.EventDispatcher.EventReceived += evt => MSniperServiceTask.AddToList(evt);
             }
-            _settings.GoogleWalkConfig.GoogleAPIKey = "AIzaSyBjrq_CCDjmgNLJZnLBrMRgIxTJrgW_LaY";
+            _settings.Auth.CheckProxy(_session.Translation);
             QuitEvent.WaitOne();
         }
 
@@ -653,11 +639,13 @@ namespace NecroBot2.Forms
 
                         if (strStatus.ToLower().Contains("disable"))
                         {
-                            Logger.Write(strReason + $"\n", LogLevel.Warning);
+                            //Logger.Write(strReason + $"\n", LogLevel.Warning);
+                            Logger.Write(strReason, LogLevel.Warning);
 
                             if (PromptForKillSwitchOverride())
                             {
                                 // Override
+                                /*
                                 Logger.Write("Overriding killswitch... you have been warned!", LogLevel.Warning);
                                 return false;
                             }
@@ -665,10 +653,28 @@ namespace NecroBot2.Forms
                             Logger.Write("The bot will now close, please press enter to continue", LogLevel.Error);
                             //Console.ReadLine();
                             return true;
+                            */
+                                DialogResult result = MessageBox.Show(strReason, Application.ProductName + " - Use Old API detected", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                                switch (result)
+                                {
+                                    case DialogResult.Yes:
+                                        {
+                                            DialogResult result1 = MessageBox.Show("!!! You risk permanent BAN !!!\n\n " + Application.ProductName + " is not responsible for any banned account.\n\n Are you sure you want to continue?", Application.ProductName + " -Are you sure??", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                                            switch (result1)
+                                            {
+                                                case DialogResult.No: { Application.Exit(); break; }
+                                            }
+                                            break;
+                                        }
+                                    case DialogResult.No: { Application.Exit(); break; }
+                                }
+                                Logger.Write(strReason, LogLevel.Warning);
+                                Logger.Write("The robot should be closed.", LogLevel.Warning);
+                            }
                         }
+                        else
+                            return false;
                     }
-                    else
-                        return false;
                 }
                 catch (WebException)
                 {
@@ -690,6 +696,7 @@ namespace NecroBot2.Forms
         {
             Logger.Write("Do you want to override killswitch to bot at your own risk? Y/N", LogLevel.Warning);
 
+            /*
             while (true)
             {
                 var strInput = Console.ReadLine().ToLower();
@@ -706,9 +713,17 @@ namespace NecroBot2.Forms
                         continue;
                 }
             }
+            */
+            DialogResult result = MessageBox.Show("Do you want to override killswitch to bot at your own risk? Y/N", Application.ProductName + " - Use Old API detected", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            switch (result)
+            {
+                case DialogResult.Yes: return true;
+                case DialogResult.No: return false;
+            }
+            return false;
         }
-    
-private void InitializePokestopsAndRoute(List<FortData> pokeStops)
+
+        private void InitializePokestopsAndRoute(List<FortData> pokeStops)
         {
             SynchronizationContext.Post(o =>
             {
@@ -924,10 +939,10 @@ private void InitializePokestopsAndRoute(List<FortData> pokeStops)
                 Instance.Invoke(new Action<Color, string>(ColoredConsoleWrite), color, message);
                 return;
             }
-            Instance.logTextBox.SelectionStart = Instance.logTextBox.Text.Length +1;
-            Instance.logTextBox.ScrollToCaret();
             Instance.logTextBox.SelectionColor = color;
-            Instance.logTextBox.AppendText(message);
+            Instance.logTextBox.AppendText(message + "\n");
+            Instance.logTextBox.Select(Instance.logTextBox.Text.Length, +1);
+            Instance.logTextBox.ScrollToCaret();
         }
 
         public static void SetSpeedLable(string text)
@@ -947,6 +962,7 @@ private void InitializePokestopsAndRoute(List<FortData> pokeStops)
                 Instance.Invoke(new Action<string>(SetStatusText), text);
                 return;
             }
+            Instance.Text = text;
             Instance.statusLabel.Text = text;
         }
 
@@ -964,7 +980,6 @@ private void InitializePokestopsAndRoute(List<FortData> pokeStops)
             if (startStopBotToolStripMenuItem.Text.Equals("■ Exit"))
             {
                 Environment.Exit(0);
-                //Application.Exit();
             }
             else
             {
@@ -1142,7 +1157,7 @@ private void InitializePokestopsAndRoute(List<FortData> pokeStops)
             SetState(false);
             foreach (var pokemon in pokemons)
             {
-                await Logic.Tasks.LevelUpSpecificPokemonTask.Execute(_session, pokemon.Id);
+                await LevelUpSpecificPokemonTask.Execute(_session, pokemon.Id);
             }
             await ReloadPokemonList();
         }
@@ -1152,7 +1167,7 @@ private void InitializePokestopsAndRoute(List<FortData> pokeStops)
             SetState(false);
             foreach (var pokemon in pokemons)
             {
-                await Logic.Tasks.EvolveSpecificPokemonTask.Execute(_session, pokemon.Id);
+                await EvolveSpecificPokemonTask.Execute(_session, pokemon.Id);
             }
             await ReloadPokemonList();
         }

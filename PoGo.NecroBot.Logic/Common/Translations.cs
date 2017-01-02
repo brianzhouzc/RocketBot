@@ -271,7 +271,8 @@ namespace PoGo.NecroBot.Logic.Common
         TelegramBotStarted,
         TelegramNeedChatId,
         BulkTransferFailed,
-        AutoSnipeDisabled
+        AutoSnipeDisabled,
+        SnipePokemonNotInPokedex
     }
 
     public class Translation : ITranslation
@@ -495,6 +496,8 @@ namespace PoGo.NecroBot.Logic.Common
                 "You need to fill out PtcUsername and PtcPassword in auth.json!"),
             new KeyValuePair<TranslationString, string>(TranslationString.SnipeScan,
                 "Scanning for Snipeable Pokemon at {0}..."),
+            new KeyValuePair<TranslationString, string>(TranslationString.SnipePokemonNotInPokedex,
+                "Auto sniper detected a pokemon not in your pokedex:  {0}. He will be snipped as priority!"),
             new KeyValuePair<TranslationString, string>(TranslationString.SnipeScanEx,
                 "Sniping a {0} with {1} IV at {2}..."),
             new KeyValuePair<TranslationString, string>(TranslationString.NoPokemonToSnipe,
