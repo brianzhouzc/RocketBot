@@ -11,10 +11,10 @@ namespace NecroBot2
     internal class Program
     {
         [STAThread]
-        private static void Main()
+        private static void Main(string[] args)
         {
             Application.EnableVisualStyles();
-            Application.Run(new MainForm());
+            Application.Run(new MainForm(args));
         }
     }
 }

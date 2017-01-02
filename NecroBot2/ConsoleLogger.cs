@@ -69,13 +69,13 @@ namespace NecroBot2
                     MainForm.ColoredConsoleWrite(Color.Yellow, finalMessage);
                     break;
                 case LogLevel.Caught:
-                    MainForm.ColoredConsoleWrite(Color.Green, finalMessage);
+                    MainForm.ColoredConsoleWrite(Color.GreenYellow, finalMessage);
                     break;
                 case LogLevel.Debug:
                     MainForm.ColoredConsoleWrite(Color.Gray, finalMessage);
                     break;
                 case LogLevel.Egg:
-                    MainForm.ColoredConsoleWrite(Color.Yellow, finalMessage);
+                    MainForm.ColoredConsoleWrite(Color.DarkOrange, finalMessage);
                     break;
                 case LogLevel.Error:
                     MainForm.ColoredConsoleWrite(Color.Red, finalMessage);
