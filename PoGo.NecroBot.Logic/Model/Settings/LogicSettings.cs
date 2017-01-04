@@ -72,6 +72,8 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         public bool TransferDuplicatePokemon => _settings.PokemonConfig.TransferDuplicatePokemon;
         public bool TransferDuplicatePokemonOnCapture => _settings.PokemonConfig.TransferDuplicatePokemonOnCapture;
         public bool UseBulkTransferPokemon => _settings.PokemonConfig.UseBulkTransferPokemon;
+
+        public int BulkTransferSize => _settings.PokemonConfig.BulkTransferSize;
         public int BulkTransferStogareBuffer => _settings.PokemonConfig.BulkTransferStogareBuffer;
 
         public bool UseEggIncubators => _settings.PokemonConfig.UseEggIncubators;
@@ -127,7 +129,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         public bool VerboseRecycling => _settings.RecycleConfig.VerboseRecycling;
         public double RecycleInventoryAtUsagePercentage => _settings.RecycleConfig.RecycleInventoryAtUsagePercentage;
         public double EvolveKeptPokemonsAtStorageUsagePercentage => _settings.PokemonConfig.EvolveKeptPokemonsAtStorageUsagePercentage;
-        public int EvolveKeptPokemonsOverrideStartIfThisManyReady => _settings.PokemonConfig.EvolveKeptPokemonsOverrideStartIfThisManyReady;
+        public int EvolveKeptPokemonIfBagHasOverThisManyPokemon => _settings.PokemonConfig.EvolveKeptPokemonIfBagHasOverThisManyPokemon;
         public ICollection<KeyValuePair<ItemId, int>> ItemRecycleFilter => _settings.ItemRecycleFilter.Select(itemRecycleFilter => new KeyValuePair<ItemId, int>(itemRecycleFilter.Key, itemRecycleFilter.Value)).ToList();
         public ICollection<PokemonId> PokemonsToEvolve => _settings.PokemonsToEvolve;
         public ICollection<PokemonId> PokemonsToLevelUp => _settings.PokemonsToLevelUp;

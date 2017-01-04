@@ -91,12 +91,24 @@
       <HintPath>$(SolutionDir)\packages\C5.2.4.5947.17249\lib\net45\C5.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="GMap.NET.Core, Version=1.7.5.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\GMap.NET.WindowsForms.1.7.5\lib\net40\GMap.NET.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GMap.NET.WindowsForms, Version=1.7.5.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\GMap.NET.WindowsForms.1.7.5\lib\net40\GMap.NET.WindowsForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\Microsoft.Win32.Primitives.4.0.1\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="POGOProtos.NetStandard1, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\POGOProtos.NetStandard1.2.4.2\lib\net45\POGOProtos.NetStandard1.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SuperSocket.Common, Version=1.6.6.1, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
@@ -235,14 +247,6 @@
       <HintPath>$(SolutionDir)\packages\System.IO.Compression.ZipFile.4.0.1\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="GMap.NET.Core, Version=1.7.0.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\GMap.NET.WindowsForms.1.7.1\lib\net40\GMap.NET.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="GMap.NET.WindowsForms, Version=1.7.0.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\GMap.NET.WindowsForms.1.7.1\lib\net40\GMap.NET.WindowsForms.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Google.Protobuf, Version=3.1.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\Google.Protobuf.3.1.0\lib\net45\Google.Protobuf.dll</HintPath>
       <Private>True</Private>
@@ -257,10 +261,6 @@
     </Reference>
     <Reference Include="ObjectListView, Version=2.9.1.1072, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\ObjectListView.Official.2.9.1\lib\net20\ObjectListView.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="POGOProtos.NetStandard1, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\POGOProtos.NetStandard1.2.4.0\lib\net45\POGOProtos.NetStandard1.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PushbulletSharp, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL">
@@ -298,6 +298,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BotDataSocketClient.cs" />
+    <Compile Include="CommandLineUtility\Arguments.cs" />
     <Compile Include="ConsoleEventListener.cs" />
     <Compile Include="ConsoleLogger.cs" />
     <Compile Include="Forms\AuthAPIForm.cs">
@@ -414,13 +415,15 @@
     <Compile Include="WebSocketInterface.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Ico.ico" />
-    <None Include="App.config" />
-    <None Include="cert.pfx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <EmbeddedResource Include="App.config">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Config\log4net.config" />
     <None Include="Config\log4net.unix.config" />
+    <None Include="cert.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Config\Translations\translation.ca.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -433,9 +436,6 @@
     <None Include="Config\Translations\translation.de.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Config\Translations\translation.el.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Config\Translations\translation.es.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -443,6 +443,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Config\Translations\translation.fr.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.el.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Config\Translations\translation.hu.json">
@@ -472,10 +475,10 @@
     <None Include="Config\Translations\translation.pl.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Config\Translations\translation.pt-br.json">
+    <None Include="Config\Translations\translation.pt-BR.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Config\Translations\translation.pt-pt.json">
+    <None Include="Config\Translations\translation.pt-PT.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Config\Translations\translation.ro.json">
@@ -505,19 +508,21 @@
     <None Include="Config\Translations\translation.zh-CN_pp.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Config\Translations\translation.zh-HK.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Config\Translations\translation.zh-TW.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="packages.config" />
-    <None Include="Images\Miscs\question.png" />
+    <None Include="Config\Translations\translation.zh-HK.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="Resources\device info.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="RunWithExcelConfig.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\Miscs\question.png" />
     <Content Include="Images\Items\ItemBlukBerry.png" />
     <Content Include="Images\Items\ItemGreatBall.png" />
     <Content Include="Images\Items\ItemHyperPotion.png" />
@@ -541,12 +546,11 @@
     <Content Include="Images\Items\ItemTroyDisk.png" />
     <Content Include="Images\Items\ItemUltraBall.png" />
     <Content Include="Images\Items\ItemWeparBerry.png" />
-    <None Include="Images\Markers\Pokestop.png" />
-    <None Include="Images\Markers\Pokestop_looted.png" />
-    <None Include="Images\Markers\Trainer.png" />
-    <None Include="Images\Markers\Trainer_Front.png" />
-    <None Include="Images\Markers\Trainer_Left.png" />
-    <None Include="Images\Markers\Trainer_Right.png" />
+    <Content Include="Images\Markers\Pokestop.png" />
+    <Content Include="Images\Markers\Pokestop_looted.png" />
+    <Content Include="Images\Markers\Trainer_Front.png" />
+    <Content Include="Images\Markers\Trainer_Left.png" />
+    <Content Include="Images\Markers\Trainer_Right.png" />
     <Content Include="Images\Pokemon\Pokemon_1.png" />
     <Content Include="Images\Pokemon\Pokemon_10.png" />
     <Content Include="Images\Pokemon\Pokemon_100.png" />
@@ -739,7 +743,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="$(SolutionDir)\FeroxRev\PokemonGo.RocketAPI.csproj">
+    <ProjectReference Include="..\FeroxRev\PokemonGo.RocketAPI.csproj">
       <Project>{05d2da44-1b8e-4cf7-94ed-4d52451cd095}</Project>
       <Name>PokemonGo.RocketAPI</Name>
     </ProjectReference>

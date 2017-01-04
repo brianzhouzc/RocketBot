@@ -273,7 +273,6 @@ namespace PoGo.NecroBot.Logic
 
             return result;
         }
-        //end functions routes map
 
         private static async Task<List<FortData>> GetPokeStops(ISession session)
         {

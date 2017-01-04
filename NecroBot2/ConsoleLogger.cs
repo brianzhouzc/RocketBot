@@ -51,6 +51,7 @@ namespace NecroBot2
         public void Write(string message, LogLevel level = LogLevel.Info, ConsoleColor color = ConsoleColor.Black)
         {
             // Remember to change to a font that supports your language, otherwise it'll still show as ???.
+            //TODO: requis for PoGo.NecroBot.CLI IO.Execption
             //Console.OutputEncoding = Encoding.UTF8;
             if (level > _maxLogLevel)
                 return;
@@ -65,37 +66,37 @@ namespace NecroBot2
             switch (level)
             {
                 case LogLevel.Berry:
-                    MainForm.ColoredConsoleWrite(Color.DarkGoldenrod, finalMessage);
+                    MainForm.ColoredConsoleWrite(Color.Yellow, finalMessage);
                     break;
                 case LogLevel.Caught:
-                    MainForm.ColoredConsoleWrite(Color.Green, finalMessage);
+                    MainForm.ColoredConsoleWrite(Color.GreenYellow, finalMessage);
                     break;
                 case LogLevel.Debug:
                     MainForm.ColoredConsoleWrite(Color.Gray, finalMessage);
                     break;
                 case LogLevel.Egg:
-                    MainForm.ColoredConsoleWrite(Color.DarkGoldenrod, finalMessage);
+                    MainForm.ColoredConsoleWrite(Color.DarkOrange, finalMessage);
                     break;
                 case LogLevel.Error:
                     MainForm.ColoredConsoleWrite(Color.Red, finalMessage);
                     break;
                 case LogLevel.Evolve:
-                    MainForm.ColoredConsoleWrite(Color.Yellow, finalMessage);
+                    MainForm.ColoredConsoleWrite(Color.DarkGray, finalMessage);
                     break;
                 case LogLevel.Farming:
                     MainForm.ColoredConsoleWrite(Color.Magenta, finalMessage);
                     break;
                 case LogLevel.Flee:
-                    MainForm.ColoredConsoleWrite(Color.Orange, finalMessage);
+                    MainForm.ColoredConsoleWrite(Color.Yellow, finalMessage);
                     break;
                 case LogLevel.Gym:
-                    MainForm.ColoredConsoleWrite(Color.LightCyan, finalMessage);
+                    MainForm.ColoredConsoleWrite(Color.Magenta, finalMessage);
                     break;
                 case LogLevel.Info:
                     MainForm.ColoredConsoleWrite(Color.DarkCyan, finalMessage);
                     break;
                 case LogLevel.LevelUp:
-                    MainForm.ColoredConsoleWrite(Color.Yellow, finalMessage);
+                    MainForm.ColoredConsoleWrite(Color.Magenta, finalMessage);
                     break;
                 case LogLevel.New:
                     MainForm.ColoredConsoleWrite(Color.Green, finalMessage);
@@ -110,7 +111,7 @@ namespace NecroBot2
                     MainForm.ColoredConsoleWrite(Color.DarkMagenta, finalMessage);
                     break;
                 case LogLevel.Service:
-                    MainForm.ColoredConsoleWrite(Color.LimeGreen, finalMessage);
+                    MainForm.ColoredConsoleWrite(Color.White, finalMessage);
                     break;
                 case LogLevel.Sniper:
                     MainForm.ColoredConsoleWrite(Color.White, finalMessage);
@@ -125,7 +126,7 @@ namespace NecroBot2
                     MainForm.ColoredConsoleWrite(Color.White, finalMessage);
                     break;
                 case LogLevel.Warning:
-                    MainForm.ColoredConsoleWrite(Color.Goldenrod, finalMessage);
+                    MainForm.ColoredConsoleWrite(Color.Yellow, finalMessage);
                     break;
                 default:
                     MainForm.ColoredConsoleWrite(Color.White, finalMessage);

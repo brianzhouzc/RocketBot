@@ -41,6 +41,7 @@ using System.Diagnostics;
 using PoGo.NecroBot.Logic.Tasks;
 using System.Net;
 using PokemonGo.RocketAPI.Extensions;
+using NecroBot2.CommandLineUtility;
 
 namespace NecroBot2.Forms
 {
@@ -52,7 +53,7 @@ namespace NecroBot2.Forms
         private static string _subPath = "";
         private static bool _enableJsonValidation = true;
         private static bool _excelConfigAllow = false;
-        //private static bool _ignoreKillSwitch;
+        private static bool _ignoreKillSwitch;
 
         private static readonly Uri StrKillSwitchUri =
             new Uri("https://raw.githubusercontent.com/Furtif/NecroBot/Graphical_Interfaces/KillSwitch.txt");
@@ -75,17 +76,19 @@ namespace NecroBot2.Forms
         private StateMachine _machine;
         private List<PointLatLng> _routePoints;
         private GlobalSettings _settings;
+        public string[] _args;
 
-        public MainForm()
+        public MainForm(string[] args)
         {
             InitializeComponent();
             SynchronizationContext = SynchronizationContext.Current;
             Instance = this;
+            _args = args;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Text = Application.ProductName + " " + Application.ProductVersion;
+            Text = Application.ProductName + " " + Application.ProductVersion + " | https://github.com/Necrobot-Private";
             speedLable.Parent = gMapControl1;
             showMoreCheckBox.Parent = gMapControl1;
             followTrainerCheckBox.Parent = gMapControl1;
@@ -141,9 +144,9 @@ namespace NecroBot2.Forms
                 QuitEvent.Set();
                 eArgs.Cancel = true;
             };
-
+*/
             // Command line parsing
-            var commandLine = new Arguments(args);
+            var commandLine = new Arguments(_args);
             // Look for specific arguments values
             if (commandLine["subpath"] != null && commandLine["subpath"].Length > 0)
             {
@@ -173,16 +176,15 @@ namespace NecroBot2.Forms
                         break;
                 }
             }
-            */
 
             bool excelConfigAllow = false;
-            /*
+            
             if (commandLine["provider"] != null && commandLine["provider"] == "excel")
             {
 
                 excelConfigAllow = true;
             }
-            */
+            
 
             Logger.AddLogger(new ConsoleLogger(LogLevel.Service), _subPath);
             Logger.AddLogger(new FileLogger(LogLevel.Service), _subPath);
@@ -232,7 +234,7 @@ namespace NecroBot2.Forms
 
                 boolNeedsSetup = true;
             }
-            /*
+            
             if (commandLine["latlng"] != null && commandLine["latlng"].Length > 0)
             {
                 var crds = commandLine["latlng"].Split(',');
@@ -248,7 +250,7 @@ namespace NecroBot2.Forms
                     // ignored
                 }
             }
-            */
+            
 
             var lastPosFile = Path.Combine(profileConfigPath, "LastPos.ini");
             if (File.Exists(lastPosFile) && settings.LocationConfig.StartFromLastPosition)
@@ -739,12 +741,14 @@ namespace NecroBot2.Forms
 
                 _routePoints = routePoint;
                 togglePrecalRoute.Enabled = true;
-
-                var route = new GMapRoute(routePoint, "Walking Path")
+                if (togglePrecalRoute.Checked)
                 {
-                    Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
-                };
-                _pokestopsOverlay.Routes.Add(route);
+                    var route = new GMapRoute(routePoint, "Walking Path")
+                    {
+                        Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
+                    };
+                    _pokestopsOverlay.Routes.Add(route);
+                }
 
                 foreach (var pokeStop in pokeStops)
                 {
@@ -775,7 +779,7 @@ namespace NecroBot2.Forms
 
             _currentLatLng = latlng;
             UpdateMap();
-            SaveLocationToDisk(lat, lng);
+            //SaveLocationToDisk(lat, lng);
         }
 
         private void showMoreCheckBox_CheckedChanged(object sender, EventArgs e)

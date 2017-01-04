@@ -73,22 +73,22 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 4)]
         [ExcelConfig(Position = 12, Description = "Enable Auto captcha solve with CaptchaSolutions.com")]
 
-        public bool EnableCaptchaSolutions { get; internal set; }
+        public bool EnableCaptchaSolutions { get; set; }
 
         [DefaultValue("")]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 4)]
         [ExcelConfig(Position = 13, Description = "CaptchaSolutions API KEY")]
 
-        public string CaptchaSolutionAPIKey { get; internal set; }
+        public string CaptchaSolutionAPIKey { get;  set; }
         [DefaultValue("")]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 4)]
         [ExcelConfig(Position = 14, Description = "Captcha Solutions Secret key")]
 
-        public string CaptchaSolutionsSecretKey { get; internal set; }
+        public string CaptchaSolutionsSecretKey { get;  set; }
 
         [DefaultValue(120)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 4)]
         [ExcelConfig(Position = 15, Description = "Timeout for auto captcha solving")]
-        public int AutoCaptchaTimeout { get; internal set; }
+        public int AutoCaptchaTimeout { get;  set; }
     }
 }

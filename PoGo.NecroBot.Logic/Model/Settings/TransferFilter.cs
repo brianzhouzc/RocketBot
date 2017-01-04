@@ -18,6 +18,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         public TransferFilter()
         {
             MovesOperator = "and";
+            KeepMinOperator = Operator.or.ToString();
             Moves = new List<List<PokemonMove>>();
             DeprecatedMoves = new List<PokemonMove>();
             

@@ -606,10 +606,11 @@ namespace PoGo.NecroBot.Logic.Tasks
             await DelayingUtils.DelayAsync(session.LogicSettings.DelayBetweenPlayerActions, 500, cancellationToken);
 
             var useCaptureItem = await session.Client.Encounter.UseCaptureItem(encounterId, ItemId.ItemRazzBerry, spawnPointId);
-            berry.Count -= 1;
+            //berry.Count -= 1;
+
+            session.EventDispatcher.Send(new UseBerryEvent { BerryType = ItemId.ItemRazzBerry, Count = berry.Count -1});
             await session.Inventory.UpdateInventoryItem(berry.ItemId, -1);
 
-            session.EventDispatcher.Send(new UseBerryEvent { BerryType = ItemId.ItemRazzBerry, Count = berry.Count });
         }
     }
 }
