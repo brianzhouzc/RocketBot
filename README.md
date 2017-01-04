@@ -55,7 +55,7 @@ A Pokémon Go bot in C#
 
 ## Getting Started
 ### Download
-Download the bot from the [release](https://github.com/1461748123/Pokemon-Go-Rocket-API/releases) tab.  
+Download the bot from the [release](https://github.com/Furtif/NecroBot/releases) tab.  
 If you want the latest Beta-Build, you have to download the build from the Beta-Build branch and compile them by yourself with VisualStudio 2015.   
 **Waning: Beta-Builds are unstable and might cause damage to your account, use at your own risk**
 ### Login
@@ -73,12 +73,12 @@ You can contribute in many ways, here are some that you can do to help the proje
 ### Join discord channel and help answer questions
 We have more and more users everyday, so we have a lot of questions from new users who haven't fully understand how the bot works yet. If you want to help them out, join our official discord channel :)
 ### Answer questions in [issues](https://github.com/1461748123/Pokemon-Go-Rocket-API/issues)
-Same as above, you can help by answering questions in the [issues](https://github.com/1461748123/Pokemon-Go-Rocket-API/issues) tab!
+Same as above, you can help by answering questions in the [issues]((https://github.com/Furtif/NecroBot/issues) tab!
 ### Report bugs
 Report bugs you found in [issues](https://github.com/1461748123/Pokemon-Go-Rocket-API/issues).  
 In order to help us fix the problem, please take a screenshot of the error you get and also attach your log file (under the Logs folder) as well. Add [Bug] to the title to help us quickly identify the category of the issue.  
 ### Suggestions/ideas
-Tell us what you think we can do better in [issues](https://github.com/1461748123/Pokemon-Go-Rocket-API/issues).  
+Tell us what you think we can do better in [issues]((https://github.com/Furtif/NecroBot/issues).  
 Give detailed discription to help us understand what you are looking for. Add [Suggestion] to the title to help us quickly identify the category of the issue. Your suggestion might not be accept, but hey, maybe we will accept your suggestion next time! :)
 ## For developers:
 You can contribute to the project by helping us on coding.  
