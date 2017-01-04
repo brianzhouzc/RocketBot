@@ -35,12 +35,13 @@
             // 
             // numCount
             // 
-            this.numCount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.numCount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.numCount.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numCount.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numCount.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.numCount.Location = new System.Drawing.Point(11, 113);
+            this.numCount.Location = new System.Drawing.Point(15, 139);
+            this.numCount.Margin = new System.Windows.Forms.Padding(4);
             this.numCount.Maximum = new decimal(new int[] {
             999,
             0,
@@ -52,7 +53,7 @@
             0,
             0});
             this.numCount.Name = "numCount";
-            this.numCount.Size = new System.Drawing.Size(140, 29);
+            this.numCount.Size = new System.Drawing.Size(188, 35);
             this.numCount.TabIndex = 3;
             this.numCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numCount.Value = new decimal(new int[] {
@@ -71,36 +72,39 @@
             this.panel1.Controls.Add(this.pb);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(164, 240);
+            this.panel1.Size = new System.Drawing.Size(219, 295);
             this.panel1.TabIndex = 4;
             // 
             // btnRecycle
             // 
-            this.btnRecycle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.btnRecycle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRecycle.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnRecycle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRecycle.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRecycle.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.btnRecycle.Location = new System.Drawing.Point(11, 151);
+            this.btnRecycle.Location = new System.Drawing.Point(15, 186);
+            this.btnRecycle.Margin = new System.Windows.Forms.Padding(4);
             this.btnRecycle.Name = "btnRecycle";
-            this.btnRecycle.Size = new System.Drawing.Size(140, 35);
+            this.btnRecycle.Size = new System.Drawing.Size(188, 43);
             this.btnRecycle.TabIndex = 4;
             this.btnRecycle.Text = "Recycle";
             this.btnRecycle.UseVisualStyleBackColor = true;
             // 
             // btnCancel
             // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.btnCancel.Location = new System.Drawing.Point(11, 192);
+            this.btnCancel.Location = new System.Drawing.Point(15, 237);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(140, 35);
+            this.btnCancel.Size = new System.Drawing.Size(188, 43);
             this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -108,21 +112,23 @@
             // pb
             // 
             this.pb.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pb.Location = new System.Drawing.Point(33, 11);
+            this.pb.Location = new System.Drawing.Point(43, 13);
+            this.pb.Margin = new System.Windows.Forms.Padding(4);
             this.pb.Name = "pb";
-            this.pb.Size = new System.Drawing.Size(96, 96);
+            this.pb.Size = new System.Drawing.Size(128, 118);
             this.pb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pb.TabIndex = 0;
             this.pb.TabStop = false;
             // 
-            // RecycleItemForm
+            // ItemForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(164, 240);
+            this.ClientSize = new System.Drawing.Size(219, 295);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "RecycleItemForm";
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Name = "ItemForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "RecycleItemForm";
             ((System.ComponentModel.ISupportInitialize)(this.numCount)).EndInit();

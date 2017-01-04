@@ -32,15 +32,12 @@ using PoGo.NecroBot.Logic.Service.Elevation;
 using NecroBot2.Helpers;
 using NecroBot2.Models;
 using NecroBot2.Logic.Tasks;
-using NecroBot2.Logic;
 using NecroBot2.Logic.Event;
 using PoGo.NecroBot.Logic.Event;
 using PoGo.NecroBot.Logic;
 using System.Reflection;
-using System.Diagnostics;
 using PoGo.NecroBot.Logic.Tasks;
 using System.Net;
-using PokemonGo.RocketAPI.Extensions;
 using NecroBot2.CommandLineUtility;
 
 namespace NecroBot2.Forms
@@ -76,14 +73,14 @@ namespace NecroBot2.Forms
         private StateMachine _machine;
         private List<PointLatLng> _routePoints;
         private GlobalSettings _settings;
-        public string[] _args;
+        public string[] args;
 
-        public MainForm(string[] args)
+        public MainForm(string[] _args)
         {
             InitializeComponent();
             SynchronizationContext = SynchronizationContext.Current;
             Instance = this;
-            _args = args;
+            args = _args;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -99,6 +96,7 @@ namespace NecroBot2.Forms
             InitializeMap();
             VersionHelper.CheckVersion();
             btnRefresh.Enabled = false;
+            startStopBotToolStripMenuItem.Text = "▶ Start NecroBot2";
         }
 
         private void InitializeMap()
@@ -146,7 +144,7 @@ namespace NecroBot2.Forms
             };
 */
             // Command line parsing
-            var commandLine = new Arguments(_args);
+            var commandLine = new Arguments(args);
             // Look for specific arguments values
             if (commandLine["subpath"] != null && commandLine["subpath"].Length > 0)
             {
@@ -440,16 +438,13 @@ namespace NecroBot2.Forms
 
             _session.Navigation.WalkStrategy.UpdatePositionEvent +=
                 (lat, lng) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng });
-            _session.Navigation.WalkStrategy.UpdatePositionEvent += SaveLocationToDisk;
+            //_session.Navigation.WalkStrategy.UpdatePositionEvent += SaveLocationToDisk;
             _session.Navigation.WalkStrategy.UpdatePositionEvent += Navigation_UpdatePositionEvent;
 
-            Navigation.LoadPokestopsEvent +=
-                pokeStops => _session.EventDispatcher.Send(new LoadPokestopsEvent { PokeStops = pokeStops });
-            Navigation.LoadPokestopsEvent += InitializePokestopsAndRoute;
-
             Navigation.GetHumanizeRouteEvent +=
-                (route, destination) => _session.EventDispatcher.Send(new GetHumanizeRouteEvent { Route = route, Destination = destination });
+                (route, destination, pokestops) => _session.EventDispatcher.Send(new GetHumanizeRouteEvent { Route = route, Destination = destination, pokeStops = pokestops });
             Navigation.GetHumanizeRouteEvent += UpdateMap;
+            //Navigation.GetHumanizeRouteEvent += InitializePokestopsAndRoute;
 
             UseNearbyPokestopsTask.LootPokestopEvent +=
                 pokestop => _session.EventDispatcher.Send(new LootPokestopEvent { Pokestop = pokestop });
@@ -743,11 +738,11 @@ namespace NecroBot2.Forms
                 togglePrecalRoute.Enabled = true;
                 if (togglePrecalRoute.Checked)
                 {
-                    var route = new GMapRoute(routePoint, "Walking Path")
+                    var _route = new GMapRoute(routePoint, "Walking Path")
                     {
                         Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
                     };
-                    _pokestopsOverlay.Routes.Add(route);
+                    _pokestopsOverlay.Routes.Add(_route);
                 }
 
                 foreach (var pokeStop in pokeStops)
@@ -779,7 +774,7 @@ namespace NecroBot2.Forms
 
             _currentLatLng = latlng;
             UpdateMap();
-            //SaveLocationToDisk(lat, lng);
+            SaveLocationToDisk(lat, lng);
         }
 
         private void showMoreCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -841,7 +836,7 @@ namespace NecroBot2.Forms
             }, null);
         }
 
-        private void UpdateMap(List<GeoCoordinate> route, GeoCoordinate destination)
+        private void UpdateMap(List<GeoCoordinate> route, GeoCoordinate destination, List<FortData> pokeStops)
         {
             var routePointLatLngs = new List<PointLatLng>();
             foreach (var item in route)
@@ -853,6 +848,7 @@ namespace NecroBot2.Forms
                 Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4) { DashStyle = DashStyle.Dash }
             };
             _playerRouteOverlay.Routes.Add(routes);
+            InitializePokestopsAndRoute(pokeStops);
             /* Logger.Write("new call");
              List<PointLatLng> routePointLatLngs = new List<PointLatLng>();
              Logger.Write("new route size: " +route.Count);
@@ -981,15 +977,15 @@ namespace NecroBot2.Forms
 
         private void startStopBotToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (startStopBotToolStripMenuItem.Text.Equals("■ Exit"))
+            if (startStopBotToolStripMenuItem.Text.Equals(@"■ Exit NecroBot2"))
             {
-                Environment.Exit(0);
+                Environment.Exit(-1);
             }
             else
             {
-                startStopBotToolStripMenuItem.Text = "■ Exit";
+                startStopBotToolStripMenuItem.Text = @"■ Exit NecroBot2";
                 btnRefresh.Enabled = true;
-                settingToolStripMenuItem.Enabled = false;
+                //settingToolStripMenuItem.Enabled = false;
                 Task.Run(StartBot);
             }
         }

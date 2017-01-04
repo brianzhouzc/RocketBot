@@ -16,9 +16,9 @@ namespace NecroBot2.WebSocketHandler.GetCommands.Tasks
     {
         public static async Task Execute(ISession session, WebSocketSession webSocketSession, string requestID)
         {
-            using (var blocker = new BlockableScope(session, BotActions.GetProfile))
+            //using (var blocker = new BlockableScope(session, BotActions.GetProfile))
             {
-                if (!await blocker.WaitToRun()) return;
+               // if (!await blocker.WaitToRun()) return;
 
                 var playerStats = (await session.Inventory.GetPlayerStats()).FirstOrDefault();
                 if (playerStats == null)

@@ -808,5 +808,9 @@ namespace NecroBot2.Forms
 
         #endregion
 
-     }
+        private void DeviceModelTb_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

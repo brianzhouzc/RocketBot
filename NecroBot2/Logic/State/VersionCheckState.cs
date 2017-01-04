@@ -3,7 +3,6 @@
 using System;
 using System.IO;
 using System.IO.Compression;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using System.Reflection;
@@ -14,7 +13,6 @@ using Newtonsoft.Json.Linq;
 using PoGo.NecroBot.Logic.Common;
 using PoGo.NecroBot.Logic.Event;
 using PoGo.NecroBot.Logic.Logging;
-using PoGo.NecroBot.Logic.Model.Settings;
 using PoGo.NecroBot.Logic.Utils;
 using PoGo.NecroBot.Logic.State;
 using System.Windows.Forms;

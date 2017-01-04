@@ -311,9 +311,10 @@ namespace PoGo.NecroBot.Logic.State
                 catch (HasherException ex)
                 {
                     session.EventDispatcher.Send(new ErrorEvent { Message = ex.Message });
-                    session.EventDispatcher.Send(new ErrorEvent { Message = session.Translation.GetTranslation(TranslationString.ExitNowAfterEnterKey) });
-                    Console.ReadKey();
-                    System.Environment.Exit(1);
+                  //  session.EventDispatcher.Send(new ErrorEvent { Message = session.Translation.GetTranslation(TranslationString.ExitNowAfterEnterKey) });
+                    state = new IdleState();
+                    //Console.ReadKey();
+                    //System.Environment.Exit(1);
                 }
                 catch (Exception ex)
                 {

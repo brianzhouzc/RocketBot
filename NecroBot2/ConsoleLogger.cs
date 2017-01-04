@@ -1,7 +1,6 @@
 #region using directives
 
 using System;
-using System.Text;
 using PoGo.NecroBot.Logic.Logging;
 using PoGo.NecroBot.Logic.State;
 using NecroBot2.Forms;
@@ -75,28 +74,28 @@ namespace NecroBot2
                     MainForm.ColoredConsoleWrite(Color.Gray, finalMessage);
                     break;
                 case LogLevel.Egg:
-                    MainForm.ColoredConsoleWrite(Color.DarkOrange, finalMessage);
+                    MainForm.ColoredConsoleWrite(Color.LightGreen, finalMessage);
                     break;
                 case LogLevel.Error:
                     MainForm.ColoredConsoleWrite(Color.Red, finalMessage);
                     break;
                 case LogLevel.Evolve:
-                    MainForm.ColoredConsoleWrite(Color.DarkGray, finalMessage);
+                    MainForm.ColoredConsoleWrite(Color.White, finalMessage);
                     break;
                 case LogLevel.Farming:
                     MainForm.ColoredConsoleWrite(Color.Magenta, finalMessage);
                     break;
                 case LogLevel.Flee:
-                    MainForm.ColoredConsoleWrite(Color.Yellow, finalMessage);
+                    MainForm.ColoredConsoleWrite(Color.Orange, finalMessage);
                     break;
                 case LogLevel.Gym:
                     MainForm.ColoredConsoleWrite(Color.Magenta, finalMessage);
                     break;
                 case LogLevel.Info:
-                    MainForm.ColoredConsoleWrite(Color.DarkCyan, finalMessage);
+                    MainForm.ColoredConsoleWrite(Color.Aqua, finalMessage);
                     break;
                 case LogLevel.LevelUp:
-                    MainForm.ColoredConsoleWrite(Color.Magenta, finalMessage);
+                    MainForm.ColoredConsoleWrite(Color.Azure, finalMessage);
                     break;
                 case LogLevel.New:
                     MainForm.ColoredConsoleWrite(Color.Green, finalMessage);
@@ -105,10 +104,10 @@ namespace NecroBot2
                     MainForm.ColoredConsoleWrite(Color.White, finalMessage);
                     break;
                 case LogLevel.Pokestop:
-                    MainForm.ColoredConsoleWrite(Color.Cyan, finalMessage);
+                    MainForm.ColoredConsoleWrite(Color.Chartreuse, finalMessage);
                     break;
                 case LogLevel.Recycling:
-                    MainForm.ColoredConsoleWrite(Color.DarkMagenta, finalMessage);
+                    MainForm.ColoredConsoleWrite(Color.Magenta, finalMessage);
                     break;
                 case LogLevel.Service:
                     MainForm.ColoredConsoleWrite(Color.White, finalMessage);
@@ -120,7 +119,7 @@ namespace NecroBot2
                     MainForm.ColoredConsoleWrite(Color.Red, finalMessage);
                     break;
                 case LogLevel.Transfer:
-                    MainForm.ColoredConsoleWrite(Color.DarkGreen, finalMessage);
+                    MainForm.ColoredConsoleWrite(Color.Aquamarine, finalMessage);
                     break;
                 case LogLevel.Update:
                     MainForm.ColoredConsoleWrite(Color.White, finalMessage);

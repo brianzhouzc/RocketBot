@@ -316,7 +316,6 @@
     <Compile Include="Helpers\DeviceInfoHelper.cs" />
     <Compile Include="Logic\Event\GetHumanizeRouteEvent.cs" />
     <Compile Include="Logic\Event\LootPokestopEvent.cs" />
-    <Compile Include="Logic\Event\LoadPokestopsEvent.cs" />
     <Compile Include="Logic\Event\PokemonsEncounterEvent.cs" />
     <Compile Include="Logic\State\VersionCheckState.cs" />
     <Compile Include="Helpers\DeviceHelper.cs" />
@@ -363,13 +362,13 @@
       <DependentUpon>NicknamePokemonForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PokemomObject.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SniperEventListener.cs" />
     <Compile Include="WebSocketHandler\ActionCommands\DropItemHandler.cs" />
     <Compile Include="WebSocketHandler\ActionCommands\EvolvePokemonHandler.cs" />
@@ -415,6 +414,7 @@
     <Compile Include="WebSocketInterface.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Ico.ico" />
     <EmbeddedResource Include="App.config">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -514,6 +514,7 @@
     <None Include="Config\Translations\translation.zh-HK.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Images\Pokemon\Pokemon_991.png" />
     <Content Include="Resources\device info.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -610,6 +611,7 @@
     <Content Include="Images\Pokemon\Pokemon_15.png" />
     <Content Include="Images\Pokemon\Pokemon_150.png" />
     <Content Include="Images\Pokemon\Pokemon_151.png" />
+    <Content Include="Images\Pokemon\Pokemon_152.png" />
     <Content Include="Images\Pokemon\Pokemon_16.png" />
     <Content Include="Images\Pokemon\Pokemon_17.png" />
     <Content Include="Images\Pokemon\Pokemon_18.png" />
@@ -702,9 +704,6 @@
     <Content Include="Images\Pokemon\Pokemon_97.png" />
     <Content Include="Images\Pokemon\Pokemon_98.png" />
     <Content Include="Images\Pokemon\Pokemon_99.png" />
-    <Content Include="Resources\encrypt.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Forms\AuthAPIForm.resx">
@@ -727,6 +726,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

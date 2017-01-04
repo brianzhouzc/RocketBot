@@ -235,5 +235,11 @@ namespace PoGo.NecroBot.Logic.Model.Settings
             set { _settings.Auth.APIConfig.AuthAPIKey = value; }
         }
 
+        public bool DisplayVerboseLog
+        {
+            get { return _settings.Auth.APIConfig.DiplayHashServerLog; }
+            set { _settings.Auth.APIConfig.DiplayHashServerLog = value; }
+        }
+
     }
 }
