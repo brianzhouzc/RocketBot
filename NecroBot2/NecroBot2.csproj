@@ -514,7 +514,6 @@
     <None Include="Config\Translations\translation.zh-HK.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Images\Pokemon\Pokemon_991.png" />
     <Content Include="Resources\device info.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -704,6 +703,7 @@
     <Content Include="Images\Pokemon\Pokemon_97.png" />
     <Content Include="Images\Pokemon\Pokemon_98.png" />
     <Content Include="Images\Pokemon\Pokemon_99.png" />
+	<Content Include="Images\Pokemon\Pokemon_152.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Forms\AuthAPIForm.resx">

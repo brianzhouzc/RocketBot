@@ -96,7 +96,6 @@ namespace NecroBot2.Forms
             InitializeMap();
             VersionHelper.CheckVersion();
             btnRefresh.Enabled = false;
-            startStopBotToolStripMenuItem.Text = "▶ Start NecroBot2";
         }
 
         private void InitializeMap()
@@ -381,7 +380,7 @@ namespace NecroBot2.Forms
             */
             if (boolNeedsSetup)
             {
-                startStopBotToolStripMenuItem.Text = "■ Exit";
+                startStopBotToolStripMenuItem.Text = @"■ Exit NecroBot2";
                 Logger.Write("First time here? Go to settings to set your basic info.", LogLevel.Error);
             }
 
