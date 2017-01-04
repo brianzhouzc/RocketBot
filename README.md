@@ -72,8 +72,8 @@ Click Start Bot and enjoy!
 You can contribute in many ways, here are some that you can do to help the project out!
 ### Join discord channel and help answer questions
 We have more and more users everyday, so we have a lot of questions from new users who haven't fully understand how the bot works yet. If you want to help them out, join our official discord channel :)
-### Answer questions in [issues](https://github.com/1461748123/Pokemon-Go-Rocket-API/issues)
-Same as above, you can help by answering questions in the [issues]((https://github.com/Furtif/NecroBot/issues) tab!
+### Answer questions in [issues]((https://github.com/Furtif/NecroBot/issues)
+Same as above, you can help by answering questions in the [issues](https://github.com/Furtif/NecroBot/issues) tab!
 ### Report bugs
 Report bugs you found in [issues](https://github.com/1461748123/Pokemon-Go-Rocket-API/issues).  
 In order to help us fix the problem, please take a screenshot of the error you get and also attach your log file (under the Logs folder) as well. Add [Bug] to the title to help us quickly identify the category of the issue.  
