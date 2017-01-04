@@ -5,21 +5,30 @@ using Newtonsoft.Json;
 namespace PoGo.NecroBot.Logic.Model.Settings
 {
     [JsonObject(Title = "API Config", Description = "Config your prefered API to use", ItemRequired = Required.DisallowNull)]
-    public class APIConfig 
+    public class APIConfig  : BaseConfig
     {
 
+        public APIConfig() :base()
+        {
+
+        }
         [DefaultValue(true)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 1)]
-        public bool UsePogoDevAPI = true;
+        public bool UsePogoDevAPI { get; set; }
 
         [DefaultValue("")]
         [MinLength(0)]
-        [MaxLength(32)]
+        [MaxLength(100)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 9)]
-        public string AuthAPIKey = "";
+        public string AuthAPIKey { get; set; }
 
         [DefaultValue(false)]
         [JsonProperty(Required = Required.Default, DefaultValueHandling = DefaultValueHandling.Populate, Order = 15)]
-        public bool UseLegacyAPI;
+        public bool UseLegacyAPI { get; set; }
+
+        [DefaultValue(true)]
+        [JsonProperty(Required = Required.Default, DefaultValueHandling = DefaultValueHandling.Populate, Order = 15)]
+        public bool DiplayHashServerLog { get; set; }
+
     }
 }

@@ -265,7 +265,7 @@ namespace PoGo.NecroBot.Logic.Tasks
 
         private static bool CheckSnipeConditions(ISession session)
         {
-            if (waitNextPokestop) return false;
+            //if (waitNextPokestop) return false;
             if (session.LoggedTime > DateTime.Now.AddMinutes(1)) return false; //only snipe after login 1 min.
 
             if (snipeFailedCount >= 3) return false;
@@ -527,7 +527,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                     return;
                 }
 
-                if (!await SnipePokemonTask.CheckPokeballsToSnipe(session.LogicSettings.MinPokeballsWhileSnipe + 1, session, cancellationToken))
+                if (!await SnipePokemonTask.CheckPokeballsToSnipe(session.LogicSettings.MinPokeballsToSnipe + 1, session, cancellationToken))
                 {
                     session.EventDispatcher.Send(new WarnEvent()
                     {

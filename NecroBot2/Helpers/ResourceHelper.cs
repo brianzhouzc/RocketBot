@@ -28,7 +28,11 @@ namespace NecroBot2.Helpers
         }
         public static Image GetPokemonImage(int pokemonId)
         {
+            //TODO: 2G Images 151-25x missing
+            if (pokemonId <= 151)
             return GetImage("Pokemon_" + pokemonId);
+            else
+                return GetImage("Pokemon_" + 152);
         }
     }
 }

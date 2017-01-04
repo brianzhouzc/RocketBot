@@ -38,10 +38,10 @@
             this.lbl.BackColor = System.Drawing.Color.Transparent;
             this.lbl.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lbl.Location = new System.Drawing.Point(0, 64);
+            this.lbl.Location = new System.Drawing.Point(0, 79);
             this.lbl.Margin = new System.Windows.Forms.Padding(0);
             this.lbl.Name = "lbl";
-            this.lbl.Size = new System.Drawing.Size(64, 24);
+            this.lbl.Size = new System.Drawing.Size(85, 30);
             this.lbl.TabIndex = 1;
             this.lbl.Text = "999";
             this.lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -54,7 +54,7 @@
             this.pb.Location = new System.Drawing.Point(0, 0);
             this.pb.Margin = new System.Windows.Forms.Padding(0);
             this.pb.Name = "pb";
-            this.pb.Size = new System.Drawing.Size(64, 64);
+            this.pb.Size = new System.Drawing.Size(85, 79);
             this.pb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pb.TabIndex = 0;
             this.pb.TabStop = false;
@@ -73,7 +73,7 @@
             this.lblTime.Location = new System.Drawing.Point(0, 0);
             this.lblTime.Margin = new System.Windows.Forms.Padding(0);
             this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(64, 23);
+            this.lblTime.Size = new System.Drawing.Size(85, 28);
             this.lblTime.TabIndex = 2;
             this.lblTime.Text = "30m 00s";
             this.lblTime.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -81,14 +81,15 @@
             // 
             // ItemBox
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lblTime);
             this.Controls.Add(this.lbl);
             this.Controls.Add(this.pb);
             this.Cursor = System.Windows.Forms.Cursors.Default;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ItemBox";
-            this.Size = new System.Drawing.Size(64, 88);
+            this.Size = new System.Drawing.Size(85, 108);
             ((System.ComponentModel.ISupportInitialize)(this.pb)).EndInit();
             this.ResumeLayout(false);
 

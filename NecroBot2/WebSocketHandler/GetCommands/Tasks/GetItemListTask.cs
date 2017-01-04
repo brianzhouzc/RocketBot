@@ -14,9 +14,9 @@ namespace NecroBot2.WebSocketHandler.GetCommands.Tasks
     {
         public static async Task Execute(ISession session, WebSocketSession webSocketSession, string requestID)
         {
-            using (var blocker = new BlockableScope(session, BotActions.ListItems))
+           // using (var blocker = new BlockableScope(session, BotActions.ListItems))
             {
-                if (!await blocker.WaitToRun()) return;
+                //if (!await blocker.WaitToRun()) return;
 
                 var allItems = await session.Inventory.GetItems();
                 webSocketSession.Send(EncodingHelper.Serialize(new ItemListResponce(allItems, requestID)));

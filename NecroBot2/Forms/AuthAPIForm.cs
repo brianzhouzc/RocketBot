@@ -79,10 +79,5 @@ namespace NecroBot2.Forms
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
-
-        private void AuthAPIForm_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

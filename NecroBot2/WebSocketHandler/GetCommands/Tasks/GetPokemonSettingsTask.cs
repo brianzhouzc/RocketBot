@@ -14,9 +14,9 @@ namespace NecroBot2.WebSocketHandler.GetCommands.Tasks
     {
         public static async Task Execute(ISession session, WebSocketSession webSocketSession, string requestID)
         {
-            using (var blocker = new BlockableScope(session, BotActions.PokemonSettings))
+            //using (var blocker = new BlockableScope(session, BotActions.PokemonSettings))
             {
-                if (!await blocker.WaitToRun()) return;
+               // if (!await blocker.WaitToRun()) return;
 
                 var settings = await session.Inventory.GetPokemonSettings();
                 webSocketSession.Send(EncodingHelper.Serialize(new WebResponce

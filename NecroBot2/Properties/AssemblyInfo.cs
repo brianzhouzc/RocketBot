@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Graphic Interface")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("NecroBot-Private Team")]
-[assembly: AssemblyProduct("RocketBot 2.4.2.1 | NecroBot2 Logic :")]
+[assembly: AssemblyProduct("RocketBot 2.4.2.2 ■ NecroBot2 Logic :")]
 [assembly: AssemblyCopyright("Copyright NecroBot-Private Team © 2016")]
 [assembly: AssemblyTrademark("NecroBot-Private Team")]
 [assembly: AssemblyCulture("")]
@@ -39,6 +39,6 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("1.0.0.48")]
+[assembly: AssemblyVersion("1.0.0.50")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: AssemblyInformationalVersion("v1.0.0.48")]
+[assembly: AssemblyInformationalVersion("v1.0.0.50")]

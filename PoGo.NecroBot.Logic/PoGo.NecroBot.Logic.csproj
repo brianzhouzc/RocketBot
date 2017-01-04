@@ -341,6 +341,7 @@
     <Compile Include="State\BotSwitcherState.cs" />
     <Compile Include="State\CheckTosState.cs" />
     <Compile Include="State\CatchState.cs" />
+    <Compile Include="State\IdleState.cs" />
     <Compile Include="State\SessionStats.cs" />
     <Compile Include="Strategies\Walk\BaseWalkStrategy.cs" />
     <Compile Include="Strategies\Walk\FlyStrategy.cs" />
