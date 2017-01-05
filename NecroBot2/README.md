@@ -1,31 +1,36 @@
-<!-- title -->
-# NecroBot2
-Modified Version of NecroBot2 and RocketBot
-<!-- disclaimer -->
-## The contents of this repo are a proof of concept and are for educational use only
+<!-- define variables -->
+[1.1]: http://i.imgur.com/M4fJ65n.png (ATTENTION)
+[1.2]: https://discordapp.com/api/guilds/208485545439920128/widget.png?style=banner2 (DISCORD)
 
-# Images
-## Home
-![alt tag](https://github.com/Necrobot-Private/NecroBot/blob/8311b945c2d503b5263f21d37b6b751a22479388/NecroBot2/Img/home.png)  
-## Settings Auth
-![alt tag](https://github.com/Necrobot-Private/NecroBot/blob/8311b945c2d503b5263f21d37b6b751a22479388/NecroBot2/Img/settings.png)  
-## Settings Device
-![alt tag](https://github.com/Necrobot-Private/NecroBot/blob/8311b945c2d503b5263f21d37b6b751a22479388/NecroBot2/Img/settings1.png)  
-## Settings Pokemon Catch
-![alt tag](https://github.com/Necrobot-Private/NecroBot/blob/8311b945c2d503b5263f21d37b6b751a22479388/NecroBot2/Img/settings2.png)  
-## Settings Pokemon Transfer
-![alt tag](https://github.com/Necrobot-Private/NecroBot/blob/8311b945c2d503b5263f21d37b6b751a22479388/NecroBot2/Img/settings3.png)
-## Settings Pokemon PowerUp
-![alt tag](https://github.com/Necrobot-Private/NecroBot/blob/8311b945c2d503b5263f21d37b6b751a22479388/NecroBot2/Img/settings4.png)  
-## Settings Pokemon Evolve
-![alt tag](https://github.com/Necrobot-Private/NecroBot/blob/8311b945c2d503b5263f21d37b6b751a22479388/NecroBot2/Img/settings5.png)  
-## Settings Items
-![alt tag](https://github.com/Necrobot-Private/NecroBot/blob/8311b945c2d503b5263f21d37b6b751a22479388/NecroBot2/Img/settings6.png)  
-## Settings Advanced Settings
-![alt tag](https://github.com/Necrobot-Private/NecroBot/blob/8311b945c2d503b5263f21d37b6b751a22479388/NecroBot2/Img/settings7.png) 
-## Run
-![alt tag](https://github.com/Necrobot-Private/NecroBot/blob/8311b945c2d503b5263f21d37b6b751a22479388/NecroBot2/Img/run.png)  
-#
+<h1>RocketBot now supports Pokémon Go 0.51.2 API using public hashing server from PogoDev.</h1>
+
+<p>
+RocketBot itself is free but now you will need to purchase an API key to run the bot.
+<br/>
+See https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer for pricing for API keys.
+</p>
+
+<!-- disclaimer -->
+![alt text][1.1] <strong><em> The contents of this repo are a proof of concept and are for educational use only </em></strong>![alt text][1.1]<br/>
+[![Stories in Ready](https://badge.waffle.io/1461748123/Pokemon-Go-Rocket-API.svg?label=accepted&title=Accepted)](http://waffle.io/1461748123/Pokemon-Go-Rocket-API)
+[![Stories in Ready](https://badge.waffle.io/1461748123/Pokemon-Go-Rocket-API.svg?label=in%20progress&title=In Progress)](http://waffle.io/1461748123/Pokemon-Go-Rocket-API)
+[![Stories in Ready](https://badge.waffle.io/1461748123/Pokemon-Go-Rocket-API.png?label=ready&title=Ready)](https://waffle.io/1461748123/Pokemon-Go-Rocket-API)
+
+<p align="center">
+  <a href="https://discord.gg/y6EU2qY">
+    <img alt="Logo" src="https://discordapp.com/api/guilds/208485545439920128/widget.png?style=banner2">
+  </a>
+</p>
+
+## Images
+![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/Images/MainForm.png)  
+![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/Images/SettingForm.png)
+![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/Images/SettingForm_2.png)
+![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/Images/SettingForm_3.png)
+![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/Images/SettingForm_4.png)
+![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/Images/SettingForm_5.png)
+
+A Pokémon Go bot in C#
 
 ## Features
 * PTC / Google Login
@@ -49,6 +54,10 @@ Modified Version of NecroBot2 and RocketBot
 * Logs everything into Logs folder
 
 ## Getting Started
+### Download
+Download the bot from the [release](https://github.com/Furtif/NecroBot/releases) tab.  
+If you want the latest Beta-Build, you have to download the build from the Beta-Build branch and compile them by yourself with VisualStudio 2015.   
+**Waning: Beta-Builds are unstable and might cause damage to your account, use at your own risk**
 ### Login
 There are problems with google oauth login, so we have to use account and password to login for now.  
 To ensure your account's safety, we suggest you to creat an app password just for botting. This will also allows users with 2-fact-auth enable to use the bot.  
@@ -63,14 +72,20 @@ Click Start Bot and enjoy!
 You can contribute in many ways, here are some that you can do to help the project out!
 ### Join discord channel and help answer questions
 We have more and more users everyday, so we have a lot of questions from new users who haven't fully understand how the bot works yet. If you want to help them out, join our official discord channel :)
-### Answer questions in [issues](https://github.com/Necrobot-Private/NecroBot/issues)
-Same as above, you can help by answering questions in the [issues](https://github.com/Necrobot-Private/NecroBot/issues) tab!
+### Answer questions in [issues](https://github.com/Furtif/NecroBot/issues)
+Same as above, you can help by answering questions in the [issues](https://github.com/Furtif/NecroBot/issues) tab!
 ### Report bugs
-Report bugs you found in [issues](https://github.com/Necrobot-Private/NecroBot/issues).  
+Report bugs you found in [issues](https://github.com/1461748123/Pokemon-Go-Rocket-API/issues).  
 In order to help us fix the problem, please take a screenshot of the error you get and also attach your log file (under the Logs folder) as well. Add [Bug] to the title to help us quickly identify the category of the issue.  
 ### Suggestions/ideas
-Tell us what you think we can do better in [issues] (https://github.com/Necrobot-Private/NecroBot/issues).  
+Tell us what you think we can do better in [issues]((https://github.com/Furtif/NecroBot/issues).  
 Give detailed discription to help us understand what you are looking for. Add [Suggestion] to the title to help us quickly identify the category of the issue. Your suggestion might not be accept, but hey, maybe we will accept your suggestion next time! :)
+## For developers:
+You can contribute to the project by helping us on coding.  
+Fork this project and create a new branch to add your code or fix a known issue.  
+Use pull request to submit your code. Remember, submit to *Beta-Build* branch! :D
+## Donations
+We are not accepting donations currently :) If you really wanna contribute, consider doing the stuff above! :D
 
 # Settings
 ## AuthType
@@ -93,10 +108,10 @@ Give detailed discription to help us understand what you are looking for. Add [S
 * *token* - for Google account. No need for wen using PTC. (Obsolete)
 
 ## DefaultLatitude
-* *40.764891* - Latitude of your location you want to use the bot in. Number between -90 and +90. Doesn't matter how many numbers stand after the comma.
+* *12.345678* - Latitude of your location you want to use the bot in. Number between -90 and +90. Doesn't matter how many numbers stand after the comma.
 
 ## DefaultLongitude
-* *-73.972877* - Longitude of your location you want to use the bot in. Number between -180 and +180. Doesn't matter how many numbers stand after the comma.
+* *123.456789* - Longitude of your location you want to use the bot in. Number between -180 and +180. Doesn't matter how many numbers stand after the comma.
 
 ## LevelOutput
 * *time* - Every X amount of time it prints the current level and experience needed for the next level.
@@ -112,6 +127,10 @@ Give detailed discription to help us understand what you are looking for. Add [S
 ## RecycleItemsInterval
 * *seconds* - After X seconds it recycles items from the filter in *Settings.cs*.
 
+## Language
+* *english* - Outputs caught Pokémon in english name.
+* *german*  - Outputs caught Pokémon in german name.
+
 ## RazzBerryMode
 * *cp* - Use RazzBerry when Pokémon is over specific CP.
 * *probability* - Use RazzBerry when Pokémon catch chance is under a specific percentage.
@@ -119,6 +138,13 @@ Give detailed discription to help us understand what you are looking for. Add [S
 ## RazzBerrySetting
 * *cp value* - If RazzBerryMode is cp. Use RazzBerry when Pokémon is over this value
 * *probability value* - If RazzBerryMode is probability. Use Razzberry when % of catching is under this value. Between 0 and 1.
+
+## TransferType
+* *none* - disables transferring
+* *cp* - transfers all Pokémon below the CP threshold in the app.config, EXCEPT for those types specified in program.cs in TransferAllWeakPokemon
+* *leaveStrongest* - transfers all but the highest CP Pokémon of each type SPECIFIED IN program.cs in TransferAllButStrongestUnwantedPokemon (those that aren't specified are untouched)
+* *duplicate* - same as above but for all Pokémon (no need to specify type), (will not transfer favorited Pokémon)
+* *all* - transfers all Pokémon
 
 ## TransferCPThreshold
 * *CP* - transfers all Pokémon with less CP than this value.
@@ -140,6 +166,5 @@ Give detailed discription to help us understand what you are looking for. Add [S
 * *false* - Evolves no Pokémon.
 * *true* - Evolves all Pokémon.
 
-## Credits [Necrobot-Private](https://github.com/Necrobot-Private/NecroBot)
-
-## Credits [RocketBot](https://github.com/TheUnnameOrganization/RocketBot)
+## [Credits](https://github.com/Necrobot-Private)
+## [Credits](https://github.com/TheUnnameOrganization)
