@@ -38,6 +38,7 @@ namespace NecroBot2.Forms
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.startStopBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
             this.olvPokemonList = new BrightIdeasSoftware.ObjectListView();
             this.pkmnName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -120,7 +121,8 @@ namespace NecroBot2.Forms
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startStopBotToolStripMenuItem,
-            this.settingToolStripMenuItem});
+            this.settingToolStripMenuItem,
+            this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1254, 25);
@@ -140,6 +142,13 @@ namespace NecroBot2.Forms
             this.settingToolStripMenuItem.Size = new System.Drawing.Size(66, 21);
             this.settingToolStripMenuItem.Text = "Settings";
             this.settingToolStripMenuItem.Click += new System.EventHandler(this.todoToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(66, 21);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // gMapControl1
             // 
@@ -544,8 +553,7 @@ namespace NecroBot2.Forms
         private System.Windows.Forms.ToolStripMenuItem settingToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.ToolStripMenuItem startStopBotToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem showAllToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private GMap.NET.WindowsForms.GMapControl gMapControl1;
         private BrightIdeasSoftware.ObjectListView olvPokemonList;
         private BrightIdeasSoftware.OLVColumn pkmnName;

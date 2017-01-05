@@ -67,11 +67,6 @@ namespace PoGo.NecroBot.Logic.State
             catch (Exception ex) when (ex is PtcOfflineException || ex is AccessTokenExpiredException)
             {
 
-
-
-
-
-
                 session.EventDispatcher.Send(new ErrorEvent
                 {
                     Message = session.Translation.GetTranslation(TranslationString.PtcOffline)
@@ -123,6 +118,10 @@ namespace PoGo.NecroBot.Logic.State
                 });
                 await Task.Delay(2000, cancellationToken);
                 Environment.Exit(0);
+            }
+            catch(OperationCanceledException op)
+            {
+                //just continue login if this happen, most case is bot switching...
             }
             catch (InvalidProtocolBufferException ex) when (ex.Message.Contains("SkipLastField"))
             {
@@ -177,7 +176,11 @@ namespace PoGo.NecroBot.Logic.State
                     System.Environment.Exit(1);
                 }
             }
-            catch(CaptchaException ex)
+            catch (OperationCanceledException op)
+            {
+                //just continue login if this happen, most case is bot switching...
+            }
+            catch (CaptchaException ex)
             {
                 throw ex;
             }

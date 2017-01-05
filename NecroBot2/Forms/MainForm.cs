@@ -1420,5 +1420,17 @@ namespace NecroBot2.Forms
         }
 
         #endregion POKEMON LIST
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           // Thread.Sleep(10000);
+            Thread mThread = new Thread(delegate ()
+            {
+                 var infoForm = new InfoForm();
+                infoForm.ShowDialog();
+            });
+            mThread.SetApartmentState(ApartmentState.STA);
+             mThread.Start();
+        }
     }
 }

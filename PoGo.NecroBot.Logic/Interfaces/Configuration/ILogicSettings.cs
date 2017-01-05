@@ -244,5 +244,6 @@ namespace PoGo.NecroBot.Logic.Interfaces.Configuration
         int BulkTransferSize { get; }
 
         bool AutosnipeVerifiedOnly { get;  }
+        int SnipePauseOnOutOfBallTime { get;  }
     }
 }

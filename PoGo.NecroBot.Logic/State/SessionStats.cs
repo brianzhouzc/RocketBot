@@ -17,6 +17,8 @@ namespace PoGo.NecroBot.Logic.State
         public int SnipeCount { get; set; }
         public DateTime LastSnipeTime { get; set; }
         public DateTime StartTime { get; set; }
+        public bool IsSnipping { get; internal set; }
+
         private ISession ownerSession;
         private LiteDatabase db;
         private LiteCollection<PokeStopTimestamp> pokestopTimestampCollection;

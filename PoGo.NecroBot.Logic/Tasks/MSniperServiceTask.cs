@@ -527,14 +527,14 @@ namespace PoGo.NecroBot.Logic.Tasks
                     return;
                 }
 
-                if (!await SnipePokemonTask.CheckPokeballsToSnipe(session.LogicSettings.MinPokeballsToSnipe + 1, session, cancellationToken))
+                if (autoSnipePokemons.Count >0 && !await SnipePokemonTask.CheckPokeballsToSnipe(session.LogicSettings.MinPokeballsToSnipe + 1, session, cancellationToken))
                 {
                     session.EventDispatcher.Send(new WarnEvent()
                     {
-                        Message = session.Translation.GetTranslation(Common.TranslationString.AutoSnipeDisabled)
+                        Message = session.Translation.GetTranslation(Common.TranslationString.AutoSnipeDisabled, session.LogicSettings.SnipePauseOnOutOfBallTime)
                     });
 
-                    OutOffBallBlock = DateTime.Now.AddMinutes(5);
+                    OutOffBallBlock = DateTime.Now.AddMinutes(session.LogicSettings.SnipePauseOnOutOfBallTime);
                     return;
                 }
                 List<MSniperInfo2> mSniperLocation2 = new List<MSniperInfo2>();
@@ -596,7 +596,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                             Message = session.Translation.GetTranslation(Common.TranslationString.AutoSnipeDisabled)
                         });
 
-                        OutOffBallBlock = DateTime.Now.AddMinutes(5);
+                        OutOffBallBlock = DateTime.Now.AddMinutes(session.LogicSettings.SnipePauseOnOutOfBallTime);
                         break;
                     }
 
@@ -617,6 +617,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                         Source = "MSniperService",
                         Iv = location.Iv
                     });
+                    session.Stats.IsSnipping = true;
                     var result = location.EncounterId != 0 ? await CatchFromService(session, cancellationToken, location) : await CatchWithSnipe(session, location, cancellationToken);
 
                     if (result)
@@ -653,7 +654,9 @@ namespace PoGo.NecroBot.Logic.Tasks
             }
             finally
             {
+                
                 inProgress = false;
+                session.Stats.IsSnipping = false;
             }
         }
     }

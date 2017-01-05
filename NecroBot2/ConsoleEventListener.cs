@@ -370,6 +370,7 @@ namespace NecroBot2
                     humanWalkingEvent.OldWalkingSpeed,
                     humanWalkingEvent.CurrentWalkingSpeed),
                     LogLevel.Info, ConsoleColor.DarkCyan);
+            //add label speed 
             MainForm.SetSpeedLable("Current Speed: " + Math.Round(humanWalkingEvent.CurrentWalkingSpeed, 2) + " km/h");
         }
 

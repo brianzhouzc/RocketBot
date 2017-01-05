@@ -128,5 +128,10 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [DefaultValue(false)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 22)]
         public bool AutosnipeVerifiedOnly { get; set; }
+
+        [ExcelConfig(Description = "Total time in minutes bot will ignore autosnipe when out of ball", Position = 23)]
+        [DefaultValue(5)]
+        [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 23)]
+        public int SnipePauseOnOutOfBallTime { get;  set; }
     }
 }

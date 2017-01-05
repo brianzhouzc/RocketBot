@@ -55,7 +55,7 @@ namespace PoGo.NecroBot.Logic.State
                         Thread.Sleep(1000);                                                                                            
                         Console.SetCursorPosition(0, Console.CursorTop - 1);
                         var ts = DateTime.Now - start;
-                        session.EventDispatcher.Send( new ErrorEvent() { Message = $"Hash API server down time : {ts.ToString("T")}   Last ping: {lastPing.ToString("T")}" });
+                        session.EventDispatcher.Send( new ErrorEvent() { Message = $"Hash API server down time : {ts.ToString(@"hh\:mm\:ss")}   Last ping: {lastPing.ToString("T")}" });
                     }
 
                 }
