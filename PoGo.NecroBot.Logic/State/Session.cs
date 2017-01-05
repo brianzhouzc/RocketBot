@@ -226,6 +226,8 @@ namespace PoGo.NecroBot.Logic.State
         }
         public void AddForts(List<FortData> data)
         {
+            data.RemoveAll(x => LocationUtils.CalculateDistanceInMeters(x.Latitude, x.Longitude, this.Settings.DefaultLatitude, this.Settings.DefaultLongitude) > 10000);
+
             this.Forts.RemoveAll(p => data.Any(x => x.Id == p.Id && x.Type == FortType.Checkpoint));
             this.Forts.AddRange(data.Where(x => x.Type == FortType.Checkpoint));
             foreach (var item in data.Where(p => p.Type == FortType.Gym))

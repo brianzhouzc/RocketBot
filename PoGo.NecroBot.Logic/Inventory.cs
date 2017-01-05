@@ -526,12 +526,22 @@ namespace PoGo.NecroBot.Logic
             return
                 inventory.Where(i => !string.IsNullOrEmpty(i.DeployedFortId));
         }
+        public async Task<MoveSettings> GetMoveSetting(PokemonMove move)
+        {
+            if (_templates == null) await GetPokemonSettings();
 
+            var moveSettings = _templates.ItemTemplates.Where(x => x.MoveSettings != null).Select(x => x.MoveSettings).ToList();
+
+            return moveSettings.FirstOrDefault(x => x.MovementId == move);
+
+        }
         public async Task<IEnumerable<PokemonSettings>> GetPokemonSettings()
         {
             if (_templates == null || _pokemonSettings == null)
             {
                 _templates = await _client.Download.GetItemTemplates();
+                var moveSettings = _templates.ItemTemplates.Where(x => x.MoveSettings != null).Select(x => x.MoveSettings).ToList();
+
                 _pokemonSettings = _templates.ItemTemplates.Select(i => i.PokemonSettings).Where(p => p != null && p.FamilyId != PokemonFamilyId.FamilyUnset);
             }
             return _pokemonSettings;

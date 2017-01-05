@@ -1879,5 +1879,25 @@ namespace NecroBot2.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+		
+		        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap necro_logo {
+            get {
+                object obj = ResourceManager.GetObject("necro_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PayPalDonateNow {
+            get {
+                object obj = ResourceManager.GetObject("PayPalDonateNow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

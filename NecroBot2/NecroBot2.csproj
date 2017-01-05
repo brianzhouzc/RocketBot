@@ -307,6 +307,12 @@
     <Compile Include="Forms\AuthAPIForm.Designer.cs">
       <DependentUpon>AuthAPIForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\InfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InfoForm.Designer.cs">
+      <DependentUpon>InfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SettingForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -415,6 +421,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Ico.ico" />
+    <None Include="Resources\necro_logo.jpg" />
+    <None Include="Resources\PayPalDonateNow.png" />
     <EmbeddedResource Include="App.config">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -514,7 +522,6 @@
     <None Include="Config\Translations\translation.zh-HK.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Images\Pokemon\Pokemon_991.png" />
     <Content Include="Resources\device info.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -704,10 +711,14 @@
     <Content Include="Images\Pokemon\Pokemon_97.png" />
     <Content Include="Images\Pokemon\Pokemon_98.png" />
     <Content Include="Images\Pokemon\Pokemon_99.png" />
+    <Content Include="Images\Pokemon\Pokemon_152.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Forms\AuthAPIForm.resx">
       <DependentUpon>AuthAPIForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InfoForm.resx">
+      <DependentUpon>InfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ItemBox.resx">
       <DependentUpon>ItemBox.cs</DependentUpon>

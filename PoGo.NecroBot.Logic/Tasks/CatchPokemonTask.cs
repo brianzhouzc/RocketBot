@@ -459,7 +459,7 @@ namespace PoGo.NecroBot.Logic.Tasks
         {
             //if distance is very far. that is snip pokemon
 
-            if (LocationUtils.CalculateDistanceInMeters(encounterEV.Latitude, encounterEV.Longitude, session.Client.CurrentLatitude, session.Client.CurrentLongitude) > 250)//assume that all pokemon catch from 250+m is snipe
+            if (session.Stats.IsSnipping || LocationUtils.CalculateDistanceInMeters(encounterEV.Latitude, encounterEV.Longitude, session.Client.CurrentLatitude, session.Client.CurrentLongitude) > 250)//assume that all pokemon catch from 250+m is snipe
                 return;
 
             if (MultipleBotConfig.IsMultiBotActive(session.LogicSettings) &&
