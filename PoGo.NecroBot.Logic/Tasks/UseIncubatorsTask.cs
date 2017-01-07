@@ -124,7 +124,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                 if (!newRememberedIncubators.SequenceEqual(rememberedIncubators))
                     SaveRememberedIncubators(newRememberedIncubators, rememberedIncubatorsFilePath);
             }
-            catch(Exception ex)
+            catch(Exception)
             {
 
             }

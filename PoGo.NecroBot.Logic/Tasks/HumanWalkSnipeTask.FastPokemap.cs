@@ -53,7 +53,10 @@ namespace PoGo.NecroBot.Logic.Tasks
         
         public static async Task StartFastPokemapAsync(ISession session , CancellationToken cancellationToken)
         {
+            await Task.Delay(0); // Just added to get rid of compiler warning. Remove this if async code is used below.
+
             return;
+            /*
             double defaultLatitude = session.Settings.DefaultLatitude;
             double defaultLongitude = session.Settings.DefaultLongitude;
 
@@ -80,6 +83,7 @@ namespace PoGo.NecroBot.Logic.Tasks
 
                 //Logger.Write($"Map scan finished! Time elapsed {sw.Elapsed.ToString(@"mm\:ss")}");
             }
+            */
         }
 
         private static async Task OffsetScanFPM(double scanOffset, double step, double lat, double lng)

@@ -121,7 +121,7 @@ namespace PoGo.NecroBot.Logic.State
                         session.ReInitSessionWithNextBot();
                     state = new LoginState();
                 }
-                catch (AccountNotVerifiedException ex)
+                catch (AccountNotVerifiedException)
                 {
                     if (session.LogicSettings.AllowMultipleBot)
                     {
@@ -220,7 +220,7 @@ namespace PoGo.NecroBot.Logic.State
                     state = new LoginState();
 
                 }
-                catch (LoginFailedException ex)
+                catch (LoginFailedException)
                 {
                     PushNotificationClient.SendNotification(session, $"Banned!!!! {session.Settings.PtcUsername}{session.Settings.GoogleUsername}", session.Translation.GetTranslation(TranslationString.AccountBanned), true);
 

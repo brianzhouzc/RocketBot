@@ -98,7 +98,7 @@ namespace PoGo.NecroBot.Logic.Utils
                     await session.Telegram.SendMessage($"{title}\r\n{body}");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 session.EventDispatcher.Send(new WarnEvent() { Message = session.Translation.GetTranslation(Common.TranslationString.FailedSendNotification) });
             }

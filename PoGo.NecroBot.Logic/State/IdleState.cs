@@ -22,7 +22,7 @@ namespace PoGo.NecroBot.Logic.State
                     await client.GetStringAsync("http://hashing.pogodev.io/api/hash/versions");
                     return true;
                 }
-                catch (Exception ex) { }
+                catch (Exception) { }
                 }
             return false;
         }

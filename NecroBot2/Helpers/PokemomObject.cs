@@ -5,7 +5,7 @@ using POGOProtos.Data;
 using POGOProtos.Enums;
 using POGOProtos.Networking.Responses;
 
-namespace NecroBot2
+namespace NecroBot2.Helpers
 {
     public class PokemonObject
     {

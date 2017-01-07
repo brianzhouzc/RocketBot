@@ -23,6 +23,7 @@ namespace PoGo.NecroBot.Logic.Tasks
 {
     public static class CatchNearbyPokemonsTask
     {
+        //add delegate
         public delegate void PokemonsEncounterDelegate(List<MapPokemon> pokemons);
 
         public static async Task Execute(ISession session, CancellationToken cancellationToken, PokemonId priority = PokemonId.Missingno, bool sessionAllowTransfer = true)
@@ -168,6 +169,7 @@ namespace PoGo.NecroBot.Logic.Tasks
             return pokemons;
         }
 
+        //add delegate event
         public static event PokemonsEncounterDelegate PokemonEncounterEvent;
 
         private static void OnPokemonEncounterEvent(List<MapPokemon> pokemons)

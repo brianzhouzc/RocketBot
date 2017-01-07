@@ -33,12 +33,10 @@ namespace PoGo.NecroBot.Logic.Utils
                 var targetLocation = new GeoCoordinate(destLat, destLng);
                 return sourceLocation.GetDistanceTo(targetLocation);
             }
-            catch ( ArgumentOutOfRangeException ex)
+            catch ( ArgumentOutOfRangeException)
             {
                 return double.MaxValue;
             }
-
-            return 0;
         }
 
         public static double CalculateDistanceInMeters(GeoCoordinate sourceLocation, GeoCoordinate destinationLocation)

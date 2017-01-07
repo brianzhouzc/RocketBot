@@ -313,7 +313,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                                      : currentFortData.Id, pokeball, normalizedRecticleSize, spinModifier, hitPokemon);
 
                    
-                   await session.Inventory.UpdateInventoryItem(pokeball, -1);
+                    session.Inventory.UpdateInventoryItem(pokeball, -1);
 
                     var evt = new PokemonCaptureEvent()
                     {
@@ -609,7 +609,7 @@ namespace PoGo.NecroBot.Logic.Tasks
             //berry.Count -= 1;
 
             session.EventDispatcher.Send(new UseBerryEvent { BerryType = ItemId.ItemRazzBerry, Count = berry.Count -1});
-            await session.Inventory.UpdateInventoryItem(berry.ItemId, -1);
+            session.Inventory.UpdateInventoryItem(berry.ItemId, -1);
 
         }
     }

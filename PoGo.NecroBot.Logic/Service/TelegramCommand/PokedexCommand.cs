@@ -17,7 +17,9 @@ namespace PoGo.NecroBot.Logic.Service.TelegramCommand
 
         public async Task<bool> OnCommand(ISession session,string cmd, Action<string> Callback)
         {
-            if(cmd.ToLower() == Command)
+            await Task.Delay(0); // Just added to get rid of compiler warning. Remove this if async code is used below.
+
+            if (cmd.ToLower() == Command)
             {
                 var pokedex = session.Inventory.GetPokeDexItems().Result;
                 var pokedexSort = pokedex.OrderBy(x => x.InventoryItemData.PokedexEntry.PokemonId);
