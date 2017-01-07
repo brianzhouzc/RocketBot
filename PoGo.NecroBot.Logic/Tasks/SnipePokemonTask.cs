@@ -598,7 +598,6 @@ namespace PoGo.NecroBot.Logic.Tasks
                             });
                         }
                         return false;
-                        break;
 
                     default:
                         session.EventDispatcher.Send(new WarnEvent

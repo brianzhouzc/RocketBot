@@ -54,7 +54,7 @@ namespace PoGo.NecroBot.Logic.State
             {
                 throw ae.Flatten().InnerException;
             }
-            catch (APIBadRequestException ex)
+            catch (APIBadRequestException)
             {
                 session.EventDispatcher.Send(new ErrorEvent
                 {
@@ -119,7 +119,7 @@ namespace PoGo.NecroBot.Logic.State
                 await Task.Delay(2000, cancellationToken);
                 Environment.Exit(0);
             }
-            catch(OperationCanceledException op)
+            catch(OperationCanceledException)
             {
                 //just continue login if this happen, most case is bot switching...
             }
@@ -176,7 +176,7 @@ namespace PoGo.NecroBot.Logic.State
                     System.Environment.Exit(1);
                 }
             }
-            catch (OperationCanceledException op)
+            catch (OperationCanceledException)
             {
                 //just continue login if this happen, most case is bot switching...
             }
@@ -188,7 +188,7 @@ namespace PoGo.NecroBot.Logic.State
             {
                 //sometime the switch active happen same time with login by token expired. we need ignore it 
             }
-            catch (APIBadRequestException ex)
+            catch (APIBadRequestException)
             {
                 throw new LoginFailedException();
             }

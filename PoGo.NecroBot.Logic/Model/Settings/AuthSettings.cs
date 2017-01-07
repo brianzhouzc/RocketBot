@@ -82,7 +82,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
                     //
                     _schema = schema;
                 }
-                catch(Exception ex) { }
+                catch(Exception) { }
                 return _schema;
             }
         }

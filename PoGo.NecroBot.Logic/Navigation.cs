@@ -25,6 +25,7 @@ using PokemonGo.RocketAPI.Extensions;
 
 namespace PoGo.NecroBot.Logic
 {
+    //add delegate
     public delegate void GetHumanizeRouteDelegate(List<GeoCoordinate> route, GeoCoordinate destination, List<FortData>pokeStops);
     public delegate void UpdatePositionDelegate(double lat, double lng);
 

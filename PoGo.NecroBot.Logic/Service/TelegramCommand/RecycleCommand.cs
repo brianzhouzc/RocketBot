@@ -17,6 +17,8 @@ namespace PoGo.NecroBot.Logic.Service.TelegramCommand
 
         public async Task<bool> OnCommand(ISession session,string commandText, Action<string> Callback)
         {
+            await Task.Delay(0); // Just added to get rid of compiler warning. Remove this if async code is used below.
+
             var cmd = commandText.Split(' ');
 
             if (cmd[0].ToLower() == Command)

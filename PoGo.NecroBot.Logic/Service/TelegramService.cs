@@ -144,7 +144,7 @@ namespace PoGo.NecroBot.Logic.Service
                 {
                     await SendMessage(message.Chat.Id, msg);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                 }
             };
@@ -155,7 +155,7 @@ namespace PoGo.NecroBot.Logic.Service
                     handled = await item.OnCommand(_session, message.Text, OnMessageCallback);
                     if (handled) break;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                 }
                 

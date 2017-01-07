@@ -104,7 +104,7 @@ namespace PoGo.NecroBot.Logic.Captcha
                 {
                     SystemSounds.Asterisk.Play();
                 }
-                captchaResponse = await GetCaptchaResposeManually(session, captchaUrl);
+                captchaResponse = GetCaptchaResposeManually(session, captchaUrl);
                 resolved = await Resolve(session, captchaResponse);
             }
            
@@ -183,7 +183,7 @@ namespace PoGo.NecroBot.Logic.Captcha
             return result;
         }
 
-        public static async Task<string> GetCaptchaResposeManually(ISession session, string url)
+        public static string GetCaptchaResposeManually(ISession session, string url)
         {
             if (!session.LogicSettings.CaptchaConfig.AllowManualCaptchaResolve) return null;
 
@@ -194,7 +194,6 @@ namespace PoGo.NecroBot.Logic.Captcha
             }
             IWebDriver webDriver = null;
             try
-                
             {
 
                 webDriver = new ChromeDriver(System.Environment.CurrentDirectory, new ChromeOptions() {

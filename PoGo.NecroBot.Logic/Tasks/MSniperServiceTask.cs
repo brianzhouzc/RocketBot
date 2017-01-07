@@ -334,7 +334,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                 captchaShowed = true;
                 throw ex;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }

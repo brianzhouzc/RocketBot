@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NecroBot2.Helpers;
+using System;
 using System.Windows.Forms;
 
 namespace NecroBot2.Forms

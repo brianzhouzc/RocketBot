@@ -26,6 +26,7 @@ namespace PoGo.NecroBot.Logic.Tasks
 {
     public class UseNearbyPokestopsTask
     {
+        //add delegate
         public delegate void LootPokestopDelegate(FortData pokestop);
 
         private static int _stopsHit;
@@ -35,8 +36,8 @@ namespace PoGo.NecroBot.Logic.Tasks
         private static int _randomNumber;
         public static bool _pokestopLimitReached;
         public static bool _pokestopTimerReached;
-        private static double lastPokestopLat =0;
-        private static double lastPokestopLng = 0;
+        //private static double lastPokestopLat =0;
+        //private static double lastPokestopLng = 0;
 
         internal static void Initialize()
         {
@@ -409,7 +410,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                     {
                         foreach (var item in fortSearch.ItemsAwarded)
                         {
-                            await session.Inventory.UpdateInventoryItem(item.ItemId, item.ItemCount);
+                            session.Inventory.UpdateInventoryItem(item.ItemId, item.ItemCount);
                         }
                         if (fortSearch.PokemonDataEgg != null)
                         {
@@ -561,6 +562,7 @@ namespace PoGo.NecroBot.Logic.Tasks
             return pokeStops.ToList();
         }
 
+        //add delegate event
         private static void OnLootPokestopEvent(FortData pokestop)
         {
             LootPokestopEvent?.Invoke(pokestop);

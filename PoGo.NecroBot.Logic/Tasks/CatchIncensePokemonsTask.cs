@@ -16,6 +16,7 @@ using System.Collections.Generic;
 
 namespace PoGo.NecroBot.Logic.Tasks
 {
+    //add delegate
     public delegate void PokemonsEncounterDelegate(List<MapPokemon> pokemons);
 
     public static class CatchIncensePokemonsTask
@@ -100,6 +101,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                 }
             }
         }
+        //add delegate event
         public static event PokemonsEncounterDelegate PokemonEncounterEvent;
 
         private static void OnPokemonEncounterEvent(List<MapPokemon> pokemons)
