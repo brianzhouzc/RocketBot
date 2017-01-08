@@ -362,7 +362,6 @@
             this.GoogleApiBox.Name = "GoogleApiBox";
             this.GoogleApiBox.Size = new System.Drawing.Size(172, 27);
             this.GoogleApiBox.TabIndex = 33;
-            this.GoogleApiBox.Text = "AIzaSyBjrq_CCDjmgNLJZnLBrMRgIxTJrgW_LaY";
             // 
             // GoogleApiLabel
             // 
