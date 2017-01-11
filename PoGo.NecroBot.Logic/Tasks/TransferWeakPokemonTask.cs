@@ -42,7 +42,9 @@ namespace PoGo.NecroBot.Logic.Tasks
 
             if (session.LogicSettings.KeepPokemonsThatCanEvolve)
                 pokemonsFiltered =
-                    pokemonDatas.Where(pokemon => !session.LogicSettings.PokemonsToEvolve.Contains(pokemon.PokemonId))
+                    pokemonDatas.Where(pokemon => !session.LogicSettings.PokemonsToEvolve.Contains(pokemon.PokemonId) &&
+                    pokemon.Favorite ==0 && 
+                    pokemon.BuddyTotalKmWalked ==0)
                         .ToList().OrderBy( poke => poke.Cp );
 
             var orderedPokemon = pokemonsFiltered.OrderBy( poke => poke.Cp );
@@ -103,7 +105,8 @@ namespace PoGo.NecroBot.Logic.Tasks
 
             session.EventDispatcher.Send(new TransferPokemonEvent
             {
-                Id = pokemon.PokemonId,
+                Id = pokemon.Id,
+                PokemonId = pokemon.PokemonId,
                 Perfection = PokemonInfo.CalculatePokemonPerfection(pokemon),
                 Cp = pokemon.Cp,
                 BestCp = bestPokemonOfType.Cp,

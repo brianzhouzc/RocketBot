@@ -221,22 +221,12 @@ namespace PoGo.NecroBot.Logic.Interfaces.Configuration
         int RecycleActionDelay { get; }
         int RenamePokemonActionDelay { get; }
 
-        bool GymAllowed { get; }
-        bool GymPrioritizeOverPokestop { get; }
-        TeamColor GymDefaultTeam { get; }
-        double GymMaxDistance { get; }
-        int GymMaxCPToDeploy {  get; }
-        int GymMaxLevelToDeploy { get; }
-        bool GymUseRandomPokemon { get; }
-        int GymVisitTimeout { get; }
-        int GymNumberOfTopPokemonToBeExcluded { get; }
-
+         GymConfig GymConfig { get; }
         string DataSharingIdentifiation { get; }
         bool DataSharingEnable { get; }
         string DataSharingDataUrl { get; }
         bool AllowAutoSnipe { get; }
         MultipleBotConfig MultipleBotConfig { get; }
-        int GymCollectRewardAfter { get; }
         List<AuthConfig> Bots { get; }
         bool AllowMultipleBot { get; }
         CaptchaConfig CaptchaConfig { get;  }

@@ -70,5 +70,17 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [Range(0, 10)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate)]
         public int CollectCoinAfterDeployed { get; set; }
+
+        [ExcelConfig(Description = "Max Gym Level to Attack", Position = 10)]
+        [DefaultValue(3)]
+        [Range(1, 10)]
+        [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate)]
+        public int MaxGymLevelToAttack { get; set; }
+
+        [ExcelConfig(Description = "Collect coin after N gym deployed", Position = 10)]
+        [DefaultValue(3)]
+        [Range(1, 10)]
+        [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate)]
+        public int MaxDefendersToAttack { get; set; }
     }
 }

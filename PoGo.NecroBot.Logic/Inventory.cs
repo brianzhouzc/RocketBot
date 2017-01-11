@@ -19,6 +19,7 @@ using POGOProtos.Inventory.Item;
 using POGOProtos.Networking.Responses;
 using POGOProtos.Settings.Master;
 using Caching;
+using PoGo.NecroBot.Logic.Event.Inventory;
 
 #endregion
 
@@ -37,9 +38,11 @@ namespace PoGo.NecroBot.Logic
         private readonly List<ItemId> _revives = new List<ItemId> { ItemId.ItemRevive, ItemId.ItemMaxRevive };
         private GetInventoryResponse _cachedInventory = null;
         private DateTime _lastRefresh;
+        private ISession ownerSession;
 
-        public Inventory(Client client, ILogicSettings logicSettings)
+        public Inventory(ISession session, Client client, ILogicSettings logicSettings, Action<GetInventoryResponse> onUpdated = null)
         {
+            this.ownerSession = session;
             _client = client;
             _logicSettings = logicSettings;
             //Inventory update will be call everytime getMabObject call
@@ -48,6 +51,10 @@ namespace PoGo.NecroBot.Logic
                  //Console.WriteLine("################# INVENTORY UPDATE ######################");
                  _cachedInventory = refreshedInventoryData;
                  _lastRefresh = DateTime.Now;
+                 if(onUpdated!= null)
+                 {
+                     onUpdated(_cachedInventory);
+                 }
              };
         }
 
@@ -61,6 +68,17 @@ namespace PoGo.NecroBot.Logic
             ItemId.ItemMasterBall
         };
 
+        internal async Task MarkAsFavorite(PokemonData pokemon)
+        {
+            pokemon.Favorite = 1;
+            var all = await GetPokemons();
+            var pkm = all.FirstOrDefault(x => x.Id == pokemon.Id);
+            if(pkm != null)
+            {
+                pkm.Favorite = 1;
+            }
+        }
+
         private readonly List<ItemId> _potions = new List<ItemId>
         {
             ItemId.ItemPotion,
@@ -69,15 +87,22 @@ namespace PoGo.NecroBot.Logic
             ItemId.ItemMaxPotion
         };
 
-        public void UpdateInventoryItem(ItemId itemId, int count)
+        public async Task  UpdateInventoryItem(ItemId itemId, int count)
         {
-            foreach (var item in this._cachedInventory.InventoryDelta.InventoryItems)
-            {
-                if (item.InventoryItemData != null && item.InventoryItemData.Item != null && item.InventoryItemData.Item.ItemId == itemId)
-                {
-                    item.InventoryItemData.Item.Count += count;
-                }
-            }
+            await Task.Run(() =>
+           {
+               foreach (var item in this._cachedInventory.InventoryDelta.InventoryItems)
+               {
+                   if (item.InventoryItemData != null && item.InventoryItemData.Item != null && item.InventoryItemData.Item.ItemId == itemId)
+                   {
+                       item.InventoryItemData.Item.Count += count;
+                       this.ownerSession.EventDispatcher.Send(new InventoryItemUpdateEvent()
+                       {
+                           Item = item.InventoryItemData.Item
+                       });
+                   }
+               }
+           });
         }
 
         public async Task<int> GetCachedPokeballCount(ItemId pokeballId)
@@ -110,13 +135,19 @@ namespace PoGo.NecroBot.Logic
 
         public async Task<GetInventoryResponse> GetCachedInventory()
         {
-            if (_player == null) GetPlayerData();
+            lock(_cachedInventory)
+            {
+                if (_player == null) GetPlayerData();
+            }
+
             var now = DateTime.UtcNow;
+            lock (_cachedInventory)
+            {
+                if (_cachedInventory != null && _lastRefresh.AddSeconds(5 * 60).Ticks > now.Ticks)
+                    return _cachedInventory;
+            }
 
-            if (_cachedInventory != null && _lastRefresh.AddSeconds(5 * 60).Ticks > now.Ticks)
-                return _cachedInventory;
-
-            return await RefreshCachedInventory();
+          return await RefreshCachedInventory();
         }
 
         public async Task<IEnumerable<AppliedItems>> GetAppliedItems()
@@ -587,9 +618,11 @@ namespace PoGo.NecroBot.Logic
                 if (settings.EvolutionIds.Count == 0)
                     continue;
                 //DO NOT CHANGE! TESTED AND WORKS
+                //TRUONG: temporary change 1 to 2 to fix not enought resource when evolve. not a big deal when we keep few candy 
+
                 var pokemonCandyNeededAlready =
                     (pokemonToEvolve.Count(
-                        p => pokemonSettings.Single(x => x.PokemonId == p.PokemonId).FamilyId == settings.FamilyId) + 1) *
+                        p => pokemonSettings.Single(x => x.PokemonId == p.PokemonId).FamilyId == settings.FamilyId) + 2) * 
                     settings.CandyToEvolve;
 
                 if (familyCandy.Candy_ >= pokemonCandyNeededAlready)

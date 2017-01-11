@@ -693,7 +693,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
             }
         }
 
-        private static void SaveFiles(GlobalSettings settings, string configFile)
+        public static void SaveFiles(GlobalSettings settings, string configFile)
         {
             settings.Save(configFile);
             settings.Auth.Load(Path.Combine(settings.ProfileConfigPath, "auth.json"), Path.Combine(settings.ProfileConfigPath, "auth.schema.json"), settings.UpdateConfig.SchemaVersion);

@@ -126,11 +126,12 @@ namespace PoGo.NecroBot.Logic.Tasks
                 var evolveResponse = await session.Client.Inventory.EvolvePokemon(pokemon.Id);
                 if (evolveResponse.Result == POGOProtos.Networking.Responses.EvolvePokemonResponse.Types.Result.Success)
                 {
-                    family.Candy_ += -setting.CandyToEvolve;
+                    family.Candy_ -= setting.CandyToEvolve;
                     await session.Inventory.UpdateCandy(family, -setting.CandyToEvolve);
                     await session.Inventory.DeletePokemonFromInvById(pokemon.Id);
                     await session.Inventory.AddPokemonToCache(evolveResponse.EvolvedPokemonData);
                 }
+
 
                 session.EventDispatcher.Send(new PokemonEvolveEvent
                 {
@@ -138,7 +139,9 @@ namespace PoGo.NecroBot.Logic.Tasks
                     Exp = evolveResponse.ExperienceAwarded,
                     UniqueId = pokemon.Id,
                     Result = evolveResponse.Result,
-                    Sequence = pokemonToEvolve.Count() ==1?0:sequence++
+                    Sequence = pokemonToEvolve.Count() ==1?0:sequence++ ,
+                    Family = family,
+                    PokemonSetting = setting
                 });
 
                 if (!pokemonToEvolve.Last().Equals(pokemon))
