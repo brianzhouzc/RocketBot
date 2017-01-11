@@ -289,11 +289,8 @@ namespace PoGo.NecroBot.Logic.State
                         if (session.LogicSettings.AllowMultipleBot)
                         {
                             session.BlockCurrentBot(15);
-                            if (!session.ReInitSessionWithNextBot())
-                            {
-                                await PushNotificationClient.SendNotification(session, "All accounts are being blocked", "Non of yours account available to switch, bot will sleep for 30 mins", true);
-                                await Task.Delay(30 * 60 * 1000);
-                            }
+                            session.ReInitSessionWithNextBot();
+                         
                             state = new LoginState();
                         }
                         else {

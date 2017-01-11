@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace PoGo.NecroBot.Logic.Captcha
 {
     public class CaptchaSolutionClient
     {
-        private const string API_ENDPOINT = "http://api.captchasolutions.com/solve";
+        private const string API_ENDPOINT = "http://api.captchasolutions.com/solve?";
 
         public class APIObjectResponse
         {
@@ -38,16 +39,17 @@ namespace PoGo.NecroBot.Logic.Captcha
 
             string contentstring = $"p=nocaptcha&googlekey={googleSiteKey}&pageurl={captchaUrl}&key={this.APIKey}&secret={this.APISecret}&out=json";
 
-            HttpContent content = new StringContent(contentstring);
-            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/x-www-form-urlencoded");
-
+            //HttpContent content = new StringContent(contentstring);
+            //content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/x-www-form-urlencoded");
+            //string url = "http://api.captchasolutions.com/solve?p=nocaptcha&googlekey=6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-&pageurl=https://www.google.com/recaptcha/api2/demo&key=dcbeece13cb658697f7e39264603fc70&secret=fb14ac29&out=json";
+            var url = $"{API_ENDPOINT}{contentstring}";
             using (HttpClient client = new HttpClient())
             {
                 client.Timeout = TimeSpan.FromSeconds(this.Timeout);
 
                 try
                 {
-                    var responseContent = await client.PostAsync(API_ENDPOINT, content);
+                    var responseContent = await client.GetAsync(url);
                     if (responseContent.StatusCode != System.Net.HttpStatusCode.OK)
                     {
                         Logging.Logger.Write($"(CAPTCHA) - Could not connect to solution captcha, please check your API config", Logging.LogLevel.Error);

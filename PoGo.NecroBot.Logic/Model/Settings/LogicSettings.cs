@@ -219,19 +219,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         public bool HumanWalkingSnipeUseFastPokemap => _settings.HumanWalkSnipeConfig.UseFastPokemap;
         public bool HumanWalkingSnipeUsePogoLocationFeeder => _settings.HumanWalkSnipeConfig.UsePogoLocationFeeder;
         public bool HumanWalkingSnipeAllowTransferWhileWalking => _settings.HumanWalkSnipeConfig.AllowTransferWhileWalking;
-        public int GymCollectRewardAfter => _settings.GymConfig.CollectCoinAfterDeployed;
-        public bool GymAllowed => _settings.GymConfig.Enable;
-        public bool GymPrioritizeOverPokestop => _settings.GymConfig.PrioritizeGymOverPokestop;
-        public TeamColor GymDefaultTeam =>(TeamColor)Enum.Parse(typeof(TeamColor), _settings.GymConfig.DefaultTeam);
-
-        public double GymMaxDistance => _settings.GymConfig.MaxDistance;
-        public int GymVisitTimeout => _settings.GymConfig.VisitTimeout;
-        public int GymMaxCPToDeploy => _settings.GymConfig.MaxCPToDeploy;
-        public int GymMaxLevelToDeploy => _settings.GymConfig.MaxLevelToDeploy;
-
-        public bool GymUseRandomPokemon => _settings.GymConfig.UseRandomPokemon;
-
-        public int GymNumberOfTopPokemonToBeExcluded => _settings.GymConfig.NumberOfTopPokemonToBeExcluded;
+        public GymConfig GymConfig => _settings.GymConfig;
 
         public bool DataSharingEnable => _settings.DataSharingConfig.EnableSyncData;
         public string DataSharingIdentifiation => _settings.DataSharingConfig.DataServiceIdentification;

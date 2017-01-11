@@ -13,7 +13,7 @@ namespace PoGo.NecroBot.Logic
     public class StatisticsAggregator
     {
         private readonly Statistics _stats;
-
+        public  Statistics GetCurrent(){ return _stats; }
         public StatisticsAggregator(Statistics stats)
         {
             _stats = stats;

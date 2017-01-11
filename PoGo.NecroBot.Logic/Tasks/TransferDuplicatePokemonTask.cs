@@ -104,7 +104,8 @@ namespace PoGo.NecroBot.Logic.Tasks
 
             session.EventDispatcher.Send(new TransferPokemonEvent
             {
-                Id = duplicatePokemon.PokemonId,
+                Id = duplicatePokemon.Id,
+                PokemonId = duplicatePokemon.PokemonId,
                 Perfection = PokemonInfo.CalculatePokemonPerfection(duplicatePokemon),
                 Cp = duplicatePokemon.Cp,
                 BestCp = bestPokemonOfType.Cp,

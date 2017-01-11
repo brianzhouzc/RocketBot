@@ -10,5 +10,10 @@ namespace PoGo.NecroBot.Logic.Event
     public class PokeStopListEvent : IEvent
     {
         public List<FortData> Forts;
+
+        public PokeStopListEvent(List<FortData> forts)
+        {
+            Forts = forts;
+        }
     }
 }

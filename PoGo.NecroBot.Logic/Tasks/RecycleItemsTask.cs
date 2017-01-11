@@ -131,6 +131,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                 _diff -= itemsToRecycle;
                 cancellationToken.ThrowIfCancellationRequested();
                 await session.Client.Inventory.RecycleItem(item, itemsToRecycle);
+                await session.Inventory.UpdateInventoryItem(item, -itemsToRecycle);
                 if (session.LogicSettings.VerboseRecycling)
                     session.EventDispatcher.Send(new ItemRecycledEvent { Id = item, Count = itemsToRecycle });
 
@@ -305,6 +306,8 @@ namespace PoGo.NecroBot.Logic.Tasks
                 if (count > 0)
                 {
                     await session.Client.Inventory.RecycleItem(item, count);
+                    await session.Inventory.UpdateInventoryItem(item, -count);
+
                     if (session.LogicSettings.VerboseRecycling)
                         session.EventDispatcher.Send(new ItemRecycledEvent { Id = item, Count = count });
 

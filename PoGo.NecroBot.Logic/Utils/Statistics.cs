@@ -37,6 +37,8 @@ namespace PoGo.NecroBot.Logic.Utils
         public int TotalStardust;
         public int LevelForRewards = -1;
 
+        public StatsExport StatsExport => _exportStats;
+
         public void Dirty(Inventory inventory, ISession session)
         {
             _exportStats = GetCurrentInfo(inventory);
@@ -101,7 +103,7 @@ namespace PoGo.NecroBot.Logic.Utils
 
         public event StatisticsDirtyDelegate DirtyEvent;
 
-        private string FormatRuntime()
+        public string FormatRuntime()
         {
             return (DateTime.Now - _initSessionDateTime).ToString(@"dd\.hh\:mm\:ss");
         }

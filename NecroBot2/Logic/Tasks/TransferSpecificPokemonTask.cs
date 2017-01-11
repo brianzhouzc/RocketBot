@@ -6,6 +6,7 @@ using PoGo.NecroBot.Logic.Event;
 using PoGo.NecroBot.Logic.PoGoUtils;
 using PoGo.NecroBot.Logic.State;
 using PoGo.NecroBot.Logic.Utils;
+using System.Collections.Generic;
 
 #endregion
 
@@ -39,15 +40,17 @@ namespace NecroBot2.Logic.Tasks
             // Broadcast event as everyone would benefit
             session.EventDispatcher.Send(new TransferPokemonEvent
             {
-                Id = pokemon.PokemonId,
-                Perfection = PokemonInfo.CalculatePokemonPerfection(pokemon),
-                Cp = pokemon.Cp,
-                BestCp = bestPokemonOfType.Cp,
-                BestPerfection = PokemonInfo.CalculatePokemonPerfection(bestPokemonOfType),
-                FamilyCandies = family.Candy_
-            });
-
-            DelayingUtils.Delay(session.LogicSettings.DelayBetweenPlayerActions, 0);
+                Id = pokemon.Id,
+                PokemonId = pokemon.PokemonId,
+                        Perfection = PokemonInfo.CalculatePokemonPerfection(pokemon),
+                        Cp = pokemon.Cp,
+                        BestCp = bestPokemonOfType.Cp,
+                        BestPerfection = PokemonInfo.CalculatePokemonPerfection(bestPokemonOfType),
+                        FamilyCandies = family.Candy_ // ,
+                        //FamilyId = family.FamilyId
+                    });
+        
+        DelayingUtils.Delay(session.LogicSettings.DelayBetweenPlayerActions, 0);
         }
     }
 }

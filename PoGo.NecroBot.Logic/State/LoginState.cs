@@ -13,6 +13,7 @@ using PokemonGo.RocketAPI.Exceptions;
 using POGOProtos.Enums;
 using System.IO;
 using PoGo.NecroBot.Logic.Exceptions;
+using PoGo.NecroBot.Logic.Event.Player;
 
 #endregion
 
@@ -21,7 +22,7 @@ namespace PoGo.NecroBot.Logic.State
     public class LoginState : IState
     {
         private PokemonId pokemonToCatch;
-        public LoginState(PokemonId pokemonToCatch= PokemonId.Missingno)
+        public LoginState(PokemonId pokemonToCatch = PokemonId.Missingno)
         {
             this.pokemonToCatch = pokemonToCatch;
         }
@@ -60,7 +61,7 @@ namespace PoGo.NecroBot.Logic.State
                 {
                     Message = session.Translation.GetTranslation(TranslationString.LoginInvalid)
                 });
-                
+
                 await Task.Delay(2000, cancellationToken);
                 throw new LoginFailedException();
             }
@@ -78,7 +79,7 @@ namespace PoGo.NecroBot.Logic.State
             }
             catch (AccountNotVerifiedException ex)
             {
-                
+
                 session.EventDispatcher.Send(new ErrorEvent
                 {
                     Message = session.Translation.GetTranslation(TranslationString.AccountNotVerified)
@@ -119,7 +120,11 @@ namespace PoGo.NecroBot.Logic.State
                 await Task.Delay(2000, cancellationToken);
                 Environment.Exit(0);
             }
-            catch(OperationCanceledException)
+            catch (ActiveSwitchByRuleException op)
+            {
+
+            }
+            catch (OperationCanceledException op)
             {
                 //just continue login if this happen, most case is bot switching...
             }
@@ -144,7 +149,7 @@ namespace PoGo.NecroBot.Logic.State
                 Console.ReadKey();
                 System.Environment.Exit(1);
             }
-            catch(CaptchaException captcha)
+            catch (CaptchaException captcha)
             {
                 throw captcha;
             }
@@ -154,7 +159,8 @@ namespace PoGo.NecroBot.Logic.State
                 await Task.Delay(20000, cancellationToken);
                 return this;
             }
-            try {
+            try
+            {
                 await DownloadProfile(session);
                 if (session.Profile == null)
                 {
@@ -176,7 +182,11 @@ namespace PoGo.NecroBot.Logic.State
                     System.Environment.Exit(1);
                 }
             }
-            catch (OperationCanceledException)
+            catch (ActiveSwitchByRuleException op)
+            {
+
+            }
+		catch (OperationCanceledException)
             {
                 //just continue login if this happen, most case is bot switching...
             }
@@ -184,17 +194,18 @@ namespace PoGo.NecroBot.Logic.State
             {
                 throw ex;
             }
-            catch(ActiveSwitchByRuleException)
-            {
-                //sometime the switch active happen same time with login by token expired. we need ignore it 
-            }
+
             catch (APIBadRequestException)
             {
                 throw new LoginFailedException();
             }
-            
+
             session.LoggedTime = DateTime.Now;
-            if(this.pokemonToCatch != PokemonId.Missingno)
+            session.EventDispatcher.Send(new LoggedEvent()
+            {
+                Profile = session.Profile
+            });
+            if (this.pokemonToCatch != PokemonId.Missingno)
             {
                 return new BotSwitcherState(this.pokemonToCatch);
             }
@@ -238,7 +249,7 @@ namespace PoGo.NecroBot.Logic.State
             {
                 session.EventDispatcher.Send(new ErrorEvent { Message = e.ToString() });
             }
-            catch(CaptchaException ex)
+            catch (CaptchaException ex)
             {
                 throw ex;
             }

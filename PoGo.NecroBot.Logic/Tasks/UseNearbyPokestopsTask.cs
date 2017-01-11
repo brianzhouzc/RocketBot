@@ -79,7 +79,7 @@ namespace PoGo.NecroBot.Logic.Tasks
 
                 if (!await SetMoveToTargetTask.IsReachedDestination(pokeStop, session, cancellationToken))
                 {
-                    pokeStop.CooldownCompleteTimestampMs = DateTime.UtcNow.ToUnixTime() + (pokeStop.Type == FortType.Gym ? session.LogicSettings.GymVisitTimeout : 5) * 60 * 1000; //5 minutes to cooldown
+                    pokeStop.CooldownCompleteTimestampMs = DateTime.UtcNow.ToUnixTime() + (pokeStop.Type == FortType.Gym ? session.LogicSettings.GymConfig.VisitTimeout : 5) * 60 * 1000; //5 minutes to cooldown
                     session.AddForts(new List<FortData>() { pokeStop }); //replace object in memory.
                 }
 
@@ -204,16 +204,16 @@ namespace PoGo.NecroBot.Logic.Tasks
                 forts = forts.Where(p => LocationUtils.CalculateDistanceInMeters(p.Latitude, p.Longitude, session.Client.CurrentLatitude, session.Client.CurrentLongitude) < 40).ToList();
             }
 
-            if (!session.LogicSettings.GymAllowed /*|| session.Inventory.GetPlayerStats().Result.FirstOrDefault().Level <= 5*/)
+            if (!session.LogicSettings.GymConfig.Enable /*|| session.Inventory.GetPlayerStats().Result.FirstOrDefault().Level <= 5*/)
             {
                 // Filter out the gyms
                 forts = forts.Where(x => x.Type != FortType.Gym).ToList();
             }
-            else if (session.LogicSettings.GymPrioritizeOverPokestop)
+            else if (session.LogicSettings.GymConfig.PrioritizeGymOverPokestop)
             {
                 // Prioritize gyms over pokestops
                 var gyms = forts.Where(x => x.Type == FortType.Gym &&
-                    LocationUtils.CalculateDistanceInMeters(x.Latitude, x.Longitude, session.Client.CurrentLatitude, session.Client.CurrentLongitude) < session.LogicSettings.GymMaxDistance);
+                    LocationUtils.CalculateDistanceInMeters(x.Latitude, x.Longitude, session.Client.CurrentLatitude, session.Client.CurrentLongitude) < session.LogicSettings.GymConfig.MaxDistance);
 
                 // Return the first gym in range.
                 if (gyms.Count() > 0)
@@ -513,17 +513,16 @@ namespace PoGo.NecroBot.Logic.Tasks
 
                 var pokeStops = mapObjects.Where(p => p.Type == FortType.Checkpoint).ToList();
                 session.AddVisibleForts(pokeStops);
-                session.EventDispatcher.Send(new PokeStopListEvent { Forts = mapObjects });
+                session.EventDispatcher.Send(new PokeStopListEvent(mapObjects));
 
                 var gyms = mapObjects.Where(p => p.Type == FortType.Gym).ToList();
-                //   session.EventDispatcher.Send(new PokeStopListEvent { Forts = mapObjects });
                 return Tuple.Create(pokeStops, gyms);
             }
 
             if (mapObjects.Count > 0)
             {
                 // only send when there are stops for GPX because otherwise we send empty arrays often
-                session.EventDispatcher.Send(new PokeStopListEvent { Forts = mapObjects });
+                session.EventDispatcher.Send(new PokeStopListEvent(mapObjects));
             }
             // Wasn't sure how to make this pretty. Edit as needed.
             return Tuple.Create(

@@ -440,7 +440,8 @@ namespace PoGo.NecroBot.Logic.Tasks
 
                 if (!pokedex.Exists(x => x.InventoryItemData?.PokedexEntry?.PokemonId == (PokemonId)item.PokemonId) &&
                     !pokedexSnipePokemons.Exists(p => p.PokemonId == item.PokemonId) &&
-                    (!session.LogicSettings.AutosnipeVerifiedOnly || (session.LogicSettings.AutosnipeVerifiedOnly && item.EncounterId > 0)))
+                    (!session.LogicSettings.AutosnipeVerifiedOnly || 
+                    (session.LogicSettings.AutosnipeVerifiedOnly && (item.EncounterId > 0 || (item.Move1 != PokemonMove.MoveUnset && item.Move2 != PokemonMove.MoveUnset)))))
                 {
                     session.EventDispatcher.Send(new WarnEvent() { Message = session.Translation.GetTranslation(TranslationString.SnipePokemonNotInPokedex, session.Translation.GetPokemonTranslation((PokemonId)item.PokemonId)) });
                     pokedexSnipePokemons.Add(item);//Add as hight priority snipe entry

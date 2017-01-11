@@ -8,6 +8,7 @@ using PoGo.NecroBot.Logic.Common;
 using PoGo.NecroBot.Logic.Event;
 using PoGo.NecroBot.Logic.PoGoUtils;
 using PoGo.NecroBot.Logic.State;
+using PoGo.NecroBot.Logic.Event.Inventory;
 
 #endregion
 
@@ -31,7 +32,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                 if (session.LogicSettings.AutoFavoritePokemon && perfection >= session.LogicSettings.FavoriteMinIvPercentage && pokemon.Favorite!=1)
                 {
                     await session.Client.Inventory.SetFavoritePokemon(pokemon.Id, true);
-
+                    await session.Inventory.MarkAsFavorite(pokemon);
                     session.EventDispatcher.Send(new NoticeEvent
                     {
                         Message =
@@ -53,9 +54,15 @@ namespace PoGo.NecroBot.Logic.Tasks
                 {
                     var perfection = Math.Round(PokemonInfo.CalculatePokemonPerfection(pokemon));
 
-                    await session.Client.Inventory.SetFavoritePokemon(pokemonId, favorite);
+                    var response = await session.Client.Inventory.SetFavoritePokemon(pokemonId, favorite);
+                    if (response.Result == POGOProtos.Networking.Responses.SetFavoritePokemonResponse.Types.Result.Success)
+                    {
+                        await session.Inventory.MarkAsFavorite(pokemon);
+                        session.EventDispatcher.Send(new FavoriteEvent(pokemon, response));
+                    }
+                
 
-                    session.EventDispatcher.Send(new NoticeEvent
+                session.EventDispatcher.Send(new NoticeEvent
                     {
                         Message = session.Translation.GetTranslation(TranslationString.PokemonFavorite, perfection, session.Translation.GetPokemonTranslation(pokemon.PokemonId), pokemon.Cp)
                     });

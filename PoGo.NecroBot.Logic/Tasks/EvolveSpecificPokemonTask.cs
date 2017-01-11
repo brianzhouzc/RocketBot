@@ -30,10 +30,12 @@ namespace PoGo.NecroBot.Logic.Tasks
 
                 session.EventDispatcher.Send(new PokemonEvolveEvent
                 {
+                    OriginalId = pokemonId,
                     Id = pokemon.PokemonId,
                     Exp = evolveResponse.ExperienceAwarded,
                     UniqueId = pokemon.Id,
-                    Result = evolveResponse.Result
+                    Result = evolveResponse.Result,
+                    EvolvedPokemon = evolveResponse.EvolvedPokemonData
                 });
                 DelayingUtils.Delay(session.LogicSettings.EvolveActionDelay, 0);
             }

@@ -276,7 +276,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                     var nearbyPokeStops = await UseNearbyPokestopsTask.UpdateFortsData(session);
                     var notexists = nearbyPokeStops.Where(p => !session.VisibleForts.Exists(x => x.Id == p.Id)).ToList();
                     session.AddVisibleForts(notexists);
-                    session.EventDispatcher.Send(new PokeStopListEvent { Forts = notexists });
+                    session.EventDispatcher.Send(new PokeStopListEvent(notexists));
                     session.EventDispatcher.Send(new HumanWalkSnipeEvent
                     {
                         Type = HumanWalkSnipeEventTypes.PokestopUpdated,
