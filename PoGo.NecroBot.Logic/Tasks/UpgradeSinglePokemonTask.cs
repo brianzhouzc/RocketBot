@@ -13,6 +13,7 @@ using POGOProtos.Inventory;
 using POGOProtos.Settings.Master;
 using System;
 using PokemonGo.RocketAPI.Exceptions;
+using PoGo.NecroBot.Logic.Event.Inventory;
 
 #endregion
 
@@ -34,14 +35,18 @@ namespace PoGo.NecroBot.Logic.Tasks
 
             var upgradeResult = await session.Inventory.UpgradePokemon(pokemon.Id);
 
+            await session.Inventory.UpdateCandy(familyCandy, -settings.CandyToEvolve);
+
             var bestPokemonOfType = (session.LogicSettings.PrioritizeIvOverCp
     ? await session.Inventory.GetHighestPokemonOfTypeByIv(upgradeResult.UpgradedPokemon)
     : await session.Inventory.GetHighestPokemonOfTypeByCp(upgradeResult.UpgradedPokemon)) ?? upgradeResult.UpgradedPokemon;
 
-            if (upgradeResult.Result.ToString().ToLower().Contains("success"))
+            if (upgradeResult.Result == POGOProtos.Networking.Responses.UpgradePokemonResponse.Types.Result.Success)
             {
                 session.EventDispatcher.Send(new UpgradePokemonEvent()
                 {
+                    FamilyCandies = familyCandy.Candy_ - settings.CandyToEvolve,
+                    Pokemon = upgradeResult.UpgradedPokemon ,
                     PokemonId = upgradeResult.UpgradedPokemon.PokemonId,
                     Cp = upgradeResult.UpgradedPokemon.Cp,
                     Id = upgradeResult.UpgradedPokemon.Id,
@@ -101,7 +106,11 @@ namespace PoGo.NecroBot.Logic.Tasks
                     }
                 }
                 while (upgradable && (isMax || upgradeTimes < session.LogicSettings.AmountOfTimesToUpgradeLoop));
-
+                session.EventDispatcher.Send(new FinishUpgradeEvent()
+                {
+                    PokemonId = pokemonId,
+                    AllowUpgrade = !isMax && upgradable
+                });
             }
         }
     }

@@ -20,6 +20,8 @@ using POGOProtos.Networking.Responses;
 using POGOProtos.Settings.Master;
 using Caching;
 using PoGo.NecroBot.Logic.Event.Inventory;
+using PokemonGo.RocketAPI.Exceptions;
+using System.Diagnostics;
 
 #endregion
 
@@ -350,7 +352,12 @@ namespace PoGo.NecroBot.Logic
 
         public async void GetPlayerData()
         {
-            _player = await _client.Player.GetPlayer();
+            try {
+                _player = await _client.Player.GetPlayer();
+            }catch(CaptchaException ex)
+            {
+                Debug.Write(ex.Message);
+            } 
         }
 
         public async Task<PokemonData> GetHighestPokemonOfTypeByIv(PokemonData pokemon)

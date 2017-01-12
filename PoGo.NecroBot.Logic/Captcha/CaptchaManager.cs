@@ -4,6 +4,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using PoGo.NecroBot.Logic.Captcha.Anti_Captcha;
+using PoGo.NecroBot.Logic.Forms;
 using PoGo.NecroBot.Logic.Logging;
 using PoGo.NecroBot.Logic.State;
 using POGOProtos.Networking.Requests.Messages;
@@ -53,24 +54,24 @@ namespace PoGo.NecroBot.Logic.Captcha
 
                 }
 
-                //Anty captcha
-                if (!resolved && session.LogicSettings.CaptchaConfig.EnableAntiCaptcha && !string.IsNullOrEmpty(session.LogicSettings.CaptchaConfig.AntiCaptchaAPIKey))
-                {
-                    if (needGetNewCaptcha)
-                    {
-                        captchaUrl = await GetNewCaptchaURL(session);
-                    }
-                    if (string.IsNullOrEmpty(captchaUrl)) return true;
+                //Anti captcha   - Havent test it, temporary comment until has key to test
+                //if (!resolved && session.LogicSettings.CaptchaConfig.EnableAntiCaptcha && !string.IsNullOrEmpty(session.LogicSettings.CaptchaConfig.AntiCaptchaAPIKey))
+                //{
+                //    if (needGetNewCaptcha)
+                //    {
+                //        captchaUrl = await GetNewCaptchaURL(session);
+                //    }
+                //    if (string.IsNullOrEmpty(captchaUrl)) return true;
 
-                    Logger.Write("Auto resolving captcha by using anti captcha service");
-                    captchaResponse = await GetCaptchaResposeByAntiCaptcha(session, captchaUrl);
-                    needGetNewCaptcha = true;
-                    if (!string.IsNullOrEmpty(captchaResponse))
-                    {
-                        resolved = await Resolve(session, captchaResponse);
-                    }
+                //    Logger.Write("Auto resolving captcha by using anti captcha service");
+                //    captchaResponse = await GetCaptchaResposeByAntiCaptcha(session, captchaUrl);
+                //    needGetNewCaptcha = true;
+                //    if (!string.IsNullOrEmpty(captchaResponse))
+                //    {
+                //        resolved = await Resolve(session, captchaResponse);
+                //    }
 
-                }
+                //}
 
                 //use 2 captcha
                 if (!resolved && session.LogicSettings.CaptchaConfig.Enable2Captcha && !string.IsNullOrEmpty(session.LogicSettings.CaptchaConfig.TwoCaptchaAPIKey))
@@ -104,13 +105,35 @@ namespace PoGo.NecroBot.Logic.Captcha
                 {
                     SystemSounds.Asterisk.Play();
                 }
+
                 captchaResponse = GetCaptchaResposeManually(session, captchaUrl);
-                resolved = await Resolve(session, captchaResponse);
+                //captchaResponse = await GetCaptchaTokenWithInternalForm(captchaUrl);
+
+                if (!string.IsNullOrEmpty(captchaResponse))
+                {
+                    resolved = await Resolve(session, captchaResponse);
+                }
             }
            
             return resolved;
         }
 
+        private static async Task<string> GetCaptchaTokenWithInternalForm(string captchaUrl)
+        {
+            CaptchaSolveForm captcha = new CaptchaSolveForm(captchaUrl);
+            captcha.TopMost = true;
+            
+            captcha.Show();
+
+            int count = 120;
+            while(true && count >0)
+            {
+
+                count--;
+                await Task.Delay(1000);
+            }
+            return "";
+        }
         private static async Task<string> GetNewCaptchaURL(ISession session)
         {
             var res = await session.Client.Player.CheckChallenge();

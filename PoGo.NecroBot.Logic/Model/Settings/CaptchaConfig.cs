@@ -53,7 +53,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         public bool EnableAntiCaptcha { get; set; }
 
 
-        [DefaultValue("201.33.206.229")]
+        [DefaultValue("")]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 4)]
         [ExcelConfig(Position = 9, Description = "Anti captcha API KEY")]
         public string AntiCaptchaAPIKey { get; set; }

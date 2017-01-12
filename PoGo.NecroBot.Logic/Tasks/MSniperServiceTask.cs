@@ -219,6 +219,7 @@ namespace PoGo.NecroBot.Logic.Tasks
             public PokemonMove Move2 { get; set; }
             public short PokemonId { get; set; }
             public string SpawnPointId { get; set; }
+            public int Priority { get; set; }
         }
 
         #endregion Classes
@@ -444,6 +445,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                     (session.LogicSettings.AutosnipeVerifiedOnly && (item.EncounterId > 0 || (item.Move1 != PokemonMove.MoveUnset && item.Move2 != PokemonMove.MoveUnset)))))
                 {
                     session.EventDispatcher.Send(new WarnEvent() { Message = session.Translation.GetTranslation(TranslationString.SnipePokemonNotInPokedex, session.Translation.GetPokemonTranslation((PokemonId)item.PokemonId)) });
+                    item.Priority = 0;
                     pokedexSnipePokemons.Add(item);//Add as hight priority snipe entry
                     return;
                 }
@@ -464,11 +466,14 @@ namespace PoGo.NecroBot.Logic.Tasks
             {
                 if (byPassValidation)
                 {
+                    item.Priority = -1;
                     manualSnipePokemons.Add(item);
 
                     Logger.Write($"(MANUAL SNIPER) Pokemon added |  {(PokemonId)item.PokemonId} [{item.Latitude},{item.Longitude}] IV {item.Iv}%");
                     return;
                 }
+
+                item.Priority = filter.Priority;
 
                 //hack, this case we can't determite move :)
 
@@ -566,7 +571,8 @@ namespace PoGo.NecroBot.Logic.Tasks
                     else {
 
                         autoSnipePokemons.RemoveAll(x => x.AddedTime.AddSeconds(SNIPE_SAFE_TIME) < DateTime.Now);// || ( x.ExpiredTime >0  && x.ExpiredTime < DateTime.Now.ToUnixTime()));
-                        autoSnipePokemons.OrderByDescending(x => PokemonGradeHelper.GetPokemonGrade((PokemonId)x.PokemonId))
+                        autoSnipePokemons.OrderBy(x=>x.Priority)
+                                          .ThenByDescending(x => PokemonGradeHelper.GetPokemonGrade((PokemonId)x.PokemonId))
                                          .ThenByDescending(x => x.Iv)
                                          .ThenByDescending(x => x.PokemonId)
                                          .ThenByDescending(x => x.AddedTime);
@@ -586,7 +592,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                     if (session.Stats.CatchThresholdExceeds(session) || isBlocking) break;
                     lock (locker)
                     {
-                        if (pokedexSnipePokemons.Count > 0) break;
+                        if (pokedexSnipePokemons.Count > 0 || manualSnipePokemons.Count > 0) break;
                     }
                     if (location.EncounterId > 0 && session.Cache[location.EncounterId.ToString()] != null) continue;
 
