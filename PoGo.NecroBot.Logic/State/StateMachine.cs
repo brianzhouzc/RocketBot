@@ -284,7 +284,7 @@ namespace PoGo.NecroBot.Logic.State
                     var resolved = await CaptchaManager.SolveCaptcha(session, captchaException.Url);
                     if (!resolved)
                     {
-                        PushNotificationClient.SendNotification(session, $"Captcha required {session.Settings.PtcUsername}{session.Settings.GoogleUsername}", session.Translation.GetTranslation(TranslationString.CaptchaShown), true);
+                        await PushNotificationClient.SendNotification(session, $"Captcha required {session.Settings.PtcUsername}{session.Settings.GoogleUsername}", session.Translation.GetTranslation(TranslationString.CaptchaShown), true);
                         session.EventDispatcher.Send(new WarnEvent { Message = session.Translation.GetTranslation(TranslationString.CaptchaShown) });
                         if (session.LogicSettings.AllowMultipleBot)
                         {

@@ -11,6 +11,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
     {
         public SnipeFilter(): base()
         {
+            this.Priority = 5;
             Moves = new List<List<PokemonMove>>();
         }
 
@@ -21,6 +22,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
             this.SnipeIV = snipeMinIV;
             this.Moves = moves;
             this.VerifiedOnly = false;
+            this.Priority = 5;
         }
 
         [JsonIgnore]
@@ -49,6 +51,12 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [DefaultValue(false)]
         [JsonProperty(Required = Required.Default, DefaultValueHandling = DefaultValueHandling.Populate, Order = 5)]
         public bool VerifiedOnly { get; set; }
+
+        [ExcelConfig(Key = "Auto Snipe Priority", Description = "Set autosnipe priority", Position = 6)]
+        [DefaultValue(5)]
+        [Range(1,10)]
+        [JsonProperty(Required = Required.Default, DefaultValueHandling = DefaultValueHandling.Populate, Order = 6)]
+        public int Priority { get; set; }
 
         internal static Dictionary<PokemonId, SnipeFilter> SniperFilterDefault()
         {

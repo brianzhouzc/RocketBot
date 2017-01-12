@@ -71,7 +71,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                         }
                         else
                         {
-                            await StartGymAttackLogic(session, fortInfo, fortDetails, gym, cancellationToken);
+                           // await StartGymAttackLogic(session, fortInfo, fortDetails, gym, cancellationToken);
                             //Logger.Write($"No action... This gym is defending by other color", LogLevel.Gym, ConsoleColor.White);
                         }
                     }

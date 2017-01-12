@@ -410,7 +410,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                     {
                         foreach (var item in fortSearch.ItemsAwarded)
                         {
-                            session.Inventory.UpdateInventoryItem(item.ItemId, item.ItemCount);
+                            await session.Inventory.UpdateInventoryItem(item.ItemId, item.ItemCount);
                         }
                         if (fortSearch.PokemonDataEgg != null)
                         {
@@ -500,7 +500,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                         Message = session.Translation.GetTranslation(TranslationString.FarmPokestopsNoUsableFound)
                     });
                     mapEmptyCount++;
-                    if(mapEmptyCount == 5)
+                    if(mapEmptyCount == 5 && session.LogicSettings.AllowMultipleBot)
                     {
                         mapEmptyCount = 0;
                         throw new ActiveSwitchByRuleException() { MatchedRule = SwitchRules.EmptyMap, ReachedValue = 5 };
