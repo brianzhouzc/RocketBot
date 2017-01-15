@@ -2,7 +2,7 @@
   "TranslationStrings": [
     {
       "Key": "HumanWalkSnipeNotEnoughtBalls",
-      "Value": "(HUMAN WALK) Not enought balls to activate catch Em-All mode. ({0})/{1}"
+      "Value": "(HUMAN WALK) Nicht ausreichend Baelle um den 'Catch Em-All' Modus zu aktivieren. ({0})/{1}"
     },
     {
       "Key": "HumanWalkSnipe",
@@ -22,23 +22,23 @@
     },
     {
       "Key": "SniperCount",
-      "Value": "Sniper count {0}"
+      "Value": "Sniper zaehler {0}"
     },
     {
       "Key": "SnipeExceeds",
-      "Value": "Sniper need to take a rest before your account is banned"
+      "Value": "Sniper muss pausiert werden, bevor dein Account gebannt wird"
     },
     {
       "Key": "CatchExceeds",
-      "Value": "You are catching too fast. Your cannot catch another one until {0} seconds later"
+      "Value": "Du faengst zu schnell. Die naechsten {0} Sekunden kann nichts mehr gefangen werden"
     },
     {
       "Key": "PokeStopExceeds",
-      "Value": "You are visiting pokestops too fast. Your cannot visit another one until {0} seconds later"
+      "Value": "Du besuchst Pokestops zu schnell. Die naechsten {0} Sekunden kann keiner mehr besucht werden."
     },
     {
       "Key": "Only10kmEggs",
-      "Value": "Player below level 20, saving this 10 km Egg for later"
+      "Value": "Spieler ist unter Level 20, hebe das 10 km Ei fuer spaeter auf"
     },
     {
       "Key": "GoogleAPIWarning",
@@ -78,11 +78,11 @@
     },
     {
       "Key": "eventFortFailed",
-      "Value": "Name: {0} INFO: Loot sammeln fehlgeschlagen, eventueller Softban. Unban in: {1}/{2}"
+      "Value": "Name: {0} INFO: Items sammeln fehlgeschlagen, eventueller Softban. Unban in: {1}/{2}"
     },
     {
       "Key": "gym",
-      "Value": "Gym"
+      "Value": "Arena"
     },
     {
       "Key": "pokestop",
@@ -118,11 +118,11 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m entfernt | mit {9} ({10} verbleibend). | {11} EP erhalten | {12} | B: {13} L: {14} | Move1: {15} Move2: {16}"
+      "Value": "({0}) | ({1}) {2} Lvl: {3} WP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m entfernt | mit {9} ({10} verbleibend). | {11} EP erhalten | {12} | B: {13} L: {14} | Move1: {15} Move2: {16}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m entfernt | mit {9} ({10} verbleibend). | B: {11} L: {12} | Move1: {13} Move2: {14}"
+      "Value": "({0}) | ({1}) {2} Lvl: {3} WP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m entfernt | mit {9} ({10} verbleibend). | B: {11} L: {12} | Move1: {13} Move2: {14}"
     },
     {
       "Key": "eventNoPokeballs",
@@ -190,7 +190,7 @@
     },
     {
       "Key": "incubatorEggHatched",
-      "Value": "Ei ist geschluepft: {0} | Lvl: {1} CP: ({2}/{3}) IV: {4}%"
+      "Value": "Ei ist geschluepft: {0} | Lvl: {1} WP: ({2}/{3}) IV: {4}%"
     },
     {
       "Key": "logEntryError",
@@ -270,7 +270,7 @@
     },
     {
       "Key": "coordinatesAreInvalid",
-      "Value": "Koordinaten in \"LastPos.ini\" sind ungueltig! Benutze standart Koordinaten."
+      "Value": "Koordinaten in \"LastPos.ini\" sind ungueltig! Benutze standard Koordinaten."
     },
     {
       "Key": "gotUpToDateVersion",
@@ -278,15 +278,15 @@
     },
     {
       "Key": "autoUpdaterDisabled",
-      "Value": "AutoUpdater ist deaktiviert. Aktuellste Version auf: {0}\n "
+      "Value": "AutoUpdater ist deaktiviert. Aktuelle Version: {0}\n "
     },
     {
       "Key": "downloadingUpdate",
-      "Value": "Download und entpacken von Update..."
+      "Value": "Herunterladen und Entpacken des Updates..."
     },
     {
       "Key": "finishedDownloadingRelease",
-      "Value": "Download des neusten Release abgeschlossen..."
+      "Value": "Herunterladen des neusten Releases abgeschlossen..."
     },
     {
       "Key": "finishedUnpackingFiles",
@@ -366,7 +366,7 @@
     },
     {
       "Key": "PokemonFavorite",
-      "Value": "{0}% perfekt {1} (CP {2}) *Favorit*."
+      "Value": "{0}% perfekt {1} (WP {2}) *Favorit*."
     },
     {
       "Key": "pokemonIgnoreFilter",
@@ -418,7 +418,7 @@
     },
     {
       "Key": "ProfileStatsTemplateString",
-      "Value": "----- LVL {0} | {1} ----- \n Erfahrungspunkte: {2}/{3} \n Pokemons gefangen: {4} \n Pokemons verschickt: {5} \n Pokestops besucht: {6} \n Eier geschluepft: {7} \n Pokemons entwickelt: {8} \n Pokedex Eintraege: {9} \n KM gelaufen: {10} \n Pokemons: {11}/{12}"
+      "Value": "----- LVL {0} | {1} ----- \n Erfahrungspunkte: {2}/{3} \n Pokemon gefangen: {4} \n Pokemon verschickt: {5} \n Pokestops besucht: {6} \n Eier geschluepft: {7} \n Pokemon entwickelt: {8} \n Pokedex Eintraege: {9} \n KM gelaufen: {10} \n Pokemon: {11}/{12}"
     },
     {
       "Key": "ShowPokeTemplate",
@@ -430,7 +430,7 @@
     },
     {
       "Key": "HelpTemplate",
-      "Value": "Kommandos: \n \n /top <cp/iv> <amount> - Zeigt die besten Pokemons an. \n /all <cp/iv> - Zeigt dir alle Pokemons an. \n /profile - Zeigt dein Profil. \n /loc - Zeigt deine Position an. \n /items - Zeigt dir deine Items \n /status - Zeigt den Status vom Bot. \n /pokedex - Zeigt dein Pokedex. \n /restart - startet den Bot neu"
+      "Value": "Befehlsuebersicht:\n\nRucksack:\n/all - Listet Pokemon\n/all <cp|iv> - ... sortiert nach WP oder IV\n/top - Listet Top 10 Pokemon\n/top <cp|iv> - ... sortiert nach WP oder IV\n/top <cp|iv> <n> - ... zeige 'n' Stueck (statt 10)\n/items - Listet Items\n/recycle - Recycle Items sofort\n\nSpieler:\n/profile - Zeige Profil\n/pokedex - Zeige Pokedex\n/loc - Zeige Position\n\nBot:\n/status - Laufzeitinformationen\n/logs - Listet die letzten 10 Log-Eintraege\n/logs <n> ... Listet die letzten 'n' Log-Eintraege\n/snipe <pokemon,lat,lng> - Snipe das Pokemon\n/accounts - Zeige die konfigurierten Accounts (Multibot)\n/restart - Bot neustarten\n/exit - Bot schließen\n\nMisc:\n/help - Zeigt diese Hilfe"
     },
     {
       "Key": "StatsXpTemplateString",
@@ -446,11 +446,11 @@
     },
     {
       "Key": "GoogleTwoFactorAuthExplanation",
-      "Value": "oeffne App-Passwoerter. Bitte erstelle ein neues Passwort (verwende bei App waehlen: Andere)"
+      "Value": "Oeffne App-Passwoerter. Bitte erstelle ein neues Passwort (verwende bei App waehlen: Andere)"
     },
     {
       "Key": "GoogleError",
-      "Value": "Stell sicher, dass du die richtige E-Mail & Passwort eingegeben hast."
+      "Value": "Stelle sicher, dass du E-Mail-Adresse und Passwort korrekt eingegeben hast."
     },
     {
       "Key": "GoogleOffline",
@@ -578,11 +578,11 @@
     },
     {
       "Key": "HighestsPokemoCell",
-      "Value": "# CP {0}/{1} | ({2}% {3})\t| Lvl {4}\t {5}: {6}\t {7}: {8} {9}: {10} {11}: {12}"
+      "Value": "# WP {0}/{1} | ({2}% {3})\t| Lvl {4}\t {5}: {6}\t {7}: {8} {9}: {10} {11}: {12}"
     },
     {
       "Key": "HumanWalkingVariant",
-      "Value": "Laufgeschwindigkeit: Wurde veraendert, {0:n2} Km/h zu {1:n2} Km/h"
+      "Value": "Laufgeschwindigkeit: Wurde veraendert, {0:n2} km/h zu {1:n2} km/h"
     },
     {
       "Key": "AccountBanned",
