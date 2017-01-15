@@ -16,6 +16,9 @@ using PoGo.NecroBot.Logic.Event;
 using PoGo.NecroBot.Logic.Logging;
 using PoGo.NecroBot.Logic.Model.Settings;
 using PoGo.NecroBot.Logic.Utils;
+using System.Windows.Forms;
+using PoGo.NecroBot.Logic.Event.UI;
+using System.Media;
 
 #endregion
 
@@ -49,7 +52,7 @@ namespace PoGo.NecroBot.Logic.State
 
             var autoUpdate = session.LogicSettings.AutoUpdate;
             var isLatest = IsLatest();
-            if ( isLatest )
+            if ( isLatest)
             {
                 session.EventDispatcher.Send(new UpdateEvent
                 {
@@ -60,40 +63,54 @@ namespace PoGo.NecroBot.Logic.State
             }
             if ( !autoUpdate )
             {
-                Logger.Write( "New update detected, would you like to update? Y/N", LogLevel.Update );
+                SystemSounds.Asterisk.Play();
+                Logger.Write("New update detected, would you like to update? Y/N", LogLevel.Update);
 
-                var boolBreak = false;
-                while( !boolBreak )
+                if (MessageBox.Show("New update detected, would you like to update?", "Auto Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 {
-                    var strInput = Console.ReadLine().ToLower();
-
-                    switch( strInput )
-                    {
-                        case "y":
-                            boolBreak = true;
-                            break;
-                        case "n":
-                            Logger.Write( "Update Skipped", LogLevel.Update );
-                            return new LoginState();
-                        default:
-                            Logger.Write( session.Translation.GetTranslation( TranslationString.PromptError, "Y", "N" ), LogLevel.Error );
-                            continue;
-                    }
+                    Logger.Write("Update Skipped", LogLevel.Update);
+                    return new LoginState();
                 }
+
+               // var boolBreak = false;
+                //while( !boolBreak )
+                //{
+                //    var strInput = Console.ReadLine().ToLower();
+
+                //    switch( strInput )
+                //    {
+                //        case "y":
+                //            boolBreak = true;
+                //            break;
+                //        case "n":
+                //            Logger.Write( "Update Skipped", LogLevel.Update );
+                //            return new LoginState();
+                //        default:
+                //            Logger.Write( session.Translation.GetTranslation( TranslationString.PromptError, "Y", "N" ), LogLevel.Error );
+                //            continue;
+                //    }
+                //}
             }
 
             session.EventDispatcher.Send(new UpdateEvent
             {
                 Message = session.Translation.GetTranslation(TranslationString.DownloadingUpdate)
             });
+            
             var remoteReleaseUrl =
                 $"https://github.com/Necrobot-Private/NecroBot/releases/download/v{RemoteVersion}/";
-            const string zipName = "NecroBot2.Console.zip";
+            string zipName = "NecroBot2.Console.zip";
+            if(Assembly.GetEntryAssembly().FullName.ToLower().Contains("necrobot2.win"))
+            {
+                zipName = "NecroBot2.Win.zip";
+            }
             var downloadLink = remoteReleaseUrl + zipName;
+            session.EventDispatcher.Send(new StatusBarEvent($"Auto update {RemoteVersion}, downloading.. .{downloadLink}"));
+
             var baseDir = Directory.GetCurrentDirectory();
             var downloadFilePath = Path.Combine(baseDir, zipName);
             var tempPath = Path.Combine(baseDir, "tmp");
-            var extractedDir = Path.Combine(tempPath, "NecroBot2.Console");
+            var extractedDir = Path.Combine(tempPath, "NecroBot2");
             var destinationDir = baseDir + Path.DirectorySeparatorChar;
             Logger.Write(downloadLink, LogLevel.Info);
 
@@ -142,7 +159,7 @@ namespace PoGo.NecroBot.Logic.State
             {
                 try
                 {
-                    if (file.Name.Contains("vshost") || file.Name.Contains(".gpx.old"))
+                    if (file.Name.Contains("vshost") || file.Name.Contains(".gpx.old") || file.Name.Contains("chromedriver"))
                         continue;
                     File.Delete(file.FullName);
                 }
@@ -158,6 +175,7 @@ namespace PoGo.NecroBot.Logic.State
         {
             using (var client = new WebClient())
             {
+                
                 try
                 {
                     client.DownloadFile(url, dest);

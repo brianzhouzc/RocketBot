@@ -129,6 +129,11 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 22)]
         public bool AutosnipeVerifiedOnly { get; set; }
 
+        [ExcelConfig(Description = "Set the amount of candy want bot auto snipe if we has less candy than this value.", Position = 22)]
+        [DefaultValue(0)]
+        [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 22)]
+        public int DefaultAutoSnipeCandy { get; set; }
+
         [ExcelConfig(Description = "Total time in minutes bot will ignore autosnipe when out of ball", Position = 23)]
         [DefaultValue(5)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 23)]

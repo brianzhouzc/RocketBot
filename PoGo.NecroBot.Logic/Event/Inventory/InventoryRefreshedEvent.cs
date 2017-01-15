@@ -6,11 +6,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using POGOProtos.Data.Player;
 
 namespace PoGo.NecroBot.Logic.Event.Inventory
 {
     public class InventoryRefreshedEvent :IEvent
     {
+        public IEnumerable<PlayerStats> PlayerStats { get; set; }
+
         public GetInventoryResponse Inventory { get; set; }
 
         public List<PokemonSettings> PokemonSettings { get; set; }
@@ -22,6 +25,14 @@ namespace PoGo.NecroBot.Logic.Event.Inventory
             this.Candies = candy;
             this.PokemonSettings = settings;
             this.Inventory = e;
+        }
+
+        public InventoryRefreshedEvent(GetInventoryResponse args, IEnumerable<PlayerStats> playerStats, List<PokemonSettings> pokemonSettings, List<Candy> candy)
+        {
+            this.Inventory = args;
+            this.PlayerStats = playerStats;
+            this.PokemonSettings = pokemonSettings;
+            this.Candies = candy;
         }
     }
 }

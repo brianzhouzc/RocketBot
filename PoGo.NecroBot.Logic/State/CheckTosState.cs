@@ -24,11 +24,11 @@ namespace PoGo.NecroBot.Logic.State
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-
             var tutState = session.Profile.PlayerData.TutorialState;
             if(tutState.Contains(TutorialState.FirstTimeExperienceComplete)) {
                 return new InfoState();
             }
+
             if (!tutState.Contains(TutorialState.LegalScreen))
             {
                 await

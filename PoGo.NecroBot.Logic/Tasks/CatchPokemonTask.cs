@@ -313,7 +313,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                                      : currentFortData.Id, pokeball, normalizedRecticleSize, spinModifier, hitPokemon);
 
                    
-                    session.Inventory.UpdateInventoryItem(pokeball, -1);
+                    await session.Inventory.UpdateInventoryItem(pokeball, -1);
 
                     var evt = new PokemonCaptureEvent()
                     {
@@ -328,7 +328,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                     if (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchSuccess)
                     {
                         var totalExp = 0;
-
+                        var totalStartDust = caughtPokemonResponse.CaptureAward.Stardust.Sum();
                         if (encounteredPokemon != null)
                         {
                             encounteredPokemon.Id = caughtPokemonResponse.CapturedPokemonId;
@@ -339,10 +339,10 @@ namespace PoGo.NecroBot.Logic.Tasks
                         {
                             totalExp += xp;
                         }
-                        var profile = await session.Client.Player.GetPlayer();
+                        var stardust = session.Inventory.UpdateStartDust(totalStartDust);
 
                         evt.Exp = totalExp;
-                        evt.Stardust = profile.PlayerData.Currencies.ToArray()[1].Amount;
+                        evt.Stardust = stardust;
                         evt.UniqueId = caughtPokemonResponse.CapturedPokemonId;
 
                         var pokemonSettings = await session.Inventory.GetPokemonSettings();
@@ -609,7 +609,7 @@ namespace PoGo.NecroBot.Logic.Tasks
             //berry.Count -= 1;
 
             session.EventDispatcher.Send(new UseBerryEvent { BerryType = ItemId.ItemRazzBerry, Count = berry.Count -1});
-            session.Inventory.UpdateInventoryItem(berry.ItemId, -1);
+            await session.Inventory.UpdateInventoryItem(berry.ItemId, -1);
 
         }
     }
