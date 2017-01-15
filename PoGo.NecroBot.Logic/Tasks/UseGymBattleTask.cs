@@ -562,10 +562,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                         Logger.Write($"Unexpected attack result:\n{attackResult}");
                         continue;
                     }
-
-
                 }
-
 
                 catch (APIBadRequestException)
                 {

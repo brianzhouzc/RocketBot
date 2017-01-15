@@ -249,6 +249,7 @@
     <Compile Include="Event\LogEvent.cs" />
     <Compile Include="Event\NoPokeballEvent.cs" />
     <Compile Include="Event\Player\LoggedEvent.cs" />
+    <Compile Include="Event\Player\LoginEvent.cs" />
     <Compile Include="Event\SnipePokemonFoundEvent.cs" />
     <Compile Include="Event\SnipeEvent.cs" />
     <Compile Include="Event\SnipeModeEvent.cs" />
@@ -256,6 +257,7 @@
     <Compile Include="Event\PokemonLevelUpEvent.cs" />
     <Compile Include="Event\SnipeScanEvent.cs" />
     <Compile Include="Event\NicknameUpdateEvent.cs" />
+    <Compile Include="Event\UI\StatusBarEvent.cs" />
     <Compile Include="Event\UpgradePokemonEvent.cs" />
     <Compile Include="Event\UpdateEvent.cs" />
     <Compile Include="Event\PokemonCaptureEvent.cs" />
@@ -357,6 +359,11 @@
     <Compile Include="Navigation.cs" />
     <Compile Include="PoGoUtils\PokemonInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Service\Elevation\BaseElevationService.cs" />
     <Compile Include="Service\Elevation\ElevationService.cs" />
     <Compile Include="Service\Elevation\IElevationService.cs" />
@@ -489,6 +496,10 @@
     <EmbeddedResource Include="Forms\InitialTutorialForm.resx">
       <DependentUpon>InitialTutorialForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
@@ -501,7 +512,9 @@
       <Name>PokemonGo.RocketAPI</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\ajax-loader.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.26.0\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.26.0\build\Selenium.WebDriver.ChromeDriver.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

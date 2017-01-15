@@ -16,6 +16,7 @@ using System.Linq;
 using System.Media;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using static POGOProtos.Networking.Envelopes.Signature.Types;
 
@@ -111,28 +112,41 @@ namespace PoGo.NecroBot.Logic.Captcha
 
                 if (!string.IsNullOrEmpty(captchaResponse))
                 {
-                    resolved = await Resolve(session, captchaResponse);
+                   resolved = await Resolve(session, captchaResponse);
                 }
             }
            
             return resolved;
         }
 
+        
+        //NOT WORKING  SINCE WEB BROWSER CONTROL IS IE7, doesn't work with captcha page
+
         private static async Task<string> GetCaptchaTokenWithInternalForm(string captchaUrl)
         {
-            CaptchaSolveForm captcha = new CaptchaSolveForm(captchaUrl);
-            captcha.TopMost = true;
-            
-            captcha.Show();
-
+            string response = "";
+            var t = new Thread(()=> {
+                CaptchaSolveForm captcha = new CaptchaSolveForm(captchaUrl);
+                if (captcha.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    response = "Aaa";
+                }
+                
+                //captcha.TopMost = true;
+            });
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
             int count = 120;
-            while(true && count >0)
+            while (true && count > 0)
             {
 
                 count--;
+                //Thread.Sleep(1000);
                 await Task.Delay(1000);
             }
-            return "";
+
+            return response;
+
         }
         private static async Task<string> GetNewCaptchaURL(ISession session)
         {

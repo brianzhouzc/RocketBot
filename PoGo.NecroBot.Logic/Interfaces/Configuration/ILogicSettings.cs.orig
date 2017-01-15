@@ -133,6 +133,11 @@ namespace PoGo.NecroBot.Logic.Interfaces.Configuration
         bool SnipePokemonNotInPokedex { get; }
         bool RandomizeRecycle { get; }
         int RandomRecycleValue { get; }
+<<<<<<< HEAD
+        int TotalAmountOfPokeballsToKeep { get; }
+=======
+        int MaxPokeballsToKeep { get; }
+>>>>>>> 33cfacb92633c587535cb17690d320c484fede55
 
         int TotalAmountOfPokeballsToKeep { get; }
         int TotalAmountOfPotionsToKeep { get; }
@@ -241,6 +246,5 @@ namespace PoGo.NecroBot.Logic.Interfaces.Configuration
 
         bool AutosnipeVerifiedOnly { get;  }
         int SnipePauseOnOutOfBallTime { get;  }
-        int DefaultAutoSnipeCandy { get; }
     }
 }

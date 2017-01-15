@@ -154,8 +154,8 @@ namespace PoGo.NecroBot.Logic.State
             Inventory = new Inventory(this,Client, logicSettings, (args)=> {
                 var candy = this.Inventory.GetPokemonFamilies().Result.ToList();
                 var pokemonSettings = this.Inventory.GetPokemonSettings().Result.ToList();
-
-                this.EventDispatcher.Send(new InventoryRefreshedEvent(args,pokemonSettings, candy) );
+                //var playerStats = null;// this.Inventory.GetPlayerStats().Result;
+                this.EventDispatcher.Send(new InventoryRefreshedEvent(args, null, pokemonSettings, candy) );
             });
             Navigation = new Navigation(Client, logicSettings);
             Navigation.WalkStrategy.UpdatePositionEvent +=

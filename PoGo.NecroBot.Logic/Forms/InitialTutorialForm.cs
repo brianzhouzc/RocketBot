@@ -43,11 +43,11 @@ namespace PoGo.NecroBot.Logic.Forms
 
         private void wizardPage4_Initialize(object sender, AeroWizard.WizardPageInitEventArgs e)
         {
-            Task.Run(() =>
+            Task.Run(async () =>
             {
                 Gender gen = rdoMale.Checked ? Gender.Male : Gender.Female;
 
-                var avatarRes = session.Client.Player.SetAvatar(new PlayerAvatar()
+                var avatarRes = await session.Client.Player.SetAvatar(new PlayerAvatar()
                 {
                     Backpack = 0,
                     Eyes = 0,
@@ -58,7 +58,7 @@ namespace PoGo.NecroBot.Logic.Forms
                     Shirt = 0,
                     Shoes = 0,
                     Skin = 0
-                }).Result;
+                });
 
                 if (avatarRes.Status == SetAvatarResponse.Types.Status.AvatarAlreadySet ||
                     avatarRes.Status == SetAvatarResponse.Types.Status.Success)
@@ -72,10 +72,30 @@ namespace PoGo.NecroBot.Logic.Forms
                         Message = $"Selected your avatar, now you are {gen}!"
                     });
                 }
-            }).Wait();
-            wizardControl1.NextPage();
+                return true;
+            }).ContinueWith((t) =>
+            {
+                this.Invoke(new Action(() =>
+                {
+                    wizardControl1.NextPage();
+                }), null);
+            });
         }
 
+        private const int WM_NCHITTEST = 0x84;
+        private const int HTCLIENT = 0x1;
+        private const int HTCAPTION = 0x2;
+
+        ///
+        /// Handling the window messages
+        ///
+        protected override void WndProc(ref Message message)
+        {
+            base.WndProc(ref message);
+
+            if (message.Msg == WM_NCHITTEST && (int)message.Result == HTCLIENT)
+                message.Result = (IntPtr)HTCAPTION;
+        }
         private void wizardPage3_Initialize(object sender, AeroWizard.WizardPageInitEventArgs e)
         {
             PokemonId firstPoke = rdoBulbasaur.Checked ? PokemonId.Bulbasaur : rdoCharmander.Checked ? PokemonId.Charmander : PokemonId.Squirtle;
@@ -93,9 +113,15 @@ namespace PoGo.NecroBot.Logic.Forms
                //return true;
 
                //state.CatchFirstPokemon(session, session.CancellationTokenSource.Token).Wait();
-           }).Wait();
+           }).ContinueWith((t) =>
+           {
 
-            wizardControl1.NextPage();
+               this.Invoke(new Action(() =>
+               {
+                   wizardControl1.NextPage();
+               }), null);
+
+           });
         }
 
         private void wizardPage6_Initialize(object sender, AeroWizard.WizardPageInitEventArgs e)
@@ -176,56 +202,63 @@ namespace PoGo.NecroBot.Logic.Forms
                 }
 
                 //await DelayingUtils.DelayAsync(3000, 2000, cancellationToken);
-            }).Wait();
+            }).ContinueWith(async (t) =>
+           {
 
-            if (markTutorialComplete)
-            {
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
-            else {
-                lblNameError.Text = errorText;
-                lblNameError.Visible = true;
-                wizardControl1.PreviousPage();
-            }
+                if (markTutorialComplete)
+                {
+                    await
+                        session.Client.Misc.MarkTutorialComplete(new RepeatedField<TutorialState>()
+                        {
+                                        TutorialState.FirstTimeExperienceComplete
+                        });
+                    session.EventDispatcher.Send(new NoticeEvent()
+                    {
+                        Message = "First time experience complete, looks like i just spinned an virtual pokestop :P"
+                    });
+                   this.Invoke(new Action(() =>
+                   {
+                       this.DialogResult = DialogResult.OK;
+                       this.Close();
+                   }));
+                }
+                else {
 
+                   this.Invoke(new Action(() =>
+                    {
+                        lblNameError.Text = errorText;
+                        lblNameError.Visible = true;
+                        wizardControl1.PreviousPage();
+                    }));
+                }
+            });
         }
 
         private void wizardPage1_Initialize(object sender, AeroWizard.WizardPageInitEventArgs e)
         {
-            //Task.Run(() =>
-            // {
             if (tutState.Contains(TutorialState.AvatarSelection))
             {
                 wizardControl1.NextPage(Step2);
             }
-            // }
-            // ).Wait();
         }
 
         private void wizardPage2_Initialize(object sender, AeroWizard.WizardPageInitEventArgs e)
         {
-            // Task.Run(() =>
-            //  {
             if (tutState.Contains(TutorialState.PokemonCapture))
             {
 
                 wizardControl1.NextPage(Step3);
 
             }
-            //  }).Wait();
         }
 
         private void wizardPage5_Initialize(object sender, AeroWizard.WizardPageInitEventArgs e)
         {
-            //Task.Run(() =>
-            // {
             if (tutState.Contains(TutorialState.NameSelection))
             {
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
-            // }).Wait();
         }
     }
 }

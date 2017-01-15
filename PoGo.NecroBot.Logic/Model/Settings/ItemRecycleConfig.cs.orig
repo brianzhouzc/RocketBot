@@ -55,6 +55,14 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [Range(0, 999)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 8)]
         public int TotalAmountOfBerriesToKeep { get; set; }
+<<<<<<< HEAD
+=======
+
+        [ExcelConfig(Description = "Max pokeball to be kept - redundant need to cleanup ", Position = 9)]
+        [Range(0, 999)]
+        [DefaultValue(50)]
+        [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 9)]
+        public int MaxPokeballsToKeep { get; set; }
 
         /* Percents */
         [ExcelConfig(Description = "Use recycle percents instead of totals (for example PercentOfInventoryPokeballsToKeep instead of TotalAmountOfPokeballsToKeep) ", Position = 10)]
@@ -85,5 +93,6 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [Range(0, 100)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 14)]
         public int PercentOfInventoryBerriesToKeep { get; set; }
+>>>>>>> 33cfacb92633c587535cb17690d320c484fede55
     }
 }

@@ -182,11 +182,17 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         public bool SnipePokemonNotInPokedex => _settings.SnipeConfig.SnipePokemonNotInPokedex;
         public bool RandomizeRecycle => _settings.RecycleConfig.RandomizeRecycle;
         public int RandomRecycleValue => _settings.RecycleConfig.RandomRecycleValue;
-        public int MaxPokeballsToKeep => _settings.RecycleConfig.MaxPokeballsToKeep;
         public int TotalAmountOfPokeballsToKeep => _settings.RecycleConfig.TotalAmountOfPokeballsToKeep;
         public int TotalAmountOfPotionsToKeep => _settings.RecycleConfig.TotalAmountOfPotionsToKeep;
         public int TotalAmountOfRevivesToKeep => _settings.RecycleConfig.TotalAmountOfRevivesToKeep;
         public int TotalAmountOfBerriesToKeep => _settings.RecycleConfig.TotalAmountOfBerriesToKeep;
+
+        public bool UseRecyclePercentsInsteadOfTotals => _settings.RecycleConfig.UseRecyclePercentsInsteadOfTotals;
+        public int PercentOfInventoryPokeballsToKeep => _settings.RecycleConfig.PercentOfInventoryPokeballsToKeep;
+        public int PercentOfInventoryPotionsToKeep => _settings.RecycleConfig.PercentOfInventoryPotionsToKeep;
+        public int PercentOfInventoryRevivesToKeep => _settings.RecycleConfig.PercentOfInventoryRevivesToKeep;
+        public int PercentOfInventoryBerriesToKeep => _settings.RecycleConfig.PercentOfInventoryBerriesToKeep;
+
         public bool UseSnipeLimit => _settings.SnipeConfig.UseSnipeLimit;
         public bool UsePokeStopLimit => _settings.PokeStopConfig.UsePokeStopLimit;
         public bool UseCatchLimit => _settings.PokemonConfig.UseCatchLimit;
@@ -234,6 +240,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         public bool AllowMultipleBot => _settings.Auth.AllowMultipleBot;
         public int MinIVForAutoSnipe => _settings.SnipeConfig.MinIVForAutoSnipe;
         public bool AutosnipeVerifiedOnly => _settings.SnipeConfig.AutosnipeVerifiedOnly;
+        public int DefaultAutoSnipeCandy => _settings.SnipeConfig.DefaultAutoSnipeCandy;
         public Dictionary<PokemonId, BotSwitchPokemonFilter> BotSwitchPokemonFilters => _settings.BotSwitchPokemonFilters;
 
         public NotificationConfig NotificationConfig => _settings.NotificationConfig;
