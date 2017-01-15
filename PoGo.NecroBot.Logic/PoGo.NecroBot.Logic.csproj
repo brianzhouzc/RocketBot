@@ -257,6 +257,8 @@
     <Compile Include="Event\PokemonLevelUpEvent.cs" />
     <Compile Include="Event\SnipeScanEvent.cs" />
     <Compile Include="Event\NicknameUpdateEvent.cs" />
+    <Compile Include="Event\Snipe\AutoSnipePokemonAddedEvent.cs" />
+    <Compile Include="Event\Snipe\SnipePokemonStarted.cs" />
     <Compile Include="Event\UI\StatusBarEvent.cs" />
     <Compile Include="Event\UpgradePokemonEvent.cs" />
     <Compile Include="Event\UpdateEvent.cs" />
