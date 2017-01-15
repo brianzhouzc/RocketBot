@@ -19,6 +19,45 @@ namespace PoGo.NecroBot.Logic.Tasks
 {
     public class UseIncubatorsTask
     {
+        public static async Task Execute(ISession session, CancellationToken cancellationToken, ulong eggId, string incubatorId)
+        {
+            var incubators = (await session.Inventory.GetEggIncubators())
+                .Where(x => x.UsesRemaining > 0 || x.ItemId == ItemId.ItemIncubatorBasicUnlimited)
+                .FirstOrDefault(x => x.Id == incubatorId);
+
+            var unusedEggs = (await session.Inventory.GetEggs())
+                .Where(x => string.IsNullOrEmpty(x.EggIncubatorId))
+                .FirstOrDefault(x => x.Id == eggId);
+
+            if (incubators == null || unusedEggs == null) return;
+
+            var rememberedIncubatorsFilePath = Path.Combine(session.LogicSettings.ProfilePath, "temp", "incubators.json");
+            var rememberedIncubators = GetRememberedIncubators(rememberedIncubatorsFilePath);
+
+            var response = await session.Client.Inventory.UseItemEggIncubator(incubators.Id, unusedEggs.Id);
+            var newRememberedIncubators = new List<IncubatorUsage>();
+            if (response.Result == POGOProtos.Networking.Responses.UseItemEggIncubatorResponse.Types.Result.Success)
+            {
+                newRememberedIncubators.Add(new IncubatorUsage { IncubatorId = incubators.Id, PokemonId = unusedEggs.Id });
+
+                session.EventDispatcher.Send(new EggIncubatorStatusEvent
+                {
+                    IncubatorId = incubators.Id,
+                    WasAddedNow = true,
+                    PokemonId = unusedEggs.Id,
+                    KmToWalk = unusedEggs.EggKmWalkedTarget,
+                    KmRemaining = response.EggIncubator.TargetKmWalked
+                });
+
+                if (!newRememberedIncubators.SequenceEqual(rememberedIncubators))
+                    SaveRememberedIncubators(newRememberedIncubators, rememberedIncubatorsFilePath);
+            }
+            else
+            {
+                //error output
+            }
+        }
+        
         public static async Task Execute(ISession session, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
