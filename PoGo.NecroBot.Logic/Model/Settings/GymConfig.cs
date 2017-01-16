@@ -82,5 +82,10 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [Range(1, 10)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate)]
         public int MaxDefendersToAttack { get; set; }
+
+        [ExcelConfig(Description = "Heal fefenders before apply to gym", Position = 10)]
+        [DefaultValue(true)]
+        [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate)]
+        public bool HealDefendersBeforeApplyToGym { get; set; }
     }
 }

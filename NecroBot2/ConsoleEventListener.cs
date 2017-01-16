@@ -13,6 +13,7 @@ using POGOProtos.Networking.Responses;
 using PoGo.NecroBot.Logic.Event.Gym;
 using POGOProtos.Map.Fort;
 using NecroBot2.Forms;
+using PoGo.NecroBot.Logic.Event.Player;
 #endregion
 
 namespace NecroBot2
@@ -34,6 +35,11 @@ namespace NecroBot2
         private static void HandleEvent(NoticeEvent noticeEvent, ISession session)
         {
             Logger.Write(noticeEvent.ToString());
+        }
+
+        private static void HandleEvent(BuddyUpdateEvent ev, ISession session)
+        {
+            Logger.Write(session.Translation.GetTranslation(TranslationString.BuddyPokemonUpdate, ev.Pokemon.PokemonId.ToString()), LogLevel.Info);
         }
 
         private static void HandleEvent(WarnEvent warnEvent, ISession session)

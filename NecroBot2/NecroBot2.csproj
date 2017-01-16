@@ -301,21 +301,15 @@
     <Compile Include="CommandLineUtility\Arguments.cs" />
     <Compile Include="ConsoleEventListener.cs" />
     <Compile Include="ConsoleLogger.cs" />
-    <Compile Include="Forms\AuthAPIForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\AuthAPIForm.cs" />
     <Compile Include="Forms\AuthAPIForm.Designer.cs">
       <DependentUpon>AuthAPIForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\InfoForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\InfoForm.cs" />
     <Compile Include="Forms\InfoForm.Designer.cs">
       <DependentUpon>InfoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SettingForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\SettingForm.cs" />
     <Compile Include="Forms\SettingForm.Designer.cs">
       <DependentUpon>SettingForm.cs</DependentUpon>
     </Compile>
@@ -325,21 +319,15 @@
     <Compile Include="Logic\Event\PokemonsEncounterEvent.cs" />
     <Compile Include="Logic\State\VersionCheckState.cs" />
     <Compile Include="Helpers\DeviceHelper.cs" />
-    <Compile Include="Forms\ItemBox.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="Forms\ItemBox.cs" />
     <Compile Include="Forms\ItemBox.designer.cs">
       <DependentUpon>ItemBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ItemForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\ItemForm.cs" />
     <Compile Include="Forms\ItemForm.designer.cs">
       <DependentUpon>ItemForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\MainForm.cs" />
     <Compile Include="Forms\MainForm.designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
@@ -348,9 +336,7 @@
     <Compile Include="Helpers\S2GMapDrawer.cs" />
     <Compile Include="Helpers\TimeHelper.cs" />
     <Compile Include="Helpers\VersionHelper.cs" />
-    <Compile Include="Forms\ItemSetting.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="Forms\ItemSetting.cs" />
     <Compile Include="Forms\ItemSetting.Designer.cs">
       <DependentUpon>ItemSetting.cs</DependentUpon>
     </Compile>
@@ -361,9 +347,7 @@
     <Compile Include="Logic\Tasks\UseLuckyEggTask.cs" />
     <Compile Include="Models\GMapMarkerPokestops.cs" />
     <Compile Include="Models\GMapMarkerTrainer.cs" />
-    <Compile Include="Forms\NicknamePokemonForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\NicknamePokemonForm.cs" />
     <Compile Include="Forms\NicknamePokemonForm.designer.cs">
       <DependentUpon>NicknamePokemonForm.cs</DependentUpon>
     </Compile>

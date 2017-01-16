@@ -248,6 +248,7 @@
     <Compile Include="Event\KillSwitchEvent.cs" />
     <Compile Include="Event\LogEvent.cs" />
     <Compile Include="Event\NoPokeballEvent.cs" />
+    <Compile Include="Event\Player\BuddyUpdateEvent.cs" />
     <Compile Include="Event\Player\LoggedEvent.cs" />
     <Compile Include="Event\Player\LoginEvent.cs" />
     <Compile Include="Event\SnipePokemonFoundEvent.cs" />
@@ -459,6 +460,7 @@
     <Compile Include="Tasks\FarmPokestopsTask.cs" />
     <Compile Include="Tasks\RecycleItemsTask.cs" />
     <Compile Include="Tasks\RenamePokemonTask.cs" />
+    <Compile Include="Tasks\SelectBuddyPokemonTask.cs" />
     <Compile Include="Tasks\SetMoveToTargetTask.cs" />
     <Compile Include="Tasks\MSniperServiceTask.cs" />
     <Compile Include="Tasks\SnipePokemonTask.cs" />

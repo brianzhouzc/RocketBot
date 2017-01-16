@@ -767,7 +767,6 @@ namespace PoGo.NecroBot.Logic
                 await DeletePokemonFromInvById(pokemonid);
                 await AddPokemonToCache(upgradeResult.UpgradedPokemon);
             }
-
             return upgradeResult;
         }
     }

@@ -31,7 +31,7 @@ namespace PoGo.NecroBot.Logic.Tasks
             var settings = pokemonSettings.Single(x => x.PokemonId == pokemon.PokemonId);
             var familyCandy = pokemonFamilies.Single(x => settings.FamilyId == x.FamilyId);
 
-            if (familyCandy.Candy_ <= 10) return false;
+            if (familyCandy.Candy_ <= settings.CandyToEvolve) return false;
 
             var upgradeResult = await session.Inventory.UpgradePokemon(pokemon.Id);
 
@@ -62,7 +62,14 @@ namespace PoGo.NecroBot.Logic.Tasks
         {
             using (var block = new BlockableScope(session, Model.BotActions.Upgrade))
             {
-                if (!await block.WaitToRun()) return;
+                if (!await block.WaitToRun())
+                {
+                    session.EventDispatcher.Send(new FinishUpgradeEvent()
+                    {
+                        PokemonId = pokemonId,
+                        AllowUpgrade = true
+                    });
+                };
                 //await session.Inventory.RefreshCachedInventory();
 
                 if (session.Inventory.GetStarDust() <= session.LogicSettings.GetMinStarDustForLevelUp)
