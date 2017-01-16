@@ -92,6 +92,12 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 1)]
         public int RuntimeSwitch = 55;
 
+        [ExcelConfig(Description = "X minitues to block this bot when reach daily limit ", Position = 1)]
+        [DefaultValue(15)]
+        [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 1)]
+
+        public int OnLimitPauseTimes { get; set; }
+
         [ExcelConfig(Description = "Allow bot switch account when encountered with a rare pokemon that you definied in the list", Position = 2)]
         [DefaultValue(true)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 2)]
