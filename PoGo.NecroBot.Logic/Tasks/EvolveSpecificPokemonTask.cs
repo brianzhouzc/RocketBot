@@ -26,6 +26,16 @@ namespace PoGo.NecroBot.Logic.Tasks
 
                 if (pokemon == null) return;
 
+                var pokemonSettings = await session.Inventory.GetPokemonSettings();
+                var pokemonFamilies = await session.Inventory.GetPokemonFamilies();
+
+                var setting =
+              pokemonSettings.FirstOrDefault(q => pokemon != null && q.PokemonId == pokemon.PokemonId);
+                var family = pokemonFamilies.FirstOrDefault(q => setting != null && q.FamilyId == setting.FamilyId);
+
+                if (setting.CandyToEvolve > family.Candy_) return;
+                family.Candy_ -= setting.CandyToEvolve;
+
                 var evolveResponse = await session.Client.Inventory.EvolvePokemon(pokemon.Id);
 
                 session.EventDispatcher.Send(new PokemonEvolveEvent
@@ -35,7 +45,9 @@ namespace PoGo.NecroBot.Logic.Tasks
                     Exp = evolveResponse.ExperienceAwarded,
                     UniqueId = pokemon.Id,
                     Result = evolveResponse.Result,
-                    EvolvedPokemon = evolveResponse.EvolvedPokemonData
+                    EvolvedPokemon = evolveResponse.EvolvedPokemonData  ,
+                    PokemonSetting = setting,
+                    Family = family
                 });
                 DelayingUtils.Delay(session.LogicSettings.EvolveActionDelay, 0);
             }
