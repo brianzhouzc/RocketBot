@@ -159,6 +159,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Device" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\System.Diagnostics.DiagnosticSource.4.0.0\lib\portable-net45+win8+wpa81\System.Diagnostics.DiagnosticSource.dll</HintPath>
       <Private>True</Private>
@@ -251,6 +252,7 @@
     <Compile Include="Event\Player\BuddyUpdateEvent.cs" />
     <Compile Include="Event\Player\LoggedEvent.cs" />
     <Compile Include="Event\Player\LoginEvent.cs" />
+    <Compile Include="Event\Player\TargetLocationEvent.cs" />
     <Compile Include="Event\SnipePokemonFoundEvent.cs" />
     <Compile Include="Event\SnipeEvent.cs" />
     <Compile Include="Event\SnipeModeEvent.cs" />
@@ -367,6 +369,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Service\TelegramCommand\ICommand.cs" />
+    <Compile Include="Service\TelegramCommand\LocCommand.cs" />
+    <Compile Include="Service\TelegramUtils.cs" />
     <Compile Include="Service\Elevation\BaseElevationService.cs" />
     <Compile Include="Service\Elevation\ElevationService.cs" />
     <Compile Include="Service\Elevation\IElevationService.cs" />
@@ -376,6 +381,8 @@
     <Compile Include="Service\Elevation\GoogleElevationService.cs" />
     <Compile Include="Service\Elevation\MapQuestElevationService.cs" />
     <Compile Include="Service\TelegramCommand\AccountsCommand.cs" />
+    <Compile Include="Service\TelegramCommand\CommandLocation.cs" />
+    <Compile Include="Service\TelegramCommand\CommandMessage.cs" />
     <Compile Include="Service\TelegramCommand\SnipeCommand.cs" />
     <Compile Include="Service\TelegramCommand\RecycleCommand.cs" />
     <Compile Include="Service\TelegramCommand\LogsCommand.cs" />
@@ -385,7 +392,7 @@
     <Compile Include="Service\TelegramCommand\AllCommand.cs" />
     <Compile Include="Service\TelegramCommand\ProfileCommand.cs" />
     <Compile Include="Service\TelegramCommand\PokedexCommand.cs" />
-    <Compile Include="Service\TelegramCommand\ICommand.cs" />
+    <Compile Include="Service\TelegramCommand\ICommandGenerify.cs" />
     <Compile Include="Service\TelegramCommand\HelpCommand.cs" />
     <Compile Include="Service\TelegramCommand\ItemsCommand.cs" />
     <Compile Include="Service\TelegramCommand\StatusCommand.cs" />

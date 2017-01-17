@@ -1,22 +1,24 @@
 ﻿using PoGo.NecroBot.Logic.Common;
 using PoGo.NecroBot.Logic.State;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PoGo.NecroBot.Logic.Service.TelegramCommand
 {
-    public class ProfileCommand : ICommand
+    public class ProfileCommand : CommandMessage
     {
-        public string Command  => "/profile";
-        public string Description=> "Shows your profile. ";
-        public bool StopProcess   => true;
+        public override string Command => "/profile";
+        public override string Description => "Shows your profile. ";
+        public override bool StopProcess => true;
 
-        public async Task<bool> OnCommand(ISession session,string cmd, Action<string> Callback)
+        public ProfileCommand(TelegramUtils telegramUtils) : base(telegramUtils)
         {
-            if(cmd.ToLower() == Command)
+        }
+
+        public override async Task<bool> OnCommand(ISession session, string cmd, Action<string> Callback)
+        {
+            if (cmd.ToLower() == Command)
             {
                 string answerTextmessage = "";
 

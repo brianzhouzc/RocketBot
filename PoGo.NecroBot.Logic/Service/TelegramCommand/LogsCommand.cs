@@ -1,22 +1,21 @@
 ﻿using PoGo.NecroBot.Logic.State;
 using PoGo.NecroBot.Logic.Tasks;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PoGo.NecroBot.Logic.Service.TelegramCommand
 {
-    public class RecycleCommand : ICommand
+    public class LogsCommand : CommandMessage
     {
-        public string Command  => "/recycle";
-        public string Description => "lets oder bot to recycle items";
-        public bool StopProcess => true;
+        public override string Command  => "/recycle";
+        public override string Description => "lets oder bot to recycle items";
+        public override bool StopProcess => true;
 
-        public async Task<bool> OnCommand(ISession session,string commandText, Action<string> Callback)
+        public LogsCommand(TelegramUtils telegramUtils) : base(telegramUtils)
+        {
+        }
+
+        public override async Task<bool> OnCommand(ISession session,string commandText, Action<string> Callback)
         {
             var cmd = commandText.Split(' ');
 

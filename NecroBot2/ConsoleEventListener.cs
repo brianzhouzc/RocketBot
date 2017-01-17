@@ -12,8 +12,8 @@ using POGOProtos.Inventory.Item;
 using POGOProtos.Networking.Responses;
 using PoGo.NecroBot.Logic.Event.Gym;
 using POGOProtos.Map.Fort;
-using NecroBot2.Forms;
 using PoGo.NecroBot.Logic.Event.Player;
+using NecroBot2.Forms;
 #endregion
 
 namespace NecroBot2
@@ -32,16 +32,20 @@ namespace NecroBot2
             Logger.Write(errorEvent.ToString(), LogLevel.Error, force: true);
         }
 
+
         private static void HandleEvent(NoticeEvent noticeEvent, ISession session)
         {
             Logger.Write(noticeEvent.ToString());
         }
 
+        private static void HandleEvent(TargetLocationEvent ev, ISession session)
+        {
+            Logger.Write(session.Translation.GetTranslation(TranslationString.TargetLocationSet, ev.Latitude, ev.Longitude), LogLevel.Info);
+        }
         private static void HandleEvent(BuddyUpdateEvent ev, ISession session)
         {
             Logger.Write(session.Translation.GetTranslation(TranslationString.BuddyPokemonUpdate, ev.Pokemon.PokemonId.ToString()), LogLevel.Info);
         }
-
         private static void HandleEvent(WarnEvent warnEvent, ISession session)
         {
             Logger.Write(warnEvent.ToString(), LogLevel.Warning);
@@ -62,7 +66,7 @@ namespace NecroBot2
                 ? session.Translation.GetTranslation(TranslationString.EventPokemonEvolvedSuccess, strPokemon, pokemonEvolveEvent.Exp)
                 : session.Translation.GetTranslation(TranslationString.EventPokemonEvolvedFailed, pokemonEvolveEvent.Id, pokemonEvolveEvent.Result,
                     strPokemon);
-            logMessage = (pokemonEvolveEvent.Sequence > 0 ? $"{pokemonEvolveEvent.Sequence}. " : "") + logMessage;
+            logMessage = (pokemonEvolveEvent.Sequence > 0 ? $"{pokemonEvolveEvent.Sequence}. " : "") + logMessage; 
             Logger.Write(logMessage, LogLevel.Evolve);
         }
 
@@ -222,7 +226,7 @@ namespace NecroBot2
                 pokemonCaptureEvent.Distance.ToString("F2"),
                 returnRealBallName(pokemonCaptureEvent.Pokeball), pokemonCaptureEvent.BallAmount,
                 pokemonCaptureEvent.Exp, familyCandies, pokemonCaptureEvent.Latitude.ToString("0.000000"), pokemonCaptureEvent.Longitude.ToString("0.000000"),
-                pokemonCaptureEvent.Move1, pokemonCaptureEvent.Move2, pokemonCaptureEvent.Rarity
+                pokemonCaptureEvent.Move1, pokemonCaptureEvent.Move2  , pokemonCaptureEvent.Rarity
                );
                 Logger.Write(message, LogLevel.Caught);
             }
@@ -233,7 +237,7 @@ namespace NecroBot2
                 pokemonCaptureEvent.Distance.ToString("F2"),
                 returnRealBallName(pokemonCaptureEvent.Pokeball), pokemonCaptureEvent.BallAmount,
                 pokemonCaptureEvent.Latitude.ToString("0.000000"), pokemonCaptureEvent.Longitude.ToString("0.000000"),
-                pokemonCaptureEvent.Move1, pokemonCaptureEvent.Move2, pokemonCaptureEvent.Rarity
+                pokemonCaptureEvent.Move1,pokemonCaptureEvent.Move2  , pokemonCaptureEvent.Rarity
                );
                 Logger.Write(message, LogLevel.Flee);
             }
@@ -361,6 +365,16 @@ namespace NecroBot2
         private static void HandleEvent(EggsListEvent event1, ISession session) { }
         private static void HandleEvent(InventoryListEvent event1, ISession session) { }
         private static void HandleEvent(PokemonListEvent event1, ISession session) { }
+
+        private static void HandleEvent(LoginEvent e, ISession session) {
+
+            Logger.Write(
+                  session.Translation.GetTranslation(TranslationString.LoggingIn,
+                  e.AuthType,
+                  e.Username),
+                  LogLevel.Info, ConsoleColor.DarkYellow);
+        }
+
         private static void HandleEvent(UpdatePositionEvent event1, ISession session)
         {
             //uncomment for more info about locations
@@ -415,10 +429,10 @@ namespace NecroBot2
                     Logger.Write(session.Translation.GetTranslation(TranslationString.HumanWalkSnipeDestinationReached, ev.Latitude, ev.Longitude, ev.PauseDuration), LogLevel.Sniper);
                     break;
                 case HumanWalkSnipeEventTypes.PokemonScanned:
-                    if (ev.Pokemons != null && ev.Pokemons.Count > 0 && ev.DisplayMessage)
-                        Logger.Write(session.Translation.GetTranslation(TranslationString.HumanWalkSnipeUpdate, ev.Pokemons.Count, 2, 3), LogLevel.Sniper, ConsoleColor.DarkMagenta);
+                    if(ev.Pokemons != null && ev.Pokemons.Count > 0 && ev.DisplayMessage)
+                    Logger.Write(session.Translation.GetTranslation(TranslationString.HumanWalkSnipeUpdate, ev.Pokemons.Count, 2, 3), LogLevel.Sniper, ConsoleColor.DarkMagenta);
                     break;
-                case HumanWalkSnipeEventTypes.PokestopUpdated:
+                    case HumanWalkSnipeEventTypes.PokestopUpdated:
                     Logger.Write(session.Translation.GetTranslation(TranslationString.HumanWalkSnipeAddedPokestop, ev.NearestDistance, ev.Pokestops.Count), LogLevel.Sniper, ConsoleColor.Yellow);
                     break;
 
@@ -483,11 +497,11 @@ namespace NecroBot2
                 case SetPlayerTeamResponse.Types.Status.Unset:
                     break;
                 case SetPlayerTeamResponse.Types.Status.Success:
-                    Logger.Write($"(TEAM) Joined the {ev.Team} Team!", LogLevel.Gym, (ev.Team == TeamColor.Red) ? ConsoleColor.Red : (ev.Team == TeamColor.Yellow ? ConsoleColor.Yellow : ConsoleColor.Blue));
+                    Logger.Write($"(TEAM) Joined the {ev.Team} Team!", LogLevel.Gym, (ev.Team == TeamColor.Red)? ConsoleColor.Red:(ev.Team == TeamColor.Yellow? ConsoleColor.Yellow: ConsoleColor.Blue) );
 
                     break;
                 case SetPlayerTeamResponse.Types.Status.TeamAlreadySet:
-                    Logger.Write($"You have joined team already! ", LogLevel.Gym, color: ConsoleColor.Red);
+                     Logger.Write($"You have joined team already! ", LogLevel.Gym,color:ConsoleColor.Red);
 
                     break;
                 case SetPlayerTeamResponse.Types.Status.Failure:
@@ -500,7 +514,7 @@ namespace NecroBot2
 
         private static void HandleEvent(EventUsedPotion ev, ISession session)
         {
-            Logger.Write($"Used Potion: {ev.Type} on Pokemon: {ev.PokemonId} with CP: {ev.PokemonCp}. Remaning: {ev.Remaining}");
+            Logger.Write($"Used Potion: {ev.Type} on Pokemon: {ev.PokemonId} with CP: {ev.PokemonCp}. Remaning: {ev.Remaining}");   
         }
 
         private static void HandleEvent(EventUsedRevive ev, ISession session)

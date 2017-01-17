@@ -2,19 +2,21 @@
 using PoGo.NecroBot.Logic.State;
 using POGOProtos.Inventory.Item;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PoGo.NecroBot.Logic.Service.TelegramCommand
 {
-    public class ItemsCommand : ICommand
+    public class ItemsCommand : CommandMessage
     {
-        public string Command   =>  "/items";
-        public string Description  =>  "Shows your items.";
-        public bool StopProcess => true;
-        public async Task<bool> OnCommand(ISession session,string cmd, Action<string> Callback)
+        public override string Command   =>  "/items";
+        public override string Description  =>  "Shows your items.";
+        public override bool StopProcess => true;
+        
+        public ItemsCommand(TelegramUtils telegramUtils) : base(telegramUtils)
+        {
+        }
+
+        public override async Task<bool> OnCommand(ISession session,string cmd, Action<string> Callback)
         {
             if(cmd.ToLower() == Command)
             {

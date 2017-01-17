@@ -8,6 +8,9 @@ using PokemonGo.RocketAPI.Extensions;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using PoGo.NecroBot.Logic.Event.Player;
+using System.Collections;
+using System.Collections.Generic;
 
 #endregion
 
@@ -21,6 +24,8 @@ namespace PoGo.NecroBot.Logic.Tasks
         private static FortData _targetStop;
         public static FortDetailsResponse FortInfo { get { return _fortInfo; } }
 
+        static Queue<FortData> queue = new Queue<FortData>();
+
         public static async Task Execute(ISession session, double lat, double lng, string fortId = "")
         {
             await Task.Run(() =>
@@ -30,37 +35,45 @@ namespace PoGo.NecroBot.Logic.Tasks
                     var knownFort = session.Forts.FirstOrDefault(x => x.Id == fortId);
                     if (knownFort != null)
                     {
-                        _targetStop = knownFort;
+                        queue.Enqueue(knownFort);
                         return;
                     }
                 }
                 //at this time only allow one target, can't be cancel
-                if (_targetStop == null || _targetStop.CooldownCompleteTimestampMs == 0)
+                //if (_targetStop == null || _targetStop.CooldownCompleteTimestampMs == 0)
                 {
                     _targetStop = new FortData()
                     {
                         Latitude = lat,
                         Longitude = lng,
-                        Id = TARGET_ID,
+                        Id = TARGET_ID + DateTime.Now.Ticks.ToString(),
                         Type = FortType.Checkpoint,
                         CooldownCompleteTimestampMs = DateTime.UtcNow.AddHours(1).ToUnixTime()  //make sure bot not try to spin this fake pokestop
                     };
 
-                    _fortInfo = new FortDetailsResponse()
-                    {
-                        Latitude = lat,
-                        Longitude = lng,
-                        Name = "Your selected location"
-                    };
+                    
                 }
+                queue.Enqueue(_targetStop);
             });
+
+            session.EventDispatcher.Send(new TargetLocationEvent(lat, lng));
+           
+        }
+        public static FortDetailsResponse FakeFortInfo(FortData data)
+        {
+            return new FortDetailsResponse()
+            {
+                Latitude = data.Latitude,
+                Longitude = data.Longitude,
+                Name = "Your selected location"
+            };
         }
         public static async Task<bool> IsReachedDestination(FortData destination, ISession session, CancellationToken cancellationToken)
         {
-            if (destination == _targetStop && destination.Id == TARGET_ID ) 
+            if (_targetStop!= null && destination.Id == _targetStop.Id ) 
             {
                 _targetStop = null;
-
+                queue.Dequeue();
                 //looking for pokemon
                 await CatchNearbyPokemonsTask.Execute(session, cancellationToken);
                 //TODO - maybe looking for lure pokestop and try catch lure pokestop task
@@ -71,18 +84,17 @@ namespace PoGo.NecroBot.Logic.Tasks
 
         internal static async Task<FortData> GetTarget(ISession session)
         {
-            if (_targetStop != null &&
-                !session.LogicSettings.UseGpxPathing &&
-                _targetStop.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime())
+
+            return await Task.Run(() =>
             {
-                if (_targetStop.Id == TARGET_ID)
+                if (queue.Count > 0 &&
+                    !session.LogicSettings.UseGpxPathing)
                 {
-                    _targetStop.CooldownCompleteTimestampMs = DateTime.UtcNow.AddHours(1).ToUnixTime();
+                    _targetStop = queue.Peek();
+                    return _targetStop;
                 }
-                return _targetStop;
-            }
-            await Task.Delay(0);//to avoid waning, nothing todo.
-            return null;
+                return null;
+            });
         }
     }
 }

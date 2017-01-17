@@ -4,19 +4,21 @@ using PoGo.NecroBot.Logic.State;
 using POGOProtos.Data;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PoGo.NecroBot.Logic.Service.TelegramCommand
 {
-    public class TopCommand : ICommand
+    public class TopCommand : CommandMessage
     {
-        public string Command  =>"/top";
-        public string Description => "<cp/iv> <amount> - Shows you top Pokemons. ";
-        public bool StopProcess => true;
+        public override string Command  =>"/top";
+        public override string Description => "<cp/iv> <amount> - Shows you top Pokemons. ";
+        public override bool StopProcess => true;
 
-        public async Task<bool> OnCommand(ISession session,string cmd, Action<string> Callback)
+        public TopCommand(TelegramUtils telegramUtils) : base(telegramUtils)
+        {
+        }
+        
+        public override async Task<bool> OnCommand(ISession session,string cmd, Action<string> Callback)
         {
             string[] messagetext = cmd.Split(' ');
             string answerTextmessage = "";
