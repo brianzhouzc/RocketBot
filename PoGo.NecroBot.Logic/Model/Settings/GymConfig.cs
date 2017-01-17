@@ -71,19 +71,24 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate)]
         public int CollectCoinAfterDeployed { get; set; }
 
-        [ExcelConfig(Description = "Max Gym Level to Attack", Position = 10)]
+        [ExcelConfig(Description = "Enable attack gym", Position = 11)]
+        [DefaultValue(false)]
+        [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate)]
+        public bool EnableAttackGym { get; set; }
+
+        [ExcelConfig(Description = "Max Gym Level to Attack", Position = 12)]
         [DefaultValue(3)]
         [Range(1, 10)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate)]
         public int MaxGymLevelToAttack { get; set; }
 
-        [ExcelConfig(Description = "Collect coin after N gym deployed", Position = 10)]
+        [ExcelConfig(Description = "Max gym defenders to attack", Position = 13)]
         [DefaultValue(3)]
         [Range(1, 10)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate)]
         public int MaxDefendersToAttack { get; set; }
 
-        [ExcelConfig(Description = "Heal fefenders before apply to gym", Position = 10)]
+        [ExcelConfig(Description = "Heal fefenders before apply to gym", Position = 14)]
         [DefaultValue(true)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate)]
         public bool HealDefendersBeforeApplyToGym { get; set; }

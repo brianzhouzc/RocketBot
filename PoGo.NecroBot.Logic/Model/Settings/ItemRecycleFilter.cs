@@ -51,7 +51,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
                 new ItemRecycleFilter(ItemId.ItemRevive, 10),
                 new ItemRecycleFilter(ItemId.ItemPotion, 10),
                 new ItemRecycleFilter(ItemId.ItemHyperPotion, 10),
-                new ItemRecycleFilter(ItemId.ItemPokeBall, 100)
+                new ItemRecycleFilter(ItemId.ItemGreatBall, 100)
             };
         }
 

@@ -2,22 +2,21 @@
 using PoGo.NecroBot.Logic.Tasks;
 using POGOProtos.Enums;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PoGo.NecroBot.Logic.Service.TelegramCommand
 {
-    public class SnipeCommand : ICommand
+    public class SnipeCommand : CommandMessage
     {
-        public string Command  => "/snipe";
-        public string Description => "add snipe item <pokemon,lat,lng>";
-        public bool StopProcess => true;
+        public override string Command  => "/snipe";
+        public override string Description => "add snipe item <pokemon,lat,lng>";
+        public override bool StopProcess => true;
 
-        public async Task<bool> OnCommand(ISession session,string commandText, Action<string> Callback)
+        public SnipeCommand(TelegramUtils telegramUtils) : base(telegramUtils)
+        {
+        }
+
+        public override async Task<bool> OnCommand(ISession session,string commandText, Action<string> Callback)
         {
             var cmd = commandText.Split(' ');
 

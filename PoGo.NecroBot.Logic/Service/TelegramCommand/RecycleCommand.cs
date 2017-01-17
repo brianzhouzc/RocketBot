@@ -1,24 +1,24 @@
 ﻿using PoGo.NecroBot.Logic.State;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PoGo.NecroBot.Logic.Service.TelegramCommand
 {
-    public class LogsCommand : ICommand
+    public class RecycleCommand : CommandMessage
     {
-        public string Command  => "/logs";
-        public string Description => "<n> send last n line in logs file, default 10 if not provide";
-        public bool StopProcess => true;
+        public override string Command  => "/logs";
+        public override string Description => "<n> send last n line in logs file, default 10 if not provide";
+        public override bool StopProcess => true;
 
-        public async Task<bool> OnCommand(ISession session,string commandText, Action<string> Callback)
+        public RecycleCommand(TelegramUtils telegramUtils) : base(telegramUtils)
         {
-            await Task.Delay(0); // Just added to get rid of compiler warning. Remove this if async code is used below.
+        }
 
+        #pragma warning disable CS1998 // added to get rid of compiler warning. Remove this if async code is used below.
+        public override async Task<bool> OnCommand(ISession session,string commandText, Action<string> Callback)
+        {
             var cmd = commandText.Split(' ');
 
             if (cmd[0].ToLower() == Command)
