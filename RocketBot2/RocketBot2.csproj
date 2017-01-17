@@ -420,6 +420,7 @@
     <Compile Include="WebSocketInterface.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\256x256.png" />
     <Content Include="Resources\Ico.ico" />
     <None Include="Config\log4net.config" />
     <None Include="Config\log4net.unix.config" />
@@ -513,8 +514,6 @@
     <None Include="Config\Translations\translation.zh-TW.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\necro_logo.jpg" />
-    <None Include="Resources\PayPalDonateNow.png" />
     <EmbeddedResource Include="App.config">
       <SubType>Designer</SubType>
     </EmbeddedResource>
