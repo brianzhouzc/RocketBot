@@ -35,7 +35,7 @@ namespace PoGo.NecroBot.Logic.Utils
                 error = null;
             }
 
-            if ( error == null || rawData == null )
+            if (error == null || rawData == null)
                 return null;
 
             var encoding = WebUtils.GetEncodingFrom(webClient.ResponseHeaders, Encoding.UTF8);

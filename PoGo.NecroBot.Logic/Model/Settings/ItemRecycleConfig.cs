@@ -7,9 +7,11 @@ namespace PoGo.NecroBot.Logic.Model.Settings
     [JsonObject(Title = "Recycle Config", Description = "Set your recycle settings.", ItemRequired = Required.DisallowNull)]
     public class ItemRecycleConfig  : BaseConfig
     {
-        public ItemRecycleConfig() : base () { }
+        public ItemRecycleConfig() : base()
+        {
+        }
 
-        [ExcelConfig (Description ="Allow bot display list of item to be recycled", Position = 1)]
+        [ExcelConfig(Description = "Allow bot display list of item to be recycled", Position = 1)]
         [DefaultValue(true)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 1)]
         public bool VerboseRecycling { get; set; }

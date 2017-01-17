@@ -1,8 +1,7 @@
 ﻿#region using directives
 
-using PoGo.NecroBot.Logic.Model;
+using PoGo.NecroBot.Logic.Model.Settings;
 using POGOProtos.Enums;
-using Location = PoGo.NecroBot.Logic.Model.Settings.Location;
 
 #endregion
 

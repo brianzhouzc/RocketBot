@@ -1,17 +1,12 @@
-﻿using Newtonsoft.Json;
-using PoGo.NecroBot.Logic.Interfaces.Configuration;
-using POGOProtos.Enums;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
+using PoGo.NecroBot.Logic.Interfaces.Configuration;
+using POGOProtos.Enums;
 
 namespace PoGo.NecroBot.Logic.Model.Settings
 {
-
     public class BotSwitchPokemonFilter
     {
         [JsonIgnore]
@@ -44,9 +39,11 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 1)]
         public string Operator { get; set; }
 
-        public BotSwitchPokemonFilter() {
+        public BotSwitchPokemonFilter()
+        {
             this.Moves = new List<List<PokemonMove>>();
         }
+
         public BotSwitchPokemonFilter(int iv, int lv, int remain)
         {
             this.Operator = "or";
@@ -55,29 +52,30 @@ namespace PoGo.NecroBot.Logic.Model.Settings
             this.LV = lv;
             this.RemainTimes = remain;
         }
+
         public static Dictionary<PokemonId, BotSwitchPokemonFilter> Default()
         {
             return new Dictionary<PokemonId, BotSwitchPokemonFilter>()
             {
-                { PokemonId.Lickitung, new BotSwitchPokemonFilter(30, 0, 60) },
-                { PokemonId.Dragonite, new BotSwitchPokemonFilter(10, 0, 60) },
-                { PokemonId.Lapras, new BotSwitchPokemonFilter(10, 0, 60) },
-                { PokemonId.Exeggutor, new BotSwitchPokemonFilter(10, 0, 60) },
-                { PokemonId.Magmar, new BotSwitchPokemonFilter(70, 0, 60) },
-                { PokemonId.Arcanine, new BotSwitchPokemonFilter(10, 0, 60) },
-                { PokemonId.Beedrill, new BotSwitchPokemonFilter(10, 0, 60) },
-                { PokemonId.Blastoise, new BotSwitchPokemonFilter(10, 0, 60) },
-                { PokemonId.Charizard, new BotSwitchPokemonFilter(10, 0, 60) },
-                { PokemonId.Venusaur, new BotSwitchPokemonFilter(10, 100, 60) },
-                { PokemonId.Vileplume, new BotSwitchPokemonFilter(10, 0, 60) },
-                { PokemonId.Vaporeon, new BotSwitchPokemonFilter(10, 0, 60) },
-                { PokemonId.Dragonair, new BotSwitchPokemonFilter(70, 0, 60) },
-                { PokemonId.Dratini, new BotSwitchPokemonFilter(90, 100, 60) },
-                { PokemonId.Snorlax, new BotSwitchPokemonFilter(30, 0, 60) },
-                { PokemonId.Kangaskhan, new BotSwitchPokemonFilter(80, 0, 60) },
-                { PokemonId.Ninetales, new BotSwitchPokemonFilter(10, 0, 60) },
-                { PokemonId.Electabuzz, new BotSwitchPokemonFilter(10, 0, 60) },
-                { PokemonId.Magikarp, new BotSwitchPokemonFilter(95, 0, 60) },
+                {PokemonId.Lickitung, new BotSwitchPokemonFilter(30, 0, 60)},
+                {PokemonId.Dragonite, new BotSwitchPokemonFilter(10, 0, 60)},
+                {PokemonId.Lapras, new BotSwitchPokemonFilter(10, 0, 60)},
+                {PokemonId.Exeggutor, new BotSwitchPokemonFilter(10, 0, 60)},
+                {PokemonId.Magmar, new BotSwitchPokemonFilter(70, 0, 60)},
+                {PokemonId.Arcanine, new BotSwitchPokemonFilter(10, 0, 60)},
+                {PokemonId.Beedrill, new BotSwitchPokemonFilter(10, 0, 60)},
+                {PokemonId.Blastoise, new BotSwitchPokemonFilter(10, 0, 60)},
+                {PokemonId.Charizard, new BotSwitchPokemonFilter(10, 0, 60)},
+                {PokemonId.Venusaur, new BotSwitchPokemonFilter(10, 100, 60)},
+                {PokemonId.Vileplume, new BotSwitchPokemonFilter(10, 0, 60)},
+                {PokemonId.Vaporeon, new BotSwitchPokemonFilter(10, 0, 60)},
+                {PokemonId.Dragonair, new BotSwitchPokemonFilter(70, 0, 60)},
+                {PokemonId.Dratini, new BotSwitchPokemonFilter(90, 100, 60)},
+                {PokemonId.Snorlax, new BotSwitchPokemonFilter(30, 0, 60)},
+                {PokemonId.Kangaskhan, new BotSwitchPokemonFilter(80, 0, 60)},
+                {PokemonId.Ninetales, new BotSwitchPokemonFilter(10, 0, 60)},
+                {PokemonId.Electabuzz, new BotSwitchPokemonFilter(10, 0, 60)},
+                {PokemonId.Magikarp, new BotSwitchPokemonFilter(95, 0, 60)},
             };
         }
     }
@@ -85,7 +83,9 @@ namespace PoGo.NecroBot.Logic.Model.Settings
     [JsonObject(Title = "Multiple Bot Config", Description = "Use this to setup the condition when we switch to next bot", ItemRequired = Required.DisallowNull)]
     public class MultipleBotConfig   : BaseConfig
     {
-        public MultipleBotConfig() : base() { }
+        public MultipleBotConfig() : base()
+        {
+        }
 
         [ExcelConfig (Description = "Bot will switch to new account after x minutes ", Position = 1)]
         [DefaultValue(55)]

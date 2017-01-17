@@ -1,24 +1,24 @@
-﻿using PoGo.NecroBot.Logic.Common;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using PoGo.NecroBot.Logic.Common;
 using PoGo.NecroBot.Logic.PoGoUtils;
 using PoGo.NecroBot.Logic.State;
 using POGOProtos.Data;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace PoGo.NecroBot.Logic.Service.TelegramCommand
 {
     public class TopCommand : CommandMessage
     {
-        public override string Command  =>"/top";
+        public override string Command => "/top";
         public override string Description => "<cp/iv> <amount> - Shows you top Pokemons. ";
         public override bool StopProcess => true;
 
         public TopCommand(TelegramUtils telegramUtils) : base(telegramUtils)
         {
         }
-        
-        public override async Task<bool> OnCommand(ISession session,string cmd, Action<string> Callback)
+
+        public override async Task<bool> OnCommand(ISession session, string cmd, Action<string> Callback)
         {
             string[] messagetext = cmd.Split(' ');
             string answerTextmessage = "";
@@ -40,7 +40,7 @@ namespace PoGo.NecroBot.Logic.Service.TelegramCommand
                     }
                     catch (FormatException)
                     {
-                        answerTextmessage = 
+                        answerTextmessage =
                             session.Translation.GetTranslation(TranslationString.UsageHelp, "/top [cp/iv] [amount]");
                     }
                 }
@@ -61,28 +61,27 @@ namespace PoGo.NecroBot.Logic.Service.TelegramCommand
                 }
                 else
                 {
-                    answerTextmessage=
+                    answerTextmessage =
                         session.Translation.GetTranslation(TranslationString.UsageHelp, "/top [cp/iv] [amount]");
                 }
 
                 foreach (var pokemon in topPokemons)
                 {
                     answerTextmessage += session.Translation.GetTranslation(TranslationString.ShowPokeSkillTemplate,
-                    pokemon.Cp, PokemonInfo.CalculatePokemonPerfection(pokemon).ToString("0.00"),
-                    session.Translation.GetPokemonMovesetTranslation(PokemonInfo.GetPokemonMove1(pokemon)),
-                    session.Translation.GetPokemonMovesetTranslation(PokemonInfo.GetPokemonMove2(pokemon)),
-                    session.Translation.GetPokemonTranslation(pokemon.PokemonId));
+                        pokemon.Cp, PokemonInfo.CalculatePokemonPerfection(pokemon).ToString("0.00"),
+                        session.Translation.GetPokemonMovesetTranslation(PokemonInfo.GetPokemonMove1(pokemon)),
+                        session.Translation.GetPokemonMovesetTranslation(PokemonInfo.GetPokemonMove2(pokemon)),
+                        session.Translation.GetPokemonTranslation(pokemon.PokemonId));
 
                     if (answerTextmessage.Length > 3800)
                     {
-                       Callback( answerTextmessage);
+                        Callback(answerTextmessage);
                         answerTextmessage = "";
                     }
                 }
 
                 Callback(answerTextmessage);
                 return true;
-
             }
             return false;
         }

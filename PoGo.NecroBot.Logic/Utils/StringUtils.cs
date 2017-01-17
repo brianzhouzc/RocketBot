@@ -28,6 +28,7 @@ namespace PoGo.NecroBot.Logic.Utils
 
         private static readonly Func<bool, bool, bool> AndFunc = (x, y) => x && y;
         private static readonly Func<bool, bool, bool> OrFunc = (x, y) => x || y;
+
         private static readonly Func<string, Func<bool, bool, bool>> GetBoolOperator =
             myOperator => myOperator.ToLower().Equals("and") ? AndFunc : OrFunc;
 
@@ -50,6 +51,5 @@ namespace PoGo.NecroBot.Logic.Utils
         {
             return operatorStr.ToLower().Equals("and") ? !expr : expr;
         }
-
     }
 }

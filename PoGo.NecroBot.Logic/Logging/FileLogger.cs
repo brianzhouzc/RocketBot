@@ -1,11 +1,11 @@
 #region using directives
 
 using System;
-using System.Text;
-using System.IO;
-using PoGo.NecroBot.Logic.State;
 using System.Collections.Concurrent;
+using System.IO;
+using System.Text;
 using PoGo.NecroBot.Logic.Event;
+using PoGo.NecroBot.Logic.State;
 
 #endregion
 
@@ -49,6 +49,7 @@ namespace PoGo.NecroBot.Logic.Logging
         }
 
         private object ioLocker = new object();
+
         /// <summary>
         ///     Log a specific message by LogLevel. Won't log if the LogLevel is greater than the maxLogLevel set.
         /// </summary>
@@ -65,7 +66,7 @@ namespace PoGo.NecroBot.Logic.Logging
 
             var finalMessage = Logger.GetFinalMessage(message, level, color);
 
-            lock(ioLocker)
+            lock (ioLocker)
             {
                 // Add message to the queue
                 _messageQueue.Enqueue(new LogEvent

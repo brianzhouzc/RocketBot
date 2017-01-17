@@ -4,10 +4,16 @@ using Newtonsoft.Json;
 
 namespace PoGo.NecroBot.Logic.Model.Settings
 {
-    [JsonObject(Title = "Console Config", Description = "Set your console settings.", ItemRequired = Required.DisallowNull)]
+    [JsonObject(
+         Title = "Console Config",
+         Description = "Set your console settings.",
+         ItemRequired = Required.DisallowNull
+     )]
     public class ConsoleConfig : BaseConfig
     {
-        public ConsoleConfig() : base() { }
+        public ConsoleConfig() : base()
+        {
+        }
 
         [DefaultValue("en")]
         [RegularExpression(@"^[a-zA-Z]{2}(-[a-zA-Z]{2})*$")]
@@ -23,12 +29,12 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [DefaultValue(2)]
         [Range(0, 100)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 3)]
-        [ExcelConfig(Position =3, Description = "Amount Of Pokemon To Display On Start")]
+        [ExcelConfig(Position = 3, Description = "Amount Of Pokemon To Display On Start")]
         public int AmountOfPokemonToDisplayOnStart { get; set; }
 
         [DefaultValue(true)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 4)]
         [ExcelConfig(Position = 4, Description = "Detailed Counts Before Recycling")]
-        public bool DetailedCountsBeforeRecycling  { get; set; }
+        public bool DetailedCountsBeforeRecycling { get; set; }
     }
 }

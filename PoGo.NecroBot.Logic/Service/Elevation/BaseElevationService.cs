@@ -1,8 +1,7 @@
-﻿using Caching;
+﻿using System;
+using Caching;
 using GeoCoordinatePortable;
 using PoGo.NecroBot.Logic.Model.Settings;
-using PoGo.NecroBot.Logic.State;
-using System;
 
 namespace PoGo.NecroBot.Logic.Service.Elevation
 {

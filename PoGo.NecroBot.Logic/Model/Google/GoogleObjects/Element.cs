@@ -7,6 +7,4 @@
         public ValueText duration_in_traffic { get; set; }
         public string status { get; set; }
     }
-
-   
 }

@@ -1,7 +1,7 @@
-﻿using PoGo.NecroBot.Logic.Event;
-using PoGo.NecroBot.Logic.State;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using PoGo.NecroBot.Logic.Event;
+using PoGo.NecroBot.Logic.State;
 using Telegram.Bot.Types;
 
 namespace PoGo.NecroBot.Logic.Service.TelegramCommand
@@ -31,8 +31,8 @@ namespace PoGo.NecroBot.Logic.Service.TelegramCommand
                 }
                 catch (Exception ex)
                 {
-                    session.EventDispatcher.Send(new ErrorEvent { Message = ex.Message });
-                    session.EventDispatcher.Send(new ErrorEvent { Message = "Unkown Telegram Error occured. " });
+                    session.EventDispatcher.Send(new ErrorEvent {Message = ex.Message});
+                    session.EventDispatcher.Send(new ErrorEvent {Message = "Unkown Telegram Error occured. "});
                 }
             };
 

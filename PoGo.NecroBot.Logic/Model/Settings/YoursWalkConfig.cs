@@ -20,9 +20,11 @@ namespace PoGo.NecroBot.Logic.Model.Settings
             mofa
         }
 
-        public YoursWalkConfig() :base() { }
+        public YoursWalkConfig() : base()
+        {
+        }
 
-        [ExcelConfig (Description = "Use your walk api to resolve path for bot moving", Position =1)]
+        [ExcelConfig(Description = "Use your walk api to resolve path for bot moving", Position = 1)]
         [DefaultValue(false)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 1)]
         public bool UseYoursWalk { get; set; }

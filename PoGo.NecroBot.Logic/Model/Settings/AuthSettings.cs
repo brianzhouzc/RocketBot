@@ -17,8 +17,8 @@ using Newtonsoft.Json.Schema.Generation;
 using PoGo.NecroBot.Logic.Common;
 using PoGo.NecroBot.Logic.Logging;
 using PoGo.NecroBot.Logic.Utils;
-using PokemonGo.RocketAPI.Helpers;
 using PokemonGo.RocketAPI.Extensions;
+using PokemonGo.RocketAPI.Helpers;
 
 #endregion
 
@@ -76,13 +76,16 @@ namespace PoGo.NecroBot.Logic.Model.Settings
                 generator.GenerationProviders.Add(strEnumGen);
                 // generate json schema 
                 var type = typeof(AuthSettings);
-                try {
+                try
+                {
                     var schema = generator.Generate(type);
                     schema.Title = type.Name;
                     //
                     _schema = schema;
                 }
-                catch(Exception) { }
+                catch (Exception)
+                {
+                }
                 return _schema;
             }
         }
@@ -265,7 +268,8 @@ namespace PoGo.NecroBot.Logic.Model.Settings
                 if (exception.Message.Contains("Unexpected character") && exception.Message.Contains("PtcUsername"))
                     Logger.Write("JSON Exception: You need to properly configure your PtcUsername using quotations.",
                         LogLevel.Error);
-                else if (exception.Message.Contains("Unexpected character") && exception.Message.Contains("PtcPassword"))
+                else if (exception.Message.Contains("Unexpected character") &&
+                         exception.Message.Contains("PtcPassword"))
                     Logger.Write(
                         "JSON Exception: You need to properly configure your PtcPassword using quotations.",
                         LogLevel.Error);
@@ -282,7 +286,6 @@ namespace PoGo.NecroBot.Logic.Model.Settings
                 else
                     Logger.Write("JSON Exception: " + exception.Message, LogLevel.Error);
             }
-            
         }
 
         private static void MigrateSettings(int schemaVersion, JObject settings, string configFile, string schemaFile)
@@ -303,7 +306,10 @@ namespace PoGo.NecroBot.Logic.Model.Settings
             int version;
             for (version = schemaVersion; version < UpdateConfig.CURRENT_SCHEMA_VERSION; version++)
             {
-                Logger.Write($"Migrating auth configuration from schema version {version} to {version + 1}", LogLevel.Info);
+                Logger.Write(
+                    $"Migrating auth configuration from schema version {version} to {version + 1}",
+                    LogLevel.Info
+                );
                 switch (version)
                 {
                     case 3:
@@ -355,7 +361,10 @@ namespace PoGo.NecroBot.Logic.Model.Settings
                     " " +
                     error.Message, LogLevel.Error);
             }
-            Logger.Write("Fix auth.json and restart NecroBot or press a key to ignore and continue...", LogLevel.Warning);
+            Logger.Write(
+                "Fix auth.json and restart NecroBot or press a key to ignore and continue...",
+                LogLevel.Warning
+            );
             Console.ReadKey();
         }
 
@@ -400,7 +409,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
 
         private static string RandomString(int length, string alphabet = "abcdefghijklmnopqrstuvwxyz0123456789")
         {
-            var outOfRange = byte.MaxValue + 1 - (byte.MaxValue + 1)%alphabet.Length;
+            var outOfRange = byte.MaxValue + 1 - (byte.MaxValue + 1) % alphabet.Length;
 
             return string.Concat(
                 Enumerable
@@ -408,8 +417,8 @@ namespace PoGo.NecroBot.Logic.Model.Settings
                     .Select(e => RandomByte())
                     .Where(randomByte => randomByte < outOfRange)
                     .Take(length)
-                    .Select(randomByte => alphabet[randomByte%alphabet.Length])
-                );
+                    .Select(randomByte => alphabet[randomByte % alphabet.Length])
+            );
         }
 
         private static byte RandomByte()

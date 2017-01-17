@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
-using PoGo.NecroBot.Logic.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using PoGo.NecroBot.Logic.Logging;
 
 namespace PoGo.NecroBot.Logic.Tasks
 {
@@ -18,6 +18,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                 public int pokemon_id { get; set; }
                 public DateTime expires_at { get; set; }
             }
+
             public List<PokecrewItem> seens { get; set; }
         }
 
@@ -32,7 +33,8 @@ namespace PoGo.NecroBot.Logic.Tasks
                 Source = "Pokecrew"
             };
         }
-         private static async Task<List<SnipePokemonInfo>> FetchFromPokecrew(double lat, double lng)
+
+        private static async Task<List<SnipePokemonInfo>> FetchFromPokecrew(double lat, double lng)
         {
             List<SnipePokemonInfo> results = new List<SnipePokemonInfo>();
             if (!_setting.HumanWalkingSnipeUsePokecrew) return results;
@@ -66,6 +68,5 @@ namespace PoGo.NecroBot.Logic.Tasks
             //Logger.Write($"FetchFromPokecrew spent {(endFetchTime - startFetchTime).TotalSeconds} seconds", LogLevel.Info, ConsoleColor.White);
             return results;
         }
-
     }
 }

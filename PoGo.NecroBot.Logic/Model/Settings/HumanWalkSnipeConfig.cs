@@ -7,7 +7,9 @@ namespace PoGo.NecroBot.Logic.Model.Settings
     [JsonObject(Title = "Human Walk Snipe Config", Description = "This feature allow bot pull data from pokemap site, if pokemon match with your config. bot will walk to pokemon's location to catch him.", ItemRequired = Required.DisallowNull)]
     public class HumanWalkSnipeConfig :BaseConfig
     {
-        public HumanWalkSnipeConfig() : base() {}
+        public HumanWalkSnipeConfig() : base()
+        {
+        }
 
         [ExcelConfig(Position = 1, Description = "Allow bot using human walk sniper feature")]
         [DefaultValue(true)]
@@ -74,7 +76,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate)]
         public bool IncludeDefaultLocation { get; set; }
 
-        [ExcelConfig(Position = 13, Description = "Use list pokemon pokemon to snipe")] 
+        [ExcelConfig(Position = 13, Description = "Use list pokemon pokemon to snipe")]
         [DefaultValue(true)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate)]
         public bool UseSnipePokemonList { get; set; }
@@ -94,7 +96,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [DefaultValue(10000)]
         [Range(0, 999999)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate)]
-        public int DelayTimeAtDestination { get; set; }//  10 sec
+        public int DelayTimeAtDestination { get; set; } //  10 sec
 
         [ExcelConfig(Position = 17, Description = "Datasource from pokeradar.info")]
         [DefaultValue(true)]

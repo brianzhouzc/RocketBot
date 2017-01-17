@@ -26,7 +26,6 @@ namespace PoGo.NecroBot.Logic.Model.Settings
 
         public UpgradeFilter()
         {
-
         }
 
         public UpgradeFilter(string levelUpByCPorIv, double upgradePokemonCpMinimum, double upgradePokemonIvMinimum,
@@ -44,7 +43,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [ExcelConfig(IsPrimaryKey = true, Key = "Allow Upgrade", Position = 1, Description = "TRUE is allow custom filter for level up")]
         public bool AllowTransfer { get; set; }
 
-        [ExcelConfig(Key = "LevelUpByCPorIv", Position =2, Description ="Upgrade by IV or CP")]
+        [ExcelConfig(Key = "LevelUpByCPorIv", Position = 2, Description ="Upgrade by IV or CP")]
         [DefaultValue("iv")]
         [EnumDataType(typeof(CPorIv))]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 2)]

@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace PoGo.NecroBot.Logic.Model.Settings
 {
     [JsonObject(Title = "Snipe Config", Description = "Set your snipe settings.", ItemRequired = Required.DisallowNull)]
-    public class SnipeConfig  : BaseConfig
+    public class SnipeConfig : BaseConfig
     {
         public SnipeConfig() : base() {}
         [ExcelConfig (Description = "Tell bot to use location service, detail at  - https://github.com/5andr0/PogoLocationFeeder", Position =1)]

@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
-using PoGo.NecroBot.Logic.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using PoGo.NecroBot.Logic.Logging;
 
 namespace PoGo.NecroBot.Logic.Tasks
 {
@@ -15,7 +15,7 @@ namespace PoGo.NecroBot.Logic.Tasks
         public int pid { get; set; }
         public string pokemon { get; set; }
     }
-   
+
     //need refactor this class, move list snipping pokemon to session and split function out to smaller class.
     public partial class HumanWalkSnipeTask
     {
@@ -60,13 +60,12 @@ namespace PoGo.NecroBot.Logic.Tasks
             foreach (var item in list)
             {
                 var snipeItem = Map(item);
-                if(snipeItem != null)
+                if (snipeItem != null)
                 {
                     result.Add(snipeItem);
                 }
             }
             await PostProcessDataFetched(result, false);
-            
         }
 
         private static SnipePokemonInfo Map(PokeWatcherItem result)

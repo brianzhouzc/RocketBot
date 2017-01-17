@@ -85,7 +85,7 @@ namespace RocketBot2.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Text = Application.ProductName + " " + Application.ProductVersion + " | https://github.com/Necrobot-Private";
+            Text = Application.ProductName + " " + Application.ProductVersion;
             speedLable.Parent = gMapControl1;
             showMoreCheckBox.Parent = gMapControl1;
             followTrainerCheckBox.Parent = gMapControl1;

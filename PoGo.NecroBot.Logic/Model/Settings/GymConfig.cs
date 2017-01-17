@@ -7,7 +7,9 @@ namespace PoGo.NecroBot.Logic.Model.Settings
     [JsonObject(Title = "Gym Config", Description = "This config to setup rules for bot doing gym", ItemRequired = Required.DisallowNull)]
     public class GymConfig  : BaseConfig
     {
-        public GymConfig() :base() {}
+        public GymConfig() : base()
+        {
+        }
 
         internal enum TeamColor
         {

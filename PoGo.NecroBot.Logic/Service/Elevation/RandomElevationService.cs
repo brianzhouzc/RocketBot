@@ -1,6 +1,6 @@
-﻿using Caching;
+﻿using System;
+using Caching;
 using PoGo.NecroBot.Logic.Model.Settings;
-using System;
 
 namespace PoGo.NecroBot.Logic.Service.Elevation
 {

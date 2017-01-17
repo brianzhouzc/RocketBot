@@ -17,6 +17,6 @@ namespace PoGo.NecroBot.Logic.Event
         public ulong Id;
         public double Perfection;
 
-        public PokemonData Pokemon { get;  set; }
+        public PokemonData Pokemon { get; set; }
     }
 }
