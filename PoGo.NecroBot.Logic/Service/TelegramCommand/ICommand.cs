@@ -1,9 +1,6 @@
 ﻿using PoGo.NecroBot.Logic.State;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Telegram.Bot.Types;
 
 namespace PoGo.NecroBot.Logic.Service.TelegramCommand
 {
@@ -11,7 +8,7 @@ namespace PoGo.NecroBot.Logic.Service.TelegramCommand
     {
         string Command { get; }
         string Description { get; }
-        bool   StopProcess { get;  }
-        Task<bool> OnCommand(ISession session, string cmd, Action<string> cb);
+        bool StopProcess { get; }
+        Task<bool> OnCommand(ISession session, string cmd, Message telegramMessage);
     }
 }

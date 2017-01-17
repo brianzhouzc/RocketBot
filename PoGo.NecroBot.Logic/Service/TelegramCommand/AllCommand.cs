@@ -2,27 +2,29 @@
 using PoGo.NecroBot.Logic.PoGoUtils;
 using PoGo.NecroBot.Logic.State;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PoGo.NecroBot.Logic.Service.TelegramCommand
 {
-    public class AllCommand : ICommand
+    public class AllCommand : CommandMessage
     {
-        public string Command  =>"/all";
-        public string Description => "<cp/iv> - Shows your Pokemons.";
-        public bool StopProcess => true;
+        public override string Command => "/all";
+        public override string Description => "<cp/iv> - Shows your Pokemons.";
+        public override bool StopProcess => true;
 
-        public async Task<bool> OnCommand(ISession session,string cmd, Action<string> Callback)
+        public AllCommand(TelegramUtils telegramUtils) : base(telegramUtils)
+        {
+        }
+
+        public override async Task<bool> OnCommand(ISession session, string cmd, Action<string> Callback)
         {
             string[] messagetext = cmd.Split(' ');
 
-            if(messagetext[0].ToLower() == Command)
+            if (messagetext[0].ToLower() == Command)
             {
                 var answerTextmessage = "";
-              var myPokemons = await session.Inventory.GetPokemons();
+                var myPokemons = await session.Inventory.GetPokemons();
                 var allMyPokemons = myPokemons.ToList();
                 var allPokemons = await session.Inventory.GetHighestsCp(allMyPokemons.Count);
 
@@ -38,7 +40,7 @@ namespace PoGo.NecroBot.Logic.Service.TelegramCommand
                     }
                     else if (messagetext[1] != "cp")
                     {
-                        answerTextmessage = 
+                        answerTextmessage =
                             session.Translation.GetTranslation(TranslationString.UsageHelp, "/all [cp/iv]");
                     }
                 }

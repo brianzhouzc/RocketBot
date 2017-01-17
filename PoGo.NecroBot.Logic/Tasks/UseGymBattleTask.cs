@@ -67,7 +67,8 @@ namespace PoGo.NecroBot.Logic.Tasks
                     }
                     else
                     {
-                        await StartGymAttackLogic(session, fortInfo, fortDetails, gym, cancellationToken);
+                        if(session.LogicSettings.GymConfig.EnableAttackGym)
+                            await StartGymAttackLogic(session, fortInfo, fortDetails, gym, cancellationToken);
                         //Logger.Write($"No action... This gym is defending by other color", LogLevel.Gym, ConsoleColor.White);
                     }
                 }
@@ -149,10 +150,10 @@ namespace PoGo.NecroBot.Logic.Tasks
                     isVictory = false;
                     _startBattleCounter--;
 #if DEBUG
-                    Logger.Write("Gym: " + gym, LogLevel.Info, ConsoleColor.Magenta);
-                    Logger.Write("Defender: " + defenders.FirstOrDefault(x => x.Id == defenderPokemonId), LogLevel.Info, ConsoleColor.Magenta);
-                    Logger.Write("Attackers: " + string.Join(", ", pokemonDatas.Select(s => s.ToString()).ToArray()), LogLevel.Info, ConsoleColor.Magenta);
-                    Logger.Write(e.Message, LogLevel.Error, ConsoleColor.Magenta);
+                    Debug.Write("Gym: " + gym, "GYM");
+                    Debug.Write("Defender: " + defenders.FirstOrDefault(x => x.Id == defenderPokemonId), "GYM");
+                    Debug.Write("Attackers: " + string.Join(", ", pokemonDatas.Select(s => s.ToString()).ToArray()), "GYM");
+                    Debug.Write(e.Message, "GYM");
 #endif
                     break;
                 }
@@ -291,10 +292,11 @@ namespace PoGo.NecroBot.Logic.Tasks
                                     }
                                     catch (APIBadRequestException e)
                                     {
-                                        Logger.Write("Can't get coins", LogLevel.Warning);
 #if DEBUG
-                                        Logger.Write(e.Message, LogLevel.Error, ConsoleColor.Magenta);
-                                        Logger.Write(e.StackTrace, LogLevel.Error, ConsoleColor.Magenta);
+                                        Logger.Write("Can't get coins", LogLevel.Warning);
+
+                                        Debug.Write(e.Message, "GYM");
+                                        Debug.Write(e.StackTrace, "GYM");
 #endif
                                         await Task.Delay(500);
                                     }
@@ -528,7 +530,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                 }
                 catch (APIBadRequestException)
                 {
-                    Logger.Write(string.Format("SHIT, Heal problem with max potions ({0}) on pokemon: {1}", maxPotions, pokemon), LogLevel.Error, ConsoleColor.Magenta);
+                    Logger.Write(string.Format("Heal problem with max potions ({0}) on pokemon: {1}", maxPotions, pokemon), LogLevel.Error, ConsoleColor.Magenta);
                 }
             }
 
@@ -594,14 +596,10 @@ namespace PoGo.NecroBot.Logic.Tasks
 
                     var attackActionz = await GetActions(session, serverMs, attacker, defender, _currentAttackerEnergy);
 
-                    if (attackActionz.Any(a => a.Type == BattleActionType.ActionSpecialAttack))
-                    {
-                        var specialAttack = attackActionz.Where(w => w.Type == BattleActionType.ActionSpecialAttack).LastOrDefault();
-                        await Task.Delay(specialAttack?.DurationMs ?? 1500);
-                        //Logger.Write("Special attack is commong, extra delay before: " + attackActionz.LastOrDefault(), LogLevel.Info, ConsoleColor.Magenta);
-                    }
+                    var attackTime = attackActionz.Sum(s => s.DurationMs);
+                    await Task.Delay(attackTime);
 
-                    List<BattleAction> a1 = (last == null || last.Type == BattleActionType.ActionVictory || last.Type == BattleActionType.ActionDefeat ? emptyActions : attackActionz);
+                    List <BattleAction> a1 = (last == null || last.Type == BattleActionType.ActionVictory || last.Type == BattleActionType.ActionDefeat ? emptyActions : attackActionz);
                     BattleAction a2 = (last == null || last.Type == BattleActionType.ActionVictory || last.Type == BattleActionType.ActionDefeat ? emptyAction : last);
                     AttackGymResponse attackResult = null;
                     try
@@ -611,11 +609,11 @@ namespace PoGo.NecroBot.Logic.Tasks
                     }
                     catch (APIBadRequestException)
                     {
-                        Logger.Write("Shit!!!! Bad attack gym", LogLevel.Warning);
+                        Logger.Write("Bad attack gym", LogLevel.Warning);
 #if DEBUG
-                        Logger.Write("Last retrieved action was: " + a2, LogLevel.Error, ConsoleColor.Magenta);
-                        Logger.Write("Actions to perform were: " + string.Join(", ", a1), LogLevel.Error, ConsoleColor.Magenta);
-                        Logger.Write(string.Format("Attacker was: {0}, defender was: {1}", attacker, defender), LogLevel.Error, ConsoleColor.Magenta);
+                        Debug.Write("Last retrieved action was: " + a2, "GYM");
+                        Debug.Write("Actions to perform were: " + string.Join(", ", a1), "GYM");
+                        Debug.Write(string.Format("Attacker was: {0}, defender was: {1}", attacker, defender), "GYM");
 #endif
                         continue;
                     };
@@ -679,10 +677,12 @@ namespace PoGo.NecroBot.Logic.Tasks
                 }
                 catch (APIBadRequestException e)
                 {
-                    Logger.Write("Shit!!!! Bad request send to server -", LogLevel.Warning);
 #if DEBUG
-                    Logger.Write(e.Message, LogLevel.Error, ConsoleColor.Magenta);
-                    Logger.Write(e.StackTrace, LogLevel.Error, ConsoleColor.Magenta);
+
+                    Logger.Write("Bad request send to server -", LogLevel.Warning);
+                    Debug.Write(e.Message, "GYM");
+                    Debug.Write(e.StackTrace, "GYM");
+
 #endif
                 };
             }
@@ -825,7 +825,7 @@ namespace PoGo.NecroBot.Logic.Tasks
             catch (APIBadRequestException e)
             {
 #if DEBUG
-                Logger.Write("Gym details: " + gymInfo, LogLevel.Info, ConsoleColor.Magenta);
+                Debug.Write("Gym details: " + gymInfo, "GYM");
 #endif
                 throw e;
             }

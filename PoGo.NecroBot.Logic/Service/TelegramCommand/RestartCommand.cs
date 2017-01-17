@@ -1,21 +1,22 @@
 ﻿using PoGo.NecroBot.Logic.State;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PoGo.NecroBot.Logic.Service.TelegramCommand
 {
-    public class RestartCommand : ICommand
+    public class RestartCommand : CommandMessage
     {
-        public string Command => "/restart";
-        public string Description        =>  "Restart bot";
-        public bool StopProcess => true;
+        public override string Command => "/restart";
+        public override string Description        =>  "Restart bot";
+        public override bool StopProcess => true;
 
-        public async Task<bool> OnCommand(ISession session,string cmd, Action<string> Callback)
+        public RestartCommand(TelegramUtils telegramUtils) : base(telegramUtils)
+        {
+        }
+
+        public override async Task<bool> OnCommand(ISession session,string cmd, Action<string> Callback)
         {
             if(cmd.ToLower() == Command)
             {
