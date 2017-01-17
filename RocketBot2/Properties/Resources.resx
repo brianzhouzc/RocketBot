@@ -2005,10 +2005,7 @@
   <data name="Pokemon_152" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Pokemon\Pokemon_152.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="necro_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-   <value>..\Resources\necro_logo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="PayPalDonateNow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-   <value>..\Resources\PayPalDonateNow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\256x256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

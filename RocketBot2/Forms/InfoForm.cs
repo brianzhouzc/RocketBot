@@ -24,11 +24,6 @@ namespace RocketBot2.Forms
             this.Text = "RocketBot2 - " + FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion;
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-            Process.Start("http://www.mypogosnipers.com/?donate");
-        }
-
         private void link_click(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(((LinkLabel)sender).Text);
@@ -46,7 +41,7 @@ namespace RocketBot2.Forms
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            Process.Start("https://github.com/Necrobot-Private/NecroBot/releases");
+            Process.Start("https://github.com/TheUnnamedOrganisation/RocketBot/releases");
         }
     }
 }
