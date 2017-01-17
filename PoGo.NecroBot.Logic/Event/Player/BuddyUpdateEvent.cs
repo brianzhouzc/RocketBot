@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using POGOProtos.Data;
-using POGOProtos.Enums;
+﻿using POGOProtos.Data;
 
 namespace PoGo.NecroBot.Logic.Event.Player
 {
@@ -13,6 +7,7 @@ namespace PoGo.NecroBot.Logic.Event.Player
         public BuddyPokemon Buddy { get; set; }
 
         public PokemonData Pokemon { get; set; }
+
         public BuddyUpdateEvent(BuddyPokemon updatedBuddy, PokemonData pkm)
         {
             Buddy = updatedBuddy;

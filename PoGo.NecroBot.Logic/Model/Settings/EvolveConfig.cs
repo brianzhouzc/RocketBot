@@ -13,41 +13,40 @@ namespace PoGo.NecroBot.Logic.Model.Settings
             {
                 /*NOTE: keep all the end-of-line commas exept for the last one or an exception will be thrown!
                criteria: 12 candies*/
-               PokemonId.Caterpie,
-               PokemonId.Weedle,
-               PokemonId.Pidgey,
-               /*criteria: 25 candies*/
-               //PokemonId.Bulbasaur,
-               //PokemonId.Charmander,
-               //PokemonId.Squirtle,
-               PokemonId.Rattata
-               //PokemonId.NidoranFemale,
-               //PokemonId.NidoranMale,
-               //PokemonId.Oddish,
-               //PokemonId.Poliwag,
-               //PokemonId.Abra,
-               //PokemonId.Machop,
-               //PokemonId.Bellsprout,
-               //PokemonId.Geodude,
-               //PokemonId.Gastly,
-               //PokemonId.Eevee,
-               //PokemonId.Dratini,
-               /*criteria: 50 candies commons*/
-               //PokemonId.Spearow,
-               //PokemonId.Ekans,
-               //PokemonId.Zubat,
-               //PokemonId.Paras,
-               //PokemonId.Venonat,
-               //PokemonId.Psyduck,
-               //PokemonId.Slowpoke,
-               //PokemonId.Doduo,
-               //PokemonId.Drowzee,
-               //PokemonId.Krabby,
-               //PokemonId.Horsea,
-               //PokemonId.Goldeen,
-               //PokemonId.Staryu
+                PokemonId.Caterpie,
+                PokemonId.Weedle,
+                PokemonId.Pidgey,
+                /*criteria: 25 candies*/
+                //PokemonId.Bulbasaur,
+                //PokemonId.Charmander,
+                //PokemonId.Squirtle,
+                PokemonId.Rattata
+                //PokemonId.NidoranFemale,
+                //PokemonId.NidoranMale,
+                //PokemonId.Oddish,
+                //PokemonId.Poliwag,
+                //PokemonId.Abra,
+                //PokemonId.Machop,
+                //PokemonId.Bellsprout,
+                //PokemonId.Geodude,
+                //PokemonId.Gastly,
+                //PokemonId.Eevee,
+                //PokemonId.Dratini,
+                /*criteria: 50 candies commons*/
+                //PokemonId.Spearow,
+                //PokemonId.Ekans,
+                //PokemonId.Zubat,
+                //PokemonId.Paras,
+                //PokemonId.Venonat,
+                //PokemonId.Psyduck,
+                //PokemonId.Slowpoke,
+                //PokemonId.Doduo,
+                //PokemonId.Drowzee,
+                //PokemonId.Krabby,
+                //PokemonId.Horsea,
+                //PokemonId.Goldeen,
+                //PokemonId.Staryu
             };
         }
     }
 }
-

@@ -36,15 +36,15 @@ namespace PoGo.NecroBot.Logic.PoGoUtils
             return
                 Math.Max(
                     (int)
-                        Math.Floor(0.1*CalculateCpMultiplier(poke)*
-                                   Math.Pow(poke.CpMultiplier + poke.AdditionalCpMultiplier, 2)), 10);
+                    Math.Floor(0.1 * CalculateCpMultiplier(poke) *
+                               Math.Pow(poke.CpMultiplier + poke.AdditionalCpMultiplier, 2)), 10);
         }
 
         public static double CalculateCpMultiplier(PokemonData poke)
         {
             var baseStats = GetBaseStats(poke.PokemonId);
-            return (baseStats.BaseAttack + poke.IndividualAttack)*
-                   Math.Sqrt(baseStats.BaseDefense + poke.IndividualDefense)*
+            return (baseStats.BaseAttack + poke.IndividualAttack) *
+                   Math.Sqrt(baseStats.BaseDefense + poke.IndividualDefense) *
                    Math.Sqrt(baseStats.BaseStamina + poke.IndividualStamina);
         }
 
@@ -53,14 +53,14 @@ namespace PoGo.NecroBot.Logic.PoGoUtils
             return
                 Math.Max(
                     (int)
-                        Math.Floor(0.1*CalculateMaxCpMultiplier(poke.PokemonId)*
-                                   Math.Pow(poke.CpMultiplier + poke.AdditionalCpMultiplier, 2)), 10);
+                    Math.Floor(0.1 * CalculateMaxCpMultiplier(poke.PokemonId) *
+                               Math.Pow(poke.CpMultiplier + poke.AdditionalCpMultiplier, 2)), 10);
         }
 
         public static double CalculateMaxCpMultiplier(PokemonId pokemonId)
         {
             var baseStats = GetBaseStats(pokemonId);
-            return (baseStats.BaseAttack + 15)*Math.Sqrt(baseStats.BaseDefense + 15)*
+            return (baseStats.BaseAttack + 15) * Math.Sqrt(baseStats.BaseDefense + 15) *
                    Math.Sqrt(baseStats.BaseStamina + 15);
         }
 
@@ -69,14 +69,14 @@ namespace PoGo.NecroBot.Logic.PoGoUtils
             return
                 Math.Max(
                     (int)
-                        Math.Floor(0.1*CalculateMinCpMultiplier(poke)*
-                                   Math.Pow(poke.CpMultiplier + poke.AdditionalCpMultiplier, 2)), 10);
+                    Math.Floor(0.1 * CalculateMinCpMultiplier(poke) *
+                               Math.Pow(poke.CpMultiplier + poke.AdditionalCpMultiplier, 2)), 10);
         }
 
         public static double CalculateMinCpMultiplier(PokemonData poke)
         {
             var baseStats = GetBaseStats(poke.PokemonId);
-            return baseStats.BaseAttack*Math.Sqrt(baseStats.BaseDefense)*Math.Sqrt(baseStats.BaseStamina);
+            return baseStats.BaseAttack * Math.Sqrt(baseStats.BaseDefense) * Math.Sqrt(baseStats.BaseStamina);
         }
 
         public static double CalculatePokemonPerfection(PokemonData poke)
@@ -85,14 +85,14 @@ namespace PoGo.NecroBot.Logic.PoGoUtils
                 return 0;
 
             if (Math.Abs(poke.CpMultiplier + poke.AdditionalCpMultiplier) <= 0)
-                return (poke.IndividualAttack + poke.IndividualDefense + poke.IndividualStamina)/45.0*100.0;
+                return (poke.IndividualAttack + poke.IndividualDefense + poke.IndividualStamina) / 45.0 * 100.0;
 
             //GetBaseStats(poke.PokemonId);
             var maxCp = CalculateMaxCpMultiplier(poke.PokemonId);
             var minCp = CalculateMinCpMultiplier(poke);
             var curCp = CalculateCpMultiplier(poke);
 
-            return (curCp - minCp)/(maxCp - minCp)*100.0;
+            return (curCp - minCp) / (maxCp - minCp) * 100.0;
         }
 
         public static BaseStats GetBaseStats(PokemonId id)
@@ -408,7 +408,7 @@ namespace PoGo.NecroBot.Logic.PoGoUtils
 
         public static double GetLevel(PokemonData poke)
         {
-            switch ((int) ((poke.CpMultiplier + poke.AdditionalCpMultiplier)*1000.0))
+            switch ((int) ((poke.CpMultiplier + poke.AdditionalCpMultiplier) * 1000.0))
             {
                 case 93: // 0.094 * 1000 = 93.99999678134
                 case 94:
@@ -586,19 +586,20 @@ namespace PoGo.NecroBot.Logic.PoGoUtils
             return move2;
         }
 
-        public static int GetCandy(PokemonData pokemon, List<Candy> PokemonFamilies, IEnumerable<PokemonSettings> PokemonSettings)
+        public static int GetCandy(PokemonData pokemon, List<Candy> PokemonFamilies,
+            IEnumerable<PokemonSettings> PokemonSettings)
         {
             if (PokemonFamilies == null || PokemonSettings == null) return 0;
 
             var setting = PokemonSettings.FirstOrDefault(q => pokemon != null && q.PokemonId.Equals(pokemon.PokemonId));
             var family = PokemonFamilies.FirstOrDefault(q => setting != null && q.FamilyId.Equals(setting.FamilyId));
 
-            return family != null? family.Candy_:0;
+            return family != null ? family.Candy_ : 0;
         }
 
         public static int GetPowerUpLevel(PokemonData poke)
         {
-            return (int) (GetLevel(poke)*2.0);
+            return (int) (GetLevel(poke) * 2.0);
         }
     }
 }

@@ -7,7 +7,9 @@ namespace PoGo.NecroBot.Logic.Model.Settings
     [JsonObject(Title = "MapzenWalk Config", Description = "Set your mapzenwalk settings.", ItemRequired = Required.DisallowNull)]
     public class MapzenWalkConfig    : BaseConfig
     {
-        public MapzenWalkConfig() :base () { }
+        public MapzenWalkConfig() : base()
+        {
+        }
 
         internal enum MapzenWalkTravelModes
         {
@@ -16,7 +18,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
             pedestrian
         }
 
-        [ExcelConfig (Description = "Allow bot using Mapzen api to resolve path", Position = 1)]
+        [ExcelConfig(Description = "Allow bot using Mapzen api to resolve path", Position = 1)]
         [DefaultValue(false)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 1)]
         public bool UseMapzenWalk { get; set; }

@@ -42,6 +42,5 @@ namespace PoGo.NecroBot.Logic.Tasks
                 Logger.Write(session.Translation.GetTranslation(TranslationString.UseLuckyEggActive));
             }
         }
-       
     }
 }

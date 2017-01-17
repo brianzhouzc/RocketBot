@@ -1,11 +1,9 @@
-﻿using PoGo.NecroBot.Logic.Event.Player;
-using PoGo.NecroBot.Logic.State;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using PoGo.NecroBot.Logic.Event.Player;
+using PoGo.NecroBot.Logic.State;
+using POGOProtos.Networking.Responses;
 
 namespace PoGo.NecroBot.Logic.Tasks
 {
@@ -19,11 +17,10 @@ namespace PoGo.NecroBot.Logic.Tasks
 
             var response = await session.Client.Player.SelectBuddy(pokemon.Id);
 
-            if(response.Result == POGOProtos.Networking.Responses.SetBuddyPokemonResponse.Types.Result.Success)
+            if (response.Result == SetBuddyPokemonResponse.Types.Result.Success)
             {
                 session.EventDispatcher.Send(new BuddyUpdateEvent(response.UpdatedBuddy, pokemon));
             }
         }
     }
 }
-

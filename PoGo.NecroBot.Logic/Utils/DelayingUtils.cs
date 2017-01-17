@@ -17,8 +17,8 @@ namespace PoGo.NecroBot.Logic.Utils
             if (delay > defdelay)
             {
                 var randomFactor = 0.3f;
-                var randomMin = (int) (delay*(1 - randomFactor));
-                var randomMax = (int) (delay*(1 + randomFactor));
+                var randomMin = (int) (delay * (1 - randomFactor));
+                var randomMax = (int) (delay * (1 + randomFactor));
                 var randomizedDelay = RandomDevice.Next(randomMin, randomMax);
 
                 Thread.Sleep(randomizedDelay);
@@ -34,8 +34,8 @@ namespace PoGo.NecroBot.Logic.Utils
             if (delay > defdelay)
             {
                 var randomFactor = 0.3f;
-                var randomMin = (int)(delay * (1 - randomFactor));
-                var randomMax = (int)(delay * (1 + randomFactor));
+                var randomMin = (int) (delay * (1 - randomFactor));
+                var randomMax = (int) (delay * (1 + randomFactor));
                 var randomizedDelay = RandomDevice.Next(randomMin, randomMax);
 
                 await Task.Delay(randomizedDelay, token);

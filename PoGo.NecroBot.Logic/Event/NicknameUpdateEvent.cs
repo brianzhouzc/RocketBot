@@ -3,6 +3,5 @@
     public class NicknameUpdateEvent : IEvent
     {
         public string Nickname = "";
-                              
     }
 }

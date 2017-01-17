@@ -6,12 +6,12 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Google.Protobuf.Collections;
+using PoGo.NecroBot.Logic.Exceptions;
 using PoGo.NecroBot.Logic.Logging;
+using PoGo.NecroBot.Logic.Model.Settings;
 using PoGo.NecroBot.Logic.State;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Networking.Responses;
-using PoGo.NecroBot.Logic.Exceptions;
-using PoGo.NecroBot.Logic.Model.Settings;
 
 #endregion
 
@@ -55,7 +55,7 @@ namespace PoGo.NecroBot.Logic.Utils
                 if (config.PokestopSwitch > 0 && config.PokestopSwitch <= this.TotalPokestops)
                 {
                     session.CancellationTokenSource.Cancel();
-                    
+
                     //Activate switcher by pokestop
                     throw new ActiveSwitchByRuleException()
                     {
@@ -87,7 +87,7 @@ namespace PoGo.NecroBot.Logic.Utils
                 }
 
                 var totalMin = (DateTime.Now - _initSessionDateTime).TotalMinutes;
-                if (config.RuntimeSwitch> 0 && config.RuntimeSwitch <= totalMin)
+                if (config.RuntimeSwitch > 0 && config.RuntimeSwitch <= totalMin)
                 {
                     session.CancellationTokenSource.Cancel();
                     //Activate switcher by pokestop
@@ -98,7 +98,6 @@ namespace PoGo.NecroBot.Logic.Utils
                     };
                 }
             }
-
         }
 
         public event StatisticsDirtyDelegate DirtyEvent;
@@ -152,8 +151,8 @@ namespace PoGo.NecroBot.Logic.Utils
                 LevelForRewards = stat.Level;
                 if (Result2.ToString().ToLower().Contains("success"))
                 {
-                    string[] tokens = Result2.Result.ToString().Split(new[] { "itemId" }, StringSplitOptions.None);
-                    Logging.Logger.Write("Items Awarded:" + Result2.ItemsAwarded.ToString());
+                    string[] tokens = Result2.Result.ToString().Split(new[] {"itemId"}, StringSplitOptions.None);
+                    Logger.Write("Items Awarded:" + Result2.ItemsAwarded.ToString());
                 }
                 output = new StatsExport
                 {

@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using PoGo.NecroBot.Logic.Common;
 using PoGo.NecroBot.Logic.Event;
 using PoGo.NecroBot.Logic.Utils;
-using System.Collections.Generic;
 
 #endregion
 
@@ -27,15 +26,15 @@ namespace PoGo.NecroBot.Logic.State
                 {
                     var distance = LocationUtils.CalculateDistanceInMeters(latLngFromFile.Item1, latLngFromFile.Item2,
                         session.Settings.DefaultLatitude, session.Settings.DefaultLongitude);
-                    var lastModified = File.Exists(coordsPath) ? (DateTime?)File.GetLastWriteTime(coordsPath) : null;
+                    var lastModified = File.Exists(coordsPath) ? (DateTime?) File.GetLastWriteTime(coordsPath) : null;
                     if (lastModified != null)
                     {
                         var hoursSinceModified = (DateTime.Now - lastModified).HasValue
-                            ? (double?)((DateTime.Now - lastModified).Value.Minutes / 60.0)
+                            ? (double?) ((DateTime.Now - lastModified).Value.Minutes / 60.0)
                             : null;
                         if (hoursSinceModified != null && hoursSinceModified != 0)
                         {
-                            var kmph = distance / 1000 / (double)hoursSinceModified;
+                            var kmph = distance / 1000 / (double) hoursSinceModified;
                             if (kmph < 80) // If speed required to get to the default location is < 80km/hr
                             {
                                 File.Delete(coordsPath);
@@ -85,7 +84,7 @@ namespace PoGo.NecroBot.Logic.State
                     });
                 }
             }
-            
+
             await Task.Delay(3000, cancellationToken);
             return new CheckTosState();
         }

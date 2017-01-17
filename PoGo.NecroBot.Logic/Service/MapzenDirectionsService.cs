@@ -1,15 +1,16 @@
-﻿using GeoCoordinatePortable;
-using PoGo.NecroBot.Logic.Model.Mapzen;
-using PoGo.NecroBot.Logic.State;
-using System;
+﻿using System;
 using System.IO;
 using System.Net;
+using GeoCoordinatePortable;
+using PoGo.NecroBot.Logic.Model.Mapzen;
+using PoGo.NecroBot.Logic.State;
 
 namespace PoGo.NecroBot.Logic.Service
 {
     class MapzenDirectionsService
     {
         private readonly ISession _session;
+
         public MapzenDirectionsService(ISession session)
         {
             _session = session;
@@ -19,7 +20,7 @@ namespace PoGo.NecroBot.Logic.Service
         {
             WebRequest request = WebRequest.Create(GetUrl(sourceLocation, destLocation));
             request.Credentials = CredentialCache.DefaultCredentials;
-            
+
             try
             {
                 using (WebResponse response = request.GetResponse())
@@ -35,7 +36,7 @@ namespace PoGo.NecroBot.Logic.Service
             catch (Exception)
             {
             }
-            
+
             return null;
         }
 

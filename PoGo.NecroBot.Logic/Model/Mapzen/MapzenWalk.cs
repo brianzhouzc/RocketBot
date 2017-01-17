@@ -1,15 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using GeoCoordinatePortable;
-using Newtonsoft.Json;
-using PoGo.NecroBot.Logic.Model.Google.GoogleObjects;
-using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Linq;
-using PoGo.NecroBot.Logic.Utils;
-using Newtonsoft.Json.Schema;
-using Newtonsoft.Json.Schema.Generation;
 
 namespace PoGo.NecroBot.Logic.Model.Mapzen
 {
@@ -33,7 +25,7 @@ namespace PoGo.NecroBot.Logic.Model.Mapzen
         public double min_lon { get; set; }
         public double min_lat { get; set; }
     }
-    
+
     public class Location
     {
         public double lon { get; set; }
@@ -45,12 +37,12 @@ namespace PoGo.NecroBot.Logic.Model.Mapzen
         public string shape { get; set; }
         public Summary summary { get; set; }
     }
-    
+
     public class MapzenWalk
     {
         public List<GeoCoordinate> Waypoints { get; set; }
         public double Distance { get; set; }
-        
+
         public MapzenWalk(string mapzenResponse, GeoCoordinate sourceLocation, GeoCoordinate destLocation)
         {
             Waypoints = new List<GeoCoordinate>();
@@ -61,16 +53,16 @@ namespace PoGo.NecroBot.Logic.Model.Mapzen
             JObject jsonObj = JObject.Parse(mapzenResponse);
 
             var trip = jsonObj["trip"];
-            int status = (int)trip["status"];
+            int status = (int) trip["status"];
             if (status == 0)
             {
-                JObject summary = (JObject)trip["summary"];
-                Distance = (double)summary["length"] * 1000;
+                JObject summary = (JObject) trip["summary"];
+                Distance = (double) summary["length"] * 1000;
 
-                JArray legs = (JArray)trip["legs"];
+                JArray legs = (JArray) trip["legs"];
                 foreach (var leg in legs)
                 {
-                    string shape = (string)leg["shape"];
+                    string shape = (string) leg["shape"];
 
                     // Decode the polyline.
                     Waypoints.AddRange(DecodePoly(shape));
@@ -97,7 +89,7 @@ namespace PoGo.NecroBot.Logic.Model.Mapzen
             int sum;
             int shifter;
             double factor = Math.Pow(10, precision);
-            
+
             while (index < polylineChars.Length)
             {
                 // calculate next latitude
@@ -106,7 +98,7 @@ namespace PoGo.NecroBot.Logic.Model.Mapzen
                 shifter = 0;
                 do
                 {
-                    next5bits = (int)polylineChars[index++] - 63;
+                    next5bits = (int) polylineChars[index++] - 63;
                     sum |= (next5bits & 0x1f) << shifter;
                     shifter += 5;
                 } while (next5bits >= 0x20);
@@ -119,11 +111,11 @@ namespace PoGo.NecroBot.Logic.Model.Mapzen
                 shifter = 0;
                 do
                 {
-                    next5bits = (int)polylineChars[index++] - 63;
+                    next5bits = (int) polylineChars[index++] - 63;
                     sum |= (next5bits & 0x1f) << shifter;
                     shifter += 5;
                 } while (next5bits >= 0x20);
-                
+
                 longitudeChange = (sum & 1) == 1 ? ~(sum >> 1) : (sum >> 1);
 
                 lat += latitudeChange;

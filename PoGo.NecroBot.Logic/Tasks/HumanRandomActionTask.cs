@@ -1,8 +1,8 @@
-﻿using PoGo.NecroBot.Logic.State;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using PoGo.NecroBot.Logic.State;
 
 namespace PoGo.NecroBot.Logic.Tasks
 {
@@ -22,8 +22,10 @@ namespace PoGo.NecroBot.Logic.Tasks
                 switch (randomCommand[i])
                 {
                     case 1:
-                        if (session.LogicSettings.EvolveAllPokemonAboveIv || session.LogicSettings.EvolveAllPokemonWithEnoughCandy
-                            || session.LogicSettings.UseLuckyEggsWhileEvolving || session.LogicSettings.KeepPokemonsThatCanEvolve)
+                        if (session.LogicSettings.EvolveAllPokemonAboveIv ||
+                            session.LogicSettings.EvolveAllPokemonWithEnoughCandy
+                            || session.LogicSettings.UseLuckyEggsWhileEvolving ||
+                            session.LogicSettings.KeepPokemonsThatCanEvolve)
                             if (ActionRandom.Next(1, 10) > 4)
                                 await EvolvePokemonTask.Execute(session, cancellationToken);
                         break;

@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using GeoCoordinatePortable;
 using Newtonsoft.Json;
+using PoGo.NecroBot.Logic.Exceptions;
 using PoGo.NecroBot.Logic.Model.Google;
 using PoGo.NecroBot.Logic.Model.Google.GoogleObjects;
 using PoGo.NecroBot.Logic.State;
@@ -16,6 +17,7 @@ namespace PoGo.NecroBot.Logic.Service
         private readonly ISession _session;
         private readonly bool _cache;
         public List<GoogleResult> OldResults { get; set; }
+
         public GoogleDirectionsService(ISession session)
         {
             _session = session;
@@ -30,7 +32,8 @@ namespace PoGo.NecroBot.Logic.Service
             {
                 if (_cache)
                 {
-                    var item = OldResults.FirstOrDefault(pesquisa => IsSameAdress(origin, waypoints, destino, pesquisa));
+                    var item = OldResults
+                        .FirstOrDefault(pesquisa => IsSameAdress(origin, waypoints, destino, pesquisa));
                     if (item != null)
                     {
                         item.FromCache = true;
@@ -79,7 +82,7 @@ namespace PoGo.NecroBot.Logic.Service
                     return GoogleWalk.Get(googleResult);
                 }
             }
-            catch (Exceptions.ActiveSwitchByRuleException ex)
+            catch (ActiveSwitchByRuleException ex)
             {
                 throw ex;
             }
@@ -89,9 +92,11 @@ namespace PoGo.NecroBot.Logic.Service
             return null;
         }
 
-        private static bool IsSameAdress(GeoCoordinate origem, List<GeoCoordinate> waypoints, GeoCoordinate destino, GoogleResult googleSearch)
+        private static bool IsSameAdress(GeoCoordinate origem, List<GeoCoordinate> waypoints,
+            GeoCoordinate destino, GoogleResult googleSearch)
         {
-            var sameAdress = origem.GetDistanceTo(googleSearch.Origin) < 10 && destino.GetDistanceTo(googleSearch.Destiny) < 10;
+            var sameAdress = origem.GetDistanceTo(googleSearch.Origin) < 10 &&
+                             destino.GetDistanceTo(googleSearch.Destiny) < 10;
 
             var sameQuantityWaypoint = waypoints.Count == googleSearch.Waypoints.Count;
 
@@ -131,7 +136,8 @@ namespace PoGo.NecroBot.Logic.Service
 
         private void SaveResult(GoogleResult googleResult)
         {
-            var item = OldResults.FirstOrDefault(pesquisa => IsSameAdress(googleResult.Origin, googleResult.Waypoints, googleResult.Destiny, pesquisa));
+            var item = OldResults
+                .FirstOrDefault(pesquisa => IsSameAdress(googleResult.Origin, googleResult.Waypoints, googleResult.Destiny, pesquisa));
             if (item != null)
             {
                 lock (OldResults)
@@ -139,14 +145,6 @@ namespace PoGo.NecroBot.Logic.Service
             }
 
             OldResults.Add(googleResult);
-
         }
-
     }
-
-
-
-
-
-
 }

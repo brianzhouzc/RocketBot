@@ -41,6 +41,5 @@ namespace PoGo.NecroBot.Logic.Model.Google
             }
             return distance;
         }
-        
     }
 }
