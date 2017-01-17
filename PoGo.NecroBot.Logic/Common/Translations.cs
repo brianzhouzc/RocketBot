@@ -278,7 +278,9 @@ namespace PoGo.NecroBot.Logic.Common
         TelegramNeedChatId,
         BulkTransferFailed,
         AutoSnipeDisabled,
-        SnipePokemonNotInPokedex
+        SnipePokemonNotInPokedex,
+        BuddyPokemonUpdate,
+        TargetLocationSet
     }
 
     public class Translation : ITranslation
@@ -292,6 +294,7 @@ namespace PoGo.NecroBot.Logic.Common
         private readonly List<KeyValuePair<TranslationString, string>> _translationStrings = new List
             <KeyValuePair<TranslationString, string>>
         {
+            new KeyValuePair<TranslationString, string>(TranslationString.TargetLocationSet, "Target location [{0},{1}] has been accepted. Bot will go there soon."),
             new KeyValuePair<TranslationString, string>(TranslationString.Pokeball, "PokeBall"),
             new KeyValuePair<TranslationString, string>(TranslationString.GreatPokeball, "GreatBall"),
             new KeyValuePair<TranslationString, string>(TranslationString.UltraPokeball, "UltraBall"),
@@ -641,6 +644,7 @@ namespace PoGo.NecroBot.Logic.Common
             new KeyValuePair<TranslationString, string>(TranslationString.FailedSendNotification,"Notification sending failed."),
             new KeyValuePair<TranslationString, string>(TranslationString.TelegramBotStarted, "Bot has been started") ,
             new KeyValuePair<TranslationString, string>(TranslationString.TelegramNeedChatId, "To received notification from telgram, please initial a first message chat with bot.") ,
+            new KeyValuePair<TranslationString, string>(TranslationString.BuddyPokemonUpdate, "{0} now is your buddy!!!") 
         };
 
         [JsonProperty("PokemonStrings",
@@ -1099,5 +1103,7 @@ namespace PoGo.NecroBot.Logic.Common
 
             File.WriteAllText(fullPath, output);
         }
+
+     
     }
 }

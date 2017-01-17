@@ -456,7 +456,7 @@ namespace PoGo.NecroBot.Logic
                         new ItemData
                         {
                             ItemId = x.ItemId,
-                            Count = x.Count - _logicSettings.ItemRecycleFilter.Single(f => f.Key == x.ItemId).Value,
+                            Count = x.Count - _logicSettings.ItemRecycleFilter.FirstOrDefault(f => f.Key == x.ItemId).Value,
                             Unseen = x.Unseen
                         });
 
@@ -767,7 +767,6 @@ namespace PoGo.NecroBot.Logic
                 await DeletePokemonFromInvById(pokemonid);
                 await AddPokemonToCache(upgradeResult.UpgradedPokemon);
             }
-
             return upgradeResult;
         }
     }

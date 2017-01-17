@@ -1,21 +1,22 @@
 ﻿using PoGo.NecroBot.Logic.State;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PoGo.NecroBot.Logic.Service.TelegramCommand
 {
-    public class ExitCommand : ICommand
+    public class ExitCommand : CommandMessage
     {
-        public string Command => "/exit";
-        public string Description        =>  "Exit bot";
-        public bool StopProcess => true;
+        public override string Command => "/exit";
+        public override string Description => "Exit bot";
+        public override bool StopProcess => true;
 
-        public async Task<bool> OnCommand(ISession session,string cmd, Action<string> Callback)
+        public ExitCommand(TelegramUtils telegramUtils) : base(telegramUtils)
         {
-            if(cmd.ToLower() == Command)
+        }
+
+        public override async Task<bool> OnCommand(ISession session, string cmd, Action<string> Callback)
+        {
+            if (cmd.ToLower() == Command)
             {
                 Callback("Closing Bot... BYE!");
                 await Task.Delay(5000);

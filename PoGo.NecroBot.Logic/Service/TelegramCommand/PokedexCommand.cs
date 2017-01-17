@@ -2,22 +2,24 @@
 using PoGo.NecroBot.Logic.State;
 using POGOProtos.Enums;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PoGo.NecroBot.Logic.Service.TelegramCommand
 {
-    public class PokedexCommand : ICommand
+    public class PokedexCommand : CommandMessage
     {
-        public string Command =>  "/pokedex";
-        public string Description=>  "Shows you Pokedex. ";
-        public bool StopProcess => true;
+        public override string Command =>  "/pokedex";
+        public override string Description =>  "Shows you Pokedex. ";
+        public override bool StopProcess => true;
 
-        public async Task<bool> OnCommand(ISession session,string cmd, Action<string> Callback)
+        public PokedexCommand(TelegramUtils telegramUtils) : base(telegramUtils)
         {
-            await Task.Delay(0); // Just added to get rid of compiler warning. Remove this if async code is used below.
+        }
+
+        #pragma warning disable CS1998 // added to get rid of compiler warning. Remove this if async code is used below.
+        public override async Task<bool> OnCommand(ISession session,string cmd, Action<string> Callback)
+        {
 
             if (cmd.ToLower() == Command)
             {

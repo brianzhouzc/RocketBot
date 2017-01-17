@@ -164,18 +164,12 @@ namespace PoGo.NecroBot.Logic.State
                         if (se.MatchedRule == SwitchRules.CatchLimitReached || se.MatchedRule == SwitchRules.SpinPokestopReached)
                         {
                             PushNotificationClient.SendNotification(session, $"{se.MatchedRule} - {session.Settings.GoogleUsername}{session.Settings.PtcUsername}", "This bot has reach limit, it will be blocked for 60 mins for safety.", true);
-                            session.EventDispatcher.Send(new WarnEvent() { Message = "You reach limited. bot will sleep for 60 min" });
+                            session.EventDispatcher.Send(new WarnEvent() { Message = $"You reach limited. bot will sleep for {session.LogicSettings.MultipleBotConfig.OnLimitPauseTimes} min" });
 
-                            session.BlockCurrentBot(60);
+                            session.BlockCurrentBot(session.LogicSettings.MultipleBotConfig.OnLimitPauseTimes);
 
-                            if (!session.LogicSettings.AllowMultipleBot)
-                            {
-                                await Task.Delay(60 * 1000 * 60);
-                            }
-                            else
-                            {
-                                session.ReInitSessionWithNextBot();
-                            }
+                           session.ReInitSessionWithNextBot();
+                           
                         }
                         else {
                             if (session.LogicSettings.MultipleBotConfig.StartFromDefaultLocation)

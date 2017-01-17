@@ -1,22 +1,22 @@
 ﻿using PoGo.NecroBot.Logic.State;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PoGo.NecroBot.Logic.Service.TelegramCommand
 {
-    public class StatusCommand : ICommand
+    public class StatusCommand : CommandMessage
     {
-        public string Command =>  "/status";
-        public string Description =>  "Shows you the Status of the Bot.";
-        public bool StopProcess => true;
+        public override string Command =>  "/status";
+        public override string Description =>  "Shows you the Status of the Bot.";
+        public override bool StopProcess => true;
 
-        public async Task<bool> OnCommand(ISession session,string cmd, Action<string> Callback)
+        public StatusCommand(TelegramUtils telegramUtils) : base(telegramUtils)
         {
-            await Task.Delay(0); // Just added to get rid of compiler warning. Remove this if async code is used below.
+        }
 
+        #pragma warning disable CS1998 // added to get rid of compiler warning. Remove this if async code is used below.
+        public override async Task<bool> OnCommand(ISession session,string cmd, Action<string> Callback)
+        {
             if (cmd.ToLower() == Command)
             {
                 var answerTextmessage = "";

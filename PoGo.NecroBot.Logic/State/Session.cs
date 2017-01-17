@@ -230,9 +230,11 @@ namespace PoGo.NecroBot.Logic.State
             }
             else
             {
-                
-                PushNotificationClient.SendNotification(this, "All accounts are being blocked", "Non of yours account available to switch, bot will sleep for 15 mins", true);
-                Task.Delay(15 * 60 * 1000).Wait();
+
+                var nextRelease = this.accounts.Min(x => (x.ReleaseBlockTime - DateTime.Now).TotalMinutes);
+                PushNotificationClient.SendNotification(this, "All accounts are being blocked", $"None of yours account available to switch, bot will sleep for {nextRelease} mins until next acount available to run", true);
+
+                Task.Delay((int)nextRelease * 60 * 1000).Wait();
             }
             return nextBot != null;
 
