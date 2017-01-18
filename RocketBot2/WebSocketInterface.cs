@@ -36,7 +36,7 @@ namespace RocketBot2
             {
                 Name = "NecroWebSocket",
                 Mode = SocketMode.Tcp,
-                MaxRequestLength = int.MaxValue ,
+                MaxRequestLength = int.MaxValue,
                 Certificate = new CertificateConfig
                 {
                     FilePath = @"cert.pfx",
@@ -59,7 +59,6 @@ namespace RocketBot2
                 }
             };
 
-            
             var setupComplete = _server.Setup(config);
 
             if (setupComplete == false)
@@ -67,7 +66,7 @@ namespace RocketBot2
                 Logger.Write(translations.GetTranslation(TranslationString.WebSocketFailStart, port), LogLevel.Error);
                 return;
             }
-            
+            Logger.Write(translations.GetTranslation(TranslationString.WebSocketStarted, port, port + 1), LogLevel.Info);
 
             _server.NewMessageReceived += HandleMessage;
             _server.NewSessionConnected += HandleSession;
@@ -92,12 +91,12 @@ namespace RocketBot2
 
         private void HandleEvent(PokeStopListEvent evt)
         {
-            if(_lastPokeStopList != null)
+            if (_lastPokeStopList != null)
             {
                 _lastPokeStopList.Forts.AddRange(evt.Forts);
             }
             else
-            _lastPokeStopList = evt;
+                _lastPokeStopList = evt;
         }
 
         private void HandleEvent(ProfileEvent evt)

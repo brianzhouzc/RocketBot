@@ -30,7 +30,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         public int OutOfBallCatchBlockTime => _settings.PokemonConfig.OutOfBallCatchBlockTime;
         public int PokeballToKeepForSnipe => _settings.PokemonConfig.PokeballToKeepForSnipe;
         public int PokeballsToKeepForSnipe => _settings.PokemonConfig.PokeballToKeepForSnipe;
-
+        public double AutoSnipeMaxDistance => _settings.SnipeConfig.AutoSnipeMaxDistance;
         public int CatchPokemonLimit => _settings.PokemonConfig.CatchPokemonLimit;
         public int CatchPokemonLimitMinutes => _settings.PokemonConfig.CatchPokemonLimitMinutes;
         public int PokeStopLimit => _settings.PokeStopConfig.PokeStopLimit;

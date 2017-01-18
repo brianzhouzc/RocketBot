@@ -38,7 +38,7 @@ namespace PoGo.NecroBot.Logic.Interfaces.Configuration
         bool RandomlyPauseAtStops { get; }
         bool FastSoftBanBypass { get; }
         int ByPassSpinCount { get; }
-
+        double AutoSnipeMaxDistance { get; }
         bool EvolveAllPokemonWithEnoughCandy { get; }
         bool KeepPokemonsThatCanEvolve { get; }
 

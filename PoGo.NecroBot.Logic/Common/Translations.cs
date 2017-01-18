@@ -281,7 +281,8 @@ namespace PoGo.NecroBot.Logic.Common
         AutoSnipeDisabled,
         SnipePokemonNotInPokedex,
         BuddyPokemonUpdate,
-        TargetLocationSet
+        TargetLocationSet,
+        WebSocketStarted
     }
 
     public class Translation : ITranslation
@@ -294,7 +295,7 @@ namespace PoGo.NecroBot.Logic.Common
         //Default Translations (ENGLISH)        
         private readonly List<KeyValuePair<TranslationString, string>> _translationStrings = new List
             <KeyValuePair<TranslationString, string>>
-            {
+            {   new KeyValuePair<TranslationString, string>(TranslationString.WebSocketStarted, "Websocket listening on at  wss://localhost:{0} or ws://localhost:{1} "),
                 new KeyValuePair<TranslationString, string>(TranslationString.TargetLocationSet,
                     "Target location [{0},{1}] has been accepted. Bot will go there soon."),
                 new KeyValuePair<TranslationString, string>(TranslationString.Pokeball, "PokeBall"),

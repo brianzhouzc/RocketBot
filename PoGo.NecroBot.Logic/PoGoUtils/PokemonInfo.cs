@@ -84,15 +84,17 @@ namespace PoGo.NecroBot.Logic.PoGoUtils
             if (poke == null)
                 return 0;
 
-            if (Math.Abs(poke.CpMultiplier + poke.AdditionalCpMultiplier) <= 0)
+            //TODO : Lets use the simple formulat att+def+sta /45
+
+            //if (Math.Abs(poke.CpMultiplier + poke.AdditionalCpMultiplier) <= 0)
                 return (poke.IndividualAttack + poke.IndividualDefense + poke.IndividualStamina) / 45.0 * 100.0;
 
             //GetBaseStats(poke.PokemonId);
-            var maxCp = CalculateMaxCpMultiplier(poke.PokemonId);
-            var minCp = CalculateMinCpMultiplier(poke);
-            var curCp = CalculateCpMultiplier(poke);
+            //var maxCp = CalculateMaxCpMultiplier(poke.PokemonId);
+            //var minCp = CalculateMinCpMultiplier(poke);
+            //var curCp = CalculateCpMultiplier(poke);
 
-            return (curCp - minCp) / (maxCp - minCp) * 100.0;
+            //return (curCp - minCp) / (maxCp - minCp) * 100.0;
         }
 
         public static BaseStats GetBaseStats(PokemonId id)
