@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
@@ -94,5 +94,10 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [DefaultValue(true)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate)]
         public bool HealDefendersBeforeApplyToGym { get; set; }
+
+        [ExcelConfig(Description = "Don't Attack After Coins Limit is Reached", Position = 15)]
+        [DefaultValue(true)]
+        [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate)]
+        public bool DontAttackAfterCoinsLimitReached { get; set; }
     }
 }

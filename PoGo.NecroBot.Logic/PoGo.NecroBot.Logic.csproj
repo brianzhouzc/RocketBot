@@ -273,12 +273,19 @@
     <Compile Include="Event\UseBerryEvent.cs" />
     <Compile Include="Event\EggIncubatorStatusEvent.cs" />
     <Compile Include="Exceptions\ActiveSwitchByRuleException.cs" />
+    <Compile Include="Forms\AutoUpdateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AutoUpdateForm.Designer.cs">
+      <DependentUpon>AutoUpdateForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CaptchaSolveForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\CaptchaSolveForm.Designer.cs">
       <DependentUpon>CaptchaSolveForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Extentions.cs" />
     <Compile Include="Forms\InitialTutorialForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -501,6 +508,9 @@
     <Compile Include="Utils\WebUtils.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\AutoUpdateForm.resx">
+      <DependentUpon>AutoUpdateForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\CaptchaSolveForm.resx">
       <DependentUpon>CaptchaSolveForm.cs</DependentUpon>
     </EmbeddedResource>
