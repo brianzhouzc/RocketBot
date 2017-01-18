@@ -1,18 +1,21 @@
-﻿using Newtonsoft.Json;
-using PoGo.NecroBot.Logic.Event;
-using PoGo.NecroBot.Logic.Logging;
-using PoGo.NecroBot.Logic.State;
-using PoGo.NecroBot.Logic.Tasks;
-using POGOProtos.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using PoGo.NecroBot.Logic.Event;
+using PoGo.NecroBot.Logic.Event.Snipe;
+using PoGo.NecroBot.Logic.State;
+using PoGo.NecroBot.Logic.Tasks;
+using POGOProtos.Enums;
+using WebSocketSharp;
+using Logger = PoGo.NecroBot.Logic.Logging.Logger;
 
 namespace RocketBot2
 {
@@ -20,13 +23,14 @@ namespace RocketBot2
     {
         private static List<EncounteredEvent> events = new List<EncounteredEvent>();
         private const int POLLING_INTERVAL = 5000;
+
         public static void Listen(IEvent evt, ISession session)
         {
             dynamic eve = evt;
 
             try
             {
-                HandleEvent(eve,  session);
+                HandleEvent(eve, session);
             }
             catch
             {
@@ -43,7 +47,7 @@ namespace RocketBot2
 
         private static string Serialize(dynamic evt)
         {
-            var jsonSerializerSettings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
+            var jsonSerializerSettings = new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All};
 
             // Add custom seriaizer to convert uong to string (ulong shoud not appear to json according to json specs)
             jsonSerializerSettings.Converters.Add(new IdToStringConverter());
@@ -78,26 +82,23 @@ namespace RocketBot2
 
         public static async Task Start(Session session, CancellationToken cancellationToken)
         {
-            await Task.Delay(30000, cancellationToken);//delay running 30s
+            await Task.Delay(30000, cancellationToken); //delay running 30s
 
-            System.Net.ServicePointManager.Expect100Continue = false;
+            ServicePointManager.Expect100Continue = false;
 
             cancellationToken.ThrowIfCancellationRequested();
 
             var socketURL = session.LogicSettings.DataSharingDataUrl;
 
-            using (var ws = new WebSocketSharp.WebSocket(socketURL))
+            using (var ws = new WebSocket(socketURL))
             {
-                ws.Log.Level = WebSocketSharp.LogLevel.Fatal;
+                ws.Log.Level = LogLevel.Fatal;
                 ws.Log.Output = (logData, message) =>
-                 {
-                     //silenly, no log exception message to screen that scare people :)
-                 };
-
-                ws.OnMessage += (sender, e) =>
                 {
-                    onSocketMessageRecieved(session, sender, e);
+                    //silenly, no log exception message to screen that scare people :)
                 };
+
+                ws.OnMessage += (sender, e) => { onSocketMessageRecieved(session, sender, e); };
 
                 ws.Connect();
                 while (true)
@@ -105,8 +106,9 @@ namespace RocketBot2
                     cancellationToken.ThrowIfCancellationRequested();
                     try
                     {
-                        if (retries == 5) //failed to make connection to server  times contiuing, temporary stop for 10 mins.
+                        if (retries == 5)
                         {
+                            //failed to make connection to server  times contiuing, temporary stop for 10 mins.
                             session.EventDispatcher.Send(new WarnEvent()
                             {
                                 Message = "Couldn't establish the connection to necro socket server, Bot will re-connect after 10 mins"
@@ -115,13 +117,13 @@ namespace RocketBot2
                             retries = 0;
                         }
 
-                        if (events.Count > 0 && ws.ReadyState != WebSocketSharp.WebSocketState.Open)
+                        if (events.Count > 0 && ws.ReadyState != WebSocketState.Open)
                         {
                             retries++;
                             ws.Connect();
                         }
 
-                        while (ws.ReadyState == WebSocketSharp.WebSocketState.Open)
+                        while (ws.ReadyState == WebSocketState.Open)
                         {
                             //Logger.Write("Connected to necrobot data service.");
                             retries = 0;
@@ -140,7 +142,8 @@ namespace RocketBot2
                                     var data = Serialize(processing.First());
                                     ws.Send($"42[\"pokemon\",{data}]");
                                 }
-                                else {
+                                else
+                                {
                                     var data = Serialize(processing);
                                     ws.Send($"42[\"pokemons\",{data}]");
                                 }
@@ -172,21 +175,26 @@ namespace RocketBot2
             }
         }
 
-        private static void onSocketMessageRecieved(ISession session, object sender, WebSocketSharp.MessageEventArgs e)
+        private static void onSocketMessageRecieved(ISession session, object sender, MessageEventArgs e)
         {
             try
             {
-                OnSnipePokemon(session, e.Data);
                 OnPokemonData(session, e.Data);
-                ONFPMBridgeData(session, e.Data);
-            }
-            catch (Exception ex)
-            {
-#if DEBUG
-                Logger.Write("ERROR TO ADD SNIPE< DEBUG ONLY " + ex.Message, LogLevel.Info, ConsoleColor.Yellow);
-#endif
+                OnSnipePokemon(session, e.Data);
+
+                //ONFPMBridgeData(session, e.Data); //Nolonger use
             }
 
+            #pragma warning disable 0168 // Comment Suppress compiler warning - ex is used in DEBUG section
+            catch (Exception ex)
+            #pragma warning restore 0168
+            {
+                // Comment Suppress compiler warning - ex is used in DEBUG section
+                #if DEBUG
+                Logger.Write("ERROR TO ADD SNIPE< DEBUG ONLY " + ex.Message + "\r\n " + ex.StackTrace,
+                    Logic.Logging.LogLevel.Info, ConsoleColor.Yellow);
+                #endif
+            }
         }
 
         private static void ONFPMBridgeData(ISession session, string message)
@@ -199,14 +207,17 @@ namespace RocketBot2
             }
         }
 
-        public static bool CheckIfPokemonBeenCaught(double lat, double lng, PokemonId id , ISession session)
+        public static bool CheckIfPokemonBeenCaught(double lat, double lng, PokemonId id, ulong encounterId,
+            ISession session)
         {
-            string uniqueCacheKey = $"{session.Settings.PtcUsername}{session.Settings.GoogleUsername}{Math.Round(lat, 6)}{id}{Math.Round(lng, 6)}";
+            string uniqueCacheKey =
+                $"{session.Settings.PtcUsername}{session.Settings.GoogleUsername}{Math.Round(lat, 6)}{id}{Math.Round(lng, 6)}";
             if (session.Cache.Get(uniqueCacheKey) != null) return true;
+            if (encounterId > 0 && session.Cache[encounterId.ToString()] != null) return true;
 
             return false;
-
         }
+
         private static void OnPokemonData(ISession session, string message)
         {
             var match = Regex.Match(message, "42\\[\"pokemon\",(.*)]");
@@ -217,70 +228,86 @@ namespace RocketBot2
                 session.EventDispatcher.Send(data);
                 if (session.LogicSettings.AllowAutoSnipe)
                 {
-                    var move1 = PokemonMove.Absorb;
-                    var move2 = PokemonMove.Absorb;
+                    var move1 = PokemonMove.MoveUnset;
+                    var move2 = PokemonMove.MoveUnset;
                     Enum.TryParse<PokemonMove>(data.Move1, true, out move1);
-                    Enum.TryParse<PokemonMove>(data.Move1, true, out move2);
+                    Enum.TryParse<PokemonMove>(data.Move2, true, out move2);
                     ulong encounterid = 0;
                     ulong.TryParse(data.EncounterId, out encounterid);
-                    bool caught = CheckIfPokemonBeenCaught(data.Latitude, data.Longitude, data.PokemonId, session);
+                    bool caught = CheckIfPokemonBeenCaught(data.Latitude, data.Longitude,
+                        data.PokemonId, encounterid, session);
                     if (!caught)
                     {
-                        MSniperServiceTask.AddSnipeItem(session, new MSniperServiceTask.MSniperInfo2()
+                        var added = MSniperServiceTask.AddSnipeItem(session, new MSniperServiceTask.MSniperInfo2()
+                            {
+                                UniqueIdentifier = data.EncounterId,
+                                Latitude = data.Latitude,
+                                Longitude = data.Longitude,
+                                EncounterId = encounterid,
+                                SpawnPointId = data.SpawnPointId,
+                                PokemonId = (short) data.PokemonId,
+                                Iv = data.IV,
+                                Move1 = move1,
+                                Move2 = move2,
+                                ExpiredTime = data.ExpireTimestamp
+                            })
+                            .Result;
+                        if (added)
                         {
-                            Latitude = data.Latitude,
-                            Longitude = data.Longitude,
-                            EncounterId = encounterid,
-                            SpawnPointId = data.SpawnPointId,
-                            PokemonId = (short)data.PokemonId,
-                            Iv = data.IV,
-                            Move1 = move1,
-                            Move2 = move2
-                        });
+                            session.EventDispatcher.Send(new AutoSnipePokemonAddedEvent(data));
+                        }
                     }
-                
                 }
             }
         }
+
         private static void OnSnipePokemon(ISession session, string message)
         {
             var match = Regex.Match(message, "42\\[\"snipe-pokemon\",(.*)]");
-            if (match != null && !string.IsNullOrEmpty(match.Groups[1].Value))
+            if (match != null && !string.IsNullOrEmpty(match.Value) && !string.IsNullOrEmpty(match.Groups[1].Value))
             {
                 var data = JsonConvert.DeserializeObject<EncounteredEvent>(match.Groups[1].Value);
 
                 //not your snipe item, return need more encrypt here and configuration to allow catch others item
                 if (string.IsNullOrEmpty(session.LogicSettings.DataSharingIdentifiation) ||
-                    string.IsNullOrEmpty(data.RecieverId) || 
+                    string.IsNullOrEmpty(data.RecieverId) ||
                     data.RecieverId.ToLower() != session.LogicSettings.DataSharingIdentifiation.ToLower()) return;
 
                 var move1 = PokemonMove.Absorb;
                 var move2 = PokemonMove.Absorb;
                 Enum.TryParse<PokemonMove>(data.Move1, true, out move1);
                 Enum.TryParse<PokemonMove>(data.Move1, true, out move2);
+                ulong encounterid = 0;
+                ulong.TryParse(data.EncounterId, out encounterid);
 
-                bool caught = CheckIfPokemonBeenCaught(data.Latitude, data.Longitude, data.PokemonId, session);
-                if(caught)
+                bool caught = CheckIfPokemonBeenCaught(data.Latitude, data.Longitude, data.PokemonId, encounterid,
+                    session);
+                if (caught)
                 {
-                    Logger.Write("[SNIPE IGNORED] - Your snipe pokemon has already been cautgh by bot", LogLevel.Sniper);
+                    Logger.Write("[SNIPE IGNORED] - Your snipe pokemon has already been cautgh by bot",
+                        Logic.Logging.LogLevel.Sniper);
                     return;
                 }
 
                 MSniperServiceTask.AddSnipeItem(session, new MSniperServiceTask.MSniperInfo2()
-                {
-                    Latitude = data.Latitude,
-                    Longitude = data.Longitude,
-                    EncounterId = data.EncounterId.Contains("-")?0:Convert.ToUInt64(data.EncounterId),
-                    SpawnPointId = data.SpawnPointId,
-                    PokemonId = (short)data.PokemonId,
-                    Iv = data.IV,
-                    Move1 = move1,
-                    Move2 = move2
-                }, true);
+                    {
+                        UniqueIdentifier = data.EncounterId,
+                        Latitude = data.Latitude,
+                        Longitude = data.Longitude,
+                        EncounterId = encounterid,
+                        SpawnPointId = data.SpawnPointId,
+                        PokemonId = (short) data.PokemonId,
+                        Iv = data.IV,
+                        Move1 = move1,
+                        ExpiredTime = data.ExpireTimestamp,
+                        Move2 = move2
+                    }, true)
+                    .Wait();
             }
         }
 
-        internal static Task StartAsync(Session session, CancellationToken cancellationToken = default(CancellationToken))
+        internal static Task StartAsync(Session session,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             return Task.Run(() => Start(session, cancellationToken), cancellationToken);
         }
