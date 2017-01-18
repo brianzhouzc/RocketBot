@@ -138,5 +138,11 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [DefaultValue(5)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 23)]
         public int SnipePauseOnOutOfBallTime { get;  set; }
+
+        [ExcelConfig(Description = "Max distance in km that allow bot autosnipe. set to Z mean not applied", Position = 24)]
+        [DefaultValue(0)]
+        [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 24)]
+
+        public double AutoSnipeMaxDistance { get;  set; }
     }
 }

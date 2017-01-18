@@ -12,9 +12,9 @@ See https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer for pricing 
 
 <!-- disclaimer -->
 ![alt text][1.1] <strong><em> The contents of this repo are a proof of concept and are for educational use only </em></strong>![alt text][1.1]<br/>
-[![Stories in Ready](https://badge.waffle.io/1461748123/Pokemon-Go-Rocket-API.svg?label=accepted&title=Accepted)](http://waffle.io/1461748123/Pokemon-Go-Rocket-API)
-[![Stories in Ready](https://badge.waffle.io/1461748123/Pokemon-Go-Rocket-API.svg?label=in%20progress&title=In Progress)](http://waffle.io/1461748123/Pokemon-Go-Rocket-API)
-[![Stories in Ready](https://badge.waffle.io/1461748123/Pokemon-Go-Rocket-API.png?label=ready&title=Ready)](https://waffle.io/1461748123/Pokemon-Go-Rocket-API)
+[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.svg?label=accepted&title=Accepted)](http://waffle.io/TheUnnamedOrganisation/RocketBot)
+[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.svg?label=in%20progress&title=In Progress)](http://waffle.io/TheUnnamedOrganisation/RocketBot)
+[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBotI.png?label=ready&title=Ready)](https://waffle.io/TheUnnamedOrganisation/RocketBot)
 
 <p align="center">
   <a href="https://discord.gg/y6EU2qY">
@@ -23,12 +23,12 @@ See https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer for pricing 
 </p>
 
 ## Images
-![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/Images/MainForm.png)  
-![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/Images/SettingForm.png)
-![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/Images/SettingForm_2.png)
-![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/Images/SettingForm_3.png)
-![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/Images/SettingForm_4.png)
-![alt tag](https://raw.githubusercontent.com/TheUnnameOrganization/RocketBot/master/Images/SettingForm_5.png)
+![alt tag](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/Images/MainForm.png)  
+![alt tag](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/Images/SettingForm.png)
+![alt tag](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/Images/SettingForm_2.png)
+![alt tag](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/Images/SettingForm_3.png)
+![alt tag](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/Images/SettingForm_4.png)
+![alt tag](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/Images/SettingForm_5.png)
 
 A Pokémon Go bot in C#
 
@@ -55,7 +55,7 @@ A Pokémon Go bot in C#
 
 ## Getting Started
 ### Download
-Download the bot from the [release](https://github.com/Furtif/NecroBot/releases) tab.  
+Download the bot from the [release](https://github.com/TheUnnamedOrganisation/RocketBot/releases) tab.  
 If you want the latest Beta-Build, you have to download the build from the Beta-Build branch and compile them by yourself with VisualStudio 2015.   
 **Waning: Beta-Builds are unstable and might cause damage to your account, use at your own risk**
 ### Login
@@ -72,13 +72,13 @@ Click Start Bot and enjoy!
 You can contribute in many ways, here are some that you can do to help the project out!
 ### Join discord channel and help answer questions
 We have more and more users everyday, so we have a lot of questions from new users who haven't fully understand how the bot works yet. If you want to help them out, join our official discord channel :)
-### Answer questions in [issues](https://github.com/Necrobot-Private/NecroBot/issues)
-Same as above, you can help by answering questions in the [issues](https://github.com/Necrobot-Private/NecroBot/issues) tab!
+### Answer questions in [issues](https://github.com/TheUnnamedOrganisation/RocketBot/issues)
+Same as above, you can help by answering questions in the [issues](https://github.com/TheUnnamedOrganisation/RocketBot/issues) tab!
 ### Report bugs
-Report bugs you found in [issues](https://github.com/Necrobot-Private/NecroBot/issues).  
+Report bugs you found in [issues](https://github.com/TheUnnamedOrganisation/RocketBot/issues).  
 In order to help us fix the problem, please take a screenshot of the error you get and also attach your log file (under the Logs folder) as well. Add [Bug] to the title to help us quickly identify the category of the issue.  
 ### Suggestions/ideas
-Tell us what you think we can do better in [issues]((https://github.com/Necrobot-Private/NecroBot/issues).  
+Tell us what you think we can do better in [issues]((https://github.com/TheUnnamedOrganisation/RocketBot/issues).  
 Give detailed discription to help us understand what you are looking for. Add [Suggestion] to the title to help us quickly identify the category of the issue. Your suggestion might not be accept, but hey, maybe we will accept your suggestion next time! :)
 ## For developers:
 You can contribute to the project by helping us on coding.  

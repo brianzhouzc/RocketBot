@@ -79,6 +79,7 @@ namespace PoGo.NecroBot.Logic
         public void HandleEvent(PokemonEvolveEvent evt, ISession session)
         {
             _stats.TotalExperience += evt.Exp;
+            _stats.TotalPokemonEvolved++;
             _stats.Dirty(session.Inventory, session);
         }
 

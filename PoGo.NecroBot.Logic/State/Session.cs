@@ -54,10 +54,10 @@ namespace PoGo.NecroBot.Logic.State
         List<AuthConfig> Accounts { get; }
         DateTime LoggedTime { get; set; }
         DateTime CatchBlockTime { get; set; }
+        Statistics RuntimeStatistics { get; }
 
         void BlockCurrentBot(int expired = 15);
     }
-
 
     public class Session : ISession
     {
@@ -85,6 +85,7 @@ namespace PoGo.NecroBot.Logic.State
             this.accounts = new List<AuthConfig>();
             this.EventDispatcher = new EventDispatcher();
             this.LogicSettings = logicSettings;
+            this.RuntimeStatistics = new Statistics();
 
             this.ElevationService = elevationService;
 
@@ -155,6 +156,7 @@ namespace PoGo.NecroBot.Logic.State
         }
 
         public DateTime CatchBlockTime { get; set; }
+        public Statistics RuntimeStatistics { get; }
         private List<BotActions> botActions = new List<BotActions>();
 
         public void Reset(ISettings settings, ILogicSettings logicSettings)
