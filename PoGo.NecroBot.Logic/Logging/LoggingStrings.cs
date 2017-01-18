@@ -43,6 +43,7 @@ namespace PoGo.NecroBot.Logic.Logging
         public static string Gym;
 
         public static string Service;
+
         public static void SetStrings(ISession session)
         {
             Attention =
@@ -110,8 +111,8 @@ namespace PoGo.NecroBot.Logic.Logging
                     TranslationString.LogEntrySoftBan) ?? "SOFTBAN";
 
             Gym =
-               session?.Translation.GetTranslation(
-                   TranslationString.LogEntryGym) ?? "GYM";
+                session?.Translation.GetTranslation(
+                    TranslationString.LogEntryGym) ?? "GYM";
 
             Service =
                 session?.Translation.GetTranslation(

@@ -433,7 +433,6 @@ namespace PoGo.NecroBot.Logic.Utils
                                                                         openCachingTagNode.Name);
                                             }
                                         }
-
                                         break;
                                     case "ox:verification":
                                         foreach (XmlNode openCachingVerificationNode in openCachingChildNode.ChildNodes)
@@ -516,9 +515,12 @@ namespace PoGo.NecroBot.Logic.Utils
         {
             public string Desc = "";
             public string Name = "";
+
             public string Number = "";
+
             // private readonly List<Rtept> _routePoints = new List<Rtept>();
             public string Url = "";
+
             public string UrlName = "";
 
             public Rte(XmlNode node)

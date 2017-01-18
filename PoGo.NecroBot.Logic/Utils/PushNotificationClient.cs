@@ -1,16 +1,14 @@
-﻿using PoGo.NecroBot.Logic.Event;
-using PoGo.NecroBot.Logic.Model.Settings;
-using PoGo.NecroBot.Logic.State;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Mail;
-using System.Text;
 using System.Threading.Tasks;
+using PoGo.NecroBot.Logic.Common;
+using PoGo.NecroBot.Logic.Event;
+using PoGo.NecroBot.Logic.Model.Settings;
+using PoGo.NecroBot.Logic.State;
 
 namespace PoGo.NecroBot.Logic.Utils
 {
@@ -33,6 +31,7 @@ namespace PoGo.NecroBot.Logic.Utils
             fileContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
             return fileContent;
         }
+
         private static StringContent addContent(string name, string content)
         {
             var fileContent = new StringContent(content);
@@ -95,15 +94,19 @@ namespace PoGo.NecroBot.Logic.Utils
                         await SendPushNotificationV2(cfg.PushBulletApiKey, title, body);
                     }
 
+                    // TODO function is deprecated / obsolete
                     await session.Telegram.SendMessage($"{title}\r\n{body}");
                 }
             }
             catch (Exception)
             {
-                session.EventDispatcher.Send(new WarnEvent() { Message = session.Translation.GetTranslation(Common.TranslationString.FailedSendNotification) });
+                session.EventDispatcher.Send(new WarnEvent()
+                {
+                    Message = session.Translation.GetTranslation(TranslationString.FailedSendNotification)
+                });
             }
-           
         }
+
         public static async Task<bool> SendPushNotificationV2(string apiKey, string title, string body)
         {
             bool isSusccess = false;

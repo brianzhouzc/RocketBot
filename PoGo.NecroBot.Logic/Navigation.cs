@@ -1,32 +1,33 @@
 ﻿#region using directives
 
 using System;
-using System.Threading;
-using System.Threading.Tasks;
-using GeoCoordinatePortable;
-using PoGo.NecroBot.Logic.Interfaces.Configuration;
-using PokemonGo.RocketAPI;
-using POGOProtos.Networking.Responses;
-using PoGo.NecroBot.Logic.State;
-using PoGo.NecroBot.Logic.Strategies.Walk;
-using PoGo.NecroBot.Logic.Event;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using PoGo.NecroBot.Logic.Event;
+using PoGo.NecroBot.Logic.Interfaces.Configuration;
 using PoGo.NecroBot.Logic.Model;
-using System.Net;
-using System.Diagnostics;
-using System.IO;
-using Newtonsoft.Json.Linq;
+using PoGo.NecroBot.Logic.State;
+using PoGo.NecroBot.Logic.Strategies.Walk;
+using PokemonGo.RocketAPI;
+using POGOProtos.Networking.Responses;
+using GeoCoordinatePortable;
 using POGOProtos.Map.Fort;
 using PoGo.NecroBot.Logic.Utils;
 using PokemonGo.RocketAPI.Extensions;
+using System.Net;
+using Newtonsoft.Json.Linq;
+using System.IO;
+using System.Diagnostics;
 
 #endregion
 
 namespace PoGo.NecroBot.Logic
 {
     //add delegate
-    public delegate void GetHumanizeRouteDelegate(List<GeoCoordinate> route, GeoCoordinate destination, List<FortData>pokeStops);
+     public delegate void GetHumanizeRouteDelegate(List<GeoCoordinate> route, GeoCoordinate destination, List<FortData> pokeStops);
+
     public delegate void UpdatePositionDelegate(double lat, double lng);
 
     public class Navigation
@@ -40,10 +41,9 @@ namespace PoGo.NecroBot.Logic
         public Navigation(Client client, ILogicSettings logicSettings)
         {
             _client = client;
-            
+
             InitializeWalkStrategies(logicSettings);
             WalkStrategy = GetStrategy(logicSettings);
-
         }
 
         public double VariantRandom(ISession session, double currentSpeed)
@@ -53,7 +53,8 @@ namespace PoGo.NecroBot.Logic
                 if (WalkingRandom.Next(1, 10) > 5)
                 {
                     var randomicSpeed = currentSpeed;
-                    var max = session.LogicSettings.WalkingSpeedInKilometerPerHour + session.LogicSettings.WalkingSpeedVariant;
+                    var max = session.LogicSettings.WalkingSpeedInKilometerPerHour +
+                              session.LogicSettings.WalkingSpeedVariant;
                     randomicSpeed += WalkingRandom.NextDouble() * (0.02 - 0.001) + 0.001;
 
                     if (randomicSpeed > max)
@@ -73,8 +74,9 @@ namespace PoGo.NecroBot.Logic
                 else
                 {
                     var randomicSpeed = currentSpeed;
-                    var min = session.LogicSettings.WalkingSpeedInKilometerPerHour - session.LogicSettings.WalkingSpeedVariant;
-                    randomicSpeed -= WalkingRandom.NextDouble() * (0.02 - 0.001) + 0.001;                    
+                    var min = session.LogicSettings.WalkingSpeedInKilometerPerHour -
+                              session.LogicSettings.WalkingSpeedVariant;
+                    randomicSpeed -= WalkingRandom.NextDouble() * (0.02 - 0.001) + 0.001;
 
                     if (randomicSpeed < min)
                         randomicSpeed = min;
@@ -94,11 +96,13 @@ namespace PoGo.NecroBot.Logic
 
             return currentSpeed;
         }
+
         private object ensureOneWalkEvent = new object();
+
         public async Task<PlayerUpdateResponse> Move(IGeoLocation targetLocation,
             Func<Task> functionExecutedWhileWalking,
             ISession session,
-            CancellationToken cancellationToken, double customWalkingSpeed =0.0)
+            CancellationToken cancellationToken, double customWalkingSpeed = 0.0)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -138,7 +142,7 @@ namespace PoGo.NecroBot.Logic
             {
                 WalkStrategyQueue.Add(new HumanPathWalkingStrategy(_client));
             }
-            
+
             if (logicSettings.UseGoogleWalk)
             {
                 WalkStrategyQueue.Add(new GoogleStrategy(_client));
@@ -197,7 +201,7 @@ namespace PoGo.NecroBot.Logic
                 var web = WebRequest.Create(
                     $"https://maps.googleapis.com/maps/api/directions/json?origin={start.Latitude},{start.Longitude}&destination={dest.Latitude},{dest.Longitude}&mode=walking&units=metric&key={session.LogicSettings.GoogleApiKey}");
                 web.Credentials = CredentialCache.DefaultCredentials;
-                
+
                 string strResponse;
                 using (var response = web.GetResponse())
                 {

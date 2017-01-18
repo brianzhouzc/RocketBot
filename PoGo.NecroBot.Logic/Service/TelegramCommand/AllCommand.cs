@@ -1,9 +1,9 @@
-﻿using PoGo.NecroBot.Logic.Common;
-using PoGo.NecroBot.Logic.PoGoUtils;
-using PoGo.NecroBot.Logic.State;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using PoGo.NecroBot.Logic.Common;
+using PoGo.NecroBot.Logic.PoGoUtils;
+using PoGo.NecroBot.Logic.State;
 
 namespace PoGo.NecroBot.Logic.Service.TelegramCommand
 {
@@ -47,7 +47,7 @@ namespace PoGo.NecroBot.Logic.Service.TelegramCommand
                 else
                 {
                     answerTextmessage =
-                            session.Translation.GetTranslation(TranslationString.UsageHelp, "/all [cp/iv]");
+                        session.Translation.GetTranslation(TranslationString.UsageHelp, "/all [cp/iv]");
                 }
 
                 foreach (var pokemon in allPokemons)
@@ -65,7 +65,6 @@ namespace PoGo.NecroBot.Logic.Service.TelegramCommand
 
                 Callback(answerTextmessage);
                 return true;
-
             }
             return false;
         }

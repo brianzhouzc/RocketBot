@@ -5,13 +5,12 @@ using Newtonsoft.Json;
 namespace PoGo.NecroBot.Logic.Model.Settings
 {
     [JsonObject(Title = "API Config", Description = "Config your prefered API to use", ItemRequired = Required.DisallowNull)]
-    public class APIConfig  : BaseConfig
+    public class APIConfig : BaseConfig
     {
-
-        public APIConfig() :base()
+        public APIConfig() : base()
         {
-
         }
+
         [DefaultValue(true)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 1)]
         public bool UsePogoDevAPI { get; set; }
@@ -29,6 +28,5 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [DefaultValue(true)]
         [JsonProperty(Required = Required.Default, DefaultValueHandling = DefaultValueHandling.Populate, Order = 15)]
         public bool DiplayHashServerLog { get; set; }
-
     }
 }

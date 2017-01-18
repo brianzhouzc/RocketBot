@@ -5,13 +5,15 @@ using Newtonsoft.Json;
 namespace PoGo.NecroBot.Logic.Model.Settings
 {
     [JsonObject(Title = "Telegram Messaging Client", Description = "Configure to use with Telegram Messaging.", ItemRequired = Required.DisallowNull)]
-    public class TelegramConfig :BaseConfig
+    public class TelegramConfig : BaseConfig
     {
-        public TelegramConfig() :base() { }
+        public TelegramConfig() : base()
+        {
+        }
 
         [DefaultValue(false)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 1)]
-        [ExcelConfig (Description ="Allow control bot from Telegram comand", Position =1)]
+        [ExcelConfig (Description = "Allow control bot from Telegram comand", Position = 1)]
         public bool UseTelegramAPI { get; set; }
 
         [DefaultValue(null)]

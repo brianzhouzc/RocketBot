@@ -12,15 +12,15 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         public CatchFilter()
         {
             Moves = new List<List<PokemonMove>>();
-            EnableCatchFilter = true; 
+            EnableCatchFilter = true;
         }
 
-        
-        public CatchFilter(int minIV, int minLV, int minCP, string op= "or",List<List<PokemonMove>> moves = null)
+
+        public CatchFilter(int minIV, int minLV, int minCP, string op = "or", List<List<PokemonMove>> moves = null)
         {
             EnableCatchFilter = true;
             this.MinIV = minIV;
-            this.Moves = moves== null? new List<List<PokemonMove>>() : moves;
+            this.Moves = moves == null ? new List<List<PokemonMove>>() : moves;
             this.MinLV = minLV;
             this.MinCP = MinCP;
             this.Operator = op;
@@ -31,7 +31,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [JsonIgnore]
         public bool EnableCatchFilter { get; set; }
 
-        [ExcelConfig(Key = "Min IV" , Description ="Min IV for catch", Position =2)]
+        [ExcelConfig(Key = "Min IV", Description = "Min IV for catch", Position = 2)]
         [DefaultValue(95)]
         [Range(0, 100)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 1)]
@@ -49,7 +49,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 1)]
         public int MinCP { get; set; }
 
-        [ExcelConfig(Key = "Moves" , Description ="Define list of desire move for catch", Position =5)]
+        [ExcelConfig(Key = "Moves", Description = "Define list of desire move for catch", Position = 5)]
         [DefaultValue(null)]
         [JsonProperty(Required = Required.Default, DefaultValueHandling = DefaultValueHandling.Populate, Order = 2)]
         public List<List<PokemonMove>> Moves { get; set; }
@@ -64,11 +64,11 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         {
             return new Dictionary<PokemonId, CatchFilter>
             {
-                { PokemonId.Lapras, new CatchFilter(0, 0,0 ) },
-                { PokemonId.Dratini, new CatchFilter(0, 0,0 ) },
-                { PokemonId.Dragonite, new CatchFilter(0, 0,0 ) },
-                { PokemonId.Snorlax, new CatchFilter(0, 0,0 ) },
-                { PokemonId.Zubat, new CatchFilter(100,100,100,"and", new List<List<PokemonMove>>() { }) }
+                {PokemonId.Lapras, new CatchFilter(0, 0, 0)},
+                {PokemonId.Dratini, new CatchFilter(0, 0, 0)},
+                {PokemonId.Dragonite, new CatchFilter(0, 0, 0)},
+                {PokemonId.Snorlax, new CatchFilter(0, 0, 0)},
+                {PokemonId.Zubat, new CatchFilter(100, 100, 100, "and", new List<List<PokemonMove>>() { })}
             };
         }
     }

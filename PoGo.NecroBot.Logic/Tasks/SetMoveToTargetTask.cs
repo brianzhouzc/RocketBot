@@ -1,16 +1,15 @@
 ﻿#region using directives
-using System.Linq;
-using PoGo.NecroBot.Logic.Event;
-using PoGo.NecroBot.Logic.State;
-using POGOProtos.Map.Fort;
-using POGOProtos.Networking.Responses;
-using PokemonGo.RocketAPI.Extensions;
+
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using PoGo.NecroBot.Logic.Event.Player;
-using System.Collections;
-using System.Collections.Generic;
+using PoGo.NecroBot.Logic.State;
+using PokemonGo.RocketAPI.Extensions;
+using POGOProtos.Map.Fort;
+using POGOProtos.Networking.Responses;
 
 #endregion
 
@@ -22,7 +21,11 @@ namespace PoGo.NecroBot.Logic.Tasks
 
         private static FortDetailsResponse _fortInfo;
         private static FortData _targetStop;
-        public static FortDetailsResponse FortInfo { get { return _fortInfo; } }
+
+        public static FortDetailsResponse FortInfo
+        {
+            get { return _fortInfo; }
+        }
 
         static Queue<FortData> queue = new Queue<FortData>();
 
@@ -48,17 +51,16 @@ namespace PoGo.NecroBot.Logic.Tasks
                         Longitude = lng,
                         Id = TARGET_ID + DateTime.Now.Ticks.ToString(),
                         Type = FortType.Checkpoint,
-                        CooldownCompleteTimestampMs = DateTime.UtcNow.AddHours(1).ToUnixTime()  //make sure bot not try to spin this fake pokestop
+                        //make sure bot not try to spin this fake pokestop
+                        CooldownCompleteTimestampMs = DateTime.UtcNow.AddHours(1).ToUnixTime()
                     };
-
-                    
                 }
                 queue.Enqueue(_targetStop);
             });
 
             session.EventDispatcher.Send(new TargetLocationEvent(lat, lng));
-           
         }
+
         public static FortDetailsResponse FakeFortInfo(FortData data)
         {
             return new FortDetailsResponse()
@@ -68,9 +70,11 @@ namespace PoGo.NecroBot.Logic.Tasks
                 Name = "Your selected location"
             };
         }
-        public static async Task<bool> IsReachedDestination(FortData destination, ISession session, CancellationToken cancellationToken)
+
+        public static async Task<bool> IsReachedDestination(FortData destination, ISession session,
+            CancellationToken cancellationToken)
         {
-            if (_targetStop!= null && destination.Id == _targetStop.Id ) 
+            if (_targetStop != null && destination.Id == _targetStop.Id)
             {
                 _targetStop = null;
                 queue.Dequeue();
@@ -84,7 +88,6 @@ namespace PoGo.NecroBot.Logic.Tasks
 
         internal static async Task<FortData> GetTarget(ISession session)
         {
-
             return await Task.Run(() =>
             {
                 if (queue.Count > 0 &&

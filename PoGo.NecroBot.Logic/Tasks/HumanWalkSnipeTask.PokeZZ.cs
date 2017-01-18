@@ -1,10 +1,10 @@
-﻿using PoGo.NecroBot.Logic.Logging;
-using PoGo.NecroBot.Logic.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using PoGo.NecroBot.Logic.Logging;
+using PoGo.NecroBot.Logic.Utils;
 using WebSocket4Net;
 
 namespace PoGo.NecroBot.Logic.Tasks
@@ -34,7 +34,9 @@ namespace PoGo.NecroBot.Logic.Tasks
                                 var sniperInfos = Parse(match.Groups[2].Value);
                                 if (sniperInfos != null && sniperInfos.Any())
                                 {
-                                    results.AddRange(sniperInfos.Where(p => LocationUtils.CalculateDistanceInMeters(lat, lng, p.Latitude, p.Longitude) < 5000).ToList());
+                                    results.AddRange(sniperInfos
+                                        .Where(p => LocationUtils.CalculateDistanceInMeters(lat, lng, p.Latitude, p.Longitude) < 5000)
+                                        .ToList());
                                 }
                             }
                         }
@@ -44,7 +46,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                     client.Close();
                 }
             }
-            catch (Exception )
+            catch (Exception)
             {
                 Logger.Write("Error loading data from Pokezz", LogLevel.Error, ConsoleColor.DarkRed);
             }

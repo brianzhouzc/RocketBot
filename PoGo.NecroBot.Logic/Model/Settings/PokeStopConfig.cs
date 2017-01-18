@@ -7,9 +7,11 @@ namespace PoGo.NecroBot.Logic.Model.Settings
     [JsonObject(Title = "Poke Stop Config", Description = "Set your poke stop settings.", ItemRequired = Required.DisallowNull)]
     public class PokeStopConfig : BaseConfig
     {
-        public PokeStopConfig() : base () { }
+        public PokeStopConfig() : base()
+        {
+        }
 
-        [ExcelConfig (Description = "Allow check for pokestop daily limit - 2000 per 24h", Position =1)]
+        [ExcelConfig(Description = "Allow check for pokestop daily limit - 2000 per 24h", Position = 1)]
         [DefaultValue(true)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 1)]
         public bool UsePokeStopLimit { get; set; }

@@ -1,14 +1,14 @@
 ﻿#region using directives
 
-using PoGo.NecroBot.Logic.Common;
-using PoGo.NecroBot.Logic.Event;
-using PoGo.NecroBot.Logic.Service.TelegramCommand;
-using PoGo.NecroBot.Logic.State;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using PoGo.NecroBot.Logic.Common;
+using PoGo.NecroBot.Logic.Event;
+using PoGo.NecroBot.Logic.Service.TelegramCommand;
+using PoGo.NecroBot.Logic.State;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
@@ -40,14 +40,14 @@ namespace PoGo.NecroBot.Logic.Service
                 iCommandInstances = AppDomain.CurrentDomain.GetAssemblies()
                     .SelectMany(x => x.GetTypes())
                     .Where(x => (typeof(ICommand).IsAssignableFrom(x)) && !x.IsInterface && !x.IsAbstract)
-                    .Select(x => (ICommand)Activator.CreateInstance(x, telegramUtils));
+                    .Select(x => (ICommand) Activator.CreateInstance(x, telegramUtils));
 
                 var me = _bot.GetMeAsync().Result;
 
                 _bot.OnMessage += OnTelegramMessageReceived;
                 _bot.StartReceiving();
 
-                _session.EventDispatcher.Send(new NoticeEvent { Message = "Using TelegramAPI with " + me.Username });
+                _session.EventDispatcher.Send(new NoticeEvent {Message = "Using TelegramAPI with " + me.Username});
 
                 if (File.Exists(LOG_FILE))
                 {
@@ -55,20 +55,20 @@ namespace PoGo.NecroBot.Logic.Service
                     if (!string.IsNullOrEmpty(s))
                     {
                         lastChatId = Convert.ToInt64(s);
-                        #pragma warning disable 4014 // disables 'await not used warning' - since c'tor is not async by itself we can not use the async statement for method calls
+                        #pragma warning disable 4014 // added to get rid of compiler warning. Remove this if async code is used below.
                         telegramUtils.SendMessage(_session.Translation.GetTranslation(TranslationString.TelegramBotStarted), lastChatId);
+                        #pragma warning restore 4014
                     }
                     else
                     {
                         _session.EventDispatcher.Send(new NoticeEvent() { Message = _session.Translation.GetTranslation(TranslationString.TelegramNeedChatId) });
                     }
-
                 }
             }
             catch (Exception ex)
             {
-                _session.EventDispatcher.Send(new ErrorEvent { Message = ex.Message });
-                _session.EventDispatcher.Send(new ErrorEvent { Message = "Unkown Telegram Error occured. " });
+                _session.EventDispatcher.Send(new ErrorEvent {Message = ex.Message});
+                _session.EventDispatcher.Send(new ErrorEvent {Message = "Unkown Telegram Error occured. "});
             }
         }
 
@@ -136,7 +136,6 @@ namespace PoGo.NecroBot.Logic.Service
                 catch (Exception)
                 {
                 }
-
             }
 
             if (!handled)

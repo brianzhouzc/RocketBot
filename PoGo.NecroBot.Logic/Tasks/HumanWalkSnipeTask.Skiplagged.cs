@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
-using PoGo.NecroBot.Logic.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using PoGo.NecroBot.Logic.Logging;
 
 namespace PoGo.NecroBot.Logic.Tasks
 {
@@ -12,17 +12,14 @@ namespace PoGo.NecroBot.Logic.Tasks
         public DateTime UnixTimeStampToDateTime(double unixTimeStamp)
         {
             // Unix timestamp is seconds past epoch
-            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
             return dtDateTime;
         }
 
         public DateTime expires_date
         {
-            get
-            {
-                return UnixTimeStampToDateTime(expires);
-            }
+            get { return UnixTimeStampToDateTime(expires); }
         }
 
         public double expires { get; set; }
@@ -36,6 +33,7 @@ namespace PoGo.NecroBot.Logic.Tasks
     {
         public double duration { get; set; }
         public List<SkiplaggedItem> pokemons { get; set; }
+
         public SkiplaggedWrap()
         {
             pokemons = new List<SkiplaggedItem>();
@@ -75,7 +73,7 @@ namespace PoGo.NecroBot.Logic.Tasks
             {
                 Logger.Write("Error loading data from skiplagged", LogLevel.Error, ConsoleColor.DarkRed);
             }
-            
+
             //var endFetchTime = DateTime.Now;
             //Logger.Write($"FetchFromSkiplagged spend {(endFetchTime - startFetchTime).TotalSeconds} seconds", LogLevel.Sniper, ConsoleColor.White);
             return results;
@@ -103,11 +101,9 @@ namespace PoGo.NecroBot.Logic.Tasks
                 Latitude = result.latitude,
                 Longitude = result.longitude,
                 Id = result.pokemon_id,
-                ExpiredTime = UnixTimeStampToDateTime(result.expires) ,
+                ExpiredTime = UnixTimeStampToDateTime(result.expires),
                 Source = "Skiplagged"
-        };
+            };
         }
-
     }
-
 }

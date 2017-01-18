@@ -12,6 +12,6 @@ namespace PoGo.NecroBot.Logic.Event
     {
         public GetPlayerResponse Profile;
 
-        public IEnumerable<PlayerStats> Stats { get;  set; }
+        public IEnumerable<PlayerStats> Stats { get; set; }
     }
 }

@@ -1,6 +1,5 @@
 #region using directives
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using PoGo.NecroBot.Logic.Interfaces.Configuration;
@@ -66,7 +65,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         public double WalkingSpeedVariant => _settings.LocationConfig.WalkingSpeedVariant;
         public bool ShowVariantWalking => _settings.LocationConfig.ShowVariantWalking;
         public bool FastSoftBanBypass => _settings.SoftBanConfig.FastSoftBanBypass;
-        public int ByPassSpinCount  =>  _settings.SoftBanConfig.ByPassSpinCount;
+        public int ByPassSpinCount => _settings.SoftBanConfig.ByPassSpinCount;
         public bool EvolveAllPokemonWithEnoughCandy => _settings.PokemonConfig.EvolveAllPokemonWithEnoughCandy;
         public bool KeepPokemonsThatCanEvolve => _settings.PokemonConfig.KeepPokemonsThatCanEvolve;
         public bool TransferDuplicatePokemon => _settings.PokemonConfig.TransferDuplicatePokemon;
@@ -234,7 +233,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         public int SnipePauseOnOutOfBallTime => _settings.SnipeConfig.SnipePauseOnOutOfBallTime;
         public string DataSharingDataUrl => _settings.DataSharingConfig.DataRecieverURL;
         public bool UseTransferFilterToCatch => _settings.CustomCatchConfig.UseTransferFilterToCatch;
- 
+
         public MultipleBotConfig MultipleBotConfig => _settings.MultipleBotConfig;
         public List<AuthConfig> Bots => _settings.Auth.Bots;
         public bool AllowMultipleBot => _settings.Auth.AllowMultipleBot;

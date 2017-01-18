@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
+using PoGo.NecroBot.Logic.Logging;
 
 namespace PoGo.NecroBot.Logic.Captcha
 {
     public class TwoCaptchaClient
     {
         public string APIKey { get; private set; }
+
         public TwoCaptchaClient(string apiKey)
         {
             APIKey = apiKey;
@@ -64,7 +62,7 @@ namespace PoGo.NecroBot.Logic.Captcha
                         if (response.Substring(0, 3) == "OK|")
                         {
                             string captchaID = response.Remove(0, 3);
-                            Logging.Logger.Write($"Captcha has been sent to 2Captcha, Your captcha ID :  {captchaID}");
+                            Logger.Write($"Captcha has been sent to 2Captcha, Your captcha ID :  {captchaID}");
 
                             for (int i = 0; i < 29; i++)
                             {
@@ -85,30 +83,27 @@ namespace PoGo.NecroBot.Logic.Captcha
                                         {
                                             return answerResponse.Remove(0, 3);
                                         }
-                                        else if (answerResponse != "CAPCHA_NOT_READY") 
+                                        else if (answerResponse != "CAPCHA_NOT_READY")
                                         {
                                             return string.Empty;
                                         }
                                     }
-                                    Logging.Logger.Write($"Waiting response captcha from 2Captcha workers...");
-
+                                    Logger.Write($"Waiting response captcha from 2Captcha workers...");
                                 }
 
                                 await Task.Delay(3000);
                             }
                             return string.Empty;
                         }
-
                     }
                 }
             }
-            catch(Exception ex) {
-                Logging.Logger.Write($"2Captcha Error :  {ex.Message}");
+            catch (Exception ex)
+            {
+                Logger.Write($"2Captcha Error :  {ex.Message}");
             }
             return string.Empty;
         }
-
-       
     }
 
     public enum ProxyType

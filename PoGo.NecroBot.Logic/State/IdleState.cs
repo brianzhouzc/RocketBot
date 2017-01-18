@@ -1,12 +1,8 @@
-﻿using PoGo.NecroBot.Logic.Event;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using PoGo.NecroBot.Logic.Event;
 
 namespace PoGo.NecroBot.Logic.State
 {
@@ -16,19 +12,24 @@ namespace PoGo.NecroBot.Logic.State
         {
             using (var client = new HttpClient())
             {
-
                 try
                 {
                     await client.GetStringAsync("http://hashing.pogodev.io/api/hash/versions");
                     return true;
                 }
-                catch (Exception) { }
+                catch (Exception)
+                {
                 }
+            }
             return false;
         }
+
         public async Task<IState> Execute(ISession session, CancellationToken cancellationToken)
         {
-            session.EventDispatcher.Send(new WarnEvent() { Message = "Hash server being down, Bot will enter IDLE state until service available. Ping internal is 60 sec, press any key to ping service.... " });
+            session.EventDispatcher.Send(new WarnEvent()
+            {
+                Message = "Hash server being down, Bot will enter IDLE state until service available. Ping internal is 60 sec, press any key to ping service.... "
+            });
 
             Console.WriteLine();
 
@@ -52,12 +53,14 @@ namespace PoGo.NecroBot.Logic.State
                     }
                     else
                     {
-                        Thread.Sleep(1000);                                                                                            
+                        Thread.Sleep(1000);
                         Console.SetCursorPosition(0, Console.CursorTop - 1);
                         var ts = DateTime.Now - start;
-                        session.EventDispatcher.Send( new ErrorEvent() { Message = $"Hash API server down time : {ts.ToString(@"hh\:mm\:ss")}   Last ping: {lastPing.ToString("T")}" });
+                        session.EventDispatcher.Send(new ErrorEvent()
+                        {
+                            Message = $"Hash API server down time : {ts.ToString(@"hh\:mm\:ss")}   Last ping: {lastPing.ToString("T")}"
+                        });
                     }
-
                 }
             }
 

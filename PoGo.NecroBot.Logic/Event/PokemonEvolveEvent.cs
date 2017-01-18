@@ -17,12 +17,12 @@ namespace PoGo.NecroBot.Logic.Event
         public ulong UniqueId;
         public EvolvePokemonResponse.Types.Result Result;
 
-        public int Sequence { get;  set; }
-        public PokemonData EvolvedPokemon { get;  set; }
-        public ulong OriginalId { get;  set; }
+        public int Sequence { get; set; }
+        public PokemonData EvolvedPokemon { get; set; }
+        public ulong OriginalId { get; set; }
         public PokemonSettings PokemonSetting { get; set; }
 
 
-        public Candy  Family { get; set; }
+        public Candy Family { get; set; }
     }
 }

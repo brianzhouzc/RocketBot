@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+﻿using System.Collections.Generic;
 using GeoCoordinatePortable;
-using PoGo.NecroBot.Logic.Model.Google.GoogleObjects;
 using Newtonsoft.Json;
 
 namespace PoGo.NecroBot.Logic.Model.Yours
@@ -51,7 +47,7 @@ namespace PoGo.NecroBot.Logic.Model.Yours
                 Waypoints.Add(new GeoCoordinate(coordinate.ToArray()[1], coordinate.ToArray()[0]));
             }
         }
-        
+
         public static YoursWalk Get(string yoursResponse)
         {
             return new YoursWalk(yoursResponse);

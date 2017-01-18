@@ -16,7 +16,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
             Operator = "or";
         }
 
-        
+
         public EvolveFilter(int evolveIV, int evolveLV, int minCP, List<List<PokemonMove>> moves = null)
         {
             EnableEvolve = true;
@@ -32,7 +32,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 1)]
         public bool EnableEvolve { get; set; }
 
-        [ExcelConfig(Key = "Evolve Min IV" , Description ="Min IV for auto evolve", Position =2)]
+        [ExcelConfig(Key = "Evolve Min IV", Description = "Min IV for auto evolve", Position = 2)]
         [DefaultValue(95)]
         [Range(0, 100)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 1)]
@@ -50,7 +50,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 1)]
         public int MinCP { get; set; }
 
-        [ExcelConfig(Key = "Moves" , Description ="Define list of desire move for evolve", Position =5)]
+        [ExcelConfig(Key = "Moves", Description = "Define list of desire move for evolve", Position = 5)]
         [DefaultValue(null)]
         [JsonProperty(Required = Required.Default, DefaultValueHandling = DefaultValueHandling.Populate, Order = 2)]
         public List<List<PokemonMove>> Moves { get; set; }
@@ -65,9 +65,9 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         {
             return new Dictionary<PokemonId, EvolveFilter>
             {
-                { PokemonId.Zubat, new EvolveFilter(0, 0,0 ,new List<List<PokemonMove>>() { }) }   ,
-                { PokemonId.Pidgey, new EvolveFilter(0, 0,0 ,new List<List<PokemonMove>>() { }) } ,
-                { PokemonId.Caterpie, new EvolveFilter(0, 0,0 ,new List<List<PokemonMove>>() { }) }
+                {PokemonId.Zubat, new EvolveFilter(0, 0, 0, new List<List<PokemonMove>>() { })},
+                {PokemonId.Pidgey, new EvolveFilter(0, 0, 0, new List<List<PokemonMove>>() { })},
+                {PokemonId.Caterpie, new EvolveFilter(0, 0, 0, new List<List<PokemonMove>>() { })}
             };
         }
     }

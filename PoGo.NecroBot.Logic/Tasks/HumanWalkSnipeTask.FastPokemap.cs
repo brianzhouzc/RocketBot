@@ -1,16 +1,15 @@
-﻿using Newtonsoft.Json;
-using PoGo.NecroBot.Logic.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks;
-using POGOProtos.Enums;
-using PoGo.NecroBot.Logic.State;
-using System.Threading;
-using PoGo.NecroBot.Logic.Utils;
-using System.Diagnostics;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using PoGo.NecroBot.Logic.Logging;
+using PoGo.NecroBot.Logic.State;
+using POGOProtos.Enums;
 
 namespace PoGo.NecroBot.Logic.Tasks
 {
@@ -19,6 +18,7 @@ namespace PoGo.NecroBot.Logic.Tasks
         private static string ip;
 
         private static Task taskDataLive;
+
         public class FastPokemapItem
         {
             public class Lnglat
@@ -48,10 +48,9 @@ namespace PoGo.NecroBot.Logic.Tasks
                 ip = Regex.Match(task.Result, p).Value;
             }
             return ip;
-
         }
-        
-        public static async Task StartFastPokemapAsync(ISession session , CancellationToken cancellationToken)
+
+        public static async Task StartFastPokemapAsync(ISession session, CancellationToken cancellationToken)
         {
             await Task.Delay(0); // Just added to get rid of compiler warning. Remove this if async code is used below.
 
@@ -109,12 +108,18 @@ namespace PoGo.NecroBot.Logic.Tasks
                                 chunk.Add(pItem);
                             }
                         }
+                        // TODO - await is legal here! USE it or use pragma to suppress compilerwarning and write a comment why it is not used
+                        // TODO: Attention - do not touch (add pragma) when you do not know what you are doing ;)
                         PostProcessDataFetched(chunk, false);
                     }
                     catch
                     {
+                        // TODO Bad practice! Wanna log this?
                     }
-                    finally { y += step; };
+                    finally
+                    {
+                        y += step;
+                    }
                 }
                 x += step;
             }
@@ -123,14 +128,16 @@ namespace PoGo.NecroBot.Logic.Tasks
         private static void StartAsyncPollingTask(ISession session, CancellationToken cancellationToken)
         {
             return;
+
+            // TODO unreachable
             if (!session.LogicSettings.HumanWalkingSnipeUseFastPokemap) return;
 
             if (taskDataLive != null && !taskDataLive.IsCompleted) return;
-            taskDataLive = Task.Run(() =>  
+            taskDataLive = Task.Run(() =>
             {
-				while(true)
+                while (true)
                 {
-                    try                                                
+                    try
                     {
                         string key = "d39dbc96-e963-4747-89f6-15b18441b6a5";
                         string ts = "6ff886bc";
@@ -143,16 +150,13 @@ namespace PoGo.NecroBot.Logic.Tasks
                             var api = $"https://api.fastpokemap.se/?key={key}&ts={ts}&lat={lat}&lng={lng}";
                             content = DownloadContent(api).Result;
                             Task.Delay(2000).Wait();
-                        }
-                        while (content.Contains("error"));
+                        } while (content.Contains("error"));
 
                         Task.Delay(1 * 60 * 1000).Wait();
                     }
                     catch
                     {
-                        
                     }
-                    
                 }
             });
         }
@@ -176,13 +180,12 @@ namespace PoGo.NecroBot.Logic.Tasks
             realName[0] = t;
             try
             {
-                var p = (PokemonId)Enum.Parse(typeof(PokemonId), realName.ToString());
-                return (int)p;
+                var p = (PokemonId) Enum.Parse(typeof(PokemonId), realName.ToString());
+                return (int) p;
             }
-            
+
             catch (Exception)
             {
-
             }
             return 0;
         }
@@ -194,7 +197,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                 RequestUri = new Uri(url),
                 Method = HttpMethod.Get,
             };
-            request.Headers.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             request.Headers.Add("origin", "https://fastpokemap.se");
             request.Headers.Add("authority", "cache.fastpokemap.se");
 
@@ -202,7 +205,6 @@ namespace PoGo.NecroBot.Logic.Tasks
 
             using (HttpClient client = new HttpClient())
             {
-
                 try
                 {
                     var task = await client.SendAsync(request);
@@ -210,7 +212,6 @@ namespace PoGo.NecroBot.Logic.Tasks
                 }
                 catch (Exception)
                 {
-
                 }
             }
 
@@ -220,17 +221,19 @@ namespace PoGo.NecroBot.Logic.Tasks
         private static async Task<List<SnipePokemonInfo>> FetchFromFastPokemap(double lat, double lng)
         {
             return new List<SnipePokemonInfo>();
+
+            // TODO unreachable
             List<SnipePokemonInfo> results = new List<SnipePokemonInfo>();
             if (!_setting.HumanWalkingSnipeUseFastPokemap) return results;
 
             //var startFetchTime = DateTime.Now;
             try
             {
-                string key = "20d638c9-c5b3-40cf-bf8b-1c9c52cc2cc2";//allow-all
+                string key = "20d638c9-c5b3-40cf-bf8b-1c9c52cc2cc2"; //allow-all
                 string ts = "18503bfe";
 
                 string url = $"https://cache.fastpokemap.se/?key={key}&ts={ts}&lat={lat}&lng={lng}";
-                
+
                 var json = await DownloadContent(url);
                 var data = JsonConvert.DeserializeObject<List<FastPokemapItem>>(json);
                 foreach (var item in data)

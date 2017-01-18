@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PoGo.NecroBot.Logic.Model.Settings
 {
     public class BaseConfig
     {
-        public BaseConfig   ()
+        public BaseConfig()
         {
             PropertyInfo[] props = this.GetType().GetProperties();
             foreach (PropertyInfo prop in props)
