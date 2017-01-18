@@ -32,6 +32,7 @@ namespace PoGo.NecroBot.Logic.Utils
         public int TotalExperience;
         public int TotalItemsRemoved;
         public int TotalPokemons = 0;
+        public int TotalPokemonEvolved = 0;
         public int TotalPokestops = 0;
         public int TotalPokemonTransferred;
         public int TotalStardust;
@@ -171,6 +172,7 @@ namespace PoGo.NecroBot.Logic.Utils
             this.TotalExperience = 0;
             this.TotalItemsRemoved = 0;
             this.TotalPokemons = 0;
+            this.TotalPokemonEvolved = 0;
             this.TotalPokestops = 0;
             this.TotalStardust = 0;
             this.TotalPokemonTransferred = 0;
