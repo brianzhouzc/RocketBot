@@ -192,7 +192,7 @@ namespace RocketBot2
                 // Comment Suppress compiler warning - ex is used in DEBUG section
                 #if DEBUG
                 Logger.Write("ERROR TO ADD SNIPE< DEBUG ONLY " + ex.Message + "\r\n " + ex.StackTrace,
-                    Logic.Logging.LogLevel.Info, ConsoleColor.Yellow);
+                    PoGo.NecroBot.Logic.Logging.LogLevel.Info, ConsoleColor.Yellow);
                 #endif
             }
         }
@@ -285,7 +285,7 @@ namespace RocketBot2
                 if (caught)
                 {
                     Logger.Write("[SNIPE IGNORED] - Your snipe pokemon has already been cautgh by bot",
-                        Logic.Logging.LogLevel.Sniper);
+                        PoGo.NecroBot.Logic.Logging.LogLevel.Sniper);
                     return;
                 }
 
