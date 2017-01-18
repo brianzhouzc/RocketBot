@@ -1,47 +1,30 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
+using PoGo.NecroBot.Logic.Common;
 using PoGo.NecroBot.Logic.State;
+using PoGo.NecroBot.Logic.Tasks;
 
 namespace PoGo.NecroBot.Logic.Service.TelegramCommand
 {
     public class RecycleCommand : CommandMessage
     {
-        public override string Command => "/logs";
-        public override string Description => "<n> send last n line in logs file, default 10 if not provide";
+        public override string Command => "/recycle";
         public override bool StopProcess => true;
+        public override TranslationString DescriptionI18NKey => TranslationString.TelegramCommandRecycleDescription;
+        public override TranslationString MsgHeadI18NKey => TranslationString.TelegramCommandRecycleMsgHead;
 
         public RecycleCommand(TelegramUtils telegramUtils) : base(telegramUtils)
         {
         }
 
-        #pragma warning disable 1998 // added to get rid of compiler warning. Remove this if async code is used below.
-        public override async Task<bool> OnCommand(ISession session,string commandText, Action<string> Callback)
-        #pragma warning restore 1998
+        public override async Task<bool> OnCommand(ISession session, string commandText, Action<string> callback)
         {
             var cmd = commandText.Split(' ');
 
             if (cmd[0].ToLower() == Command)
             {
-                // var fi = new FileInfo(Assembly.GetExecutingAssembly().Location);
-                var logPath = "logs";
-
-                DirectoryInfo di = new DirectoryInfo(logPath);
-                var last = di.GetFiles().OrderByDescending(p => p.LastWriteTime).First();
-                var alllines = File.ReadAllLines(last.FullName);
-                int numberOfLines = 10;
-                if (cmd.Length > 1)
-                {
-                    numberOfLines = Convert.ToInt32(cmd[1]);
-                }
-                var last10Lines = alllines.Skip(Math.Max(0, alllines.Length - numberOfLines));
-                var message = "";
-                foreach (var item in last10Lines)
-                {
-                    message += item + "\r\n";
-                }
-                Callback(message);
+                await RecycleItemsTask.Execute(session, session.CancellationTokenSource.Token);
+                callback(GetMsgHead(session, session.Profile.PlayerData.Username) + "\r\n\r\n");
                 return true;
             }
             return false;

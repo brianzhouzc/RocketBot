@@ -429,10 +429,6 @@
       "Value": " \n WP: {0} | IV : {1}% | Move: {2} + {3} | Name: {4}"
     },
     {
-      "Key": "HelpTemplate",
-      "Value": "Befehlsuebersicht:\n\nRucksack:\n/all - Listet Pokemon\n/all <cp|iv> - ... sortiert nach WP oder IV\n/top - Listet Top 10 Pokemon\n/top <cp|iv> - ... sortiert nach WP oder IV\n/top <cp|iv> <n> - ... zeige 'n' Stueck (statt 10)\n/items - Listet Items\n/recycle - Recycle Items sofort\n\nSpieler:\n/profile - Zeige Profil\n/pokedex - Zeige Pokedex\n/loc - Zeige Position\n\nBot:\n/status - Laufzeitinformationen\n/logs - Listet die letzten 10 Log-Eintraege\n/logs <n> ... Listet die letzten 'n' Log-Eintraege\n/snipe <pokemon,lat,lng> - Snipe das Pokemon\n/accounts - Zeige die konfigurierten Accounts (Multibot)\n/restart - Bot neustarten\n/exit - Bot schließen\n\nMisc:\n/help - Zeigt diese Hilfe"
-    },
-    {
       "Key": "StatsXpTemplateString",
       "Value": "{0} (Aufstieg in {1}h {2}m | {3:n0}/{4:n0} EP)"
     },

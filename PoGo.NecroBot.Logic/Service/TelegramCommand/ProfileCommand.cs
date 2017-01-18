@@ -9,18 +9,19 @@ namespace PoGo.NecroBot.Logic.Service.TelegramCommand
     public class ProfileCommand : CommandMessage
     {
         public override string Command => "/profile";
-        public override string Description => "Shows your profile. ";
         public override bool StopProcess => true;
+        public override TranslationString DescriptionI18NKey => TranslationString.TelegramCommandProfileDescription;
+        public override TranslationString MsgHeadI18NKey => TranslationString.TelegramCommandProfileMsgHead;
 
         public ProfileCommand(TelegramUtils telegramUtils) : base(telegramUtils)
         {
         }
 
-        public override async Task<bool> OnCommand(ISession session, string cmd, Action<string> Callback)
+        public override async Task<bool> OnCommand(ISession session, string cmd, Action<string> callback)
         {
             if (cmd.ToLower() == Command)
             {
-                string answerTextmessage = "";
+                var answerTextmessage = GetMsgHead(session, session.Profile.PlayerData.Username) + "\r\n\r\n";
 
                 var stats = session.Inventory.GetPlayerStats().Result;
                 var stat = stats.FirstOrDefault();
@@ -33,7 +34,7 @@ namespace PoGo.NecroBot.Logic.Service.TelegramCommand
                         stat.PokeStopVisits, stat.EggsHatched, stat.Evolutions, stat.UniquePokedexEntries,
                         stat.KmWalked,
                         myPokemons2.ToList().Count, session.Profile.PlayerData.MaxPokemonStorage);
-                Callback(answerTextmessage);
+                callback(answerTextmessage);
                 return true;
             }
             return false;
