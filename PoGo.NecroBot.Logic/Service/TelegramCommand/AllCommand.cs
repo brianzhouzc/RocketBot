@@ -1,72 +1,68 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PoGo.NecroBot.Logic.Common;
 using PoGo.NecroBot.Logic.PoGoUtils;
 using PoGo.NecroBot.Logic.State;
+using POGOProtos.Data;
+using static System.Text.RegularExpressions.Regex;
 
 namespace PoGo.NecroBot.Logic.Service.TelegramCommand
 {
     public class AllCommand : CommandMessage
     {
+        private const string DefaultOrderBy = "cp";
+
+        private string CommandParseRegex => "^(\\" + Command + ")(?>\\s+(?<orderBy>iv|cp))?\\s*";
+
         public override string Command => "/all";
-        public override string Description => "<cp/iv> - Shows your Pokemons.";
+        public override string Arguments => "[iv|cp]";
         public override bool StopProcess => true;
+        public override TranslationString DescriptionI18NKey => TranslationString.TelegramCommandAllDescription;
+        public override TranslationString MsgHeadI18NKey => TranslationString.TelegramCommandAllMsgHead;
 
         public AllCommand(TelegramUtils telegramUtils) : base(telegramUtils)
         {
         }
 
-        public override async Task<bool> OnCommand(ISession session, string cmd, Action<string> Callback)
+        public override async Task<bool> OnCommand(ISession session, string cmd, Action<string> callback)
         {
-            string[] messagetext = cmd.Split(' ');
+            var commandMatch = Match(cmd, CommandParseRegex);
 
-            if (messagetext[0].ToLower() == Command)
+            if (!commandMatch.Success)
             {
-                var answerTextmessage = "";
-                var myPokemons = await session.Inventory.GetPokemons();
-                var allMyPokemons = myPokemons.ToList();
-                var allPokemons = await session.Inventory.GetHighestsCp(allMyPokemons.Count);
-
-                if (messagetext.Length == 1)
-                {
-                    allPokemons = await session.Inventory.GetHighestsCp(allMyPokemons.Count);
-                }
-                else if (messagetext.Length == 2)
-                {
-                    if (messagetext[1] == "iv")
-                    {
-                        allPokemons = await session.Inventory.GetHighestsPerfect(allMyPokemons.Count);
-                    }
-                    else if (messagetext[1] != "cp")
-                    {
-                        answerTextmessage =
-                            session.Translation.GetTranslation(TranslationString.UsageHelp, "/all [cp/iv]");
-                    }
-                }
-                else
-                {
-                    answerTextmessage =
-                        session.Translation.GetTranslation(TranslationString.UsageHelp, "/all [cp/iv]");
-                }
-
-                foreach (var pokemon in allPokemons)
-                {
-                    answerTextmessage += session.Translation.GetTranslation(TranslationString.ShowPokeTemplate,
-                        pokemon.Cp, PokemonInfo.CalculatePokemonPerfection(pokemon).ToString("0.00"),
-                        session.Translation.GetPokemonTranslation(pokemon.PokemonId));
-
-                    if (answerTextmessage.Length > 3800)
-                    {
-                        Callback(answerTextmessage);
-                        answerTextmessage = "";
-                    }
-                }
-
-                Callback(answerTextmessage);
-                return true;
+                return false;
             }
-            return false;
+
+            // Parse orderBy
+            var orderBy = string.IsNullOrEmpty(commandMatch.Groups["orderBy"].Value)
+                ? DefaultOrderBy
+                : commandMatch.Groups["orderBy"].Value;
+
+            var allPokemonCount = (await session.Inventory.GetPokemons()).Count();
+
+            // Get all Pokemon and 'orderBy' -> will never be null
+            var topPokemon = string.Equals("iv", orderBy)
+                ? await session.Inventory.GetHighestsPerfect(allPokemonCount)
+                : await session.Inventory.GetHighestsCp(allPokemonCount);
+
+            var topPokemonList = topPokemon as IList<PokemonData> ?? topPokemon.ToList();
+
+            var answerTextmessage = GetMsgHead(session, session.Profile.PlayerData.Username, topPokemonList.Count) + "\r\n\r\n";
+            answerTextmessage = topPokemonList.Aggregate(answerTextmessage, (current, pokemon)
+                => current + session.Translation.GetTranslation(
+                       TranslationString.ShowPokeSkillTemplate,
+                       pokemon.Cp,
+                       PokemonInfo.CalculatePokemonPerfection(pokemon).ToString("0.00"),
+                       session.Translation.GetPokemonMovesetTranslation(PokemonInfo.GetPokemonMove1(pokemon)),
+                       session.Translation.GetPokemonMovesetTranslation(PokemonInfo.GetPokemonMove2(pokemon)),
+                       session.Translation.GetPokemonTranslation(pokemon.PokemonId)
+                   )
+            );
+
+            callback(answerTextmessage);
+            return true;
         }
     }
 }

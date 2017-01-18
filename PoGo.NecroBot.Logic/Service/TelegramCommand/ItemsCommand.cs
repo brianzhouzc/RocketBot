@@ -9,18 +9,19 @@ namespace PoGo.NecroBot.Logic.Service.TelegramCommand
     public class ItemsCommand : CommandMessage
     {
         public override string Command => "/items";
-        public override string Description => "Shows your items.";
         public override bool StopProcess => true;
+        public override TranslationString DescriptionI18NKey => TranslationString.TelegramCommandItemsDescription;
+        public override TranslationString MsgHeadI18NKey => TranslationString.TelegramCommandItemsMsgHead;
 
         public ItemsCommand(TelegramUtils telegramUtils) : base(telegramUtils)
         {
         }
 
-        public override async Task<bool> OnCommand(ISession session, string cmd, Action<string> Callback)
+        public override async Task<bool> OnCommand(ISession session, string cmd, Action<string> callback)
         {
             if (cmd.ToLower() == Command)
             {
-                var answerTextmessage = "";
+                string answerTextmessage = GetMsgHead(session, session.Profile.PlayerData.Username) + "\r\n\r\n";
                 var inventory = session.Inventory;
                 answerTextmessage += session.Translation.GetTranslation(TranslationString.CurrentPokeballInv,
                     await inventory.GetItemAmountByType(ItemId.ItemPokeBall),
@@ -50,7 +51,7 @@ namespace PoGo.NecroBot.Logic.Service.TelegramCommand
                     await session.Inventory.GetItemAmountByType(ItemId.ItemIncenseFloral),
                     await session.Inventory.GetItemAmountByType(ItemId.ItemLuckyEgg),
                     await session.Inventory.GetItemAmountByType(ItemId.ItemTroyDisk));
-                Callback(answerTextmessage);
+                callback(answerTextmessage);
                 return true;
             }
             return false;

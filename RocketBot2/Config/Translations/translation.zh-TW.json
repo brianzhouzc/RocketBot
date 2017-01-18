@@ -497,11 +497,6 @@
       "Value": "\n CP： {0} | IV： {1}% | 技能: {2} + {3} | 名稱： {4}"
     },
     {
-      "Key": "helpTemplate",
-      "Value": "指令： \n \n /top <cp/iv> <數量> - 顯示最高級的神奇寶貝列表。 \t\t\n /all <cp/iv> - 顯示所有神奇寶貝列表. \t\t\n /profile - 顯示個人訊息。 \t\t\n /loc - 顯示位置。\t\t\n /items - 顯示物品。\t\t\n /status - 顯示外掛狀態。 \t\t\n /pokedex - 顯視圖鑑。x\t\t"
-
-    },
-    {
       "Key": "statsXpTemplateString",
       "Value": "{0} (預計升級時間 {1}小時{2}分鐘 | {3}/{4}經驗)"
     },

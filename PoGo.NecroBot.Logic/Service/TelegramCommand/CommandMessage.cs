@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using PoGo.NecroBot.Logic.Common;
 using PoGo.NecroBot.Logic.Event;
 using PoGo.NecroBot.Logic.State;
 using Telegram.Bot.Types;
@@ -8,26 +9,28 @@ namespace PoGo.NecroBot.Logic.Service.TelegramCommand
 {
     public abstract class CommandMessage : ICommandGenerify<string>
     {
-        protected readonly TelegramUtils telegramUtils;
+        protected readonly TelegramUtils TelegramUtils;
 
-        public CommandMessage(TelegramUtils telegramUtils)
+        protected CommandMessage(TelegramUtils telegramUtils)
         {
-            this.telegramUtils = telegramUtils;
+            TelegramUtils = telegramUtils;
         }
 
         public abstract string Command { get; }
-        public abstract string Description { get; }
+        public virtual string Arguments => "";
         public abstract bool StopProcess { get; }
+        public abstract TranslationString DescriptionI18NKey { get; }
+        public abstract TranslationString MsgHeadI18NKey { get; }
 
         public abstract Task<bool> OnCommand(ISession session, string cmd, Action<string> callback);
 
         public Task<bool> OnCommand(ISession session, string cmd, Message telegramMessage)
         {
-            Action<string> callback = async (string msg) =>
+            Action<string> callback = async msg =>
             {
                 try
                 {
-                    await telegramUtils.SendMessage(msg, telegramMessage.Chat.Id);
+                    await TelegramUtils.SendMessage(msg, telegramMessage.Chat.Id);
                 }
                 catch (Exception ex)
                 {
@@ -35,8 +38,16 @@ namespace PoGo.NecroBot.Logic.Service.TelegramCommand
                     session.EventDispatcher.Send(new ErrorEvent {Message = "Unkown Telegram Error occured. "});
                 }
             };
-
             return OnCommand(session, cmd, callback);
         }
+
+        public string GetDescription(ISession session, params object[] data) =>
+            session.Translation.GetTranslation(DescriptionI18NKey, data);
+
+        public virtual string GetDescription(ISession session) =>
+            session.Translation.GetTranslation(DescriptionI18NKey);
+
+        public string GetMsgHead(ISession session, params object[] data) =>
+            session.Translation.GetTranslation(MsgHeadI18NKey, data);
     }
 }
