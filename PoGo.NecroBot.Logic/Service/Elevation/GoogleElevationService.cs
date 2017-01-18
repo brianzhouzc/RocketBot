@@ -1,10 +1,11 @@
-﻿using Caching;
-using Newtonsoft.Json;
-using PoGo.NecroBot.Logic.Model.Settings;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using Caching;
+using Newtonsoft.Json;
+using PoGo.NecroBot.Logic.Exceptions;
+using PoGo.NecroBot.Logic.Model.Settings;
 
 namespace PoGo.NecroBot.Logic.Service.Elevation
 {
@@ -48,7 +49,7 @@ namespace PoGo.NecroBot.Logic.Service.Elevation
             try
             {
                 string url = $"https://maps.googleapis.com/maps/api/elevation/json?key={_apiKey}&locations={lat},{lng}";
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                HttpWebRequest request = (HttpWebRequest) WebRequest.Create(url);
                 request.Credentials = CredentialCache.DefaultCredentials;
                 request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.121 Safari/535.2";
                 request.ContentType = "application/json";
@@ -63,19 +64,20 @@ namespace PoGo.NecroBot.Logic.Service.Elevation
                         responseFromServer = reader.ReadToEnd();
                         GoogleResponse googleResponse = JsonConvert.DeserializeObject<GoogleResponse>(responseFromServer);
 
-                        if (googleResponse.status == "OK" && googleResponse.results != null && 0 < googleResponse.results.Count && googleResponse.results[0].elevation > -100)
+                        if (googleResponse.status == "OK" && googleResponse.results != null &&
+                            0 < googleResponse.results.Count && googleResponse.results[0].elevation > -100)
                             return googleResponse.results[0].elevation;
 
                         // All error handling is handled inside of the ElevationService.
                     }
                 }
             }
-            catch(Exceptions.ActiveSwitchByRuleException ex)
+            catch (ActiveSwitchByRuleException ex)
             {
                 throw ex;
             }
-            
-            catch(Exception)
+
+            catch (Exception)
             {
                 // If we get here for any reason, then just drop down and return 0.
             }

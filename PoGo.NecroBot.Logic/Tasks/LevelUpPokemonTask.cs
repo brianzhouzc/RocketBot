@@ -4,11 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using PoGo.NecroBot.Logic.Logging;
+using PoGo.NecroBot.Logic.Event;
 using PoGo.NecroBot.Logic.PoGoUtils;
 using PoGo.NecroBot.Logic.State;
 using POGOProtos.Data;
-using PoGo.NecroBot.Logic.Event;
 using POGOProtos.Inventory;
 using POGOProtos.Settings.Master;
 
@@ -21,9 +20,11 @@ namespace PoGo.NecroBot.Logic.Tasks
         public static List<PokemonData> Upgrade = new List<PokemonData>();
         private static IEnumerable<PokemonData> upgradablePokemon;
 
-        private  static async Task<bool> UpgradeSinglePokemon(ISession session, PokemonData pokemon, List<Candy> pokemonFamilies, List<PokemonSettings> pokemonSettings) {
+        private static async Task<bool> UpgradeSinglePokemon(ISession session, PokemonData pokemon,
+            List<Candy> pokemonFamilies, List<PokemonSettings> pokemonSettings)
+        {
             if (PokemonInfo.GetLevel(pokemon) >=
-                                 session.Inventory.GetPlayerStats().Result.FirstOrDefault().Level + 1) return false;
+                session.Inventory.GetPlayerStats().Result.FirstOrDefault().Level + 1) return false;
 
             var settings = pokemonSettings.Single(x => x.PokemonId == pokemon.PokemonId);
             var familyCandy = pokemonFamilies.Single(x => settings.FamilyId == x.FamilyId);
@@ -35,8 +36,10 @@ namespace PoGo.NecroBot.Logic.Tasks
             if (upgradeResult.UpgradedPokemon != null)
             {
                 var bestPokemonOfType = (session.LogicSettings.PrioritizeIvOverCp
-                    ? await session.Inventory.GetHighestPokemonOfTypeByIv(upgradeResult.UpgradedPokemon)
-                    : await session.Inventory.GetHighestPokemonOfTypeByCp(upgradeResult.UpgradedPokemon)) ?? upgradeResult.UpgradedPokemon;
+                                            ? await session.Inventory.GetHighestPokemonOfTypeByIv(upgradeResult
+                                                .UpgradedPokemon)
+                                            : await session.Inventory.GetHighestPokemonOfTypeByCp(upgradeResult
+                                                .UpgradedPokemon)) ?? upgradeResult.UpgradedPokemon;
 
                 if (upgradeResult.Result.ToString().ToLower().Contains("success"))
                 {
@@ -52,8 +55,8 @@ namespace PoGo.NecroBot.Logic.Tasks
                 }
             }
             return true;
-
         }
+
         public static async Task Execute(ISession session, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -63,7 +66,7 @@ namespace PoGo.NecroBot.Logic.Tasks
             if (session.Inventory.GetStarDust() <= session.LogicSettings.GetMinStarDustForLevelUp)
                 return;
             upgradablePokemon = await session.Inventory.GetPokemonToUpgrade();
-                      
+
             if (upgradablePokemon.Count() == 0)
                 return;
 
@@ -79,7 +82,7 @@ namespace PoGo.NecroBot.Logic.Tasks
             foreach (var pokemon in upgradablePokemon)
             {
                 //code seem wrong. need need refactore to cleanup code here.
-                if (session.LogicSettings.UseLevelUpList && PokemonToLevel!=null)
+                if (session.LogicSettings.UseLevelUpList && PokemonToLevel != null)
                 {
                     for (int i = 0; i < PokemonToLevel.Count; i++)
                     {
@@ -100,7 +103,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                 }
                 else
                 {
-                    await UpgradeSinglePokemon(session, pokemon, pokemonFamilies, pokemonSettings); ;
+                    await UpgradeSinglePokemon(session, pokemon, pokemonFamilies, pokemonSettings);
                     await Task.Delay(session.LogicSettings.DelayBetweenPlayerActions);
                 }
             }

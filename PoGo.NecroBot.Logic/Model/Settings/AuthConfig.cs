@@ -6,11 +6,13 @@ using PokemonGo.RocketAPI.Enums;
 
 namespace PoGo.NecroBot.Logic.Model.Settings
 {
-    [JsonObject(Title = "Authentication Config", Description = "Set your authentication type (Google or Ptc) and your login informartion.", ItemRequired = Required.DisallowNull)]
+    [JsonObject(Title = "Authentication Config",
+         Description = "Set your authentication type (Google or Ptc) and your login informartion.",
+         ItemRequired = Required.DisallowNull)]
     public class AuthConfig
     {
         [DefaultValue("google")]
-        [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 1)]
+        [JsonProperty(Required = Required.DisallowNull,DefaultValueHandling = DefaultValueHandling.Populate, Order = 1)]
         public AuthType AuthType = AuthType.Google;
 
         [DefaultValue(null)]

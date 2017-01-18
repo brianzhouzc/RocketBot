@@ -1,10 +1,10 @@
-﻿using LiteDB;
-using PoGo.NecroBot.Logic.Common;
-using PoGo.NecroBot.Logic.Event;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading;
+using LiteDB;
+using PoGo.NecroBot.Logic.Common;
+using PoGo.NecroBot.Logic.Event;
+using PokemonGo.RocketAPI.Enums;
 
 namespace PoGo.NecroBot.Logic.State
 {
@@ -12,7 +12,7 @@ namespace PoGo.NecroBot.Logic.State
     {
         const string DB_NAME = @"SessionStats.db";
         const string POKESTOP_STATS_COLLECTION = "PokeStopTimestamps";
-        const string POKEMON_STATS_COLLECTION  = "PokemonTimestamps";
+        const string POKEMON_STATS_COLLECTION = "PokemonTimestamps";
 
         public int SnipeCount { get; set; }
         public DateTime LastSnipeTime { get; set; }
@@ -33,7 +33,9 @@ namespace PoGo.NecroBot.Logic.State
         {
             public Int64 Timestamp { get; set; }
         }
+
         DateTime lastPrintPokestopMessage = DateTime.Now;
+
         public bool SearchThresholdExceeds(ISession session, bool printMessage)
         {
             if (!session.LogicSettings.UsePokeStopLimit) return false;
@@ -75,7 +77,8 @@ namespace PoGo.NecroBot.Logic.State
 
 
         DateTime lastPrintCatchMessage = DateTime.Now;
-        public bool CatchThresholdExceeds(ISession session, bool printMessage=true)
+
+        public bool CatchThresholdExceeds(ISession session, bool printMessage = true)
         {
             if (!session.LogicSettings.UseCatchLimit) return false;
 
@@ -93,7 +96,6 @@ namespace PoGo.NecroBot.Logic.State
                     {
                         Message = session.Translation.GetTranslation(TranslationString.CatchLimitReached)
                     });
-
                 }
                 // _catchPokemonLimitReached = true;
                 return true;
@@ -113,6 +115,7 @@ namespace PoGo.NecroBot.Logic.State
 
             return false;
         }
+
         public bool IsPokestopLimit(ISession session)
         {
             if (!session.LogicSettings.UsePokeStopLimit) return false;
@@ -124,8 +127,9 @@ namespace PoGo.NecroBot.Logic.State
             //TODO - Other logic should come here, but I don't think we need
             return false;
         }
+
         public SessionStats(ISession session)
-        {                                                                                                                           
+        {
             StartTime = DateTime.Now;
             ownerSession = session;
             InitializeDatabase(session);
@@ -134,15 +138,17 @@ namespace PoGo.NecroBot.Logic.State
 
         public void InitializeDatabase(ISession session)
         {
-            string username = session.Settings.AuthType == PokemonGo.RocketAPI.Enums.AuthType.Ptc ? session.Settings.PtcUsername : session.Settings.GoogleUsername;
+            string username = session.Settings.AuthType == AuthType.Ptc
+                ? session.Settings.PtcUsername
+                : session.Settings.GoogleUsername;
             if (string.IsNullOrEmpty(username))
             {
                 //firsttime setup , don't need to initial database
                 return;
             }
             var path = Path.Combine(session.LogicSettings.ProfileConfigPath, username);
-            
-            if(!Directory.Exists(path))
+
+            if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
@@ -162,7 +168,7 @@ namespace PoGo.NecroBot.Logic.State
         {
             if (!pokestopTimestampCollection.Exists(s => s.Timestamp == ts))
             {
-                var stat = new PokeStopTimestamp { Timestamp = ts };
+                var stat = new PokeStopTimestamp {Timestamp = ts};
                 pokestopTimestampCollection.Insert(stat);
             }
         }
@@ -171,7 +177,7 @@ namespace PoGo.NecroBot.Logic.State
         {
             if (!pokemonTimestampCollection.Exists(s => s.Timestamp == ts))
             {
-                var stat = new PokemonTimestamp { Timestamp = ts };
+                var stat = new PokemonTimestamp {Timestamp = ts};
                 pokemonTimestampCollection.Insert(stat);
             }
         }

@@ -1,9 +1,5 @@
-﻿using POGOProtos.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using POGOProtos.Enums;
 
 namespace PoGo.NecroBot.Logic.Event
 {
@@ -16,8 +12,8 @@ namespace PoGo.NecroBot.Logic.Event
         public int Level { get; set; }
         public DateTime Expires { get; set; }
         public double ExpireTimestamp { get; set; }
-        public string SpawnPointId{ get; set; }
-        public string EncounterId { get;  set; }
+        public string SpawnPointId { get; set; }
+        public string EncounterId { get; set; }
         public string Move1 { get; set; }
         public string Move2 { get; set; }
         public bool IsRecievedFromSocket { get; set; }

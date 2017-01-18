@@ -1,10 +1,9 @@
 #region using directives
 
 using System;
+using System.Collections.Concurrent;
 using System.Text;
 using PoGo.NecroBot.Logic.Event;
-using System.Collections.Concurrent;
-using System.IO;
 using PoGo.NecroBot.Logic.State;
 
 #endregion
@@ -41,7 +40,7 @@ namespace PoGo.NecroBot.Logic.Logging
         {
             _session = session;
         }
-        
+
         /// <summary>
         ///     Log a specific message by LogLevel. Won't log if the LogLevel is greater than the maxLogLevel set.
         /// </summary>

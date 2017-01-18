@@ -6,7 +6,5 @@ namespace PoGo.NecroBot.Logic.Model.Google.GoogleObjects
         public string[] origin_addresses { get; set; }
         public Row[] rows { get; set; }
         public string status { get; set; }
-
-        
     }
 }

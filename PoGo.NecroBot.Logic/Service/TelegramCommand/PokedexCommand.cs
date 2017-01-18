@@ -1,26 +1,26 @@
-﻿using PoGo.NecroBot.Logic.Common;
-using PoGo.NecroBot.Logic.State;
-using POGOProtos.Enums;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using PoGo.NecroBot.Logic.Common;
+using PoGo.NecroBot.Logic.State;
+using POGOProtos.Enums;
 
 namespace PoGo.NecroBot.Logic.Service.TelegramCommand
 {
     public class PokedexCommand : CommandMessage
     {
-        public override string Command =>  "/pokedex";
-        public override string Description =>  "Shows you Pokedex. ";
+        public override string Command => "/pokedex";
+        public override string Description => "Shows you Pokedex. ";
         public override bool StopProcess => true;
 
         public PokedexCommand(TelegramUtils telegramUtils) : base(telegramUtils)
         {
         }
 
-        #pragma warning disable CS1998 // added to get rid of compiler warning. Remove this if async code is used below.
+        #pragma warning disable 1998  // added to get rid of compiler warning. Remove this if async code is used below.
         public override async Task<bool> OnCommand(ISession session,string cmd, Action<string> Callback)
+        #pragma warning restore 1998
         {
-
             if (cmd.ToLower() == Command)
             {
                 var pokedex = session.Inventory.GetPokeDexItems().Result;
@@ -71,7 +71,6 @@ namespace PoGo.NecroBot.Logic.Service.TelegramCommand
                 }
                 Callback(answerTextmessage);
                 return true;
-
             }
             return false;
         }

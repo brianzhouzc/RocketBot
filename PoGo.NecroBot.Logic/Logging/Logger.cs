@@ -1,10 +1,9 @@
 #region using directives
 
 using System;
-using System.Collections.Generic;
-using System.IO;
-using PoGo.NecroBot.Logic.State;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using PoGo.NecroBot.Logic.State;
 
 #endregion
 
@@ -13,7 +12,7 @@ namespace PoGo.NecroBot.Logic.Logging
     public static class Logger
     {
         private static List<ILogger> _loggers = new List<ILogger>();
-        
+
         private static ConcurrentQueue<string> LogbufferList = new ConcurrentQueue<string>();
         private static string _lastLogMessage;
 
@@ -24,7 +23,7 @@ namespace PoGo.NecroBot.Logic.Logging
                 logger?.TurnOffLogBuffering();
             }
         }
-        
+
         /// <summary>
         ///   Add a logger.
         /// </summary>
@@ -54,19 +53,20 @@ namespace PoGo.NecroBot.Logic.Logging
         /// <param name="message">The message to log.</param>
         /// <param name="level">Optional level to log. Default <see cref="LogLevel.Info" />.</param>
         /// <param name="color">Optional. Default is automatic color.</param>
-        public static void Write(string message, LogLevel level = LogLevel.Info, ConsoleColor color = ConsoleColor.Black, bool force = false)
+        public static void Write(string message, LogLevel level = LogLevel.Info,
+            ConsoleColor color = ConsoleColor.Black, bool force = false)
         {
             if (_loggers.Count == 0 || _lastLogMessage == message)
                 return;
 
             _lastLogMessage = message;
-            foreach(var logger in _loggers)
+            foreach (var logger in _loggers)
                 logger?.Write(message, level, color);
         }
 
         public static void lineSelect(int lineChar = 0, int linesUp = 1)
         {
-            foreach(var logger in _loggers)
+            foreach (var logger in _loggers)
                 logger?.lineSelect(lineChar, linesUp);
         }
 

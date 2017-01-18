@@ -13,7 +13,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
     }
 
     [JsonObject(Description = "", ItemRequired = Required.DisallowNull)] //Dont set Title
-    public class TransferFilter 
+    public class TransferFilter
     {
         public TransferFilter()
         {
@@ -21,11 +21,12 @@ namespace PoGo.NecroBot.Logic.Model.Settings
             KeepMinOperator = Operator.or.ToString();
             Moves = new List<List<PokemonMove>>();
             DeprecatedMoves = new List<PokemonMove>();
-            
         }
 
-        public TransferFilter(int keepMinCp, int keepMinLvl, bool useKeepMinLvl, float keepMinIvPercentage, string keepMinOperator, int keepMinDuplicatePokemon,
-            List<List<PokemonMove>> moves = null, List<PokemonMove> deprecatedMoves = null, string movesOperator = "or", bool catchOnlyPokemonMeetTransferCriteria = false)
+        public TransferFilter(int keepMinCp, int keepMinLvl, bool useKeepMinLvl, float keepMinIvPercentage,
+            string keepMinOperator, int keepMinDuplicatePokemon,
+            List<List<PokemonMove>> moves = null, List<PokemonMove> deprecatedMoves = null, string movesOperator = "or",
+            bool catchOnlyPokemonMeetTransferCriteria = false)
         {
             DoNotTransfer = false;
             AllowTransfer = true;
@@ -36,27 +37,27 @@ namespace PoGo.NecroBot.Logic.Model.Settings
             KeepMinDuplicatePokemon = keepMinDuplicatePokemon;
             KeepMinOperator = keepMinOperator;
             Moves = (moves == null && deprecatedMoves != null)
-                ? new List<List<PokemonMove>> { deprecatedMoves }
+                ? new List<List<PokemonMove>> {deprecatedMoves}
                 : moves ?? new List<List<PokemonMove>>();
             MovesOperator = movesOperator;
             CatchOnlyPokemonMeetTransferCriteria = catchOnlyPokemonMeetTransferCriteria;
         }
-        
+
         [JsonIgnore]
-        [ExcelConfig(IsPrimaryKey =true, Key = "Allow Transfer", Position = 1, Description = "If TRUE bot will transfer this type of pokemon when match with filter condition.")]
+        [ExcelConfig(IsPrimaryKey = true, Key = "Allow Transfer", Position = 1, Description = "If TRUE bot will transfer this type of pokemon when match with filter condition.")]
         public bool AllowTransfer { get; set; }
 
         [JsonIgnore]
         [ExcelConfig(Key = "Do Not Transfer", Position = 2, Description = "TRUE, Bot won't transfer this pokemon, FALSE , Bot will use other parameter to check.")]
         public bool DoNotTransfer { get; set; }
 
-        [ExcelConfig(Key = "KeepMinCp", Position =3 , Description = "Pokemon with CP lower than this value will be transfered")]
+        [ExcelConfig(Key = "KeepMinCp", Position = 3 , Description = "Pokemon with CP lower than this value will be transfered")]
         [DefaultValue(1250)]
         [Range(0, 9999)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 1)]
         public int KeepMinCp { get; set; }
 
-        [ExcelConfig (Key = "KeepMinIvPercentage", Position =4, Description = "Pokemon with IV lower than this value will be transfered")]
+        [ExcelConfig (Key = "KeepMinIvPercentage", Position = 4, Description = "Pokemon with IV lower than this value will be transfered")]
         [DefaultValue(90)]
         [Range(0, 100)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 2)]
@@ -79,13 +80,15 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 5)]
         public string KeepMinOperator { get; set; }
 
-        [ExcelConfig(Key = "KeepMinDuplicatePokemon", Position = 8 , Description = "Number of duplication pokemon to keep")]
+        [ExcelConfig(Key = "KeepMinDuplicatePokemon", Position = 8, Description = "Number of duplication pokemon to keep")]
         [DefaultValue(1)]
         [Range(0, 999)]
-        [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 6)]
+        [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate,
+             Order = 6)]
         public int KeepMinDuplicatePokemon { get; set; }
 
-        [ExcelConfig(Key = "Moves", Position = 9, Description = "Defined unwanted moves , pokemon has this move will be transfered")]
+        [ExcelConfig(Key = "Moves", Position = 9,
+             Description = "Defined unwanted moves , pokemon has this move will be transfered")]
         [DefaultValue(null)]
         [JsonProperty(Required = Required.Default, DefaultValueHandling = DefaultValueHandling.Populate, Order = 7)]
         public List<List<PokemonMove>> Moves { get; set; }

@@ -1,24 +1,24 @@
-﻿using PoGo.NecroBot.Logic.Common;
+﻿using System;
+using System.Threading.Tasks;
+using PoGo.NecroBot.Logic.Common;
 using PoGo.NecroBot.Logic.State;
 using POGOProtos.Inventory.Item;
-using System;
-using System.Threading.Tasks;
 
 namespace PoGo.NecroBot.Logic.Service.TelegramCommand
 {
     public class ItemsCommand : CommandMessage
     {
-        public override string Command   =>  "/items";
-        public override string Description  =>  "Shows your items.";
+        public override string Command => "/items";
+        public override string Description => "Shows your items.";
         public override bool StopProcess => true;
-        
+
         public ItemsCommand(TelegramUtils telegramUtils) : base(telegramUtils)
         {
         }
 
-        public override async Task<bool> OnCommand(ISession session,string cmd, Action<string> Callback)
+        public override async Task<bool> OnCommand(ISession session, string cmd, Action<string> Callback)
         {
-            if(cmd.ToLower() == Command)
+            if (cmd.ToLower() == Command)
             {
                 var answerTextmessage = "";
                 var inventory = session.Inventory;
@@ -52,7 +52,6 @@ namespace PoGo.NecroBot.Logic.Service.TelegramCommand
                     await session.Inventory.GetItemAmountByType(ItemId.ItemTroyDisk));
                 Callback(answerTextmessage);
                 return true;
-
             }
             return false;
         }

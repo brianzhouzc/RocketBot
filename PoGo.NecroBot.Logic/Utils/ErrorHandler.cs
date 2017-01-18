@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Reflection;
+using System.Threading;
 using PoGo.NecroBot.Logic.Logging;
 
 namespace PoGo.NecroBot.Logic.Utils
@@ -12,23 +13,23 @@ namespace PoGo.NecroBot.Logic.Utils
         /// </summary>
         /// <param name="strMessage">Optional message to display - Leave NULL to exclude message</param>
         /// <param name="timeout">The total seconds the messag will display before shutting down</param>
-        public static void ThrowFatalError( string strMessage, int timeout, LogLevel level, bool boolRestart = false )
+        public static void ThrowFatalError(string strMessage, int timeout, LogLevel level, bool boolRestart = false)
         {
-            if( strMessage != null)
-                Logger.Write( strMessage, level );
+            if (strMessage != null)
+                Logger.Write(strMessage, level);
 
-            Logger.Write( "Ending Application... ", LogLevel.Error );
+            Logger.Write("Ending Application... ", LogLevel.Error);
 
-            for( int i = timeout; i > 0; i-- )
+            for (int i = timeout; i > 0; i--)
             {
-                Logger.Write( "\b" + i, LogLevel.Error );
-                System.Threading.Thread.Sleep( 1000 );
+                Logger.Write("\b" + i, LogLevel.Error);
+                Thread.Sleep(1000);
             }
 
-            if( boolRestart )
-                Process.Start( Assembly.GetEntryAssembly().Location );
+            if (boolRestart)
+                Process.Start(Assembly.GetEntryAssembly().Location);
 
-            Environment.Exit( -1 );
+            Environment.Exit(-1);
         }
     }
 }

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PoGo.NecroBot.Logic.Captcha.Anti_Captcha
@@ -16,24 +13,25 @@ namespace PoGo.NecroBot.Logic.Captcha.Anti_Captcha
         private const string ProxyPassword = "";
 
         private const string UserAgent =
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36";
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36"
+            ;
 
 
-        public static async Task<string> SolveCaptcha(string captchaURL, string apiKey, string googleSiteKey, string proxyHost, int proxyPort, string proxyAccount = "", string proxyPassword = "")
+        public static async Task<string> SolveCaptcha(string captchaURL, string apiKey, string googleSiteKey,
+            string proxyHost, int proxyPort, string proxyAccount = "", string proxyPassword = "")
         {
-
             var task1 = AnticaptchaApiWrapper.CreateNoCaptchaTask(
                 Host,
                 apiKey,
-                captchaURL,     //target website address
-                googleSiteKey,         //target website Recaptcha key
+                captchaURL, //target website address
+                googleSiteKey, //target website Recaptcha key
                 AnticaptchaApiWrapper.ProxyType.http,
-                proxyHost,                                     //ipv4 or ipv6 proxy address
-                proxyPort,                                               //proxy port
-                "",                                            //proxy login              
-                "",                                         //proxy password
+                proxyHost, //ipv4 or ipv6 proxy address
+                proxyPort, //proxy port
+                "", //proxy login              
+                "", //proxy password
                 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36"
-                );
+            );
 
             return await ProcessTask(task1);
         }
@@ -69,6 +67,4 @@ namespace PoGo.NecroBot.Logic.Captcha.Anti_Captcha
             return response.GetSolution();
         }
     }
-
 }
-

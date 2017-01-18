@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 
 namespace PoGo.NecroBot.Logic.Model.Settings
 {
-
     /// <summary>
     /// Google has some limitations for free use
     /// 2,500 free requests per day, calculated as the sum of client-side and server-side queries; enable billing to access higher daily quotas, billed at $0.50 USD / 1000 additional requests, up to 100,000 requests daily.
@@ -13,7 +12,9 @@ namespace PoGo.NecroBot.Logic.Model.Settings
     [JsonObject(Title = "Google Walk Config", Description = "Set your google walk settings (set \"GoogleAPIKey\" if you have a key, nowadays a single contract is $16.000,00 USD. With a key you can deactivate Cache.", ItemRequired = Required.DisallowNull)]
     public class GoogleWalkConfig  : BaseConfig
     {
-        public GoogleWalkConfig() : base() { }
+        public GoogleWalkConfig() : base()
+        {
+        }
 
         internal enum GoogleWalkTravelModes
         {
@@ -23,7 +24,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
             transit
         }
 
-        [ExcelConfig (Description ="Use google api to resolve path for destination", Position = 1)]
+        [ExcelConfig(Description = "Use google api to resolve path for destination", Position = 1)]
         [DefaultValue(true)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 1)]
         public bool UseGoogleWalk { get; set; }
@@ -61,5 +62,4 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         // This can be the same as the GoogleAPIKey, but if so then you need to activate Elevation API for the key.
         public string GoogleElevationAPIKey { get; set; }
     }
-    
 }

@@ -7,9 +7,11 @@ namespace PoGo.NecroBot.Logic.Model.Settings
     [JsonObject(Title = "Custom Catch Config", Description = "Set your custom catch settings.", ItemRequired = Required.DisallowNull)]
     public class CustomCatchConfig :BaseConfig
     {
-        public CustomCatchConfig() :base() { }
+        public CustomCatchConfig() : base()
+        {
+        }
 
-        [ExcelConfig (Description ="Allow bot simulate throw as human", Position =1)]
+        [ExcelConfig(Description = "Allow bot simulate throw as human", Position = 1)]
         [DefaultValue(true)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 1)]
         public bool EnableHumanizedThrows { get; set; }
@@ -21,7 +23,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
 
         [ExcelConfig(Description = "Set how many percent bot missed pokemon", Position = 3)]
         [DefaultValue(25)]
-        [Range(0,100)]
+        [Range(0, 100)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 3)]
         public int ThrowMissPercentage { get; set; }
 
@@ -77,6 +79,5 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [DefaultValue(true)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate, Order = 12)]
         public bool UseTransferFilterToCatch { get; set; }
-
     }
 }

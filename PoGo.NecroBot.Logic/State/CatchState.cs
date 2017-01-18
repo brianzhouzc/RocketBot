@@ -1,22 +1,21 @@
 ﻿#region using directives
 
 using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using PoGo.NecroBot.Logic.Tasks;
-using System.Collections.Generic;
 using Newtonsoft.Json;
-using System.Linq;
-using PoGo.NecroBot.Logic.Utils;
-using GeoCoordinatePortable;
-using POGOProtos.Networking.Responses;
-using POGOProtos.Map.Pokemon;
-using POGOProtos.Enums;
-using System.Text;
-using PoGo.NecroBot.Logic.Event;
 using PoGo.NecroBot.Logic.Common;
+using PoGo.NecroBot.Logic.Event;
 using PoGo.NecroBot.Logic.Model;
-
+using PoGo.NecroBot.Logic.Tasks;
+using PoGo.NecroBot.Logic.Utils;
+using POGOProtos.Enums;
+using POGOProtos.Map.Pokemon;
+using POGOProtos.Networking.Responses;
 
 #endregion
 
@@ -24,8 +23,7 @@ namespace PoGo.NecroBot.Logic.State
 {
     public class CatchState : IState
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Await.Warning", "CS4014:Await.Warning")]
-
+        [SuppressMessage("Await.Warning", "CS4014:Await.Warning")]
         public class CatchablePokemon
         {
             public ulong EncounteredId { get; set; }
@@ -49,6 +47,7 @@ namespace PoGo.NecroBot.Logic.State
                 };
             }
         }
+
         public async Task<IState> Execute(ISession session, CancellationToken cancellationToken)
         {
             //Console.WriteLine($"waiting data....., {data.Count}");
@@ -58,9 +57,14 @@ namespace PoGo.NecroBot.Logic.State
 
             do
             {
-                pkm = data.FirstOrDefault(p => !p.Checked && 
-                p.ExpiredTime > DateTime.Now &&
-                LocationUtils.CalculateDistanceInMeters(currentLatitude, currentLongitude, p.Latitude, p.Longitude) < 100);
+                pkm = data.FirstOrDefault(p => !p.Checked &&
+                                               p.ExpiredTime > DateTime.Now &&
+                                               LocationUtils.CalculateDistanceInMeters(
+                                                   currentLatitude,
+                                                   currentLongitude,
+                                                   p.Latitude,
+                                                   p.Longitude
+                                               ) < 100);
                 if (pkm == null) break;
 
                 EncounterResponse encounter;
@@ -70,7 +74,9 @@ namespace PoGo.NecroBot.Logic.State
                     //    LocationUtils.UpdatePlayerLocationWithAltitude(session,
                     //        new GeoCoordinate(pkm.Latitude, pkm.Longitude, session.Client.CurrentAltitude), 0); // Set speed to 0 for random speed.
 
-                    await session.Navigation.Move(new MapLocation(pkm.Latitude, pkm.Longitude, session.Client.CurrentAltitude), null, session, cancellationToken);
+                    await session.Navigation.Move(
+                        new MapLocation(pkm.Latitude, pkm.Longitude, session.Client.CurrentAltitude),
+                        null, session, cancellationToken);
                     encounter = await session.Client.Encounter.EncounterPokemon(pkm.EncounteredId, pkm.SpawnId);
                 }
                 finally
@@ -79,7 +85,7 @@ namespace PoGo.NecroBot.Logic.State
                     //    LocationUtils.UpdatePlayerLocationWithAltitude(session,
                     //        new GeoCoordinate(currentLatitude, currentLongitude, session.Client.CurrentAltitude), 0); // Set speed to 0 for random speed.
                 }
-                switch(encounter.Status)
+                switch (encounter.Status)
                 {
                     case EncounterResponse.Types.Status.EncounterSuccess:
                         await CatchPokemonTask.Execute(session, cancellationToken, encounter, pkm.ToMapPokemon(),
@@ -93,7 +99,6 @@ namespace PoGo.NecroBot.Logic.State
                         {
                             await EvolvePokemonTask.Execute(session, cancellationToken);
                         }
-
                         if (session.LogicSettings.TransferDuplicatePokemon)
                         {
                             await TransferDuplicatePokemonTask.Execute(session, cancellationToken);
@@ -115,17 +120,16 @@ namespace PoGo.NecroBot.Logic.State
                                     TranslationString.EncounterProblem, encounter.Status)
                         });
                         break;
-
                 }
                 pkm.Checked = true;
                 await Task.Delay(1000);
-
-            }
-            while (pkm != null);
+            } while (pkm != null);
             await Task.Delay(3000);
             return this;
         }
+
         private static List<CatchablePokemon> data = new List<CatchablePokemon>();
+
         public static PokemonId GetId(string name)
         {
             var t = name[0];
@@ -133,12 +137,11 @@ namespace PoGo.NecroBot.Logic.State
             realName[0] = t;
             try
             {
-                var p = (PokemonId)Enum.Parse(typeof(PokemonId), realName.ToString());
+                var p = (PokemonId) Enum.Parse(typeof(PokemonId), realName.ToString());
                 return p;
             }
             catch (Exception)
             {
-
             }
             return PokemonId.Missingno;
         }
@@ -149,7 +152,7 @@ namespace PoGo.NecroBot.Logic.State
             {
                 Latitude = result.lnglat.coordinates[1],
                 Longitude = result.lnglat.coordinates[0],
-                PokemonId= GetId(result.pokemon_id),
+                PokemonId = GetId(result.pokemon_id),
                 ExpiredTime = result.expireAt.ToLocalTime(),
                 SpawnId = result.spawn_id,
                 //Source = "Fastpokemap"
@@ -165,7 +168,7 @@ namespace PoGo.NecroBot.Logic.State
             foreach (var item in list)
             {
                 var snipeItem = Map(item);
-                if (!data.Exists(p=>p.EncounteredId == snipeItem.EncounteredId))
+                if (!data.Exists(p => p.EncounteredId == snipeItem.EncounteredId))
                 {
                     data.Add(snipeItem);
                 }

@@ -1,9 +1,9 @@
 using System;
+using Google.Protobuf;
+using PoGo.NecroBot.Logic.Service.Elevation;
 using PoGo.NecroBot.Logic.Utils;
 using PokemonGo.RocketAPI;
 using PokemonGo.RocketAPI.Enums;
-using Google.Protobuf;
-using PoGo.NecroBot.Logic.Service.Elevation;
 
 namespace PoGo.NecroBot.Logic.Model.Settings
 {
@@ -11,6 +11,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
     {
         // Never spawn at the same position.
         private readonly Random _rand = new Random();
+
         private readonly GlobalSettings _settings;
         private readonly IElevationService _elevationService;
 
@@ -114,71 +115,85 @@ namespace PoGo.NecroBot.Logic.Model.Settings
             get { return _settings.Auth.DeviceConfig.DevicePlatform; }
             set { _settings.Auth.DeviceConfig.DevicePlatform = value; }
         }
+
         string DevicePackageName
         {
             get { return _settings.Auth.DeviceConfig.DevicePackageName; }
             set { _settings.Auth.DeviceConfig.DevicePackageName = value; }
         }
+
         string ISettings.DeviceId
         {
             get { return _settings.Auth.DeviceConfig.DeviceId; }
             set { _settings.Auth.DeviceConfig.DeviceId = value; }
         }
+
         string ISettings.AndroidBoardName
         {
             get { return _settings.Auth.DeviceConfig.AndroidBoardName; }
             set { _settings.Auth.DeviceConfig.AndroidBoardName = value; }
         }
+
         string ISettings.AndroidBootloader
         {
             get { return _settings.Auth.DeviceConfig.AndroidBootloader; }
             set { _settings.Auth.DeviceConfig.AndroidBootloader = value; }
         }
+
         string ISettings.DeviceBrand
         {
             get { return _settings.Auth.DeviceConfig.DeviceBrand; }
             set { _settings.Auth.DeviceConfig.DeviceBrand = value; }
         }
+
         string ISettings.DeviceModel
         {
             get { return _settings.Auth.DeviceConfig.DeviceModel; }
             set { _settings.Auth.DeviceConfig.DeviceModel = value; }
         }
+
         string ISettings.DeviceModelIdentifier
         {
             get { return _settings.Auth.DeviceConfig.DeviceModelIdentifier; }
             set { _settings.Auth.DeviceConfig.DeviceModelIdentifier = value; }
         }
+
         string ISettings.DeviceModelBoot
         {
             get { return _settings.Auth.DeviceConfig.DeviceModelBoot; }
             set { _settings.Auth.DeviceConfig.DeviceModelBoot = value; }
         }
+
         string ISettings.HardwareManufacturer
         {
             get { return _settings.Auth.DeviceConfig.HardwareManufacturer; }
             set { _settings.Auth.DeviceConfig.HardwareManufacturer = value; }
         }
+
         string ISettings.HardwareModel
         {
             get { return _settings.Auth.DeviceConfig.HardwareModel; }
             set { _settings.Auth.DeviceConfig.HardwareModel = value; }
         }
+
         string ISettings.FirmwareBrand
         {
             get { return _settings.Auth.DeviceConfig.FirmwareBrand; }
             set { _settings.Auth.DeviceConfig.FirmwareBrand = value; }
         }
+
         string ISettings.FirmwareTags
         {
             get { return _settings.Auth.DeviceConfig.FirmwareTags; }
             set { _settings.Auth.DeviceConfig.FirmwareTags = value; }
         }
+
         string ISettings.FirmwareType
         {
             get { return _settings.Auth.DeviceConfig.FirmwareType; }
             set { _settings.Auth.DeviceConfig.FirmwareType = value; }
         }
+
         string ISettings.FirmwareFingerprint
         {
             get { return _settings.Auth.DeviceConfig.FirmwareFingerprint; }
@@ -191,7 +206,8 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         {
             get
             {
-                return _settings.LocationConfig.DefaultLatitude + _rand.NextDouble() * ((double)_settings.LocationConfig.MaxSpawnLocationOffset / 111111);
+                return _settings.LocationConfig.DefaultLatitude + _rand.NextDouble() *
+                       ((double) _settings.LocationConfig.MaxSpawnLocationOffset / 111111);
             }
 
             set { _settings.LocationConfig.DefaultLatitude = value; }
@@ -203,7 +219,8 @@ namespace PoGo.NecroBot.Logic.Model.Settings
             {
                 return _settings.LocationConfig.DefaultLongitude +
                        _rand.NextDouble() *
-                       ((double)_settings.LocationConfig.MaxSpawnLocationOffset / 111111 / Math.Cos(_settings.LocationConfig.DefaultLatitude));
+                       ((double) _settings.LocationConfig.MaxSpawnLocationOffset / 111111 /
+                        Math.Cos(_settings.LocationConfig.DefaultLatitude));
             }
 
             set { _settings.LocationConfig.DefaultLongitude = value; }
@@ -213,9 +230,10 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         {
             get
             {
-                return LocationUtils.getElevation(_elevationService, _settings.LocationConfig.DefaultLatitude, _settings.LocationConfig.DefaultLongitude);
+                return LocationUtils.getElevation(_elevationService, _settings.LocationConfig.DefaultLatitude,
+                    _settings.LocationConfig.DefaultLongitude);
             }
-            
+
             set { }
         }
 
@@ -224,11 +242,13 @@ namespace PoGo.NecroBot.Logic.Model.Settings
             get { return _settings.Auth.APIConfig.UsePogoDevAPI; }
             set { _settings.Auth.APIConfig.UsePogoDevAPI = value; }
         }
+
         public bool UseLegacyAPI
         {
             get { return _settings.Auth.APIConfig.UseLegacyAPI; }
             set { _settings.Auth.APIConfig.UseLegacyAPI = value; }
         }
+
         public string AuthAPIKey
         {
             get { return _settings.Auth.APIConfig.AuthAPIKey; }
@@ -240,6 +260,5 @@ namespace PoGo.NecroBot.Logic.Model.Settings
             get { return _settings.Auth.APIConfig.DiplayHashServerLog; }
             set { _settings.Auth.APIConfig.DiplayHashServerLog = value; }
         }
-
     }
 }

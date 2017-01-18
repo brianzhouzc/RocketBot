@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Caching;
+using PoGo.NecroBot.Logic.Event.Inventory;
+using PoGo.NecroBot.Logic.Exceptions;
 using PoGo.NecroBot.Logic.Interfaces.Configuration;
 using PoGo.NecroBot.Logic.Model.Settings;
 using PoGo.NecroBot.Logic.PoGoUtils;
@@ -18,16 +21,11 @@ using POGOProtos.Inventory;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Networking.Responses;
 using POGOProtos.Settings.Master;
-using Caching;
-using PoGo.NecroBot.Logic.Event.Inventory;
-using PokemonGo.RocketAPI.Exceptions;
-using System.Diagnostics;
 
 #endregion
 
 namespace PoGo.NecroBot.Logic
 {
-
     public class Inventory
     {
         private readonly Client _client;
@@ -37,7 +35,7 @@ namespace PoGo.NecroBot.Logic
         private DownloadItemTemplatesResponse _templates = null;
         private IEnumerable<PokemonSettings> _pokemonSettings = null;
 
-        private readonly List<ItemId> _revives = new List<ItemId> { ItemId.ItemRevive, ItemId.ItemMaxRevive };
+        private readonly List<ItemId> _revives = new List<ItemId> {ItemId.ItemRevive, ItemId.ItemMaxRevive};
         private GetInventoryResponse _cachedInventory = null;
         private DateTime _lastRefresh;
         private ISession ownerSession;
@@ -49,28 +47,28 @@ namespace PoGo.NecroBot.Logic
 
             if (family == null) return 0;
             return family.Candy_;
-
         }
 
-        public Inventory(ISession session, Client client, ILogicSettings logicSettings, Action<GetInventoryResponse> onUpdated = null)
+        public Inventory(ISession session, Client client, ILogicSettings logicSettings,
+            Action<GetInventoryResponse> onUpdated = null)
         {
             this.ownerSession = session;
             _client = client;
             _logicSettings = logicSettings;
             //Inventory update will be call everytime getMabObject call
             client.OnInventoryUpdated += (refreshedInventoryData) =>
-             {
-                 //Console.WriteLine("################# INVENTORY UPDATE ######################");
-                 _cachedInventory = refreshedInventoryData;
-                 _lastRefresh = DateTime.Now;
-                 if (onUpdated != null && _player != null)
-                 {
-                     onUpdated(_cachedInventory);
-                 }
-             };
+            {
+                //Console.WriteLine("################# INVENTORY UPDATE ######################");
+                _cachedInventory = refreshedInventoryData;
+                _lastRefresh = DateTime.Now;
+                if (onUpdated != null && _player != null)
+                {
+                    onUpdated(_cachedInventory);
+                }
+            };
         }
 
-        private Caching.LRUCache<ItemId, int> pokeballCache = new Caching.LRUCache<ItemId, int>(capacity: 10);
+        private LRUCache<ItemId, int> pokeballCache = new LRUCache<ItemId, int>(capacity: 10);
 
         private readonly List<ItemId> _pokeballs = new List<ItemId>
         {
@@ -102,19 +100,21 @@ namespace PoGo.NecroBot.Logic
         public async Task UpdateInventoryItem(ItemId itemId, int count)
         {
             await Task.Run(() =>
-           {
-               foreach (var item in this._cachedInventory.InventoryDelta.InventoryItems)
-               {
-                   if (item.InventoryItemData != null && item.InventoryItemData.Item != null && item.InventoryItemData.Item.ItemId == itemId)
-                   {
-                       item.InventoryItemData.Item.Count += count;
-                       this.ownerSession.EventDispatcher.Send(new InventoryItemUpdateEvent()
-                       {
-                           Item = item.InventoryItemData.Item
-                       });
-                   }
-               }
-           });
+            {
+                foreach (var item in this._cachedInventory.InventoryDelta.InventoryItems)
+                {
+                    if (item.InventoryItemData != null
+                        && item.InventoryItemData.Item != null
+                        && item.InventoryItemData.Item.ItemId == itemId)
+                    {
+                        item.InventoryItemData.Item.Count += count;
+                        this.ownerSession.EventDispatcher.Send(new InventoryItemUpdateEvent()
+                        {
+                            Item = item.InventoryItemData.Item
+                        });
+                    }
+                }
+            });
         }
 
         public async Task<int> GetCachedPokeballCount(ItemId pokeballId)
@@ -169,46 +169,53 @@ namespace PoGo.NecroBot.Logic
         {
             var inventory = await GetCachedInventory();
             return inventory.InventoryDelta.InventoryItems
-             .Select(i => i.InventoryItemData?.AppliedItems)
-             .Where(p => p != null);
+                .Select(i => i.InventoryItemData?.AppliedItems)
+                .Where(p => p != null);
         }
 
-    public async Task<IEnumerable<PokemonData>> GetDuplicatePokemonToTransfer(
-                IEnumerable<PokemonId> pokemonsNotToTransfer, IEnumerable<PokemonId> pokemonsToEvolve,
-                bool keepPokemonsThatCanEvolve = false, bool prioritizeIVoverCp = false
-             )
+        public async Task<IEnumerable<PokemonData>> GetDuplicatePokemonToTransfer(
+            IEnumerable<PokemonId> pokemonsNotToTransfer, IEnumerable<PokemonId> pokemonsToEvolve,
+            bool keepPokemonsThatCanEvolve = false, bool prioritizeIVoverCp = false
+        )
         {
             var myPokemon = await GetPokemons();
 
             var myPokemonList = myPokemon.ToList();
 
-            var pokemonToTransfer = myPokemonList.Where(p => !pokemonsNotToTransfer.Contains(p.PokemonId) && p.DeployedFortId == string.Empty && p.Favorite == 0 && p.BuddyTotalKmWalked == 0).ToList();
+            var pokemonToTransfer = myPokemonList
+                .Where(p => !pokemonsNotToTransfer.Contains(p.PokemonId) && p.DeployedFortId == string.Empty &&
+                            p.Favorite == 0 && p.BuddyTotalKmWalked == 0)
+                .ToList();
 
             try
             {
                 pokemonToTransfer =
                     pokemonToTransfer.Where(
-                        p =>
-                        {
-                            var pokemonTransferFilter = GetPokemonTransferFilter(p.PokemonId);
+                            p =>
+                            {
+                                var pokemonTransferFilter = GetPokemonTransferFilter(p.PokemonId);
 
-                            return !pokemonTransferFilter.MovesOperator.BoolFunc(
-                                        pokemonTransferFilter.MovesOperator.ReverseBoolFunc(
-                                                pokemonTransferFilter.MovesOperator.InverseBool(pokemonTransferFilter.Moves.Count > 0),
-                                                pokemonTransferFilter.Moves.Any(moveset =>
-                                                    pokemonTransferFilter.MovesOperator.ReverseBoolFunc(
-                                                        pokemonTransferFilter.MovesOperator.InverseBool(moveset.Count > 0),
-                                                        moveset.Intersect(new[] { p.Move1, p.Move2 }).Count() == Math.Max(Math.Min(moveset.Count, 2), 0)))),
-                                        pokemonTransferFilter.KeepMinOperator.BoolFunc(
-                                            p.Cp >= pokemonTransferFilter.KeepMinCp,
-                                            PokemonInfo.CalculatePokemonPerfection(p) >= pokemonTransferFilter.KeepMinIvPercentage,
-                                            pokemonTransferFilter.KeepMinOperator.ReverseBoolFunc(
-                                                pokemonTransferFilter.KeepMinOperator.InverseBool(pokemonTransferFilter.UseKeepMinLvl),
-                                                PokemonInfo.GetLevel(p) >= pokemonTransferFilter.KeepMinLvl)));
-
-                        }).ToList();
+                                return !pokemonTransferFilter.MovesOperator.BoolFunc(
+                                    pokemonTransferFilter.MovesOperator.ReverseBoolFunc(
+                                        pokemonTransferFilter.MovesOperator.InverseBool(
+                                            pokemonTransferFilter.Moves.Count > 0),
+                                        pokemonTransferFilter.Moves.Any(moveset =>
+                                            pokemonTransferFilter.MovesOperator.ReverseBoolFunc(
+                                                pokemonTransferFilter.MovesOperator.InverseBool(moveset.Count > 0),
+                                                moveset.Intersect(new[] {p.Move1, p.Move2}).Count() ==
+                                                Math.Max(Math.Min(moveset.Count, 2), 0)))),
+                                    pokemonTransferFilter.KeepMinOperator.BoolFunc(
+                                        p.Cp >= pokemonTransferFilter.KeepMinCp,
+                                        PokemonInfo.CalculatePokemonPerfection(p) >=
+                                        pokemonTransferFilter.KeepMinIvPercentage,
+                                        pokemonTransferFilter.KeepMinOperator.ReverseBoolFunc(
+                                            pokemonTransferFilter.KeepMinOperator.InverseBool(pokemonTransferFilter
+                                                .UseKeepMinLvl),
+                                            PokemonInfo.GetLevel(p) >= pokemonTransferFilter.KeepMinLvl)));
+                            })
+                        .ToList();
             }
-            catch (Exceptions.ActiveSwitchByRuleException e)
+            catch (ActiveSwitchByRuleException e)
             {
                 throw e;
             }
@@ -274,6 +281,7 @@ namespace PoGo.NecroBot.Logic
             }
 
             #region For testing
+
             /*
                         results.ForEach(data =>
                         {
@@ -295,6 +303,7 @@ namespace PoGo.NecroBot.Logic
                             var bestCp = bestPokemonOfType.Cp;
                         });
             */
+
             #endregion
 
             return results;
@@ -305,9 +314,9 @@ namespace PoGo.NecroBot.Logic
             await Task.Delay(0); // Just added to get rid of compiler warning. Remove this if async code is used below.
 
             var lookupItem = (from item in _cachedInventory.InventoryDelta.InventoryItems
-                              where item.InventoryItemData?.Candy != null
-                              where item.InventoryItemData?.Candy.FamilyId == family.FamilyId
-                              select item.InventoryItemData.Candy).FirstOrDefault();
+                where item.InventoryItemData?.Candy != null
+                where item.InventoryItemData?.Candy.FamilyId == family.FamilyId
+                select item.InventoryItemData.Candy).FirstOrDefault();
             if (lookupItem == null && change > 0)
             {
                 family.Candy_ = change;
@@ -484,6 +493,7 @@ namespace PoGo.NecroBot.Logic
             var UseLuckyEgg = await _client.Inventory.UseItemXpBoost();
             return UseLuckyEgg;
         }
+
         public async Task<UseIncenseResponse> UseIncenseConstantly()
         {
             var UseIncense = await _client.Inventory.UseIncense(ItemId.ItemIncenseOrdinary);
@@ -496,8 +506,8 @@ namespace PoGo.NecroBot.Logic
             var inventory = await GetCachedInventory();
 
             return (from items in inventory.InventoryDelta.InventoryItems
-                    where items.InventoryItemData?.PokedexEntry != null
-                    select items).ToList();
+                where items.InventoryItemData?.PokedexEntry != null
+                select items).ToList();
         }
 
         public async Task<List<Candy>> GetPokemonFamilies(int retries = 0)
@@ -506,7 +516,8 @@ namespace PoGo.NecroBot.Logic
 
             IEnumerable<Candy> families = null;
             var inventory = await GetCachedInventory();
-            if (inventory == null || inventory.InventoryDelta == null || inventory.InventoryDelta.InventoryItems == null)
+            if (inventory == null || inventory.InventoryDelta == null ||
+                inventory.InventoryDelta.InventoryItems == null)
             {
                 DelayingUtils.Delay(3000, 3000);
                 inventory = await GetCachedInventory();
@@ -515,14 +526,15 @@ namespace PoGo.NecroBot.Logic
             try
             {
                 families = from item in inventory.InventoryDelta.InventoryItems
-                           where item.InventoryItemData?.Candy != null
-                           where item.InventoryItemData?.Candy.FamilyId != PokemonFamilyId.FamilyUnset
-                           group item by item.InventoryItemData?.Candy.FamilyId into family
-                           select new Candy
-                           {
-                               FamilyId = family.First().InventoryItemData.Candy.FamilyId,
-                               Candy_ = family.First().InventoryItemData.Candy.Candy_
-                           };
+                    where item.InventoryItemData?.Candy != null
+                    where item.InventoryItemData?.Candy.FamilyId != PokemonFamilyId.FamilyUnset
+                    group item by item.InventoryItemData?.Candy.FamilyId
+                    into family
+                    select new Candy
+                    {
+                        FamilyId = family.First().InventoryItemData.Candy.FamilyId,
+                        Candy_ = family.First().InventoryItemData.Candy.Candy_
+                    };
             }
             catch (NullReferenceException)
             {
@@ -543,7 +555,9 @@ namespace PoGo.NecroBot.Logic
                 }
             });
 
-            var pokedexEntry = (await GetPokeDexItems()).FirstOrDefault(x => x.InventoryItemData?.PokedexEntry?.PokemonId == data.PokemonId);
+            var pokedexEntry =
+                (await GetPokeDexItems())
+                .FirstOrDefault(x => x.InventoryItemData?.PokedexEntry?.PokemonId == data.PokemonId);
 
             if (pokedexEntry == null)
             {
@@ -559,6 +573,7 @@ namespace PoGo.NecroBot.Logic
                 });
             }
         }
+
         public async Task<PokemonData> GetSinglePokemon(ulong id)
         {
             var inventory = await GetCachedInventory();
@@ -570,10 +585,11 @@ namespace PoGo.NecroBot.Logic
         public async Task<IEnumerable<PokemonData>> GetPokemons()
         {
             var inventory = await GetCachedInventory();
-            return
-            inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.PokemonData)
-                .Where(p => p != null && p.PokemonId > 0);
+            return inventory.InventoryDelta.InventoryItems
+                    .Select(i => i.InventoryItemData?.PokemonData)
+                    .Where(p => p != null && p.PokemonId > 0);
         }
+
         public async Task<IEnumerable<PokemonData>> GetFavoritePokemons()
         {
             var inventory = await GetPokemons();
@@ -587,23 +603,29 @@ namespace PoGo.NecroBot.Logic
             return
                 inventory.Where(i => !string.IsNullOrEmpty(i.DeployedFortId));
         }
+
         public async Task<MoveSettings> GetMoveSetting(PokemonMove move)
         {
             if (_templates == null) await GetPokemonSettings();
 
-            var moveSettings = _templates.ItemTemplates.Where(x => x.MoveSettings != null).Select(x => x.MoveSettings).ToList();
+            var moveSettings = _templates.ItemTemplates.Where(x => x.MoveSettings != null)
+                .Select(x => x.MoveSettings)
+                .ToList();
 
             return moveSettings.FirstOrDefault(x => x.MovementId == move);
-
         }
+
         public async Task<IEnumerable<PokemonSettings>> GetPokemonSettings()
         {
             if (_templates == null || _pokemonSettings == null)
             {
                 _templates = await _client.Download.GetItemTemplates();
-                var moveSettings = _templates.ItemTemplates.Where(x => x.MoveSettings != null).Select(x => x.MoveSettings).ToList();
+                var moveSettings = _templates.ItemTemplates.Where(x => x.MoveSettings != null)
+                    .Select(x => x.MoveSettings)
+                    .ToList();
 
-                _pokemonSettings = _templates.ItemTemplates.Select(i => i.PokemonSettings).Where(p => p != null && p.FamilyId != PokemonFamilyId.FamilyUnset);
+                _pokemonSettings = _templates.ItemTemplates.Select(i => i.PokemonSettings)
+                    .Where(p => p != null && p.FamilyId != PokemonFamilyId.FamilyUnset);
             }
             return _pokemonSettings;
         }
@@ -691,24 +713,35 @@ namespace PoGo.NecroBot.Logic
 
             Parallel.ForEach(grouped, (group) =>
             {
-                var appliedFilter = _logicSettings.PokemonUpgradeFilters.ContainsKey(group.Key) ? _logicSettings.PokemonUpgradeFilters[group.Key] : new UpgradeFilter(_logicSettings.LevelUpByCPorIv, _logicSettings.UpgradePokemonCpMinimum, _logicSettings.UpgradePokemonIvMinimum, _logicSettings.UpgradePokemonMinimumStatsOperator, _logicSettings.OnlyUpgradeFavorites);
+                var appliedFilter = _logicSettings.PokemonUpgradeFilters.ContainsKey(group.Key)
+                    ? _logicSettings.PokemonUpgradeFilters[group.Key]
+                    : new UpgradeFilter(_logicSettings.LevelUpByCPorIv, _logicSettings.UpgradePokemonCpMinimum,
+                        _logicSettings.UpgradePokemonIvMinimum, _logicSettings.UpgradePokemonMinimumStatsOperator,
+                        _logicSettings.OnlyUpgradeFavorites);
 
-                IEnumerable<PokemonData> highestPokemonForUpgrade = (appliedFilter.UpgradePokemonMinimumStatsOperator.ToLower().Equals("and")) ?
-               group.Where(
-                       p => (p.Cp >= appliedFilter.UpgradePokemonCpMinimum &&
-                           PokemonInfo.CalculatePokemonPerfection(p) >= appliedFilter.UpgradePokemonIvMinimum)).OrderByDescending(p => p.Cp).ToList() :
-               group.Where(
-                   p => (p.Cp >= appliedFilter.UpgradePokemonCpMinimum ||
-                       PokemonInfo.CalculatePokemonPerfection(p) >= appliedFilter.UpgradePokemonIvMinimum)).OrderByDescending(p => p.Cp).ToList();
+                IEnumerable<PokemonData> highestPokemonForUpgrade =
+                    (appliedFilter.UpgradePokemonMinimumStatsOperator.ToLower().Equals("and"))
+                        ? group.Where(
+                                p => (p.Cp >= appliedFilter.UpgradePokemonCpMinimum &&
+                                      PokemonInfo.CalculatePokemonPerfection(p) >=
+                                      appliedFilter.UpgradePokemonIvMinimum))
+                            .OrderByDescending(p => p.Cp)
+                            .ToList()
+                        : group.Where(
+                                p => (p.Cp >= appliedFilter.UpgradePokemonCpMinimum ||
+                                      PokemonInfo.CalculatePokemonPerfection(p) >=
+                                      appliedFilter.UpgradePokemonIvMinimum))
+                            .OrderByDescending(p => p.Cp)
+                            .ToList();
 
                 if (appliedFilter.OnlyUpgradeFavorites)
                 {
                     highestPokemonForUpgrade = highestPokemonForUpgrade.Where(i => i.Favorite == 1);
                 }
 
-                var upgradeableList = (appliedFilter.LevelUpByCPorIv.ToLower().Equals("iv")) ?
-                        highestPokemonForUpgrade.OrderByDescending(PokemonInfo.CalculatePokemonPerfection).ToList() :
-                        highestPokemonForUpgrade.OrderByDescending(p => p.Cp).ToList();
+                var upgradeableList = (appliedFilter.LevelUpByCPorIv.ToLower().Equals("iv"))
+                    ? highestPokemonForUpgrade.OrderByDescending(PokemonInfo.CalculatePokemonPerfection).ToList()
+                    : highestPokemonForUpgrade.OrderByDescending(p => p.Cp).ToList();
                 lock (upgradePokemon)
                 {
                     upgradePokemon.AddRange(upgradeableList);
@@ -734,10 +767,14 @@ namespace PoGo.NecroBot.Logic
                 _logicSettings.PokemonsTransferFilter.ContainsKey(pokemon))
             {
                 var filter = _logicSettings.PokemonsTransferFilter[pokemon];
-                if (filter.Moves == null) { filter.Moves = new List<List<PokemonMove>>(); }
+                if (filter.Moves == null)
+                {
+                    filter.Moves = new List<List<PokemonMove>>();
+                }
                 return filter;
             }
-            return new TransferFilter(_logicSettings.KeepMinCp, _logicSettings.KeepMinLvl, _logicSettings.UseKeepMinLvl, _logicSettings.KeepMinIvPercentage,
+            return new TransferFilter(_logicSettings.KeepMinCp, _logicSettings.KeepMinLvl, _logicSettings.UseKeepMinLvl,
+                _logicSettings.KeepMinIvPercentage,
                 _logicSettings.KeepMinOperator, _logicSettings.KeepMinDuplicatePokemon);
         }
 

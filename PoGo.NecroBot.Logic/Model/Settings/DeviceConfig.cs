@@ -4,7 +4,11 @@ using Newtonsoft.Json;
 
 namespace PoGo.NecroBot.Logic.Model.Settings
 {
-    [JsonObject(Title = "Device Config", Description = "Set your device settings (set \"DevicePackageName\" to \"random\" for auto-generated device). Set \"DevicePlatform\" to \"android\" or \"ios\".", ItemRequired = Required.DisallowNull)]
+    [JsonObject(
+         Title = "Device Config",
+         Description = "Set your device settings (set \"DevicePackageName\" to \"random\" for auto-generated device). Set \"DevicePlatform\" to \"android\" or \"ios\".",
+         ItemRequired = Required.DisallowNull
+     )]
     public class DeviceConfig
     {
         internal enum DevicePlatformType

@@ -1,6 +1,6 @@
-﻿using PoGo.NecroBot.Logic.State;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using PoGo.NecroBot.Logic.State;
 
 namespace PoGo.NecroBot.Logic.Service.TelegramCommand
 {
@@ -14,8 +14,9 @@ namespace PoGo.NecroBot.Logic.Service.TelegramCommand
         {
         }
 
-        #pragma warning disable CS1998 // added to get rid of compiler warning. Remove this if async code is used below.
+        #pragma warning disable 1998 // added to get rid of compiler warning. Remove this if async code is used below.
         public override async Task<bool> OnCommand(ISession session, string cmd, Action<string> Callback)
+        #pragma warning restore 1998
         {
             string[] messagetext = cmd.Split(' ');
 
@@ -26,11 +27,12 @@ namespace PoGo.NecroBot.Logic.Service.TelegramCommand
                 {
                     foreach (var item in session.Accounts)
                     {
-                        int day = (int)item.RuntimeTotal / 1440;
-                        int hour = (int)(item.RuntimeTotal - (day * 1400)) / 60;
-                        int min = (int)(item.RuntimeTotal - (day * 1400) - hour * 60);
+                        int day = (int) item.RuntimeTotal / 1440;
+                        int hour = (int) (item.RuntimeTotal - (day * 1400)) / 60;
+                        int min = (int) (item.RuntimeTotal - (day * 1400) - hour * 60);
 
-                        message = message + $"{item.GoogleUsername}{item.PtcUsername}     {day:00}:{hour:00}:{min:00}:00\r\n";
+                        message = message +
+                                  $"{item.GoogleUsername}{item.PtcUsername}     {day:00}:{hour:00}:{min:00}:00\r\n";
                     }
                 }
                 else

@@ -13,6 +13,7 @@ namespace PoGo.NecroBot.Logic.Event
     {
         //PokemonData | CP | IV | Level | MOVE1 | MOVE2 | Candy
         public List<Tuple<PokemonData, int, double, double, PokemonMove, PokemonMove, int>> PokemonList;
+
         public string SortedBy;
     }
 }
