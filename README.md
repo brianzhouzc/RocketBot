@@ -23,12 +23,12 @@ See https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer for pricing 
 </p>
 
 ## Images
-![alt tag](https://raw.githubusercontent.com/TheUnnamedOrganization/RocketBot/master/Images/MainForm.png)  
-![alt tag](https://raw.githubusercontent.com/TheUnnamedOrganization/RocketBot/master/Images/SettingForm.png)
-![alt tag](https://raw.githubusercontent.com/TheUnnamedOrganization/RocketBot/master/Images/SettingForm_2.png)
-![alt tag](https://raw.githubusercontent.com/TheUnnamedOrganization/RocketBot/master/Images/SettingForm_3.png)
-![alt tag](https://raw.githubusercontent.com/TheUnnamedOrganization/RocketBot/master/Images/SettingForm_4.png)
-![alt tag](https://raw.githubusercontent.com/TheUnnamedOrganization/RocketBot/master/Images/SettingForm_5.png)
+![alt tag](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/Images/MainForm.png)  
+![alt tag](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/Images/SettingForm.png)
+![alt tag](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/Images/SettingForm_2.png)
+![alt tag](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/Images/SettingForm_3.png)
+![alt tag](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/Images/SettingForm_4.png)
+![alt tag](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/Images/SettingForm_5.png)
 
 A Pokémon Go bot in C#
 
