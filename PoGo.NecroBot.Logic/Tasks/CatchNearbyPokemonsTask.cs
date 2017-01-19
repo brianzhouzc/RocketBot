@@ -173,9 +173,9 @@ namespace PoGo.NecroBot.Logic.Tasks
         {
             var mapObjects = await session.Client.Map.GetMapObjects();
             var forts = mapObjects.Item1.MapCells.SelectMany(p => p.Forts).ToList();
-
-            session.AddForts(forts);
-            session.EventDispatcher.Send(new PokeStopListEvent(forts));
+            var nearbyPokemons = mapObjects.Item1.MapCells.SelectMany(x => x.NearbyPokemons).ToList();
+            
+            session.EventDispatcher.Send(new PokeStopListEvent(forts, nearbyPokemons));
 
             var pokemons = mapObjects.Item1.MapCells.SelectMany(i => i.CatchablePokemons)
                 .OrderBy(

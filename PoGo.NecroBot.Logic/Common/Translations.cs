@@ -309,7 +309,9 @@ namespace PoGo.NecroBot.Logic.Common
         TelegramCommandSnipeMsgHead,
         TelegramCommandStatusMsgHead,
         TelegramCommandTopMsgHead,
-        TelegramCommandLocMsgHead
+        TelegramCommandLocMsgHead,
+        TelegramCommandProfileMsgBody,
+        TelegramCommandStatusMsgBody
     }
 
     public class Translation : ITranslation
@@ -834,7 +836,11 @@ namespace PoGo.NecroBot.Logic.Common
                 new KeyValuePair<TranslationString, string>(TranslationString.TelegramCommandTopMsgHead,
                     "{0}'s top Pokemon:"),
                 new KeyValuePair<TranslationString, string>(TranslationString.TelegramCommandLocMsgHead,
-                    "{0}'s location:")
+                    "{0}'s location:"),
+                new KeyValuePair<TranslationString, string>(TranslationString.TelegramCommandProfileMsgBody,
+                    "Account: {0}\nLevel: {1}\nTotal XP: {2}\nXP until level up: {3}\nPokemon caught: {4}\nPokemon sent: {5}\nPokemon in bag: {6}\nPokemon evolved: {7}\nPokestops visited: {8}\nItems in bag: {9}\nStardust: {10}\nEggs hatched: {11}\nPokedex entries: {12}\nKM walked: {13:n0}"),
+                new KeyValuePair<TranslationString, string>(TranslationString.TelegramCommandStatusMsgBody,
+                    "Bot: Necrobot2 v{0}\nAccount: {1}\nRuntime: {2}\nLevel: {3}\nAdvance in: {4}h {5}m | {6} EP\nXP / h: {7:n0}\nPokemon / h: {8:n0}\nStardust / h: {9:n0}\nPokemon Sent: {10}\nPokemon Evolved: {11}\nRecycled: {12}\nPokestop limit: {13}\nCatch limit: {14}"),
             };
 
         [JsonProperty("PokemonStrings",
