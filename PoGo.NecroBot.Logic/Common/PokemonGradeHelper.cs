@@ -1,12 +1,35 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using PoGo.NecroBot.Logic.Model;
 using POGOProtos.Enums;
 
 namespace PoGo.NecroBot.Logic.Common
-{
+{  
     public static class PokemonGradeHelper
     {
+        private static Dictionary<PokemonGrades, string> RarityColors = new Dictionary<PokemonGrades, string>()
+        {
+            { PokemonGrades.Common,"#7FFF8E" },
+            { PokemonGrades.Epic,"#E16FA2" },
+            { PokemonGrades.Legendary,"#B05895" },
+            { PokemonGrades.Popular,"#DBFE80" },
+            { PokemonGrades.Rare,"#FFB382" },
+            { PokemonGrades.Special,"Red" },
+            { PokemonGrades.VeryCommon,"#DBFE80" },
+            { PokemonGrades.VeryRare,"#FF807F" }
+        };
+
+        public static string GetGradeColor(PokemonId pokemonId)
+        {
+            var g = GetPokemonGrade(pokemonId);
+            return RarityColors[g];
+        }
+
+        public static string GetGradeColor(PokemonGrades g)
+        {
+            return RarityColors[g];
+        }
         public static PokemonGrades GetPokemonGrade(PokemonId id)
         {
             var first = pokemonByGrades.FirstOrDefault(p => p.Value.Contains(id));

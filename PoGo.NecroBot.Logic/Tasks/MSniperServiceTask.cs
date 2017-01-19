@@ -681,7 +681,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                     {
                         Bounds = new Location(location.Latitude, location.Longitude),
                         PokemonId = (PokemonId) location.PokemonId,
-                        Source = "MSniperService",
+                        Source = "InternalSnipe",
                         Iv = location.Iv
                     });
                     session.Stats.IsSnipping = true;
