@@ -23,9 +23,9 @@ namespace PoGo.NecroBot.Logic.Tasks
 {
     public class UseNearbyPokestopsTask
     {
-		//add delegate
+        //add delegate
         public delegate void LootPokestopDelegate(FortData pokestop);
-		
+
         private static int _stopsHit;
         private static int _randomStop;
         private static Random _rc; //initialize pokestop random cleanup counter first time
@@ -191,14 +191,14 @@ namespace PoGo.NecroBot.Logic.Tasks
                 .Where(p => p.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime())
                 .Where(f => f.Type == FortType.Checkpoint ||
                             UseGymBattleTask.CanAttackGym(session, f, ref deployedPokemons) ||
-                            UseGymBattleTask.CanTrainGym(session, f, ref deployedPokemons))
+                            UseGymBattleTask.CanTrainGym(session, f, null, ref deployedPokemons))
                 .ToList();
 
             if ((session.LogicSettings.GymConfig.EnableAttackGym && forts.Where(w => w.Type == FortType.Gym && UseGymBattleTask.CanAttackGym(session, w, ref deployedPokemons)).Count() == 0) ||
-                (session.LogicSettings.GymConfig.EnableGymTraining && forts.Where(w => w.Type == FortType.Gym && UseGymBattleTask.CanTrainGym(session, w, ref deployedPokemons)).Count() == 0)
+                (session.LogicSettings.GymConfig.EnableGymTraining && forts.Where(w => w.Type == FortType.Gym && UseGymBattleTask.CanTrainGym(session, w, null, ref deployedPokemons)).Count() == 0)
                 )
             {
-                Logger.Write("No usable gym found. Trying to refresh list.", LogLevel.Gym, ConsoleColor.Magenta);
+                //Logger.Write("No usable gym found. Trying to refresh list.", LogLevel.Gym, ConsoleColor.Magenta);
                 await GetPokeStops(session);
             }
 
@@ -445,11 +445,11 @@ namespace PoGo.NecroBot.Logic.Tasks
                         Logger.Write($"(POKESTOP LIMIT) {session.Stats.GetNumPokestopsInLast24Hours()}/{session.LogicSettings.PokeStopLimit}",
                             LogLevel.Info, ConsoleColor.Yellow);
                     }
-					
-					//add pokeStops to Map
+
+                    //add pokeStops to Map
                     OnLootPokestopEvent(pokeStop);
                     //end pokeStop to Map
-					
+
                     break; //Continue with program as loot was succesfull.
                 }
             } while (fortTry < retryNumber - zeroCheck);
@@ -574,7 +574,7 @@ namespace PoGo.NecroBot.Logic.Tasks
 
             return pokeStops.ToList();
         }
-		 //add delegate event
+        //add delegate event
         private static void OnLootPokestopEvent(FortData pokestop)
         {
             LootPokestopEvent?.Invoke(pokestop);

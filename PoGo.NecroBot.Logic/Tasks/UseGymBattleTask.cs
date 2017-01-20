@@ -68,7 +68,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                         {
                             //trainning logic will come here
                             await DeployPokemonToGym(session, fortInfo, fortDetails, cancellationToken);
-                            if (CanTrainGym(session, gym, ref deployedPokemons))
+                            if (CanTrainGym(session, gym, fortDetails, ref deployedPokemons))
                                 await StartGymAttackLogic(session, fortInfo, fortDetails, gym, cancellationToken);
                         }
                         else
@@ -929,17 +929,22 @@ namespace PoGo.NecroBot.Logic.Tasks
             return true;
         }
 
-        internal static bool CanTrainGym(ISession session, FortData fort, ref IEnumerable<PokemonData> deployedPokemons)
+        internal static bool CanTrainGym(ISession session, FortData fort, GetGymDetailsResponse gymDetails, ref IEnumerable<PokemonData> deployedPokemons)
         {
+            bool isDeployed = deployedPokemons.Any(a => a.DeployedFortId == fort.Id);
+            if (gymDetails != null && GetGymLevel(fort.GymPoints) > gymDetails.GymState.Memberships.Count && !isDeployed) // free slot should be used always but not always we know that...
+                return true;
             if (!session.LogicSettings.GymConfig.EnableGymTraining)
                 return false;
             if (fort.OwnedByTeam != session.Profile.PlayerData.Team)
                 return false;
+            if (!session.LogicSettings.GymConfig.TrainAlreadyDefendedGym && isDeployed)
+                return false;
             if (GetGymLevel(fort.GymPoints) > session.LogicSettings.GymConfig.MaxGymLvlToTrain)
                 return false;
-            if (!session.LogicSettings.GymConfig.TrainAlreadyDefendedGym && deployedPokemons.Any(a=>a.DeployedFortId == fort.Id))
-                return false;
             if (GetGymMaxPointsOnLevel(GetGymLevel(fort.GymPoints)) - fort.GymPoints > session.LogicSettings.GymConfig.TrainGymWhenMissingMaxPoints)
+                return false;
+            if (session.LogicSettings.GymConfig.DontAttackAfterCoinsLimitReached && deployedPokemons.Count() >= session.LogicSettings.GymConfig.CollectCoinAfterDeployed)
                 return false;
             return true;
         }
