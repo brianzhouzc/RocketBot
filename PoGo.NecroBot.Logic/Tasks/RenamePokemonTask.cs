@@ -46,7 +46,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                 // Favorites will be skipped
                 if ((!session.LogicSettings.RenameOnlyAboveIv ||
                      perfection >= session.LogicSettings.KeepMinIvPercentage) &&
-                    newNickname != oldNickname && pokemon.Favorite == 0)
+                    newNickname != oldNickname)
                 {
                     var result = await session.Client.Inventory.NicknamePokemon(pokemon.Id, newNickname);
 

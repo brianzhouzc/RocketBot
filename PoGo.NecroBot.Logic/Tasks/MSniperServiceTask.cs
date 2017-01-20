@@ -440,6 +440,10 @@ namespace PoGo.NecroBot.Logic.Tasks
             if (isBlocking) return false;
             if (Math.Abs(item.Latitude) > 90 || Math.Abs(item.Longitude) > 180) return false;
 
+            if (!byPassValidation &&
+                session.LogicSettings.AutoSnipeMaxDistance > 0 &&
+                LocationUtils.CalculateDistanceInMeters(session.Settings.DefaultLatitude, session.Settings.DefaultLongitude, item.Latitude, item.Longitude) > session.LogicSettings.AutoSnipeMaxDistance * 1000) return false;
+
             lock (locker)
             {
                 item.AddedTime = DateTime.Now;
@@ -677,7 +681,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                     {
                         Bounds = new Location(location.Latitude, location.Longitude),
                         PokemonId = (PokemonId) location.PokemonId,
-                        Source = "MSniperService",
+                        Source = "InternalSnipe",
                         Iv = location.Iv
                     });
                     session.Stats.IsSnipping = true;

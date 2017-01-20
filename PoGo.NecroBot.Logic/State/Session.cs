@@ -59,7 +59,6 @@ namespace PoGo.NecroBot.Logic.State
         void BlockCurrentBot(int expired = 15);
     }
 
-
     public class Session : ISession
     {
         public Session(ISettings settings, ILogicSettings logicSettings, IElevationService elevationService) : this(

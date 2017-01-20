@@ -4,7 +4,7 @@ using PoGo.NecroBot.Logic.State;
 
 namespace PoGo.NecroBot.Logic.Service.TelegramCommand
 {
-    interface ICommandGenerify<T> : ICommand
+    internal interface ICommandGenerify<out T> : ICommand
     {
         Task<bool> OnCommand(ISession session, string cmd, Action<T> callback);
     }

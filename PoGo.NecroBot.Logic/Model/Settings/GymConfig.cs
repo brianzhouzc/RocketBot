@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
@@ -69,7 +69,7 @@ namespace PoGo.NecroBot.Logic.Model.Settings
 
         [ExcelConfig(Description = "Collect coin after N gym deployed", Position = 10)]
         [DefaultValue(1)]
-        [Range(0, 10)]
+        [Range(1, 20)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate)]
         public int CollectCoinAfterDeployed { get; set; }
 
@@ -94,5 +94,32 @@ namespace PoGo.NecroBot.Logic.Model.Settings
         [DefaultValue(true)]
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate)]
         public bool HealDefendersBeforeApplyToGym { get; set; }
+
+        [ExcelConfig(Description = "Don't Attack After Coins Limit is Reached", Position = 15)]
+        [DefaultValue(true)]
+        [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate)]
+        public bool DontAttackAfterCoinsLimitReached { get; set; }
+
+        [ExcelConfig(Description = "Enable gym training", Position = 16)]
+        [DefaultValue(true)]
+        [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate)]
+        public bool EnableGymTraining { get; set; }
+
+        [ExcelConfig(Description = "Train gym when missing max points", Position = 17)]
+        [DefaultValue(1000)]
+        [Range(1, 50000)]
+        [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate)]
+        public int TrainGymWhenMissingMaxPoints { get; set; }
+
+        [ExcelConfig(Description = "Max gym lvl to train", Position = 18)]
+        [DefaultValue(4)]
+        [Range(1, 10)]
+        [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate)]
+        public int MaxGymLvlToTrain { get; set; }
+
+        [ExcelConfig(Description = "Train already defended gym", Position = 19)]
+        [DefaultValue(true)]
+        [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.Populate)]
+        public bool TrainAlreadyDefendedGym { get; set; }
     }
 }
