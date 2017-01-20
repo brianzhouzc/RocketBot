@@ -7,7 +7,7 @@
 <p>
 RocketBot itself is free but now you will need to purchase an API key to run the bot.
 <br/>
-See https://talk.pogodev.org/d/53-api-hashing-service-by-pokefarmer for pricing for API keys.
+See https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer for pricing for API keys.
 </p>
 
 <!-- disclaimer -->
