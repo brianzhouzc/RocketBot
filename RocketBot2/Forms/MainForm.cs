@@ -39,6 +39,7 @@ using System.Reflection;
 using PoGo.NecroBot.Logic.Tasks;
 using System.Net;
 using RocketBot2.CommandLineUtility;
+using System.Diagnostics;
 
 namespace RocketBot2.Forms
 {
@@ -359,32 +360,33 @@ namespace RocketBot2.Forms
             _session = new Session(new ClientSettings(settings, elevationService), logicSettings, elevationService, translation);
             Logger.SetLoggerContext(_session);
 
-            /*
             if (boolNeedsSetup)
             {
-                if (GlobalSettings.PromptForSetup(_session.Translation))
+                StarterConfigForm configForm = new StarterConfigForm(_session, settings, elevationService, configFile);
+                if (configForm.ShowDialog() == DialogResult.OK)
                 {
-                    _session = GlobalSettings.SetupSettings(_session, settings, elevationService, configFile)
-                        var fileName = Assembly.GetExecutingAssembly().Location;
+                    var fileName = Assembly.GetExecutingAssembly().Location;
                     Process.Start(fileName);
                     Environment.Exit(0);
                 }
+
+                //if (GlobalSettings.PromptForSetup(_session.Translation))
+                //{
+                //    _session = GlobalSettings.SetupSettings(_session, settings, elevationService, configFile);
+
+                //    var fileName = Assembly.GetExecutingAssembly().Location;
+                //    Process.Start(fileName);
+                //    Environment.Exit(0);
+                //}
                 else
                 {
                     GlobalSettings.Load(_subPath, _enableJsonValidation);
-                    Logger.Write("Press a Key to continue...", LogLevel.Warning);
-                    Console.ReadKey();
+                    //Logger.Write("Press a Key to continue...", LogLevel.Warning);
+                    //Console.ReadKey();
                     return;
                 }
             }
-            */
-            if (boolNeedsSetup)
-            {
-                startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
-                Logger.Write("First time here? Go to settings to set your basic info.", LogLevel.Error);
-            }
-
-
+ 
             if (excelConfigAllow)
             {
                 ExcelConfigHelper.MigrateFromObject(settings, excelConfigFile);
