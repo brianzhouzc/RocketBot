@@ -2,7 +2,7 @@
 [1.1]: http://i.imgur.com/M4fJ65n.png (ATTENTION)
 [1.2]: https://discordapp.com/api/guilds/208485545439920128/widget.png?style=banner2 (DISCORD)
 
-<h1>RocketBot now supports Pokémon Go 0.51.2 API using public hashing server from PogoDev.</h1>
+<h1>RocketBot now supports Pokémon Go 0.53.1 API using public hashing server from PogoDev. Or legacy API FREE (High risk)</h1>
 
 <p>
 RocketBot itself is free but now you will need to purchase an API key to run the bot.
