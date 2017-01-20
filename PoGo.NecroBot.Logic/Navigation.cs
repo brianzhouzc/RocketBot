@@ -26,7 +26,7 @@ using System.Diagnostics;
 namespace PoGo.NecroBot.Logic
 {
     //add delegate
-     public delegate void GetHumanizeRouteDelegate(List<GeoCoordinate> route, GeoCoordinate destination, List<FortData> pokeStops);
+    public delegate void GetHumanizeRouteDelegate(List<GeoCoordinate> route, GeoCoordinate destination, List<FortData> pokeStops);
 
     public delegate void UpdatePositionDelegate(double lat, double lng);
 
@@ -105,8 +105,7 @@ namespace PoGo.NecroBot.Logic
             CancellationToken cancellationToken, double customWalkingSpeed = 0.0)
         {
             cancellationToken.ThrowIfCancellationRequested();
-
-            //add routes to map
+          //add routes to map
             var points = new List<GeoCoordinate>();
             var route = Route(session,
                 new GeoCoordinate(

@@ -37,6 +37,9 @@ namespace PoGo.NecroBot.Logic.Tasks
 
                 var evolveResponse = await session.Client.Inventory.EvolvePokemon(pokemon.Id);
 
+                // Update setting after evolve.
+                setting = pokemonSettings.FirstOrDefault(q => pokemon != null && q.PokemonId == evolveResponse.EvolvedPokemonData.PokemonId); 
+
                 session.EventDispatcher.Send(new PokemonEvolveEvent
                 {
                     OriginalId = pokemonId,
