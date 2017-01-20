@@ -105,7 +105,8 @@ namespace PoGo.NecroBot.Logic
             CancellationToken cancellationToken, double customWalkingSpeed = 0.0)
         {
             cancellationToken.ThrowIfCancellationRequested();
-          //add routes to map
+            
+            //add routes to map
             var points = new List<GeoCoordinate>();
             var route = Route(session,
                 new GeoCoordinate(

@@ -430,7 +430,7 @@
     <Compile Include="WebSocketInterface.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\256x256.png" />
+    <None Include="Images\Miscs\Logo.png" />
     <Content Include="Resources\Ico.ico" />
     <None Include="Config\log4net.config" />
     <None Include="Config\log4net.unix.config" />
