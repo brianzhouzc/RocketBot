@@ -16,7 +16,7 @@ using POGOProtos.Enums;
 
 namespace RocketBot2.Forms
 {
-    internal partial class SettingsForm : Form
+    internal partial class SettingsForm : System.Windows.Forms.Form
     {
         private const int DefaultZoomLevel = 15;
 

@@ -1,0 +1,13 @@
+version: 1.0.0.{build}
+skip_tags: true
+configuration: Release
+platform: x86
+environment:
+  SolutionDirectory: .
+before_build:
+- cmd: >-
+    sed -i "s#$(SolutionDir)#.#g" POGOProtos.csproj
+
+    nuget restore -OutputDirectory packages
+build:
+  verbosity: minimal

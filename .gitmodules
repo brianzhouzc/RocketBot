@@ -3,6 +3,11 @@
 	url = https://github.com/TheUnnamedOrganisation/FeroxRev.git
 	branch = master
 
+[submodule "POGOProtos"]
+	path = POGOProtos
+	url = https://github.com/Furtif/POGOProtos.git
+	branch = 2.0.5
+	
 [submodule "PoGo.NecroBot.Logic"]
 	path = PoGo.NecroBot.Logic
 	url = https://github.com/TheUnnamedOrganisation/PoGo.NecroBot.Logic.git
