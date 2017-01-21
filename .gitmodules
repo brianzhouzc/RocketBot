@@ -2,8 +2,12 @@
 	path = FeroxRev
 	url = https://github.com/TheUnnamedOrganisation/FeroxRev.git
 	branch = master
-	
-	
+
+[submodule "PoGo.NecroBot.Logic"]
+	path = PoGo.NecroBot.Logic
+	url = https://github.com/TheUnnamedOrganisation/PoGo.NecroBot.Logic.git
+	branch = master
+
 [submodule "RocketBot2-APK"]
 	path = RocketBot2-APK
 	url = https://github.com/TheUnnamedOrganisation/RocketBot2-APK.git
