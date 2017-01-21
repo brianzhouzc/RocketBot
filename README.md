@@ -2,7 +2,7 @@
 [1.1]: http://i.imgur.com/M4fJ65n.png (ATTENTION)
 [1.2]: https://discordapp.com/api/guilds/208485545439920128/widget.png?style=banner2 (DISCORD)
 
-<h1>RocketBot now supports Pokémon Go 0.53.1 API using public hashing server from PogoDev. Or legacy API FREE (High risk)</h1>
+<h1>RocketBot is Off Ligne Pokémon Go Forcing 0.53.1 API </h1>
 
 <p>
 RocketBot itself is free but now you will need to purchase an API key to run the bot.
@@ -14,7 +14,8 @@ See https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer for pricing 
 ![alt text][1.1] <strong><em> The contents of this repo are a proof of concept and are for educational use only </em></strong>![alt text][1.1]<br/>
 [![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.svg?label=accepted&title=Accepted)](http://waffle.io/TheUnnamedOrganisation/RocketBot)
 [![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.svg?label=in%20progress&title=In Progress)](http://waffle.io/TheUnnamedOrganisation/RocketBot)
-[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBotI.png?label=ready&title=Ready)](https://waffle.io/TheUnnamedOrganisation/RocketBot)
+[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=ready&title=Ready)](https://waffle.io/TheUnnamedOrganisation/RocketBot)
+[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=backlog&title=backlog)](https://waffle.io/TheUnnamedOrganisation/RocketBot)
 
 <p align="center">
   <a href="https://discord.gg/y6EU2qY">
