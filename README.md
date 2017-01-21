@@ -2,7 +2,7 @@
 [1.1]: http://i.imgur.com/M4fJ65n.png (ATTENTION)
 [1.2]: https://discordapp.com/api/guilds/208485545439920128/widget.png?style=banner2 (DISCORD)
 
-<h1>RocketBot is OffLigne Pokémon Go Forcing 0.53.1 API </h1>
+<h1>RocketBot is OffLine Pokémon Go Forcing 0.53.1 API </h1>
 
 <p>
 RocketBot itself is free but now you will need to purchase an API key to run the bot.
@@ -12,10 +12,10 @@ See https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer for pricing 
 
 <!-- disclaimer -->
 ![alt text][1.1] <strong><em> The contents of this repo are a proof of concept and are for educational use only </em></strong>![alt text][1.1]<br/>
-[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.svg?label=accepted&title=Accepted)](http://waffle.io/TheUnnamedOrganisation/RocketBot)
-[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.svg?label=in%20progress&title=In Progress)](http://waffle.io/TheUnnamedOrganisation/RocketBot)
-[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=ready&title=Ready)](https://waffle.io/TheUnnamedOrganisation/RocketBot)
-[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=backlog&title=backlog)](https://waffle.io/TheUnnamedOrganisation/RocketBot)
+[![Stories in Ready](https://badge.waffle.io/1461748123/Pokemon-Go-Rocket-API.svg?label=accepted&title=Accepted)](http://waffle.io/1461748123/Pokemon-Go-Rocket-API)
+[![Stories in Ready](https://badge.waffle.io/1461748123/Pokemon-Go-Rocket-API.svg?label=in%20progress&title=In Progress)](http://waffle.io/1461748123/Pokemon-Go-Rocket-API)
+[![Stories in Ready](https://badge.waffle.io/1461748123/Pokemon-Go-Rocket-API.png?label=ready&title=Ready)](https://waffle.io/1461748123/Pokemon-Go-Rocket-API)
+[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.svg?label=ready&title=Ready)]
 
 <p align="center">
   <a href="https://discord.gg/y6EU2qY">
@@ -30,6 +30,9 @@ See https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer for pricing 
 ![alt tag](https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/SettingForm_3.png)
 ![alt tag](https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/SettingForm_4.png)
 ![alt tag](https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/SettingForm_5.png)
+![alt tag](https://cdn.discordapp.com/attachments/270204623019573250/271006046418370561/0cbc77ee-ce24-11e6-8201-0dd75a004e26.png)
+![alt tag](https://cdn.discordapp.com/attachments/270204623019573250/271006060532334592/268e24aa-cfa1-11e6-9c0f-16429cc474bb.png)
+![alt tag](https://cdn.discordapp.com/attachments/270204623019573250/271006063552102401/efc6243c-ce23-11e6-8d91-1d785feaf085.png)
 
 A Pokémon Go bot in C#
 
