@@ -73,7 +73,7 @@
             this.radLegacy.Size = new System.Drawing.Size(154, 17);
             this.radLegacy.TabIndex = 3;
             this.radLegacy.TabStop = true;
-            this.radLegacy.Text = "Legacy 0.45 API - High risk";
+            this.radLegacy.Text = "Legacy 0.45 API - FREE (High risk)";
             this.radLegacy.UseVisualStyleBackColor = true;
             // 
             // lnkBuy

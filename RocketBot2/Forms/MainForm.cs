@@ -39,6 +39,7 @@ using System.Reflection;
 using PoGo.NecroBot.Logic.Tasks;
 using System.Net;
 using RocketBot2.CommandLineUtility;
+using System.Diagnostics;
 
 namespace RocketBot2.Forms
 {
@@ -53,9 +54,9 @@ namespace RocketBot2.Forms
         private static bool _ignoreKillSwitch;
 
         private static readonly Uri StrKillSwitchUri =
-            new Uri("https://raw.githubusercontent.com/Furtif/NecroBot/Graphical_Interfaces/KillSwitch.txt");
+            new Uri("https://raw.githubusercontent.com/TheUnnamedOrganisation/RocketBot/master/KillSwitch.txt");
         private static readonly Uri StrMasterKillSwitchUri =
-            new Uri("https://raw.githubusercontent.com/Furtif/NecroBot/Graphical_Interfaces/PoGo.NecroBot.Logic/MKS.txt");
+            new Uri("https://raw.githubusercontent.com/TheUnnamedOrganisation/RocketBot/master/PoGo.NecroBot.Logic/MKS.txt");
 
         private static Session _session;
 
@@ -359,32 +360,33 @@ namespace RocketBot2.Forms
             _session = new Session(new ClientSettings(settings, elevationService), logicSettings, elevationService, translation);
             Logger.SetLoggerContext(_session);
 
-            /*
             if (boolNeedsSetup)
             {
-                if (GlobalSettings.PromptForSetup(_session.Translation))
+                StarterConfigForm configForm = new StarterConfigForm(_session, settings, elevationService, configFile);
+                if (configForm.ShowDialog() == DialogResult.OK)
                 {
-                    _session = GlobalSettings.SetupSettings(_session, settings, elevationService, configFile)
-                        var fileName = Assembly.GetExecutingAssembly().Location;
+                    var fileName = Assembly.GetExecutingAssembly().Location;
                     Process.Start(fileName);
                     Environment.Exit(0);
                 }
+
+                //if (GlobalSettings.PromptForSetup(_session.Translation))
+                //{
+                //    _session = GlobalSettings.SetupSettings(_session, settings, elevationService, configFile);
+
+                //    var fileName = Assembly.GetExecutingAssembly().Location;
+                //    Process.Start(fileName);
+                //    Environment.Exit(0);
+                //}
                 else
                 {
                     GlobalSettings.Load(_subPath, _enableJsonValidation);
-                    Logger.Write("Press a Key to continue...", LogLevel.Warning);
-                    Console.ReadKey();
+                    //Logger.Write("Press a Key to continue...", LogLevel.Warning);
+                    //Console.ReadKey();
                     return;
                 }
             }
-            */
-            if (boolNeedsSetup)
-            {
-                startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
-                Logger.Write("First time here? Go to settings to set your basic info.", LogLevel.Error);
-            }
-
-
+ 
             if (excelConfigAllow)
             {
                 ExcelConfigHelper.MigrateFromObject(settings, excelConfigFile);
