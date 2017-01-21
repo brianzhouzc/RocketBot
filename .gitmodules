@@ -6,7 +6,7 @@
 [submodule "PoGo.NecroBot.Logic"]
 	path = PoGo.NecroBot.Logic
 	url = https://github.com/TheUnnamedOrganisation/PoGo.NecroBot.Logic.git
-	branch = master
+	branch = Logic/Base
 
 [submodule "RocketBot2-APK"]
 	path = RocketBot2-APK
