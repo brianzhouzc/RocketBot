@@ -13,9 +13,9 @@ See https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer for pricing 
 <!-- disclaimer -->
 ![alt text][1.1] <strong><em> The contents of this repo are a proof of concept and are for educational use only </em></strong>![alt text][1.1]<br/>
 [![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.svg?label=accepted&title=Accepted)](http://waffle.io/TheUnnamedOrganisation/RocketBot)
- -[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.svg?label=in%20progress&title=In Progress)](http://waffle.io/TheUnnamedOrganisation/RocketBot)
- -[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=ready&title=Ready)](https://waffle.io/TheUnnamedOrganisation/RocketBot)
- -[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=backlog&title=backlog)](https://waffle.io/TheUnnamedOrganisation/RocketBot)
+[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.svg?label=in%20progress&title=In Progress)](http://waffle.io/TheUnnamedOrganisation/RocketBot)
+[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=ready&title=Ready)](https://waffle.io/TheUnnamedOrganisation/RocketBot)
+[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=backlog&title=backlog)](https://waffle.io/TheUnnamedOrganisation/RocketBot)
 
 <p align="center">
   <a href="https://discord.gg/y6EU2qY">
