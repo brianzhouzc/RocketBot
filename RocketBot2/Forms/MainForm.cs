@@ -54,9 +54,9 @@ namespace RocketBot2.Forms
         private static bool _ignoreKillSwitch;
 
         private static readonly Uri StrKillSwitchUri =
-            new Uri("https://raw.githubusercontent.com/Furtif/NecroBot/Graphical_Interfaces/KillSwitch.txt");
+            new Uri("https://raw.githubusercontent.com/TheUnnamedOrganisation/RocketBot/master/KillSwitch.txt");
         private static readonly Uri StrMasterKillSwitchUri =
-            new Uri("https://raw.githubusercontent.com/Furtif/NecroBot/Graphical_Interfaces/PoGo.NecroBot.Logic/MKS.txt");
+            new Uri("https://raw.githubusercontent.com/TheUnnamedOrganisation/RocketBot/master/PoGo.NecroBot.Logic/MKS.txt");
 
         private static Session _session;
 
