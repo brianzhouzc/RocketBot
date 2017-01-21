@@ -770,10 +770,6 @@
       <Project>{0739e40d-c589-4aeb-93e5-ee8cd6773c60}</Project>
       <Name>PoGo.NecroBot.Logic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\POGOProtos\POGOProtos.csproj">
-      <Project>{fed6ec35-c1a9-48d4-b662-0265ce0a4b34}</Project>
-      <Name>POGOProtos</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
