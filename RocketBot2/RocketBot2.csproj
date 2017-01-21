@@ -770,7 +770,7 @@
       <Project>{05d2da44-1b8e-4cf7-94ed-4d52451cd095}</Project>
       <Name>PokemonGo.RocketAPI</Name>
     </ProjectReference>
-    <ProjectReference Include="$(SolutionDir)\PoGo.NecroBot.Logic\PoGo.NecroBot.Logic.csproj">
+    <ProjectReference Include="..\PoGo.NecroBot.Logic\PoGo.NecroBot.Logic.csproj">
       <Project>{0739e40d-c589-4aeb-93e5-ee8cd6773c60}</Project>
       <Name>PoGo.NecroBot.Logic</Name>
     </ProjectReference>
