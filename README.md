@@ -2,7 +2,7 @@
 [1.1]: http://i.imgur.com/M4fJ65n.png (ATTENTION)
 [1.2]: https://discordapp.com/api/guilds/208485545439920128/widget.png?style=banner2 (DISCORD)
 
-<h1>RocketBot is OffLine Pokémon Go Forcing 0.53.1 API </h1>
+<h1>RocketBot2 now supports Pokémon Go 0.51.2 API using public hashing server from PogoDev, or Legacy API(FREE Hight risk) </h1>
 
 <p>
 RocketBot itself is free but now you will need to purchase an API key to run the bot.
