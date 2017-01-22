@@ -90,7 +90,7 @@ namespace RocketBot2
                 {
                     session.Send(message);
                 }
-                catch (Exception ex)
+                catch (Exception )
                 {
 #if DEBUG
                     //Logger.Write(ex.Message);
@@ -169,7 +169,7 @@ namespace RocketBot2
                     Longitude = _session.Client.CurrentLongitude
                 }));
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 #if DEBUG
                 //Logger.Write(ex.Message);
@@ -185,7 +185,7 @@ namespace RocketBot2
             {
                 HandleEvent(eve);
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 #if DEBUG
                 //Logger.Write(ex.Message);
