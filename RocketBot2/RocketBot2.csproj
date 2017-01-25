@@ -57,7 +57,7 @@
     <ManifestCertificateThumbprint>FABFDFD920EF90E9348A803A9225ADFB5B8BF8AB</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>NecroBot2_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>RocketBot2_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\Ico.ico</ApplicationIcon>
@@ -279,10 +279,6 @@
       <HintPath>$(SolutionDir)\packages\SuperSocket.WebSocket.1.6.6.1\lib\net45\SuperSocket.WebSocket.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebDriver, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\Selenium.WebDriver.3.0.1\lib\net40\WebDriver.dll</HintPath>
       <Private>True</Private>
@@ -426,8 +422,9 @@
     <Compile Include="WebSocketInterface.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Images\Miscs\Logo.png" />
-    <Content Include="Resources\Ico.ico" />
+    <None Include="cert.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Config\log4net.config" />
     <None Include="Config\log4net.unix.config" />
     <None Include="Config\Translations\translation.ca.json">
@@ -520,12 +517,13 @@
     <None Include="Config\Translations\translation.zh-TW.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Images\Miscs\Logo.png" />
+    <Content Include="Resources\Ico.ico" />
     <EmbeddedResource Include="App.config">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="packages.config" />
-    <None Include="cert.pfx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
     </None>
     <Content Include="Resources\device info.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -744,7 +742,7 @@
       <DependentUpon>StarterConfigForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
@@ -766,11 +764,11 @@
       <Project>{05d2da44-1b8e-4cf7-94ed-4d52451cd095}</Project>
       <Name>PokemonGo.RocketAPI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PoGo.NecroBot.Logic\PoGo.NecroBot.Logic.csproj">
+    <ProjectReference Include="$(SolutionDir)\PoGo.NecroBot.Logic\PoGo.NecroBot.Logic.csproj">
       <Project>{0739e40d-c589-4aeb-93e5-ee8cd6773c60}</Project>
       <Name>PoGo.NecroBot.Logic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\POGOProtos\POGOProtos.csproj">
+    <ProjectReference Include="$(SolutionDir)\\POGOProtos\POGOProtos.csproj">
       <Project>{fed6ec35-c1a9-48d4-b662-0265ce0a4b34}</Project>
       <Name>POGOProtos</Name>
     </ProjectReference>
@@ -823,9 +821,9 @@ foreach (var item in filesToCleanup)
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\packages\Fody.1.29.4\build\dotnet\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\Fody.1.29.4\build\dotnet\Fody.targets'))" />
-    <Error Condition="!Exists('$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.26.0\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.26.0\build\Selenium.WebDriver.ChromeDriver.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.27.0\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.27.0\build\Selenium.WebDriver.ChromeDriver.targets'))" />
   </Target>
-  <Import Project="$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.26.0\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.26.0\build\Selenium.WebDriver.ChromeDriver.targets')" />
+  <Import Project="$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.27.0\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.27.0\build\Selenium.WebDriver.ChromeDriver.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

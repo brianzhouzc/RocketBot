@@ -2,47 +2,47 @@
   "TranslationStrings": [
     {
       "Key": "HumanWalkSnipeNotEnoughtBalls",
-      "Value": "(HUMAN WALK) Niewystarczająca ilość piłek do aktywacji catch Em-All mode. ({0})/{1}"
+      "Value": "(PODRÓŻ) Niewystarczająca ilość Pokeball'i do aktywacji trybu Catch 'em All. ({0})/{1}"
     },
     {
       "Key": "HumanWalkSnipe",
-      "Value": "(HUMAN WALK) Znaleziono {0} spawning | lat: {1}, lng: {2}, dist {3:0.00}m , expired in {4:00} min {5:00} sec | Walk time est : {6:00} min {7:00} sec | Spin: {8} | Catch : {9}"
+      "Value": "(PODRÓŻ) Znaleziono {0} spawn'ów | szer.: {1}, dł.: {2}, odległość {3:0.00}m , utrata ważności po {4:00} min {5:00} sec | Przewidywany czas dotarcia : {6:00} min {7:00} sec | Obroty: {8} | Złapano : {9}"
     },
     {
       "Key": "HumanWalkSnipeUpdate",
-      "Value": "(HUMAN WALK) Found {0} pokemon matched with you filters. Human walking sniper won't catch em all, but try to catch as many as possible"
+      "Value": "(PODRÓŻ) Znaleziono {0} pokemonów pasujących do twoich wymagań. Snajper nie zdoła złapać wszystkich pokemon'ów, ale spróbuje złapać maksymalną możliwą ilość."
     },
     {
       "Key": "HumanWalkSnipeAddedPokestop",
-      "Value": "(HUMAN WALK) Jesteś {0:0.00m} away from nearest pokestop. Restart farming at this place with {1} pokestops"
+      "Value": "(PODRÓŻ) Jesteś oddalony {0:0.00m} od najbliższego pokestop'u. Restart farmienia w tym miejscu z {1} Pokestop'ami"
     },
     {
       "Key": "HumanWalkSnipeDestinationReached",
-      "Value": "(HUMAN WALK) destination reached | lat: {0}, lng: {1} | wait  {3:0.00} sec"
+      "Value": "(PODRÓŻ) cel osiągnięty | szer.: {0}, dł.: {1} | czekaj  {3:0.00} sec"
     },
     {
       "Key": "SniperCount",
-      "Value": "Sniper count {0}"
+      "Value": "Licznik snajpera: {0}"
     },
     {
       "Key": "SnipeExceeds",
-      "Value": "Sniper musi zrobić sobie przerwę bo inaczej konto może zostać zablokowane"
+      "Value": "Snajper musi zrobić sobie przerwę, bo inaczej konto może zostać zablokowane."
     },
     {
       "Key": "CatchExceeds",
-      "Value": "Łapiesz pokemony za szybko. Nie możesz złapac kolejnego dopiero po {0} sekundach"
+      "Value": "Łapiesz pokemony za szybko. Nie możesz złapać kolejnego dopiero po {0} sekundach"
     },
     {
       "Key": "PokeStopExceeds",
-      "Value": "Odwiedzasz pokestopy za szybko. Nie możesz odwiedzić kolejnego dopiero po {0} sekundach"
+      "Value": "Odwiedzasz pokestopy za szybko. Nie możesz odwiedzić kolejnego dopiero po {0} sekundach."
     },
     {
       "Key": "Only10kmEggs",
-      "Value": "Gracz poniżej 20 poziomu, oszczędza 10 km Egg na potem"
+      "Value": "Gracz nie osiagnął poziomu 20-tego, zachowuję Jajko 10 km na później."
     },
     {
       "Key": "GoogleAPIWarning",
-      "Value": "Bez API Google, trzeba będzie 2500 bezpłatny limit przydziału, jeśli osiągnie maksymalny limit, spróbuj zmienić swój adres IP. Do konfiguracji \"GoogleAPIKey\", weź API Key z link: https://developers.google.com/maps/documentation/directions/get-api-key"
+      "Value": "Bez API Google, bedziesz posiadał limit 2500 darmowego przydziału, jeśli maksymalny limit zostanie osiągniety, spróbuj zmienić swój adres IP. Aby skonfigurować \"GoogleAPIKey\", uzyskaj API Key z linku: https://developers.google.com/maps/documentation/directions/get-api-key"
     },
     {
       "Key": "pokeball",
@@ -74,15 +74,15 @@
     },
     {
       "Key": "farmPokestopsNoUsableFound",
-      "Value": "Nie znaleziono PokeStopów w Twojej okolicy. Maksymalny zasięg jest za mały"
+      "Value": "Nie znaleziono PokeStop'ów w Twojej okolicy. Maksymalny zasięg jest za mały."
     },
     {
       "Key": "eventFortUsed",
-      "Value": "Nazwa: {0}  [XP: {1}, Gemy: {2}, Itemy: {3}, Szerokość: {4}, Długość: {5}]"
+      "Value": "Nazwa: {0}  [XP: {1}, Gemy: {2}, Itemy: {3}, Szer.: {4}, Dł.: {5}]"
     },
     {
       "Key": "eventFortFailed",
-      "Value": "Nazwa: {0}  INFO: Zbieranie przedmiotów nie powiodła się, prawdopodobnie masz SoftBana. Odbanowanie za: {1}/{2}"
+      "Value": "Nazwa: {0}  INFO: Zbieranie przedmiotów nie powiodło się, prawdopodobnie masz SoftBana. Odbanowanie za: {1}/{2}"
     },
     {
       "Key": "gym",
@@ -90,7 +90,7 @@
     },
     {
       "Key": "pokestop",
-      "Value": "PokeStopu"
+      "Value": "PokeStop"
     },
     {
       "Key": "eventFortTargeted",
@@ -102,11 +102,11 @@
     },
     {
       "Key": "eventUsedIncense",
-      "Value": "Użyto Incensa, pozostało: {0}"
+      "Value": "Użyto Incens'a, pozostało: {0}"
     },
     {
       "Key": "eventUsedLuckyEgg",
-      "Value": "Użyto LuckyEgga, pozostało: {0}"
+      "Value": "Użyto LuckyEgg'a, pozostało: {0}"
     },
     {
       "Key": "eventPokemonEvolvedSuccess",
@@ -126,7 +126,7 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value": "({0}) | ({1}) {2}  [Lvl: {3} | CP: ({4}/{5}) | IV: {6}%] Szansa: {7}% | Odległy o: {8}m | Użyto: {9} (Pozostało {10}) | EXP: {11} | {12} | Szerokość: {13} Długość: {14} | Move1: {15} Move2: {16}"
+      "Value": "({0}) | ({1}) {2}  [Lvl: {3} | CP: ({4}/{5}) | IV: {6}%] Szansa: {7}% | Odległy o: {8}m | Użyto: {9} (Pozostało {10}) | EXP: {11} | {12} | Szerokość: {13} Długość: {14} | Umiejętność 1.: {15} Umiejętność 2.: {16}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
@@ -146,7 +146,7 @@
     },
     {
       "Key": "catchMorePokemonToUseLuckyEgg",
-      "Value": "Złap jeszcze {0} Pokemonów, żeby aktywowano LuckyEgga"
+      "Value": "Złap jeszcze {0} Pokemonów, żeby aktywować LuckyEgg'a"
     },
     {
       "Key": "eventUseBerry",
@@ -202,15 +202,15 @@
     },
     {
       "Key": "welcomeWarning",
-      "Value": "Upewnij się, że szerokość i długość geograficzna są poprawnie. Jeżeli nie to zamknij program  [Szerokość: {0} Długość: {1}]"
+      "Value": "Upewnij się, że szerokość i długość geograficzna są poprawne. Jeżeli nie to zamknij program  [Szerokość: {0} Długość: {1}]"
     },
     {
       "Key": "incubatorPuttingEgg",
-      "Value": "Umieszczono Jajko w inkubatorze: Pozostało {0:0.00}km"
+      "Value": "Umieszczono Jajko w inkubatorze. Pozostało {0:0.00}km"
     },
     {
       "Key": "incubatorStatusUpdate",
-      "Value": "[Aktualizacja inkubatora] Pozostało: {0:0.00}km"
+      "Value": "[STATUS INKUBATORA] Pozostało: {0:0.00}km"
     },
     {
       "Key": "incubatorEggHatched",
@@ -286,7 +286,7 @@
     },
     {
       "Key": "ptcOffline",
-      "Value": "Serwery PTC najprawdopodobniej nie działają albo Twoje dane logowania są błędne. Spróbuj użyć konta Google"
+      "Value": "Serwery PTC najprawdopodobniej nie działają albo Twoje dane logowania są błędne. Spróbuj użyć konta Google."
     },
     {
       "Key": "accessTokenExpired",
@@ -294,7 +294,7 @@
     },
     {
       "Key": "invalidResponse",
-      "Value": "Otrzymano niepoprawną odpowiedź od serwera Niantic"
+      "Value": "Otrzymano niepoprawną odpowiedź od serwera Niantic."
     },
     {
       "Key": "tryingAgainIn",
@@ -310,7 +310,7 @@
     },
     {
       "Key": "couldntCopyToClipboard",
-      "Value": "Błąd przy kopiowaniu, zrób to ręcznie"
+      "Value": "Błąd przy kopiowaniu, zrób to ręcznie."
     },
     {
       "Key": "couldntCopyToClipboard2",
@@ -354,43 +354,43 @@
     },
     {
       "Key": "updateFinished",
-      "Value": "Aktualizacja zakończona, możesz teraz zamknąć okno"
+      "Value": "Aktualizacja zakończona, możesz teraz zamknąć okno."
     },
     {
       "Key": "lookingForIncensePokemon",
-      "Value": "Poszukuję Pokemonów zwabionych Incensem..."
+      "Value": "Poszukuję Pokemonów zwabionych Incens'em..."
     },
     {
       "Key": "lookingForPokemon",
-      "Value": "Poszukuję Pokemonów..."
+      "Value": "Poszukuję Pokemon'ów..."
     },
     {
       "Key": "lookingForLurePokemon",
-      "Value": "Poszukuję Pokemonów zwabionych Lurem..."
+      "Value": "Poszukuję Pokemon'ów zwabionych Lure'em..."
     },
     {
       "Key": "pokemonSkipped",
-      "Value": "Pominięto {0}"
+      "Value": "Pominięto {0}."
     },
     {
       "Key": "zeroPokeballInv",
-      "Value": "Brak Pokeballi w ekwipunku, nie możesz złapać więcej Pokemonów"
+      "Value": "Brak Pokeball'i w ekwipunku, nie możesz złapać więcej Pokemonów"
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "Pokeballe: {0} | Greatballe: {1} | Ultraballe: {2} | Masterballe: {3}"
+      "Value": "Pokeball'e: {0} | Greatball'e: {1} | Ultraball'e: {2} | Masterball'e: {3}"
     },
     {
       "Key": "currentPotionInv",
-      "Value": "Potiony: {0} | SuperPotiony: {1} | HyperPotiony: {2} | MaxPotiony: {3}"
+      "Value": "Potion'y: {0} | SuperPotion'y: {1} | HyperPotion'y: {2} | MaxPotion'y: {3}"
     },
     {
       "Key": "currentReviveInv",
-      "Value": "Revivy: {0} | MaxRevivy: {1}"
+      "Value": "Revive'y: {0} | MaxRevive'y: {1}"
     },
     {
       "Key": "currentMiscItemInv",
-      "Value": "RazzBerry: {0} | Incensy: {1} | LuckyEggi: {2} | Lury: {3}"
+      "Value": "RazzBerry: {0} | Incense'y: {1} | LuckyEgg'i: {2} | Lure'y: {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
@@ -410,7 +410,7 @@
     },
     {
       "Key": "invFullPokestopLooting",
-      "Value": "Twój ekwipunek jest pełny, nie zebrano przedmiotów"
+      "Value": "Twój ekwipunek jest pełny, nie zebrano przedmiotów z PokeStop'u."
     },
     {
       "Key": "encounterProblem",
@@ -418,15 +418,15 @@
     },
     {
       "Key": "encounterProblemLurePokemon",
-      "Value": "Napotkano problem: Lure Pokemonów {0}"
+      "Value": "Napotkano problem: Lure Pokemon'ów {0}"
     },
     {
       "Key": "desiredDestTooFar",
-      "Value": "Punkt docelowy {0}, {1} jest zbyt daleko od Twojej obecnej pozycji {2}, {3}"
+      "Value": "Punkt docelowy {0}, {1} jest położony zbyt daleko od Twojej obecnej pozycji {2}, {3}."
     },
     {
       "Key": "pokemonRename",
-      "Value": "Nazwa Pokemona {0} została zmieniona z {2} na {3}"
+      "Value": "Nazwa Pokemon'a {0} została zmieniona z {2} na {3}."
     },
     {
       "Key": "pokemonFavorite",
@@ -434,7 +434,7 @@
     },
     {
       "Key": "pokemonIgnoreFilter",
-      "Value": "[Filtr Ignorowania Pokemonów] - Ignorowanie {0} według wykrytych ustawień"
+      "Value": "[IGNOROWANIE POKEMON'ÓW] - Ignorowanie {0} według wykrytych ustawień."
     },
     {
       "Key": "catchStatusAttempt",
@@ -442,7 +442,7 @@
     },
     {
       "Key": "catchStatusError",
-      "Value": "Błąd Łapania"
+      "Value": "Błąd podczas łapania"
     },
     {
       "Key": "catchStatusEscape",
@@ -474,7 +474,7 @@
     },
     {
       "Key": "webSocketFailStart",
-      "Value": "Uruchamianie WebSocketServer na porcie: {0} zakończone niepowodzeniem"
+      "Value": "Uruchamianie WebSocketServer na porcie: {0} zakończone niepowodzeniem."
     },
     {
       "Key": "statsTemplateString",
@@ -482,7 +482,7 @@
     },
     {
       "Key": "profileStatsTemplateString",
-      "Value": "----- LVL: {0} | {1} ----- \n Doświadczenie: {2}/{3} \n Złapanych Pokemonów: {4} \n Umieszczonych Pokemonów: {5} \n Odwiedzonych Pokestopów: {6} \n Wyklutych Jajek: {6} \n Wyewoluowanych Pokemonów: {7} \n Pokemonów w Pokedex: {8} \n Przebytych KM: {9}"
+      "Value": "----- LVL: {0} | {1} ----- \n Doświadczenie: {2}/{3} \n Złapane Pokemon'y: {4} \n Umieszczonych Pokemonów: {5} \n Odwiedzonych Pokestop'ów: {6} \n Wyklutych Jajek: {6} \n Wyewoluowanych Pokemon'ów: {7} \n Pokemon'ów w Pokedex'ie: {8} \n Przebytych KM: {9}"
     },
     {
       "Key": "showPokeTemplate",
@@ -490,7 +490,7 @@
     },
     {
       "Key": "showPokeSkillTemplate",
-      "Value": "\n CP: {0} | IV: {1}% | Move: {2} + {3} | Nazwa: {4}"
+      "Value": "\n CP: {0} | IV: {1}% | Umiejętności: {2} + {3} | Nazwa: {4}"
     },
     {
       "Key": "statsXpTemplateString",
@@ -510,23 +510,23 @@
     },
     {
       "Key": "googleError",
-      "Value": "Upewnij się, że wpisany przez Ciebie Email i Hasło są prawidłowe"
+      "Value": "Upewnij się, że wpisany przez Ciebie Email i Hasło są prawidłowe."
     },
     {
       "Key": "googleOffline",
-      "Value": "Serwery Google są prawdopodobnie wyłączone, proszę uzbroić się w cierpliwość i uruchomić bota później"
+      "Value": "Serwery Google są prawdopodobnie wyłączone, proszę uzbroić się w cierpliwość i uruchomić bota później."
     },
     {
       "Key": "missingCredentialsGoogle",
-      "Value": "Wprowadź GoogleUsername oraz GooglePassword w 'auth.json'"
+      "Value": "Wprowadź nazwę użytkownika (GoogleUsername) oraz hasło (GooglePassword) w pliku 'auth.json'."
     },
     {
       "Key": "missingCredentialsPtc",
-      "Value": "Wprowadź PtcUsername oraz PtcPassword w 'auth.json'"
+      "Value": "Wprowadź nazwę użytkownika (PtcUsername) oraz hasło (PtcPassword) w 'auth.json'."
     },
     {
       "Key": "snipeScan",
-      "Value": "Skanowanie w poszukiwaniu Pokemona [{0}]..."
+      "Value": "Skanowanie w poszukiwaniu Pokemon'ów [{0}]..."
     },
     {
       "Key": "snipeScanEx",
@@ -534,11 +534,11 @@
     },
     {
       "Key": "noPokemonToSnipe",
-      "Value": "Nie znaleziono żadnego Pokemona"
+      "Value": "Nie znaleziono żadnego Pokemona."
     },
     {
       "Key": "notEnoughPokeballsToSnipe",
-      "Value": "Zbyt mało Pokeballi ({0}/{1})"
+      "Value": "Zbyt mało Pokeball'i ({0}/{1})"
     },
     {
       "Key": "displayHighestMove1Header",
@@ -558,23 +558,23 @@
     },
     {
       "Key": "noEggsAvailable",
-      "Value": "Brak LuckyEggów"
+      "Value": "Brak LuckyEgg'ów."
     },
     {
       "Key": "useLuckyEggActive",
-      "Value": "LuckyEgg jest aktywny"
+      "Value": "LuckyEgg jest aktywny."
     },
     {
       "Key": "usedLuckyEgg",
-      "Value": "Aktywowano LuckyEgga"
+      "Value": "Aktywowano LuckyEgg'a."
     },
     {
       "Key": "useLuckyEggAmount",
-      "Value": "LuckyEggów w ekwipunku: {0}"
+      "Value": "LuckyEgg'ów w ekwipunku: {0}"
     },
     {
       "Key": "noIncenseAvailable",
-      "Value": "Brak Incensów"
+      "Value": "Brak Incens'ów"
     },
     {
       "Key": "useIncenseActive",
@@ -582,23 +582,23 @@
     },
     {
       "Key": "useIncenseAmount",
-      "Value": "Incensów w ekwipunku: {0}"
+      "Value": "Incense'ów w ekwipunku: {0}"
     },
     {
       "Key": "usedIncense",
-      "Value": "Aktywowano Incensa"
+      "Value": "Aktywowano Incense'a"
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "Ilość widzianych Pokemonów: {0}/151 | Ilość złapanych Pokemonów: {1}/151"
+      "Value": "Ilość widzianych Pokemon'ów: {0}/151 | Ilość złapanych Pokemon'ów: {1}/151"
     },
     {
       "Key": "pkmPotentialEvolveCount",
-      "Value": "Pokemonów oczekujących na ewolucje: {0}"
+      "Value": "Pokemon'y oczekujące na ewolucje: {0}"
     },
     {
       "Key": "pkmNotEnoughRessources",
-      "Value": "Ulepszanie Pokemona nie powiodło się. Zbyt mało zasobów"
+      "Value": "Ulepszanie Pokemona nie powiodło się. Zbyt mało zasobów."
     },
     {
       "Key": "snipeServerOffline",
@@ -606,7 +606,7 @@
     },
     {
       "Key": "firstStartPrompt",
-      "Value": "To są Twoje pierwsze kroki. Chciałbyś rozpocząć początkową konfigurację? {0}/{1}"
+      "Value": "To są Twoje pierwsze kroki. Czy chciałbyś rozpocząć początkową konfigurację? {0}/{1}"
     },
     {
       "Key": "firstStartLanguagePrompt",
@@ -622,7 +622,7 @@
     },
     {
       "Key": "promptError",
-      "Value": "[ERROR] Błąd, podaj '{0}' lub '{1}"
+      "Value": "[BŁĄD] Błąd, podaj '{0}' lub '{1}"
     },
     {
       "Key": "firstStartAutoGenSettings",
@@ -674,7 +674,7 @@
     },
     {
       "Key": "firstStartDefaultLocation",
-      "Value": "### Ustawienia domyślnej pozycji ###"
+      "Value": "### Ustawienia domyślnej lokalizacji ###"
     },
     {
       "Key": "firstStartSetupDefaultLocationError",
@@ -694,7 +694,7 @@
     },
     {
       "Key": "firstStartSetupCompleted",
-      "Value": "### Ustawianie configu zakończone ###"
+      "Value": "### Konfigurowanie ustawień zakończone ###"
     },
     {
       "Key": "PokedexCatchedTelegram",
@@ -702,7 +702,7 @@
     },
     {
       "Key": "PokedexPokemonCatchedTelegram",
-      "Value": "#{0} Nazwa: {1} | Złapane: {2} | Spotkane: {3} \n"
+      "Value": "#{0} Nazwa: {1} | Złapanych: {2} | Spotkanych: {3} \n"
     },
     {
       "Key": "PokedexNeededTelegram",
@@ -718,7 +718,7 @@
     },
     {
       "Key": "FixProxySettings",
-      "Value": "Kliknij przycisk aby wyjść by naprawić twoje ustawienia proxy..."
+      "Value": "Wciśnij dowolny przycisk aby wyjść i następnie naprawić twoje ustawienia proxy..."
     },
     {
       "Key": "Unproxied",
@@ -734,11 +734,11 @@
     },
     {
       "Key": "HumanWalkingVariant",
-      "Value": "Prędkość ruchu: Została zmieniona z, {0:n2} Km/h na {1:n2} Km/h"
+      "Value": "[Prędkość] Została zmieniona z {0:n2} Km/h na {1:n2} Km/h"
     },
     {
       "Key": "AccountBanned",
-      "Value": "Prawdopodobnie masz PERMBANA!"
+      "Value": "Prawdopodobnie masz PERMBAN'A!"
     }
   ],
   "PokemonStrings": [
@@ -1072,7 +1072,7 @@
     },
     {
       "Key": "farfetchd",
-      "Value": "Farfetchd"
+      "Value": "Farfetch'd"
     },
     {
       "Key": "doduo",

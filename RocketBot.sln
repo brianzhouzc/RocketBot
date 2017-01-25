@@ -465,8 +465,8 @@ Global
 		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Debug RocketBot|Windows-x86.Build.0 = Debug|Any CPU
 		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Debug RocketBot|x64.ActiveCfg = Debug|Any CPU
 		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Debug RocketBot|x64.Build.0 = Debug|Any CPU
-		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Debug RocketBot|x86.ActiveCfg = Debug|x86
-		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Debug RocketBot|x86.Build.0 = Debug|x86
+		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Debug RocketBot|x86.ActiveCfg = Debug|Any CPU
+		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Debug RocketBot|x86.Build.0 = Debug|Any CPU
 		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Debug|Android.ActiveCfg = Debug|Any CPU
 		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Debug|Android.Build.0 = Debug|Any CPU
 		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -487,8 +487,8 @@ Global
 		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Debug|Windows-x86.Build.0 = Debug|Any CPU
 		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Debug|x64.Build.0 = Debug|Any CPU
-		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Debug|x86.ActiveCfg = Debug|x86
-		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Debug|x86.Build.0 = Debug|x86
+		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Debug|x86.Build.0 = Debug|Any CPU
 		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Release RocketBot|Android.ActiveCfg = Release|Any CPU
 		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Release RocketBot|Android.Build.0 = Release|Any CPU
 		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Release RocketBot|Any CPU.ActiveCfg = Release|Any CPU
@@ -509,8 +509,8 @@ Global
 		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Release RocketBot|Windows-x86.Build.0 = Release|Any CPU
 		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Release RocketBot|x64.ActiveCfg = Release|Any CPU
 		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Release RocketBot|x64.Build.0 = Release|Any CPU
-		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Release RocketBot|x86.ActiveCfg = Release|x86
-		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Release RocketBot|x86.Build.0 = Release|x86
+		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Release RocketBot|x86.ActiveCfg = Release|Any CPU
+		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Release RocketBot|x86.Build.0 = Release|Any CPU
 		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Release|Android.ActiveCfg = Release|Any CPU
 		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Release|Android.Build.0 = Release|Any CPU
 		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -531,8 +531,8 @@ Global
 		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Release|Windows-x86.Build.0 = Release|Any CPU
 		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Release|x64.ActiveCfg = Release|Any CPU
 		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Release|x64.Build.0 = Release|Any CPU
-		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Release|x86.ActiveCfg = Release|x86
-		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Release|x86.Build.0 = Release|x86
+		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Release|x86.ActiveCfg = Release|Any CPU
+		{FED6EC35-C1A9-48D4-B662-0265CE0A4B34}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,7 +2,7 @@
 [1.1]: http://i.imgur.com/M4fJ65n.png (ATTENTION)
 [1.2]: https://discordapp.com/api/guilds/208485545439920128/widget.png?style=banner2 (DISCORD)
 
-<h1>RocketBot2 now supports Pokémon Go 0.51.2 API using public hashing server from PogoDev, or Legacy API(FREE Hight risk) </h1>
+<h1>RocketBot2 now supports Pokémon Go 0.53.1 API using public hashing server from PogoDev, or Legacy API(FREE Hight risk) </h1>
 
 <p>
 RocketBot itself is free but now you will need to purchase an API key to run the bot.
@@ -33,7 +33,7 @@ See https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer for pricing 
 ![alt tag](https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/SettingForm_5.png)
 ![alt tag](https://cdn.discordapp.com/attachments/270204623019573250/271006046418370561/0cbc77ee-ce24-11e6-8201-0dd75a004e26.png)
 ![alt tag](https://cdn.discordapp.com/attachments/270204623019573250/271006060532334592/268e24aa-cfa1-11e6-9c0f-16429cc474bb.png)
-![alt tag](https://cdn.discordapp.com/attachments/270204623019573250/271006063552102401/efc6243c-ce23-11e6-8d91-1d785feaf085.png)
+![alt tag](https://cdn.discordapp.com/attachments/270204623019573250/272446141411491841/Sans_titre.png)
 
 A Pokémon Go bot in C#
 
