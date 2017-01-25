@@ -58,9 +58,6 @@ namespace RocketBot2.Forms
         private static readonly Uri StrMasterKillSwitchUri =
             new Uri("https://raw.githubusercontent.com/TheUnnamedOrganisation/RocketBot/master/PoGo.NecroBot.Logic/MKS.txt");
 
-        private static Session _session;
-
-        //private static bool boolNeedsSetup;
         private static GMapMarker _playerMarker;
         private readonly List<PointLatLng> _playerLocations = new List<PointLatLng>();
 
@@ -74,7 +71,8 @@ namespace RocketBot2.Forms
         private StateMachine _machine;
         private List<PointLatLng> _routePoints;
         private GlobalSettings _settings;
-        public string[] args;
+        private static Session _session;
+        private string[] args;
 
         public MainForm(string[] _args)
         {
@@ -91,8 +89,7 @@ namespace RocketBot2.Forms
             showMoreCheckBox.Parent = gMapControl1;
             followTrainerCheckBox.Parent = gMapControl1;
             togglePrecalRoute.Parent = gMapControl1;
-
-            InitializeBot();
+            InitializeBot(null);
             InitializePokemonForm();
             InitializeMap();
             VersionHelper.CheckVersion();
@@ -126,8 +123,11 @@ namespace RocketBot2.Forms
             S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(lng, lat), _searchAreaOverlay);
         }
 
-        private void InitializeBot()
+        private void InitializeBot(Action<ISession, StatisticsAggregator> onBotStarted)
         {
+            var ioc = TinyIoC.TinyIoCContainer.Current;
+
+            //Application.EnableVisualStyles();
             var strCulture = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
 
             var culture = CultureInfo.CreateSpecificCulture("en");
@@ -135,14 +135,14 @@ namespace RocketBot2.Forms
             Thread.CurrentThread.CurrentCulture = culture;
 
             AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionEventHandler;
-/*
-            Console.Title = @"RocketBot2";
+            /*
+            Console.Title = @"NecroBot2";
             Console.CancelKeyPress += (sender, eArgs) =>
             {
                 QuitEvent.Set();
                 eArgs.Cancel = true;
             };
-*/
+            */
             // Command line parsing
             var commandLine = new Arguments(args);
             // Look for specific arguments values
@@ -176,20 +176,14 @@ namespace RocketBot2.Forms
             }
 
             bool excelConfigAllow = false;
-            
             if (commandLine["provider"] != null && commandLine["provider"] == "excel")
             {
-
                 excelConfigAllow = true;
             }
-            
 
             Logger.AddLogger(new ConsoleLogger(LogLevel.Service), _subPath);
             Logger.AddLogger(new FileLogger(LogLevel.Service), _subPath);
             Logger.AddLogger(new WebSocketLogger(LogLevel.Service), _subPath);
-
-
-
 
             var profilePath = Path.Combine(Directory.GetCurrentDirectory(), _subPath);
             var profileConfigPath = Path.Combine(profilePath, "config");
@@ -203,13 +197,13 @@ namespace RocketBot2.Forms
             {
                 // Load the settings from the config file
                 settings = GlobalSettings.Load(_subPath, _enableJsonValidation);
-                
                 if (excelConfigAllow)
                 {
                     if (!File.Exists(excelConfigFile))
                     {
-
-                        Logger.Write("Migrating existing json confix to excel config, please check the config.xlsm in your config folder");
+                        Logger.Write(
+                            "Migrating existing json confix to excel config, please check the config.xlsm in your config folder"
+                        );
 
                         ExcelConfigHelper.MigrateFromObject(settings, excelConfigFile);
                     }
@@ -218,7 +212,6 @@ namespace RocketBot2.Forms
 
                     Logger.Write("Bot will run with your excel config, loading excel config");
                 }
-                
             }
             else
             {
@@ -232,7 +225,6 @@ namespace RocketBot2.Forms
 
                 boolNeedsSetup = true;
             }
-            
             if (commandLine["latlng"] != null && commandLine["latlng"].Length > 0)
             {
                 var crds = commandLine["latlng"].Split(',');
@@ -248,7 +240,6 @@ namespace RocketBot2.Forms
                     // ignored
                 }
             }
-            
 
             var lastPosFile = Path.Combine(profileConfigPath, "LastPos.ini");
             if (File.Exists(lastPosFile) && settings.LocationConfig.StartFromLastPosition)
@@ -268,41 +259,48 @@ namespace RocketBot2.Forms
                 }
             }
 
-            //Only check killswitch if use legacyAPI
-            //if (settings.Auth.APIConfig.UseLegacyAPI  && (!_ignoreKillSwitch && CheckKillSwitch() || CheckMKillSwitch()))
-            //    return;
+            /*if (!_ignoreKillSwitch)
+            {
+                if (CheckKillSwitch() || CheckMKillSwitch())
+                {
+                    return;
+                }
+            }*/
 
             var logicSettings = new LogicSettings(settings);
             var translation = Translation.Load(logicSettings);
+            TinyIoC.TinyIoCContainer.Current.Register<ITranslation>(translation);
 
             if (settings.GPXConfig.UseGpxPathing)
             {
                 var xmlString = File.ReadAllText(settings.GPXConfig.GpxFile);
                 var readgpx = new GpxReader(xmlString, translation);
                 var nearestPt = readgpx.Tracks.SelectMany(
-                    (trk, trkindex) =>
-                        trk.Segments.SelectMany(
-                            (seg, segindex) =>
-                                seg.TrackPoints.Select(
-                                    (pt, ptindex) =>
-                                        new
-                                        {
-                                            TrackPoint = pt,
-                                            TrackIndex = trkindex,
-                                            SegIndex = segindex,
-                                            PtIndex = ptindex,
-                                            Latitude = Convert.ToDouble(pt.Lat, CultureInfo.InvariantCulture),
-                                            Longitude = Convert.ToDouble(pt.Lon, CultureInfo.InvariantCulture),
-                                            Distance = LocationUtils.CalculateDistanceInMeters(
-                                                settings.LocationConfig.DefaultLatitude,
-                                                settings.LocationConfig.DefaultLongitude,
-                                                Convert.ToDouble(pt.Lat, CultureInfo.InvariantCulture),
-                                                Convert.ToDouble(pt.Lon, CultureInfo.InvariantCulture)
+                        (trk, trkindex) =>
+                            trk.Segments.SelectMany(
+                                (seg, segindex) =>
+                                    seg.TrackPoints.Select(
+                                        (pt, ptindex) =>
+                                            new
+                                            {
+                                                TrackPoint = pt,
+                                                TrackIndex = trkindex,
+                                                SegIndex = segindex,
+                                                PtIndex = ptindex,
+                                                Latitude = Convert.ToDouble(pt.Lat, CultureInfo.InvariantCulture),
+                                                Longitude = Convert.ToDouble(pt.Lon, CultureInfo.InvariantCulture),
+                                                Distance = LocationUtils.CalculateDistanceInMeters(
+                                                    settings.LocationConfig.DefaultLatitude,
+                                                    settings.LocationConfig.DefaultLongitude,
+                                                    Convert.ToDouble(pt.Lat, CultureInfo.InvariantCulture),
+                                                    Convert.ToDouble(pt.Lon, CultureInfo.InvariantCulture)
                                                 )
-                                        }
+                                            }
                                     )
                             )
-                    ).OrderBy(pt => pt.Distance).FirstOrDefault(pt => pt.Distance <= 5000);
+                    )
+                    .OrderBy(pt => pt.Distance)
+                    .FirstOrDefault(pt => pt.Distance <= 5000);
 
                 if (nearestPt != null)
                 {
@@ -319,7 +317,7 @@ namespace RocketBot2.Forms
             if (boolNeedsSetup)
             {
                 AuthAPIForm form = new AuthAPIForm(true);
-                if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (form.ShowDialog() == DialogResult.OK)
                 {
                     settings.Auth.APIConfig = form.Config;
                 }
@@ -332,18 +330,22 @@ namespace RocketBot2.Forms
                 {
                     if (string.IsNullOrEmpty(apiCfg.AuthAPIKey))
                     {
-
-                        Logger.Write("You select pogodev API but not provide API Key, please press any key to exit and correct you auth.json, \r\n The Pogodev API key call be purchased at - https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer", LogLevel.Error);
+                        Logger.Write(
+                            "You select pogodev API but not provide API Key, please press any key to exit and correct you auth.json, \r\n The Pogodev API key call be purchased at - https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer",
+                            LogLevel.Error
+                        );
 
                         //Console.ReadKey();
                         Environment.Exit(0);
                     }
                     //TODO - test api call to valida auth key
                 }
-                else
-                if (apiCfg.UseLegacyAPI)
+                else if (apiCfg.UseLegacyAPI)
                 {
-                    Logger.Write("You bot will start after 15 second, You are running bot with  Legacy API (0.45) it will increase your risk to be banned and trigger captcha. Config captcha in config.json to auto resolve them", LogLevel.Warning);
+                    Logger.Write(
+                        "You bot will start after 15 second, You are running bot with  Legacy API (0.45) it will increase your risk to be banned and trigger captcha. Config captcha in config.json to auto resolve them",
+                        LogLevel.Warning
+                    );
 
 #if RELEASE
                     Thread.Sleep(15000);
@@ -351,13 +353,21 @@ namespace RocketBot2.Forms
                 }
                 else
                 {
-                    Logger.Write("At least 1 authentication method is selected, please correct your auth.json, ", LogLevel.Error);
+                    Logger.Write(
+                        "At least 1 authentication method is selected, please correct your auth.json, ",
+                        LogLevel.Error
+                    );
                     //Console.ReadKey();
                     Environment.Exit(0);
                 }
             }
 
-            _session = new Session(new ClientSettings(settings, elevationService), logicSettings, elevationService, translation);
+            _session = new Session(
+                new ClientSettings(settings, elevationService), logicSettings, elevationService,
+                translation
+            );
+            ioc.Register<ISession>(_session);
+
             Logger.SetLoggerContext(_session);
 
             if (boolNeedsSetup)
@@ -381,46 +391,45 @@ namespace RocketBot2.Forms
                 else
                 {
                     GlobalSettings.Load(_subPath, _enableJsonValidation);
-                    //Logger.Write("Press a Key to continue...", LogLevel.Warning);
-                    //Console.ReadKey();
+                    /*
+                    Logger.Write("Press a Key to continue...",
+                        LogLevel.Warning);
+                    Console.ReadKey();*/
                     return;
                 }
-            }
- 
-            if (excelConfigAllow)
-            {
-                ExcelConfigHelper.MigrateFromObject(settings, excelConfigFile);
+
+                if (excelConfigAllow)
+                {
+                    ExcelConfigHelper.MigrateFromObject(settings, excelConfigFile);
+                }
             }
 
-            //ProgressBar.Start("RocketBot2 is starting up", 10);
+            //ProgressBar.Start("NecroBot2 is starting up", 10);
 
-            
             if (settings.WebsocketsConfig.UseWebsocket)
             {
                 var websocket = new WebSocketInterface(settings.WebsocketsConfig.WebSocketPort, _session);
                 _session.EventDispatcher.EventReceived += evt => websocket.Listen(evt, _session);
             }
-            
 
             //ProgressBar.Fill(20);
 
             var machine = new StateMachine();
-            var stats = new Statistics();
+            var stats = _session.RuntimeStatistics;
 
-           // ProgressBar.Fill(30);
+            //ProgressBar.Fill(30);
             var strVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(4);
             stats.DirtyEvent +=
                 () =>
-                {
                     SetStatusText($"[RocketBot2 v{strVersion}] " +
                                     stats.GetTemplatedStats(
                                         _session.Translation.GetTranslation(TranslationString.StatsTemplateString),
                                         _session.Translation.GetTranslation(TranslationString.StatsXpTemplateString)));
-                };                   
-                           
             //ProgressBar.Fill(40);
 
             var aggregator = new StatisticsAggregator(stats);
+            if (onBotStarted != null) onBotStarted(_session, aggregator);
+
             //ProgressBar.Fill(50);
             var listener = new ConsoleEventListener();
             //ProgressBar.Fill(60);
@@ -438,7 +447,7 @@ namespace RocketBot2.Forms
             //ProgressBar.Fill(90);
 
             _session.Navigation.WalkStrategy.UpdatePositionEvent +=
-                (lat, lng) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng });
+                            (lat, lng) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng });
             //_session.Navigation.WalkStrategy.UpdatePositionEvent += SaveLocationToDisk;
             _session.Navigation.WalkStrategy.UpdatePositionEvent += Navigation_UpdatePositionEvent;
 
@@ -461,60 +470,17 @@ namespace RocketBot2.Forms
 
             //ProgressBar.Fill(100);
 
-            if (_session.LogicSettings.AllowMultipleBot && _session.LogicSettings.MultipleBotConfig.SelectAccountOnStartUp)
-            {
 
-                byte index = 0;
-                //Console.WriteLine();
-                //Console.WriteLine();
-                Logger.Write("PLEASE SELECT AN ACCOUNT TO START. AUTO START AFTER 30 SEC");
-                List<Char> availableOption = new List<char>();
-                foreach (var item in _session.Accounts)
-                {
-                    var ch = (char)(index + 65);
-                    availableOption.Add(ch);
-                    int day = (int)item.RuntimeTotal / 1440;
-                    int hour = (int)(item.RuntimeTotal - (day * 1400)) / 60;
-                    int min = (int)(item.RuntimeTotal - (day * 1400) - hour * 60);
+            var accountManager = new MultiAccountManager(logicSettings.Bots);
 
-                    var runtime = $"{day:00}:{hour:00}:{min:00}:00";
+            accountManager.Add(settings.Auth.AuthConfig);
 
-                    Logger.Write($"{ch}. {item.GoogleUsername}{item.PtcUsername} \t\t{runtime}");
-                    index++;
-                };
+            ioc.Register<MultiAccountManager>(accountManager);
 
-                char select = ' ';
-                DateTime timeoutvalue = DateTime.Now.AddSeconds(30);
+            var bot = accountManager.GetStartUpAccount();
 
-                while (DateTime.Now < timeoutvalue && !availableOption.Contains(select))
-                {
-                    if (Console.KeyAvailable)
-                    {
-                        ConsoleKeyInfo cki = Console.ReadKey();
-                        select = cki.KeyChar;
-                        select = Char.ToUpper(select);
-                        if (!availableOption.Contains(select))
-                        {
-                            Console.Out.WriteLine("Please select an account from list");
-                        }
-                    }
-                    else
-                    {
-                        Thread.Sleep(100);
-                    }
-                }
+            _session.ReInitSessionWithNextBot(bot);
 
-                if (availableOption.Contains(select))
-                {
-                    var bot = _session.Accounts[select - 65];
-                    _session.ReInitSessionWithNextBot(bot);
-                }
-                else
-                {
-                    var bot = _session.Accounts.OrderBy(p => p.RuntimeTotal).First();
-                    _session.ReInitSessionWithNextBot(bot);
-                }
-            }
             _machine = machine;
             _settings = settings;
             _excelConfigAllow = excelConfigAllow;
@@ -522,17 +488,16 @@ namespace RocketBot2.Forms
 
         private async Task StartBot()
         {
-            await _machine.AsyncStart(new Logic.State.VersionCheckState(), _session, _subPath,  _excelConfigAllow);
-            /*
-            try
+            await _machine.AsyncStart(new Logic.State.VersionCheckState(), _session, _subPath, _excelConfigAllow);
+
+            /*try
             {
                 Console.Clear();
             }
             catch (IOException)
             {
-            }
-            */
-          
+            }*/
+
             if (_settings.TelegramConfig.UseTelegramAPI)
                 _session.Telegram = new TelegramService(_settings.TelegramConfig.TelegramAPIKey, _session);
 
@@ -540,18 +505,18 @@ namespace RocketBot2.Forms
                 _session.LogicSettings.HumanWalkingSnipeUsePogoLocationFeeder)
                 await SnipePokemonTask.AsyncStart(_session);
 
-            if (_session.LogicSettings.EnableHumanWalkingSnipe && _session.LogicSettings.HumanWalkingSnipeUseFastPokemap)
+            if (_session.LogicSettings.EnableHumanWalkingSnipe &&
+                _session.LogicSettings.HumanWalkingSnipeUseFastPokemap)
             {
-                await HumanWalkSnipeTask.StartFastPokemapAsync(_session, _session.CancellationTokenSource.Token);// that need to keep data  live 
+                await HumanWalkSnipeTask.StartFastPokemapAsync(_session,
+                    _session.CancellationTokenSource.Token); // that need to keep data live
             }
 
-            
             if (_session.LogicSettings.DataSharingEnable)
             {
                 await BotDataSocketClient.StartAsync(_session);
                 _session.EventDispatcher.EventReceived += evt => BotDataSocketClient.Listen(evt, _session);
             }
-            
             _settings.CheckProxy(_session.Translation);
 
             if (_session.LogicSettings.ActivateMSniper)
@@ -559,9 +524,27 @@ namespace RocketBot2.Forms
                 MSniperServiceTask.ConnectToService();
                 _session.EventDispatcher.EventReceived += evt => MSniperServiceTask.AddToList(evt);
             }
-            _settings.Auth.CheckProxy(_session.Translation);
+            var trackFile = Path.GetTempPath() + "\\rocketbot2.io";
+
+            if (!File.Exists(trackFile) || File.GetLastWriteTime(trackFile) < DateTime.Now.AddDays(-1))
+            {
+                Thread.Sleep(10000);
+                Thread mThread = new Thread(delegate ()
+                {
+                    var infoForm = new InfoForm();
+                    infoForm.ShowDialog();
+                });
+                File.WriteAllText(trackFile, DateTime.Now.Ticks.ToString());
+                mThread.SetApartmentState(ApartmentState.STA);
+
+                mThread.Start();
+            }
+
+
             QuitEvent.WaitOne();
+
         }
+
 
         private static void EventDispatcher_EventReceived(IEvent evt)
         {
@@ -597,9 +580,9 @@ namespace RocketBot2.Forms
                         if (strStatus1.ToLower().Contains("disable"))
                         {
                             Logger.Write(strReason1 + $"\n", LogLevel.Warning);
-
+                            /*
                             Logger.Write(strExitMsg + $"\n" + "Please press enter to continue", LogLevel.Error);
-                            Console.ReadLine();
+                            Console.ReadLine();*/
                             return true;
                         }
                         else

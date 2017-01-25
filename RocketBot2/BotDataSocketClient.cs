@@ -21,6 +21,13 @@ namespace RocketBot2
 {
     public class BotDataSocketClient
     {
+        public class SocketMessage
+        {
+            public string Header { get; set; }
+            public string Body { get; set; }
+            public long TimeTimestamp { get;  set; }
+            public string Hash { get; set; }
+        }
         private static List<EncounteredEvent> events = new List<EncounteredEvent>();
         private const int POLLING_INTERVAL = 5000;
 
@@ -132,26 +139,17 @@ namespace RocketBot2
                             {
                                 processing.Clear();
                                 processing.AddRange(events);
+                                events.Clear();
                             }
 
                             if (processing.Count > 0 && ws.IsAlive)
                             {
-                                if (processing.Count == 1)
-                                {
-                                    //serialize list will make data bigger, code ugly but save bandwidth and help socket process faster
-                                    var data = Serialize(processing.First());
-                                    ws.Send($"42[\"pokemon\",{data}]");
-                                }
-                                else
-                                {
-                                    var data = Serialize(processing);
-                                    ws.Send($"42[\"pokemons\",{data}]");
-                                }
+                                var data = Serialize(processing);
+                                var message = Encrypt(data);
+                                var actualMessage = JsonConvert.SerializeObject(message);
+                                ws.Send($"42[\"pokemons-secure\",{actualMessage}]");
                             }
-                            lock (events)
-                            {
-                                events.RemoveAll(x => processing.Any(t => t.EncounterId == x.EncounterId));
-                            }
+                           
                             await Task.Delay(POLLING_INTERVAL, cancellationToken);
                             ws.Ping();
                         }
@@ -170,6 +168,7 @@ namespace RocketBot2
                     {
                         //everytime disconnected with server bot wil reconnect after 15 sec
                         await Task.Delay(POLLING_INTERVAL, cancellationToken);
+
                     }
                 }
             }
@@ -311,5 +310,75 @@ namespace RocketBot2
         {
             return Task.Run(() => Start(session, cancellationToken), cancellationToken);
         }
+
+        public static SocketMessage Encrypt(string message)
+        {
+            var encryptedtulp = Encrypt(message, RocketBot2.Properties.Resources.EncryptKey, false);
+
+            var socketMessage = new SocketMessage()
+            {
+                TimeTimestamp = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalMilliseconds,
+                Header = encryptedtulp.Item1,
+                Body = encryptedtulp.Item2
+            };
+            socketMessage.Hash = CalculateMD5Hash($"{socketMessage.TimeTimestamp}{socketMessage.Body}{socketMessage.Header}");
+
+            return socketMessage;
+        }
+        public static string CalculateMD5Hash(string input)
+        {
+            // step 1, calculate MD5 hash from input
+
+            MD5 md5 = System.Security.Cryptography.MD5.Create();
+
+            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+
+            byte[] hash = md5.ComputeHash(inputBytes);
+
+            // step 2, convert byte array to hex string
+
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < hash.Length; i++)
+
+            {
+
+                sb.Append(hash[i].ToString("X2"));
+
+            }
+
+            return sb.ToString();
+
+        }
+
+
+        public static Tuple<string, string> Encrypt(string toEncrypt, string key, bool useHashing)
+        {
+            byte[] keyArray;
+            byte[] toEncryptArray = UTF8Encoding.UTF8.GetBytes(toEncrypt);
+
+            if (useHashing)
+            {
+                MD5CryptoServiceProvider hashmd5 = new MD5CryptoServiceProvider();
+                keyArray = hashmd5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
+            }
+            else
+                keyArray = UTF8Encoding.UTF8.GetBytes(key);
+
+            var tdes = new TripleDESCryptoServiceProvider();
+            tdes.Key = keyArray;
+            // tdes.Mode = CipherMode.CBC;  // which is default     
+            // tdes.Padding = PaddingMode.PKCS7;  // which is default
+
+            //Console.WriteLine("iv: {0}", Convert.ToBase64String(tdes.IV));
+
+            ICryptoTransform cTransform = tdes.CreateEncryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0,
+                toEncryptArray.Length);
+            string iv = Convert.ToBase64String(tdes.IV);
+            string message = Convert.ToBase64String(resultArray, 0, resultArray.Length);
+            return new Tuple<string, string>(iv, message);
+        }
+
     }
 }

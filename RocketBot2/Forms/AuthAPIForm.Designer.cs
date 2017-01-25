@@ -73,7 +73,7 @@
             this.radLegacy.Size = new System.Drawing.Size(154, 17);
             this.radLegacy.TabIndex = 3;
             this.radLegacy.TabStop = true;
-            this.radLegacy.Text = "Legacy 0.45 API - FREE (High risk)";
+            this.radLegacy.Text = "Legacy 0.45 API FREE - High risk";
             this.radLegacy.UseVisualStyleBackColor = true;
             // 
             // lnkBuy
@@ -95,7 +95,7 @@
             this.radHashServer.Size = new System.Drawing.Size(225, 17);
             this.radHashServer.TabIndex = 5;
             this.radHashServer.TabStop = true;
-            this.radHashServer.Text = "Pogodev hash server api - Latest API 0.51";
+            this.radHashServer.Text = "Pogodev hash server api - Latest API 0.53";
             this.radHashServer.UseVisualStyleBackColor = true;
             // 
             // label2
@@ -121,6 +121,7 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(142, 226);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
@@ -148,6 +149,7 @@
             this.ShowInTaskbar = false;
             this.Text = "APIConfig";
             this.TopMost = true;
+            this.Load += new System.EventHandler(this.AuthAPIForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

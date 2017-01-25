@@ -6,7 +6,7 @@
 [submodule "POGOProtos"]
 	path = POGOProtos
 	url = https://github.com/TheUnnamedOrganisation/POGOProtos.git
-	branch = Preview/0.53.0
+	branch = master
 	
 [submodule "PoGo.NecroBot.Logic"]
 	path = PoGo.NecroBot.Logic
