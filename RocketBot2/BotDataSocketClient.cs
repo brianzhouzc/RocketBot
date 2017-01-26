@@ -48,6 +48,7 @@ namespace RocketBot2
         {
             lock (events)
             {
+                if (eve.IsRecievedFromSocket) return;
                 events.Add(eve);
             }
         }
@@ -180,7 +181,7 @@ namespace RocketBot2
             {
                 OnPokemonData(session, e.Data);
                 OnSnipePokemon(session, e.Data);
-
+                OnServerMessage(session, e.Data);
                 //ONFPMBridgeData(session, e.Data); //Nolonger use
             }
 
@@ -193,6 +194,18 @@ namespace RocketBot2
                 Logger.Write("ERROR TO ADD SNIPE< DEBUG ONLY " + ex.Message + "\r\n " + ex.StackTrace,
                     PoGo.NecroBot.Logic.Logging.LogLevel.Info, ConsoleColor.Yellow);
                 #endif
+            }
+        }
+
+        private static void OnServerMessage(ISession session, string message)
+        {
+            var match = Regex.Match(message, "42\\[\"server-message\",(.*)]");
+            if (match != null && !string.IsNullOrEmpty(match.Groups[1].Value))
+            {
+                session.EventDispatcher.Send(new NoticeEvent()
+                {
+                    Message ="(SERVER) " + match.Groups[1].Value
+                });
             }
         }
 
