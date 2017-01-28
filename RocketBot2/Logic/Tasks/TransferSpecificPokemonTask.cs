@@ -16,7 +16,7 @@ namespace RocketBot2.Logic.Tasks
     {
         public static async Task Execute(ISession session, ulong pokemonId)
         {
-            var all = await session.Inventory.GetPokemons();
+            var all =  session.Inventory.GetPokemons();
             var pokemons = all.OrderBy(x => x.Cp).ThenBy(n => n.StaminaMax);
             var pokemon = pokemons.FirstOrDefault(p => p.Id == pokemonId);
 
@@ -26,11 +26,11 @@ namespace RocketBot2.Logic.Tasks
             var pokemonFamilies = await session.Inventory.GetPokemonFamilies();
 
             await session.Client.Inventory.TransferPokemon(pokemonId);
-            await session.Inventory.DeletePokemonFromInvById(pokemonId);
+             //session.Inventory.DeletePokemonFromInvById(pokemonId);
 
             var bestPokemonOfType = (session.LogicSettings.PrioritizeIvOverCp
-                ? await session.Inventory.GetHighestPokemonOfTypeByIv(pokemon)
-                : await session.Inventory.GetHighestPokemonOfTypeByCp(pokemon)) ?? pokemon;
+                ?  session.Inventory.GetHighestPokemonOfTypeByIv(pokemon)
+                :  session.Inventory.GetHighestPokemonOfTypeByCp(pokemon)) ?? pokemon;
 
             var setting = pokemonSettings.Single(q => q.PokemonId == pokemon.PokemonId);
             var family = pokemonFamilies.First(q => q.FamilyId == setting.FamilyId);

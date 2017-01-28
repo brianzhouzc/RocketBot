@@ -1269,11 +1269,11 @@ namespace RocketBot2.Forms
             SetState(false);
             try
             {
-                await _session.Inventory.RefreshCachedInventory();
+                _session.Inventory.GetCachedInventory();
                 var itemTemplates = await _session.Client.Download.GetItemTemplates();
-                var inventory = await _session.Inventory.GetCachedInventory();
+                var inventory =  _session.Inventory.GetCachedInventory();
                 var profile = await _session.Client.Player.GetPlayer();
-                var inventoryAppliedItems = await _session.Inventory.GetAppliedItems();
+                var inventoryAppliedItems =  _session.Inventory.GetAppliedItems();
 
                 var appliedItems =
                     inventoryAppliedItems.Where(aItems => aItems?.Item != null)

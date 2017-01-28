@@ -262,8 +262,7 @@ namespace RocketBot2
                                 Move1 = move1,
                                 Move2 = move2,
                                 ExpiredTime = data.ExpireTimestamp
-                            })
-                            .Result;
+                            });
                         if (added)
                         {
                             session.EventDispatcher.Send(new AutoSnipePokemonAddedEvent(data));
@@ -313,8 +312,7 @@ namespace RocketBot2
                         Move1 = move1,
                         ExpiredTime = data.ExpireTimestamp,
                         Move2 = move2
-                    }, true)
-                    .Wait();
+                    }, true);
             }
         }
 
