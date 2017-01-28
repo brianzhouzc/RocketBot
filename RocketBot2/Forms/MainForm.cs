@@ -447,13 +447,11 @@ namespace RocketBot2.Forms
 
             _session.Navigation.WalkStrategy.UpdatePositionEvent +=
                 (lat, lng) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng });
-            //_session.Navigation.WalkStrategy.UpdatePositionEvent += SaveLocationToDisk;
-            _session.Navigation.WalkStrategy.UpdatePositionEvent += Navigation_UpdatePositionEvent;
+            _session.Navigation.WalkStrategy.UpdatePositionEvent += SaveLocationToDisk;
 
             Navigation.GetHumanizeRouteEvent +=
                 (route, destination, pokestops) => _session.EventDispatcher.Send(new GetHumanizeRouteEvent { Route = route, Destination = destination, pokeStops = pokestops });
             Navigation.GetHumanizeRouteEvent += UpdateMap;
-            //Navigation.GetHumanizeRouteEvent += InitializePokestopsAndRoute;
 
             UseNearbyPokestopsTask.LootPokestopEvent +=
                 pokestop => _session.EventDispatcher.Send(new LootPokestopEvent { Pokestop = pokestop });
@@ -937,6 +935,7 @@ namespace RocketBot2.Forms
                 return;
             }
             Instance.speedLable.Text = text;
+            Instance.Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
         }
 
         public static void SetStatusText(string text)
