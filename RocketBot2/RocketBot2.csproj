@@ -325,7 +325,6 @@
     <Compile Include="Logic\Event\GetHumanizeRouteEvent.cs" />
     <Compile Include="Logic\Event\LootPokestopEvent.cs" />
     <Compile Include="Logic\Event\PokemonsEncounterEvent.cs" />
-    <Compile Include="Logic\State\VersionCheckState.cs" />
     <Compile Include="Helpers\DeviceHelper.cs" />
     <Compile Include="Forms\ItemBox.cs">
       <SubType>UserControl</SubType>
@@ -356,6 +355,7 @@
     <Compile Include="Forms\ItemSetting.Designer.cs">
       <DependentUpon>ItemSetting.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logic\State\VersionCheckState.cs" />
     <Compile Include="Logic\Tasks\RecycleSpecificItemTask.cs" />
     <Compile Include="Logic\Tasks\RenameSpecificPokemonTask.cs" />
     <Compile Include="Logic\Tasks\TransferSpecificPokemonTask.cs" />
