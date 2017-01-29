@@ -355,6 +355,7 @@
     <Compile Include="Forms\ItemSetting.Designer.cs">
       <DependentUpon>ItemSetting.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logic\Utils\RouteOptimizeUtil.cs" />
     <Compile Include="Logic\State\VersionCheckState.cs" />
     <Compile Include="Logic\Tasks\RecycleSpecificItemTask.cs" />
     <Compile Include="Logic\Tasks\RenameSpecificPokemonTask.cs" />
