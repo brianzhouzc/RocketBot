@@ -7,7 +7,11 @@ namespace RocketBot2.Helpers
     {
         public static Image GetImage(string name)
         {
-            return (Image) Properties.Resources.ResourceManager.GetObject(name);
+            //TODO: 2G Images 151-25x missing
+            if ((Image)Properties.Resources.ResourceManager.GetObject(name) != null)
+                return (Image)Properties.Resources.ResourceManager.GetObject(name);
+            else
+                return (Image)Properties.Resources.ResourceManager.GetObject("Pokemon_152");
         }
 
         public static Image GetImage(string name, int maxHeight, int maxWidth)
@@ -30,7 +34,7 @@ namespace RocketBot2.Helpers
         {
             //TODO: 2G Images 151-25x missing
             if (pokemonId <= 151)
-            return GetImage("Pokemon_" + pokemonId);
+                return GetImage("Pokemon_" + pokemonId);
             else
                 return GetImage("Pokemon_" + 152);
         }

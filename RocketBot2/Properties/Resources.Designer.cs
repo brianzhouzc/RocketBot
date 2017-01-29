@@ -61,6 +61,15 @@ namespace RocketBot2.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Vy9UuYCmwv66rqLY.
+        /// </summary>
+        internal static string EncryptKey {
+            get {
+                return ResourceManager.GetString("EncryptKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Icon semblable à (Icône).
         /// </summary>
         internal static System.Drawing.Icon Icon {
