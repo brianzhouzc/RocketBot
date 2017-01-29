@@ -594,6 +594,7 @@ namespace RocketBot2.Forms
             }, null);
 
             _currentLatLng = latlng;
+            SaveLocationToDisk(lat, lng);
             UpdateMap();
         }
 
