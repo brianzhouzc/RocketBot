@@ -7,7 +7,6 @@ using RocketBot2.WebSocketHandler.GetCommands.Events;
 using RocketBot2.WebSocketHandler.GetCommands.Helpers;
 using PoGo.NecroBot.Logic.State;
 using SuperSocket.WebSocket;
-using PoGo.NecroBot.Logic.Model;
 
 #endregion
 
@@ -21,7 +20,7 @@ namespace RocketBot2.WebSocketHandler.GetCommands.Tasks
             {
                 //if (!await blocker.WaitToRun()) return;
 
-                var allPokemonInBag = await session.Inventory.GetHighestsCp(1000);
+                var allPokemonInBag = session.Inventory.GetHighestsCp(1000);
                 var families = await session.Inventory.GetPokemonFamilies();
                 var settings = await session.Inventory.GetPokemonSettings();
                 var list = new List<PokemonListWeb>();

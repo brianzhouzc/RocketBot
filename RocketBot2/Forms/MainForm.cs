@@ -56,23 +56,22 @@ namespace RocketBot2.Forms
         private static readonly Uri StrKillSwitchUri =
             new Uri("https://raw.githubusercontent.com/TheUnnamedOrganisation/RocketBot/master/KillSwitch.txt");
         private static readonly Uri StrMasterKillSwitchUri =
-            new Uri("https://raw.githubusercontent.com/TheUnnamedOrganisation/RocketBot/master/PoGo.NecroBot.Logic/MKS.txt");
+            new Uri("https://raw.githubusercontent.com/TheUnnamedOrganisation/PoGo.NecroBot.Logic/master/MKS.txt");
+
+        private static Session _session;
+        private GlobalSettings _settings;
+        private StateMachine _machine;
+        private PointLatLng _currentLatLng;
+        private List<PointLatLng> _routePoints;
+        private string[] args;
 
         private static GMapMarker _playerMarker;
         private readonly List<PointLatLng> _playerLocations = new List<PointLatLng>();
-
         private readonly GMapOverlay _playerOverlay = new GMapOverlay("players");
         private readonly GMapOverlay _playerRouteOverlay = new GMapOverlay("playerroutes");
         private readonly GMapOverlay _pokemonsOverlay = new GMapOverlay("pokemons");
         private readonly GMapOverlay _pokestopsOverlay = new GMapOverlay("pokestops");
         private readonly GMapOverlay _searchAreaOverlay = new GMapOverlay("areas");
-
-        private PointLatLng _currentLatLng;
-        private StateMachine _machine;
-        private List<PointLatLng> _routePoints;
-        private GlobalSettings _settings;
-        private static Session _session;
-        private string[] args;
 
         public MainForm(string[] _args)
         {
@@ -447,14 +446,12 @@ namespace RocketBot2.Forms
             //ProgressBar.Fill(90);
 
             _session.Navigation.WalkStrategy.UpdatePositionEvent +=
-                            (lat, lng) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng });
-            //_session.Navigation.WalkStrategy.UpdatePositionEvent += SaveLocationToDisk;
-            _session.Navigation.WalkStrategy.UpdatePositionEvent += Navigation_UpdatePositionEvent;
+                (lat, lng) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng });
+            _session.Navigation.WalkStrategy.UpdatePositionEvent += SaveLocationToDisk;
 
             Navigation.GetHumanizeRouteEvent +=
                 (route, destination, pokestops) => _session.EventDispatcher.Send(new GetHumanizeRouteEvent { Route = route, Destination = destination, pokeStops = pokestops });
             Navigation.GetHumanizeRouteEvent += UpdateMap;
-            //Navigation.GetHumanizeRouteEvent += InitializePokestopsAndRoute;
 
             UseNearbyPokestopsTask.LootPokestopEvent +=
                 pokestop => _session.EventDispatcher.Send(new LootPokestopEvent { Pokestop = pokestop });
@@ -738,6 +735,7 @@ namespace RocketBot2.Forms
                 }
             }, null);
         }
+		
         private void Navigation_UpdatePositionEvent(double lat, double lng)
         {
             var latlng = new PointLatLng(lat, lng);
@@ -937,6 +935,7 @@ namespace RocketBot2.Forms
                 return;
             }
             Instance.speedLable.Text = text;
+            Instance.Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
         }
 
         public static void SetStatusText(string text)
@@ -1269,11 +1268,11 @@ namespace RocketBot2.Forms
             SetState(false);
             try
             {
-                await _session.Inventory.RefreshCachedInventory();
+                _session.Inventory.GetCachedInventory();
                 var itemTemplates = await _session.Client.Download.GetItemTemplates();
-                var inventory = await _session.Inventory.GetCachedInventory();
+                var inventory =  _session.Inventory.GetCachedInventory();
                 var profile = await _session.Client.Player.GetPlayer();
-                var inventoryAppliedItems = await _session.Inventory.GetAppliedItems();
+                var inventoryAppliedItems =  _session.Inventory.GetAppliedItems();
 
                 var appliedItems =
                     inventoryAppliedItems.Where(aItems => aItems?.Item != null)
@@ -1388,8 +1387,7 @@ namespace RocketBot2.Forms
                         break;
                     default:
                         {
-                            await
-                                RecycleSpecificItemTask.Execute(_session, item.ItemId, decimal.ToInt32(form.numCount.Value));
+                            await RecycleSpecificItemTask.Execute(_session, item.ItemId, decimal.ToInt32(form.numCount.Value));
                         }
                         break;
                 }
