@@ -62,7 +62,7 @@ A Pokémon Go bot in C#
 ### Download
 Download the bot from the [release](https://github.com/TheUnnamedOrganisation/RocketBot/releases) tab.  
 If you want the latest Beta-Build, you have to download the build from the Beta-Build branch and compile them by yourself with VisualStudio 2015.   
-**Waning: Beta-Builds are unstable and might cause damage to your account, use at your own risk**
+**Waning: Beta are unstable and might cause damage to your account, use at your own risk**
 ### Login
 There are problems with google oauth login, so we have to use account and password to login for now.  
 To ensure your account's safety, we suggest you to creat an app password just for botting. This will also allows users with 2-fact-auth enable to use the bot.  
@@ -83,12 +83,12 @@ Same as above, you can help by answering questions in the [issues](https://githu
 Report bugs you found in [issues](https://github.com/TheUnnamedOrganisation/RocketBot/issues).  
 In order to help us fix the problem, please take a screenshot of the error you get and also attach your log file (under the Logs folder) as well. Add [Bug] to the title to help us quickly identify the category of the issue.  
 ### Suggestions/ideas
-Tell us what you think we can do better in [issues]((https://github.com/TheUnnamedOrganisation/RocketBot/issues).  
+Tell us what you think we can do better in [issues](https://github.com/TheUnnamedOrganisation/RocketBot/issues).  
 Give detailed discription to help us understand what you are looking for. Add [Suggestion] to the title to help us quickly identify the category of the issue. Your suggestion might not be accept, but hey, maybe we will accept your suggestion next time! :)
 ## For developers:
 You can contribute to the project by helping us on coding.  
 Fork this project and create a new branch to add your code or fix a known issue.  
-Use pull request to submit your code. Remember, submit to *Beta-Build* branch! :D
+Use pull request to submit your code. Remember, submit to *[Beta](https://github.com/TheUnnamedOrganisation/RocketBot/tree/Beta)* branch! :D
 ## Donations
 We are not accepting donations currently :) If you really wanna contribute, consider doing the stuff above! :D
 
