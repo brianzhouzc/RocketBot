@@ -40,6 +40,7 @@ using PoGo.NecroBot.Logic.Tasks;
 using System.Net;
 using RocketBot2.CommandLineUtility;
 using System.Diagnostics;
+using RocketBot2.Logic.Utils;
 
 namespace RocketBot2.Forms
 {
@@ -542,174 +543,10 @@ namespace RocketBot2.Forms
 
         }
 
-
-        private static void EventDispatcher_EventReceived(IEvent evt)
-        {
-            throw new NotImplementedException();
-        }
-
-        private static void SaveLocationToDisk(double lat, double lng)
-        {
-            var coordsPath = Path.Combine(_session.LogicSettings.ProfileConfigPath, "LastPos.ini");
-            File.WriteAllText(coordsPath, $"{lat}:{lng}");
-        }
-
-        private static bool CheckMKillSwitch()
-        {
-            using (var wC = new WebClient())
-            {
-                try
-                {
-                    var strResponse1 = WebClientExtensions.DownloadString(wC, StrMasterKillSwitchUri);
-
-                    if (strResponse1 == null)
-                        return true;
-
-                    var strSplit1 = strResponse1.Split(';');
-
-                    if (strSplit1.Length > 1)
-                    {
-                        var strStatus1 = strSplit1[0];
-                        var strReason1 = strSplit1[1];
-                        var strExitMsg = strSplit1[2];
-
-
-                        if (strStatus1.ToLower().Contains("disable"))
-                        {
-                            Logger.Write(strReason1 + $"\n", LogLevel.Warning);
-                            /*
-                            Logger.Write(strExitMsg + $"\n" + "Please press enter to continue", LogLevel.Error);
-                            Console.ReadLine();*/
-                            return true;
-                        }
-                        else
-                            return false;
-                    }
-                    else
-                        return false;
-                }
-                catch (WebException)
-                {
-                    // ignored
-                }
-            }
-
-            return false;
-        }
-
-        private static bool CheckKillSwitch()
-        {
-            using (var wC = new WebClient())
-            {
-                try
-                {
-                    var strResponse = WebClientExtensions.DownloadString(wC, StrKillSwitchUri);
-
-                    if (strResponse == null)
-                        return false;
-
-                    var strSplit = strResponse.Split(';');
-
-                    if (strSplit.Length > 1)
-                    {
-                        var strStatus = strSplit[0];
-                        var strReason = strSplit[1];
-
-                        if (strStatus.ToLower().Contains("disable"))
-                        {
-                            //Logger.Write(strReason + $"\n", LogLevel.Warning);
-                            Logger.Write(strReason, LogLevel.Warning);
-
-                            if (PromptForKillSwitchOverride())
-                            {
-                                // Override
-                                /*
-                                Logger.Write("Overriding killswitch... you have been warned!", LogLevel.Warning);
-                                return false;
-                            }
-
-                            Logger.Write("The bot will now close, please press enter to continue", LogLevel.Error);
-                            //Console.ReadLine();
-                            return true;
-                            */
-                                DialogResult result = MessageBox.Show(strReason, Application.ProductName + " - Use Old API detected", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                                switch (result)
-                                {
-                                    case DialogResult.Yes:
-                                        {
-                                            DialogResult result1 = MessageBox.Show("!!! You risk permanent BAN !!!\n\n " + Application.ProductName + " is not responsible for any banned account.\n\n Are you sure you want to continue?", Application.ProductName + " -Are you sure??", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                                            switch (result1)
-                                            {
-                                                case DialogResult.No: { Application.Exit(); break; }
-                                            }
-                                            break;
-                                        }
-                                    case DialogResult.No: { Application.Exit(); break; }
-                                }
-                                Logger.Write(strReason, LogLevel.Warning);
-                                Logger.Write("The robot should be closed.", LogLevel.Warning);
-                            }
-                        }
-                        else
-                            return false;
-                    }
-                }
-                catch (WebException)
-                {
-                    // ignored
-                }
-            }
-
-            return false;
-        }
-
-
-        private static void UnhandledExceptionEventHandler(object obj, UnhandledExceptionEventArgs args)
-        {
-            Logger.Write("Exception caught, writing LogBuffer.", force: true);
-            //throw new Exception();
-        }
-
-        public static bool PromptForKillSwitchOverride()
-        {
-            Logger.Write("Do you want to override killswitch to bot at your own risk? Y/N", LogLevel.Warning);
-
-            /*
-            while (true)
-            {
-                var strInput = Console.ReadLine().ToLower();
-
-                switch (strInput)
-                {
-                    case "y":
-                        // Override killswitch
-                        return true;
-                    case "n":
-                        return false;
-                    default:
-                        Logger.Write("Enter y or n", LogLevel.Error);
-                        continue;
-                }
-            }
-            */
-            DialogResult result = MessageBox.Show("Do you want to override killswitch to bot at your own risk? Y/N", Application.ProductName + " - Use Old API detected", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            switch (result)
-            {
-                case DialogResult.Yes: return true;
-                case DialogResult.No: return false;
-            }
-            return false;
-        }
-
         private void InitializePokestopsAndRoute(List<FortData> pokeStops)
         {
             SynchronizationContext.Post(o =>
             {
-                _pokestopsOverlay.Markers.Clear();
-                _pokestopsOverlay.Routes.Clear();
-                _playerOverlay.Markers.Clear();
-                _playerOverlay.Routes.Clear();
-                _playerLocations.Clear();
                 var routePoint =
                     (from pokeStop in pokeStops
                      where pokeStop != null
@@ -739,7 +576,6 @@ namespace RocketBot2.Forms
         private void Navigation_UpdatePositionEvent(double lat, double lng)
         {
             var latlng = new PointLatLng(lat, lng);
-
             _playerLocations.Add(latlng);
             var currentlatlng = _currentLatLng;
             SynchronizationContext.Post(o =>
@@ -756,7 +592,6 @@ namespace RocketBot2.Forms
 
             _currentLatLng = latlng;
             UpdateMap();
-            SaveLocationToDisk(lat, lng);
         }
 
         private void showMoreCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -829,8 +664,18 @@ namespace RocketBot2.Forms
             {
                 Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4) { DashStyle = DashStyle.Dash }
             };
+            _pokestopsOverlay.Markers.Clear();
+            _pokestopsOverlay.Routes.Clear();
+            _playerRouteOverlay.Routes.Clear();
+            _playerOverlay.Markers.Clear();
+            _playerOverlay.Routes.Clear();
+            _pokemonsOverlay.Markers.Clear();
+            _playerLocations.Clear();
+            //get optimized route
+            var _pokeStops = RouteOptimizeUtil.Optimize(pokeStops.ToArray(), _session.Client.CurrentLatitude,
+                _session.Client.CurrentLongitude);
             _playerRouteOverlay.Routes.Add(routes);
-            InitializePokestopsAndRoute(pokeStops);
+            InitializePokestopsAndRoute(_pokeStops);
             /* Logger.Write("new call");
              List<PointLatLng> routePointLatLngs = new List<PointLatLng>();
              Logger.Write("new route size: " +route.Count);
@@ -895,8 +740,6 @@ namespace RocketBot2.Forms
         {
             SynchronizationContext.Post(o =>
             {
-                _pokemonsOverlay.Markers.Clear();
-
                 foreach (var pokemon in encounterPokemons)
                 {
                     var pkmImage = ResourceHelper.GetImage("Pokemon_" + pokemon.PokemonId.GetHashCode(), 50, 50);
@@ -1268,7 +1111,6 @@ namespace RocketBot2.Forms
             SetState(false);
             try
             {
-                _session.Inventory.GetCachedInventory();
                 var itemTemplates = await _session.Client.Download.GetItemTemplates();
                 var inventory =  _session.Inventory.GetCachedInventory();
                 var profile = await _session.Client.Player.GetPlayer();
@@ -1415,5 +1257,145 @@ namespace RocketBot2.Forms
             mThread.SetApartmentState(ApartmentState.STA);
              mThread.Start();
         }
+
+        //**** Program functions
+        private static void EventDispatcher_EventReceived(IEvent evt)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void SaveLocationToDisk(double lat, double lng)
+        {
+            var coordsPath = Path.Combine(_session.LogicSettings.ProfileConfigPath, "LastPos.ini");
+            File.WriteAllText(coordsPath, $"{lat}:{lng}");
+        }
+
+        private static bool CheckMKillSwitch()
+        {
+            using (var wC = new WebClient())
+            {
+                try
+                {
+                    var strResponse1 = WebClientExtensions.DownloadString(wC, StrMasterKillSwitchUri);
+
+                    if (strResponse1 == null)
+                        return true;
+
+                    var strSplit1 = strResponse1.Split(';');
+
+                    if (strSplit1.Length > 1)
+                    {
+                        var strStatus1 = strSplit1[0];
+                        var strReason1 = strSplit1[1];
+                        var strExitMsg = strSplit1[2];
+
+
+                        if (strStatus1.ToLower().Contains("disable"))
+                        {
+                            Logger.Write(strReason1 + $"\n", LogLevel.Warning);
+
+                            Logger.Write(strExitMsg + $"\n" + "Please press enter to continue", LogLevel.Error);
+                            //Console.ReadLine();
+                            return true;
+                        }
+                        else
+                            return false;
+                    }
+                    else
+                        return false;
+                }
+                catch (WebException)
+                {
+                    // ignored
+                }
+            }
+
+            return false;
+        }
+
+        private static bool CheckKillSwitch()
+        {
+            using (var wC = new WebClient())
+            {
+                try
+                {
+                    var strResponse = WebClientExtensions.DownloadString(wC, StrKillSwitchUri);
+
+                    if (strResponse == null)
+                        return false;
+
+                    var strSplit = strResponse.Split(';');
+
+                    if (strSplit.Length > 1)
+                    {
+                        var strStatus = strSplit[0];
+                        var strReason = strSplit[1];
+
+                        if (strStatus.ToLower().Contains("disable"))
+                        {
+                            Logger.Write(strReason + $"\n", LogLevel.Warning);
+
+                            if (PromptForKillSwitchOverride())
+                            {
+                                // Override
+                                Logger.Write("Overriding killswitch... you have been warned!", LogLevel.Warning);
+                                return false;
+                            }
+
+                            Logger.Write("The bot will now close", LogLevel.Error);
+                            //Console.ReadLine();
+                            return true;
+                        }
+                    }
+                    else
+                        return false;
+                }
+                catch (WebException)
+                {
+                    // ignored
+                }
+            }
+
+            return false;
+        }
+
+
+        private static void UnhandledExceptionEventHandler(object obj, UnhandledExceptionEventArgs args)
+        {
+            Logger.Write("Exception caught, writing LogBuffer.", force: true);
+            //throw new Exception();
+        }
+
+        public static bool PromptForKillSwitchOverride()
+        {
+            Logger.Write("Do you want to override killswitch to bot at your own risk? Y/N", LogLevel.Warning);
+
+            /*
+            while (true)
+            {
+                var strInput = Console.ReadLine().ToLower();
+
+                switch (strInput)
+                {
+                    case "y":
+                        // Override killswitch
+                        return true;
+                    case "n":
+                        return false;
+                    default:
+                        Logger.Write("Enter y or n", LogLevel.Error);
+                        continue;
+                }
+            }
+            */
+            DialogResult result = MessageBox.Show("Do you want to override killswitch to bot at your own risk? Y/N", Application.ProductName + " - Use Old API detected", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            switch (result)
+            {
+                case DialogResult.Yes: return true;
+                case DialogResult.No: return false;
+            }
+            return false;
+        }
+
     }
 }
