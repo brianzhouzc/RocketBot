@@ -267,6 +267,9 @@ namespace RocketBot2.Forms
                 }
             }*/
 
+            CheckKillSwitch();
+            CheckMKillSwitch();
+
             var logicSettings = new LogicSettings(settings);
             var translation = Translation.Load(logicSettings);
             TinyIoC.TinyIoCContainer.Current.Register<ITranslation>(translation);
