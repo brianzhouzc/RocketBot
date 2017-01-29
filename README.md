@@ -20,7 +20,7 @@ See https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer for pricing 
 
 <p align="center">
   <a href="https://discord.gg/y6EU2qY">
-    <img alt="Logo" src="https://discordapp.com/api/guilds/208485545439920128/widget.png?style=banner2">
+    <img alt="Logo" src="https://discordapp.com/api/guilds/208485545439920128/widget.png?style=banner3&time-">
   </a>
 </p>
 
