@@ -456,9 +456,10 @@ namespace RocketBot2.Forms
 
             //ProgressBar.Fill(90);
 
-            _session.Navigation.WalkStrategy.UpdatePositionEvent +=
-                (lat, lng) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng });
-            _session.Navigation.WalkStrategy.UpdatePositionEvent += SaveLocationToDisk;
+            _session.Navigation.WalkStrategy.UpdatePositionEvent += 
+                (session, lat, lng) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng });
+            _session.Navigation.WalkStrategy.UpdatePositionEvent += LoadSaveState.SaveLocationToDisk;
+
 
             Navigation.GetHumanizeRouteEvent +=
                 (route, destination, pokestops) => _session.EventDispatcher.Send(new GetHumanizeRouteEvent { Route = route, Destination = destination, pokeStops = pokestops });
@@ -600,7 +601,6 @@ namespace RocketBot2.Forms
             }, null);
 
             _currentLatLng = latlng;
-            SaveLocationToDisk(lat, lng);
             UpdateMap();
         }
 
@@ -983,7 +983,7 @@ namespace RocketBot2.Forms
             SetState(false);
             foreach (var pokemon in pokemons)
             {
-                await TransferSpecificPokemonTask.Execute(_session, pokemon.Id);
+                await TransferPokemonTask.Execute(_session,_session.CancellationTokenSource.Token, new List<ulong> { pokemon.Id } );
             }
             await ReloadPokemonList();
         }
@@ -1272,12 +1272,6 @@ namespace RocketBot2.Forms
         private static void EventDispatcher_EventReceived(IEvent evt)
         {
             throw new NotImplementedException();
-        }
-
-        private static void SaveLocationToDisk(double lat, double lng)
-        {
-            var coordsPath = Path.Combine(_session.LogicSettings.ProfileConfigPath, "LastPos.ini");
-            File.WriteAllText(coordsPath, $"{lat}:{lng}");
         }
 
         private static bool CheckMKillSwitch()

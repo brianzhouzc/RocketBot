@@ -21,10 +21,8 @@ namespace RocketBot2.WebSocketHandler.GetCommands.Tasks
                 //if (!await blocker.WaitToRun()) return;
 
                 var allPokemonInBag = session.Inventory.GetHighestsCp(1000);
-                var families = await session.Inventory.GetPokemonFamilies();
-                var settings = await session.Inventory.GetPokemonSettings();
                 var list = new List<PokemonListWeb>();
-                allPokemonInBag.ToList().ForEach(o => list.Add(new PokemonListWeb(o, families, settings)));
+                allPokemonInBag.ToList().ForEach(o => list.Add(new PokemonListWeb(session, o)));
                 webSocketSession.Send(EncodingHelper.Serialize(new PokemonListResponce(list, requestID)));
             }
         }
