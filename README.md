@@ -1,4 +1,4 @@
-<!-- define variables -->
+﻿<!-- define variables -->
 [1.1]: http://i.imgur.com/M4fJ65n.png (ATTENTION)
 [1.2]: https://discordapp.com/api/guilds/208485545439920128/widget.png?style=banner2 (DISCORD)
 
