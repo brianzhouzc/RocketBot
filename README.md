@@ -19,7 +19,7 @@ See https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer for pricing 
 
 [![Stories in Ready](https://discordapp.com/api/guilds/208485545439920128/widget.png?style=banner3&time-)](https://discord.gg/y6EU2qY)
 
-![alt text][1.1] <strong><em> The contents of this repo are a proof of concept and are for educational use only </em></strong>![alt text][1.1]<br/>
+![alt text][1.1] <strong><em>`The contents of this repo are a proof of concept and are for educational use only`</em></strong>![alt text][1.1]<br/>
 
 ## Images
 ![alt tag](https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/MainForm.png)  
