@@ -4,7 +4,7 @@ using PoGo.NecroBot.Logic.Tasks;
 using SuperSocket.WebSocket;
 using RocketBot2.WebSocketHandler;
 
-namespace RocketoBot2.WebSocketHandler.ActionCommands
+namespace RocketBot2.WebSocketHandler.ActionCommands
 {
     public class SetMoveToTargetHandler : IWebSocketRequestHandler
     {
