@@ -110,10 +110,10 @@ We are not accepting donations currently :) If you really wanna contribute, cons
 * *token* - for Google account. No need for wen using PTC. (Obsolete)
 
 ## DefaultLatitude
-* *12.345678* - Latitude of your location you want to use the bot in. Number between -90 and +90. Doesn't matter how many numbers stand after the comma.
+* *40.785092* - Latitude of your location you want to use the bot in. Number between -90 and +90. Doesn't matter how many numbers stand after the comma.
 
 ## DefaultLongitude
-* *123.456789* - Longitude of your location you want to use the bot in. Number between -180 and +180. Doesn't matter how many numbers stand after the comma.
+* *-73.968286* - Longitude of your location you want to use the bot in. Number between -180 and +180. Doesn't matter how many numbers stand after the comma.
 
 ## LevelOutput
 * *time* - Every X amount of time it prints the current level and experience needed for the next level.
