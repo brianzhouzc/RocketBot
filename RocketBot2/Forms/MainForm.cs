@@ -1,4 +1,6 @@
-﻿using System;
+﻿#region using directives
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -41,6 +43,9 @@ using System.Net;
 using RocketBot2.CommandLineUtility;
 using System.Diagnostics;
 using RocketBot2.Logic.Utils;
+
+#endregion
+
 
 namespace RocketBot2.Forms
 {
@@ -142,7 +147,7 @@ namespace RocketBot2.Forms
                 QuitEvent.Set();
                 eArgs.Cancel = true;
             };
-            */
+             */
             // Command line parsing
             var commandLine = new Arguments(args);
             // Look for specific arguments values
@@ -157,6 +162,7 @@ namespace RocketBot2.Forms
                     case "true":
                         _enableJsonValidation = true;
                         break;
+
                     case "false":
                         _enableJsonValidation = false;
                         break;
@@ -169,6 +175,7 @@ namespace RocketBot2.Forms
                     case "true":
                         _ignoreKillSwitch = false;
                         break;
+
                     case "false":
                         _ignoreKillSwitch = true;
                         break;
@@ -471,7 +478,6 @@ namespace RocketBot2.Forms
 
             //ProgressBar.Fill(100);
 
-
             var accountManager = new MultiAccountManager(logicSettings.Bots);
 
             accountManager.Add(settings.Auth.AuthConfig);
@@ -522,6 +528,8 @@ namespace RocketBot2.Forms
 
             if (_session.LogicSettings.ActivateMSniper)
             {
+                ServicePointManager.ServerCertificateValidationCallback +=
+                    (sender, certificate, chain, sslPolicyErrors) => true;
                 MSniperServiceTask.ConnectToService();
                 _session.EventDispatcher.EventReceived += evt => MSniperServiceTask.AddToList(evt);
             }
@@ -541,9 +549,7 @@ namespace RocketBot2.Forms
                 mThread.Start();
             }
 
-
             QuitEvent.WaitOne();
-
         }
 
         private void InitializePokestopsAndRoute(List<FortData> pokeStops)
