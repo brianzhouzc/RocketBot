@@ -111,6 +111,7 @@
       <HintPath>$(SolutionDir)\packages\Microsoft.Win32.Primitives.4.0.1\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="SuperSocket.Common, Version=1.6.6.1, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\SuperSocket.1.6.6.1\lib\net45\SuperSocket.Common.dll</HintPath>
       <Private>True</Private>
@@ -359,7 +360,6 @@
     <Compile Include="Logic\State\VersionCheckState.cs" />
     <Compile Include="Logic\Tasks\RecycleSpecificItemTask.cs" />
     <Compile Include="Logic\Tasks\RenameSpecificPokemonTask.cs" />
-    <Compile Include="Logic\Tasks\TransferSpecificPokemonTask.cs" />
     <Compile Include="Logic\Tasks\UseIncenseTask.cs" />
     <Compile Include="Logic\Tasks\UseLuckyEggTask.cs" />
     <Compile Include="Models\GMapMarkerPokestops.cs" />

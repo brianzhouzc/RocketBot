@@ -983,7 +983,7 @@ namespace RocketBot2.Forms
             SetState(false);
             foreach (var pokemon in pokemons)
             {
-                await TransferSpecificPokemonTask.Execute(_session, pokemon.Id);
+                await TransferPokemonTask.Execute(_session,_session.CancellationTokenSource.Token, new List<ulong> { pokemon.Id } );
             }
             await ReloadPokemonList();
         }
