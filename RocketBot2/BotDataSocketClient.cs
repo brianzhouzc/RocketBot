@@ -105,6 +105,11 @@ namespace RocketBot2
 
             var socketURL = session.LogicSettings.DataSharingDataUrl;
 
+            if (!string.IsNullOrEmpty(session.LogicSettings.SnipeDataAccessKey))
+            {
+                socketURL += "&access_key=" + session.LogicSettings.SnipeDataAccessKey;
+            }
+
             using (var ws = new WebSocket(socketURL))
             {
                 ws.Log.Level = LogLevel.Fatal;
