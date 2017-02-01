@@ -1134,13 +1134,12 @@ namespace RocketBot2.Forms
                 PokemonObject.Initilize(itemTemplates);
 
                 var pokemons =
-                    inventory.InventoryDelta.InventoryItems.Select(i => i?.InventoryItemData?.PokemonData)
+                    inventory.Select(i => i?.InventoryItemData?.PokemonData)
                         .Where(p => p != null && p.PokemonId > 0)
                         .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
                         .ThenByDescending(key => key.Cp)
                         .OrderBy(key => key.PokemonId);
-                _families = inventory.InventoryDelta.InventoryItems
-                    .Select(i => i.InventoryItemData.Candy)
+                _families = inventory.Select(i => i.InventoryItemData.Candy)
                     .Where(p => p != null && p.FamilyId > 0)
                     .OrderByDescending(p => p.FamilyId);
 
@@ -1158,24 +1157,20 @@ namespace RocketBot2.Forms
                 olvPokemonList.TopItemIndex = prevTopItem;
 
                 var pokemoncount =
-                    inventory.InventoryDelta.InventoryItems
-                        .Select(i => i.InventoryItemData?.PokemonData)
+                    inventory.Select(i => i.InventoryItemData?.PokemonData)
                         .Count(p => p != null && p.PokemonId > 0);
                 var eggcount =
-                    inventory.InventoryDelta.InventoryItems
-                        .Select(i => i.InventoryItemData?.PokemonData)
+                    inventory.Select(i => i.InventoryItemData?.PokemonData)
                         .Count(p => p != null && p.IsEgg);
                 lblPokemonList.Text =
                     $"{pokemoncount + eggcount} / {profile.PlayerData.MaxPokemonStorage} ({pokemoncount} pokemon, {eggcount} eggs)";
 
                 var items =
-                    inventory.InventoryDelta.InventoryItems
-                        .Select(i => i.InventoryItemData?.Item)
+                    inventory.Select(i => i.InventoryItemData?.Item)
                         .Where(i => i != null)
                         .OrderBy(i => i.ItemId);
                 var itemscount =
-                    inventory.InventoryDelta.InventoryItems
-                        .Select(i => i.InventoryItemData?.Item)
+                    inventory.Select(i => i.InventoryItemData?.Item)
                         .Where(i => i != null)
                         .Sum(i => i.Count) + 1;
 
