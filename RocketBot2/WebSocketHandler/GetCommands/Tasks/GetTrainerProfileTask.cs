@@ -13,6 +13,8 @@ namespace RocketBot2.WebSocketHandler.GetCommands.Tasks
 {
     internal class GetTrainerProfileTask
     {
+        // jjskuld - Ignore CS1998 warning for now.
+        #pragma warning disable 1998
         public static async Task Execute(ISession session, WebSocketSession webSocketSession, string requestID)
         {
             //using (var blocker = new BlockableScope(session, BotActions.GetProfile))
@@ -26,5 +28,6 @@ namespace RocketBot2.WebSocketHandler.GetCommands.Tasks
                 webSocketSession.Send(EncodingHelper.Serialize(new TrainerProfileResponce(tmpData, requestID)));
             }
         }
+        #pragma warning restore 1998
     }
 }

@@ -50,7 +50,7 @@ namespace RocketBot2
         public void Write(string message, LogLevel level = LogLevel.Info, ConsoleColor color = ConsoleColor.Black)
         {
             // Remember to change to a font that supports your language, otherwise it'll still show as ???.
-            //TODO: requis for PoGo.NecroBot.CLI IO.Execption
+            //TODO: requis for RocketBot2 IO.Execption
             //Console.OutputEncoding = Encoding.UTF8;
             if (level > _maxLogLevel)
                 return;

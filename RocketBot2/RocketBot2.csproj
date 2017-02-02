@@ -519,6 +519,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Images\Miscs\Logo.png" />
+    <Resource Include="Resources\Fonts\Lato\SIL Open Font License.txt" />
     <Content Include="Resources\Ico.ico" />
     <EmbeddedResource Include="App.config">
       <SubType>Designer</SubType>
@@ -529,6 +530,24 @@
     <Content Include="Resources\device info.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\Fonts\Lato\Lato-Black.ttf" />
+    <Resource Include="Resources\Fonts\Lato\Lato-BlackItalic.ttf" />
+    <Resource Include="Resources\Fonts\Lato\Lato-Bold.ttf" />
+    <Resource Include="Resources\Fonts\Lato\Lato-BoldItalic.ttf" />
+    <Resource Include="Resources\Fonts\Lato\Lato-Hairline.ttf" />
+    <Resource Include="Resources\Fonts\Lato\Lato-HairlineItalic.ttf" />
+    <Resource Include="Resources\Fonts\Lato\Lato-Heavy.ttf" />
+    <Resource Include="Resources\Fonts\Lato\Lato-HeavyItalic.ttf" />
+    <Resource Include="Resources\Fonts\Lato\Lato-Italic.ttf" />
+    <Resource Include="Resources\Fonts\Lato\Lato-Light.ttf" />
+    <Resource Include="Resources\Fonts\Lato\Lato-LightItalic.ttf" />
+    <Resource Include="Resources\Fonts\Lato\Lato-Medium.ttf" />
+    <Resource Include="Resources\Fonts\Lato\Lato-MediumItalic.ttf" />
+    <Resource Include="Resources\Fonts\Lato\Lato-Regular.ttf" />
+    <Resource Include="Resources\Fonts\Lato\Lato-Semibold.ttf" />
+    <Resource Include="Resources\Fonts\Lato\Lato-SemiboldItalic.ttf" />
+    <Resource Include="Resources\Fonts\Lato\Lato-Thin.ttf" />
+    <Resource Include="Resources\Fonts\Lato\Lato-ThinItalic.ttf" />
     <None Include="Resources\msvc.cer" />
     <None Include="RunWithExcelConfig.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

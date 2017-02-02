@@ -1,8 +1,7 @@
 ﻿using System.Threading.Tasks;
-using RocketBot2.WebSocketHandler.GetCommands.Tasks;
 using PoGo.NecroBot.Logic.State;
-using SuperSocket.WebSocket;
 using PoGo.NecroBot.Logic.Tasks;
+using SuperSocket.WebSocket;
 
 namespace RocketBot2.WebSocketHandler.GetCommands
 {
@@ -20,6 +19,5 @@ namespace RocketBot2.WebSocketHandler.GetCommands
             await HumanWalkSnipeTask.ExecuteFetchData(session);
             //await GetPokemonSnipeListTask.Execute(session, webSocketSession, (string)message.RequestID);
         }
-
     }
 }
