@@ -233,6 +233,7 @@
     <Reference Include="Microsoft.CSharp">
       <Private>True</Private>
     </Reference>
+	<Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -292,6 +293,18 @@
       <HintPath>$(SolutionDir)\packages\WebSocketSharp.1.0.3-rc11\lib\websocket-sharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="RocketBot2.exe.config">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Auto</PublishState>
+      <IncludeHash>False</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BotDataSocketClient.cs" />
@@ -521,9 +534,6 @@
     <None Include="Images\Miscs\Logo.png" />
     <Resource Include="Resources\Fonts\Lato\SIL Open Font License.txt" />
     <Content Include="Resources\Ico.ico" />
-    <EmbeddedResource Include="App.config">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
