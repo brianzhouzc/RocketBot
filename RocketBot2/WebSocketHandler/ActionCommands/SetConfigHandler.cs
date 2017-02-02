@@ -25,7 +25,6 @@ namespace RocketBot2.WebSocketHandler.ActionCommands
 
         public async Task Handle(ISession session, WebSocketSession webSocketSession, dynamic message)
         {
-            
             var profilePath = Path.Combine(Directory.GetCurrentDirectory(), "");
             var profileConfigPath = Path.Combine(profilePath, "config");
             var authFile = Path.Combine(profileConfigPath, "auth.json");
@@ -42,7 +41,7 @@ namespace RocketBot2.WebSocketHandler.ActionCommands
             {
                 try
                 {
-                    var authJson = JsonConvert.SerializeObject((JObject)message.AuthJson, jsonSerializeSettings);
+                    var authJson = JsonConvert.SerializeObject((JObject) message.AuthJson, jsonSerializeSettings);
                     if (!string.IsNullOrEmpty(authJson) && authJson != "null")
                         File.WriteAllText(authFile, authJson, Encoding.UTF8);
                 }
@@ -50,14 +49,13 @@ namespace RocketBot2.WebSocketHandler.ActionCommands
                 {
                     // ignored
                 }
-
             });
 
             await Task.Run(() =>
             {
                 try
                 {
-                    var configJson = JsonConvert.SerializeObject((JObject)message.ConfigJson, jsonSerializeSettings);
+                    var configJson = JsonConvert.SerializeObject((JObject) message.ConfigJson, jsonSerializeSettings);
                     if (!string.IsNullOrEmpty(configJson) && configJson != "null")
                         File.WriteAllText(configFile, configJson, Encoding.UTF8);
                 }

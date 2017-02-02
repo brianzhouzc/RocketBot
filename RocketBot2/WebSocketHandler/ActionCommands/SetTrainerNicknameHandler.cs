@@ -1,8 +1,9 @@
 ﻿using System.Threading.Tasks;
-using PoGo.NecroBot.Logic.State;
-using SuperSocket.WebSocket;
-using POGOProtos.Networking.Responses;
 using PoGo.NecroBot.Logic.Event;
+using PoGo.NecroBot.Logic.Model;
+using PoGo.NecroBot.Logic.State;
+using POGOProtos.Networking.Responses;
+using SuperSocket.WebSocket;
 
 namespace RocketBot2.WebSocketHandler.ActionCommands
 {
@@ -18,7 +19,7 @@ namespace RocketBot2.WebSocketHandler.ActionCommands
         public async Task Handle(ISession session, WebSocketSession webSocketSession, dynamic message)
         {
             string nickname = message.Data;
-                            
+
             if (nickname.Length > 15)
             {
                 session.EventDispatcher.Send(new NoticeEvent()
@@ -30,7 +31,7 @@ namespace RocketBot2.WebSocketHandler.ActionCommands
             if (nickname == session.Profile.PlayerData.Username) return;
 
 
-            using (var blocker = new BlockableScope(session, PoGo.NecroBot.Logic.Model.BotActions.UpdateProfile))
+            using (var blocker = new BlockableScope(session, BotActions.UpdateProfile))
             {
                 if (!await blocker.WaitToRun()) return;
 
@@ -46,7 +47,6 @@ namespace RocketBot2.WebSocketHandler.ActionCommands
                     {
                         Nickname = res.Codename
                     });
-
                 }
                 else
                 {
@@ -56,7 +56,6 @@ namespace RocketBot2.WebSocketHandler.ActionCommands
                     });
                 }
             }
-             
         }
     }
 }

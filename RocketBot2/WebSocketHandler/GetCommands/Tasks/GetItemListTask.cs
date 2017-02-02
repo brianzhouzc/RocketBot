@@ -11,6 +11,8 @@ namespace RocketBot2.WebSocketHandler.GetCommands.Tasks
 {
     internal class GetItemListTask
     {
+        // jjskuld - Ignore CS1998 warning for now.
+        #pragma warning disable 1998
         public static async Task Execute(ISession session, WebSocketSession webSocketSession, string requestID)
         {
             // using (var blocker = new BlockableScope(session, BotActions.ListItems))
@@ -21,5 +23,6 @@ namespace RocketBot2.WebSocketHandler.GetCommands.Tasks
                 webSocketSession.Send(EncodingHelper.Serialize(new ItemListResponce(allItems, requestID)));
             }
         }
+        #pragma warning restore 1998
     }
 }

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using RocketBot2.WebSocketHandler.GetCommands.Events;
 using PoGo.NecroBot.Logic.State;
 using SuperSocket.WebSocket;
-using PoGo.NecroBot.Logic.Model;
 
 #endregion
 
@@ -16,7 +15,7 @@ namespace RocketBot2.WebSocketHandler.GetCommands.Tasks
         {
             //using (var blocker = new BlockableScope(session, BotActions.PokemonSettings))
             {
-               // if (!await blocker.WaitToRun()) return;
+                // if (!await blocker.WaitToRun()) return;
 
                 var settings = await session.Inventory.GetPokemonSettings();
                 webSocketSession.Send(EncodingHelper.Serialize(new WebResponce

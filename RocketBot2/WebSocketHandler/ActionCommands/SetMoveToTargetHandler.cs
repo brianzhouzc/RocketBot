@@ -2,7 +2,6 @@
 using PoGo.NecroBot.Logic.State;
 using PoGo.NecroBot.Logic.Tasks;
 using SuperSocket.WebSocket;
-using RocketBot2.WebSocketHandler;
 
 namespace RocketBot2.WebSocketHandler.ActionCommands
 {
