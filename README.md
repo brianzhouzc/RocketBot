@@ -11,7 +11,7 @@
 [![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=backlog&title=Backlog)](https://waffle.io/TheUnnamedOrganisation/RocketBot)
 [![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=done&title=Done)](https://waffle.io/TheUnnamedOrganisation/RocketBot)
 
-<h1>RocketBot2 now supports Pokémon Go 0.53.1 API using public hashing server from PogoDev, or Legacy API(FREE Hight risk) </h1>
+<h1>RocketBot2 now supports Pokémon Go 0.55.0 API using public hashing server from PogoDev, or Legacy API(FREE Hight risk) </h1>
 
 <p>
 RocketBot itself is free but now you will need to purchase an API key to run the bot.
