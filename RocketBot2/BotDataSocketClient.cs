@@ -31,6 +31,10 @@ namespace RocketBot2
         private static List<EncounteredEvent> events = new List<EncounteredEvent>();
         private const int POLLING_INTERVAL = 5000;
 
+        public static void HandleEvent(IEvent evt, ISession session)
+        {
+        }
+
         public static void Listen(IEvent evt, ISession session)
         {
             dynamic eve = evt;
@@ -137,7 +141,7 @@ namespace RocketBot2
                             retries = 0;
                         }
 
-                        if ((lastEncouteredEvent != null || events.Count > 0) && ws.ReadyState != WebSocketState.Open)
+                        if (ws.ReadyState != WebSocketState.Open)
                         {
                             retries++;
                             ws.Connect();
