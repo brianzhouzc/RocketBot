@@ -89,7 +89,7 @@ namespace RocketBot2.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Text = Application.ProductName + " " + Application.ProductVersion;
+            SetStatusText(Application.ProductName + " " + Application.ProductVersion);
             speedLable.Parent = gMapControl1;
             showMoreCheckBox.Parent = gMapControl1;
             followTrainerCheckBox.Parent = gMapControl1;
