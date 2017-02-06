@@ -16,6 +16,7 @@ using PoGo.NecroBot.Logic.Tasks;
 using POGOProtos.Enums;
 using WebSocketSharp;
 using Logger = PoGo.NecroBot.Logic.Logging.Logger;
+using System.Runtime.Caching;
 
 namespace RocketBot2
 {
@@ -52,7 +53,7 @@ namespace RocketBot2
         {
             lock (events)
             {
-                if (eve.IsRecievedFromSocket) return;
+                if (eve.IsRecievedFromSocket && cache.Get(eve.EncounterId) != null) return;
                 events.Add(eve);
             }
         }
@@ -274,13 +275,23 @@ namespace RocketBot2
             }
         }
 
+        private static MemoryCache cache = new MemoryCache("dump");
+
         private static void OnPokemonData(ISession session, string message)
         {
+            
             var match = Regex.Match(message, "42\\[\"pokemon\",(.*)]");
             if (match != null && !string.IsNullOrEmpty(match.Groups[1].Value))
             {
                 var data = JsonConvert.DeserializeObject<EncounteredEvent>(match.Groups[1].Value);
                 data.IsRecievedFromSocket = true;
+                ulong encounterid = 0;
+                ulong.TryParse(data.EncounterId, out encounterid);
+                if(encounterid>0 && cache.Get(encounterid.ToString()) == null)
+                {
+                    cache.Add(encounterid.ToString(), DateTime.Now, DateTime.Now.AddMinutes(15));
+                }
+
                 session.EventDispatcher.Send(data);
                 if (session.LogicSettings.AllowAutoSnipe)
                 {
@@ -288,8 +299,7 @@ namespace RocketBot2
                     var move2 = PokemonMove.MoveUnset;
                     Enum.TryParse<PokemonMove>(data.Move1, true, out move1);
                     Enum.TryParse<PokemonMove>(data.Move2, true, out move2);
-                    ulong encounterid = 0;
-                    ulong.TryParse(data.EncounterId, out encounterid);
+                   
                     bool caught = CheckIfPokemonBeenCaught(data.Latitude, data.Longitude,
                         data.PokemonId, encounterid, session);
                     if (!caught)
