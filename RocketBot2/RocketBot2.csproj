@@ -233,7 +233,7 @@
     <Reference Include="Microsoft.CSharp">
       <Private>True</Private>
     </Reference>
-	<Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -391,6 +391,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="PushNotificationListener.cs" />
     <Compile Include="SniperEventListener.cs" />
     <Compile Include="WebSocketHandler\ActionCommands\DropItemHandler.cs" />
     <Compile Include="WebSocketHandler\ActionCommands\EvolvePokemonHandler.cs" />

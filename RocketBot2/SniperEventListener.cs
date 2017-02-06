@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using PoGo.NecroBot.Logic.Event;
 using PoGo.NecroBot.Logic.State;
 using PoGo.NecroBot.Logic.Tasks;
+
 #endregion
 
 namespace RocketBot2
@@ -15,7 +16,8 @@ namespace RocketBot2
         private static void HandleEvent(PokemonCaptureEvent pokemonCaptureEvent, ISession session)
         {
             //remove pokemon from list
-            HumanWalkSnipeTask.UpdateCatchPokemon(pokemonCaptureEvent.Latitude, pokemonCaptureEvent.Longitude, pokemonCaptureEvent.Id);
+            HumanWalkSnipeTask.UpdateCatchPokemon(pokemonCaptureEvent.Latitude,
+                pokemonCaptureEvent.Longitude, pokemonCaptureEvent.Id);
         }
 
         public static void HandleEvent(SnipePokemonFoundEvent ev, ISession session)
@@ -27,7 +29,7 @@ namespace RocketBot2
                 ev.PokemonFound.ExpirationTimestamp,
                 ev.PokemonFound.IV,
                 session
-                );
+            );
         }
 
         public static void HandleEvent(EncounteredEvent ev, ISession session)
@@ -41,7 +43,11 @@ namespace RocketBot2
                 ev.Expires,
                 ev.IV,
                 session
-                );
+            );
+        }
+
+        public static void HandleEvent(IEvent evt, ISession session)
+        {
         }
 
         internal void Listen(IEvent evt, ISession session)
@@ -49,7 +55,9 @@ namespace RocketBot2
             dynamic eve = evt;
 
             try
-            { HandleEvent(eve, session); }
+            {
+                HandleEvent(eve, session);
+            }
             catch (Exception)
             {
                 // ignored
