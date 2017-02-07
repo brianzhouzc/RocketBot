@@ -870,6 +870,7 @@ namespace RocketBot2.Forms
                     // ReSharper disable once PossibleNullReferenceException
                     .Count(p => p == pok.PokemonId) > 1)
                     e.Item.BackColor = Color.LightGreen;
+                    e.Item.Text = _session.Translation.GetPokemonTranslation(pok.PokemonId);
 
                 foreach (OLVListSubItem sub in e.Item.SubItems)
                 {
@@ -1134,7 +1135,7 @@ namespace RocketBot2.Forms
 
                 PokemonObject.Initilize(itemTemplates);
 
-                var pokemons = 
+                var pokemons =
                     inventory.Select(i => i?.InventoryItemData?.PokemonData)
                         .Where(p => p != null && p.PokemonId > 0)
                         .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
@@ -1145,8 +1146,7 @@ namespace RocketBot2.Forms
                 foreach (var pokemon in pokemons)
                 {
                     var pokemonObject = new PokemonObject(pokemon);
-                    var Candy_ = _session.Inventory.GetCandyCount(pokemon.PokemonId);
-                    pokemonObject.Candy = Candy_;
+                    pokemonObject.Candy = _session.Inventory.GetCandyCount(pokemon.PokemonId);
                     pokemonObjects.Add(pokemonObject);
                 }
 
@@ -1154,12 +1154,10 @@ namespace RocketBot2.Forms
                 olvPokemonList.SetObjects(pokemonObjects);
                 olvPokemonList.TopItemIndex = prevTopItem;
 
-                var pokemoncount =
-                    inventory.Select(i => i.InventoryItemData?.PokemonData)
-                        .Count(p => p != null && p.PokemonId > 0);
-                var eggcount =
-                    inventory.Select(i => i.InventoryItemData?.PokemonData)
-                        .Count(p => p != null && p.IsEgg);
+                var pokemoncount = _session.Inventory.GetPokemons().Count();
+
+                var eggcount = _session.Inventory.GetEggs().Count();
+
                 lblPokemonList.Text =
                     $"{pokemoncount + eggcount} / {profile.PlayerData.MaxPokemonStorage} ({pokemoncount} pokemon, {eggcount} eggs)";
 
