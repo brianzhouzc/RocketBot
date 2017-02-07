@@ -95,7 +95,7 @@
             this.radHashServer.Size = new System.Drawing.Size(225, 17);
             this.radHashServer.TabIndex = 5;
             this.radHashServer.TabStop = true;
-            this.radHashServer.Text = "Pogodev hash server api - Latest API 0.53";
+            this.radHashServer.Text = "Pogodev hash server api - Latest API 0.55";
             this.radHashServer.UseVisualStyleBackColor = true;
             // 
             // label2

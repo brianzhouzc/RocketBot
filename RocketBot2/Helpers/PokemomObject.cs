@@ -4,6 +4,7 @@ using PoGo.NecroBot.Logic.PoGoUtils;
 using POGOProtos.Data;
 using POGOProtos.Enums;
 using POGOProtos.Networking.Responses;
+using RocketBot2.Forms;
 
 namespace RocketBot2.Helpers
 {
@@ -66,12 +67,12 @@ namespace RocketBot2.Helpers
 
         public string Move1
         {
-            get { return PokemonData.Move1.ToString(); }
+            get { return MainForm._session.Translation.GetPokemonMovesetTranslation(PokemonData.Move1); }
         }
 
         public string Move2
         {
-            get { return PokemonData.Move2.ToString(); }
+            get { return MainForm._session.Translation.GetPokemonMovesetTranslation(PokemonData.Move2); }
         }
 
         public int Candy { get; set; } = 0;
