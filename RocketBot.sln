@@ -211,8 +211,8 @@ Global
 		{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}.Release RocketBot|Windows-x64.Build.0 = Release|Any CPU
 		{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}.Release RocketBot|Windows-x86.ActiveCfg = Release|Any CPU
 		{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}.Release RocketBot|Windows-x86.Build.0 = Release|Any CPU
-		{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}.Release RocketBot|x64.ActiveCfg = Release WPF GUI|x64
-		{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}.Release RocketBot|x64.Build.0 = Release WPF GUI|x64
+		{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}.Release RocketBot|x64.ActiveCfg = Release|x64
+		{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}.Release RocketBot|x64.Build.0 = Release|x64
 		{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}.Release RocketBot|x86.ActiveCfg = Release|x86
 		{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}.Release RocketBot|x86.Build.0 = Release|x86
 		{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}.Release|Android.ActiveCfg = Release|Any CPU

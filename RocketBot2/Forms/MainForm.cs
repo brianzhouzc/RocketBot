@@ -64,7 +64,7 @@ namespace RocketBot2.Forms
         private static readonly Uri StrMasterKillSwitchUri =
             new Uri("https://raw.githubusercontent.com/TheUnnamedOrganisation/PoGo.NecroBot.Logic/master/MKS.txt");
 
-        private static Session _session;
+        public static Session _session;
         private GlobalSettings _settings;
         private StateMachine _machine;
         private PointLatLng _currentLatLng;
@@ -851,7 +851,6 @@ namespace RocketBot2.Forms
             pkmnName.ImageGetter = delegate (object rowObject)
             {
                 var pokemon = rowObject as PokemonObject;
-
                 // ReSharper disable once PossibleNullReferenceException
                 var key = pokemon.PokemonId.ToString();
                 if (!olvPokemonList.SmallImageList.Images.ContainsKey(key))
@@ -1135,7 +1134,7 @@ namespace RocketBot2.Forms
 
                 PokemonObject.Initilize(itemTemplates);
 
-                var pokemons =
+                var pokemons = 
                     inventory.Select(i => i?.InventoryItemData?.PokemonData)
                         .Where(p => p != null && p.PokemonId > 0)
                         .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)

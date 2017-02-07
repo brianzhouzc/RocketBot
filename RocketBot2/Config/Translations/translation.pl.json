@@ -2,23 +2,23 @@
   "TranslationStrings": [
     {
       "Key": "HumanWalkSnipeNotEnoughtBalls",
-      "Value": "(PODRÓŻ) Niewystarczająca ilość Pokeball'i do aktywacji trybu Catch 'em All. ({0})/{1}"
+      "Value": "(PODRÓŻ) Niewystarczająca ilość Pokeballi do aktywacji trybu Catch 'em All. ({0})/{1}"
     },
     {
       "Key": "HumanWalkSnipe",
-      "Value": "(PODRÓŻ) Znaleziono {0} spawn'ów | szer.: {1}, dł.: {2}, odległość {3:0.00}m , utrata ważności po {4:00} min {5:00} sec | Przewidywany czas dotarcia : {6:00} min {7:00} sec | Obroty: {8} | Złapano : {9}"
+      "Value": "(PODRÓŻ) Znaleziono {0} spawnów | szer.: {1}, dł.: {2}, odległość {3:0.00}m , utrata ważności po {4:00} min {5:00} sec | Przewidywany czas dotarcia : {6:00} min {7:00} sec | Obroty: {8} | Złapano : {9}"
     },
     {
       "Key": "HumanWalkSnipeUpdate",
-      "Value": "(PODRÓŻ) Znaleziono {0} pokemonów pasujących do twoich wymagań. Snajper nie zdoła złapać wszystkich pokemon'ów, ale spróbuje złapać maksymalną możliwą ilość."
+      "Value": "(PODRÓŻ) Znaleziono {0} pokemonów pasujących do twoich wymagań. Snajper nie zdoła złapać wszystkich pokemonów, ale spróbuje złapać maksymalną możliwą ilość."
     },
     {
       "Key": "HumanWalkSnipeAddedPokestop",
-      "Value": "(PODRÓŻ) Jesteś oddalony {0:0.00m} od najbliższego pokestop'u. Restart farmienia w tym miejscu z {1} Pokestop'ami"
+      "Value": "(PODRÓŻ) Jesteś oddalony {0:0.00m} od najbliższego pokestopu. Restart farmienia w tym miejscu z {1} Pokestopami"
     },
     {
       "Key": "HumanWalkSnipeDestinationReached",
-      "Value": "(PODRÓŻ) cel osiągnięty | szer.: {0}, dł.: {1} | czekaj  {3:0.00} sec"
+      "Value": "(PODRÓŻ) Cel osiągnięty | szer.: {0}, dł.: {1} | czekaj  {3:0.00} sek"
     },
     {
       "Key": "SniperCount",
@@ -74,7 +74,7 @@
     },
     {
       "Key": "farmPokestopsNoUsableFound",
-      "Value": "Nie znaleziono PokeStop'ów w Twojej okolicy. Maksymalny zasięg jest za mały."
+      "Value": "Nie znaleziono PokeStopów w Twojej okolicy. Maksymalny zasięg jest za mały."
     },
     {
       "Key": "eventFortUsed",
@@ -102,11 +102,11 @@
     },
     {
       "Key": "eventUsedIncense",
-      "Value": "Użyto Incens'a, pozostało: {0}"
+      "Value": "Użyto Incense'a, pozostało: {0}"
     },
     {
       "Key": "eventUsedLuckyEgg",
-      "Value": "Użyto LuckyEgg'a, pozostało: {0}"
+      "Value": "Użyto LuckyEgga, pozostało: {0}"
     },
     {
       "Key": "eventPokemonEvolvedSuccess",
@@ -142,11 +142,11 @@
     },
     {
       "Key": "useLuckyEggsMinPokemonAmountTooHigh",
-      "Value": "LuckyEgg nie zostanie użyty, gdy wartość UseLuckyEggsMinPokemonAmount wynosi {0}, użyj <= {1}"
+      "Value": "LuckyEgg nie zostanie użyty, gdy wartość 'UseLuckyEggsMinPokemonAmount' wynosi {0}, użyj <= {1}"
     },
     {
       "Key": "catchMorePokemonToUseLuckyEgg",
-      "Value": "Złap jeszcze {0} Pokemonów, żeby aktywować LuckyEgg'a"
+      "Value": "Złap jeszcze {0} Pokemonów, żeby aktywować LuckyEgga"
     },
     {
       "Key": "eventUseBerry",
@@ -210,7 +210,7 @@
     },
     {
       "Key": "incubatorStatusUpdate",
-      "Value": "[STATUS INKUBATORA] Pozostało: {0:0.00}km"
+      "Value": "Pozostało: {0:0.00}km do wyklucia"
     },
     {
       "Key": "incubatorEggHatched",
@@ -234,7 +234,7 @@
     },
     {
       "Key": "logEntryFarming",
-      "Value": "FARMIENIE"
+      "Value": "FARMENIE"
     },
     {
       "Key": "logEntrySniper",
@@ -242,7 +242,7 @@
     },
     {
       "Key": "logEntryRecycling",
-      "Value": "USUNIĘTO"
+      "Value": "PRZETWORZONO"
     },
     {
       "Key": "logEntryPkmn",
@@ -250,11 +250,11 @@
     },
     {
       "Key": "logEntryTransfered",
-      "Value": "ODESŁANO"
+      "Value": "ODSYŁANIE"
     },
     {
       "Key": "logEntryEvolved",
-      "Value": "WYEWOLUOWAŁ"
+      "Value": "EWOLUCJA"
     },
     {
       "Key": "logEntryBerry",
@@ -358,15 +358,15 @@
     },
     {
       "Key": "lookingForIncensePokemon",
-      "Value": "Poszukuję Pokemonów zwabionych Incens'em..."
+      "Value": "Poszukuję Pokemonów zwabionych Incense'em..."
     },
     {
       "Key": "lookingForPokemon",
-      "Value": "Poszukuję Pokemon'ów..."
+      "Value": "Poszukuję Pokemonów..."
     },
     {
       "Key": "lookingForLurePokemon",
-      "Value": "Poszukuję Pokemon'ów zwabionych Lure'em..."
+      "Value": "Poszukuję Pokemonów zwabionych Lure'em..."
     },
     {
       "Key": "pokemonSkipped",
@@ -374,15 +374,15 @@
     },
     {
       "Key": "zeroPokeballInv",
-      "Value": "Brak Pokeball'i w ekwipunku, nie możesz złapać więcej Pokemonów"
+      "Value": "Brak Pokeballi w ekwipunku, nie możesz złapać więcej Pokemonów"
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "Pokeball'e: {0} | Greatball'e: {1} | Ultraball'e: {2} | Masterball'e: {3}"
+      "Value": "Pokeballe: {0} | Greatballe: {1} | Ultraballe: {2} | Masterballe: {3}"
     },
     {
       "Key": "currentPotionInv",
-      "Value": "Potion'y: {0} | SuperPotion'y: {1} | HyperPotion'y: {2} | MaxPotion'y: {3}"
+      "Value": "Potiony: {0} | SuperPotiony: {1} | HyperPotiony: {2} | MaxPotiony: {3}"
     },
     {
       "Key": "currentReviveInv",
@@ -390,11 +390,11 @@
     },
     {
       "Key": "currentMiscItemInv",
-      "Value": "RazzBerry: {0} | Incense'y: {1} | LuckyEgg'i: {2} | Lure'y: {3}"
+      "Value": "RazzBerry: {0} | Incense'y: {1} | LuckyEggi: {2} | Lure'y: {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "Ustawiona przez Ciebie dopuszczalna ilość itemów w ekwipunku (PokeBalle+Potiony+Revivy={0}) przekracza maksymalną jego pojemność, która wynosi: ({1})"
+      "Value": "Ustawiona przez Ciebie dopuszczalna ilość przedmiotów w ekwipunku (PokeBalle+Potiony+Revive'y={0}) przekracza maksymalną jego pojemność, która wynosi: ({1})"
     },
     {
       "Key": "recyclingQuietly",
@@ -410,7 +410,7 @@
     },
     {
       "Key": "invFullPokestopLooting",
-      "Value": "Twój ekwipunek jest pełny, nie zebrano przedmiotów z PokeStop'u."
+      "Value": "Twój ekwipunek jest pełny, nie zebrano przedmiotów z PokeStopu."
     },
     {
       "Key": "encounterProblem",
@@ -418,7 +418,7 @@
     },
     {
       "Key": "encounterProblemLurePokemon",
-      "Value": "Napotkano problem: Lure Pokemon'ów {0}"
+      "Value": "Napotkano problem: Lure Pokemonów {0}"
     },
     {
       "Key": "desiredDestTooFar",
@@ -434,7 +434,7 @@
     },
     {
       "Key": "pokemonIgnoreFilter",
-      "Value": "[IGNOROWANIE POKEMON'ÓW] - Ignorowanie {0} według wykrytych ustawień."
+      "Value": "Ignorowanie {0} według wykrytych ustawień."
     },
     {
       "Key": "catchStatusAttempt",
@@ -478,7 +478,7 @@
     },
     {
       "Key": "statsTemplateString",
-      "Value": "{0} - Czas działania {1} - Poziom: {2} | XP na godzinę: {3:n0} | Pokemony na godzinę: {4:n0} | Stardust: {5:n0} | Przesłano: {6:n0} | Usunięto: {7:n0}"
+      "Value": "{0} - Czas działania: {1} - Poziom: {2} | XP na godzinę: {3:n0} | Pokemony na godzinę: {4:n0} | Stardust: {5:n0} | Przesłano: {6:n0} | Usunięto: {7:n0}"
     },
     {
       "Key": "profileStatsTemplateString",
@@ -526,7 +526,7 @@
     },
     {
       "Key": "snipeScan",
-      "Value": "Skanowanie w poszukiwaniu Pokemon'ów [{0}]..."
+      "Value": "Skanowanie w poszukiwaniu Pokemonów [{0}]..."
     },
     {
       "Key": "snipeScanEx",
@@ -538,7 +538,7 @@
     },
     {
       "Key": "notEnoughPokeballsToSnipe",
-      "Value": "Zbyt mało Pokeball'i ({0}/{1})"
+      "Value": "Zbyt mało Pokeballi ({0}/{1})"
     },
     {
       "Key": "displayHighestMove1Header",
@@ -558,7 +558,7 @@
     },
     {
       "Key": "noEggsAvailable",
-      "Value": "Brak LuckyEgg'ów."
+      "Value": "Brak LuckyEggów."
     },
     {
       "Key": "useLuckyEggActive",
@@ -566,15 +566,15 @@
     },
     {
       "Key": "usedLuckyEgg",
-      "Value": "Aktywowano LuckyEgg'a."
+      "Value": "Aktywowano LuckyEgga."
     },
     {
       "Key": "useLuckyEggAmount",
-      "Value": "LuckyEgg'ów w ekwipunku: {0}"
+      "Value": "LuckyEggów w ekwipunku: {0}"
     },
     {
       "Key": "noIncenseAvailable",
-      "Value": "Brak Incens'ów"
+      "Value": "Brak Incense'ów"
     },
     {
       "Key": "useIncenseActive",
@@ -590,11 +590,11 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "Ilość widzianych Pokemon'ów: {0}/151 | Ilość złapanych Pokemon'ów: {1}/151"
+      "Value": "Ilość widzianych Pokemonów: {0}/151 | Ilość złapanych Pokemonów: {1}/151"
     },
     {
       "Key": "pkmPotentialEvolveCount",
-      "Value": "Pokemon'y oczekujące na ewolucje: {0}"
+      "Value": "Pokemony oczekujące na ewolucje: {0}"
     },
     {
       "Key": "pkmNotEnoughRessources",
@@ -682,7 +682,7 @@
     },
     {
       "Key": "firstStartSetupDefaultLatLongPrompt",
-      "Value": "Proszę wprowadź szerokość i długość geo. (RPM aby wkleić) - Format: Wartość, Wartość"
+      "Value": "Proszę wprowadź szerokość i długość geo. (PPM [RPM] aby wkleić) - Format: Wartość, Wartość"
     },
     {
       "Key": "firstStartSetupDefaultLatLongConfirm",
@@ -734,11 +734,11 @@
     },
     {
       "Key": "HumanWalkingVariant",
-      "Value": "[Prędkość] Została zmieniona z {0:n2} Km/h na {1:n2} Km/h"
+      "Value": "Prędkość została zmieniona z {0:n2} Km/h na {1:n2} Km/h"
     },
     {
       "Key": "AccountBanned",
-      "Value": "Prawdopodobnie masz PERMBAN'A!"
+      "Value": "Prawdopodobnie masz PERMBANA!"
     }
   ],
   "PokemonStrings": [
