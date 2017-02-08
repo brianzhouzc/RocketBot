@@ -18,7 +18,7 @@ See https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer for pricing 
 [![Stories in Ready](https://discordapp.com/api/guilds/208485545439920128/widget.png?style=banner3&time-)](https://discord.gg/y6EU2qY)
 
 ## Images
-<img src="https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/MainForm.png">
+<img src="https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/MainForm.png" width="865">
 <img src="https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/SettingForm.png" width="430">
 <img src="https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/SettingForm_2.png" width="430">
 <img src="https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/SettingForm_3.png" width="430">
@@ -68,7 +68,7 @@ Tutorial on how to use app password: [Google support](https://support.google.com
 Change your settings using the settings tab on the bot. If you want more advance settings, edit the settings file under the bot's folder.
 
 ### `Wola`
- Click Start Bot and enjoy!
+ Click `▶ Start RocketBot2` and enjoy!
 
 # `How can I contribute?`
 
