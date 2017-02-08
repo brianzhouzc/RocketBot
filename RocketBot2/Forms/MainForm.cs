@@ -64,7 +64,6 @@ namespace RocketBot2.Forms
         private static readonly Uri StrMasterKillSwitchUri =
             new Uri("https://raw.githubusercontent.com/TheUnnamedOrganisation/PoGo.NecroBot.Logic/master/MKS.txt");
 
-        public static Session _session;
         private GlobalSettings _settings;
         private StateMachine _machine;
         private PointLatLng _currentLatLng;
@@ -78,6 +77,8 @@ namespace RocketBot2.Forms
         private readonly GMapOverlay _pokemonsOverlay = new GMapOverlay("pokemons");
         private readonly GMapOverlay _pokestopsOverlay = new GMapOverlay("pokestops");
         private readonly GMapOverlay _searchAreaOverlay = new GMapOverlay("areas");
+
+        public static Session _session;
 
         public MainForm(string[] _args)
         {
@@ -870,6 +871,7 @@ namespace RocketBot2.Forms
                     // ReSharper disable once PossibleNullReferenceException
                     .Count(p => p == pok.PokemonId) > 1)
                     e.Item.BackColor = Color.LightGreen;
+
                     e.Item.Text = _session.Translation.GetPokemonTranslation(pok.PokemonId);
 
                 foreach (OLVListSubItem sub in e.Item.SubItems)
@@ -983,10 +985,12 @@ namespace RocketBot2.Forms
         private async void TransferPokemon(IEnumerable<PokemonData> pokemons)
         {
             SetState(false);
+            var _pokemons = new List<ulong>();
             foreach (var pokemon in pokemons)
             {
-                await TransferPokemonTask.Execute(_session,_session.CancellationTokenSource.Token, new List<ulong> { pokemon.Id } );
+                _pokemons.Add(pokemon.Id);
             }
+            await TransferPokemonTask.Execute(_session, _session.CancellationTokenSource.Token, _pokemons);
             await ReloadPokemonList();
         }
 
@@ -1113,7 +1117,7 @@ namespace RocketBot2.Forms
                     }
                     continue;
                 }
-                await RenameSpecificPokemonTask.Execute(_session, pokemon, nickname);
+                await RenameSinglePokemonTask.Execute(_session, pokemon.Id, nickname,_session.CancellationTokenSource.Token);
             }
             await ReloadPokemonList();
         }
@@ -1135,8 +1139,7 @@ namespace RocketBot2.Forms
 
                 PokemonObject.Initilize(itemTemplates);
 
-                var pokemons =
-                    inventory.Select(i => i?.InventoryItemData?.PokemonData)
+                var pokemons = _session.Inventory.GetPokemons()
                         .Where(p => p != null && p.PokemonId > 0)
                         .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
                         .ThenByDescending(key => key.Cp)
@@ -1154,22 +1157,19 @@ namespace RocketBot2.Forms
                 olvPokemonList.SetObjects(pokemonObjects);
                 olvPokemonList.TopItemIndex = prevTopItem;
 
-                var pokemoncount = _session.Inventory.GetPokemons().Count();
+                var pokemoncount = pokemons.Count();
 
                 var eggcount = _session.Inventory.GetEggs().Count();
 
                 lblPokemonList.Text =
                     $"{pokemoncount + eggcount} / {profile.PlayerData.MaxPokemonStorage} ({pokemoncount} pokemon, {eggcount} eggs)";
 
-                var items =
-                    inventory.Select(i => i.InventoryItemData?.Item)
+                var items = _session.Inventory.GetItems()
                         .Where(i => i != null)
                         .OrderBy(i => i.ItemId);
-                var itemscount =
-                    inventory.Select(i => i.InventoryItemData?.Item)
-                        .Where(i => i != null)
-                        .Sum(i => i.Count) + 1;
 
+                var itemscount = items.Count() +1;
+                   
                     flpItems.Controls.Clear();
                     foreach (var item in items)
                     {
@@ -1289,7 +1289,7 @@ namespace RocketBot2.Forms
                         {
                             Logger.Write(strReason1 + $"\n", LogLevel.Warning);
 
-                            Logger.Write(strExitMsg + $"\n" + "Please press enter to continue", LogLevel.Error);
+                            Logger.Write(strExitMsg + $"\n" + "Please close bot to continue", LogLevel.Error);
                             //Console.ReadLine();
                             return true;
                         }
@@ -1326,11 +1326,11 @@ namespace RocketBot2.Forms
                         var strStatus = strSplit[0];
                         var strReason = strSplit[1];
 
-                        if (strStatus.ToLower().Contains("disable"))
+                        if (strStatus.ToLower().Contains("disabled"))
                         {
                             Logger.Write(strReason + $"\n", LogLevel.Warning);
 
-                            if (PromptForKillSwitchOverride())
+                            if (PromptForKillSwitchOverride(strReason))
                             {
                                 // Override
                                 Logger.Write("Overriding killswitch... you have been warned!", LogLevel.Warning);
@@ -1338,6 +1338,7 @@ namespace RocketBot2.Forms
                             }
 
                             Logger.Write("The bot will now close", LogLevel.Error);
+                            Instance.startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
                             //Console.ReadLine();
                             return true;
                         }
@@ -1361,7 +1362,7 @@ namespace RocketBot2.Forms
             //throw new Exception();
         }
 
-        public static bool PromptForKillSwitchOverride()
+        public static bool PromptForKillSwitchOverride(string strReason)
         {
             Logger.Write("Do you want to override killswitch to bot at your own risk? Y/N", LogLevel.Warning);
 
@@ -1383,7 +1384,7 @@ namespace RocketBot2.Forms
                 }
             }
             */
-            DialogResult result = MessageBox.Show("Do you want to override killswitch to bot at your own risk? Y/N", Application.ProductName + " - Use Old API detected", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult result = MessageBox.Show("Do you want to override killswitch to bot at your own risk? Y/N \n\r" + strReason, Application.ProductName + " - Use Old API detected", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             switch (result)
             {
                 case DialogResult.Yes: return true;
