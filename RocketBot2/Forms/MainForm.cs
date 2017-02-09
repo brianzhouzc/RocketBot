@@ -114,7 +114,7 @@ namespace RocketBot2.Forms
 
             gMapControl1.MinZoom = 1;
             gMapControl1.MaxZoom = 20;
-            gMapControl1.Zoom = 15;
+            gMapControl1.Zoom = 16;
 
             gMapControl1.Overlays.Add(_searchAreaOverlay);
             gMapControl1.Overlays.Add(_pokestopsOverlay);
@@ -523,7 +523,7 @@ namespace RocketBot2.Forms
                 #pragma warning restore 4014
             }
 
-            if (_session.LogicSettings.DataSharingEnable)
+            if (_session.LogicSettings.DataSharingConfig.EnableSyncData)
             {
                 await BotDataSocketClient.StartAsync(_session);
                 _session.EventDispatcher.EventReceived += evt => BotDataSocketClient.Listen(evt, _session);
@@ -873,7 +873,7 @@ namespace RocketBot2.Forms
                     e.Item.BackColor = Color.LightGreen;
 
                     e.Item.Text = _session.Translation.GetPokemonTranslation(pok.PokemonId);
-
+                                   
                 foreach (OLVListSubItem sub in e.Item.SubItems)
                 {
                     // ReSharper disable once PossibleNullReferenceException
@@ -1132,24 +1132,27 @@ namespace RocketBot2.Forms
                 var profile = await _session.Client.Player.GetPlayer();
                 var inventoryAppliedItems =  _session.Inventory.GetAppliedItems();
 
-                var appliedItems =
-                    inventoryAppliedItems.Where(aItems => aItems?.Item != null)
-                        .SelectMany(aItems => aItems.Item)
-                        .ToDictionary(item => item.ItemId, item => TimeHelper.FromUnixTimeUtc(item.ExpireMs));
+                var appliedItems = 
+                    inventoryAppliedItems
+                    .Where(aItems => aItems?.Item != null)
+                    .SelectMany(aItems => aItems.Item)
+                    .ToDictionary(item => item.ItemId, item => TimeHelper.FromUnixTimeUtc(item.ExpireMs));
 
                 PokemonObject.Initilize(itemTemplates);
 
-                var pokemons = _session.Inventory.GetPokemons()
-                        .Where(p => p != null && p.PokemonId > 0)
-                        .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
-                        .ThenByDescending(key => key.Cp)
-                        .OrderBy(key => key.PokemonId);
+                var pokemons = 
+                    _session.Inventory.GetPokemons()
+                    .Where(p => p != null && p.PokemonId > 0)
+                    .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
+                    .ThenByDescending(key => key.Cp)
+                    .OrderBy(key => key.PokemonId);
                                                    
                 var pokemonObjects = new List<PokemonObject>();
+
                 foreach (var pokemon in pokemons)
                 {
                     var pokemonObject = new PokemonObject(pokemon);
-                    pokemonObject.Candy = _session.Inventory.GetCandyCount(pokemon.PokemonId);
+                    pokemonObject.Candy = PokemonInfo.GetCandy(_session, pokemon);
                     pokemonObjects.Add(pokemonObject);
                 }
 
@@ -1164,9 +1167,10 @@ namespace RocketBot2.Forms
                 lblPokemonList.Text =
                     $"{pokemoncount + eggcount} / {profile.PlayerData.MaxPokemonStorage} ({pokemoncount} pokemon, {eggcount} eggs)";
 
-                var items = _session.Inventory.GetItems()
-                        .Where(i => i != null)
-                        .OrderBy(i => i.ItemId);
+                var items = 
+                    _session.Inventory.GetItems()
+                    .Where(i => i != null)
+                    .OrderBy(i => i.ItemId);
 
                 var itemscount = items.Count() +1;
                    
@@ -1326,7 +1330,7 @@ namespace RocketBot2.Forms
                         var strStatus = strSplit[0];
                         var strReason = strSplit[1];
 
-                        if (strStatus.ToLower().Contains("disabled"))
+                        if (strStatus.ToLower().Contains("disable"))
                         {
                             Logger.Write(strReason + $"\n", LogLevel.Warning);
 
@@ -1354,7 +1358,6 @@ namespace RocketBot2.Forms
 
             return false;
         }
-
 
         private static void UnhandledExceptionEventHandler(object obj, UnhandledExceptionEventArgs args)
         {
@@ -1392,6 +1395,5 @@ namespace RocketBot2.Forms
             }
             return false;
         }
-
     }
 }

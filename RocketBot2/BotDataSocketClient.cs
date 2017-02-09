@@ -82,7 +82,6 @@ namespace RocketBot2
             return json;
         }
 
-        private static int retries = 0;
         static List<EncounteredEvent> processing = new List<EncounteredEvent>();
 
         public static String SHA256Hash(String value)
@@ -102,22 +101,33 @@ namespace RocketBot2
 
         public static async Task Start(Session session, CancellationToken cancellationToken)
         {
+            
             await Task.Delay(30000, cancellationToken); //delay running 30s
 
             ServicePointManager.Expect100Continue = false;
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            var socketURL = session.LogicSettings.DataSharingDataUrl;
-
-            if (!string.IsNullOrEmpty(session.LogicSettings.SnipeDataAccessKey))
+            while(true)
             {
-                socketURL += "&access_key=" + session.LogicSettings.SnipeDataAccessKey;
+                var socketURL = servers.Dequeue();
+                Logger.Write($"Connecting to {socketURL}....");
+                await ConnectToServer(session, socketURL);
+                servers.Enqueue(socketURL);
+            }
+            
+        }
+        public static async Task ConnectToServer(ISession session, string socketURL)
+        {
+            if (!string.IsNullOrEmpty(session.LogicSettings.DataSharingConfig.SnipeDataAccessKey))
+            {
+                socketURL += "&access_key=" + session.LogicSettings.DataSharingConfig.SnipeDataAccessKey;
             }
 
+            int retries = 0;
             using (var ws = new WebSocket(socketURL))
             {
-                ws.Log.Level = LogLevel.Fatal;
+                ws.Log.Level = LogLevel.Fatal; ;
                 ws.Log.Output = (logData, message) =>
                 {
                     //silenly, no log exception message to screen that scare people :)
@@ -128,17 +138,20 @@ namespace RocketBot2
                 ws.Connect();
                 while (true)
                 {
-                    cancellationToken.ThrowIfCancellationRequested();
                     try
                     {
-                        if (retries == 5)
+                        if (retries == 3)
                         {
                             //failed to make connection to server  times contiuing, temporary stop for 10 mins.
                             session.EventDispatcher.Send(new WarnEvent()
                             {
-                                Message = "Couldn't establish the connection to necro socket server, Bot will re-connect after 10 mins"
+                                Message = $"Couldn't establish the connection to necro socket server : {socketURL}"
                             });
-                            await Task.Delay(1 * 60 * 1000, cancellationToken);
+                            if(session.LogicSettings.DataSharingConfig.EnableFailoverDataServers && servers.Count > 1)
+                            {
+                                break;
+                            }
+                            await Task.Delay(1 * 60 * 1000);
                             retries = 0;
                         }
 
@@ -170,7 +183,7 @@ namespace RocketBot2
                                     var actualMessage = JsonConvert.SerializeObject(message);
                                     ws.Send($"42[\"pokemons-update\",{actualMessage}]");
                                 }
-                                await Task.Delay(POLLING_INTERVAL, cancellationToken);
+                                await Task.Delay(POLLING_INTERVAL);
                             }
 
                             if (processing.Count > 0 && ws.IsAlive)
@@ -181,7 +194,7 @@ namespace RocketBot2
                                 ws.Send($"42[\"pokemons-secure\",{actualMessage}]");
                             }
 
-                            await Task.Delay(POLLING_INTERVAL, cancellationToken);
+                            await Task.Delay(POLLING_INTERVAL);
                             ws.Ping();
                         }
                     }
@@ -198,8 +211,7 @@ namespace RocketBot2
                     finally
                     {
                         //everytime disconnected with server bot wil reconnect after 15 sec
-                        await Task.Delay(POLLING_INTERVAL, cancellationToken);
-
+                        await Task.Delay(POLLING_INTERVAL);
                     }
                 }
             }
@@ -293,7 +305,7 @@ namespace RocketBot2
                 }
 
                 session.EventDispatcher.Send(data);
-                if (session.LogicSettings.AllowAutoSnipe)
+                if (session.LogicSettings.DataSharingConfig.AutoSnipe)
                 {
                     var move1 = PokemonMove.MoveUnset;
                     var move2 = PokemonMove.MoveUnset;
@@ -334,9 +346,9 @@ namespace RocketBot2
                 var data = JsonConvert.DeserializeObject<EncounteredEvent>(match.Groups[1].Value);
 
                 //not your snipe item, return need more encrypt here and configuration to allow catch others item
-                if (string.IsNullOrEmpty(session.LogicSettings.DataSharingIdentifiation) ||
+                if (string.IsNullOrEmpty(session.LogicSettings.DataSharingConfig.DataServiceIdentification) ||
                     string.IsNullOrEmpty(data.RecieverId) ||
-                    data.RecieverId.ToLower() != session.LogicSettings.DataSharingIdentifiation.ToLower()) return;
+                    data.RecieverId.ToLower() != session.LogicSettings.DataSharingConfig.DataServiceIdentification.ToLower()) return;
 
                 var move1 = PokemonMove.Absorb;
                 var move2 = PokemonMove.Absorb;
@@ -369,10 +381,25 @@ namespace RocketBot2
                 }, true);
             }
         }
-
+        private static Queue<string> servers = new Queue<string>();
         internal static Task StartAsync(Session session,
             CancellationToken cancellationToken = default(CancellationToken))
         {
+            var config = session.LogicSettings.DataSharingConfig;
+
+            if (config.EnableSyncData)
+            {
+                servers.Enqueue(config.DataRecieverURL);
+
+                if(config.EnableFailoverDataServers)
+                {
+                    foreach (var item in config.FailoverDataServers.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        servers.Enqueue(item);
+                    }
+                }
+            }
+
             return Task.Run(() => Start(session, cancellationToken), cancellationToken);
         }
 
