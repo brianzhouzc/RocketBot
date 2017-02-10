@@ -72,7 +72,7 @@
             this.wizardControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.wizardControl1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.wizardControl1.Location = new System.Drawing.Point(0, 0);
-            this.wizardControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.wizardControl1.Margin = new System.Windows.Forms.Padding(4);
             this.wizardControl1.Name = "wizardControl1";
             this.wizardControl1.Pages.Add(this.SelectLanguagePage);
             this.wizardControl1.Pages.Add(this.AccountPage);
@@ -84,6 +84,7 @@
             this.wizardControl1.TabIndex = 0;
             this.wizardControl1.Text = "Initial first time config";
             this.wizardControl1.Title = "Initial first time config";
+            this.wizardControl1.TitleIcon = ((System.Drawing.Icon)(resources.GetObject("wizardControl1.TitleIcon")));
             this.wizardControl1.Cancelling += new System.ComponentModel.CancelEventHandler(this.wizardControl1_Cancelling);
             this.wizardControl1.Finished += new System.EventHandler(this.wizardControl1_Finished);
             // 
@@ -93,7 +94,7 @@
             this.SelectLanguagePage.Controls.Add(this.label1);
             this.SelectLanguagePage.Name = "SelectLanguagePage";
             this.SelectLanguagePage.NextPage = this.AccountPage;
-            this.SelectLanguagePage.Size = new System.Drawing.Size(685, 236);
+            this.SelectLanguagePage.Size = new System.Drawing.Size(685, 257);
             this.SelectLanguagePage.TabIndex = 0;
             this.SelectLanguagePage.Text = "Welcome to RocketBot2";
             this.SelectLanguagePage.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.SelectLanguagePage_Commit);
@@ -102,7 +103,7 @@
             // txtLanguage
             // 
             this.txtLanguage.Location = new System.Drawing.Point(296, 14);
-            this.txtLanguage.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtLanguage.Margin = new System.Windows.Forms.Padding(5);
             this.txtLanguage.Name = "txtLanguage";
             this.txtLanguage.Size = new System.Drawing.Size(132, 27);
             this.txtLanguage.TabIndex = 1;
@@ -135,7 +136,7 @@
             // txtPassword
             // 
             this.txtPassword.Location = new System.Drawing.Point(179, 126);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(5);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(215, 27);
             this.txtPassword.TabIndex = 5;
@@ -143,7 +144,7 @@
             // txtUsername
             // 
             this.txtUsername.Location = new System.Drawing.Point(179, 78);
-            this.txtUsername.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtUsername.Margin = new System.Windows.Forms.Padding(5);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(215, 27);
             this.txtUsername.TabIndex = 4;
@@ -185,7 +186,7 @@
             "google",
             "ptc"});
             this.comboBox1.Location = new System.Drawing.Point(179, 25);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(215, 28);
             this.comboBox1.TabIndex = 0;
@@ -206,7 +207,7 @@
             // txtLng
             // 
             this.txtLng.Location = new System.Drawing.Point(167, 65);
-            this.txtLng.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtLng.Margin = new System.Windows.Forms.Padding(5);
             this.txtLng.Name = "txtLng";
             this.txtLng.Size = new System.Drawing.Size(215, 27);
             this.txtLng.TabIndex = 13;
@@ -214,7 +215,7 @@
             // txtLat
             // 
             this.txtLat.Location = new System.Drawing.Point(167, 21);
-            this.txtLat.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtLat.Margin = new System.Windows.Forms.Padding(5);
             this.txtLat.Name = "txtLat";
             this.txtLat.Size = new System.Drawing.Size(215, 27);
             this.txtLat.TabIndex = 12;
@@ -258,7 +259,7 @@
             this.chkAllowVariant.Checked = true;
             this.chkAllowVariant.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkAllowVariant.Location = new System.Drawing.Point(47, 117);
-            this.chkAllowVariant.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkAllowVariant.Margin = new System.Windows.Forms.Padding(4);
             this.chkAllowVariant.Name = "chkAllowVariant";
             this.chkAllowVariant.Size = new System.Drawing.Size(196, 24);
             this.chkAllowVariant.TabIndex = 18;
@@ -269,7 +270,7 @@
             // txtVariant
             // 
             this.txtVariant.Location = new System.Drawing.Point(181, 73);
-            this.txtVariant.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtVariant.Margin = new System.Windows.Forms.Padding(5);
             this.txtVariant.Name = "txtVariant";
             this.txtVariant.Size = new System.Drawing.Size(215, 27);
             this.txtVariant.TabIndex = 17;
@@ -278,7 +279,7 @@
             // txtSpeed
             // 
             this.txtSpeed.Location = new System.Drawing.Point(181, 28);
-            this.txtSpeed.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtSpeed.Margin = new System.Windows.Forms.Padding(5);
             this.txtSpeed.Name = "txtSpeed";
             this.txtSpeed.Size = new System.Drawing.Size(215, 27);
             this.txtSpeed.TabIndex = 16;
@@ -319,7 +320,7 @@
             // txtWebsocketPort
             // 
             this.txtWebsocketPort.Location = new System.Drawing.Point(203, 89);
-            this.txtWebsocketPort.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtWebsocketPort.Margin = new System.Windows.Forms.Padding(5);
             this.txtWebsocketPort.Name = "txtWebsocketPort";
             this.txtWebsocketPort.Size = new System.Drawing.Size(215, 27);
             this.txtWebsocketPort.TabIndex = 18;
@@ -339,7 +340,7 @@
             // 
             this.chkAllowWebsocket.AutoSize = true;
             this.chkAllowWebsocket.Location = new System.Drawing.Point(64, 36);
-            this.chkAllowWebsocket.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkAllowWebsocket.Margin = new System.Windows.Forms.Padding(4);
             this.chkAllowWebsocket.Name = "chkAllowWebsocket";
             this.chkAllowWebsocket.Size = new System.Drawing.Size(264, 24);
             this.chkAllowWebsocket.TabIndex = 0;
@@ -363,7 +364,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(224, 87);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(192, 64);
             this.button1.TabIndex = 0;
@@ -380,7 +381,7 @@
             this.Controls.Add(this.wizardControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "StarterConfigForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Initial Necrobot2 Config";

@@ -417,12 +417,11 @@
             // 
             this.AdressBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.AdressBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AdressBox.ForeColor = System.Drawing.Color.Gray;
             this.AdressBox.Location = new System.Drawing.Point(330, 432);
             this.AdressBox.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.AdressBox.Name = "AdressBox";
-            this.AdressBox.Size = new System.Drawing.Size(358, 30);
+            this.AdressBox.Size = new System.Drawing.Size(358, 27);
             this.AdressBox.TabIndex = 25;
             this.AdressBox.Text = "Enter an address or a coordinate";
             this.AdressBox.Enter += new System.EventHandler(this.AdressBox_Enter);
@@ -750,7 +749,6 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label22.Location = new System.Drawing.Point(672, 12);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(283, 80);
@@ -773,7 +771,6 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label21.Location = new System.Drawing.Point(475, 27);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(198, 60);
@@ -783,7 +780,6 @@
             // 
             // RandomIDBtn
             // 
-            this.RandomIDBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RandomIDBtn.Location = new System.Drawing.Point(355, 47);
             this.RandomIDBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.RandomIDBtn.Name = "RandomIDBtn";
@@ -796,7 +792,6 @@
             // deviceTypeCb
             // 
             this.deviceTypeCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.deviceTypeCb.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.deviceTypeCb.FormattingEnabled = true;
             this.deviceTypeCb.Items.AddRange(new object[] {
             "Apple",
@@ -1013,7 +1008,6 @@
             // 
             // AndroidBootloaderTb
             // 
-            this.AndroidBootloaderTb.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.AndroidBootloaderTb.Location = new System.Drawing.Point(173, 105);
             this.AndroidBootloaderTb.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.AndroidBootloaderTb.Name = "AndroidBootloaderTb";
@@ -1032,7 +1026,6 @@
             // 
             // AndroidBoardNameTb
             // 
-            this.AndroidBoardNameTb.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.AndroidBoardNameTb.Location = new System.Drawing.Point(173, 76);
             this.AndroidBoardNameTb.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.AndroidBoardNameTb.Name = "AndroidBoardNameTb";
@@ -1051,7 +1044,6 @@
             // 
             // DeviceIdTb
             // 
-            this.DeviceIdTb.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.DeviceIdTb.Location = new System.Drawing.Point(173, 47);
             this.DeviceIdTb.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.DeviceIdTb.Name = "DeviceIdTb";
@@ -1061,7 +1053,6 @@
             // deviceIdlb
             // 
             this.deviceIdlb.AutoSize = true;
-            this.deviceIdlb.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.deviceIdlb.Location = new System.Drawing.Point(8, 51);
             this.deviceIdlb.Name = "deviceIdlb";
             this.deviceIdlb.Size = new System.Drawing.Size(73, 20);
@@ -1071,7 +1062,6 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label18.Location = new System.Drawing.Point(8, 27);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(92, 20);
@@ -1436,7 +1426,7 @@
             this.clbIgnore.Location = new System.Drawing.Point(3, 49);
             this.clbIgnore.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbIgnore.Name = "clbIgnore";
-            this.clbIgnore.Size = new System.Drawing.Size(416, 224);
+            this.clbIgnore.Size = new System.Drawing.Size(416, 202);
             this.clbIgnore.TabIndex = 0;
             // 
             // tBMaxBerriesToUsePerPokemon
@@ -1498,7 +1488,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(412, 435);
+            this.groupBox1.Size = new System.Drawing.Size(412, 439);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Exclude Transfer";
@@ -1843,7 +1833,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox4.Size = new System.Drawing.Size(413, 435);
+            this.groupBox4.Size = new System.Drawing.Size(413, 439);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Power Up";
@@ -2023,7 +2013,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox3.Size = new System.Drawing.Size(412, 442);
+            this.groupBox3.Size = new System.Drawing.Size(412, 446);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Evolve";
