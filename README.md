@@ -2,10 +2,13 @@
 [1.1]: http://i.imgur.com/M4fJ65n.png (ATTENTION)
 [1.2]: https://discordapp.com/api/guilds/208485545439920128/widget.png?style=banner2 (DISCORD)
 
-![alt text][1.1] <strong><em>`The contents of this repo are a proof of concept and are for educational use only`</em></strong>![alt text][1.1]<br/>
 
 <!-- disclaimer -->
+[![Github All Releases](https://img.shields.io/github/downloads/TheUnnamedOrganisation/RocketBot/total.svg?maxAge=258)](https://github.com/TheUnnamedOrganisation/RocketBot/releases) [![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/TheUnnamedOrganisation/RocketBot/master/LICENSE.md) 
+
 [![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.svg?label=accepted&title=Accepted)](http://waffle.io/TheUnnamedOrganisation/RocketBot) [![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.svg?label=in%20progress&title=In%20Progress)](http://waffle.io/TheUnnamedOrganisation/RocketBot) [![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=ready&title=Ready)](https://waffle.io/TheUnnamedOrganisation/RocketBot) [![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=backlog&title=Backlog)](https://waffle.io/TheUnnamedOrganisation/RocketBot) [![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=done&title=Done)](https://waffle.io/TheUnnamedOrganisation/RocketBot)
+
+![alt text][1.1] <strong><em>`The contents of this repo are a proof of concept and are for educational use only`</em></strong>![alt text][1.1]<br/>
 
 <h1>RocketBot2 now supports Pokémon Go 0.55.0 API using public hashing server from PogoDev, or Legacy API(FREE Hight risk) </h1>
 
