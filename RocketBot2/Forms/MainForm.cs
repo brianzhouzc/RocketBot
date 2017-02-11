@@ -1234,7 +1234,7 @@ namespace RocketBot2.Forms
                         break;
                     default:
                         {
-                            await RecycleSpecificItemTask.Execute(_session, item.ItemId, decimal.ToInt32(form.numCount.Value));
+                            await RecycleItemsTask.DropItem(_session, item.ItemId, decimal.ToInt32(form.numCount.Value));
                         }
                         break;
                 }
