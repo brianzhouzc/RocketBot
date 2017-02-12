@@ -35,6 +35,10 @@ namespace RocketBot2
         public static void HandleEvent(IEvent evt, ISession session)
         {
         }
+        public static void HandleEvent(SnipeFailedEvent e, ISession sesion)
+        {
+
+        }
 
         public static void Listen(IEvent evt, ISession session)
         {
@@ -53,7 +57,7 @@ namespace RocketBot2
         {
             lock (events)
             {
-                if (eve.IsRecievedFromSocket && cache.Get(eve.EncounterId) != null) return;
+                if (eve.IsRecievedFromSocket || cache.Get(eve.EncounterId) != null) return;
                 events.Add(eve);
             }
         }
@@ -289,15 +293,20 @@ namespace RocketBot2
 
         private static MemoryCache cache = new MemoryCache("dump");
 
+        static int count = 0;
         private static void OnPokemonData(ISession session, string message)
         {
-            
             var match = Regex.Match(message, "42\\[\"pokemon\",(.*)]");
             if (match != null && !string.IsNullOrEmpty(match.Groups[1].Value))
             {
                 var data = JsonConvert.DeserializeObject<EncounteredEvent>(match.Groups[1].Value);
                 data.IsRecievedFromSocket = true;
                 ulong encounterid = 0;
+                if (Math.Abs(data.Latitude) > 90 || Math.Abs(data.Longitude) > 180)
+                {
+                    return;
+                };
+
                 ulong.TryParse(data.EncounterId, out encounterid);
                 if(encounterid>0 && cache.Get(encounterid.ToString()) == null)
                 {
@@ -324,6 +333,7 @@ namespace RocketBot2
                             EncounterId = encounterid,
                             SpawnPointId = data.SpawnPointId,
                             PokemonId = (short)data.PokemonId,
+                            Level = data.Level,
                             Iv = data.IV,
                             Move1 = move1,
                             Move2 = move2,
@@ -373,6 +383,7 @@ namespace RocketBot2
                     Longitude = data.Longitude,
                     EncounterId = encounterid,
                     SpawnPointId = data.SpawnPointId,
+                    Level = data.Level,
                     PokemonId = (short)data.PokemonId,
                     Iv = data.IV,
                     Move1 = move1,
