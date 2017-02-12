@@ -1,10 +1,8 @@
-﻿using POGOProtos.Enums;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Net;
 using System.Windows.Forms;
 
 namespace RocketBot2.Helpers
@@ -169,7 +167,6 @@ namespace RocketBot2.Helpers
 
             return Image.FromStream(s);
         }
-
 #endregion
     }
 }
