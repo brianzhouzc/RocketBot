@@ -51,14 +51,8 @@ shallow_clone: false
 
 # environment variables
 environment:
-  access_token:
-    secure: txeoAG8V3UCSIPvwRYYuICFNrXTCsTl4QBJeCB3cP1jNFmis7X/HpRAab6PTkudi
-  github_email:
-    secure: XjJpgQrYELGzUrKFYR2QfhGYnQm0xS5s9LcK8aBSMbw=
-  github_user:
-    secure: luYDgdNyFIa58spIY64VOg==
-  priv_key:
-    secure: 5vrFjsg6yFRQ6zmbo7K/njGELmngQQxZppBzn6I0aaeWT8zIYhkhmECdxo4W5Q6Mq76ml7dCUPi0/gSJTHT0mxIa4yPNEunzX2LsOQ09PPyXUK8gL5AkhnfG/8hlfrcJJTAFULz1Ps9mGtlDr1UFklhH5F0nDUH6iBX4WF+kuXN8eqb1QZAaUM36HcuL//wB+TqteHpi5R73O+3nR77APVrfAz5Uo78KWn4n8YnoSYLhWFmvtLgtYJUXiCHZyhIM8z5andl4ecFPlUUHcknwyynjq6ztIk4Lbjo1ElQicbFB4bzefpnufjqesyjEzdpYyJO70eIf9Fr4GNg3ZtDdkf26R+PjBL8alKE4N1GfYCjhSOjjsqNGc417BRrcpuVPeWtPM0uEqp1OgvVmRIsQSDoCWohUMO79YQJ5wcMKpQcVEgwpynMEDsRJZGF7hRKKsVaRXjgzWNDeVWNZbpRR9TlnPNFhUhC0SndLP8uRXV8eVY+VLW1q0hKJ16+LzB9uIuquXXOAYFeP6i/7SfOsuPBOmOaa0UjouVEIpnQYx1lKvZecNaKERqd/06K+CPFh9gGubZw3OzsgLnj+HT+aI0mTTT1G5aKDa3rOtT8HFC85c0M/7ETQdK6o5eqzLYzdvNq1pKVSaqOGh1wWbb8dCsAzuTHmYwjhvitg56pXL8qCMjrGQZaiWMPA/Txw6QX6MdZZQmx5go383XSPhnbuWwMm8U/RRJX+DTD83wxv5ihs13w92XKlJSU221R1fRmKmDt00Kx6uRDYPQQzShgzQzDX4ItJe7zEVMxKh7YEq7XNN+Wlx0wMD9HoF9IvPmrybDAKjbhA8lOtsWvkihAFCiY2SDUHswLOVUO1jp677rLw3v6dj0Xagsp4noQCafuWPhZHeqivrsR5PHhYlj6MEiaF7JUEkDD6gIavMsA77gEA6dvyzTk3A2T7wO4jq3RsFsOTyZKgWO7u5HMnhJQDxhgJJ2lQsgPv9rKCIpxIKlhicbI9hY+Md3sQZ+/rnZJFr0U9SA5Ee7s43nYzFSw/gRFNsvegweoJpNeiepM3XBKQv7vQOKsHHT7wDo59TP5LxOfkDgIDmbd9+p/dRZKeNSvwU9Dgz+37HbNU6aNZVpHba8KldCHCQCgRihm/yWQH0Z1jF6EGqtC2H/4We28clkMzERQDv/CBqyGqyKOGj8vdhRrGDbpUzSq85NgCbnBYXedHq/NxjH51J2IKgL2kVnIF0asCYph+Wh+kYvJLqyZkBgpzFfdY76esvrbQH52QivhPN5Sxscu2WH3HvXVOrl2TbQBRYayh9MP+Cj7G/CPdFZlsd0qzs/xDOKUdSwreCW9yw5Ih1umJtTye8gssU3/JzRblSlXaQJ7BEzU71FF2DpPSh/XDOisubopAGNkMcFd3TYq3eY1gOSQc73pky+UGNK7HaRDsJH8i95rli06mQjYJ0cJYNQuAfTtZT68PZ4p8yi75TXjK3VmO8en1mY/WrcDFZW3+Zr/e14GzcYBEbNUmAQpK5rfs/qze3b80XuvFAvdqcVt0mFRE1FJEF6RMUnn+8frg7g0zlntM8y4ymJBd5Mzaed/ZcmnLGX4AqPiEfStb6ha3s1fgpWPxLjIvCXq+ezeEflZETIOltKjHxMhSicBLSdiJSx3Pz1yvGHDZmfETyZn+4M7HjH+ltu0PstN2XZVM6tcqW4QZQZEFkv/a1wLZByhHHA+/MHGEgzFsTDjSvPLuDedOVR8nWfaRMI0RXlgyw4sM+Yo3tdV/IMQBZqu98zfLENlF6RNlj3zfEpySTPF/KJs1ZrVhduP+twnaNNcQzLcNthV+FL7e+Zd2OBvfljgC1EPV7ni8FxFLCLVKuFu+C5RncqY8igaSb/iA3b/6YpYAzxLzfYhchzKA1w2cGpNJyuZoQZVnRuLKHUVByiNogex3DXb8S9dvA0QBfnkcIVsoGejDgMi8Wh/Se3kM60AvTNUksMvobCR7faYKmyhsZpfXXhJzwWRoshfbTzWo0hLtV8aPxcRUEwb8h5e0lCUUdws3TFm3WYUiO4Vkzt5vCijgXmY2sctcjRT+vJK+G/dPS0YAd3hoqonk9OQyPQ7w/Vz9Z+OmcMZKR7LfyMh1I8Ylu+hAH7TuEfVnMB4do3xelwc8Rgs=
+  auth_token:
+    secure: i2lM8pWf+r7jq8FkcoqzcdCcol38VFcgEyEKDdpD+qY=
 
 # build cache to preserve files/folders between builds
 #cache:
@@ -82,7 +76,7 @@ assembly_info:
 #---------------------------------#
 
 # build platform, i.e. x86, x64, Any CPU. This setting is optional.
-platform: x86
+platform: Any CPU
 
 # to add several platforms to build matrix:
 #platform:
@@ -90,7 +84,7 @@ platform: x86
 #  - Any CPU
 
 # build Configuration, i.e. Debug, Release, etc.
-configuration: Release
+configuration: Release RocketBot2
 
 # to add several configurations to build matrix:
 #configuration:
