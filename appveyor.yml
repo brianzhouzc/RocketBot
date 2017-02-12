@@ -139,7 +139,7 @@ test: off
 artifacts:
 
   - path: '\$(PLATFORM)\$(CONFIGURATION)\RocketBot2'
-    name: RocketBot2
+    name: Release
 
 #---------------------------------#
 #     deployment configuration    #
@@ -152,9 +152,10 @@ deploy:
   # Deploy to GitHub Releases
   - provider: GitHub
     tag: $(APPVEYOR_REPO_TAG_NAME)
+    description: '[README.md](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/README.md)'
     release: RocketBot2 $(APPVEYOR_REPO_TAG_NAME)
     auth_token: $(access_token)
-    artifact: RocketBot2
+    artifact: Release
     draft: false
     prerelease: false
     force_update: true
