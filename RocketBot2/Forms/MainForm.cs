@@ -33,7 +33,6 @@ using PoGo.NecroBot.Logic.Model.Settings;
 using PoGo.NecroBot.Logic.Service.Elevation;
 using RocketBot2.Helpers;
 using RocketBot2.Models;
-using RocketBot2.Logic.Tasks;
 using RocketBot2.Logic.Event;
 using PoGo.NecroBot.Logic.Event;
 using PoGo.NecroBot.Logic;
@@ -796,10 +795,10 @@ namespace RocketBot2.Forms
                 Environment.Exit(0);
                 return;
             }
-               _botStarted = true;
-                startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
-                btnRefresh.Enabled = true;
-                Task.Run(StartBot);
+            startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
+            _botStarted = true;
+            btnRefresh.Enabled = true;
+            Task.Run(StartBot);
         }
 
         private void todoToolStripMenuItem_Click(object sender, EventArgs e)

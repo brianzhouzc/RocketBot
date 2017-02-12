@@ -371,8 +371,6 @@
     </Compile>
     <Compile Include="Logic\Utils\RouteOptimizeUtil.cs" />
     <Compile Include="Logic\State\VersionCheckState.cs" />
-    <Compile Include="Logic\Tasks\UseIncenseTask.cs" />
-    <Compile Include="Logic\Tasks\UseLuckyEggTask.cs" />
     <Compile Include="Models\GMapMarkerPokestops.cs" />
     <Compile Include="Models\GMapMarkerTrainer.cs" />
     <Compile Include="Forms\NicknamePokemonForm.cs">
