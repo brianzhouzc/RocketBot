@@ -565,6 +565,8 @@ namespace RocketBot2.Forms
         {
             SynchronizationContext.Post(o =>
             {
+                _pokestopsOverlay.Routes.Clear();
+                _pokestopsOverlay.Markers.Clear();
                 _routePoints =
                     (from pokeStop in pokeStops
                      where pokeStop != null
@@ -577,8 +579,7 @@ namespace RocketBot2.Forms
                     {
                         Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
                     };
-                    _pokestopsOverlay.Routes.Clear();
-                    _pokestopsOverlay.Routes.Add(route);
+                     _pokestopsOverlay.Routes.Add(route);
                 }
 
                 foreach (var pokeStop in pokeStops)
