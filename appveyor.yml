@@ -33,15 +33,15 @@ init:
 - ps: >-
     if ($env:APPVEYOR_REPO_TAG -eq "true")
     {
-        $env:NecroBot2_Version = "$($env:APPVEYOR_REPO_TAG_NAME.Replace('v', ''))";
+        $env:RocketBot2_Version = "$($env:APPVEYOR_REPO_TAG_NAME.Replace('v', ''))";
     }
     else
     {
-        $env:NecroBot2_Version = "$($env:APPVEYOR_BUILD_VERSION)";
+        $env:RocketBot2_Version = "$($env:APPVEYOR_BUILD_VERSION)";
     }
 
 # clone directory
-clone_folder: c:\projects\necrobot2
+clone_folder: c:\projects\rocketbot2
 
 # fetch repository as zip archive
 shallow_clone: false
@@ -68,13 +68,12 @@ environment:
 # scripts that run after cloning repository
 install:
 - git submodule update --init --recursive
-- cd PoGo.NecroBot.GUI.Electron && npm install && cd ..
 
 # enable patching of AssemblyInfo.* files
 assembly_info:
   patch: true
   file: '**\AssemblyInfo.*'
-  assembly_version: '$(NecroBot2_Version)'
+  assembly_version: '$(RocketBot2_Version)'
   assembly_file_version: "1.0.0.0"
   assembly_informational_version: '$(APPVEYOR_REPO_TAG_NAME)'
 
@@ -105,7 +104,6 @@ build:
 # scripts to run before build
 before_build:
   - nuget restore
-  - cd PoGo.NecroBot.GUI.Electron && npm run pack && cd ..
 
 # scripts to run *after* solution is built and *before* automatic packaging occurs (web apps, NuGet packages, Azure Cloud Services)
 before_package:
@@ -119,23 +117,15 @@ after_build:
     if ($env:PLATFORM -eq "x86")
     {
         Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\PoGo.NecroBot.CLI\bin\$($env:PLATFORM)\$($env:CONFIGURATION)" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\NecroBot2" -Force;
-        Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\NecroBot2\GUI" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\NecroBot2GUI" -Force;
-        Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\PoGo.Necrobot.Window\bin\$($env:PLATFORM)\$($env:CONFIGURATION)" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\NecroBot2.Win" -Force;
     }  
     elseif ($env:PLATFORM -eq "x64")
     {
         Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\PoGo.NecroBot.CLI\bin\$($env:PLATFORM)\$($env:CONFIGURATION)" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\NecroBot2" -Force;
-        Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\PoGo.NecroBot.Window\bin\$($env:PLATFORM)\$($env:CONFIGURATION)" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\NecroBot2.Win" -Force;
-        Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\NecroBot2\GUI" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\NecroBot2GUI" -Force;
-    
     }
     elseif ($env:PLATFORM -eq "Any CPU")
     {
         Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\PoGo.NecroBot.CLI\bin\$($env:CONFIGURATION)" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\NecroBot2" -Force;
-        Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\PoGo.NecroBot.CLI\bin\x86\$($env:CONFIGURATION)\GUI" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\NecroBot2GUI" -Force;
-        Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\PoGo.NecroBot.Window\bin\$($env:CONFIGURATION)" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\NecroBot2.Win" -Force;
     }
-    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\PoGo.NecroBot.GUI.Electron\dist\win-ia32-unpacked" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\NecroBot2GUI.Electron" -Force;
         
 
 # to run your custom scripts instead of automatic MSBuild
@@ -153,17 +143,9 @@ test: off
 #---------------------------------#
 
 artifacts:
-  - path: '\$(PLATFORM)\$(CONFIGURATION)\NecroBot2.Win'
-    name: NecroBot2.WIN
 
-  - path: '\$(PLATFORM)\$(CONFIGURATION)\NecroBot2'
-    name: NecroBot2.Console
-
-  - path: '\$(PLATFORM)\$(CONFIGURATION)\NecroBot2GUI'
-    name: NecroBot2.GUI
-    
-  - path: '\$(PLATFORM)\$(CONFIGURATION)\NecroBot2GUI.Electron'
-    name: NecroBot2.GUI.Electron
+  - path: '\$(PLATFORM)\$(CONFIGURATION)\RocketBot2'
+    name: RocketBot2
 
 #---------------------------------#
 #     deployment configuration    #
@@ -176,10 +158,9 @@ deploy:
   # Deploy to GitHub Releases
   - provider: GitHub
     tag: $(APPVEYOR_REPO_TAG_NAME)
-    description: '[CHANGELOG.md](https://github.com/Necrobot-Private/NecroBot/blob/master/CHANGELOG.md)'
-    release: NecroBot2 $(APPVEYOR_REPO_TAG_NAME)
+    release: RocketBot2 $(APPVEYOR_REPO_TAG_NAME)
     auth_token: $(access_token)
-    artifact: NecroBot2.WIN;NecroBot2.Console;NecroBot2.GUI;NecroBot2.GUI.Electron
+    artifact: RocketBot2
     draft: false
     prerelease: false
     force_update: true
@@ -200,9 +181,7 @@ before_deploy:
 - git config --global user.name "%github_user%"
 - git checkout -b Appveyor "%APPVEYOR_REPO_BRANCH%"
 - SET PATH=C:\Ruby23\bin;%PATH%
-- git add "PoGo.NecroBot.CLI/Properties/AssemblyInfo.cs"
-- git add "PoGo.NecroBot.GUI/Properties/AssemblyInfo.cs"
-- git add "PoGo.NecroBot.Logic/Properties/AssemblyInfo.cs"
+- git add "RocketBot2/Properties/AssemblyInfo.cs"
 - git commit -m "%APPVEYOR_REPO_TAG_NAME%"
 - git checkout "%APPVEYOR_REPO_BRANCH%"
 - git merge Appveyor
