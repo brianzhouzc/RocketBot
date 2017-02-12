@@ -76,7 +76,7 @@ assembly_info:
 #---------------------------------#
 
 # build platform, i.e. x86, x64, Any CPU. This setting is optional.
-platform: "Any CPU"
+platform: x86
 
 # to add several platforms to build matrix:
 #platform:
@@ -84,7 +84,7 @@ platform: "Any CPU"
 #  - Any CPU
 
 # build Configuration, i.e. Debug, Release, etc.
-configuration: "Release RocketBot2"
+configuration: Release
 
 # to add several configurations to build matrix:
 #configuration:
