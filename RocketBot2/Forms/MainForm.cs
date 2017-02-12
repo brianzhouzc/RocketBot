@@ -33,7 +33,6 @@ using PoGo.NecroBot.Logic.Model.Settings;
 using PoGo.NecroBot.Logic.Service.Elevation;
 using RocketBot2.Helpers;
 using RocketBot2.Models;
-using RocketBot2.Logic.Tasks;
 using RocketBot2.Logic.Event;
 using PoGo.NecroBot.Logic.Event;
 using PoGo.NecroBot.Logic;
@@ -565,6 +564,8 @@ namespace RocketBot2.Forms
         {
             SynchronizationContext.Post(o =>
             {
+                _pokestopsOverlay.Routes.Clear();
+                _pokestopsOverlay.Markers.Clear();
                 _routePoints =
                     (from pokeStop in pokeStops
                      where pokeStop != null
@@ -577,8 +578,7 @@ namespace RocketBot2.Forms
                     {
                         Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
                     };
-                    _pokestopsOverlay.Routes.Clear();
-                    _pokestopsOverlay.Routes.Add(route);
+                     _pokestopsOverlay.Routes.Add(route);
                 }
 
                 foreach (var pokeStop in pokeStops)
@@ -795,10 +795,10 @@ namespace RocketBot2.Forms
                 Environment.Exit(0);
                 return;
             }
-               _botStarted = true;
-                startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
-                btnRefresh.Enabled = true;
-                Task.Run(StartBot);
+            startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
+            _botStarted = true;
+            btnRefresh.Enabled = true;
+            Task.Run(StartBot);
         }
 
         private void todoToolStripMenuItem_Click(object sender, EventArgs e)
