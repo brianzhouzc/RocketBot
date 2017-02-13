@@ -50,7 +50,7 @@ shallow_clone: false
 #clone_depth:  5                     # clone entire repository history if not defined
 
 # environment variables
-environment:
+#environment:
 #  auth_token:
 #    secure: OHHR1Cwk0dCrMuwRoFE5Q9Cv7i0QOk7koD3JvMyV+C4T95bhVA5ME3EZxEGScwQD
 #  github_user:
