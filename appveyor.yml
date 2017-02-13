@@ -47,12 +47,13 @@ clone_folder: c:\projects\rocketbot2
 shallow_clone: false
 
 # set clone depth
-#clone_depth:  5                     # clone entire repository history if not defined
+# clone entire repository history if not defined
+#clone_depth:  5
 
 # environment variables
 #environment:
 #  auth_token:
-#    secure: OHHR1Cwk0dCrMuwRoFE5Q9Cv7i0QOk7koD3JvMyV+C4T95bhVA5ME3EZxEGScwQD
+#    secure: yNRb78M1kncUfbzKLWl1igKg2piIARVYUpr0508PrTS7N/AwwnYozd+Ntr1gfUT+
 #  github_user:
 #    secure: 7Hc6naEaACkc8LQloBljQA== 
 #  github_email:
@@ -68,8 +69,8 @@ shallow_clone: false
 # scripts that run after cloning repository
 install:
 - git submodule update --init --recursive
-#- Remove-Item item RocketBot2-APK\platform -Recurse -Force
-#- Remove-Item item RocketBot2-APK\plugins -Recurse -Force
+- Remove-Item item RocketBot2-APK\platform -Recurse -Force
+- Remove-Item item RocketBot2-APK\plugins -Recurse -Force
 #- cd RocketBot2-APK && npm install && cd ..
 
 # enable patching of AssemblyInfo.* files
