@@ -1,207 +1,59 @@
-#---------------------------------#
-#      general configuration      #
-#---------------------------------#
-
-# version format
 version: 0.0.0.{build}
-
-# Do not build on tags
-skip_tags: false
-
-# Start builds on tags only
-skip_non_tags: false
-
-# Skipping commits affecting specific files
-skip_commits:
-  files:
-  - '**\AssemblyInfo.*'
-  - 'CHANGELOG.md'
-
-# 
-pull_requests:
-  do_not_increment_build_number: true
-  
-#---------------------------------#
-#    environment configuration    #
-#---------------------------------#
-
-# Build worker image (VM template)
-image: Visual Studio 2015
-
-# scripts that are called at very beginning, before repo cloning
-init:
-- ps: >-
-    if ($env:APPVEYOR_REPO_TAG -eq "true")
-    {
-        $env:RocketBot2_Version = "$($env:APPVEYOR_REPO_TAG_NAME.Replace('v', ''))";
-    }
-    else
-    {
-        $env:RocketBot2_Version = "$($env:APPVEYOR_BUILD_VERSION)";
-    }
-
-# clone directory
-clone_folder: c:\projects\rocketbot2
-
-# fetch repository as zip archive
-shallow_clone: false
-
-# set clone depth
-#clone_depth:  5                     # clone entire repository history if not defined
-
-# environment variables
-environment:
-  auth_token:
-    secure: i2lM8pWf+r7jq8FkcoqzcdCcol38VFcgEyEKDdpD+qY=
-
-# build cache to preserve files/folders between builds
-#cache:
-#  - packages -> **\packages.config  # preserve packages directory in the root of build folder but will reset it if packages.config is modified
-#  - '%LocalAppData%\NuGet\Cache'
-
-# scripts that run after cloning repository
-install:
-- git submodule update --init --recursive
-
-# enable patching of AssemblyInfo.* files
+configuration: Release RocketBot2
+platform: Any CPU
 assembly_info:
   patch: true
   file: '**\AssemblyInfo.*'
-  assembly_version: '$(RocketBot2_Version)'
-  assembly_file_version: "1.0.0.0"
-  assembly_informational_version: '$(APPVEYOR_REPO_TAG_NAME)'
-
-#---------------------------------#
-#       build configuration       #
-#---------------------------------#
-
-# build platform, i.e. x86, x64, Any CPU. This setting is optional.
-platform: Any CPU
-
-# to add several platforms to build matrix:
-#platform:
-#  - x86
-#  - Any CPU
-
-# build Configuration, i.e. Debug, Release, etc.
-configuration: Release RocketBot2
-
-# to add several configurations to build matrix:
-#configuration:
-#  - Debug
-#  - Release
-
-build:
-  # MSBuild verbosity level
-  verbosity: minimal
-
-# scripts to run before build
+  assembly_version: $(RocketBot2_Version)
+  assembly_file_version: 1.0.0.0
+  assembly_informational_version: $(APPVEYOR_REPO_TAG_NAME)
+install:
+- ps: '- git submodule update --init --recursive'
 before_build:
-  - nuget restore
-
-# scripts to run *after* solution is built and *before* automatic packaging occurs (web apps, NuGet packages, Azure Cloud Services)
-before_package:
-
-# scripts to run after build
+- ps: '- nuget restore'
+build:
+  project: RocketBot.sln
+  parallel: true
+  verbosity: minimal
 after_build:
-- ps: >-
-    Remove-Item "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)" -Recurse -ErrorAction Ignore;
-    New-Item -ItemType Directory -Force -Path "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)";
-    New-Item -ItemType Directory -Force -Path "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)";
-    if ($env:PLATFORM -eq "x86")
-    {
-        Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2\bin\$($env:PLATFORM)\$($env:CONFIGURATION)" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\RocketBot2" -Force;
-    }  
-    elseif ($env:PLATFORM -eq "x64")
-    {
-        Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2\bin\$($env:PLATFORM)\$($env:CONFIGURATION)" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\RocketBot2" -Force;
-    }
-    elseif ($env:PLATFORM -eq "Any CPU")
-    {
-        Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2\bin\$($env:CONFIGURATION)" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\RocketBot2" -Force;
-    }
-        
-
-# to run your custom scripts instead of automatic MSBuild
-build_script:
-
-#---------------------------------#
-#       tests configuration       #
-#---------------------------------#
-
-# to disable automatic tests
-test: off
-
-#---------------------------------#
-#      artifacts configuration    #
-#---------------------------------#
-
+- ps: "Remove-Item \"$($env:APPVEYOR_BUILD_FOLDER)\\$($env:PLATFORM)\" -Recurse -ErrorAction Ignore;\n    New-Item -ItemType Directory -Force -Path \"$($env:APPVEYOR_BUILD_FOLDER)\\$($env:PLATFORM)\";\n    New-Item -ItemType Directory -Force -Path \"$($env:APPVEYOR_BUILD_FOLDER)\\$($env:PLATFORM)\\$($env:CONFIGURATION)\";\n    if ($env:PLATFORM -eq \"x86\")\n    {\n        Move-Item -Path \"$($env:APPVEYOR_BUILD_FOLDER)\\RocketBot2\\bin\\$($env:PLATFORM)\\$($env:CONFIGURATION)\" -Destination \"$($env:APPVEYOR_BUILD_FOLDER)\\$($env:PLATFORM)\\$($env:CONFIGURATION)\\RocketBot2\" -Force;\n    }  \n    elseif ($env:PLATFORM -eq \"x64\")\n    {\n        Move-Item -Path \"$($env:APPVEYOR_BUILD_FOLDER)\\RocketBot2\\bin\\$($env:PLATFORM)\\$($env:CONFIGURATION)\" -Destination \"$($env:APPVEYOR_BUILD_FOLDER)\\$($env:PLATFORM)\\$($env:CONFIGURATION)\\RocketBot2\" -Force;\n    }\n    elseif ($env:PLATFORM -eq \"Any CPU\")\n    {\n        Move-Item -Path \"$($env:APPVEYOR_BUILD_FOLDER)\\RocketBot2\\bin\\$($env:CONFIGURATION)\" -Destination \"$($env:APPVEYOR_BUILD_FOLDER)\\$($env:PLATFORM)\\$($env:CONFIGURATION)\\RocketBot2\" -Force;\n    }"
 artifacts:
-
-  - path: '\$(PLATFORM)\$(CONFIGURATION)\RocketBot2'
-    name: Release
-
-#---------------------------------#
-#     deployment configuration    #
-#---------------------------------#
-
-# providers: Local, FTP, WebDeploy, AzureCS, AzureBlob, S3, NuGet, Environment
-# provider names are case-sensitive!
-deploy:
-
-  # Deploy to GitHub Releases
-  - provider: GitHub
-    tag: $(APPVEYOR_REPO_TAG_NAME)
-    description: '[README.md](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/README.md)'
-    release: RocketBot2 $(APPVEYOR_REPO_TAG_NAME)
-    auth_token: $(access_token)
-    artifact: Release
-    draft: false
-    prerelease: false
-    force_update: true
-    on:
-      appveyor_repo_tag: true
-
-# scripts to run before deployment
+- path: '\$(PLATFORM)\$(CONFIGURATION)\RocketBot2'
+  name: Release
 before_deploy:
 - ps: >-
     $fileContent = "-----BEGIN RSA PRIVATE KEY-----`n";
-    $fileContent += $env:priv_key.Replace(' ', "`n");
-    $fileContent += "`n-----END RSA PRIVATE KEY-----`n";
-    Set-Content "$env:USERPROFILE\.ssh\id_rsa" "$($fileContent)";
-    Set-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n";
+        $fileContent += $env:priv_key.Replace(' ', "`n");
+        $fileContent += "`n-----END RSA PRIVATE KEY-----`n";
+        Set-Content "$env:USERPROFILE\.ssh\id_rsa" "$($fileContent)";
+        Set-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n";
 
-- git config --global credential.helper store
-- git config --global user.email "%github_email%"
-- git config --global user.name "%github_user%"
-- git checkout -b Appveyor "%APPVEYOR_REPO_BRANCH%"
-- SET PATH=C:\Ruby23\bin;%PATH%
-- git add "RocketBot2/Properties/AssemblyInfo.cs"
-- git commit -m "%APPVEYOR_REPO_TAG_NAME%"
-- git checkout "%APPVEYOR_REPO_BRANCH%"
-- git merge Appveyor
-- git branch -d Appveyor
-- git pull "origin" "%APPVEYOR_REPO_BRANCH%"
-- git push "origin" "%APPVEYOR_REPO_BRANCH%"
+    - git config --global credential.helper store
 
-# scripts to run after deployment
-after_deploy:
+    - git config --global user.email "%github_email%"
 
-# to run your custom scripts instead of provider deployments
-deploy_script:
+    - git config --global user.name "%github_user%"
 
-# to disable deployment
-#deploy: off
+    - git checkout -b Appveyor "%APPVEYOR_REPO_BRANCH%"
 
-#---------------------------------#
-#        global handlers          #
-#---------------------------------#
+    - SET PATH=C:\Ruby23\bin;%PATH%
 
-# on successful build
-on_success:
+    - git add "RocketBot2/Properties/AssemblyInfo.cs"
 
-# on build failure
-on_failure:
+    - git commit -m "%APPVEYOR_REPO_TAG_NAME%"
 
-# after build failure or success
-on_finish:
+    - git checkout "%APPVEYOR_REPO_BRANCH%"
+
+    - git merge Appveyor
+
+    - git branch -d Appveyor
+
+    - git pull "origin" "%APPVEYOR_REPO_BRANCH%"
+
+    - git push "origin" "%APPVEYOR_REPO_BRANCH%"
+deploy:
+- provider: GitHub
+  auth_token:
+    secure: i2lM8pWf+r7jq8FkcoqzcdCcol38VFcgEyEKDdpD+qY=
+  artifact: Release
+  force_update: true
