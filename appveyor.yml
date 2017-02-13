@@ -52,7 +52,7 @@ shallow_clone: false
 # environment variables
 environment:
   auth_token:
-    secure: i2lM8pWf+r7jq8FkcoqzcdCcol38VFcgEyEKDdpD+qY=
+    secure: OHHR1Cwk0dCrMuwRoFE5Q9Cv7i0QOk7koD3JvMyV+C4T95bhVA5ME3EZxEGScwQD
   github_user:
     secure: 7Hc6naEaACkc8LQloBljQA== 
   github_email:
