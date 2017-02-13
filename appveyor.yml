@@ -160,7 +160,7 @@ deploy:
     tag: $(APPVEYOR_REPO_TAG_NAME)
     description: '[README.md](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/README.md)'
     release: RocketBot2 $(APPVEYOR_REPO_TAG_NAME)
-    auth_token: $(access_token)
+    auth_token: $(auth_token)
     artifact: Release
     draft: false
     prerelease: false
@@ -175,7 +175,7 @@ before_deploy:
     $fileContent += $env:priv_key.Replace(' ', "`n");
     $fileContent += "`n-----END RSA PRIVATE KEY-----`n";
     Set-Content "$env:USERPROFILE\.ssh\id_rsa" "$($fileContent)";
-    Set-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n";
+    Set-Content "$env:USERPROFILE\.git-credentials" "https://$($env:auth_token):x-oauth-basic@github.com`n";
 
 - git config --global credential.helper store
 - git config --global user.email "%github_email%"
