@@ -159,7 +159,7 @@ deploy:
     draft: false
     prerelease: false
     force_update: true
-    on:
+   # on:
       appveyor_repo_tag: true
 
 # scripts to run before deployment
