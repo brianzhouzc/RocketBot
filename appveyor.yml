@@ -69,8 +69,8 @@ shallow_clone: false
 # scripts that run after cloning repository
 install:
 - git submodule update --init --recursive
-- rmdir RocketBot2-APK\platform -r -f
-- Remove-Item item RocketBot2-APK\plugins -Recurse -Force
+#- rmdir RocketBot2-APK\platform -r -f
+#- Remove-Item item RocketBot2-APK\plugins -Recurse -Force
 #- cd RocketBot2-APK && npm install && cd ..
 
 # enable patching of AssemblyInfo.* files
