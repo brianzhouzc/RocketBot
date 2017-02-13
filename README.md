@@ -5,7 +5,7 @@
 
 <!-- disclaimer -->
 [![Github All Releases](https://img.shields.io/github/downloads/TheUnnamedOrganisation/RocketBot/total.svg?maxAge=250)](https://github.com/TheUnnamedOrganisation/RocketBot/releases) 
-[![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/TheUnnamedOrganisation/RocketBot/master/LICENSE.md) 
+[![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/TheUnnamedOrganisation/RocketBot/master/LICENSE.md) [![Build status](https://ci.appveyor.com/api/projects/status/l80u7q0vlwfmgt80/branch/master?svg=true)](https://ci.appveyor.com/project/RocketBot/rocketbot/branch/master)
 
 [![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.svg?label=accepted&title=Accepted)](http://waffle.io/TheUnnamedOrganisation/RocketBot) 
 [![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.svg?label=in%20progress&title=In%20Progress)](http://waffle.io/TheUnnamedOrganisation/RocketBot) 

@@ -48,6 +48,16 @@ namespace RocketBot2
             Logger.Write(noticeEvent.ToString());
         }
 
+        public static void HandleEvent(PokestopLimitUpdate ev, ISession session)
+        {
+            Logger.Write($"(POKESTOP LIMIT) {ev.Value}/{ev.Limit}", LogLevel.Info, ConsoleColor.Yellow);
+        }
+
+        public static void HandleEvent(CatchLimitUpdate ev, ISession session)
+        {
+            Logger.Write($"(CATCH LIMIT) {ev.Value}/{ev.Limit}", LogLevel.Info, ConsoleColor.Yellow);
+        }
+
         private static void HandleEvent(TargetLocationEvent ev, ISession session)
         {
             Logger.Write(session.Translation.GetTranslation(TranslationString.TargetLocationSet, ev.Latitude, ev.Longitude), LogLevel.Info);
