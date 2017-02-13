@@ -3,7 +3,7 @@
 #---------------------------------#
 
 # version format
-version: 2.6.0.{build}
+version: 0.0.0.{build}
 
 # Do not build on tags
 skip_tags: false
@@ -70,12 +70,12 @@ install:
 - git submodule update --init --recursive
 
 # enable patching of AssemblyInfo.* files
-assembly_info:
-  patch: true
-  file: '**\AssemblyInfo.*'
-  assembly_version: '$(RocketBot2_Version)'
-  assembly_file_version: "1.0.0.0"
-  assembly_informational_version: '$(APPVEYOR_REPO_TAG_NAME)'
+#assembly_info:
+#  patch: true
+#  file: '**\AssemblyInfo.*'
+#  assembly_version: '$(RocketBot2_Version)'
+#  assembly_file_version: "1.0.0.0"
+#  assembly_informational_version: '$(APPVEYOR_REPO_TAG_NAME)'
 
 #---------------------------------#
 #       build configuration       #
@@ -156,39 +156,39 @@ artifacts:
 deploy:
 
   # Deploy to GitHub Releases
-  - provider: GitHub
-    tag: $(APPVEYOR_REPO_TAG_NAME)
-    description: '[README.md](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/README.md)'
-    release: RocketBot2 $(APPVEYOR_REPO_TAG_NAME)
-    auth_token: $(auth_token)
-    artifact: Release
-    draft: false
-    prerelease: false
-    force_update: true
-    on:
-      appveyor_repo_tag: true
+#  - provider: GitHub
+#    tag: $(APPVEYOR_REPO_TAG_NAME)
+#    description: '[README.md](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/README.md)'
+#    release: RocketBot2 $(APPVEYOR_REPO_TAG_NAME)
+#    auth_token: $(auth_token)
+#    artifact: Release
+#    draft: false
+#    prerelease: false
+#    force_update: true
+#    on:
+#      appveyor_repo_tag: true
 
 # scripts to run before deployment
 before_deploy:
-- ps: >-
-    $fileContent = "-----BEGIN RSA PRIVATE KEY-----`n";
-    $fileContent += $env:priv_key.Replace(' ', "`n");
-    $fileContent += "`n-----END RSA PRIVATE KEY-----`n";
-    Set-Content "$env:USERPROFILE\.ssh\id_rsa" "$($fileContent)";
-    Set-Content "$env:USERPROFILE\.git-credentials" "https://$($env:auth_token):x-oauth-basic@github.com`n";
+#- ps: >-
+#    $fileContent = "-----BEGIN RSA PRIVATE KEY-----`n";
+#    $fileContent += $env:priv_key.Replace(' ', "`n");
+#    $fileContent += "`n-----END RSA PRIVATE KEY-----`n";
+#     Set-Content "$env:USERPROFILE\.ssh\id_rsa" "$($fileContent)";
+#     Set-Content "$env:USERPROFILE\.git-credentials" "https://$($env:auth_token):x-oauth-basic@github.com`n";
 
-- git config --global credential.helper store
-- git config --global user.email "%github_email%"
-- git config --global user.name "%github_user%"
-- git checkout -b Appveyor "%APPVEYOR_REPO_BRANCH%"
-- SET PATH=C:\Ruby23\bin;%PATH%
-- git add "RocketBot2/Properties/AssemblyInfo.cs"
-- git commit -m "%APPVEYOR_REPO_TAG_NAME%"
-- git checkout "%APPVEYOR_REPO_BRANCH%"
-- git merge Appveyor
-- git branch -d Appveyor
-- git pull "origin" "%APPVEYOR_REPO_BRANCH%"
-- git push "origin" "%APPVEYOR_REPO_BRANCH%"
+# - git config --global credential.helper store
+# - git config --global user.email "%github_email%"
+# - git config --global user.name "%github_user%"
+# - git checkout -b Appveyor "%APPVEYOR_REPO_BRANCH%"
+# - SET PATH=C:\Ruby23\bin;%PATH%
+# - git add "RocketBot2/Properties/AssemblyInfo.cs"
+# - git commit -m "%APPVEYOR_REPO_TAG_NAME%"
+# - git checkout "%APPVEYOR_REPO_BRANCH%"
+# - git merge Appveyor
+# - git branch -d Appveyor
+# - git pull "origin" "%APPVEYOR_REPO_BRANCH%"
+# - git push "origin" "%APPVEYOR_REPO_BRANCH%"
 
 # scripts to run after deployment
 after_deploy:
