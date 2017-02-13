@@ -1,6 +1,17 @@
 version: 0.0.0.{build}
 configuration: Release RocketBot2
 platform: Any CPU
+clone_folder: c:\projects\rocketbot2
+init:
+- ps: >-
+    if ($env:APPVEYOR_REPO_TAG -eq "true")
+        {
+            $env:RocketBot2_Version = "$($env:APPVEYOR_REPO_TAG_NAME.Replace('v', ''))";
+        }
+        else
+        {
+            $env:RocketBot2_Version = "$($env:APPVEYOR_BUILD_VERSION)";
+        }
 assembly_info:
   patch: true
   file: '**\AssemblyInfo.*'
@@ -8,9 +19,9 @@ assembly_info:
   assembly_file_version: 1.0.0.0
   assembly_informational_version: $(APPVEYOR_REPO_TAG_NAME)
 install:
-- ps: '- git submodule update --init --recursive'
+- ps: git submodule update --init --recursive
 before_build:
-- ps: '- nuget restore'
+- ps: nuget restore
 build:
   project: RocketBot.sln
   parallel: true
