@@ -132,6 +132,9 @@ namespace RocketBot2
         public static async Task Start(Session session, CancellationToken cancellationToken)
         {
 
+            //Disable autosniper service until finger out how to make it work with API change
+
+            return;
             await Task.Delay(30000, cancellationToken); //delay running 30s
 
             ServicePointManager.Expect100Continue = false;
