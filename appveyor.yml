@@ -15,7 +15,7 @@ skip_non_tags: false
 skip_commits:
   files:
   - '**\AssemblyInfo.*'
-  - 'CHANGELOG.md'
+#  - 'CHANGELOG.md'
 
 # 
 pull_requests:
@@ -29,16 +29,16 @@ pull_requests:
 image: Visual Studio 2015
 
 # scripts that are called at very beginning, before repo cloning
-init:
-- ps: >-
-    if ($env:APPVEYOR_REPO_TAG -eq "true")
-    {
-        $env:RocketBot2_Version = "$($env:APPVEYOR_REPO_TAG_NAME.Replace('v', ''))";
-    }
-    else
-    {
-        $env:RocketBot2_Version = "$($env:APPVEYOR_BUILD_VERSION)";
-    }
+#init:
+#- ps: >-
+#    if ($env:APPVEYOR_REPO_TAG -eq "true")
+#    {
+#        $env:RocketBot2_Version = "$($env:APPVEYOR_REPO_TAG_NAME.Replace('v', ''))";
+#    }
+#    else
+#    {
+#        $env:RocketBot2_Version = "$($env:APPVEYOR_BUILD_VERSION)";
+#    }
 
 # clone directory
 clone_folder: c:\projects\rocketbot2
@@ -47,12 +47,13 @@ clone_folder: c:\projects\rocketbot2
 shallow_clone: false
 
 # set clone depth
-#clone_depth:  5                     # clone entire repository history if not defined
+# clone entire repository history if not defined
+#clone_depth:  5
 
 # environment variables
 #environment:
 #  auth_token:
-#    secure: OHHR1Cwk0dCrMuwRoFE5Q9Cv7i0QOk7koD3JvMyV+C4T95bhVA5ME3EZxEGScwQD
+#    secure: yNRb78M1kncUfbzKLWl1igKg2piIARVYUpr0508PrTS7N/AwwnYozd+Ntr1gfUT+
 #  github_user:
 #    secure: 7Hc6naEaACkc8LQloBljQA== 
 #  github_email:
@@ -68,7 +69,7 @@ shallow_clone: false
 # scripts that run after cloning repository
 install:
 - git submodule update --init --recursive
-#- Remove-Item item RocketBot2-APK\platform -Recurse -Force
+#- rmdir RocketBot2-APK/platform /S /Q
 #- Remove-Item item RocketBot2-APK\plugins -Recurse -Force
 #- cd RocketBot2-APK && npm install && cd ..
 
