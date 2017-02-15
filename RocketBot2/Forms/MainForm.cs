@@ -484,7 +484,7 @@ namespace RocketBot2.Forms
 
             var accountManager = new MultiAccountManager(logicSettings.Bots);
 
-            accountManager.Add(settings.Auth.AuthConfig);
+            var mainAccount = accountManager.Add(settings.Auth.AuthConfig);
 
             ioc.Register<MultiAccountManager>(accountManager);
 
