@@ -2,7 +2,7 @@ BotStatus=DISABLE;
 //================================================================//
                 POKEMON GO 0.55
 //================================================================//
-The bot has been fully updated to 0.53.1 so it is safer to bot now.
+The bot has been fully updated to 0.55 so it is safer to bot now.
 //================================================================//
                          Updated: 17/02/2017
 
