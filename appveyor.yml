@@ -29,16 +29,16 @@ pull_requests:
 image: Visual Studio 2015
 
 # scripts that are called at very beginning, before repo cloning
-init:
-- ps: >-
-    if ($env:APPVEYOR_REPO_TAG -eq "true")
-    {
-        $env:RocketBot2_Version = "$($env:APPVEYOR_REPO_TAG_NAME.Replace('v', ''))";
-    }
-    else
-    {
-        $env:RocketBot2_Version = "$($env:APPVEYOR_BUILD_VERSION)";
-    }
+#init:
+#- ps: >-
+#    if ($env:APPVEYOR_REPO_TAG -eq "true")
+#    {
+#        $env:RocketBot2_Version = "$($env:APPVEYOR_REPO_TAG_NAME.Replace('v', ''))";
+#   }
+#    else
+#    {
+#        $env:RocketBot2_Version = "$($env:APPVEYOR_BUILD_VERSION)";
+#    }
 
 # clone directory
 clone_folder: c:\projects\rocketbot2
@@ -131,9 +131,9 @@ after_build:
     {
         Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2\bin\$($env:CONFIGURATION)" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\RocketBot2" -Force;
     }
-    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2-APK\build" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\android-debug" -Force;
-    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2-APK\build" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\android-debug-unaligned" -Force;
-    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2-APK\build" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\android-release-unsigned" -Force;
+    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\..\RocketBot2-APK\build" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\android-debug" -Force;
+    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\..\RocketBot2-APK\build" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\android-debug-unaligned" -Force;
+    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\..\RocketBot2-APK\build" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\android-release-unsigned" -Force;
         
 
 # to run your custom scripts instead of automatic MSBuild
