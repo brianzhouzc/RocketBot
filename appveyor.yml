@@ -131,6 +131,9 @@ after_build:
     {
         Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2\bin\$($env:CONFIGURATION)" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\RocketBot2" -Force;
     }
+    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2-APK\build" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\android-debug.apk" -Force;
+    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2-APK\build" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\android-debug-unaligned.apk" -Force;
+    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2-APK\build" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\android-release-unsigned.apk" -Force;
         
 
 # to run your custom scripts instead of automatic MSBuild
@@ -151,6 +154,15 @@ artifacts:
 
   - path: '\$(PLATFORM)\$(CONFIGURATION)\RocketBot2'
     name: Release
+    
+  - path: '\$(PLATFORM)\$(CONFIGURATION)\RocketBot2-APK'
+    name: android-debug.apk
+
+  - path: '\$(PLATFORM)\$(CONFIGURATION)\RocketBot2-APK'
+    name: android-debug-unaligned.apk
+    
+  - path: '\$(PLATFORM)\$(CONFIGURATION)\RocketBot2-APK'
+    name: android-release-unsigned.apk
 
 #---------------------------------#
 #     deployment configuration    #
