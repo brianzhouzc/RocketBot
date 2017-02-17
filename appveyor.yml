@@ -29,16 +29,16 @@ pull_requests:
 image: Visual Studio 2015
 
 # scripts that are called at very beginning, before repo cloning
-#init:
-#- ps: >-
-#    if ($env:APPVEYOR_REPO_TAG -eq "true")
-#    {
-#        $env:RocketBot2_Version = "$($env:APPVEYOR_REPO_TAG_NAME.Replace('v', ''))";
-#    }
-#    else
-#    {
-#        $env:RocketBot2_Version = "$($env:APPVEYOR_BUILD_VERSION)";
-#    }
+init:
+- ps: >-
+    if ($env:APPVEYOR_REPO_TAG -eq "true")
+    {
+        $env:RocketBot2_Version = "$($env:APPVEYOR_REPO_TAG_NAME.Replace('v', ''))";
+    }
+    else
+    {
+        $env:RocketBot2_Version = "$($env:APPVEYOR_BUILD_VERSION)";
+    }
 
 # clone directory
 clone_folder: c:\projects\rocketbot2
@@ -131,9 +131,9 @@ after_build:
     {
         Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2\bin\$($env:CONFIGURATION)" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\RocketBot2" -Force;
     }
-    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2-APK\build" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\android-debug.apk" -Force;
-    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2-APK\build" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\android-debug-unaligned.apk" -Force;
-    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2-APK\build" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\android-release-unsigned.apk" -Force;
+    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2-APK\build" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\android-debug" -Force;
+    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2-APK\build" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\android-debug-unaligned" -Force;
+    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2-APK\build" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\android-release-unsigned" -Force;
         
 
 # to run your custom scripts instead of automatic MSBuild
@@ -155,14 +155,14 @@ artifacts:
   - path: '\$(PLATFORM)\$(CONFIGURATION)\RocketBot2'
     name: Release
     
-  - path: '\$(PLATFORM)\$(CONFIGURATION)\RocketBot2-APK'
-    name: android-debug.apk
+  - path: '\$(PLATFORM)\$(CONFIGURATION)\android-debug'
+    name: android-debug
 
-  - path: '\$(PLATFORM)\$(CONFIGURATION)\RocketBot2-APK'
-    name: android-debug-unaligned.apk
+  - path: '\$(PLATFORM)\$(CONFIGURATION)\android-debug-unaligne'
+    name: android-debug-unaligned
     
-  - path: '\$(PLATFORM)\$(CONFIGURATION)\RocketBot2-APK'
-    name: android-release-unsigned.apk
+  - path: '\$(PLATFORM)\$(CONFIGURATION)\android-release-unsigned'
+    name: android-release-unsigned
 
 #---------------------------------#
 #     deployment configuration    #
