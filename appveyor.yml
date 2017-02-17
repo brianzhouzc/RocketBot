@@ -158,7 +158,7 @@ artifacts:
   - path: '\$(PLATFORM)\$(CONFIGURATION)\android-debug'
     name: android-debug
 
-  - path: '\$(PLATFORM)\$(CONFIGURATION)\android-debug-unaligne'
+  - path: '\$(PLATFORM)\$(CONFIGURATION)\android-debug-unaligned'
     name: android-debug-unaligned
     
   - path: '\$(PLATFORM)\$(CONFIGURATION)\android-release-unsigned'
