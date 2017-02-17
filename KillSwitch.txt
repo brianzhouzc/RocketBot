@@ -1,10 +1,11 @@
 BotStatus=ENABLED;
 //================================================================//
-                POKEMON GO 0.53.1
+                POKEMON GO 0.57.2
 //================================================================//
-The bot has been fully updated to 0.53.1 so it is safer to bot now.
+Necrobot is now compatible with 0.57.2 API.
 //================================================================//
-                         Updated: 1/23/2017
+                         Updated: 2/16/2017
+
 
 For support/questions:
 OFFICIAL RocketBot2 Discord: https://discord.gg/y6EU2qY
