@@ -155,14 +155,14 @@ artifacts:
   - path: '\$(PLATFORM)\$(CONFIGURATION)\RocketBot2'
     name: Release
     
-  - path: '\$(PLATFORM)\$(CONFIGURATION)\android-debug'
-    name: android-debug
+  - path: '\$(PLATFORM)\$(CONFIGURATION)\android-debug.apk'
+    name: android-debug.apk
 
-  - path: '\$(PLATFORM)\$(CONFIGURATION)\android-debug-unaligned'
-    name: android-debug-unaligned
+  - path: '\$(PLATFORM)\$(CONFIGURATION)\android-debug-unaligned.apk'
+    name: android-debug-unaligned.apk
     
-  - path: '\$(PLATFORM)\$(CONFIGURATION)\android-release-unsigned'
-    name: android-release-unsigned
+  - path: '\$(PLATFORM)\$(CONFIGURATION)\android-release-unsigned.apk'
+    name: android-release-unsigned.apk
 
 #---------------------------------#
 #     deployment configuration    #
