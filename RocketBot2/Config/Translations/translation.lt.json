@@ -526,7 +526,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "Pokemonų matyta: {0}/151, Pokemonų pagauta: {1}/151"
+      "Value": "Pokemonų matyta: {0}/231, Pokemonų pagauta: {1}/231"
     },
     {
       "Key": "pkmPotentialEvolveCount",

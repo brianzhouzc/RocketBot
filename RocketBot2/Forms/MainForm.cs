@@ -672,7 +672,7 @@ namespace RocketBot2.Forms
         private int encounterPokemonsCount;
         private void UpdateMap(List<GeoCoordinate> route)
         {
-                 var routePointLatLngs = new List<PointLatLng>();
+            var routePointLatLngs = new List<PointLatLng>();
             foreach (var item in route)
             {
                 routePointLatLngs.Add(new PointLatLng(item.Latitude, item.Longitude));
@@ -1138,14 +1138,15 @@ namespace RocketBot2.Forms
                 var eggcount = _session.Inventory.GetEggs().Count();
 
                 lblPokemonList.Text =
-                    $"{pokemoncount + eggcount} / {profile.PlayerData.MaxPokemonStorage} ({pokemoncount} pokemon, {eggcount} eggs)";
+                    $"PokeDex: {_session.Inventory.GetPokeDexItems().Count} / Storage: {_session.Client.Player.PlayerData.MaxPokemonStorage} ({pokemoncount} pokemons, {eggcount} eggs)";
 
                 var items = 
                     _session.Inventory.GetItems()
-                    .Where(i => i != null)
+                    .Where(i => i != null && i.ItemId > 0)
                     .OrderBy(i => i.ItemId);
 
                 var itemscount = items.Count() +1;
+                var itemstotal = 0;
                    
                     flpItems.Controls.Clear();
                     foreach (var item in items)
@@ -1155,8 +1156,9 @@ namespace RocketBot2.Forms
                             box.expires = appliedItems[item.ItemId];
                         box.ItemClick += ItemBox_ItemClick;
                         flpItems.Controls.Add(box);
+                    itemstotal = itemstotal + item.Count;
                     }
-            lblInventory.Text = itemscount + @" / " + profile.PlayerData.MaxItemStorage;
+            lblInventory.Text = $"Types: {itemscount} / Total: {itemstotal} / Storage: {_session.Client.Player.PlayerData.MaxItemStorage}";
             }
             catch (ArgumentNullException)
             {

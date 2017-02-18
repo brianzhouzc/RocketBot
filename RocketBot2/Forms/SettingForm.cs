@@ -145,17 +145,18 @@ namespace RocketBot2.Forms
 
             cbCatchPoke.Checked = _setting.PokemonConfig.CatchPokemon;
             cbUseEggIncubators.Checked = _setting.PokemonConfig.UseEggIncubators;
-            tBMaxBerriesToUsePerPokemon.Text = _setting.PokemonConfig.MaxBerriesToUsePerPokemon.ToString();
+
+
             tbMaxPokeballsPerPokemon.Text = _setting.PokemonConfig.MaxPokeballsPerPokemon.ToString();
             cbAutoFavoritePokemon.Checked = _setting.PokemonConfig.AutoFavoritePokemon;
             tbFavoriteMinIvPercentage.Text = _setting.PokemonConfig.FavoriteMinIvPercentage.ToString(CultureInfo.InvariantCulture);
 
-            tbUseBerriesMinCp.Text = _setting.PokemonConfig.UseBerriesMinCp.ToString();
-            tbUseBerriesMinIv.Text = _setting.PokemonConfig.UseBerriesMinIv.ToString(CultureInfo.InvariantCulture);
-            tbUseBerriesBelowCatchProbability.Text =
-                _setting.PokemonConfig.UseBerriesBelowCatchProbability.ToString(CultureInfo.InvariantCulture);
-            cbUseBerriesOperator.SelectedIndex = _setting.PokemonConfig.UseBerriesOperator == "and" ? 0 : 1;
-
+            tBMaxBerriesToUsePerPokemon.Text = _setting.ItemUseFilters.FirstOrDefault().Value.MaxItemsUsePerPokemon.ToString();
+            tbUseBerriesMinCp.Text = _setting.ItemUseFilters.FirstOrDefault().Value.UseItemMinCP.ToString();
+            tbUseBerriesMinIv.Text = _setting.ItemUseFilters.FirstOrDefault().Value.UseItemMinIV.ToString(CultureInfo.InvariantCulture);
+            tbUseBerriesBelowCatchProbability.Text =_setting.ItemUseFilters.FirstOrDefault().Value.CatchProbability.ToString(CultureInfo.InvariantCulture);
+            cbUseBerriesOperator.SelectedIndex = _setting.ItemUseFilters.FirstOrDefault().Value.Operator == "and" ? 0 : 1;
+           
             tbUseGreatBallAboveCp.Text = _setting.PokemonConfig.UseGreatBallAboveCp.ToString();
             tbUseUltraBallAboveCp.Text = _setting.PokemonConfig.UseUltraBallAboveCp.ToString();
             tbUseMasterBallAboveCp.Text = _setting.PokemonConfig.UseMasterBallAboveCp.ToString();
@@ -523,16 +524,16 @@ namespace RocketBot2.Forms
 
                 _setting.PokemonConfig.CatchPokemon = cbCatchPoke.Checked;
                 _setting.PokemonConfig.UseEggIncubators = cbUseEggIncubators.Checked;
-                _setting.PokemonConfig.MaxBerriesToUsePerPokemon = ConvertStringToInt(tBMaxBerriesToUsePerPokemon.Text);
                 _setting.PokemonConfig.MaxPokeballsPerPokemon = ConvertStringToInt(tbMaxPokeballsPerPokemon.Text);
                 _setting.PokemonsToIgnore = ConvertClbToList(clbIgnore);
                 _setting.PokemonConfig.AutoFavoritePokemon = cbAutoFavoritePokemon.Checked;
                 _setting.PokemonConfig.FavoriteMinIvPercentage = ConvertStringToFloat(tbFavoriteMinIvPercentage.Text);
 
-                _setting.PokemonConfig.UseBerriesMinCp = ConvertStringToInt(tbUseBerriesMinCp.Text);
-                _setting.PokemonConfig.UseBerriesMinIv = ConvertStringToFloat(tbUseBerriesMinIv.Text);
-                _setting.PokemonConfig.UseBerriesBelowCatchProbability = ConvertStringToDouble(tbUseBerriesBelowCatchProbability.Text);
-                _setting.PokemonConfig.UseBerriesOperator = cbUseBerriesOperator.SelectedIndex == 0 ? "and" : "or";
+                _setting.ItemUseFilters.FirstOrDefault().Value.MaxItemsUsePerPokemon = ConvertStringToInt(tBMaxBerriesToUsePerPokemon.Text);
+                _setting.ItemUseFilters.FirstOrDefault().Value.UseItemMinCP = ConvertStringToInt(tbUseBerriesMinCp.Text);
+                _setting.ItemUseFilters.FirstOrDefault().Value.UseItemMinIV = ConvertStringToInt(tbUseBerriesMinIv.Text);
+                _setting.ItemUseFilters.FirstOrDefault().Value.CatchProbability = ConvertStringToDouble(tbUseBerriesBelowCatchProbability.Text);
+                _setting.ItemUseFilters.FirstOrDefault().Value.Operator = cbUseBerriesOperator.SelectedIndex == 0 ? "and" : "or";
 
                 _setting.PokemonConfig.UseGreatBallAboveCp = ConvertStringToInt(tbUseGreatBallAboveCp.Text);
                 _setting.PokemonConfig.UseUltraBallAboveCp = ConvertStringToInt(tbUseUltraBallAboveCp.Text);

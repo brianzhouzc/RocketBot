@@ -181,7 +181,7 @@ deploy:
     artifact: Release;android-debug;android-debug-unaligned;android-release-unsigned
     draft: false
     prerelease: false
-    force_update#: true
+    force_update: true
     on:
       appveyor_repo_tag: true
 

@@ -18,6 +18,7 @@ using WebSocketSharp;
 using Logger = PoGo.NecroBot.Logic.Logging.Logger;
 using System.Runtime.Caching;
 using System.Reflection;
+using TinyIoC;
 
 namespace RocketBot2
 {
@@ -37,8 +38,13 @@ namespace RocketBot2
             public List<SnipeFailedEvent> SnipeFailedPokemons { get; set; }
             public List<string> ExpiredPokemons { get; set; }
             public string ClientVersion { get; set; }
+            public List<string> ManualSnipes { get; set; }
+            public string Identitier { get; set; }
+
             public SocketClientUpdate()
             {
+                this.Identitier = TinyIoCContainer.Current.Resolve<ISession>().LogicSettings.DataSharingConfig.DataServiceIdentification;
+                this.ManualSnipes = new List<string>();
                 this.Pokemons = new List<EncounteredEvent>();
                 this.SnipeFailedPokemons = new List<SnipeFailedEvent>();
                 this.ExpiredPokemons = new List<string>();
@@ -55,6 +61,16 @@ namespace RocketBot2
 
         private const int POLLING_INTERVAL = 5000;
 
+        public static void HandleEvent(AllBotSnipeEvent e, ISession session)
+        {
+            lock(clientData)
+            {
+                if(!string.IsNullOrEmpty(clientData.Identitier))
+                {
+                    clientData.ManualSnipes.Add(e.EncounterId);
+                }
+            }
+        }
         public static void HandleEvent(IEvent evt, ISession session)
         {
         }

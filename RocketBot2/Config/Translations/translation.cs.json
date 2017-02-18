@@ -514,7 +514,7 @@
     },
     {
       "Key": "AmountPkmSeenCaught",
-      "Value": "Počet spatřených pokemonů: {0}/151, Počet chycených pokemonů: {1}/151"
+      "Value": "Počet spatřených pokemonů: {0}/231, Počet chycených pokemonů: {1}/231"
     },
     {
       "Key": "PkmPotentialEvolveCount",

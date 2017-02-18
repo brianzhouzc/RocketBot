@@ -590,7 +590,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "Ilość widzianych Pokemonów: {0}/151 | Ilość złapanych Pokemonów: {1}/151"
+      "Value": "Ilość widzianych Pokemonów: {0}/231 | Ilość złapanych Pokemonów: {1}/231"
     },
     {
       "Key": "pkmPotentialEvolveCount",
