@@ -293,7 +293,8 @@ namespace RocketBot2
                     returnRealBallName(pokemonCaptureEvent.Pokeball), pokemonCaptureEvent.BallAmount,
                     pokemonCaptureEvent.Exp, familyCandies, pokemonCaptureEvent.Latitude.ToString("0.000000"),
                     pokemonCaptureEvent.Longitude.ToString("0.000000"),
-                    pokemonCaptureEvent.Move1, pokemonCaptureEvent.Move2, pokemonCaptureEvent.Rarity
+                    pokemonCaptureEvent.Move1, pokemonCaptureEvent.Move2, pokemonCaptureEvent.Rarity,
+                    pokemonCaptureEvent.CaptureReason
                 );
                 Logger.Write(message, LogLevel.Caught);
             }
@@ -328,6 +329,18 @@ namespace RocketBot2
             {
                 case ItemId.ItemRazzBerry:
                     strBerry = session.Translation.GetTranslation(TranslationString.ItemRazzBerry);
+                    break;
+                case ItemId.ItemNanabBerry:
+                    strBerry = session.Translation.GetTranslation(TranslationString.ItemNanabBerry);
+                    break;
+                case ItemId.ItemPinapBerry:
+                    strBerry = session.Translation.GetTranslation(TranslationString.ItemPinapBerry);
+                    break;
+                case ItemId.ItemWeparBerry:
+                    strBerry = session.Translation.GetTranslation(TranslationString.ItemWeparBerry);
+                    break;
+                case ItemId.ItemBlukBerry:
+                    strBerry = session.Translation.GetTranslation(TranslationString.ItemBlukBerry);
                     break;
                 default:
                     strBerry = useBerryEvent.BerryType.ToString();

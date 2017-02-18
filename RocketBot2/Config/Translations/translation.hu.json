@@ -590,7 +590,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "Latott pokemonok: {0}/151, Elkapott pokemonok: {1}/151"
+      "Value": "Latott pokemonok: {0}/231, Elkapott pokemonok: {1}/231"
     },
     {
       "Key": "pkmPotentialEvolveCount",
