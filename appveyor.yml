@@ -156,13 +156,13 @@ artifacts:
     name: Release
     
   - path: '\$(PLATFORM)\$(CONFIGURATION)\android-debug.apk'
-    name: android-debug.apk
+    name: android-debug
 
   - path: '\$(PLATFORM)\$(CONFIGURATION)\android-debug-unaligned.apk'
-    name: android-debug-unaligned.apk
+    name: android-debug-unaligned
     
   - path: '\$(PLATFORM)\$(CONFIGURATION)\android-release-unsigned.apk'
-    name: android-release-unsigned.apk
+    name: android-release-unsigned
 
 #---------------------------------#
 #     deployment configuration    #
