@@ -29,16 +29,16 @@ pull_requests:
 image: Visual Studio 2015
 
 # scripts that are called at very beginning, before repo cloning
-init:
-- ps: >-
-    if ($env:APPVEYOR_REPO_TAG -eq "true")
-    {
-        $env:RocketBot2_Version = "$($env:APPVEYOR_REPO_TAG_NAME.Replace('v', ''))";
-    }
-    else
-    {
-        $env:RocketBot2_Version = "$($env:APPVEYOR_BUILD_VERSION)";
-    }
+#init:
+#- ps: >-
+#    if ($env:APPVEYOR_REPO_TAG -eq "true")
+#    {
+#        $env:RocketBot2_Version = "$($env:APPVEYOR_REPO_TAG_NAME.Replace('v', ''))";
+#    }
+#    else
+#    {
+#        $env:RocketBot2_Version = "$($env:APPVEYOR_BUILD_VERSION)";
+#    }
 
 # clone directory
 clone_folder: c:\projects\rocketbot2
@@ -51,15 +51,15 @@ shallow_clone: false
 #clone_depth:  5
 
 # environment variables
-environment:
-  auth_token:
-    secure: yNRb78M1kncUfbzKLWl1igKg2piIARVYUpr0508PrTS7N/AwwnYozd+Ntr1gfUT+
-  github_user:
-    secure: 7Hc6naEaACkc8LQloBljQA== 
-  github_email:
-    secure: 6bXu/BdTKFbjiBZGT9aJDxCU9Dh50BI/b+tPIr0FnI8=
-  priv_key:
-    secure: 6/1l0v5BlBDw8aZ5Xmi7XCJVyrUPVAJxpazkWDv8R9JrCNQzyJcaaqWJtJMibMwV/9Bgv/DAFz3QtlWtZcX6AORBdwUNWQg6oH7Dc5gibQ+zTyKrFOsYBPYT9xi6KGLQ9cj/GVRivX9G+yPO9w8bOKNtlwV+Oo1ZbCXiBC1R6NWVWNCYZT4w8484mUFcZi2Uuvgs/5PiztO1mXyhXdbCeSz9/6e0OyMszI7Isqeau+C+Ptx81XjkwevEn4QchyiCGdlKzDfOxPcqfsuy55KBNt0OdT6j9X4lGK7Km/mYTSkRiHfxfwnGDwLbC08Xvd0nMt5AgByHY6oqhuwgxdJJmE+JYyRaVQbPbxVDK7s1QOOU8mvSWt7hEsRvLRfAJb0mgygRsoRUFJvXCkhzsdX8Mh0A0gjt7mESS1Ghrp7ogrrvAZ2JQu2UMFE0WNHC20zVnv0loSWmd/H3XZ4WgjPpEMu1nwhWu8gAT/242Ujcr+/e4BteVOcvmKJ7P4w8nD4VnOOQvqMvg6sFvz2wFiBKBsXPwe6MKf64nwBJ/y6mA8WnCzottGtZm644TSBplju1ThG0qAO2Z9tulx3qU/Dcd+xyHRi96CHS+83fkGVlM68PsMZsfIAB/wddxXh7f4aBlt2ogkj9XoXxD95hF5eya8db53UgsS9KE89CAHAMul44yfk07b6ZaEmWWhTlIn/2CdoaGOyRptgF9efoqxA3YbBfAX9/EYi/ekEdI/FuYvkqnqN00KG9/bNlq4vujcHEAxTccXUVG8fst/ZIL0kstUDLZK5ajzy5HI2ekjBG1lPUCb7XQPpHnl+MIYolSPI3GTK4PpW5PRlOjUeVkV6unnBJUQPAcu8c6H6f4gMEXiXy0xL1pHDfMQ7V2w/2Ff6R1PR61rMXqAbqBHyE9E81+hlesU5IVCCAlJYhvGUCYIaBVnKQyM+Xf+JJa6a8xIxmw+PoFmnKiHjAA58XFAWNdzTG5+ZZJANB3IgSbyUQX+xbmZ3BclULfXr+VZychOaPIDkE7GO2hh7tMyarWr/8urc1F2nh6JEw9Jb6m6Csxr+JrsQR2RTaZ+JUo6IvxwI7zX6I+zdXgWk0U+gISb4Z2bD3w7GSL1o5OUtv/dqNgf1ZJq1hkZXsPnVkAJfe1tJVPQZefwWm8xy1GKitQicYQLaaP4J3QiNf0YUaLIf6GvbFIGXIVyTWbYnx94QCl76fbw0GRCTzyelzELKVmR1xHZ/XypYjMHETK6Qd2y8tvfd3zoguYk6xD6sWN+bTvA7PtupuZFj+juBYRzsVXh+VKu19HSa0WqPWdEqN6USN7lOQ4SqN+jUy/3HSRadmM6DuToz6tEkutDkpGbQMuM655sBA8sXt7ZiEOF5kWMf2Nl+nXDFlUijH2qs8LE5U9Uf+p5I7EMo0bAS+QNCZE26c8zu7L7L9zG4pH88FUaB/QL/xXKxhNOhq3cDJ9OxKx0A1Mk+V7KS0FA1W+aCTVqifdXN/pu4ZJkdweLzqJ7M/LY0b0LzVpy7Qn3EZ0fR8lZFb3+HXgEY6ZTSPC6AKbLh7rr9+XxdgvyeGofHoKzy0D4qDz0S0CYXIyWJoO7zrcGQNkpDxsZd8cD9PBuWM7/2SlL1IiXdtqloo1QMZB/eu07/xULuIvkaYHl/UcQXfiRthNLmCKi3NxLDZRFtrdjmYP4D/Jwvi5vQ/MmVEdohUfLkdpQx15+ljvIwlBVUopcauTxs/ucYwgo95bg726TqeOh/hlTbXIVoiqjueRersIHwkwAw0bcJXD7EyAbyYOQHKrHhMn2wu+vjH+IQYzDj841ADR02wj1QczBUZB1wvk3uK/tYnlKtqdLE7uqW5abyCSDjgERO/Xjjf+uRj77GVZ9eU+TxzjU9Yvu3PfUqmFg9C1314fm8QmiDonOuWwy6pm+iKOKnqRgXBXmS7Z96U81rysc5AeYNVgFJcx+BFVvOnmLh1ebyrdCZNVdU1WAiu8DVuWUygpYnUmAx1LuniwOppvBnJHoFJSQwpF8pGI0lARxP6zLKD8lajFo1tCOAQM5fO4cwtZMD1z7/kgFGJybGHkdZq/+PPkLOSrFzGF0heZN/FAl7eL0Owq09YC7Tmz4EEnN942LCOtzvatBZa2MEW642Z+X25w4iXNdXzgks=
+#environment:
+#  auth_token:
+#    secure: yNRb78M1kncUfbzKLWl1igKg2piIARVYUpr0508PrTS7N/AwwnYozd+Ntr1gfUT+
+#  github_user:
+#    secure: 7Hc6naEaACkc8LQloBljQA== 
+#  github_email:
+#    secure: 6bXu/BdTKFbjiBZGT9aJDxCU9Dh50BI/b+tPIr0FnI8=
+#  priv_key:
+#    secure: 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
     
 # build cache to preserve files/folders between builds
 #cache:
@@ -74,12 +74,12 @@ install:
 #- cd RocketBot2-APK && npm install && cd ..
 
 # enable patching of AssemblyInfo.* files
-assembly_info:
-  patch: true
-  file: '**\AssemblyInfo.*'
-  assembly_version: '$(RocketBot2_Version)'
-  assembly_file_version: "1.0.0.0"
-  assembly_informational_version: '$(APPVEYOR_REPO_TAG_NAME)'
+#assembly_info:
+#  patch: true
+#  file: '**\AssemblyInfo.*'
+#  assembly_version: '$(RocketBot2_Version)'
+#  assembly_file_version: "1.0.0.0"
+#  assembly_informational_version: '$(APPVEYOR_REPO_TAG_NAME)'
 
 #---------------------------------#
 #       build configuration       #
@@ -170,42 +170,42 @@ artifacts:
 
 # providers: Local, FTP, WebDeploy, AzureCS, AzureBlob, S3, NuGet, Environment
 # provider names are case-sensitive!
-deploy:
+#deploy:
 
   # Deploy to GitHub Releases
-  - provider: GitHub
-    tag: $(APPVEYOR_REPO_TAG_NAME)
-    description: '[README.md](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/README.md)'
-    release: RocketBot2 $(APPVEYOR_REPO_TAG_NAME)
-    auth_token: $(auth_token)
-    artifact: Release;android-debug;android-debug-unaligned;android-release-unsigned
-    draft: false
-    prerelease: false
-    force_update: true
-    on:
-      appveyor_repo_tag: true
+#  - provider: GitHub
+#    tag: $(APPVEYOR_REPO_TAG_NAME)
+#    description: '[README.md](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/README.md)'
+#    release: RocketBot2 $(APPVEYOR_REPO_TAG_NAME)
+#    auth_token: $(auth_token)
+#    artifact: Release;android-debug;android-debug-unaligned;android-release-unsigned
+#    draft: false#
+#    prerelease: #false
+#    force_update#: true
+#    on:
+#      appveyor_repo_tag: true
 
 # scripts to run before deployment
-before_deploy:
-- ps: >-
-    $fileContent = "-----BEGIN RSA PRIVATE KEY-----`n";
-    $fileContent += $env:priv_key.Replace(' ', "`n");
-    $fileContent += "`n-----END RSA PRIVATE KEY-----`n";
-    Set-Content "$env:USERPROFILE\.ssh\id_rsa" "$($fileContent)";
-    Set-Content "$env:USERPROFILE\.git-credentials" "https://$($env:auth_token):x-oauth-basic@github.com`n";
+#before_deploy:
+#- ps: >-
+#    $fileContent = "-----BEGIN RSA PRIVATE KEY-----`n";
+#    $fileContent += $env:priv_key.Replace(' ', "`n");
+#    $fileContent += "`n-----END RSA PRIVATE KEY-----`n";
+#    Set-Content "$env:USERPROFILE\.ssh\id_rsa" "$($fileContent)";
+#    Set-Content "$env:USERPROFILE\.git-credentials" "https://$($env:auth_token):x-oauth-basic@github.com`n";
 
-- git config --global credential.helper store
-- git config --global user.email "%github_email%"
-- git config --global user.name "%github_user%"
-- git checkout -b Appveyor "%APPVEYOR_REPO_BRANCH%"
-- SET PATH=C:\Ruby23\bin;%PATH%
-- git add "RocketBot2/Properties/AssemblyInfo.cs"
-- git commit -m "%APPVEYOR_REPO_TAG_NAME%"
-- git checkout "%APPVEYOR_REPO_BRANCH%"
-- git merge Appveyor
-- git branch -d Appveyor
-- git pull "origin" "%APPVEYOR_REPO_BRANCH%"
-- git push "origin" "%APPVEYOR_REPO_BRANCH%"
+#- git config --global credential.helper store
+#- git config --global user.email "%github_email%"
+#- git config --global user.name "%github_user%"
+#- git checkout -b Appveyor "%APPVEYOR_REPO_BRANCH%"
+#- SET PATH=C:\Ruby23\bin;%PATH%
+#- git add "RocketBot2/Properties/AssemblyInfo.cs"
+#- git commit -m "%APPVEYOR_REPO_TAG_NAME%"
+#- git checkout "%APPVEYOR_REPO_BRANCH%"
+#- git merge Appveyor
+#- git branch -d Appveyor
+#- git pull "origin" "%APPVEYOR_REPO_BRANCH%"
+#- git push "origin" "%APPVEYOR_REPO_BRANCH%"
 
 # scripts to run after deployment
 after_deploy:
