@@ -3,7 +3,7 @@
 #---------------------------------#
 
 # version format
-version: 2.7.0.{build}
+version: 0.7.0.{build}
 
 # Do not build on tags
 skip_tags: false
