@@ -530,6 +530,11 @@
     </None>
     <None Include="Images\Miscs\Logo.png" />
     <Resource Include="Resources\Fonts\Lato\SIL Open Font License.txt" />
+    <Content Include="Images\Items\ItemDragonScale.png" />
+    <Content Include="Images\Items\ItemKingsRock.png" />
+    <Content Include="Images\Items\ItemMetalCoat.png" />
+    <Content Include="Images\Items\ItemSunStone.png" />
+    <Content Include="Images\Items\ItemUpGrade.png" />
     <Content Include="Resources\Ico.ico" />
     <None Include="packages.config">
       <SubType>Designer</SubType>

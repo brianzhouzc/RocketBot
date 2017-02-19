@@ -1101,16 +1101,6 @@ namespace RocketBot2.Forms
             try
             {
                 var itemTemplates = await _session.Client.Download.GetItemTemplates();
-                var inventory =  _session.Inventory.GetCachedInventory();
-                var profile = await _session.Client.Player.GetPlayer();
-                var inventoryAppliedItems =  _session.Inventory.GetAppliedItems();
-
-                var appliedItems = 
-                    inventoryAppliedItems
-                    .Where(aItems => aItems?.Item != null)
-                    .SelectMany(aItems => aItems.Item)
-                    .ToDictionary(item => item.ItemId, item => TimeHelper.FromUnixTimeUtc(item.ExpireMs));
-
                 PokemonObject.Initilize(itemTemplates);
 
                 var pokemons = 
@@ -1133,32 +1123,36 @@ namespace RocketBot2.Forms
                 olvPokemonList.SetObjects(pokemonObjects);
                 olvPokemonList.TopItemIndex = prevTopItem;
 
-                var pokemoncount = pokemons.Count();
-
-                var eggcount = _session.Inventory.GetEggs().Count();
-
                 lblPokemonList.Text =
-                    $"PokeDex: {_session.Inventory.GetPokeDexItems().Count} / Storage: {_session.Client.Player.PlayerData.MaxPokemonStorage} ({pokemoncount} pokemons, {eggcount} eggs)";
+                    $"PokeDex: {_session.Inventory.GetPokeDexItems().Count} / Storage: {_session.Client.Player.PlayerData.MaxPokemonStorage} ({pokemons.Count()} pokemons, {_session.Inventory.GetEggs().Count()} eggs)";
 
                 var items = 
                     _session.Inventory.GetItems()
-                    .Where(i => i != null && i.ItemId > 0)
+                    .Where(i => i != null)
                     .OrderBy(i => i.ItemId);
 
-                var itemscount = items.Count() +1;
+                var appliedItems =
+                    _session.Inventory.GetAppliedItems()
+                    .Where(aItems => aItems?.Item != null)
+                    .SelectMany(aItems => aItems.Item)
+                    .ToDictionary(item => item.ItemId, item => TimeHelper.FromUnixTimeUtc(item.ExpireMs));
+
                 var itemstotal = 0;
-                   
-                    flpItems.Controls.Clear();
-                    foreach (var item in items)
-                    {
-                        var box = new ItemBox(item);
-                        if (appliedItems.ContainsKey(item.ItemId))
-                            box.expires = appliedItems[item.ItemId];
-                        box.ItemClick += ItemBox_ItemClick;
-                        flpItems.Controls.Add(box);
+
+                flpItems.Controls.Clear();
+
+                foreach (var item in items)
+                {
+                    var box = new ItemBox(item);
+                    if (appliedItems.ContainsKey(item.ItemId))
+                        box.expires = appliedItems[item.ItemId];
+                    box.ItemClick += ItemBox_ItemClick;
+                    flpItems.Controls.Add(box);
                     itemstotal = itemstotal + item.Count;
-                    }
-            lblInventory.Text = $"Types: {itemscount} / Total: {itemstotal} / Storage: {_session.Client.Player.PlayerData.MaxItemStorage}";
+                }
+
+            lblInventory.Text = 
+                    $"Types: {items.Count()} / Total: {itemstotal} / Storage: {_session.Client.Player.PlayerData.MaxItemStorage}";
             }
             catch (ArgumentNullException)
             {
