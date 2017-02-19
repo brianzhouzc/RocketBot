@@ -1145,7 +1145,7 @@ namespace RocketBot2.Forms
                     .Where(i => i != null)
                     .OrderBy(i => i.ItemId);
 
-                var itemscount = items.Count() +1;
+                var itemscount = items.Count();
                 var itemstotal = 0;
                    
                     flpItems.Controls.Clear();
