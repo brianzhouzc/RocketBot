@@ -92,6 +92,16 @@ namespace RocketBot2.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap ItemDragonScale {
+            get {
+                object obj = ResourceManager.GetObject("ItemDragonScale", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap ItemGreatBall {
             get {
                 object obj = ResourceManager.GetObject("ItemGreatBall", resourceCulture);
@@ -152,6 +162,16 @@ namespace RocketBot2.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap ItemKingsRock {
+            get {
+                object obj = ResourceManager.GetObject("ItemKingsRock", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap ItemLuckyEgg {
             get {
                 object obj = ResourceManager.GetObject("ItemLuckyEgg", resourceCulture);
@@ -185,6 +205,16 @@ namespace RocketBot2.Properties {
         public static System.Drawing.Bitmap ItemMaxRevive {
             get {
                 object obj = ResourceManager.GetObject("ItemMaxRevive", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ItemMetalCoat {
+            get {
+                object obj = ResourceManager.GetObject("ItemMetalCoat", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -272,6 +302,16 @@ namespace RocketBot2.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap ItemSunStone {
+            get {
+                object obj = ResourceManager.GetObject("ItemSunStone", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap ItemSuperPotion {
             get {
                 object obj = ResourceManager.GetObject("ItemSuperPotion", resourceCulture);
@@ -295,6 +335,16 @@ namespace RocketBot2.Properties {
         public static System.Drawing.Bitmap ItemUltraBall {
             get {
                 object obj = ResourceManager.GetObject("ItemUltraBall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ItemUpGrade {
+            get {
+                object obj = ResourceManager.GetObject("ItemUpGrade", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

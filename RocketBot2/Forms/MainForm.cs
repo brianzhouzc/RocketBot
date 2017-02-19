@@ -1142,7 +1142,7 @@ namespace RocketBot2.Forms
 
                 var items = 
                     _session.Inventory.GetItems()
-                    .Where(i => i != null && i.ItemId > 0)
+                    .Where(i => i != null)
                     .OrderBy(i => i.ItemId);
 
                 var itemscount = items.Count() +1;
