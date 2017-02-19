@@ -458,7 +458,7 @@ namespace RocketBot2
 
         public static SocketMessage Encrypt(string message)
         {
-            var encryptedtulp = Encrypt(message, Properties.Resources.EncryptKey, false);
+            var encryptedtulp = Encrypt(message, RocketBot2.Properties.Resources.EncryptKey, false);
 
             var socketMessage = new SocketMessage()
             {
