@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using POGOProtos.Inventory.Item;
+using RocketBot2.Helpers;
 
 namespace RocketBot2.Forms
 {
@@ -10,11 +11,12 @@ namespace RocketBot2.Forms
         public DateTime expires = new DateTime(0);
         public ItemData item_ { get; }
 
+
         public ItemBox(ItemData item)
         {
             InitializeComponent();
 
-            pb.Image = (Image)Properties.Resources.ResourceManager.GetObject(item.ItemId.ToString());
+            pb.Image = ResourceHelper.ItemPicture(item);
             lbl.Text = item.Count.ToString();
             lblTime.Parent = pb;
 

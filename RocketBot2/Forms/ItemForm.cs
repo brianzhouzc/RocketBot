@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using POGOProtos.Inventory.Item;
+using RocketBot2.Helpers;
 
 namespace RocketBot2.Forms
 {
@@ -10,7 +11,7 @@ namespace RocketBot2.Forms
         {
             InitializeComponent();
 
-            pb.Image = (Image) Properties.Resources.ResourceManager.GetObject(item.ItemId.ToString());
+            pb.Image = ResourceHelper.ItemPicture(item);
             numCount.Maximum = item.Count;
 
             if (item.ItemId == ItemId.ItemLuckyEgg || item.ItemId == ItemId.ItemIncenseOrdinary)
