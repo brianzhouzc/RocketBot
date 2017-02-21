@@ -1,4 +1,5 @@
-﻿using System;
+﻿using POGOProtos.Inventory.Item;
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -9,6 +10,130 @@ namespace RocketBot2.Helpers
 {
     public class ResourceHelper
     {
+        public static Image ItemPicture(ItemData item)
+        {
+            switch (item.ItemId)
+            {
+                case ItemId.ItemBlukBerry:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/08/80WZSnw-150x150.png");
+                    }
+                case ItemId.ItemDragonScale:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/08/Pokemon-GO-Dragon_Scale-150x150.png");
+                    }
+                case ItemId.ItemGreatBall:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/07/Great-Ball.png");
+                    }
+                case ItemId.ItemHyperPotion:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/08/Hyper_Potion-Pokemon-Go.png");
+                    }
+                //case ItemId.ItemIncenseCool:
+                //case ItemId.ItemIncenseFloral:
+                case ItemId.ItemIncenseOrdinary:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/07/Incense.png");
+                    }
+                //case ItemId.ItemIncenseSpicy:
+                case ItemId.ItemIncubatorBasic:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/07/Pokemon-Go-Egg-Incubator-45x45.png");
+                    }
+                case ItemId.ItemIncubatorBasicUnlimited:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/07/Egg-Incubator-45x45.png");
+                    }
+                //case ItemId.ItemItemStorageUpgrade:
+                case ItemId.ItemKingsRock:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/08/Pokemon-GO-Kings-Rock-150x150.png");
+                    }
+                case ItemId.ItemLuckyEgg:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/07/Lucky-Eggs-150x150.png");
+                    }
+                case ItemId.ItemMasterBall:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/07/Master-Ball.png");
+                    }
+                case ItemId.ItemMaxPotion:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/08/Max-Potion-Pokemon-Go.png");
+                    }
+                case ItemId.ItemMaxRevive:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/08/Max-Revive-Pokemon-Go.png");
+                    }
+                case ItemId.ItemMetalCoat:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/08/Pokemon-GO-Metal-Coat-150x150.png");
+                    }
+                case ItemId.ItemNanabBerry:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/08/Nanab-Berry-Pokemon-GO.png");
+                    }
+                case ItemId.ItemPinapBerry:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/08/Pinap-Berry-Pokemon-GO.png");
+                    }
+                case ItemId.ItemPokeBall:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/07/PokeBall.png");
+                    }
+                //case ItemId.ItemPokemonStorageUpgrade:
+                case ItemId.ItemPotion:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/08/Potion-Pokemon-Go.png");
+                    }
+                case ItemId.ItemRazzBerry:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/08/Pokemon-Go-Razz-Berry-150x150.png");
+                    }
+                case ItemId.ItemRevive:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/08/Revive-Pokemon-Go.png");
+                    }
+                //case ItemId.ItemSpecialCamera:
+                case ItemId.ItemSunStone:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/08/Pokemon-GO-Sun-Stone-150x150.png");
+                    }
+                case ItemId.ItemSuperPotion:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/08/Super-Potion-Pokemon-Go.png");
+                    }
+                case ItemId.ItemTroyDisk:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/07/Lure-Modules.png");
+                    }
+                case ItemId.ItemUltraBall:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/07/Ultra-Ball.png");
+                    }
+                case ItemId.ItemUnknown:
+                    {
+                        return (Image)Properties.Resources.ResourceManager.GetObject("question");
+                    }
+                case ItemId.ItemUpGrade:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/08/Pokemon-GO-Up-Grade-150x150.png");
+                    }
+                case ItemId.ItemWeparBerry:
+                    {
+                        return LoadPicture($"https://boost-rankedboost.netdna-ssl.com/wp-content/uploads/2016/08/DOhPGVh-150x150.png");
+                    }
+                //case ItemId.ItemXAttack:
+                //case ItemId.ItemXDefense:
+                //case ItemId.ItemXMiracle:
+                default:
+                    {
+                        return (Image)Properties.Resources.ResourceManager.GetObject("question");
+                    }
+            }
+        }
+
         public static Image GetImage(string name)
         {
             var strSplit = name.Split('_');
@@ -45,7 +170,7 @@ namespace RocketBot2.Helpers
         {
             if (pokemonId > 151)
             {
-               return LoadPicture($"https://rankedboost.com/wp-content/plugins/ice/riot/poksimages/pokemons2/{pokemonId:000}.png");
+               return  LoadPicture($"https://rankedboost.com/wp-content/plugins/ice/riot/poksimages/pokemons2/{pokemonId:000}.png");
             }
             else
             {

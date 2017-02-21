@@ -1136,9 +1136,7 @@ namespace RocketBot2.Forms
                     .Where(aItems => aItems?.Item != null)
                     .SelectMany(aItems => aItems.Item)
                     .ToDictionary(item => item.ItemId, item => TimeHelper.FromUnixTimeUtc(item.ExpireMs));
-
-                var itemstotal = 0;
-
+                
                 flpItems.Controls.Clear();
 
                 foreach (var item in items)
@@ -1148,11 +1146,10 @@ namespace RocketBot2.Forms
                         box.expires = appliedItems[item.ItemId];
                     box.ItemClick += ItemBox_ItemClick;
                     flpItems.Controls.Add(box);
-                    itemstotal = itemstotal + item.Count;
                 }
 
             lblInventory.Text = 
-                    $"Types: {items.Count()} / Total: {itemstotal} / Storage: {_session.Client.Player.PlayerData.MaxItemStorage}";
+                    $"Types: {items.Count()} / Total: {_session.Inventory.GetTotalItemCount()} / Storage: {_session.Client.Player.PlayerData.MaxItemStorage}";
             }
             catch (ArgumentNullException)
             {

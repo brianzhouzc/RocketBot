@@ -1462,75 +1462,6 @@
 </value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="ItemBlukBerry" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Items\ItemBlukBerry.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemGreatBall" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Items\ItemGreatBall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemHyperPotion" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Items\ItemHyperPotion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemIncenseOrdinary" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Items\ItemIncenseOrdinary.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemIncubatorBasic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Items\ItemIncubatorBasic.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemIncubatorBasicUnlimited" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Items\ItemIncubatorBasicUnlimited.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemItemStorageUpgrade" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Items\ItemItemStorageUpgrade.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemLuckyEgg" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Items\ItemLuckyEgg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemMasterBall" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Items\ItemMasterBall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemMaxPotion" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Items\ItemMaxPotion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemMaxRevive" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Items\ItemMaxRevive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemNanabBerry" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Items\ItemNanabBerry.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemPinapBerry" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Items\ItemPinapBerry.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemPokeBall" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Items\ItemPokeBall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemPokemonStorageUpgrade" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Items\ItemPokemonStorageUpgrade.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemPotion" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Items\ItemPotion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemRazzBerry" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Items\ItemRazzBerry.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemRevive" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Items\ItemRevive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemSpecialCamera" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Items\ItemSpecialCamera.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemSuperPotion" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Items\ItemSuperPotion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemTroyDisk" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Items\ItemTroyDisk.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemUltraBall" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Items\ItemUltraBall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemWeparBerry" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Items\ItemWeparBerry.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Pokestop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Markers\Pokestop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -1554,20 +1485,5 @@
   </data>
   <data name="EncryptKey" xml:space="preserve">
     <value>Vy9UuYCmwv66rqLY</value>
-  </data>
-  <data name="ItemDragonScale" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\items\itemdragonscale.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemKingsRock" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\items\itemkingsrock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemMetalCoat" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\items\itemmetalcoat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemSunStone" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\items\itemsunstone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemUpGrade" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\items\itemupgrade.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
