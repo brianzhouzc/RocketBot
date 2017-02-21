@@ -1,13 +1,9 @@
-﻿using PoGo.NecroBot.Logic.State;
-using PoGo.NecroBot.Logic.Utils;
-using POGOProtos.Inventory.Item;
-using RocketBot2.Forms;
+﻿using POGOProtos.Inventory.Item;
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RocketBot2.Helpers
