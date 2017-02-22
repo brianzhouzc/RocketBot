@@ -369,6 +369,7 @@
     <Compile Include="Forms\ItemSetting.Designer.cs">
       <DependentUpon>ItemSetting.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logic\Tasks\EvolveSpecificPokemonTask.cs" />
     <Compile Include="Logic\Utils\RouteOptimizeUtil.cs" />
     <Compile Include="Logic\State\VersionCheckState.cs" />
     <Compile Include="Models\GMapMarkerPokestops.cs" />

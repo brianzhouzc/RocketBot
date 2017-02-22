@@ -982,7 +982,7 @@ namespace RocketBot2.Forms
             SetState(false);
             foreach (var pokemon in pokemons)
             {
-                await EvolveSpecificPokemonTask.Execute(_session, pokemon.Id);
+                await Logic.Tasks.EvolveSpecificPokemonTask.Execute(_session, pokemon.Id);
             }
             await ReloadPokemonList();
         }
