@@ -517,6 +517,10 @@
       "Value": "A Google szerverek valoszinuleg tulterheltek vagy lealltak, legy turelmes es probald ujra kesobb."
     },
     {
+      "Key": "missingCredentials",
+      "Value": "Ki kell toltened a Username es Password sorokat az auth.json fajlban!"
+    },
+    {
       "Key": "missingCredentialsGoogle",
       "Value": "Ki kell toltened a GoogleUsername es GooglePassword sorokat az auth.json fajlban!"
     },

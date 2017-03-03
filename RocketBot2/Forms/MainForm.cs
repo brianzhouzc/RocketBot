@@ -42,12 +42,14 @@ using System.Net;
 using RocketBot2.CommandLineUtility;
 using System.Diagnostics;
 using RocketBot2.Logic.Utils;
+using PokemonGo.RocketAPI;
 
 #endregion
 
 
 namespace RocketBot2.Forms
 {
+ 
     public partial class MainForm : Form
     {
         public static MainForm Instance;
@@ -132,6 +134,8 @@ namespace RocketBot2.Forms
         private void InitializeBot(Action<ISession, StatisticsAggregator> onBotStarted)
         {
             var ioc = TinyIoC.TinyIoCContainer.Current;
+            //Setup Logger for API
+            APIConfiguration.Logger = new APILogListener();
 
             //Application.EnableVisualStyles();
             var strCulture = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
@@ -248,7 +252,17 @@ namespace RocketBot2.Forms
                     // ignored
                 }
             }
-
+            
+            var options = new Options();
+            if (CommandLine.Parser.Default.ParseArguments(args, options))
+            {
+                // Values are available here
+                if (options.Init)
+                {
+                    settings.GenerateAccount(options.IsGoogle, options.Template, options.Start, options.End, options.Password);
+                }
+            }
+            
             var lastPosFile = Path.Combine(profileConfigPath, "LastPos.ini");
             if (File.Exists(lastPosFile) && settings.LocationConfig.StartFromLastPosition)
             {
@@ -380,6 +394,9 @@ namespace RocketBot2.Forms
 
             Logger.SetLoggerContext(_session);
 
+            MultiAccountManager accountManager = new MultiAccountManager(logicSettings.Bots);
+            ioc.Register<MultiAccountManager>(accountManager);
+
             if (boolNeedsSetup)
             {
                 StarterConfigForm configForm = new StarterConfigForm(_session, settings, elevationService, configFile);
@@ -482,8 +499,6 @@ namespace RocketBot2.Forms
 
             //ProgressBar.Fill(100);
 
-            var accountManager = new MultiAccountManager(logicSettings.Bots);
-
             var mainAccount = accountManager.Add(settings.Auth.AuthConfig);
 
             ioc.Register<MultiAccountManager>(accountManager);
@@ -511,10 +526,6 @@ namespace RocketBot2.Forms
 
             if (_settings.TelegramConfig.UseTelegramAPI)
                 _session.Telegram = new TelegramService(_settings.TelegramConfig.TelegramAPIKey, _session);
-
-            if (_session.LogicSettings.UseSnipeLocationServer ||
-                _session.LogicSettings.HumanWalkingSnipeUsePogoLocationFeeder)
-                await SnipePokemonTask.AsyncStart(_session);
 
             if (_session.LogicSettings.EnableHumanWalkingSnipe &&
                 _session.LogicSettings.HumanWalkingSnipeUseFastPokemap)

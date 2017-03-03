@@ -517,6 +517,10 @@
       "Value": "Serwery Google są prawdopodobnie wyłączone, proszę uzbroić się w cierpliwość i uruchomić bota później."
     },
     {
+      "Key": "missingCredentials",
+      "Value": "Wprowadź nazwę użytkownika (Username) oraz hasło (Password) w pliku 'auth.json'."
+    },
+    {
       "Key": "missingCredentialsGoogle",
       "Value": "Wprowadź nazwę użytkownika (GoogleUsername) oraz hasło (GooglePassword) w pliku 'auth.json'."
     },

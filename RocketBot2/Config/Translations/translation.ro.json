@@ -517,6 +517,10 @@
       "Value": "Serverele Google sunt probabil căzute. Te rugăm să ai răbdare și să pornești botul mai târziu."
     },
     {
+      "Key": "missingCredentials",
+      "Value": "Va trebui să completezi Username și Password în auth.json!"
+    },
+    {
       "Key": "missingCredentialsGoogle",
       "Value": "Va trebui să completezi GoogleUsername și GooglePassword în auth.json!"
     },

@@ -513,6 +513,10 @@
       "Value": "Server Google có thể đã sập. Hãy kiên nhẫn và mở bot sau 1 ít phút nữa."
     },
     {
+      "Key": "missingCredentials",
+      "Value": "Bạn cần điền Username và Password trong auth.json!"
+    },
+    {
       "Key": "missingCredentialsGoogle",
       "Value": "Bạn cần điền GoogleUsername và GooglePassword trong auth.json!"
     },

@@ -517,6 +517,10 @@
       "Value": "Google sunucuları şu an yanıt vermiyor. Daha sonra tekrar deneyin."
     },
     {
+      "Key": "missingCredentials",
+      "Value": "\"auth.json\" dosyasına Username ve Password değerlerini girmeniz gerekiyor!"
+    },
+    {
       "Key": "missingCredentialsGoogle",
       "Value": "\"auth.json\" dosyasına GoogleUsername ve GooglePassword değerlerini girmeniz gerekiyor!"
     },

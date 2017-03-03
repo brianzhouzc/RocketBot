@@ -484,6 +484,10 @@
       "Value": "Google servers are probably down, Please be patient and start the bot later."
     },
     {
+      "Key": "missingCredentials",
+      "Value": "És necessari omplir els camps Username i ePassword a l'arxiu auth.json!"
+    },
+    {
       "Key": "missingCredentialsGoogle",
       "Value": "És necessari omplir els camps GoogleUsername i GooglePassword a l'arxiu auth.json!"
     },

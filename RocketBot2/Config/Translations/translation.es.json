@@ -501,6 +501,10 @@
       "Value": "Los servidores de Google parecen caídos. Por favor, sea paciente e intente utilizar el bot más tarde."
     },
     {
+      "Key": "missingCredentials",
+      "Value": "Es necesario rellenar Username y Password en auth.json para utilizar el bot"
+    },
+    {
       "Key": "missingCredentialsGoogle",
       "Value": "Es necesario rellenar GoogleUsername y GooglePassword en auth.json para utilizar el bot"
     },

@@ -421,6 +421,10 @@
       "Value": "Googles servrar är antagligen nere. Var tålmodig och starta om boten senare."
     },
     {
+      "Key": "missingCredentials",
+      "Value": "Du kommer att behöva ange användarnamn och lösenord i filen auth.json"
+    },
+    {
       "Key": "missingCredentialsGoogle",
       "Value": "Du kommer att behöva ange Google-användarnamn och Google-lösenord i filen auth.json"
     },

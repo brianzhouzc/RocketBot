@@ -521,6 +521,10 @@
       "Value": "Server Google mungkin sedang mati, harap sabar dan jalankan bot-nya lain waktu."
     },
     {
+      "Key": "missingCredentials",
+      "Value": "Kamu harus mengisi Username dan Password di auth.json!"
+    },
+    {
       "Key": "missingCredentialsGoogle",
       "Value": "Kamu harus mengisi GoogleUsername dan GooglePassword di auth.json!"
     },
