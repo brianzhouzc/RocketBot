@@ -37,11 +37,10 @@ namespace RocketBot2.WebSocketHandler
         }
 
         // Registers all IWebSocketRequestHandler's automatically. 
-
         public static WebSocketEventManager CreateInstance()
         {
             var manager = new WebSocketEventManager();
-
+            
             var type = typeof(IWebSocketRequestHandler);
             var types = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(s => s.GetTypes())
@@ -52,7 +51,6 @@ namespace RocketBot2.WebSocketHandler
                 var instance = (IWebSocketRequestHandler) Activator.CreateInstance(plugin);
                 manager.RegisterHandler(instance.Command, instance);
             }
-
             return manager;
         }
     }

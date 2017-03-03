@@ -23,6 +23,7 @@ namespace RocketBot2.WebSocketHandler.GetCommands.Helpers
         }
 
         public double IvPerfection => PokemonInfo.CalculatePokemonPerfection(Base);
+        public double Level => PokemonInfo.GetLevel(Base);
         public int FamilyCandies => PokemonInfo.GetCandy(_session, Base);
     }
 }

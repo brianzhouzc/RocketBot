@@ -15,7 +15,7 @@ namespace RocketBot2
     {
         private static void HandleEvent(ErrorEvent errorEvent, ISession session)
         {
-            PushNotificationClient.SendNotification(session, "Error occured", errorEvent.Message);
+           PushNotificationClient.SendNotification(session, "Error occured", errorEvent.Message);
         }
        
         public static void HandleEvent(EncounteredEvent ev, ISession session)
