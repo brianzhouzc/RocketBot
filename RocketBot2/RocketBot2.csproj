@@ -526,6 +526,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Images\Miscs\Logo.png" />
+	<None Include="Resources\msvc.cer" />
     <Content Include="Resources\Ico.ico" />
     <EmbeddedResource Include="App.config">
       <SubType>Designer</SubType>
