@@ -1,2 +1,2 @@
 ﻿echo off
-Necrobot2.exe -provider excel
+RocketBot2.exe -provider excel
