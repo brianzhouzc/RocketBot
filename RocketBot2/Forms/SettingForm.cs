@@ -76,12 +76,12 @@ namespace RocketBot2.Forms
             #region Login Type and info
 
             authTypeCb.Text = _setting.Auth.AuthConfig.AuthType.ToString();
-            UserLoginBox.Text = _setting.Auth.AuthConfig.AuthType == AuthType.Google
+            UserLoginBox.Text = _setting.Auth.AuthConfig.Username; /*_setting.Auth.AuthConfig.AuthType == AuthType.Google
                 ? _setting.Auth.AuthConfig.GoogleUsername
-                : _setting.Auth.AuthConfig.PtcUsername;
-            UserPasswordBox.Text = _setting.Auth.AuthConfig.AuthType == AuthType.Google
+                : _setting.Auth.AuthConfig.PtcUsername;*/
+            UserPasswordBox.Text = _setting.Auth.AuthConfig.Password; /*_setting.Auth.AuthConfig.AuthType == AuthType.Google
                 ? _setting.Auth.AuthConfig.GooglePassword
-                : _setting.Auth.AuthConfig.PtcPassword;
+                : _setting.Auth.AuthConfig.PtcPassword;*/
 
             //google api
             if (_setting.GoogleWalkConfig.GoogleAPIKey != null)
@@ -469,11 +469,11 @@ namespace RocketBot2.Forms
                     File.Delete(lastPosFile);
                 }
                 _setting.Auth.AuthConfig.AuthType = authTypeCb.Text == @"Google" ? AuthType.Google : AuthType.Ptc;
-                if (_setting.Auth.AuthConfig.AuthType == AuthType.Google)
-                {
-                    _setting.Auth.AuthConfig.GoogleUsername = UserLoginBox.Text;
-                    _setting.Auth.AuthConfig.GooglePassword = UserPasswordBox.Text;
-                    _setting.Auth.AuthConfig.PtcUsername = null;
+                /*if (_setting.Auth.AuthConfig.AuthType == AuthType.Google)
+                {*/
+                    _setting.Auth.AuthConfig.Username = UserLoginBox.Text;
+                    _setting.Auth.AuthConfig.Password = UserPasswordBox.Text;
+                /*    _setting.Auth.AuthConfig.PtcUsername = null;
                     _setting.Auth.AuthConfig.PtcPassword = null;
                 }
                 else
@@ -482,7 +482,7 @@ namespace RocketBot2.Forms
                     _setting.Auth.AuthConfig.GooglePassword = null;
                     _setting.Auth.AuthConfig.PtcUsername = UserLoginBox.Text;
                     _setting.Auth.AuthConfig.PtcPassword = UserPasswordBox.Text;
-                }
+                }*/
                 _setting.GoogleWalkConfig.GoogleAPIKey = GoogleApiBox.Text == "" ? null : GoogleApiBox.Text;
                 _setting.Auth.ProxyConfig.UseProxy = useProxyCb.Checked == true ? true : false;
                 _setting.Auth.ProxyConfig.UseProxyHost = proxyHostTb.Text == "" ? null : proxyHostTb.Text;
@@ -625,7 +625,7 @@ namespace RocketBot2.Forms
 
                 _setting.PlayerConfig.DelayBetweenPlayerActions = ConvertStringToInt(tbDelayBetweenPlayerActions.Text);
                 _setting.PokemonConfig.DelayBetweenPokemonCatch = ConvertStringToInt(tbDelayBetweenPokemonCatch.Text);
-           //     _setting.PlayerConfig.DelayBetweenRecycle = ConvertStringToInt(tbDelayBetweenRecycle.Text);
+                //_setting.PlayerConfig.DelayBetweenRecycle = ConvertStringToInt(tbDelayBetweenRecycle.Text);
 
                 _setting.RecycleConfig.RandomizeRecycle = cbRandomizeRecycle.Checked;
                 _setting.RecycleConfig.RandomRecycleValue = ConvertStringToInt(tbRandomRecycleValue.Text);
