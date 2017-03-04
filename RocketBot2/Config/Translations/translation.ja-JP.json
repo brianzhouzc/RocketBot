@@ -517,6 +517,10 @@
       "Value": "おそらくGoogleがサーバダウンしています。しばらく経ってからBOTを開始してください。"
     },
     {
+      "Key": "missingCredentials",
+      "Value": "auth.jsonにユーザー名とパスワードが記述されていません！"
+    },
+    {
       "Key": "missingCredentialsGoogle",
       "Value": "auth.jsonにGoogleのユーザー名とパスワードが記述されていません！"
     },

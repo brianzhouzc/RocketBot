@@ -425,6 +425,10 @@
       "Value": "Можливо, сервери не працюють, зачекайте та перезапустіть программу пізніше."
     },
     {
+      "Key": "missingCredentials",
+      "Value": "Вам потрібно заповнити налаштування Username і Password в auth.json!"
+    },
+    {
       "Key": "missingCredentialsGoogle",
       "Value": "Вам потрібно заповнити налаштування GoogleUsername і GooglePassword в auth.json!"
     },

@@ -409,6 +409,10 @@
       "Value": "[Pokémon-Ignore-Filter] - Ignorerer {0} som angivet i indstillingerne!"
     },
     {
+      "Key": "MissingCredentials",
+      "Value": "Du er nød til at fylde Username og Password ud i auth.json!"
+    },
+    {
       "Key": "MissingCredentialsGoogle",
       "Value": "Du er nød til at fylde GoogleUsername og GooglePassword ud i auth.json!"
     },

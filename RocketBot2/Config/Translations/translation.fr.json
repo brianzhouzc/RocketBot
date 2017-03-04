@@ -501,6 +501,10 @@
       "Value": "Google servers are probably down, Please be patient and start the bot later."
     },
     {
+      "Key": "missingCredentials",
+      "Value": "Vous devez remplir les champs Username et Password dans auth.json!"
+    },
+    {
       "Key": "missingCredentialsGoogle",
       "Value": "Vous devez remplir les champs GoogleUsername et GooglePassword dans auth.json!"
     },

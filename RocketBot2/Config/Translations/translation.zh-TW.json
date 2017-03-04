@@ -521,6 +521,10 @@
       "Value": "無法連上 Google 伺服器，請稍後再試，謝謝您的耐心等候。\t\t"
     },
     {
+      "Key": "missingCredentials",
+      "Value": "您需要在 auth.json 中填寫帳號和密碼！\t\t"
+    },
+    {
       "Key": "missingCredentialsGoogle",
       "Value": "您需要在 auth.json 中填寫 Google 帳號和密碼！\t\t"
     },

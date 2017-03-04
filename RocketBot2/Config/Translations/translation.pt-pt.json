@@ -421,6 +421,10 @@
       "Value": "Os servidores da google provavelmente estão offline. Sê paciente e tenta iniciar o bot novamente, mais tarde."
     },
     {
+      "Key": "missingCredentials",
+      "Value": "Precisas de definir o Username e Password no ficheiro auth.json!"
+    },
+    {
       "Key": "missingCredentialsGoogle",
       "Value": "Precisas de definir o GoogleUsername e GooglePassword no ficheiro auth.json!"
     },

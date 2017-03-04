@@ -103,7 +103,7 @@ namespace RocketBot2
                 clientData.Pokemons.Add(eve);
             }
         }
-        private static SnipePokemonUpdateEvent lastEncouteredEvent;
+        //private static SnipePokemonUpdateEvent lastEncouteredEvent;
         private static void HandleEvent(SnipePokemonUpdateEvent eve, ISession session)
         {
             lock(clientData)
@@ -162,14 +162,11 @@ namespace RocketBot2
                 Logger.Write($"Connecting to {socketURL} ....");
                 await ConnectToServer(session, socketURL);
                 servers.Enqueue(socketURL);
-                File.WriteAllLines("debug.log", new string[] { $"server queue {servers.Count}" });  
             }
 
         }
         public static async Task ConnectToServer(ISession session, string socketURL)
         {
-            File.WriteAllLines("debug.log", new string[] { $"new connect to {socketURL}" });
-
             if (!string.IsNullOrEmpty(session.LogicSettings.DataSharingConfig.SnipeDataAccessKey))
             {
                 socketURL += "&access_key=" + session.LogicSettings.DataSharingConfig.SnipeDataAccessKey;
@@ -193,7 +190,6 @@ namespace RocketBot2
                     {
                         if (retries == 3)
                         {
-                            File.WriteAllLines("debug.log", new string[] { $"Couldn't establish the connection to necro socket server : {socketURL}" });
                             //failed to make connection to server  times contiuing, temporary stop for 10 mins.
                             session.EventDispatcher.Send(new WarnEvent()
                             {
@@ -238,7 +234,6 @@ namespace RocketBot2
                         {
                             Message = "Disconnect to necro socket. New connection will be established when service available..."
                         });
-                        File.WriteAllLines("debug.log", new string[] { $"Disconnect to necro socket. New connection will be established when service available." });
 
                     }
                     catch (Exception)
@@ -277,14 +272,18 @@ namespace RocketBot2
             }
         }
 
+        private static DateTime lastWarningMessage = DateTime.MinValue;
         private static void OnServerMessage(ISession session, string message)
         {
             var match = Regex.Match(message, "42\\[\"server-message\",(.*)]");
             if (match != null && !string.IsNullOrEmpty(match.Groups[1].Value))
             {
+                var messag = match.Groups[1].Value;
+                if (message.Contains("The connection has been denied") && lastWarningMessage > DateTime.Now.AddMinutes(-5)) return;
+                lastWarningMessage = DateTime.Now;
                 session.EventDispatcher.Send(new NoticeEvent()
                 {
-                    Message = "(SERVER) " + match.Groups[1].Value
+                    Message = "(SNIPE SERVER) " + match.Groups[1].Value
                 });
             }
         }
@@ -307,7 +306,7 @@ namespace RocketBot2
             ISession session)
         {
             string uniqueCacheKey =
-                $"{session.Settings.PtcUsername}{session.Settings.GoogleUsername}{Math.Round(lat, 6)}{id}{Math.Round(lng, 6)}";
+                $"{session.Settings.Username}{Math.Round(lat, 6)}{id}{Math.Round(lng, 6)}";
             if (session.Cache.Get(uniqueCacheKey) != null) return true;
             if (encounterId > 0 && session.Cache[encounterId.ToString()] != null) return true;
 
@@ -335,7 +334,7 @@ namespace RocketBot2
 
         private static MemoryCache cache = new MemoryCache("dump");
 
-        static int count = 0;
+        //static int count = 0;
         private static void OnPokemonData(ISession session, string message)
         {
             var match = Regex.Match(message, "42\\[\"pokemon\",(.*)]");

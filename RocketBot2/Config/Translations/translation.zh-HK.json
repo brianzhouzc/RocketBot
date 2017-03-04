@@ -513,6 +513,10 @@
       "Value": "無法連接 Google 服務器，請稍後再試"
     },
     {
+      "Key": "missingCredentials",
+      "Value": "您需要在 auth.json 中填寫帳戶和密碼！"
+    },
+    {
       "Key": "missingCredentialsGoogle",
       "Value": "您需要在 auth.json 中填寫 Google 帳戶和密碼！"
     },

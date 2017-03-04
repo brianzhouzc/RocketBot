@@ -441,6 +441,10 @@
       "Value": "Google servery pravděpodobně nefungují, prosím buďte trpělivý a spusťte program později."
     },
     {
+      "Key": "MissingCredentials",
+      "Value": "Musíte vyplnit Username a Password v auth.json!"
+    },
+    {
       "Key": "MissingCredentialsGoogle",
       "Value": "Musíte vyplnit GoogleUsername a GooglePassword v auth.json!"
     },

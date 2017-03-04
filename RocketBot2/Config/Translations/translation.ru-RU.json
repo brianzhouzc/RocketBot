@@ -513,6 +513,10 @@
       "Value": "Google servers are probably down, Please be patient and start the bot later."
     },
     {
+      "Key": "missingCredentials",
+      "Value": "Вам нужно заполнить настройки Username и Password в auth.json!"
+    },
+    {
       "Key": "missingCredentialsGoogle",
       "Value": "Вам нужно заполнить настройки GoogleUsername и GooglePassword в auth.json!"
     },

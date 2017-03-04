@@ -517,6 +517,10 @@
       "Value": "Google服务器可能正在维护, 请稍后再尝试登录.\t\t"
     },
     {
+      "Key": "missingCredentials",
+      "Value": "您需要在auth.json中填写账号和密码!\t\t"
+    },
+    {
       "Key": "missingCredentialsGoogle",
       "Value": "您需要在auth.json中填写Google账号和密码!\t\t"
     },

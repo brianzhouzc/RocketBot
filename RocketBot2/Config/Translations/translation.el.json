@@ -421,6 +421,10 @@
       "Value": "Οι Σερβερ της Google είναι πιθανόν εκτός λειτουργίας, παρακαλούμε κάντε υπομονή και τρέξτε το bot αργότερα."
     },
     {
+      "Key": "missingCredentials",
+      "Value": "Πρέπει να συμπλήρωσεις τα Username και Password στο auth.json!"
+    },
+    {
       "Key": "missingCredentialsGoogle",
       "Value": "Πρέπει να συμπλήρωσεις τα GoogleUsername και GooglePassword στο auth.json!"
     },
