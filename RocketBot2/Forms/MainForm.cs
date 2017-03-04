@@ -48,8 +48,7 @@ using PokemonGo.RocketAPI;
 
 
 namespace RocketBot2.Forms
-{
- 
+{ 
     public partial class MainForm : Form
     {
         public static MainForm Instance;
