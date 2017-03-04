@@ -152,8 +152,8 @@ test: off
 
 artifacts:
 
-  #- path: '\$(PLATFORM)\$(CONFIGURATION)\RocketBot2'
-  #  name: Release
+  - path: '\$(PLATFORM)\$(CONFIGURATION)\RocketBot2'
+    name: Release
     
   - path: '\$(PLATFORM)\$(CONFIGURATION)\android-debug.apk'
     name: android-debug
@@ -178,8 +178,7 @@ deploy:
     description: '[README.md](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/README.md)'
     release: RocketBot2 $(APPVEYOR_REPO_TAG_NAME)
     auth_token: $(auth_token)
-#    artifact: Release;android-debug;android-debug-unaligned;android-release-unsigned
-    artifact:android-debug;android-debug-unaligned;android-release-unsigned
+    artifact: Release;android-debug;android-debug-unaligned;android-release-unsigned
     draft: false
     prerelease: false
     force_update: true
