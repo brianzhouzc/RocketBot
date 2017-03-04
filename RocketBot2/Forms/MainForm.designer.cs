@@ -178,7 +178,7 @@ namespace RocketBot2.Forms
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(643, 239);
+            this.gMapControl1.Size = new System.Drawing.Size(643, 245);
             this.gMapControl1.TabIndex = 23;
             this.gMapControl1.Zoom = 0D;
             // 
@@ -222,7 +222,7 @@ namespace RocketBot2.Forms
             this.pkmnPowerUpButton,
             this.pkmnEvolveButton});
             this.olvPokemonList.ContextMenuStrip = this.cmsPokemonList;
-            this.olvPokemonList.Cursor = System.Windows.Forms.Cursors.Default;
+            this.olvPokemonList.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.olvPokemonList.FullRowSelect = true;
             this.olvPokemonList.GridLines = true;
             this.olvPokemonList.LargeImageList = this.largePokemonImageList;
@@ -231,7 +231,7 @@ namespace RocketBot2.Forms
             this.olvPokemonList.Name = "olvPokemonList";
             this.olvPokemonList.RowHeight = 32;
             this.olvPokemonList.ShowGroups = false;
-            this.olvPokemonList.Size = new System.Drawing.Size(678, 352);
+            this.olvPokemonList.Size = new System.Drawing.Size(680, 352);
             this.olvPokemonList.SmallImageList = this.smallPokemonImageList;
             this.olvPokemonList.TabIndex = 25;
             this.olvPokemonList.UseCompatibleStateImageBehavior = false;
@@ -249,7 +249,7 @@ namespace RocketBot2.Forms
             // 
             this.pkmnCP.AspectName = "Cp";
             this.pkmnCP.Text = "CP";
-            this.pkmnCP.Width = 51;
+            this.pkmnCP.Width = 40;
             // 
             // pkmnAtkIV
             // 
@@ -369,10 +369,10 @@ namespace RocketBot2.Forms
             this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnRefresh.Location = new System.Drawing.Point(2, 509);
+            this.btnRefresh.Location = new System.Drawing.Point(2, 511);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(678, 28);
+            this.btnRefresh.Size = new System.Drawing.Size(680, 28);
             this.btnRefresh.TabIndex = 26;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -494,10 +494,10 @@ namespace RocketBot2.Forms
             // 
             this.lblInventory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblInventory.Location = new System.Drawing.Point(2, 486);
-            this.lblInventory.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblInventory.Location = new System.Drawing.Point(2, 492);
+            this.lblInventory.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.lblInventory.Name = "lblInventory";
-            this.lblInventory.Size = new System.Drawing.Size(679, 19);
+            this.lblInventory.Size = new System.Drawing.Size(680, 16);
             this.lblInventory.TabIndex = 33;
             this.lblInventory.Text = "0 / 0 ";
             this.lblInventory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -513,7 +513,7 @@ namespace RocketBot2.Forms
             this.flpItems.Location = new System.Drawing.Point(2, 374);
             this.flpItems.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.flpItems.Name = "flpItems";
-            this.flpItems.Size = new System.Drawing.Size(678, 108);
+            this.flpItems.Size = new System.Drawing.Size(680, 113);
             this.flpItems.TabIndex = 32;
             // 
             // lblPokemonList
@@ -521,9 +521,9 @@ namespace RocketBot2.Forms
             this.lblPokemonList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPokemonList.Location = new System.Drawing.Point(3, 354);
-            this.lblPokemonList.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblPokemonList.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.lblPokemonList.Name = "lblPokemonList";
-            this.lblPokemonList.Size = new System.Drawing.Size(670, 16);
+            this.lblPokemonList.Size = new System.Drawing.Size(680, 16);
             this.lblPokemonList.TabIndex = 27;
             this.lblPokemonList.Text = "0 / 0";
             this.lblPokemonList.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
