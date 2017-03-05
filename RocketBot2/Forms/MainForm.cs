@@ -390,10 +390,9 @@ namespace RocketBot2.Forms
                 }
             }
 
-            _session = new Session(
-                new ClientSettings(settings, elevationService), logicSettings, elevationService,
-                translation
-            );
+            _session = new Session(settings,
+                new ClientSettings(settings, elevationService), logicSettings, elevationService, translation);
+
             ioc.Register<ISession>(_session);
 
             Logger.SetLoggerContext(_session);

@@ -156,7 +156,7 @@ namespace RocketBot2
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            while (true)
+            while (true && !termintated)
             {
                 var socketURL = servers.Dequeue();
                 Logger.Write($"Connecting to {socketURL} ....");
@@ -184,7 +184,7 @@ namespace RocketBot2
                 ws.OnMessage += (sender, e) => { onSocketMessageRecieved(session, sender, e); };
 
                 ws.Connect();
-                while (true)
+                while (true && !termintated)
                 {
                     try
                     {
@@ -209,7 +209,7 @@ namespace RocketBot2
                             ws.Connect();
                         }
 
-                        while (ws.ReadyState == WebSocketState.Open)
+                        while (ws.ReadyState == WebSocketState.Open && !termintated)
                         {
                             //Logger.Write("Connected to necrobot data service.");
                             retries = 0;
@@ -257,27 +257,23 @@ namespace RocketBot2
                 OnPokemonData(session, e.Data);
                 OnSnipePokemon(session, e.Data);
                 OnServerMessage(session, e.Data);
-                //ONFPMBridgeData(session, e.Data); //Nolonger use
             }
-
-#pragma warning disable 0168 // Comment Suppress compiler warning - ex is used in DEBUG section
             catch (Exception ex)
-#pragma warning restore 0168
             {
-                // Comment Suppress compiler warning - ex is used in DEBUG section
-#if DEBUG
-                Logger.Write("ERROR TO ADD SNIPE< DEBUG ONLY " + ex.Message + "\r\n " + ex.StackTrace,
-                    PoGo.NecroBot.Logic.Logging.LogLevel.Info, ConsoleColor.Yellow);
-#endif
+                Logger.Debug("ERROR TO ADD SNIPE< DEBUG ONLY " + ex.Message + "\r\n " + ex.StackTrace);
             }
         }
 
         private static DateTime lastWarningMessage = DateTime.MinValue;
+        private static bool termintated = false;
         private static void OnServerMessage(ISession session, string message)
         {
             var match = Regex.Match(message, "42\\[\"server-message\",(.*)]");
             if (match != null && !string.IsNullOrEmpty(match.Groups[1].Value))
             {
+                if (message.Contains("The connection has been denied")) {
+                    termintated = true;
+                }
                 var messag = match.Groups[1].Value;
                 if (message.Contains("The connection has been denied") && lastWarningMessage > DateTime.Now.AddMinutes(-5)) return;
                 lastWarningMessage = DateTime.Now;
@@ -312,6 +308,7 @@ namespace RocketBot2
 
             return false;
         }
+
         private static void OnPokemonUpdateData(ISession session, string message)
         {
             var match = Regex.Match(message, "42\\[\"pokemon-update\",(.*)]");
