@@ -70,7 +70,7 @@ namespace RocketBot2.Forms
 
             if (!radHashServer.Checked && !radLegacy.Checked)
             {
-                MessageBox.Show("Please select 1 API method", "Config error",
+                MessageBox.Show("Please select an API method", "Config error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }

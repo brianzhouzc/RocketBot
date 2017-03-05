@@ -424,11 +424,11 @@
     <Compile Include="WebSocketInterface.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Config\log4net.config" />
-    <None Include="Config\log4net.unix.config" />
     <None Include="cert.pfx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Config\log4net.config" />
+    <None Include="Config\log4net.unix.config" />
     <None Include="Config\Translations\translation.ca.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -441,6 +441,9 @@
     <None Include="Config\Translations\translation.de.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Config\Translations\translation.el.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Config\Translations\translation.es.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -448,9 +451,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Config\Translations\translation.fr.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Config\Translations\translation.el.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Config\Translations\translation.hu.json">
@@ -480,10 +480,10 @@
     <None Include="Config\Translations\translation.pl.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Config\Translations\translation.pt-BR.json">
+    <None Include="Config\Translations\translation.pt-br.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Config\Translations\translation.pt-PT.json">
+    <None Include="Config\Translations\translation.pt-pt.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Config\Translations\translation.ro.json">
@@ -513,10 +513,10 @@
     <None Include="Config\Translations\translation.zh-CN_pp.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Config\Translations\translation.zh-TW.json">
+    <None Include="Config\Translations\translation.zh-HK.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Config\Translations\translation.zh-HK.json">
+    <None Include="Config\Translations\translation.zh-TW.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="RunWithExcelConfig.bat">

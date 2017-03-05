@@ -541,6 +541,10 @@ namespace RocketBot2.Forms
                 #pragma warning restore 4014
             }
 
+            if (_session.LogicSettings.UseSnipeLocationServer ||
+             _session.LogicSettings.HumanWalkingSnipeUsePogoLocationFeeder)
+                await SnipePokemonTask.AsyncStart(_session);
+
             if (_session.LogicSettings.DataSharingConfig.EnableSyncData)
             {
                 await BotDataSocketClient.StartAsync(_session);
