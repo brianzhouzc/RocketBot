@@ -243,10 +243,6 @@
       <HintPath>$(SolutionDir)\packages\CloudFlareUtilities.0.2.1-alpha\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\CloudFlareUtilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="crypto, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\Portable.BouncyCastle.1.8.1.1\lib\netstandard1.0\crypto.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="GeoCoordinate.NetStandard1, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\GeoCoordinate.NetStandard1.1.0.0\lib\netstandard1.0\GeoCoordinate.NetStandard1.dll</HintPath>
       <Private>True</Private>
@@ -255,20 +251,12 @@
       <HintPath>$(SolutionDir)\packages\System.IO.Compression.ZipFile.4.0.1\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="LightInject, Version=4.1.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\LightInject.4.1.5\lib\net45\LightInject.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ObjectListView, Version=2.9.1.1072, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\ObjectListView.Official.2.9.1\lib\net20\ObjectListView.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="PushbulletSharp, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\PushBulletSharp.2.3.3\lib\portable-windows8+net45\PushbulletSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="S2Geometry, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
