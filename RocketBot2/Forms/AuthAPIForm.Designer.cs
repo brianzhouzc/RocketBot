@@ -42,7 +42,7 @@
             // btnOK
             // 
             this.btnOK.Location = new System.Drawing.Point(81, 347);
-            this.btnOK.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btnOK.Margin = new System.Windows.Forms.Padding(5);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(101, 35);
             this.btnOK.TabIndex = 0;
@@ -63,7 +63,7 @@
             // txtAPIKey
             // 
             this.txtAPIKey.Location = new System.Drawing.Point(16, 178);
-            this.txtAPIKey.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtAPIKey.Margin = new System.Windows.Forms.Padding(5);
             this.txtAPIKey.Name = "txtAPIKey";
             this.txtAPIKey.Size = new System.Drawing.Size(303, 27);
             this.txtAPIKey.TabIndex = 2;
@@ -72,7 +72,7 @@
             // 
             this.radLegacy.AutoSize = true;
             this.radLegacy.Location = new System.Drawing.Point(21, 61);
-            this.radLegacy.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.radLegacy.Margin = new System.Windows.Forms.Padding(5);
             this.radLegacy.Name = "radLegacy";
             this.radLegacy.Size = new System.Drawing.Size(241, 24);
             this.radLegacy.TabIndex = 3;
@@ -96,7 +96,7 @@
             // 
             this.radHashServer.AutoSize = true;
             this.radHashServer.Location = new System.Drawing.Point(21, 114);
-            this.radHashServer.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.radHashServer.Margin = new System.Windows.Forms.Padding(5);
             this.radHashServer.Name = "radHashServer";
             this.radHashServer.Size = new System.Drawing.Size(300, 24);
             this.radHashServer.TabIndex = 5;
@@ -123,15 +123,15 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(347, 80);
             this.label3.TabIndex = 7;
-            this.label3.Text = "We don\'t provide key, you have to buy it  from Pogodev. RPM = Request per minute," +
-    " it depend on how fast your config setup.  150RPM will sufficient enought for 2-" +
-    "3 normal bot. ";
+            this.label3.Text = "We don\'t provide key, you will have to buy it  from Pogodev. RPM = Request per mi" +
+    "nute, it depend on how fast your config setup.  150RPM will sufficient enought f" +
+    "or 2-3 normal bot. ";
             // 
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(189, 347);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(5);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(101, 35);
             this.btnCancel.TabIndex = 8;
@@ -155,7 +155,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnOK);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "AuthAPIForm";
             this.ShowInTaskbar = false;
             this.Text = "APIConfig";

@@ -48,8 +48,7 @@ using PokemonGo.RocketAPI;
 
 
 namespace RocketBot2.Forms
-{
- 
+{ 
     public partial class MainForm : Form
     {
         public static MainForm Instance;
@@ -391,10 +390,9 @@ namespace RocketBot2.Forms
                 }
             }
 
-            _session = new Session(
-                new ClientSettings(settings, elevationService), logicSettings, elevationService,
-                translation
-            );
+            _session = new Session(settings,
+                new ClientSettings(settings, elevationService), logicSettings, elevationService, translation);
+
             ioc.Register<ISession>(_session);
 
             Logger.SetLoggerContext(_session);
@@ -541,6 +539,10 @@ namespace RocketBot2.Forms
                     _session.CancellationTokenSource.Token); // that need to keep data live
                 #pragma warning restore 4014
             }
+
+            if (_session.LogicSettings.UseSnipeLocationServer ||
+             _session.LogicSettings.HumanWalkingSnipeUsePogoLocationFeeder)
+                await SnipePokemonTask.AsyncStart(_session);
 
             if (_session.LogicSettings.DataSharingConfig.EnableSyncData)
             {
@@ -698,7 +700,7 @@ namespace RocketBot2.Forms
                 Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4) { DashStyle = DashStyle.Dash }
             };
 
-            if (encounterPokemonsCount > 15 || encounterPokemonsCount == 0)
+            if (encounterPokemonsCount > 5 || encounterPokemonsCount == 0)
             {
                 _playerOverlay.Markers.Clear();
                 _pokemonsOverlay.Markers.Clear();
