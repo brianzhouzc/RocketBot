@@ -697,7 +697,7 @@ namespace RocketBot2.Forms
                 Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4) { DashStyle = DashStyle.Dash }
             };
 
-            if (encounterPokemonsCount > 15 || encounterPokemonsCount == 0)
+            if (encounterPokemonsCount > 5 || encounterPokemonsCount == 0)
             {
                 _playerOverlay.Markers.Clear();
                 _pokemonsOverlay.Markers.Clear();
