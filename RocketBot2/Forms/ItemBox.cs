@@ -31,11 +31,11 @@ namespace RocketBot2.Forms
 
             if (item.ItemId == ItemId.ItemIncubatorBasic 
                 || item.ItemId == ItemId.ItemIncubatorBasicUnlimited 
-                || item.ItemId == ItemId.ItemDragonScale
+              /*|| item.ItemId == ItemId.ItemDragonScale
                 || item.ItemId == ItemId.ItemKingsRock
                 || item.ItemId == ItemId.ItemMetalCoat
                 || item.ItemId == ItemId.ItemSunStone
-                || item.ItemId == ItemId.ItemUpGrade
+                || item.ItemId == ItemId.ItemUpGrade*/
                 || item.Count < 1)
             {
                 Enabled = false;
