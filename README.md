@@ -28,14 +28,14 @@ See https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer for pricing 
 
 ## Images
 <img src="https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/MainForm.png" width="865">
-<img src="https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/SettingForm.png" width="430">
-<img src="https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/SettingForm_2.png" width="430">
-<img src="https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/SettingForm_3.png" width="430">
-<img src="https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/SettingForm_4.png" width="430">
-<img src="https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/SettingForm_5.png" width="430">
-<img src="https://cdn.discordapp.com/attachments/270204623019573250/271006046418370561/0cbc77ee-ce24-11e6-8201-0dd75a004e26.png" width="430">
-<img src="https://cdn.discordapp.com/attachments/270204623019573250/271006060532334592/268e24aa-cfa1-11e6-9c0f-16429cc474bb.png" width="430">
-<img src="https://cdn.discordapp.com/attachments/270204623019573250/272446141411491841/Sans_titre.png" width="430">
+<img src="https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/SettingForm.png" width="430" height="286">
+<img src="https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/SettingForm_2.png" width="430" height="286">
+<img src="https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/SettingForm_3.png" width="430" height="286">
+<img src="https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/SettingForm_4.png" width="430" height="286">
+<img src="https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/SettingForm_5.png" width="430" height="286">
+<img src="https://cdn.discordapp.com/attachments/270204623019573250/272446141411491841/Sans_titre.png" width="430" height="286">
+<img src="https://cdn.discordapp.com/attachments/270204623019573250/271006046418370561/0cbc77ee-ce24-11e6-8201-0dd75a004e26.png" width="430" height="286">
+<img src="https://cdn.discordapp.com/attachments/270204623019573250/271006060532334592/268e24aa-cfa1-11e6-9c0f-16429cc474bb.png" width="430" height="286">
 
 A Pokémon Go bot in C#
 
