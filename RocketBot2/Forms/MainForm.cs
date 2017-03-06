@@ -534,7 +534,6 @@ namespace RocketBot2.Forms
 
         private async Task StartBot()
         {
-            accountsToolStripMenuItem.Enabled = false;
             await _machine.AsyncStart(new Logic.State.VersionCheckState(), _session, _subPath, _excelConfigAllow);
 
             /*try
@@ -834,6 +833,7 @@ namespace RocketBot2.Forms
                 return;
             }
             startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
+            accountsToolStripMenuItem.Enabled = false;
             _botStarted = true;
             btnRefresh.Enabled = true;
             Task.Run(StartBot);
