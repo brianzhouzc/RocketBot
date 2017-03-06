@@ -530,11 +530,11 @@ namespace RocketBot2.Forms
             }
             else
             {  menuStrip1.Items.Remove(accountsToolStripMenuItem); }
-            
         }
 
         private async Task StartBot()
         {
+            accountsToolStripMenuItem.Enabled = false;
             await _machine.AsyncStart(new Logic.State.VersionCheckState(), _session, _subPath, _excelConfigAllow);
 
             /*try
