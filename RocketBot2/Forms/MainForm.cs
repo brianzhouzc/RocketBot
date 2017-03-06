@@ -513,6 +513,24 @@ namespace RocketBot2.Forms
             _machine = machine;
             _settings = settings;
             _excelConfigAllow = excelConfigAllow;
+
+            if (accountManager.Accounts.Count > 1)
+            {
+                foreach (var item in accountManager.Accounts)
+                {
+                    var _item = new ToolStripMenuItem();
+                    _item.Text = item.Username;
+                    _item.Click += delegate
+                    {
+                        accountManager.SwitchAccountTo(item);
+                        _session.ReInitSessionWithNextBot(item);
+                    };
+                    accountsToolStripMenuItem.DropDownItems.Add(_item);
+                }
+            }
+            else
+            {  menuStrip1.Items.Remove(accountsToolStripMenuItem); }
+            
         }
 
         private async Task StartBot()
@@ -1108,7 +1126,7 @@ namespace RocketBot2.Forms
                     }
                     continue;
                 }
-                await RenameSinglePokemonTask.Execute(_session, pokemon.Id, nickname,_session.CancellationTokenSource.Token);
+                await RenameSinglePokemonTask.Execute(_session, pokemon.Id, nickname, _session.CancellationTokenSource.Token);
             }
             await ReloadPokemonList();
         }
