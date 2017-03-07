@@ -793,9 +793,11 @@ namespace RocketBot2.Forms
             if (text.Contains("PokemonGo.RocketAPI.Exceptions.InvalidResponseException: Error with API request type: DownloadRemoteConfigVersion"))
             {
                 Instance.logTextBox.SelectionColor = Color.Red;
-                Instance.logTextBox.AppendText($"Error with API request type: DownloadRemoteConfigVersion\r\nPlease restart bot.\r\n");
+                Instance.logTextBox.AppendText($"Error with API request type: DownloadRemoteConfigVersion\r\nRocketBot restart in 5 seconds.\r\n");
                 Instance.logTextBox.ScrollToCaret();
                 Instance._botStarted = false;
+                Task.Delay(5000);
+                Application.Restart();
                 return;
             }
 
@@ -1419,7 +1421,7 @@ namespace RocketBot2.Forms
                 }
             }
             */
-            DialogResult result = MessageBox.Show("Do you want to override killswitch to bot at your own risk? Y/N \n\r" + strReason, Application.ProductName + " - Use Old API detected", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult result = MessageBox.Show($"{strReason} \n\r Do you want to override killswitch to bot at your own risk? Y/N", $"{Application.ProductName} - Old API detected", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             switch (result)
             {
                 case DialogResult.Yes: return true;
