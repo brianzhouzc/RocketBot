@@ -793,10 +793,10 @@ namespace RocketBot2.Forms
             if (text.Contains("PokemonGo.RocketAPI.Exceptions.InvalidResponseException: Error with API request type: DownloadRemoteConfigVersion"))
             {
                 Instance.logTextBox.SelectionColor = Color.Red;
-                Instance.logTextBox.AppendText($"Error with API request type: DownloadRemoteConfigVersion\r\nRocketBot restart in 5 seconds.\r\n");
+                Instance.logTextBox.AppendText($"Error with API request type: DownloadRemoteConfigVersion\r\nRocketBot restart in 10 seconds.\r\n");
                 Instance.logTextBox.ScrollToCaret();
                 Instance._botStarted = false;
-                Task.Delay(5000);
+                Task.Delay(10000);
                 Application.Restart();
                 return;
             }
