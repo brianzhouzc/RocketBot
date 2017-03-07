@@ -18,7 +18,6 @@ using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using POGOProtos.Data;
-using POGOProtos.Inventory;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Fort;
 using POGOProtos.Map.Pokemon;
@@ -48,7 +47,7 @@ using PokemonGo.RocketAPI;
 
 
 namespace RocketBot2.Forms
-{ 
+{
     public partial class MainForm : Form
     {
         public static MainForm Instance;
@@ -784,12 +783,12 @@ namespace RocketBot2.Forms
                 return;
             if (Instance.InvokeRequired)
             {
-                Instance.Invoke(new Action<Color, string>(ColoredConsoleWrite), color, text.Replace("NecroBot", "RocketBot"));
+                Instance.Invoke(new Action<Color, string>(ColoredConsoleWrite), color, text);
                 return;
             }
             Instance.logTextBox.SelectionColor = color;
-            Instance.logTextBox.AppendText(text + "\n");
-            Instance.logTextBox.Select(Instance.logTextBox.Text.Length, +1);
+            Instance.logTextBox.AppendText(text + $"\r\n");
+            //Instance.logTextBox.Select(Instance.logTextBox.Text.Length, +1);
             Instance.logTextBox.ScrollToCaret();
         }
 

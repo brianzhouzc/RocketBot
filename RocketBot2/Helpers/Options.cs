@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CommandLine;
+﻿using CommandLine;
 using CommandLine.Text;
 
 namespace RocketBot2.Helpers
 {
-    
-      class Options
+
+    class Options
       {
           [Option('i', "init", Required = false,
             HelpText = "Init account")]

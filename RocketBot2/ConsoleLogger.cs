@@ -55,7 +55,7 @@ namespace RocketBot2
             if (level > _maxLogLevel)
                 return;
 
-            var finalMessage = Logger.GetFinalMessage(message, level, color);
+            var finalMessage = Logger.GetFinalMessage(message.Replace("NecroBot", "RocketBot"), level, color);
             //  Console.WriteLine(finalMessage);
 
             // Fire log write event.
