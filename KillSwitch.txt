@@ -4,7 +4,7 @@ BotStatus=DISABLE;
 //================================================================//
 RocketBot2 is now compatible with 0.57.4 API.
 //================================================================//
-                         Updated: 3/7/2017
+                         Updated: 3/07/2017
 
 
 For support/questions:
