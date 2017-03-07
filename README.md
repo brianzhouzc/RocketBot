@@ -8,10 +8,9 @@
 [![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/TheUnnamedOrganisation/RocketBot/master/LICENSE.md) 
 [![Build status](https://ci.appveyor.com/api/projects/status/f759nsxul31rlub4/branch/master?svg=true)](https://ci.appveyor.com/project/RocketBot/rocketbot/branch/master)
 
-[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.svg?label=accepted&title=Accepted)](http://waffle.io/TheUnnamedOrganisation/RocketBot) 
+[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=backlog&title=Backlog)](https://waffle.io/TheUnnamedOrganisation/RocketBot) 
 [![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.svg?label=in%20progress&title=In%20Progress)](http://waffle.io/TheUnnamedOrganisation/RocketBot) 
 [![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=ready&title=Ready)](https://waffle.io/TheUnnamedOrganisation/RocketBot) 
-[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=backlog&title=Backlog)](https://waffle.io/TheUnnamedOrganisation/RocketBot) 
 [![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=done&title=Done)](https://waffle.io/TheUnnamedOrganisation/RocketBot)
 
 ![alt text][1.1] <strong><em>`The contents of this repo are a proof of concept and are for educational use only`</em></strong>![alt text][1.1]<br/>
@@ -59,6 +58,29 @@ A Pokémon Go bot in C#
  - Automatic use of Razzberries
  - Automatic Update checker
  - Logs everything into Logs folder
+ 
+## `Language`
+- <img src="http://emojipedia-us.s3.amazonaws.com/cache/1e/68/1e68375522a6ffb537842bd0724cdad1.png" width="30" height="30"> - Outputs caught Pokémon in Canada name.
+- <img src="http://emojipedia-us.s3.amazonaws.com/cache/ef/b3/efb33c0125caa0fa86f22f195cd84905.png" width="30" height="30">  - Outputs caught Pokémon in German name.
+- <img src="http://emojipedia-us.s3.amazonaws.com/cache/a9/9f/a99f118ccb81ab3146472e7e167f506e.png" width="30" height="30">  - Outputs caught Pokémon in Spain name.
+- <img src="http://emojipedia-us.s3.amazonaws.com/cache/91/ae/91aeb9c122c0e7bceb412b66828d14bc.png" width="30" height="30">  - Outputs caught Pokémon in Ethiopia name.
+- <img src="http://emojipedia-us.s3.amazonaws.com/cache/cd/2c/cd2c853e168e2a0f5d4d35c1b6ed9248.png" width="30" height="30">  - Outputs caught Pokémon in France name.
+- <img src="http://emojipedia-us.s3.amazonaws.com/cache/ca/2b/ca2bd67715180ef35bfdffcf3c4bc9a4.png" width="30" height="30">  - Outputs caught Pokémon in Hungary name.
+- <img src="http://emojipedia-us.s3.amazonaws.com/cache/bd/d1/bdd1fefbd80bddd45c22b209bb622063.png" width="30" height="30">  - Outputs caught Pokémon in Indonesia name.
+- <img src="http://emojipedia-us.s3.amazonaws.com/cache/d4/dc/d4dc863162299e3287d632c277dc4c6b.png" width="30" height="30">  - Outputs caught Pokémon in Italy name.
+- <img src="http://emojipedia-us.s3.amazonaws.com/cache/e4/78/e47801e74b3256afc8bfcbe51f070e28.png" width="30" height="30">  - Outputs caught Pokémon in Japan name.
+- <img src="http://emojipedia-us.s3.amazonaws.com/cache/8a/09/8a09deaf908f951806592115c2c45145.png" width="30" height="30">  - Outputs caught Pokémon in Cambodia name.
+- <img src="http://emojipedia-us.s3.amazonaws.com/cache/4a/33/4a33aeca1851b124611ee9f4b9910df5.png" width="30" height="30">  - Outputs caught Pokémon in Lithuania name.
+- <img src="http://emojipedia-us.s3.amazonaws.com/cache/99/13/9913209659d21bba6d0a48c1e4e8c347.png" width="30" height="30">  - Outputs caught Pokémon in Netherlands name.
+- <img src="http://emojipedia-us.s3.amazonaws.com/cache/d2/d7/d2d725f58064791fa4b0ebcd9fe89b56.png" width="30" height="30">  - Outputs caught Pokémon in Poland name.
+- <img src="http://emojipedia-us.s3.amazonaws.com/cache/7f/b8/7fb84e84c869db92406578bd8ac639fc.png" width="30" height="30">  - Outputs caught Pokémon in Portugal name.
+- <img src="http://emojipedia-us.s3.amazonaws.com/cache/ac/ff/acff2554c55840b743c5b0538fe3021c.png" width="30" height="30">  - Outputs caught Pokémon in Brazil name.
+- <img src="http://emojipedia-us.s3.amazonaws.com/cache/8b/b6/8bb6bcf7ef6980ed373b538555f452c3.png" width="30" height="30">  - Outputs caught Pokémon in Romania name.
+- <img src="http://emojipedia-us.s3.amazonaws.com/cache/20/f5/20f5c2b61463d2a5e614d5e98432e205.png" width="30" height="30">  - Outputs caught Pokémon in Russia name.
+- <img src="http://emojipedia-us.s3.amazonaws.com/cache/9e/f5/9ef56aecd0677f91fadad1bc6ab0c5e4.png" width="30" height="30">  - Outputs caught Pokémon in El Salvador name.
+- <img src="http://emojipedia-us.s3.amazonaws.com/cache/fd/1c/fd1cc63a058b402b617020c2f6109185.png" width="30" height="30">  - Outputs caught Pokémon in Thailand name.
+- <img src="http://emojipedia-us.s3.amazonaws.com/cache/fc/7c/fc7cb7a82f151e73b1f8a2258e0f5cb7.png" width="30" height="30">  - Outputs caught Pokémon in Turkey name.
+- <img src="http://emojipedia-us.s3.amazonaws.com/cache/73/68/736811c48e6420d34c45118c7bf052f5.png" width="30" height="30">  - Outputs caught Pokémon in U.S. Virgin Islands name.
 
 ## `Getting Started`
 
@@ -141,10 +163,6 @@ Use pull request to submit your code. Remember, submit to *[Beta](https://github
 ## `Recycler`
 - *false* - Recycler not active.
 - *true* - Recycler active.
-
-## `Language`
-- *french* - Outputs caught Pokémon in french name.
-- *german*  - Outputs caught Pokémon in german name.
 
 ## `RazzBerryMode`
 - *cp* - Use RazzBerry when Pokémon is over specific CP.
