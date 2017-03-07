@@ -783,11 +783,13 @@ namespace RocketBot2.Forms
         {
             if (text.Length <= 0)
                 return;
+
             if (Instance.InvokeRequired)
             {
                 Instance.Invoke(new Action<Color, string>(ColoredConsoleWrite), color, text);
                 return;
             }
+
             if (text.Contains("PokemonGo.RocketAPI.Exceptions.InvalidResponseException: Error with API request type: DownloadRemoteConfigVersion"))
             {
                 Instance.logTextBox.SelectionColor = Color.Red;
@@ -796,9 +798,17 @@ namespace RocketBot2.Forms
                 Instance._botStarted = false;
                 return;
             }
+
+            if (text.Contains("PokemonGo.RocketAPI.Exceptions.CaptchaException:"))
+            {
+                Instance.logTextBox.SelectionColor = Color.Yellow;
+                Instance.logTextBox.AppendText($"Warning: with CaptchaException not login conected\r\nPlease refresh Inventory list.\r\n");
+                Instance.logTextBox.ScrollToCaret();
+                return;
+            }
+
             Instance.logTextBox.SelectionColor = color;
             Instance.logTextBox.AppendText(text + $"\r\n");
-            //Instance.logTextBox.Select(Instance.logTextBox.Text.Length, +1);
             Instance.logTextBox.ScrollToCaret();
         }
 
