@@ -87,7 +87,7 @@
             this.Controls.Add(this.lbl);
             this.Controls.Add(this.pb);
             this.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ItemBox";
             this.Size = new System.Drawing.Size(85, 108);
             ((System.ComponentModel.ISupportInitialize)(this.pb)).EndInit();

@@ -509,10 +509,6 @@ namespace RocketBot2.Forms
 
             _session.ReInitSessionWithNextBot(bot);
 
-            _machine = machine;
-            _settings = settings;
-            _excelConfigAllow = excelConfigAllow;
-
             if (accountManager.Accounts.Count > 1)
             {
                 foreach (var item in accountManager.Accounts)
@@ -528,7 +524,13 @@ namespace RocketBot2.Forms
                 }
             }
             else
-            {  menuStrip1.Items.Remove(accountsToolStripMenuItem); }
+            {
+                menuStrip1.Items.Remove(accountsToolStripMenuItem);
+            }
+
+            _machine = machine;
+            _settings = settings;
+            _excelConfigAllow = excelConfigAllow;
         }
 
         private async Task StartBot()
@@ -784,6 +786,14 @@ namespace RocketBot2.Forms
             if (Instance.InvokeRequired)
             {
                 Instance.Invoke(new Action<Color, string>(ColoredConsoleWrite), color, text);
+                return;
+            }
+            if (text.Contains("PokemonGo.RocketAPI.Exceptions.InvalidResponseException: Error with API request type: DownloadRemoteConfigVersion"))
+            {
+                Instance.logTextBox.SelectionColor = Color.Red;
+                Instance.logTextBox.AppendText($"Error with API request type: DownloadRemoteConfigVersion\r\nPlease restart bot.\r\n");
+                Instance.logTextBox.ScrollToCaret();
+                Instance._botStarted = false;
                 return;
             }
             Instance.logTextBox.SelectionColor = color;
@@ -1182,8 +1192,8 @@ namespace RocketBot2.Forms
                     .Where(aItems => aItems?.Item != null)
                     .SelectMany(aItems => aItems.Item)
                     .ToDictionary(item => item.ItemId, item => TimeHelper.FromUnixTimeUtc(item.ExpireMs));
-                
-                flpItems.Controls.Clear();
+
+               flpItems.Controls.Clear();
 
                 foreach (var item in items)
                 {
@@ -1244,7 +1254,7 @@ namespace RocketBot2.Forms
                             await UseIncenseTask.Execute(_session);
                         }
                         break;
-                    default:
+                     default:
                         {
                             await RecycleItemsTask.DropItem(_session, item.ItemId, decimal.ToInt32(form.numCount.Value));
                         }
