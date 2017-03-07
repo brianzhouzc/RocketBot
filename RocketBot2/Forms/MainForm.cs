@@ -1205,7 +1205,7 @@ namespace RocketBot2.Forms
                     .SelectMany(aItems => aItems.Item)
                     .ToDictionary(item => item.ItemId, item => TimeHelper.FromUnixTimeUtc(item.ExpireMs));
 
-               flpItems.Controls.Clear();
+                flpItems.Controls.Clear();
 
                 foreach (var item in items)
                 {
@@ -1266,7 +1266,7 @@ namespace RocketBot2.Forms
                             await UseIncenseTask.Execute(_session);
                         }
                         break;
-                     default:
+                    default:
                         {
                             await RecycleItemsTask.DropItem(_session, item.ItemId, decimal.ToInt32(form.numCount.Value));
                         }
@@ -1421,7 +1421,7 @@ namespace RocketBot2.Forms
                 }
             }
             */
-            DialogResult result = MessageBox.Show($"{strReason} \n\r Do you want to override killswitch to bot at your own risk? Y/N", $"{Application.ProductName} - Old API detected", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+        DialogResult result = MessageBox.Show($"{strReason} \n\r Do you want to override killswitch to bot at your own risk? Y/N", $"{Application.ProductName} - Old API detected", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             switch (result)
             {
                 case DialogResult.Yes: return true;
