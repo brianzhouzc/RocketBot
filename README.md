@@ -59,7 +59,7 @@ A Pokémon Go bot in C#
  - Automatic Update checker
  - Logs everything into Logs folder
  
- ## `Language`
+## `Language`
 - <img src="http://emojipedia-us.s3.amazonaws.com/cache/1e/68/1e68375522a6ffb537842bd0724cdad1.png" width="30" height="30"> - Outputs caught Pokémon in Canada name.
 - <img src="http://emojipedia-us.s3.amazonaws.com/cache/ef/b3/efb33c0125caa0fa86f22f195cd84905.png" width="30" height="30">  - Outputs caught Pokémon in German name.
 - <img src="http://emojipedia-us.s3.amazonaws.com/cache/a9/9f/a99f118ccb81ab3146472e7e167f506e.png" width="30" height="30">  - Outputs caught Pokémon in Spain name.
