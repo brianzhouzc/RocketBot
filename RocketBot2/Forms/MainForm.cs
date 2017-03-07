@@ -481,7 +481,7 @@ namespace RocketBot2.Forms
             _session.Navigation.WalkStrategy.UpdatePositionEvent += LoadSaveState.SaveLocationToDisk;
 
             Navigation.GetHumanizeRouteEvent +=
-                (route)  => _session.EventDispatcher.Send(new GetHumanizeRouteEvent { Route = route} );
+                (points)  => _session.EventDispatcher.Send(new GetHumanizeRouteEvent { Points = points} );
             Navigation.GetHumanizeRouteEvent += UpdateMap;
 
             UseNearbyPokestopsTask.LootPokestopEvent +=
@@ -1171,7 +1171,7 @@ namespace RocketBot2.Forms
                 var _totalData = PokeDex.Count();
 
                 lblPokemonList.Text = _session.Translation.GetTranslation(TranslationString.AmountPkmSeenCaught, _totalData, _totalCaptures) + 
-                    $" / Storage: {_session.Client.Player.PlayerData.MaxPokemonStorage} ({pokemons.Count()} pokemons, {_session.Inventory.GetEggs().Count()} eggs)";
+                    $" / Storage: {_session.Client.Player.PlayerData.MaxPokemonStorage} ({pokemons.Count()} Pokémons, {_session.Inventory.GetEggs().Count()} Eggs)";
 
                 var items = 
                     _session.Inventory.GetItems()
