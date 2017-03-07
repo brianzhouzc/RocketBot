@@ -1,8 +1,8 @@
-﻿BotStatus=DISABLE;
+﻿BotStatus=ENABLED;
 //============================================//
                POKEMON GO 0.57.4
 //============================================//
-    RocketBot2 is compatible with 0.57.3 API.
+RocketBot2 is now compatible with 0.57.4 API.
 //============================================//
                Updated: 3/07/2017
 
