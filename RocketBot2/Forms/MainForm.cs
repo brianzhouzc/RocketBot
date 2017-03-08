@@ -191,8 +191,10 @@ namespace RocketBot2.Forms
                 excelConfigAllow = true;
             }
 
+            var _fileName = $"RocketBot2-{DateTime.Today.ToString("dd-MM-yyyy")}-{DateTime.Now.ToString("HH-mm-ss")}.txt";
+
             Logger.AddLogger(new ConsoleLogger(LogLevel.Service), _subPath);
-            Logger.AddLogger(new FileLogger(LogLevel.Service), _subPath);
+            Logger.AddLogger(new FileLogger(LogLevel.Service, _fileName), _subPath);
             Logger.AddLogger(new WebSocketLogger(LogLevel.Service), _subPath);
 
             var profilePath = Path.Combine(Directory.GetCurrentDirectory(), _subPath);
@@ -813,7 +815,7 @@ namespace RocketBot2.Forms
                 Instance.logTextBox.ScrollToCaret();
                 return;
             }
-
+ 
             Instance.logTextBox.SelectionColor = color;
             Instance.logTextBox.AppendText(text + $"\r\n");
             Instance.logTextBox.ScrollToCaret();
