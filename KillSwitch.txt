@@ -1,10 +1,12 @@
 ﻿BotStatus=DISABLE;
 //============================================//
-               POKEMON GO 0.57.4
+                POKEMON GO 0.57.4
 //============================================//
-RocketBot2 is now compatible with 0.57.3 API.
+We are investigating changes to the authentication that
+Niantic made in 0.57.4. So the bot will be temporarily disabled.
 //============================================//
-               Updated: 3/07/2017
+                Updated: 3/08/2017
+
 
 For support/questions:
-OFFICIAL ROCKETBOT2 Discord: https://discord.gg/y6EU2qY
+OFFICIAL NECROBOT2 Discord: https://discord.gg/7FWyWVp
