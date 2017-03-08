@@ -3,6 +3,8 @@
                POKEMON GO 0.57.4
 //============================================//
 RocketBot2 is now compatible with 0.57.3 API.
+We are investigating changes to the authentication that.
+Niantic made in 0.57.4. So the bot will be temporarily disabled.
 //============================================//
                Updated: 3/07/2017
 
