@@ -1193,6 +1193,406 @@
     {
       "Key": "mew",
       "Value": "Mew"
+    },
+    {
+      "Key" : "chikorita",
+      "Value" : "Endivie"
+    },
+    {
+      "Key" : "bayleef",
+      "Value" : "Lorblatt"
+    },
+    {
+      "Key" : "meganium",
+      "Value" : "Meganie"
+    },
+    {
+      "Key" : "cyndaquil",
+      "Value" : "Feurigel"
+    },
+    {
+      "Key" : "quilava",
+      "Value" : "Igelavar"
+    },
+    {
+      "Key" : "typhlosion",
+      "Value" : "Tornupto"
+    },
+    {
+      "Key" : "totodile",
+      "Value" : "Karnimani"
+    },
+    {
+      "Key" : "croconaw",
+      "Value" : "Tyracroc"
+    },
+    {
+      "Key" : "feraligatr",
+      "Value" : "Impergator"
+    },
+    {
+      "Key" : "sentret",
+      "Value" : "Wiesor"
+    },
+    {
+      "Key" : "furret",
+      "Value" : "Wiesenior"
+    },
+    {
+      "Key" : "hoothoot",
+      "Value" : "Hoothoot"
+    },
+    {
+      "Key" : "noctowl",
+      "Value" : "Noctuh"
+    },
+    {
+      "Key" : "ledyba",
+      "Value" : "Ledyba"
+    },
+    {
+      "Key" : "ledian",
+      "Value" : "Ledian"
+    },
+    {
+      "Key" : "spinarak",
+      "Value" : "Webarak"
+    },
+    {
+      "Key" : "ariados",
+      "Value" : "Ariados"
+    },
+    {
+      "Key" : "crobat",
+      "Value" : "Iksbat"
+    },
+    {
+      "Key" : "chinchou",
+      "Value" : "Lampi"
+    },
+    {
+      "Key" : "lanturn",
+      "Value" : "Lanturn"
+    },
+    {
+      "Key" : "pichu",
+      "Value" : "Pichu"
+    },
+    {
+      "Key" : "cleffa",
+      "Value" : "Pii"
+    },
+    {
+      "Key" : "igglybuff",
+      "Value" : "Fluffeluff"
+    },
+    {
+      "Key" : "togepi",
+      "Value" : "Togepi"
+    },
+    {
+      "Key" : "togetic",
+      "Value" : "Togetic"
+    },
+    {
+      "Key" : "natu",
+      "Value" : "Natu"
+    },
+    {
+      "Key" : "xatu",
+      "Value" : "Xatu"
+    },
+    {
+      "Key" : "mareep",
+      "Value" : "Voltilamm"
+    },
+    {
+      "Key" : "flaaffy",
+      "Value" : "Waaty"
+    },
+    {
+      "Key" : "ampharos",
+      "Value" : "Ampharos"
+    },
+    {
+      "Key" : "bellossom",
+      "Value" : "Blubella"
+    },
+    {
+      "Key" : "marill",
+      "Value" : "Marill"
+    },
+    {
+      "Key" : "azumarill",
+      "Value" : "Azumarill"
+    },
+    {
+      "Key" : "sudowoodo",
+      "Value" : "Mogelbaum"
+    },
+    {
+      "Key" : "politoed",
+      "Value" : "Quaxo"
+    },
+    {
+      "Key" : "hoppip",
+      "Value" : "Hoppspross"
+    },
+    {
+      "Key" : "skiploom",
+      "Value" : "Hubelupf"
+    },
+    {
+      "Key" : "jumpluff",
+      "Value" : "Papungha"
+    },
+    {
+      "Key" : "aipom",
+      "Value" : "Griffel"
+    },
+    {
+      "Key" : "sunkern",
+      "Value" : "Sonnkern"
+    },
+    {
+      "Key" : "sunflora",
+      "Value" : "Sonnflora"
+    },
+    {
+      "Key" : "yanma",
+      "Value" : "Yanma"
+    },
+    {
+      "Key" : "wooper",
+      "Value" : "Felino"
+    },
+    {
+      "Key" : "quagsire",
+      "Value" : "Morlord"
+    },
+    {
+      "Key" : "espeon",
+      "Value" : "Psiana"
+    },
+    {
+      "Key" : "umbreon",
+      "Value" : "Nachtara"
+    },
+    {
+      "Key" : "murkrow",
+      "Value" : "Kramurx"
+    },
+    {
+      "Key" : "slowking",
+      "Value" : "Laschoking"
+    },
+    {
+      "Key" : "misdreavus",
+      "Value" : "Traunfugil"
+    },
+    {
+      "Key" : "unown",
+      "Value" : "Icognito"
+    },
+    {
+      "Key" : "wobbuffet",
+      "Value" : "Woingenau"
+    },
+    {
+      "Key" : "girafarig",
+      "Value" : "Girafarig"
+    },
+    {
+      "Key" : "pineco",
+      "Value" : "Tannza"
+    },
+    {
+      "Key" : "forretress",
+      "Value" : "Forstellka"
+    },
+    {
+      "Key" : "dunsparce",
+      "Value" : "Dummisel"
+    },
+    {
+      "Key" : "gligar",
+      "Value" : "Skorgla"
+    },
+    {
+      "Key" : "steelix",
+      "Value" : "Stahlos"
+    },
+    {
+      "Key" : "snubbull",
+      "Value" : "Snubbull"
+    },
+    {
+      "Key" : "granbull",
+      "Value" : "Granbull"
+    },
+    {
+      "Key" : "qwilfish",
+      "Value" : "Baldorfish"
+    },
+    {
+      "Key" : "scizor",
+      "Value" : "Scherox"
+    },
+    {
+      "Key" : "shuckle",
+      "Value" : "Pottrott"
+    },
+    {
+      "Key" : "heracross",
+      "Value" : "Skaraborn"
+    },
+    {
+      "Key" : "sneasel",
+      "Value" : "Sniebel"
+    },
+    {
+      "Key" : "teddiursa",
+      "Value" : "Teddiursa"
+    },
+    {
+      "Key" : "ursaring",
+      "Value" : "Ursaring"
+    },
+    {
+      "Key" : "slugma",
+      "Value" : "Schneckmag"
+    },
+    {
+      "Key" : "magcargo",
+      "Value" : "Magcargo"
+    },
+    {
+      "Key" : "swinub",
+      "Value" : "Quiekel"
+    },
+    {
+      "Key" : "piloswine",
+      "Value" : "Keifel"
+    },
+    {
+      "Key" : "corsola",
+      "Value" : "Corasonn"
+    },
+    {
+      "Key" : "remoraid",
+      "Value" : "Remoraid"
+    },
+    {
+      "Key" : "octillery",
+      "Value" : "Octillery"
+    },
+    {
+      "Key" : "delibird",
+      "Value" : "Botogel"
+    },
+    {
+      "Key" : "mantine",
+      "Value" : "Mantax"
+    },
+    {
+      "Key" : "skarmory",
+      "Value" : "Panzaeron"
+    },
+    {
+      "Key" : "houndour",
+      "Value" : "Hunduster"
+    },
+    {
+      "Key" : "houndoom",
+      "Value" : "Hundemon"
+    },
+    {
+      "Key" : "kingdra",
+      "Value" : "Seedraking"
+    },
+    {
+      "Key" : "phanpy",
+      "Value" : "Phanpy"
+    },
+    {
+      "Key" : "donphan",
+      "Value" : "Donphan"
+    },
+    {
+      "Key" : "porygon2",
+      "Value" : "Porygon2"
+    },
+    {
+      "Key" : "stantler",
+      "Value" : "Damhirplex"
+    },
+    {
+      "Key" : "smeargle",
+      "Value" : "Farbeagle"
+    },
+    {
+      "Key" : "tyrogue",
+      "Value" : "Rabauz"
+    },
+    {
+      "Key" : "hitmontop",
+      "Value" : "Kapoera"
+    },
+    {
+      "Key" : "smoochum",
+      "Value" : "Kussilla"
+    },
+    {
+      "Key" : "elekid",
+      "Value" : "Elekid"
+    },
+    {
+      "Key" : "magby",
+      "Value" : "Magby"
+    },
+    {
+      "Key" : "miltank",
+      "Value" : "Miltank"
+    },
+    {
+      "Key" : "blissey",
+      "Value" : "Heiteira"
+    },
+    {
+      "Key" : "raikou",
+      "Value" : "Raikou"
+    },
+    {
+      "Key" : "entei",
+      "Value" : "Entei"
+    },
+    {
+      "Key" : "suicune",
+      "Value" : "Suicune"
+    },
+    {
+      "Key" : "larvitar",
+      "Value" : "Larvitar"
+    },
+    {
+      "Key" : "pupitar",
+      "Value" : "Pupitar"
+    },
+    {
+      "Key" : "tyranitar",
+      "Value" : "Despotar"
+    },
+    {
+      "Key" : "lugia",
+      "Value" : "Lugia"
+    },
+    {
+      "Key" : "ho-Oh",
+      "Value" : "Ho-Oh"
+    },
+    {
+      "Key" : "celebi",
+      "Value" : "Celebi"
     }
   ],
   "PokemonMovesetStrings": [

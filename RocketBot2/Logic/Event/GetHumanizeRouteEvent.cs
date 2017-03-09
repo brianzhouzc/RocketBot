@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using GeoCoordinatePortable;
+using System.Device.Location;
 using PoGo.NecroBot.Logic.Event;
 
 namespace RocketBot2.Logic.Event
