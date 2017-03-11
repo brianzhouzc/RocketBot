@@ -4,6 +4,7 @@ using PoGo.NecroBot.Logic.PoGoUtils;
 using POGOProtos.Data;
 using POGOProtos.Enums;
 using POGOProtos.Networking.Responses;
+using PoGo.NecroBot.Logic.State;
 using RocketBot2.Forms;
 
 namespace RocketBot2.Helpers
@@ -11,6 +12,7 @@ namespace RocketBot2.Helpers
     public class PokemonObject
     {
         private static bool _initialized;
+        private static Session _session;
         public static Dictionary<PokemonId, int> CandyToEvolveDict = new Dictionary<PokemonId, int>();
 
         public PokemonObject(PokemonData pokemonData)
@@ -67,16 +69,21 @@ namespace RocketBot2.Helpers
 
         public string Move1
         {
-            get { return MainForm._session.Translation.GetPokemonMovesetTranslation(PokemonData.Move1); }
+            get { return _session.Translation.GetPokemonMovesetTranslation(PokemonData.Move1); }
         }
 
         public string Move2
         {
-            get { return MainForm._session.Translation.GetPokemonMovesetTranslation(PokemonData.Move2); }
+            get { return _session.Translation.GetPokemonMovesetTranslation(PokemonData.Move2); }
         }
 
-        public int Candy { get; set; } = 0;
-
+        public int Candy
+        {
+            get
+            {
+                return PokemonInfo.GetCandy(_session, PokemonData);
+            }
+        }
         public int CandyToEvolve
         {
             get
@@ -106,10 +113,17 @@ namespace RocketBot2.Helpers
             get { return EvolveTimes > 0; }
         }
 
-        public static void Initilize(DownloadItemTemplatesResponse itemtemplates)
+        public static async void Initilize(Session session)//, DownloadItemTemplatesResponse itemtemplates)
         {
             if (!_initialized)
             {
+                _initialized = true;
+                _session = session;
+                //TODO:
+                // bug pogodev api
+                return;
+
+                var itemtemplates = await _session.Client.Download.GetItemTemplates();
                 foreach (var t in itemtemplates.ItemTemplates)
                 {
                     if (t != null)
@@ -120,7 +134,6 @@ namespace RocketBot2.Helpers
                         }
                     }
                 }
-                _initialized = true;
             }
         }
     }
