@@ -98,6 +98,7 @@ namespace RocketBot2.Forms
             InitializeMap();
             VersionHelper.CheckVersion();
             btnRefresh.Enabled = false;
+            pokeEaseToolStripMenuItem.Enabled = false;
         }
 
         private void InitializeMap()
@@ -872,6 +873,7 @@ namespace RocketBot2.Forms
             accountsToolStripMenuItem.Enabled = false;
             _botStarted = true;
             btnRefresh.Enabled = true;
+            pokeEaseToolStripMenuItem.Enabled = true;
             Task.Run(StartBot);
         }
 
@@ -1454,6 +1456,15 @@ namespace RocketBot2.Forms
                 case DialogResult.No: return false;
             }
             return false;
+        }
+
+        private void pokeEaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var profilePath = Path.Combine(Directory.GetCurrentDirectory(), _subPath);
+            var profileConfigPath = Path.Combine(profilePath, "RocketBot2-APK.WebCli");
+            var exeFile = Path.Combine(profileConfigPath, "RocketBot2.exe");
+            Process.Start(exeFile);
+            pokeEaseToolStripMenuItem.Enabled = false;
         }
     }
 }
