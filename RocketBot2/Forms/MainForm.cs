@@ -848,9 +848,9 @@ namespace RocketBot2.Forms
 
         #region EVENTS
 
-        private void btnRefresh_Click(object sender, EventArgs e)
+        private async void btnRefresh_Click(object sender, EventArgs e)
         {
-            ReloadPokemonList();
+            await ReloadPokemonList();
         }
 
         private void startStopBotToolStripMenuItem_Click(object sender, EventArgs e)
@@ -990,7 +990,7 @@ namespace RocketBot2.Forms
             };
         }
 
-        private void olvPokemonList_ButtonClick(object sender, CellClickEventArgs e)
+        private async void olvPokemonList_ButtonClick(object sender, CellClickEventArgs e)
         {
             try
             {
@@ -1015,7 +1015,7 @@ namespace RocketBot2.Forms
             catch (Exception ex)
             {
                 Logger.Write(ex.ToString(), LogLevel.Error);
-                ReloadPokemonList();
+                await ReloadPokemonList();
             }
         }
 
@@ -1028,7 +1028,7 @@ namespace RocketBot2.Forms
                 _pokemons.Add(pokemon.Id);
             }
             await TransferPokemonTask.Execute(_session, _session.CancellationTokenSource.Token, _pokemons);
-            ReloadPokemonList();
+            await ReloadPokemonList();
         }
 
         private async void PowerUpPokemon(IEnumerable<PokemonData> pokemons)
@@ -1038,7 +1038,7 @@ namespace RocketBot2.Forms
             {
                 await LevelUpSpecificPokemonTask.Execute(_session, pokemon.Id);
             }
-            ReloadPokemonList();
+            await ReloadPokemonList();
         }
 
         private async void EvolvePokemon(IEnumerable<PokemonData> pokemons)
@@ -1048,10 +1048,10 @@ namespace RocketBot2.Forms
             {
                 await Logic.Tasks.EvolveSpecificPokemonTask.Execute(_session, pokemon.Id);
             }
-            ReloadPokemonList();
+            await ReloadPokemonList();
         }
 
-        private void CleanUpTransferPokemon(PokemonObject pokemon, string type)
+        private async void CleanUpTransferPokemon(PokemonObject pokemon, string type)
         {
             var et = pokemon.EvolveTimes;
             var pokemonCount =
@@ -1061,7 +1061,7 @@ namespace RocketBot2.Forms
 
             if (pokemonCount < et)
             {
-                ReloadPokemonList();
+                await ReloadPokemonList();
                 return;
             }
 
@@ -1094,13 +1094,13 @@ namespace RocketBot2.Forms
             }
         }
 
-        private void CleanUpEvolvePokemon(PokemonObject pokemon, string type)
+        private async void CleanUpEvolvePokemon(PokemonObject pokemon, string type)
         {
             var et = pokemon.EvolveTimes;
 
             if (et < 1)
             {
-                ReloadPokemonList();
+                await ReloadPokemonList();
                 return;
             }
 
@@ -1156,16 +1156,22 @@ namespace RocketBot2.Forms
                 }
                 await RenameSinglePokemonTask.Execute(_session, pokemon.Id, nickname, _session.CancellationTokenSource.Token);
             }
-            ReloadPokemonList();
+            await ReloadPokemonList();
         }
 
-        private void ReloadPokemonList()
+        private async Task ReloadPokemonList()
         {
             SetState(false);
             try
             {
-                PokemonObject.Initilize(_session);
+                if (_session.Client.Download.ItemTemplates == null)
+                    await _session.Client.Download.GetItemTemplates();
 
+                var templates = _session.Client.Download.ItemTemplates.Where(x => x.PokemonSettings != null)
+                        .Select(x => x.PokemonSettings)
+                        .ToList();
+
+                PokemonObject.Initilize(_session, templates);
 
                 var pokemons =
                     _session.Inventory.GetPokemons()
@@ -1179,7 +1185,7 @@ namespace RocketBot2.Forms
                 foreach (var pokemon in pokemons)
                 {
                     var pokemonObject = new PokemonObject(pokemon);
-
+                    //pokemonObject.Candy = PokemonInfo.GetCandy(_session, pokemon);
                     pokemonObjects.Add(pokemonObject);
                 }
 
@@ -1279,7 +1285,7 @@ namespace RocketBot2.Forms
                         }
                         break;
                 }
-                ReloadPokemonList();
+                await ReloadPokemonList();
             }
         }
 
