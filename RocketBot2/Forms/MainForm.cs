@@ -501,16 +501,6 @@ namespace RocketBot2.Forms
 
             //ProgressBar.Fill(100);
 
-            //TODO: temporary
-            if (settings.Auth.APIConfig.UseLegacyAPI)
-            {
-                //Just the paid API works at the moment.
-                Logger.Write("The PoGoDev Community Has Updated The Hashing Service To Be Compatible With 0.57.4 So We Have Updated Our Code To Be Compliant. Unfortunately During This Update Niantic Has Also Attempted To Block The Legacy .45 Service Again So At The Moment Only Hashing Service Users Are Able To Login Successfully. Please Be Patient As Always We Will Attempt To Keep The Bot 100% Free But Please Realize We Have Already Done Quite A Few Workarounds To Keep .45 Alive For You Guys.  Even If We Are Able To Get Access Again To The .45 API Again It Is Over 3 Months Old So Is Going To Be More Detectable And Cause Captchas. Please Consider Upgrading To A Paid API Key To Avoid Captchas And You Will  Be Connecting Using Latest Version So Less Detectable So More Safe For You In The End.", LogLevel.Error);
-                Instance.startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
-                _botStarted = false;
-                return;
-            }
-
             var mainAccount = accountManager.Add(settings.Auth.AuthConfig);
 
             ioc.Register<MultiAccountManager>(accountManager);
@@ -868,6 +858,16 @@ namespace RocketBot2.Forms
                 Environment.Exit(0);
                 return;
             }
+
+            //TODO: temporary
+            if (_settings.Auth.APIConfig.UseLegacyAPI)
+            {
+                Logger.Write("The PoGoDev Community Has Updated The Hashing Service To Be Compatible With 0.57.4 So We Have Updated Our Code To Be Compliant. Unfortunately During This Update Niantic Has Also Attempted To Block The Legacy .45 Service Again So At The Moment Only Hashing Service Users Are Able To Login Successfully. Please Be Patient As Always We Will Attempt To Keep The Bot 100% Free But Please Realize We Have Already Done Quite A Few Workarounds To Keep .45 Alive For You Guys.  Even If We Are Able To Get Access Again To The .45 API Again It Is Over 3 Months Old So Is Going To Be More Detectable And Cause Captchas. Please Consider Upgrading To A Paid API Key To Avoid Captchas And You Will  Be Connecting Using Latest Version So Less Detectable So More Safe For You In The End.", LogLevel.Error);
+                Instance.startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
+                _botStarted = true;
+                return;
+            }
+
             startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
             accountsToolStripMenuItem.Enabled = false;
             _botStarted = true;
@@ -887,7 +887,7 @@ namespace RocketBot2.Forms
             UpdateMap();
         }
         #endregion EVENTS
-       
+
         #region POKEMON LIST
 
         private void InitializePokemonForm()
@@ -917,8 +917,8 @@ namespace RocketBot2.Forms
                     .Count(p => p == pok.PokemonId) > 1)
                     e.Item.BackColor = Color.LightGreen;
 
-                    e.Item.Text = _session.Translation.GetPokemonTranslation(pok.PokemonId);
-                                   
+                e.Item.Text = _session.Translation.GetPokemonTranslation(pok.PokemonId);
+
                 foreach (OLVListSubItem sub in e.Item.SubItems)
                 {
                     // ReSharper disable once PossibleNullReferenceException
@@ -1175,7 +1175,7 @@ namespace RocketBot2.Forms
                 if (_session.Client.Download.ItemTemplates == null)
                     await _session.Client.Download.GetItemTemplates();
 
-                var templates = _session.Client.Download.ItemTemplates.Where(x => x.PokemonSettings != null)
+                var templates =  _session.Client.Download.ItemTemplates.Where(x => x.PokemonSettings != null)
                         .Select(x => x.PokemonSettings)
                         .ToList();
 
@@ -1308,14 +1308,14 @@ namespace RocketBot2.Forms
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           // Thread.Sleep(10000);
+            // Thread.Sleep(10000);
             Thread mThread = new Thread(delegate ()
             {
-                 var infoForm = new InfoForm();
+                var infoForm = new InfoForm();
                 infoForm.ShowDialog();
             });
             mThread.SetApartmentState(ApartmentState.STA);
-             mThread.Start();
+            mThread.Start();
         }
 
         //**** Program functions
@@ -1442,7 +1442,7 @@ namespace RocketBot2.Forms
                 }
             }
             */
-        DialogResult result = MessageBox.Show($"{strReason} \n\r Do you want to override killswitch to bot at your own risk? Y/N", $"{Application.ProductName} - Old API detected", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult result = MessageBox.Show($"{strReason} \n\r Do you want to override killswitch to bot at your own risk? Y/N", $"{Application.ProductName} - Old API detected", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             switch (result)
             {
                 case DialogResult.Yes: return true;
