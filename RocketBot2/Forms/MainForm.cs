@@ -888,6 +888,16 @@ namespace RocketBot2.Forms
             _playerLocations.Add(newLocation);
             UpdateMap();
         }
+
+        private void pokeEaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var profilePath = Path.Combine(Directory.GetCurrentDirectory(), _subPath);
+            var profileConfigPath = Path.Combine(profilePath, "PokeEase");
+            var exeFile = Path.Combine(profileConfigPath, "RocketBot2.exe");
+            Process.Start(exeFile);
+            pokeEaseToolStripMenuItem.Enabled = false;
+        }
+
         #endregion EVENTS
 
         #region POKEMON LIST
@@ -1456,15 +1466,6 @@ namespace RocketBot2.Forms
                 case DialogResult.No: return false;
             }
             return false;
-        }
-
-        private void pokeEaseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var profilePath = Path.Combine(Directory.GetCurrentDirectory(), _subPath);
-            var profileConfigPath = Path.Combine(profilePath, "RocketBot2-APK.WebCli");
-            var exeFile = Path.Combine(profileConfigPath, "RocketBot2.exe");
-            Process.Start(exeFile);
-            pokeEaseToolStripMenuItem.Enabled = false;
         }
     }
 }

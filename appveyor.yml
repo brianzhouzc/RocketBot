@@ -131,6 +131,8 @@ after_build:
     {
         Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2\bin\$($env:CONFIGURATION)" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\RocketBot2" -Force;
     }
+    New-Item -ItemType Directory -Force -Path "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\RocketBot2\Android";
+    New-Item -ItemType Directory -Force -Path "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\RocketBot2\PokeEase";
     Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2-APK\build\android-debug.apk" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\RocketBot2\Android\android-debug.apk" -Force;
     Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2-APK\build\android-debug-unaligned.apk" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\RocketBot2\Android\android-debug-unaligned.apk" -Force;
     Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2-APK\build\android-release-unsigned.apk" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\RocketBot2\Android\android-release-unsigned.apk" -Force;
@@ -156,17 +158,17 @@ artifacts:
   - path: '\$(PLATFORM)\$(CONFIGURATION)\RocketBot2'
     name: Release
     
-  - path: '\$(PLATFORM)\$(CONFIGURATION)\android-debug.apk'
-    name: android-debug
+#  - path: '\$(PLATFORM)\$(CONFIGURATION)\android-debug.apk'
+#    name: android-debug
 
-  - path: '\$(PLATFORM)\$(CONFIGURATION)\android-debug-unaligned.apk'
-    name: android-debug-unaligned
+#  - path: '\$(PLATFORM)\$(CONFIGURATION)\android-debug-unaligned.apk'
+#    name: android-debug-unaligned
     
-  - path: '\$(PLATFORM)\$(CONFIGURATION)\android-release-unsigned.apk'
-    name: android-release-unsigned
+#  - path: '\$(PLATFORM)\$(CONFIGURATION)\android-release-unsigned.apk'
+#    name: android-release-unsigned
     
-  - path: '\$(PLATFORM)\$(CONFIGURATION)\RocketBot2-APK'
-    name: PokeEase
+#  - path: '\$(PLATFORM)\$(CONFIGURATION)\RocketBot2-APK'
+#    name: PokeEase
 
 #---------------------------------#
 #     deployment configuration    #
