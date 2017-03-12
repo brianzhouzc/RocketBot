@@ -482,23 +482,23 @@ namespace RocketBot2.Forms
             _session.Navigation.WalkStrategy.UpdatePositionEvent += LoadSaveState.SaveLocationToDisk;
 
             Navigation.GetHumanizeRouteEvent +=
-                (points)  => _session.EventDispatcher.Send(new GetHumanizeRouteEvent { Points = points} );
+                (points)  => _session.EventDispatcher.Send(new Logic.Event.GetHumanizeRouteEvent { Points = points} );
             Navigation.GetHumanizeRouteEvent += UpdateMap;
 
             UseNearbyPokestopsTask.LootPokestopEvent +=
-                pokestop => _session.EventDispatcher.Send(new LootPokestopEvent { Pokestop = pokestop });
+                pokestop => _session.EventDispatcher.Send(new Logic.Event.LootPokestopEvent { Pokestop = pokestop });
             UseNearbyPokestopsTask.LootPokestopEvent += UpdateMap;
 
             CatchNearbyPokemonsTask.PokemonEncounterEvent +=
-                mappokemons => _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
+                mappokemons => _session.EventDispatcher.Send(new Logic.Event.PokemonsEncounterEvent { EncounterPokemons = mappokemons });
             CatchNearbyPokemonsTask.PokemonEncounterEvent += UpdateMap;
 
             CatchIncensePokemonsTask.PokemonEncounterEvent +=
-                mappokemons => _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
+                mappokemons => _session.EventDispatcher.Send(new Logic.Event.PokemonsEncounterEvent { EncounterPokemons = mappokemons });
             CatchIncensePokemonsTask.PokemonEncounterEvent += UpdateMap;
 
             CatchLurePokemonsTask.PokemonEncounterEvent +=
-                         mappokemons => _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
+                         mappokemons => _session.EventDispatcher.Send(new Logic.Event.PokemonsEncounterEvent { EncounterPokemons = mappokemons });
             CatchLurePokemonsTask.PokemonEncounterEvent += UpdateMap;
 
             //ProgressBar.Fill(100);
@@ -728,7 +728,7 @@ namespace RocketBot2.Forms
                 Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude,
                     _session.Client.CurrentLongitude);
                 //get optimized route
-                var _pokeStops = RouteOptimizeUtil.Optimize(_session.Forts.ToArray(), _session.Client.CurrentLatitude,
+                var _pokeStops = Logic.Utils.RouteOptimizeUtil.Optimize(_session.Forts.ToArray(), _session.Client.CurrentLatitude,
                     _session.Client.CurrentLongitude);
                 InitializePokestopsAndRoute(_pokeStops);
                 encounterPokemonsCount = 0;
