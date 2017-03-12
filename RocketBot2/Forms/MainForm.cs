@@ -32,7 +32,6 @@ using PoGo.NecroBot.Logic.Model.Settings;
 using PoGo.NecroBot.Logic.Service.Elevation;
 using RocketBot2.Helpers;
 using RocketBot2.Models;
-using RocketBot2.Logic.Event;
 using PoGo.NecroBot.Logic.Event;
 using PoGo.NecroBot.Logic;
 using System.Reflection;
@@ -40,7 +39,6 @@ using PoGo.NecroBot.Logic.Tasks;
 using System.Net;
 using RocketBot2.CommandLineUtility;
 using System.Diagnostics;
-using RocketBot2.Logic.Utils;
 using PokemonGo.RocketAPI;
 
 #endregion
