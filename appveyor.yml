@@ -71,7 +71,7 @@ install:
 - git submodule update --init --recursive
 #- rmdir RocketBot2-APK/platform /S /Q
 #- Remove-Item item RocketBot2-APK\plugins -Recurse -Force
-#- cd RocketBot2-APK && npm install && cd ..
+- cd RocketBot2-APK && npm install && cd ..
 
 # enable patching of AssemblyInfo.* files
 assembly_info:
@@ -108,7 +108,7 @@ build:
 # scripts to run before build
 before_build:
   - nuget restore
-#  - cd RocketBot2-APK && npm run pack && cd ..
+  - cd RocketBot2-APK && npm run pack && cd ..
 
 # scripts to run *after* solution is built and *before* automatic packaging occurs (web apps, NuGet packages, Azure Cloud Services)
 before_package:
@@ -134,6 +134,7 @@ after_build:
     Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2-APK\build\android-debug.apk" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\android-debug.apk" -Force;
     Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2-APK\build\android-debug-unaligned.apk" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\android-debug-unaligned.apk" -Force;
     Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2-APK\build\android-release-unsigned.apk" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\android-release-unsigned.apk" -Force;
+    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2-APK\dist\win-ia32-unpacked" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\RocketBot2-APK" -Force;
         
 
 # to run your custom scripts instead of automatic MSBuild
@@ -163,6 +164,9 @@ artifacts:
     
   - path: '\$(PLATFORM)\$(CONFIGURATION)\android-release-unsigned.apk'
     name: android-release-unsigned
+    
+  - path: '\$(PLATFORM)\$(CONFIGURATION)\RocketBot2-APK'
+    name: RocketBot2-APK.WebCli
 
 #---------------------------------#
 #     deployment configuration    #
@@ -178,7 +182,7 @@ deploy:
     description: '[README.md](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/README.md)'
     release: RocketBot2 $(APPVEYOR_REPO_TAG_NAME)
     auth_token: $(auth_token)
-    artifact: Release;android-debug;android-debug-unaligned;android-release-unsigned
+    artifact: Release;android-debug;android-debug-unaligned;android-release-unsigned;RocketBot2-APK.WebCli
     draft: false
     prerelease: false
     force_update: true
