@@ -65,7 +65,7 @@ namespace RocketBot2.Logic.State
 
             var remoteReleaseUrl =
                 $"https://github.com/TheUnnamedOrganisation/RocketBot/releases/download/v{RemoteVersion}/";
-            string zipName = "Release.zip";
+            string zipName = $"RocketBot2-v{RemoteVersion}.zip";
             var downloadLink = remoteReleaseUrl + zipName;
 
             var baseDir = Directory.GetCurrentDirectory();
