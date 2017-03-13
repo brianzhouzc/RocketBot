@@ -898,7 +898,6 @@ namespace RocketBot2.Forms
             var profileConfigPath = Path.Combine(profilePath, "PokeEase");
             var exeFile = Path.Combine(profileConfigPath, "RocketBot2.exe");
             Process.Start(exeFile);
-            pokeEaseToolStripMenuItem.Enabled = false;
         }
 
         #endregion EVENTS
