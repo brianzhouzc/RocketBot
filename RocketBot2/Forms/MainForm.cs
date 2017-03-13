@@ -136,7 +136,7 @@ namespace RocketBot2.Forms
             //Setup Logger for API
             APIConfiguration.Logger = new APILogListener();
 
-            Application.EnableVisualStyles();
+            //Application.EnableVisualStyles();
             var strCulture = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
 
             var culture = CultureInfo.CreateSpecificCulture("en");
