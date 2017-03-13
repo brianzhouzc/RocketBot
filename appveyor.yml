@@ -156,7 +156,7 @@ test: off
 artifacts:
 
   - path: '\$(PLATFORM)\$(CONFIGURATION)\RocketBot2'
-    name: RocketBot2-$(APPVEYOR_REPO_TAG_NAME)
+    name: RocketBot2-'$(APPVEYOR_REPO_TAG_NAME)'
     
 #  - path: '\$(PLATFORM)\$(CONFIGURATION)\android-debug.apk'
 #    name: android-debug
