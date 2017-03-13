@@ -40,6 +40,7 @@ using System.Net;
 using RocketBot2.CommandLineUtility;
 using System.Diagnostics;
 using PokemonGo.RocketAPI;
+using RocketBot2.Win32;
 
 #endregion
 
@@ -99,6 +100,7 @@ namespace RocketBot2.Forms
             VersionHelper.CheckVersion();
             btnRefresh.Enabled = false;
             pokeEaseToolStripMenuItem.Enabled = false;
+            ConsoleHelper.HideConsoleWindow();
         }
 
         private void InitializeMap()
@@ -113,7 +115,7 @@ namespace RocketBot2.Forms
 
             gMapControl1.MinZoom = 1;
             gMapControl1.MaxZoom = 20;
-            gMapControl1.Zoom = 16;
+            gMapControl1.Zoom = 17;
 
             gMapControl1.Overlays.Add(_searchAreaOverlay);
             gMapControl1.Overlays.Add(_pokestopsOverlay);
@@ -134,7 +136,7 @@ namespace RocketBot2.Forms
             //Setup Logger for API
             APIConfiguration.Logger = new APILogListener();
 
-            //Application.EnableVisualStyles();
+            Application.EnableVisualStyles();
             var strCulture = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
 
             var culture = CultureInfo.CreateSpecificCulture("en");
@@ -142,14 +144,14 @@ namespace RocketBot2.Forms
             Thread.CurrentThread.CurrentCulture = culture;
 
             AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionEventHandler;
-            /*
-            Console.Title = @"NecroBot2";
+            
+            Console.Title = @"RocketBot2";
             Console.CancelKeyPress += (sender, eArgs) =>
             {
                 QuitEvent.Set();
                 eArgs.Cancel = true;
             };
-             */
+             
             // Command line parsing
             var commandLine = new Arguments(args);
             // Look for specific arguments values
@@ -363,7 +365,7 @@ namespace RocketBot2.Forms
                             LogLevel.Error
                         );
 
-                        //Console.ReadKey();
+                        Console.ReadKey();
                         Environment.Exit(0);
                     }
                     //TODO - test api call to valida auth key
@@ -385,7 +387,7 @@ namespace RocketBot2.Forms
                         "At least 1 authentication method is selected, please correct your auth.json, ",
                         LogLevel.Error
                     );
-                    //Console.ReadKey();
+                    Console.ReadKey();
                     Environment.Exit(0);
                 }
             }
@@ -434,7 +436,7 @@ namespace RocketBot2.Forms
                 }
             }
 
-            //ProgressBar.Start("NecroBot2 is starting up", 10);
+            Resources.ProgressBar.Start("RocketBot2 is starting up", 10);
             
             if (settings.WebsocketsConfig.UseWebsocket)
             {
@@ -442,12 +444,12 @@ namespace RocketBot2.Forms
                 _session.EventDispatcher.EventReceived += evt => websocket.Listen(evt, _session);
             }
 
-            //ProgressBar.Fill(20);
+            Resources.ProgressBar.Fill(20);
 
             var machine = new StateMachine();
             var stats = _session.RuntimeStatistics;
 
-            //ProgressBar.Fill(30);
+            Resources.ProgressBar.Fill(30);
             var strVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(4);
             stats.DirtyEvent +=
                 () =>
@@ -455,26 +457,26 @@ namespace RocketBot2.Forms
                                     stats.GetTemplatedStats(
                                         _session.Translation.GetTranslation(TranslationString.StatsTemplateString),
                                         _session.Translation.GetTranslation(TranslationString.StatsXpTemplateString)));
-            //ProgressBar.Fill(40);
+            Resources.ProgressBar.Fill(40);
 
             var aggregator = new StatisticsAggregator(stats);
             if (onBotStarted != null) onBotStarted(_session, aggregator);
 
-            //ProgressBar.Fill(50);
+            Resources.ProgressBar.Fill(50);
             var listener = new ConsoleEventListener();
-            //ProgressBar.Fill(60);
+            Resources.ProgressBar.Fill(60);
             var snipeEventListener = new SniperEventListener();
 
             _session.EventDispatcher.EventReceived += evt => listener.Listen(evt, _session);
             _session.EventDispatcher.EventReceived += evt => aggregator.Listen(evt, _session);
             _session.EventDispatcher.EventReceived += evt => snipeEventListener.Listen(evt, _session);
 
-            //ProgressBar.Fill(70);
+            Resources.ProgressBar.Fill(70);
 
             machine.SetFailureState(new LoginState());
-            //ProgressBar.Fill(80);
+            Resources.ProgressBar.Fill(80);
 
-            //ProgressBar.Fill(90);
+            Resources.ProgressBar.Fill(90);
 
             _session.Navigation.WalkStrategy.UpdatePositionEvent += 
                 (session, lat, lng, speed) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng, Speed = speed });
@@ -500,7 +502,18 @@ namespace RocketBot2.Forms
                          mappokemons => _session.EventDispatcher.Send(new Logic.Event.PokemonsEncounterEvent { EncounterPokemons = mappokemons });
             CatchLurePokemonsTask.PokemonEncounterEvent += UpdateMap;
 
-            //ProgressBar.Fill(100);
+            Resources.ProgressBar.Fill(100);
+
+            //TODO: temporary
+            if (settings.Auth.APIConfig.UseLegacyAPI)
+            {
+                Logger.Write("The PoGoDev Community Has Updated The Hashing Service To Be Compatible With 0.57.4 So We Have Updated Our Code To Be Compliant. Unfortunately During This Update Niantic Has Also Attempted To Block The Legacy .45 Service Again So At The Moment Only Hashing Service Users Are Able To Login Successfully. Please Be Patient As Always We Will Attempt To Keep The Bot 100% Free But Please Realize We Have Already Done Quite A Few Workarounds To Keep .45 Alive For You Guys.  Even If We Are Able To Get Access Again To The .45 API Again It Is Over 3 Months Old So Is Going To Be More Detectable And Cause Captchas. Please Consider Upgrading To A Paid API Key To Avoid Captchas And You Will  Be Connecting Using Latest Version So Less Detectable So More Safe For You In The End.", LogLevel.Warning);
+                Logger.Write("The bot will now close", LogLevel.Error);
+                Instance.startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
+                _botStarted = true;
+                return;
+            }
+            //
 
             var mainAccount = accountManager.Add(settings.Auth.AuthConfig);
 
@@ -859,16 +872,6 @@ namespace RocketBot2.Forms
                 Environment.Exit(0);
                 return;
             }
-
-            //TODO: temporary
-            if (_settings.Auth.APIConfig.UseLegacyAPI)
-            {
-                Logger.Write("The PoGoDev Community Has Updated The Hashing Service To Be Compatible With 0.57.4 So We Have Updated Our Code To Be Compliant. Unfortunately During This Update Niantic Has Also Attempted To Block The Legacy .45 Service Again So At The Moment Only Hashing Service Users Are Able To Login Successfully. Please Be Patient As Always We Will Attempt To Keep The Bot 100% Free But Please Realize We Have Already Done Quite A Few Workarounds To Keep .45 Alive For You Guys.  Even If We Are Able To Get Access Again To The .45 API Again It Is Over 3 Months Old So Is Going To Be More Detectable And Cause Captchas. Please Consider Upgrading To A Paid API Key To Avoid Captchas And You Will  Be Connecting Using Latest Version So Less Detectable So More Safe For You In The End.", LogLevel.Error);
-                Instance.startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
-                _botStarted = true;
-                return;
-            }
-
             startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
             accountsToolStripMenuItem.Enabled = false;
             _botStarted = true;
@@ -1466,6 +1469,18 @@ namespace RocketBot2.Forms
                 case DialogResult.No: return false;
             }
             return false;
+        }
+
+        private void showConsoleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (showConsoleToolStripMenuItem.Text.Equals(@"Show Console"))
+            {
+                showConsoleToolStripMenuItem.Text = @"Hide Console";
+                ConsoleHelper.ShowConsoleWindow();
+                return;
+            }
+            showConsoleToolStripMenuItem.Text = @"Show Console";
+            ConsoleHelper.HideConsoleWindow();
         }
     }
 }

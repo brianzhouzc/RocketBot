@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{42B07AE9-E643-4212-A7DB-0611F9059670}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RocketBot2</RootNamespace>
     <AssemblyName>RocketBot2</AssemblyName>
@@ -271,6 +271,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\ProgressBar.cs" />
     <Compile Include="SniperEventListener.cs" />
     <Compile Include="WebSocketHandler\ActionCommands\DropItemHandler.cs" />
     <Compile Include="WebSocketHandler\ActionCommands\EvolvePokemonHandler.cs" />
@@ -314,12 +315,13 @@
     <Compile Include="WebSocketHandler\IWebSocketResponce.cs" />
     <Compile Include="WebSocketHandler\WebSocketEventManager.cs" />
     <Compile Include="WebSocketInterface.cs" />
+    <Compile Include="Win32\ConsoleHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Config\log4net.config" />
     <None Include="Config\log4net.unix.config" />
-	<None Include="cert.pfx">		
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>		
+    <None Include="cert.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Config\Translations\translation.ca.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

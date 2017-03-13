@@ -13,7 +13,7 @@ namespace RocketBot2
         [STAThread]
         private static void Main(string[] args)
         {
-            Application.EnableVisualStyles();
+            //Application.EnableVisualStyles();
             Application.Run(new MainForm(args));
         }
     }

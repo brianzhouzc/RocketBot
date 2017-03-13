@@ -5,6 +5,7 @@ using PoGo.NecroBot.Logic.Logging;
 using PoGo.NecroBot.Logic.State;
 using RocketBot2.Forms;
 using System.Drawing;
+using System.Text;
 
 #endregion
 
@@ -50,13 +51,12 @@ namespace RocketBot2
         public void Write(string message, LogLevel level = LogLevel.Info, ConsoleColor color = ConsoleColor.Black)
         {
             // Remember to change to a font that supports your language, otherwise it'll still show as ???.
-            //TODO: requis for RocketBot2 IO.Execption
-            //Console.OutputEncoding = Encoding.UTF8;
+            Console.OutputEncoding = Encoding.UTF8;
             if (level > _maxLogLevel)
                 return;
 
             var finalMessage = Logger.GetFinalMessage(message.Replace("NecroBot", "RocketBot"), level, color);
-            //  Console.WriteLine(finalMessage);
+            Console.WriteLine(finalMessage);
 
             // Fire log write event.
             OnLogWrite?.Invoke(this, new LogWriteEventArgs { Message = finalMessage, Level = level, Color = color });
