@@ -192,7 +192,7 @@ namespace RocketBot2.Logic.State
             {
                 if (old.Contains("vshost") || old.Contains(".gpx") || old.Contains("config.json") ||
                     old.Contains("config.xlsm") || old.Contains("auth.json") || old.Contains("SessionStats.db") ||
-                    old.Contains("LastPos.ini") || old.Contains("chromedriver.exe")) continue;
+                    old.Contains("LastPos.ini") || old.Contains("chromedriver.exe") || old.Contains("accounts.db")) continue;
                 if (File.Exists(old + ".old")) continue;
                 File.Move(old, old + ".old");
             }
