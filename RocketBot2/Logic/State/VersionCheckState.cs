@@ -50,7 +50,7 @@ namespace RocketBot2.Logic.State
             }
 
             var autoUpdate = session.LogicSettings.AutoUpdate;
-           var isLatest = IsLatest();
+            var isLatest = IsLatest();
             if (isLatest)
             {
                 session.EventDispatcher.Send(new UpdateEvent

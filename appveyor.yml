@@ -181,7 +181,7 @@ deploy:
   # Deploy to GitHub Releases
   - provider: GitHub
     tag: $(APPVEYOR_REPO_TAG_NAME)
-    description: '[README.md](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/README.md)'
+    description: '[CHANGELOG.md](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/CHANGELOG.md)'
     release: RocketBot2 $(APPVEYOR_REPO_TAG_NAME)
     auth_token: $(auth_token)
     artifact: RocketBot2
