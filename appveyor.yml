@@ -156,7 +156,7 @@ test: off
 artifacts:
 
   - path: '\$(PLATFORM)\$(CONFIGURATION)\RocketBot2'
-    name: 'RocketBot2-v$(APPVEYOR_REPO_TAG_NAME)'
+    name: RocketBot2
     
 #  - path: '\$(PLATFORM)\$(CONFIGURATION)\android-debug.apk'
 #    name: android-debug
@@ -184,7 +184,7 @@ deploy:
     description: '[README.md](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/README.md)'
     release: RocketBot2 $(APPVEYOR_REPO_TAG_NAME)
     auth_token: $(auth_token)
-    artifact: 'RocketBot2-v$(APPVEYOR_REPO_TAG_NAME)'
+    artifact: RocketBot2
     #;android-debug;android-debug-unaligned;android-release-unsigned;RocketBot2-APK.WebCli
     draft: false
     prerelease: false
