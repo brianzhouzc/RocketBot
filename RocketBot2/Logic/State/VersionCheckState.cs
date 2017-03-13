@@ -65,13 +65,13 @@ namespace RocketBot2.Logic.State
 
             var remoteReleaseUrl =
                 $"https://github.com/TheUnnamedOrganisation/RocketBot/releases/download/v{RemoteVersion}/";
-            string zipName = $"RocketBot2-v{RemoteVersion}.zip";
+            string zipName = "RocketBot2.zip";
             var downloadLink = remoteReleaseUrl + zipName;
 
             var baseDir = Directory.GetCurrentDirectory();
             var downloadFilePath = Path.Combine(baseDir, zipName);
             var tempPath = Path.Combine(baseDir, "tmp");
-            var extractedDir = Path.Combine(tempPath, $"RocketBot2-v{RemoteVersion}");
+            var extractedDir = Path.Combine(tempPath, "RocketBot2");
             var destinationDir = baseDir + Path.DirectorySeparatorChar;
              bool updated = false;
             AutoUpdateForm autoUpdateForm = new AutoUpdateForm()
