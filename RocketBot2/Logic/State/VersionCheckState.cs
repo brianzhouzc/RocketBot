@@ -73,7 +73,7 @@ namespace RocketBot2.Logic.State
             var tempPath = Path.Combine(baseDir, "tmp");
             var extractedDir = Path.Combine(tempPath, "RocketBot2");
             var destinationDir = baseDir + Path.DirectorySeparatorChar;
-             bool updated = false;
+            bool updated = false;
             AutoUpdateForm autoUpdateForm = new AutoUpdateForm()
             {
                 Session = session,
