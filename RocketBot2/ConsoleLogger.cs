@@ -6,6 +6,7 @@ using PoGo.NecroBot.Logic.State;
 using RocketBot2.Forms;
 using System.Drawing;
 using System.Text;
+using System.Collections.Generic;
 
 #endregion
 
@@ -60,82 +61,59 @@ namespace RocketBot2
 
             // Fire log write event.
             OnLogWrite?.Invoke(this, new LogWriteEventArgs { Message = finalMessage, Level = level, Color = color });
-           
+
             // ReSharper disable once SwitchStatementMissingSomeCases
-            switch (level)
+            Color _color = new Color();
+            Dictionary<LogLevel, Color> colors = new Dictionary<LogLevel, Color>()
             {
-                case LogLevel.Berry:
-                    MainForm.ColoredConsoleWrite(Color.Yellow, finalMessage);
-                    break;
-                case LogLevel.Caught:
-                    MainForm.ColoredConsoleWrite(Color.GreenYellow, finalMessage);
-                    break;
-                case LogLevel.Debug:
-                    MainForm.ColoredConsoleWrite(Color.Gray, finalMessage);
-                    break;
-                case LogLevel.Egg:
-                    MainForm.ColoredConsoleWrite(Color.LightGreen, finalMessage);
-                    break;
-                case LogLevel.Error:
-                    MainForm.ColoredConsoleWrite(Color.Red, finalMessage);
-                    break;
-                case LogLevel.Evolve:
-                    MainForm.ColoredConsoleWrite(Color.White, finalMessage);
-                    break;
-                case LogLevel.Farming:
-                    MainForm.ColoredConsoleWrite(Color.Magenta, finalMessage);
-                    break;
-                case LogLevel.Flee:
-                    MainForm.ColoredConsoleWrite(Color.Orange, finalMessage);
-                    break;
-                case LogLevel.Gym:
-                    MainForm.ColoredConsoleWrite(Color.Magenta, finalMessage);
-                    break;
-                case LogLevel.Info:
-                    MainForm.ColoredConsoleWrite(Color.Aqua, finalMessage);
-                    break;
-                case LogLevel.LevelUp:
-                    MainForm.ColoredConsoleWrite(Color.Azure, finalMessage);
-                    break;
-                case LogLevel.New:
-                    MainForm.ColoredConsoleWrite(Color.Green, finalMessage);
-                    break;
-                case LogLevel.None:
-                    MainForm.ColoredConsoleWrite(Color.White, finalMessage);
-                    break;
-                case LogLevel.Pokestop:
-                    MainForm.ColoredConsoleWrite(Color.Chartreuse, finalMessage);
-                    break;
-                case LogLevel.Recycling:
-                    MainForm.ColoredConsoleWrite(Color.Magenta, finalMessage);
-                    break;
-                case LogLevel.Service:
-                    MainForm.ColoredConsoleWrite(Color.White, finalMessage);
-                    break;
-                case LogLevel.Sniper:
-                    MainForm.ColoredConsoleWrite(Color.White, finalMessage);
-                    break;
-                case LogLevel.SoftBan:
-                    MainForm.ColoredConsoleWrite(Color.Red, finalMessage);
-                    break;
-                case LogLevel.Transfer:
-                    MainForm.ColoredConsoleWrite(Color.Aquamarine, finalMessage);
-                    break;
-                case LogLevel.Update:
-                    MainForm.ColoredConsoleWrite(Color.White, finalMessage);
-                    break;
-                case LogLevel.Warning:
-                    MainForm.ColoredConsoleWrite(Color.Yellow, finalMessage);
-                    break;
+                { LogLevel.Error, Color.Red },
+                { LogLevel.Caught, Color.Green },
+                { LogLevel.Info, Color.DarkCyan } ,
+                { LogLevel.Warning, Color.FromArgb(255, 128, 128, 0) } ,
+                { LogLevel.Pokestop, Color.Cyan }  ,
+                { LogLevel.Farming, Color.Magenta },
+                { LogLevel.Sniper, Color.White },
+                { LogLevel.Recycling, Color.DarkMagenta },
+                { LogLevel.Flee, Color.FromArgb(255, 128, 128, 0) },
+                { LogLevel.Transfer, Color.DarkGreen },
+                { LogLevel.Evolve, Color.DarkGreen },
+                { LogLevel.Berry, Color.FromArgb(255, 128, 128, 0) },
+                { LogLevel.Egg, Color.FromArgb(255, 128, 128, 0) },
+                { LogLevel.Debug, Color.Gray },
+                { LogLevel.Update, Color.White },
+                { LogLevel.New, Color.Green },
+                { LogLevel.SoftBan, Color.Red },
+                { LogLevel.LevelUp, Color.Magenta },
+                { LogLevel.Gym, Color.Magenta },
+                { LogLevel.Service, Color.White }
+            };
+
+            _color = colors[level];
+
+            if (string.IsNullOrEmpty(color.ToString()) || color.ToString() != "Black")
+            {
+                _color = FromColor(color);
+            }
+
+            if (string.IsNullOrEmpty(_color.ToString())) _color = Color.White;
+
+            MainForm.ColoredConsoleWrite(_color, finalMessage);
+        }
+
+        public static Color FromColor(ConsoleColor c)
+        {
+            switch (c)
+            {
+                case ConsoleColor.DarkYellow:
+                    return Color.FromArgb(255, 128, 128, 0);
                 default:
-                    MainForm.ColoredConsoleWrite(Color.White, finalMessage);
-                    break;
+                    return Color.FromName(c.ToString());
             }
         }
 
         public void lineSelect(int lineChar = 0, int linesUp = 1)
         {
-            //Console.SetCursorPosition(lineChar, Console.CursorTop - linesUp);
+            Console.SetCursorPosition(lineChar, Console.CursorTop - linesUp);
         }
 
         private class LogWriteEventArgs

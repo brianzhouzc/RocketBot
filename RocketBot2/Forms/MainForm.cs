@@ -85,6 +85,14 @@ namespace RocketBot2.Forms
             SynchronizationContext = SynchronizationContext.Current;
             Instance = this;
             args = _args;
+            AppDomain currentDomain = AppDomain.CurrentDomain;
+            currentDomain.UnhandledException += new UnhandledExceptionEventHandler(this.ErrorHandler);
+        }
+
+        private void ErrorHandler(object sender, UnhandledExceptionEventArgs e)
+        {
+            Debug.WriteLine(e.ExceptionObject.ToString());
+            ConsoleHelper.ShowConsoleWindow();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -564,10 +572,12 @@ namespace RocketBot2.Forms
             _excelConfigAllow = excelConfigAllow;
         }
 
+#pragma warning disable 1998
         private async Task StartBot()
         {
-            await _machine.AsyncStart(new Logic.State.VersionCheckState(), _session, _subPath, _excelConfigAllow);
-
+#pragma warning disable 4014
+            _machine.AsyncStart(new VersionCheckState(), _session, _subPath, _excelConfigAllow);
+         
             try
             {
                 Console.Clear();
@@ -583,19 +593,20 @@ namespace RocketBot2.Forms
                 _session.LogicSettings.HumanWalkingSnipeUseFastPokemap)
             {
                 // jjskuld - Ignore CS4014 warning for now.
-                #pragma warning disable 4014
-                await HumanWalkSnipeTask.StartFastPokemapAsync(_session,
+//#pragma warning disable 4014
+                HumanWalkSnipeTask.StartFastPokemapAsync(_session,
                     _session.CancellationTokenSource.Token); // that need to keep data live
-                #pragma warning restore 4014
+//#pragma warning restore 4014
             }
 
             if (_session.LogicSettings.UseSnipeLocationServer ||
-             _session.LogicSettings.HumanWalkingSnipeUsePogoLocationFeeder)
-                await SnipePokemonTask.AsyncStart(_session);
+              _session.LogicSettings.HumanWalkingSnipeUsePogoLocationFeeder)
+                SnipePokemonTask.AsyncStart(_session);
+
 
             if (_session.LogicSettings.DataSharingConfig.EnableSyncData)
             {
-                await BotDataSocketClient.StartAsync(_session);
+                BotDataSocketClient.StartAsync(_session);
                 _session.EventDispatcher.EventReceived += evt => BotDataSocketClient.Listen(evt, _session);
             }
             _settings.CheckProxy(_session.Translation);
@@ -625,7 +636,9 @@ namespace RocketBot2.Forms
             }
 
             QuitEvent.WaitOne();
+#pragma warning restore 4014
         }
+#pragma warning restore 1998
 
         private void InitializePokestopsAndRoute(List<FortData> pokeStops)
         {
@@ -890,7 +903,6 @@ namespace RocketBot2.Forms
                 return;
             }
             startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
-            //accountsToolStripMenuItem.Enabled = false;
             _botStarted = true;
             btnRefresh.Enabled = true;
             pokeEaseToolStripMenuItem.Enabled = true;
