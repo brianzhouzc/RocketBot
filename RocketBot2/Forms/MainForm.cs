@@ -85,6 +85,14 @@ namespace RocketBot2.Forms
             SynchronizationContext = SynchronizationContext.Current;
             Instance = this;
             args = _args;
+            AppDomain currentDomain = AppDomain.CurrentDomain;
+            currentDomain.UnhandledException += new UnhandledExceptionEventHandler(this.ErrorHandler);
+        }
+
+        private void ErrorHandler(object sender, UnhandledExceptionEventArgs e)
+        {
+            Debug.WriteLine(e.ExceptionObject.ToString());
+            ConsoleHelper.ShowConsoleWindow();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -564,10 +572,12 @@ namespace RocketBot2.Forms
             _excelConfigAllow = excelConfigAllow;
         }
 
+#pragma warning disable 1998
         private async Task StartBot()
         {
+#pragma warning disable 4014
             _machine.AsyncStart(new VersionCheckState(), _session, _subPath, _excelConfigAllow);
-           
+         
             try
             {
                 Console.Clear();
@@ -583,10 +593,10 @@ namespace RocketBot2.Forms
                 _session.LogicSettings.HumanWalkingSnipeUseFastPokemap)
             {
                 // jjskuld - Ignore CS4014 warning for now.
-#pragma warning disable 4014
+
                 HumanWalkSnipeTask.StartFastPokemapAsync(_session,
                     _session.CancellationTokenSource.Token); // that need to keep data live
-#pragma warning restore 4014
+
             }
 
             if (_session.LogicSettings.UseSnipeLocationServer ||
@@ -609,7 +619,7 @@ namespace RocketBot2.Forms
                 //MSniperServiceTask.ConnectToService();
                 //_session.EventDispatcher.EventReceived += evt => MSniperServiceTask.AddToList(evt);
             }
-            var trackFile = Path.GetTempPath() + "\\necrobot2.io";
+            var trackFile = Path.GetTempPath() + "\\rocketbot2.io";
 
             if (!File.Exists(trackFile) || File.GetLastWriteTime(trackFile) < DateTime.Now.AddDays(-1))
             {
@@ -626,7 +636,9 @@ namespace RocketBot2.Forms
             }
 
             QuitEvent.WaitOne();
+#pragma warning disable 4014
         }
+#pragma warning restore 1998
 
         private void InitializePokestopsAndRoute(List<FortData> pokeStops)
         {
