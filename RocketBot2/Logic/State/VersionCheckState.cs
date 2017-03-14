@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Media;
-using System.Net;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -14,7 +13,6 @@ using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
 using PoGo.NecroBot.Logic.Common;
 using PoGo.NecroBot.Logic.Event;
-using PoGo.NecroBot.Logic.Event.UI;
 using PoGo.NecroBot.Logic.Logging;
 using PoGo.NecroBot.Logic.Utils;
 using PoGo.NecroBot.Logic.Forms;
@@ -52,7 +50,7 @@ namespace RocketBot2.Logic.State
             }
 
             var autoUpdate = session.LogicSettings.AutoUpdate;
-           var isLatest = IsLatest();
+            var isLatest = IsLatest();
             if (isLatest)
             {
                 session.EventDispatcher.Send(new UpdateEvent
@@ -67,7 +65,7 @@ namespace RocketBot2.Logic.State
 
             var remoteReleaseUrl =
                 $"https://github.com/TheUnnamedOrganisation/RocketBot/releases/download/v{RemoteVersion}/";
-            string zipName = "Release.zip";
+            string zipName = "RocketBot2.zip";
             var downloadLink = remoteReleaseUrl + zipName;
 
             var baseDir = Directory.GetCurrentDirectory();
@@ -75,7 +73,7 @@ namespace RocketBot2.Logic.State
             var tempPath = Path.Combine(baseDir, "tmp");
             var extractedDir = Path.Combine(tempPath, "RocketBot2");
             var destinationDir = baseDir + Path.DirectorySeparatorChar;
-             bool updated = false;
+            bool updated = false;
             AutoUpdateForm autoUpdateForm = new AutoUpdateForm()
             {
                 Session = session,
@@ -194,7 +192,7 @@ namespace RocketBot2.Logic.State
             {
                 if (old.Contains("vshost") || old.Contains(".gpx") || old.Contains("config.json") ||
                     old.Contains("config.xlsm") || old.Contains("auth.json") || old.Contains("SessionStats.db") ||
-                    old.Contains("LastPos.ini") || old.Contains("chromedriver.exe")) continue;
+                    old.Contains("LastPos.ini") || old.Contains("chromedriver.exe") || old.Contains("accounts.db")) continue;
                 if (File.Exists(old + ".old")) continue;
                 File.Move(old, old + ".old");
             }

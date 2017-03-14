@@ -13,12 +13,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
-using GeoCoordinatePortable;
+using System.Device.Location;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using POGOProtos.Data;
-using POGOProtos.Inventory;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Fort;
 using POGOProtos.Map.Pokemon;
@@ -33,7 +32,6 @@ using PoGo.NecroBot.Logic.Model.Settings;
 using PoGo.NecroBot.Logic.Service.Elevation;
 using RocketBot2.Helpers;
 using RocketBot2.Models;
-using RocketBot2.Logic.Event;
 using PoGo.NecroBot.Logic.Event;
 using PoGo.NecroBot.Logic;
 using System.Reflection;
@@ -41,14 +39,14 @@ using PoGo.NecroBot.Logic.Tasks;
 using System.Net;
 using RocketBot2.CommandLineUtility;
 using System.Diagnostics;
-using RocketBot2.Logic.Utils;
 using PokemonGo.RocketAPI;
+using RocketBot2.Win32;
 
 #endregion
 
 
 namespace RocketBot2.Forms
-{ 
+{
     public partial class MainForm : Form
     {
         public static MainForm Instance;
@@ -101,6 +99,8 @@ namespace RocketBot2.Forms
             InitializeMap();
             VersionHelper.CheckVersion();
             btnRefresh.Enabled = false;
+            pokeEaseToolStripMenuItem.Enabled = false;
+            ConsoleHelper.HideConsoleWindow();
         }
 
         private void InitializeMap()
@@ -115,7 +115,7 @@ namespace RocketBot2.Forms
 
             gMapControl1.MinZoom = 1;
             gMapControl1.MaxZoom = 20;
-            gMapControl1.Zoom = 16;
+            gMapControl1.Zoom = 17;
 
             gMapControl1.Overlays.Add(_searchAreaOverlay);
             gMapControl1.Overlays.Add(_pokestopsOverlay);
@@ -144,14 +144,14 @@ namespace RocketBot2.Forms
             Thread.CurrentThread.CurrentCulture = culture;
 
             AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionEventHandler;
-            /*
-            Console.Title = @"NecroBot2";
+            
+            Console.Title = @"RocketBot2";
             Console.CancelKeyPress += (sender, eArgs) =>
             {
                 QuitEvent.Set();
                 eArgs.Cancel = true;
             };
-             */
+             
             // Command line parsing
             var commandLine = new Arguments(args);
             // Look for specific arguments values
@@ -192,8 +192,10 @@ namespace RocketBot2.Forms
                 excelConfigAllow = true;
             }
 
+            var _fileName = $"RocketBot2-{DateTime.Today.ToString("dd-MM-yyyy")}-{DateTime.Now.ToString("HH-mm-ss")}.txt";
+
             Logger.AddLogger(new ConsoleLogger(LogLevel.Service), _subPath);
-            Logger.AddLogger(new FileLogger(LogLevel.Service), _subPath);
+            Logger.AddLogger(new FileLogger(LogLevel.Service, _fileName), _subPath);
             Logger.AddLogger(new WebSocketLogger(LogLevel.Service), _subPath);
 
             var profilePath = Path.Combine(Directory.GetCurrentDirectory(), _subPath);
@@ -363,7 +365,7 @@ namespace RocketBot2.Forms
                             LogLevel.Error
                         );
 
-                        //Console.ReadKey();
+                        Console.ReadKey();
                         Environment.Exit(0);
                     }
                     //TODO - test api call to valida auth key
@@ -385,7 +387,7 @@ namespace RocketBot2.Forms
                         "At least 1 authentication method is selected, please correct your auth.json, ",
                         LogLevel.Error
                     );
-                    //Console.ReadKey();
+                    Console.ReadKey();
                     Environment.Exit(0);
                 }
             }
@@ -434,7 +436,7 @@ namespace RocketBot2.Forms
                 }
             }
 
-            //ProgressBar.Start("NecroBot2 is starting up", 10);
+            Resources.ProgressBar.Start("RocketBot2 is starting up", 10);
             
             if (settings.WebsocketsConfig.UseWebsocket)
             {
@@ -442,12 +444,12 @@ namespace RocketBot2.Forms
                 _session.EventDispatcher.EventReceived += evt => websocket.Listen(evt, _session);
             }
 
-            //ProgressBar.Fill(20);
+            Resources.ProgressBar.Fill(20);
 
             var machine = new StateMachine();
             var stats = _session.RuntimeStatistics;
 
-            //ProgressBar.Fill(30);
+            Resources.ProgressBar.Fill(30);
             var strVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(4);
             stats.DirtyEvent +=
                 () =>
@@ -455,52 +457,63 @@ namespace RocketBot2.Forms
                                     stats.GetTemplatedStats(
                                         _session.Translation.GetTranslation(TranslationString.StatsTemplateString),
                                         _session.Translation.GetTranslation(TranslationString.StatsXpTemplateString)));
-            //ProgressBar.Fill(40);
+            Resources.ProgressBar.Fill(40);
 
             var aggregator = new StatisticsAggregator(stats);
             if (onBotStarted != null) onBotStarted(_session, aggregator);
 
-            //ProgressBar.Fill(50);
+            Resources.ProgressBar.Fill(50);
             var listener = new ConsoleEventListener();
-            //ProgressBar.Fill(60);
+            Resources.ProgressBar.Fill(60);
             var snipeEventListener = new SniperEventListener();
 
             _session.EventDispatcher.EventReceived += evt => listener.Listen(evt, _session);
             _session.EventDispatcher.EventReceived += evt => aggregator.Listen(evt, _session);
             _session.EventDispatcher.EventReceived += evt => snipeEventListener.Listen(evt, _session);
 
-            //ProgressBar.Fill(70);
+            Resources.ProgressBar.Fill(70);
 
             machine.SetFailureState(new LoginState());
-            //ProgressBar.Fill(80);
+            Resources.ProgressBar.Fill(80);
 
-            //ProgressBar.Fill(90);
+            Resources.ProgressBar.Fill(90);
 
             _session.Navigation.WalkStrategy.UpdatePositionEvent += 
                 (session, lat, lng, speed) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng, Speed = speed });
             _session.Navigation.WalkStrategy.UpdatePositionEvent += LoadSaveState.SaveLocationToDisk;
 
             Navigation.GetHumanizeRouteEvent +=
-                (points)  => _session.EventDispatcher.Send(new GetHumanizeRouteEvent { Points = points} );
+                (points)  => _session.EventDispatcher.Send(new Logic.Event.GetHumanizeRouteEvent { Points = points} );
             Navigation.GetHumanizeRouteEvent += UpdateMap;
 
             UseNearbyPokestopsTask.LootPokestopEvent +=
-                pokestop => _session.EventDispatcher.Send(new LootPokestopEvent { Pokestop = pokestop });
+                pokestop => _session.EventDispatcher.Send(new Logic.Event.LootPokestopEvent { Pokestop = pokestop });
             UseNearbyPokestopsTask.LootPokestopEvent += UpdateMap;
 
             CatchNearbyPokemonsTask.PokemonEncounterEvent +=
-                mappokemons => _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
+                mappokemons => _session.EventDispatcher.Send(new Logic.Event.PokemonsEncounterEvent { EncounterPokemons = mappokemons });
             CatchNearbyPokemonsTask.PokemonEncounterEvent += UpdateMap;
 
             CatchIncensePokemonsTask.PokemonEncounterEvent +=
-                mappokemons => _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
+                mappokemons => _session.EventDispatcher.Send(new Logic.Event.PokemonsEncounterEvent { EncounterPokemons = mappokemons });
             CatchIncensePokemonsTask.PokemonEncounterEvent += UpdateMap;
 
             CatchLurePokemonsTask.PokemonEncounterEvent +=
-                         mappokemons => _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
+                         mappokemons => _session.EventDispatcher.Send(new Logic.Event.PokemonsEncounterEvent { EncounterPokemons = mappokemons });
             CatchLurePokemonsTask.PokemonEncounterEvent += UpdateMap;
 
-            //ProgressBar.Fill(100);
+            Resources.ProgressBar.Fill(100);
+
+            //TODO: temporary
+            if (settings.Auth.APIConfig.UseLegacyAPI)
+            {
+                Logger.Write("The PoGoDev Community Has Updated The Hashing Service To Be Compatible With 0.57.4 So We Have Updated Our Code To Be Compliant. Unfortunately During This Update Niantic Has Also Attempted To Block The Legacy .45 Service Again So At The Moment Only Hashing Service Users Are Able To Login Successfully. Please Be Patient As Always We Will Attempt To Keep The Bot 100% Free But Please Realize We Have Already Done Quite A Few Workarounds To Keep .45 Alive For You Guys.  Even If We Are Able To Get Access Again To The .45 API Again It Is Over 3 Months Old So Is Going To Be More Detectable And Cause Captchas. Please Consider Upgrading To A Paid API Key To Avoid Captchas And You Will  Be Connecting Using Latest Version So Less Detectable So More Safe For You In The End.", LogLevel.Warning);
+                Logger.Write("The bot will now close", LogLevel.Error);
+                Instance.startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
+                _botStarted = true;
+                return;
+            }
+            //
 
             var mainAccount = accountManager.Add(settings.Auth.AuthConfig);
 
@@ -508,41 +521,60 @@ namespace RocketBot2.Forms
 
             var bot = accountManager.GetStartUpAccount();
 
-            _session.ReInitSessionWithNextBot(bot);
+            if (accountManager.Accounts.Count > 1)
+            {
+                foreach (var _bot in accountManager.Accounts)
+                {
+                    var _item = new ToolStripMenuItem();
+                    _item.Text = _bot.Username;
+                    _item.Click += delegate
+                    {
+                        foreach (ToolStripMenuItem en in accountsToolStripMenuItem.DropDownItems)
+                        {
+                            if (en.Text == _item.Text)
+                            {
+                                if (!_botStarted)
+                                    _session.ReInitSessionWithNextBot(_bot);
+
+                                _item.Enabled = false;
+                            }
+                            else
+                                en.Enabled = true;
+                        }
+                        accountManager.SwitchAccountTo(_bot);
+                    };
+
+                    accountsToolStripMenuItem.DropDownItems.Add(_item);
+
+                    if (_item.Text == bot.Username)
+                    {
+                        _session.ReInitSessionWithNextBot(_bot);
+                        _item.Enabled = false;
+                    }
+                }
+            }
+            else
+            {
+                _session.ReInitSessionWithNextBot(bot);
+                menuStrip1.Items.Remove(accountsToolStripMenuItem);
+            }
 
             _machine = machine;
             _settings = settings;
             _excelConfigAllow = excelConfigAllow;
-
-            if (accountManager.Accounts.Count > 1)
-            {
-                foreach (var item in accountManager.Accounts)
-                {
-                    var _item = new ToolStripMenuItem();
-                    _item.Text = item.Username;
-                    _item.Click += delegate
-                    {
-                        accountManager.SwitchAccountTo(item);
-                        _session.ReInitSessionWithNextBot(item);
-                    };
-                    accountsToolStripMenuItem.DropDownItems.Add(_item);
-                }
-            }
-            else
-            {  menuStrip1.Items.Remove(accountsToolStripMenuItem); }
         }
 
         private async Task StartBot()
         {
             await _machine.AsyncStart(new Logic.State.VersionCheckState(), _session, _subPath, _excelConfigAllow);
 
-            /*try
+            try
             {
                 Console.Clear();
             }
             catch (IOException)
             {
-            }*/
+            }
 
             if (_settings.TelegramConfig.UseTelegramAPI)
                 _session.Telegram = new TelegramService(_settings.TelegramConfig.TelegramAPIKey, _session);
@@ -725,7 +757,7 @@ namespace RocketBot2.Forms
                 Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude,
                     _session.Client.CurrentLongitude);
                 //get optimized route
-                var _pokeStops = RouteOptimizeUtil.Optimize(_session.Forts.ToArray(), _session.Client.CurrentLatitude,
+                var _pokeStops = Logic.Utils.RouteOptimizeUtil.Optimize(_session.Forts.ToArray(), _session.Client.CurrentLatitude,
                     _session.Client.CurrentLongitude);
                 InitializePokestopsAndRoute(_pokeStops);
                 encounterPokemonsCount = 0;
@@ -782,14 +814,39 @@ namespace RocketBot2.Forms
         {
             if (text.Length <= 0)
                 return;
+
             if (Instance.InvokeRequired)
             {
-                Instance.Invoke(new Action<Color, string>(ColoredConsoleWrite), color, text.Replace("NecroBot", "RocketBot"));
+                Instance.Invoke(new Action<Color, string>(ColoredConsoleWrite), color, text);
                 return;
             }
+
+            if (text.Contains("Error with API request type: DownloadRemoteConfigVersion"))
+            {
+                Instance.logTextBox.SelectionColor = Color.Red;
+                Instance.logTextBox.AppendText($"Error with API request type: DownloadRemoteConfigVersion\r\nPlease restart RocketBot.\r\n");
+                Instance.logTextBox.ScrollToCaret();
+                return;
+            }
+
+            if (text.Contains("PokemonGo.RocketAPI.Exceptions.CaptchaException:"))
+            {
+                Instance.logTextBox.SelectionColor = Color.Yellow;
+                Instance.logTextBox.AppendText($"Warning: with CaptchaException not login conected\r\nPlease refresh Inventory list.\r\n");
+                Instance.logTextBox.ScrollToCaret();
+                return;
+            }
+
+            if (text.Contains("PoGo.NecroBot.Logic.Strategies.Walk.BaseWalkStrategy.<DoWalk>"))
+            {
+                Instance.logTextBox.SelectionColor = Color.Red;
+                Instance.logTextBox.AppendText($"Error: with BaseWalkStrategy quota depassed\r\nPlease close RocketBot and wait.\r\n");
+                Instance.logTextBox.ScrollToCaret();
+                return;
+            }
+ 
             Instance.logTextBox.SelectionColor = color;
-            Instance.logTextBox.AppendText(text + "\n");
-            Instance.logTextBox.Select(Instance.logTextBox.Text.Length, +1);
+            Instance.logTextBox.AppendText(text + $"\r\n");
             Instance.logTextBox.ScrollToCaret();
         }
 
@@ -833,9 +890,10 @@ namespace RocketBot2.Forms
                 return;
             }
             startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
-            accountsToolStripMenuItem.Enabled = false;
+            //accountsToolStripMenuItem.Enabled = false;
             _botStarted = true;
             btnRefresh.Enabled = true;
+            pokeEaseToolStripMenuItem.Enabled = true;
             Task.Run(StartBot);
         }
 
@@ -850,8 +908,29 @@ namespace RocketBot2.Forms
             _playerLocations.Add(newLocation);
             UpdateMap();
         }
+
+        private void pokeEaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var profilePath = Path.Combine(Directory.GetCurrentDirectory(), _subPath);
+            var profileConfigPath = Path.Combine(profilePath, "PokeEase");
+            var exeFile = Path.Combine(profileConfigPath, "RocketBot2.exe");
+            Process.Start(exeFile);
+        }
+
+        private void showConsoleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (showConsoleToolStripMenuItem.Text.Equals(@"Show Console"))
+            {
+                showConsoleToolStripMenuItem.Text = @"Hide Console";
+                ConsoleHelper.ShowConsoleWindow();
+                return;
+            }
+            showConsoleToolStripMenuItem.Text = @"Show Console";
+            ConsoleHelper.HideConsoleWindow();
+        }
+
         #endregion EVENTS
-       
+
         #region POKEMON LIST
 
         private void InitializePokemonForm()
@@ -881,8 +960,8 @@ namespace RocketBot2.Forms
                     .Count(p => p == pok.PokemonId) > 1)
                     e.Item.BackColor = Color.LightGreen;
 
-                    e.Item.Text = _session.Translation.GetPokemonTranslation(pok.PokemonId);
-                                   
+                e.Item.Text = _session.Translation.GetPokemonTranslation(pok.PokemonId);
+
                 foreach (OLVListSubItem sub in e.Item.SubItems)
                 {
                     // ReSharper disable once PossibleNullReferenceException
@@ -999,7 +1078,12 @@ namespace RocketBot2.Forms
             {
                 _pokemons.Add(pokemon.Id);
             }
-            await TransferPokemonTask.Execute(_session, _session.CancellationTokenSource.Token, _pokemons);
+            await Task.Run(async () =>
+             {
+                 await TransferPokemonTask.Execute(
+                     _session, _session.CancellationTokenSource.Token, _pokemons
+                 );
+             });
             await ReloadPokemonList();
         }
 
@@ -1008,7 +1092,7 @@ namespace RocketBot2.Forms
             SetState(false);
             foreach (var pokemon in pokemons)
             {
-                await LevelUpSpecificPokemonTask.Execute(_session, pokemon.Id);
+                await Task.Run(async () => { await UpgradeSinglePokemonTask.Execute(_session, pokemon.Id, false, 1 /* Only upgrade 1 time */); });
             }
             await ReloadPokemonList();
         }
@@ -1018,7 +1102,7 @@ namespace RocketBot2.Forms
             SetState(false);
             foreach (var pokemon in pokemons)
             {
-                await Logic.Tasks.EvolveSpecificPokemonTask.Execute(_session, pokemon.Id);
+                await Task.Run(async () => { await Logic.Tasks.EvolveSpecificPokemonTask.Execute(_session, pokemon.Id); });
             }
             await ReloadPokemonList();
         }
@@ -1126,7 +1210,7 @@ namespace RocketBot2.Forms
                     }
                     continue;
                 }
-                await RenameSinglePokemonTask.Execute(_session, pokemon.Id, nickname, _session.CancellationTokenSource.Token);
+                await Task.Run(async () => { await RenameSinglePokemonTask.Execute(_session, pokemon.Id, nickname, _session.CancellationTokenSource.Token); });
             }
             await ReloadPokemonList();
         }
@@ -1136,22 +1220,28 @@ namespace RocketBot2.Forms
             SetState(false);
             try
             {
-                var itemTemplates = await _session.Client.Download.GetItemTemplates();
-                PokemonObject.Initilize(itemTemplates);
+                if (_session.Client.Download.ItemTemplates == null)
+                    await _session.Client.Download.GetItemTemplates();
 
-                var pokemons = 
+                var templates =  _session.Client.Download.ItemTemplates.Where(x => x.PokemonSettings != null)
+                        .Select(x => x.PokemonSettings)
+                        .ToList();
+
+                PokemonObject.Initilize(_session, templates);
+
+                var pokemons =
                     _session.Inventory.GetPokemons()
                     .Where(p => p != null && p.PokemonId > 0)
                     .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
                     .ThenByDescending(key => key.Cp)
                     .OrderBy(key => key.PokemonId);
-                                                   
+
                 var pokemonObjects = new List<PokemonObject>();
 
                 foreach (var pokemon in pokemons)
                 {
                     var pokemonObject = new PokemonObject(pokemon);
-                    pokemonObject.Candy = PokemonInfo.GetCandy(_session, pokemon);
+                    //pokemonObject.Candy = PokemonInfo.GetCandy(_session, pokemon);
                     pokemonObjects.Add(pokemonObject);
                 }
 
@@ -1170,10 +1260,10 @@ namespace RocketBot2.Forms
                 var _totalCaptures = _totalUniqueEncounters.Count(i => i.Captures > 0);
                 var _totalData = PokeDex.Count();
 
-                lblPokemonList.Text = _session.Translation.GetTranslation(TranslationString.AmountPkmSeenCaught, _totalData, _totalCaptures) + 
+                lblPokemonList.Text = _session.Translation.GetTranslation(TranslationString.AmountPkmSeenCaught, _totalData, _totalCaptures) +
                     $" / Storage: {_session.Client.Player.PlayerData.MaxPokemonStorage} ({pokemons.Count()} Pokémons, {_session.Inventory.GetEggs().Count()} Eggs)";
 
-                var items = 
+                var items =
                     _session.Inventory.GetItems()
                     .Where(i => i != null)
                     .OrderBy(i => i.ItemId);
@@ -1183,7 +1273,7 @@ namespace RocketBot2.Forms
                     .Where(aItems => aItems?.Item != null)
                     .SelectMany(aItems => aItems.Item)
                     .ToDictionary(item => item.ItemId, item => TimeHelper.FromUnixTimeUtc(item.ExpireMs));
-                
+
                 flpItems.Controls.Clear();
 
                 foreach (var item in items)
@@ -1195,8 +1285,8 @@ namespace RocketBot2.Forms
                     flpItems.Controls.Add(box);
                 }
 
-            lblInventory.Text = 
-                    $"Types: {items.Count()} / Total: {_session.Inventory.GetTotalItemCount()} / Storage: {_session.Client.Player.PlayerData.MaxItemStorage}";
+                lblInventory.Text =
+                        $"Types: {items.Count()} / Total: {_session.Inventory.GetTotalItemCount()} / Storage: {_session.Client.Player.PlayerData.MaxItemStorage}";
             }
             catch (ArgumentNullException)
             {
@@ -1231,7 +1321,7 @@ namespace RocketBot2.Forms
                                 SetState(true);
                                 return;
                             }
-                            await UseLuckyEggTask.Execute(_session);
+                            await Task.Run(async () => { await UseLuckyEggTask.Execute(_session); });
                         }
                         break;
                     case ItemId.ItemIncenseOrdinary:
@@ -1242,12 +1332,12 @@ namespace RocketBot2.Forms
                                 SetState(true);
                                 return;
                             }
-                            await UseIncenseTask.Execute(_session);
+                            await Task.Run(async () => { await UseIncenseTask.Execute(_session); });
                         }
                         break;
                     default:
                         {
-                            await RecycleItemsTask.DropItem(_session, item.ItemId, decimal.ToInt32(form.numCount.Value));
+                            await Task.Run(async () => { await RecycleItemsTask.DropItem(_session, item.ItemId, decimal.ToInt32(form.numCount.Value)); });
                         }
                         break;
                 }
@@ -1266,14 +1356,14 @@ namespace RocketBot2.Forms
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           // Thread.Sleep(10000);
+            // Thread.Sleep(10000);
             Thread mThread = new Thread(delegate ()
             {
-                 var infoForm = new InfoForm();
+                var infoForm = new InfoForm();
                 infoForm.ShowDialog();
             });
             mThread.SetApartmentState(ApartmentState.STA);
-             mThread.Start();
+            mThread.Start();
         }
 
         //**** Program functions
@@ -1307,7 +1397,7 @@ namespace RocketBot2.Forms
                             Logger.Write(strReason1 + $"\n", LogLevel.Warning);
 
                             Logger.Write(strExitMsg + $"\n" + "Please close bot to continue", LogLevel.Error);
-                            //Console.ReadLine();
+                            Console.ReadLine();
                             return true;
                         }
                         else
@@ -1356,7 +1446,7 @@ namespace RocketBot2.Forms
 
                             Logger.Write("The bot will now close", LogLevel.Error);
                             Instance.startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
-                            //Console.ReadLine();
+                            Console.ReadLine();
                             return true;
                         }
                     }
@@ -1400,7 +1490,7 @@ namespace RocketBot2.Forms
                 }
             }
             */
-            DialogResult result = MessageBox.Show("Do you want to override killswitch to bot at your own risk? Y/N \n\r" + strReason, Application.ProductName + " - Use Old API detected", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult result = MessageBox.Show($"{strReason} \n\r Do you want to override killswitch to bot at your own risk? Y/N", $"{Application.ProductName} - Old API detected", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             switch (result)
             {
                 case DialogResult.Yes: return true;

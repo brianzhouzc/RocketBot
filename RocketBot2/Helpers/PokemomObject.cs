@@ -4,13 +4,17 @@ using PoGo.NecroBot.Logic.PoGoUtils;
 using POGOProtos.Data;
 using POGOProtos.Enums;
 using POGOProtos.Networking.Responses;
+using PoGo.NecroBot.Logic.State;
 using RocketBot2.Forms;
+using System.Linq;
+using POGOProtos.Settings.Master;
 
 namespace RocketBot2.Helpers
 {
     public class PokemonObject
     {
         private static bool _initialized;
+        private static Session _session;
         public static Dictionary<PokemonId, int> CandyToEvolveDict = new Dictionary<PokemonId, int>();
 
         public PokemonObject(PokemonData pokemonData)
@@ -67,15 +71,21 @@ namespace RocketBot2.Helpers
 
         public string Move1
         {
-            get { return MainForm._session.Translation.GetPokemonMovesetTranslation(PokemonData.Move1); }
+            get { return _session.Translation.GetPokemonMovesetTranslation(PokemonData.Move1); }
         }
 
         public string Move2
         {
-            get { return MainForm._session.Translation.GetPokemonMovesetTranslation(PokemonData.Move2); }
+            get { return _session.Translation.GetPokemonMovesetTranslation(PokemonData.Move2); }
         }
 
-        public int Candy { get; set; } = 0;
+        public int Candy
+        {
+            get
+            {
+               return PokemonInfo.GetCandy(_session, PokemonData);
+            }
+        }
 
         public int CandyToEvolve
         {
@@ -106,21 +116,20 @@ namespace RocketBot2.Helpers
             get { return EvolveTimes > 0; }
         }
 
-        public static void Initilize(DownloadItemTemplatesResponse itemtemplates)
+        public static void Initilize(Session session, List<PokemonSettings> templates)
         {
             if (!_initialized)
             {
-                foreach (var t in itemtemplates.ItemTemplates)
+                _initialized = true;
+                _session = session;
+
+                foreach (var t in templates)
                 {
                     if (t != null)
                     {
-                        if (t.PokemonSettings != null)
-                        {
-                            CandyToEvolveDict.Add(t.PokemonSettings.PokemonId, t.PokemonSettings.CandyToEvolve);
-                        }
+                        CandyToEvolveDict.Add(t.PokemonId, t.CandyToEvolve);
                     }
                 }
-                _initialized = true;
             }
         }
     }

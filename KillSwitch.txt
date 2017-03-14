@@ -1,11 +1,18 @@
-BotStatus=ENABLED;
-//================================================================//
-                POKEMON GO 0.57.3
-//================================================================//
-RocketBot2 is now compatible with 0.57.3 API.
-//================================================================//
-                         Updated: 2/28/2017
+﻿BotStatus=ENABLED;
+//============================================//
+               POKEMON GO 0.57.4
+//============================================//
+RocketBot2 is compatible with 0.57.4 API.
 
+ We are investigating changes to the authentication that
+Niantic made in 0.57.4. So the bot will be temporarily disabled.
+
+ Unfortunately during this update Niantic has also attempted to 
+block the Legacy 0.45 Service again.
+
+ Just the paid API works at the moment.
+//============================================//
+               Updated: 3/07/2017
 
 For support/questions:
 OFFICIAL ROCKETBOT2 Discord: https://discord.gg/y6EU2qY

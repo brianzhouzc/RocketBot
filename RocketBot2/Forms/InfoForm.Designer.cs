@@ -101,6 +101,7 @@
             this.linkLabel4.TabIndex = 9;
             this.linkLabel4.TabStop = true;
             this.linkLabel4.Text = "http://msniper.com";
+            this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.link_click);
             // 
             // linkLabel5
             // 
