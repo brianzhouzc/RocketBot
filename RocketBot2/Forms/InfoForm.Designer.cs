@@ -40,8 +40,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label2 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -99,10 +99,10 @@
             this.linkLabel4.Location = new System.Drawing.Point(267, 127);
             this.linkLabel4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.linkLabel4.Name = "linkLabel4";
-            this.linkLabel4.Size = new System.Drawing.Size(136, 20);
+            this.linkLabel4.Size = new System.Drawing.Size(202, 20);
             this.linkLabel4.TabIndex = 9;
             this.linkLabel4.TabStop = true;
-            this.linkLabel4.Text = "http://msniper.com";
+            this.linkLabel4.Text = "http://s1.mypogosnipers.com";
             this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.link_click);
             // 
             // linkLabel5
@@ -133,9 +133,9 @@
             this.label6.Location = new System.Drawing.Point(16, 216);
             this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(193, 20);
+            this.label6.Size = new System.Drawing.Size(242, 20);
             this.label6.TabIndex = 12;
-            this.label6.Text = "Samuraitruong (Khoai Map)";
+            this.label6.Text = "Samuraitruong (Khoai Map), jjskuld";
             // 
             // label7
             // 
@@ -163,33 +163,35 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Download";
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(16, 236);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(51, 20);
-            this.label8.TabIndex = 15;
-            this.label8.Text = "jjskuld";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(16, 196);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(101, 20);
+            this.label3.Size = new System.Drawing.Size(142, 20);
             this.label3.TabIndex = 16;
-            this.label3.Text = "--=FurtiF™=--";
+            this.label3.Text = "Brian, --=FurtiF™=--";
+            // 
+            // linkLabel3
+            // 
+            this.linkLabel3.AutoSize = true;
+            this.linkLabel3.Location = new System.Drawing.Point(267, 160);
+            this.linkLabel3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.linkLabel3.Name = "linkLabel3";
+            this.linkLabel3.Size = new System.Drawing.Size(202, 20);
+            this.linkLabel3.TabIndex = 17;
+            this.linkLabel3.TabStop = true;
+            this.linkLabel3.Text = "http://s2.mypogosnipers.com";
+            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.link_click);
             // 
             // InfoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(727, 268);
+            this.Controls.Add(this.linkLabel3);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -227,7 +229,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.LinkLabel linkLabel3;
     }
 }
