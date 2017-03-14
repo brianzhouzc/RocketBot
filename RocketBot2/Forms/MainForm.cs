@@ -521,24 +521,41 @@ namespace RocketBot2.Forms
 
             var bot = accountManager.GetStartUpAccount();
 
-            _session.ReInitSessionWithNextBot(bot);
-
             if (accountManager.Accounts.Count > 1)
             {
-                foreach (var item in accountManager.Accounts)
+                foreach (var _bot in accountManager.Accounts)
                 {
                     var _item = new ToolStripMenuItem();
-                    _item.Text = item.Username;
+                    _item.Text = _bot.Username;
                     _item.Click += delegate
                     {
-                        accountManager.SwitchAccountTo(item);
-                        _session.ReInitSessionWithNextBot(item);
+                        foreach (ToolStripMenuItem en in accountsToolStripMenuItem.DropDownItems)
+                        {
+                            if (en.Text == _item.Text)
+                            {
+                                if (!_botStarted)
+                                    _session.ReInitSessionWithNextBot(_bot);
+
+                                _item.Enabled = false;
+                            }
+                            else
+                                en.Enabled = true;
+                        }
+                        accountManager.SwitchAccountTo(_bot);
                     };
+
                     accountsToolStripMenuItem.DropDownItems.Add(_item);
+
+                    if (_item.Text == bot.Username)
+                    {
+                        _session.ReInitSessionWithNextBot(_bot);
+                        _item.Enabled = false;
+                    }
                 }
             }
             else
             {
+                _session.ReInitSessionWithNextBot(bot);
                 menuStrip1.Items.Remove(accountsToolStripMenuItem);
             }
 
@@ -551,13 +568,13 @@ namespace RocketBot2.Forms
         {
             await _machine.AsyncStart(new Logic.State.VersionCheckState(), _session, _subPath, _excelConfigAllow);
 
-            /*try
+            try
             {
                 Console.Clear();
             }
             catch (IOException)
             {
-            }*/
+            }
 
             if (_settings.TelegramConfig.UseTelegramAPI)
                 _session.Telegram = new TelegramService(_settings.TelegramConfig.TelegramAPIKey, _session);
@@ -873,7 +890,7 @@ namespace RocketBot2.Forms
                 return;
             }
             startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
-            accountsToolStripMenuItem.Enabled = false;
+            //accountsToolStripMenuItem.Enabled = false;
             _botStarted = true;
             btnRefresh.Enabled = true;
             pokeEaseToolStripMenuItem.Enabled = true;
@@ -898,6 +915,18 @@ namespace RocketBot2.Forms
             var profileConfigPath = Path.Combine(profilePath, "PokeEase");
             var exeFile = Path.Combine(profileConfigPath, "RocketBot2.exe");
             Process.Start(exeFile);
+        }
+
+        private void showConsoleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (showConsoleToolStripMenuItem.Text.Equals(@"Show Console"))
+            {
+                showConsoleToolStripMenuItem.Text = @"Hide Console";
+                ConsoleHelper.ShowConsoleWindow();
+                return;
+            }
+            showConsoleToolStripMenuItem.Text = @"Show Console";
+            ConsoleHelper.HideConsoleWindow();
         }
 
         #endregion EVENTS
@@ -1368,7 +1397,7 @@ namespace RocketBot2.Forms
                             Logger.Write(strReason1 + $"\n", LogLevel.Warning);
 
                             Logger.Write(strExitMsg + $"\n" + "Please close bot to continue", LogLevel.Error);
-                            //Console.ReadLine();
+                            Console.ReadLine();
                             return true;
                         }
                         else
@@ -1417,7 +1446,7 @@ namespace RocketBot2.Forms
 
                             Logger.Write("The bot will now close", LogLevel.Error);
                             Instance.startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
-                            //Console.ReadLine();
+                            Console.ReadLine();
                             return true;
                         }
                     }
@@ -1468,18 +1497,6 @@ namespace RocketBot2.Forms
                 case DialogResult.No: return false;
             }
             return false;
-        }
-
-        private void showConsoleToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (showConsoleToolStripMenuItem.Text.Equals(@"Show Console"))
-            {
-                showConsoleToolStripMenuItem.Text = @"Hide Console";
-                ConsoleHelper.ShowConsoleWindow();
-                return;
-            }
-            showConsoleToolStripMenuItem.Text = @"Show Console";
-            ConsoleHelper.HideConsoleWindow();
         }
     }
 }
