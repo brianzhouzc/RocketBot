@@ -566,8 +566,8 @@ namespace RocketBot2.Forms
 
         private async Task StartBot()
         {
-            await _machine.AsyncStart(new Logic.State.VersionCheckState(), _session, _subPath, _excelConfigAllow);
-
+            _machine.AsyncStart(new VersionCheckState(), _session, _subPath, _excelConfigAllow);
+           
             try
             {
                 Console.Clear();
@@ -583,19 +583,20 @@ namespace RocketBot2.Forms
                 _session.LogicSettings.HumanWalkingSnipeUseFastPokemap)
             {
                 // jjskuld - Ignore CS4014 warning for now.
-                #pragma warning disable 4014
-                await HumanWalkSnipeTask.StartFastPokemapAsync(_session,
+#pragma warning disable 4014
+                HumanWalkSnipeTask.StartFastPokemapAsync(_session,
                     _session.CancellationTokenSource.Token); // that need to keep data live
-                #pragma warning restore 4014
+#pragma warning restore 4014
             }
 
             if (_session.LogicSettings.UseSnipeLocationServer ||
-             _session.LogicSettings.HumanWalkingSnipeUsePogoLocationFeeder)
-                await SnipePokemonTask.AsyncStart(_session);
+              _session.LogicSettings.HumanWalkingSnipeUsePogoLocationFeeder)
+                SnipePokemonTask.AsyncStart(_session);
+
 
             if (_session.LogicSettings.DataSharingConfig.EnableSyncData)
             {
-                await BotDataSocketClient.StartAsync(_session);
+                BotDataSocketClient.StartAsync(_session);
                 _session.EventDispatcher.EventReceived += evt => BotDataSocketClient.Listen(evt, _session);
             }
             _settings.CheckProxy(_session.Translation);
@@ -608,7 +609,7 @@ namespace RocketBot2.Forms
                 //MSniperServiceTask.ConnectToService();
                 //_session.EventDispatcher.EventReceived += evt => MSniperServiceTask.AddToList(evt);
             }
-            var trackFile = Path.GetTempPath() + "\\rocketbot2.io";
+            var trackFile = Path.GetTempPath() + "\\necrobot2.io";
 
             if (!File.Exists(trackFile) || File.GetLastWriteTime(trackFile) < DateTime.Now.AddDays(-1))
             {
@@ -890,7 +891,6 @@ namespace RocketBot2.Forms
                 return;
             }
             startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
-            //accountsToolStripMenuItem.Enabled = false;
             _botStarted = true;
             btnRefresh.Enabled = true;
             pokeEaseToolStripMenuItem.Enabled = true;
