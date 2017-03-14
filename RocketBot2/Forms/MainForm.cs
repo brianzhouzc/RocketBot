@@ -444,14 +444,9 @@ namespace RocketBot2.Forms
                 }
             }
 
-            Resources.ProgressBar.Start("RocketBot2 is starting up", 10);
+            //Resources.ProgressBar.Start("RocketBot2 is starting up", 10);
             
-            if (settings.WebsocketsConfig.UseWebsocket)
-            {
-                var websocket = new WebSocketInterface(settings.WebsocketsConfig.WebSocketPort, _session);
-                _session.EventDispatcher.EventReceived += evt => websocket.Listen(evt, _session);
-            }
-
+            Resources.ProgressBar.Start("RocketBot2 is starting up", 10);
             Resources.ProgressBar.Fill(20);
 
             var machine = new StateMachine();
@@ -517,11 +512,17 @@ namespace RocketBot2.Forms
             {
                 Logger.Write("The PoGoDev Community Has Updated The Hashing Service To Be Compatible With 0.57.4 So We Have Updated Our Code To Be Compliant. Unfortunately During This Update Niantic Has Also Attempted To Block The Legacy .45 Service Again So At The Moment Only Hashing Service Users Are Able To Login Successfully. Please Be Patient As Always We Will Attempt To Keep The Bot 100% Free But Please Realize We Have Already Done Quite A Few Workarounds To Keep .45 Alive For You Guys.  Even If We Are Able To Get Access Again To The .45 API Again It Is Over 3 Months Old So Is Going To Be More Detectable And Cause Captchas. Please Consider Upgrading To A Paid API Key To Avoid Captchas And You Will  Be Connecting Using Latest Version So Less Detectable So More Safe For You In The End.", LogLevel.Warning);
                 Logger.Write("The bot will now close", LogLevel.Error);
-                Instance.startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
-                _botStarted = true;
+                Console.ReadKey();
+                Environment.Exit(0);
                 return;
             }
             //
+
+            if (settings.WebsocketsConfig.UseWebsocket)
+            {
+                var websocket = new WebSocketInterface(settings.WebsocketsConfig.WebSocketPort, _session);
+                _session.EventDispatcher.EventReceived += evt => websocket.Listen(evt, _session);
+            }
 
             var mainAccount = accountManager.Add(settings.Auth.AuthConfig);
 
@@ -576,7 +577,7 @@ namespace RocketBot2.Forms
         private async Task StartBot()
         {
 #pragma warning disable 4014
-            _machine.AsyncStart(new VersionCheckState(), _session, _subPath, _excelConfigAllow);
+            _machine.AsyncStart(new Logic.State.VersionCheckState(), _session, _subPath, _excelConfigAllow);
          
             try
             {
