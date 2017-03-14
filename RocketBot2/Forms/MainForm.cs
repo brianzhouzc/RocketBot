@@ -617,8 +617,8 @@ namespace RocketBot2.Forms
                 ServicePointManager.ServerCertificateValidationCallback +=
                     (sender, certificate, chain, sslPolicyErrors) => true;
                 //temporary disable MSniper connection because site under attacking.
-                MSniperServiceTask.ConnectToService();
-                _session.EventDispatcher.EventReceived += evt => MSniperServiceTask.AddToList(evt);
+                //MSniperServiceTask.ConnectToService();
+                //_session.EventDispatcher.EventReceived += evt => MSniperServiceTask.AddToList(evt);
             }
             var trackFile = Path.GetTempPath() + "\\rocketbot2.io";
 
