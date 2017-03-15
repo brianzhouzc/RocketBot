@@ -75,11 +75,11 @@ namespace RocketBot2.Forms
 
             #region Login Type and info
 
-            authTypeCb.Text = _setting.Auth.AuthConfig.AuthType.ToString();
-            UserLoginBox.Text = _setting.Auth.AuthConfig.Username; /*_setting.Auth.AuthConfig.AuthType == AuthType.Google
+            authTypeCb.Text = _setting.Auth.CurrentAuthConfig.AuthType.ToString();
+            UserLoginBox.Text = _setting.Auth.CurrentAuthConfig.Username; /*_setting.Auth.AuthConfig.AuthType == AuthType.Google
                 ? _setting.Auth.AuthConfig.GoogleUsername
                 : _setting.Auth.AuthConfig.PtcUsername;*/
-            UserPasswordBox.Text = _setting.Auth.AuthConfig.Password; /*_setting.Auth.AuthConfig.AuthType == AuthType.Google
+            UserPasswordBox.Text = _setting.Auth.CurrentAuthConfig.Password; /*_setting.Auth.AuthConfig.AuthType == AuthType.Google
                 ? _setting.Auth.AuthConfig.GooglePassword
                 : _setting.Auth.AuthConfig.PtcPassword;*/
 
@@ -468,11 +468,11 @@ namespace RocketBot2.Forms
                 {
                     File.Delete(lastPosFile);
                 }
-                _setting.Auth.AuthConfig.AuthType = authTypeCb.Text == @"Google" ? AuthType.Google : AuthType.Ptc;
+                _setting.Auth.CurrentAuthConfig.AuthType = authTypeCb.Text == @"Google" ? AuthType.Google : AuthType.Ptc;
                 /*if (_setting.Auth.AuthConfig.AuthType == AuthType.Google)
                 {*/
-                    _setting.Auth.AuthConfig.Username = UserLoginBox.Text;
-                    _setting.Auth.AuthConfig.Password = UserPasswordBox.Text;
+                    _setting.Auth.CurrentAuthConfig.Username = UserLoginBox.Text;
+                    _setting.Auth.CurrentAuthConfig.Password = UserPasswordBox.Text;
                 /*    _setting.Auth.AuthConfig.PtcUsername = null;
                     _setting.Auth.AuthConfig.PtcPassword = null;
                 }
