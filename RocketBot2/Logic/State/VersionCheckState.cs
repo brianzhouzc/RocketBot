@@ -144,12 +144,12 @@ namespace RocketBot2.Logic.State
             await Task.Delay(200);
         }
 
-        private static async Task<string> DownloadServerVersion()
+        private static string DownloadServerVersion()
         {
             using (HttpClient client = new HttpClient())
             {
-                var responseContent = await client.GetAsync(VersionUri);
-                return await responseContent.Content.ReadAsStringAsync();
+                var responseContent =  client.GetAsync(VersionUri).Result;
+                return responseContent.Content.ReadAsStringAsync().Result;
             }
         }
 
@@ -164,7 +164,7 @@ namespace RocketBot2.Logic.State
             try
             {
                 var regex = new Regex(@"\[assembly\: AssemblyVersion\(""(\d{1,})\.(\d{1,})\.(\d{1,})\.(\d{1,})""\)\]");
-                var match = regex.Match(DownloadServerVersion().Result);
+                var match = regex.Match(DownloadServerVersion());
 
                 if (!match.Success)
                     return false;

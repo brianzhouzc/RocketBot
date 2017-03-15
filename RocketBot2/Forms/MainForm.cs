@@ -41,7 +41,6 @@ using RocketBot2.CommandLineUtility;
 using System.Diagnostics;
 using PokemonGo.RocketAPI;
 using RocketBot2.Win32;
-using System.Threading.Tasks;
 using System.Net.Http;
 
 #endregion
@@ -297,14 +296,14 @@ namespace RocketBot2.Forms
                 }
             }
 
-            if (!_ignoreKillSwitch)
-            {
-                if (CheckMKillSwitch().Result)
-                {
-                    return;
-                }
-                _botStarted = CheckKillSwitch().Result;
-            }
+             if (!_ignoreKillSwitch)
+             {
+                 if (CheckMKillSwitch())
+                 {
+                     return;
+                 }
+                 _botStarted = CheckKillSwitch();
+             }
 
             var logicSettings = new LogicSettings(settings);
             var translation = Translation.Load(logicSettings);
@@ -432,10 +431,10 @@ namespace RocketBot2.Forms
                 else
                 {
                     GlobalSettings.Load(_subPath, _enableJsonValidation);
-                    /*
+                    
                     Logger.Write("Press a Key to continue...",
                         LogLevel.Warning);
-                    Console.ReadKey();*/
+                    Console.ReadKey();
                     return;
                 }
 
@@ -445,9 +444,8 @@ namespace RocketBot2.Forms
                 }
             }
 
-            //Resources.ProgressBar.Start("RocketBot2 is starting up", 10);
-            
             Resources.ProgressBar.Start("RocketBot2 is starting up", 10);
+
             Resources.ProgressBar.Fill(20);
 
             var machine = new StateMachine();
@@ -1386,17 +1384,17 @@ namespace RocketBot2.Forms
             throw new NotImplementedException();
         }
 
-        private async static Task<bool> CheckMKillSwitch()
+        private  static bool CheckMKillSwitch()
         {
             using (HttpClient client = new HttpClient())
             {
                 try
                 {
-                    var responseContent = await client.GetAsync(StrMasterKillSwitchUri);
+                    var responseContent =  client.GetAsync(StrMasterKillSwitchUri).Result;
                     if (responseContent.StatusCode != HttpStatusCode.OK)
                         return true;
 
-                    var strResponse1 = await responseContent.Content.ReadAsStringAsync();
+                    var strResponse1 = responseContent.Content.ReadAsStringAsync().Result;
 
                     if (string.IsNullOrEmpty(strResponse1))
                         return true;
@@ -1434,17 +1432,17 @@ namespace RocketBot2.Forms
             return false;
         }
 
-        private async static Task<bool> CheckKillSwitch()
+        private  static bool CheckKillSwitch()
         {
             using (HttpClient client = new HttpClient())
             {
                 try
                 {
-                    var responseContent = await client.GetAsync(StrKillSwitchUri);
+                    var responseContent = client.GetAsync(StrKillSwitchUri).Result;
                     if (responseContent.StatusCode != HttpStatusCode.OK)
                         return true;
 
-                    var strResponse = await responseContent.Content.ReadAsStringAsync();
+                    var strResponse = responseContent.Content.ReadAsStringAsync().Result;
                     if (string.IsNullOrEmpty(strResponse))
                         return true;
 
