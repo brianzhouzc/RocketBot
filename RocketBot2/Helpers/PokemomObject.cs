@@ -56,7 +56,7 @@ namespace RocketBot2.Helpers
 
         public double GetIV
         {
-            get { return Math.Round(PokemonInfo.CalculatePokemonPerfection(PokemonData)/100, 2); }
+            get { return PokemonInfo.CalculatePokemonPerfection(PokemonData)/100; }
         }
 
         public double GetLv
