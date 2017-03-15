@@ -523,8 +523,6 @@ namespace RocketBot2.Forms
                 _session.EventDispatcher.EventReceived += evt => websocket.Listen(evt, _session);
             }
 
-            var mainAccount = accountManager.Add(settings.Auth.AuthConfig);
-
             ioc.Register<MultiAccountManager>(accountManager);
 
             var bot = accountManager.GetStartUpAccount();
@@ -1384,13 +1382,13 @@ namespace RocketBot2.Forms
             throw new NotImplementedException();
         }
 
-        private  static bool CheckMKillSwitch()
+        private static bool CheckMKillSwitch()
         {
             using (HttpClient client = new HttpClient())
             {
                 try
                 {
-                    var responseContent =  client.GetAsync(StrMasterKillSwitchUri).Result;
+                    var responseContent = client.GetAsync(StrMasterKillSwitchUri).Result;
                     if (responseContent.StatusCode != HttpStatusCode.OK)
                         return true;
 
@@ -1432,7 +1430,7 @@ namespace RocketBot2.Forms
             return false;
         }
 
-        private  static bool CheckKillSwitch()
+        private static bool CheckKillSwitch()
         {
             using (HttpClient client = new HttpClient())
             {

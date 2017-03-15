@@ -148,7 +148,7 @@ namespace RocketBot2.Logic.State
         {
             using (HttpClient client = new HttpClient())
             {
-                var responseContent =  client.GetAsync(VersionUri).Result;
+                var responseContent = client.GetAsync(VersionUri).Result;
                 return responseContent.Content.ReadAsStringAsync().Result;
             }
         }
