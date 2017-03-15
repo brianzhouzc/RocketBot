@@ -17,6 +17,7 @@ using PoGo.NecroBot.Logic.Logging;
 using PoGo.NecroBot.Logic.Utils;
 using PoGo.NecroBot.Logic.Forms;
 using PoGo.NecroBot.Logic.State;
+using System.Net.Http;
 
 #endregion
 
@@ -143,13 +144,12 @@ namespace RocketBot2.Logic.State
             await Task.Delay(200);
         }
 
-       
-
-        private static string DownloadServerVersion()
+        private static async Task<string> DownloadServerVersion()
         {
-            using (var wC = new NecroWebClient())
+            using (HttpClient client = new HttpClient())
             {
-                return wC.DownloadString(VersionUri);
+                var responseContent = await client.GetAsync(VersionUri);
+                return await responseContent.Content.ReadAsStringAsync();
             }
         }
 
@@ -164,7 +164,7 @@ namespace RocketBot2.Logic.State
             try
             {
                 var regex = new Regex(@"\[assembly\: AssemblyVersion\(""(\d{1,})\.(\d{1,})\.(\d{1,})\.(\d{1,})""\)\]");
-                var match = regex.Match(DownloadServerVersion());
+                var match = regex.Match(DownloadServerVersion().Result);
 
                 if (!match.Success)
                     return false;

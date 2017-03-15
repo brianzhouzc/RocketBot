@@ -41,6 +41,8 @@ using RocketBot2.CommandLineUtility;
 using System.Diagnostics;
 using PokemonGo.RocketAPI;
 using RocketBot2.Win32;
+using System.Threading.Tasks;
+using System.Net.Http;
 
 #endregion
 
@@ -297,12 +299,11 @@ namespace RocketBot2.Forms
 
             if (!_ignoreKillSwitch)
             {
-                /*if (CheckKillSwitch() || CheckMKillSwitch())
+                if (CheckMKillSwitch().Result)
                 {
                     return;
-                }*/
-                _botStarted = CheckKillSwitch();
-                CheckMKillSwitch();
+                }
+                _botStarted = CheckKillSwitch().Result;
             }
 
             var logicSettings = new LogicSettings(settings);
@@ -1385,15 +1386,19 @@ namespace RocketBot2.Forms
             throw new NotImplementedException();
         }
 
-        private static bool CheckMKillSwitch()
+        private async static Task<bool> CheckMKillSwitch()
         {
-            using (var wC = new WebClient())
+            using (HttpClient client = new HttpClient())
             {
                 try
                 {
-                    var strResponse1 = WebClientExtensions.DownloadString(wC, StrMasterKillSwitchUri);
+                    var responseContent = await client.GetAsync(StrMasterKillSwitchUri);
+                    if (responseContent.StatusCode != HttpStatusCode.OK)
+                        return true;
 
-                    if (strResponse1 == null)
+                    var strResponse1 = await responseContent.Content.ReadAsStringAsync();
+
+                    if (string.IsNullOrEmpty(strResponse1))
                         return true;
 
                     var strSplit1 = strResponse1.Split(';');
@@ -1404,12 +1409,11 @@ namespace RocketBot2.Forms
                         var strReason1 = strSplit1[1];
                         var strExitMsg = strSplit1[2];
 
-
                         if (strStatus1.ToLower().Contains("disable"))
                         {
                             Logger.Write(strReason1 + $"\n", LogLevel.Warning);
 
-                            Logger.Write(strExitMsg + $"\n" + "Please close bot to continue", LogLevel.Error);
+                            Logger.Write(strExitMsg + $"\n" + "Please press enter to continue", LogLevel.Error);
                             Console.ReadLine();
                             return true;
                         }
@@ -1418,26 +1422,31 @@ namespace RocketBot2.Forms
                     }
                     else
                         return false;
+
+
                 }
-                catch (WebException)
+                catch (Exception ex)
                 {
-                    // ignored
+                    Logger.Write(ex.Message, LogLevel.Error);
                 }
             }
 
             return false;
         }
 
-        private static bool CheckKillSwitch()
+        private async static Task<bool> CheckKillSwitch()
         {
-            using (var wC = new WebClient())
+            using (HttpClient client = new HttpClient())
             {
                 try
                 {
-                    var strResponse = WebClientExtensions.DownloadString(wC, StrKillSwitchUri);
+                    var responseContent = await client.GetAsync(StrKillSwitchUri);
+                    if (responseContent.StatusCode != HttpStatusCode.OK)
+                        return true;
 
-                    if (strResponse == null)
-                        return false;
+                    var strResponse = await responseContent.Content.ReadAsStringAsync();
+                    if (string.IsNullOrEmpty(strResponse))
+                        return true;
 
                     var strSplit = strResponse.Split(';');
 
@@ -1457,18 +1466,18 @@ namespace RocketBot2.Forms
                                 return false;
                             }
 
-                            Logger.Write("The bot will now close", LogLevel.Error);
-                            Instance.startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
+                            Logger.Write("The bot will now close, please press enter to continue", LogLevel.Error);
                             Console.ReadLine();
+                            Environment.Exit(0);
                             return true;
                         }
                     }
                     else
                         return false;
                 }
-                catch (WebException)
+                catch (Exception ex)
                 {
-                    // ignored
+                    Logger.Write(ex.Message, LogLevel.Error);
                 }
             }
 
@@ -1485,24 +1494,24 @@ namespace RocketBot2.Forms
         {
             Logger.Write("Do you want to override killswitch to bot at your own risk? Y/N", LogLevel.Warning);
 
-            /*
-            while (true)
-            {
-                var strInput = Console.ReadLine().ToLower();
+            /*while (true)
+              {
+                  var strInput = Console.ReadLine().ToLower();
 
-                switch (strInput)
-                {
-                    case "y":
-                        // Override killswitch
-                        return true;
-                    case "n":
-                        return false;
-                    default:
-                        Logger.Write("Enter y or n", LogLevel.Error);
-                        continue;
-                }
-            }
-            */
+                  switch (strInput)
+                  {
+                      case "y":
+                          // Override killswitch
+                          return true;
+
+                      case "n":
+                          return false;
+
+                      default:
+                          Logger.Write("Enter y or n", LogLevel.Error);
+                          continue;
+                  }
+              }*/
             DialogResult result = MessageBox.Show($"{strReason} \n\r Do you want to override killswitch to bot at your own risk? Y/N", $"{Application.ProductName} - Old API detected", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             switch (result)
             {
