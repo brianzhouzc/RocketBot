@@ -1,4 +1,3 @@
-﻿
 <!-- disclaimer -->
 [![Build status](https://ci.appveyor.com/api/projects/status/jkcqmoxr5wvo3vrq/branch/master?svg=true)](https://ci.appveyor.com/project/RocketBot/rocketbot/branch/master)
 [![Github All Releases](https://img.shields.io/github/downloads/TheUnnamedOrganisation/RocketBot/total.svg?maxAge=250)](https://github.com/TheUnnamedOrganisation/RocketBot/releases) 
