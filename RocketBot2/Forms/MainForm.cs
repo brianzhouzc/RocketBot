@@ -1336,23 +1336,11 @@ namespace RocketBot2.Forms
                 {
                     case ItemId.ItemLuckyEgg:
                         {
-                            if (_session.Client == null)
-                            {
-                                Logger.Write($"Bot must be running first!", LogLevel.Warning);
-                                SetState(true);
-                                return;
-                            }
                             await Task.Run(async () => { await UseLuckyEggTask.Execute(_session); });
                         }
                         break;
                     case ItemId.ItemIncenseOrdinary:
                         {
-                            if (_session.Client == null)
-                            {
-                                Logger.Write($"Bot must be running first!", LogLevel.Error);
-                                SetState(true);
-                                return;
-                            }
                             await Task.Run(async () => { await UseIncenseTask.Execute(_session); });
                         }
                         break;
@@ -1377,6 +1365,7 @@ namespace RocketBot2.Forms
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Process.Start("http://www1.mypogosnipers.com");
             // Thread.Sleep(10000);
             Thread mThread = new Thread(delegate ()
             {
