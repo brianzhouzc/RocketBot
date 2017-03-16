@@ -3,8 +3,7 @@
 using System;
 using System.Windows.Forms;
 using RocketBot2.Forms;
-using System.Runtime.InteropServices;
-using System.Diagnostics;
+using RocketBot2.Win32;
 
 #endregion
 
@@ -13,10 +12,10 @@ namespace RocketBot2
     internal class Program
     {
         [STAThread]
-  
 
         private static void Main(string[] args)
         {
+            ConsoleHelper.AllocConsole();
             Application.EnableVisualStyles();
             Application.Run(new MainForm(args));
         }
