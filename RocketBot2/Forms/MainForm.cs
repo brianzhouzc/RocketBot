@@ -1088,13 +1088,22 @@ namespace RocketBot2.Forms
             {
                 _pokemons.Add(pokemon.Id);
             }
-            await Task.Run(async () =>
-             {
-                 await TransferPokemonTask.Execute(
-                     _session, _session.CancellationTokenSource.Token, _pokemons
-                 );
-             });
-            await ReloadPokemonList();
+            DialogResult result = MessageBox.Show($"Do you want to tranfert {pokemons.Count()}", "Drop item", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            switch (result)
+            {
+                case DialogResult.Yes:
+                    {
+                        await Task.Run(async () =>
+                     {
+                         await TransferPokemonTask.Execute(
+                             _session, _session.CancellationTokenSource.Token, _pokemons
+                         );
+                     });
+
+                        await ReloadPokemonList();
+                    }
+                    break;
+            }
         }
 
         private async void PowerUpPokemon(IEnumerable<PokemonData> pokemons)
