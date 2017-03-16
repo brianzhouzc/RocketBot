@@ -550,13 +550,12 @@ namespace RocketBot2.Forms
                         accountManager.SwitchAccountTo(_bot);
                     };
 
-                    accountsToolStripMenuItem.DropDownItems.Add(_item);
-
                     if (_item.Text == bot.Username)
                     {
                         _session.ReInitSessionWithNextBot(_bot);
                         _item.Enabled = false;
                     }
+                    accountsToolStripMenuItem.DropDownItems.Add(_item);
                 }
             }
             else
