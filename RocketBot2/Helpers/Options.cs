@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using CommandLine.Text;
+using System;
 
 namespace RocketBot2.Helpers
 {
@@ -29,11 +30,15 @@ namespace RocketBot2.Helpers
           [ParserState]
           public IParserState LastParserState { get; set; }
 
-          [HelpOption]
-          public string GetUsage()
-          {
-              return HelpText.AutoBuild(this,
-                (HelpText current) => HelpText.DefaultParsingErrorsHandler(this, current));
-          }
-      }
+        [HelpOption]
+        public string GetUsage()
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(HelpText.AutoBuild(this,
+               (HelpText current) => HelpText.DefaultParsingErrorsHandler(this, current)));
+            Console.ReadKey();
+            Environment.Exit(0);
+            return null;
+        }
+    }
 }

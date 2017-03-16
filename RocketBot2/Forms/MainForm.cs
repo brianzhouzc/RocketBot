@@ -1293,7 +1293,7 @@ namespace RocketBot2.Forms
                     _session.Inventory.GetAppliedItems()
                     .Where(aItems => aItems?.Item != null)
                     .SelectMany(aItems => aItems.Item)
-                    .ToDictionary(item => item.ItemId, item => TimeHelper.FromUnixTimeUtc(item.ExpireMs));
+                    .ToDictionary(item => item.ItemId, item => new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(item.ExpireMs));
 
                 flpItems.Controls.Clear();
 
@@ -1366,7 +1366,7 @@ namespace RocketBot2.Forms
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("http://www1.mypogosnipers.com");
-            // Thread.Sleep(10000);
+
             Thread mThread = new Thread(delegate ()
             {
                 var infoForm = new InfoForm();

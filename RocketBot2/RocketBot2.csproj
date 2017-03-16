@@ -246,7 +246,6 @@
     <Compile Include="Helpers\MachineIdHelper.cs" />
     <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="Helpers\S2GMapDrawer.cs" />
-    <Compile Include="Helpers\TimeHelper.cs" />
     <Compile Include="Helpers\VersionHelper.cs" />
     <Compile Include="Forms\ItemSetting.cs">
       <SubType>UserControl</SubType>
