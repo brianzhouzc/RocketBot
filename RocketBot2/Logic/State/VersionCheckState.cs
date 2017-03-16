@@ -17,6 +17,7 @@ using PoGo.NecroBot.Logic.Logging;
 using PoGo.NecroBot.Logic.Utils;
 using PoGo.NecroBot.Logic.Forms;
 using PoGo.NecroBot.Logic.State;
+using System.Net.Http;
 
 #endregion
 
@@ -143,13 +144,12 @@ namespace RocketBot2.Logic.State
             await Task.Delay(200);
         }
 
-       
-
         private static string DownloadServerVersion()
         {
-            using (var wC = new NecroWebClient())
+            using (HttpClient client = new HttpClient())
             {
-                return wC.DownloadString(VersionUri);
+                var responseContent = client.GetAsync(VersionUri).Result;
+                return responseContent.Content.ReadAsStringAsync().Result;
             }
         }
 

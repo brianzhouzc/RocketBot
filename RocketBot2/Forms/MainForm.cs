@@ -41,6 +41,7 @@ using RocketBot2.CommandLineUtility;
 using System.Diagnostics;
 using PokemonGo.RocketAPI;
 using RocketBot2.Win32;
+using System.Net.Http;
 
 #endregion
 
@@ -295,15 +296,14 @@ namespace RocketBot2.Forms
                 }
             }
 
-            if (!_ignoreKillSwitch)
-            {
-                /*if (CheckKillSwitch() || CheckMKillSwitch())
-                {
-                    return;
-                }*/
-                _botStarted = CheckKillSwitch();
-                CheckMKillSwitch();
-            }
+             if (!_ignoreKillSwitch)
+             {
+                 if (CheckMKillSwitch())
+                 {
+                     return;
+                 }
+                 _botStarted = CheckKillSwitch();
+             }
 
             var logicSettings = new LogicSettings(settings);
             var translation = Translation.Load(logicSettings);
@@ -431,10 +431,10 @@ namespace RocketBot2.Forms
                 else
                 {
                     GlobalSettings.Load(_subPath, _enableJsonValidation);
-                    /*
+                    
                     Logger.Write("Press a Key to continue...",
                         LogLevel.Warning);
-                    Console.ReadKey();*/
+                    Console.ReadKey();
                     return;
                 }
 
@@ -444,9 +444,8 @@ namespace RocketBot2.Forms
                 }
             }
 
-            //Resources.ProgressBar.Start("RocketBot2 is starting up", 10);
-            
             Resources.ProgressBar.Start("RocketBot2 is starting up", 10);
+
             Resources.ProgressBar.Fill(20);
 
             var machine = new StateMachine();
@@ -524,8 +523,6 @@ namespace RocketBot2.Forms
                 _session.EventDispatcher.EventReceived += evt => websocket.Listen(evt, _session);
             }
 
-            var mainAccount = accountManager.Add(settings.Auth.AuthConfig);
-
             ioc.Register<MultiAccountManager>(accountManager);
 
             var bot = accountManager.GetStartUpAccount();
@@ -553,13 +550,12 @@ namespace RocketBot2.Forms
                         accountManager.SwitchAccountTo(_bot);
                     };
 
-                    accountsToolStripMenuItem.DropDownItems.Add(_item);
-
                     if (_item.Text == bot.Username)
                     {
                         _session.ReInitSessionWithNextBot(_bot);
                         _item.Enabled = false;
                     }
+                    accountsToolStripMenuItem.DropDownItems.Add(_item);
                 }
             }
             else
@@ -1087,17 +1083,28 @@ namespace RocketBot2.Forms
         {
             SetState(false);
             var _pokemons = new List<ulong>();
+            string poketotransfert = null;
             foreach (var pokemon in pokemons)
             {
                 _pokemons.Add(pokemon.Id);
+                poketotransfert = $"{poketotransfert} [{_session.Translation.GetPokemonTranslation(pokemon.PokemonId)}]";
             }
-            await Task.Run(async () =>
-             {
-                 await TransferPokemonTask.Execute(
-                     _session, _session.CancellationTokenSource.Token, _pokemons
-                 );
-             });
-            await ReloadPokemonList();
+            DialogResult result = MessageBox.Show($"Do you want to tranfert {pokemons.Count()} Pokémons?\n\r {poketotransfert}", $"Tranfert {pokemons.Count()} Pokémons", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            switch (result)
+            {
+                case DialogResult.Yes:
+                    {
+                        await Task.Run(async () =>
+                     {
+                         await TransferPokemonTask.Execute(
+                             _session, _session.CancellationTokenSource.Token, _pokemons
+                         );
+                     });
+
+                        await ReloadPokemonList();
+                    }
+                    break;
+            }
         }
 
         private async void PowerUpPokemon(IEnumerable<PokemonData> pokemons)
@@ -1285,7 +1292,7 @@ namespace RocketBot2.Forms
                     _session.Inventory.GetAppliedItems()
                     .Where(aItems => aItems?.Item != null)
                     .SelectMany(aItems => aItems.Item)
-                    .ToDictionary(item => item.ItemId, item => TimeHelper.FromUnixTimeUtc(item.ExpireMs));
+                    .ToDictionary(item => item.ItemId, item => new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(item.ExpireMs));
 
                 flpItems.Controls.Clear();
 
@@ -1328,23 +1335,11 @@ namespace RocketBot2.Forms
                 {
                     case ItemId.ItemLuckyEgg:
                         {
-                            if (_session.Client == null)
-                            {
-                                Logger.Write($"Bot must be running first!", LogLevel.Warning);
-                                SetState(true);
-                                return;
-                            }
                             await Task.Run(async () => { await UseLuckyEggTask.Execute(_session); });
                         }
                         break;
                     case ItemId.ItemIncenseOrdinary:
                         {
-                            if (_session.Client == null)
-                            {
-                                Logger.Write($"Bot must be running first!", LogLevel.Error);
-                                SetState(true);
-                                return;
-                            }
                             await Task.Run(async () => { await UseIncenseTask.Execute(_session); });
                         }
                         break;
@@ -1369,7 +1364,8 @@ namespace RocketBot2.Forms
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Thread.Sleep(10000);
+            Process.Start("http://www1.mypogosnipers.com");
+
             Thread mThread = new Thread(delegate ()
             {
                 var infoForm = new InfoForm();
@@ -1387,13 +1383,17 @@ namespace RocketBot2.Forms
 
         private static bool CheckMKillSwitch()
         {
-            using (var wC = new WebClient())
+            using (HttpClient client = new HttpClient())
             {
                 try
                 {
-                    var strResponse1 = WebClientExtensions.DownloadString(wC, StrMasterKillSwitchUri);
+                    var responseContent = client.GetAsync(StrMasterKillSwitchUri).Result;
+                    if (responseContent.StatusCode != HttpStatusCode.OK)
+                        return true;
 
-                    if (strResponse1 == null)
+                    var strResponse1 = responseContent.Content.ReadAsStringAsync().Result;
+
+                    if (string.IsNullOrEmpty(strResponse1))
                         return true;
 
                     var strSplit1 = strResponse1.Split(';');
@@ -1404,12 +1404,11 @@ namespace RocketBot2.Forms
                         var strReason1 = strSplit1[1];
                         var strExitMsg = strSplit1[2];
 
-
                         if (strStatus1.ToLower().Contains("disable"))
                         {
                             Logger.Write(strReason1 + $"\n", LogLevel.Warning);
 
-                            Logger.Write(strExitMsg + $"\n" + "Please close bot to continue", LogLevel.Error);
+                            Logger.Write(strExitMsg + $"\n" + "Please press enter to continue", LogLevel.Error);
                             Console.ReadLine();
                             return true;
                         }
@@ -1418,10 +1417,12 @@ namespace RocketBot2.Forms
                     }
                     else
                         return false;
+
+
                 }
-                catch (WebException)
+                catch (Exception ex)
                 {
-                    // ignored
+                    Logger.Write(ex.Message, LogLevel.Error);
                 }
             }
 
@@ -1430,14 +1431,17 @@ namespace RocketBot2.Forms
 
         private static bool CheckKillSwitch()
         {
-            using (var wC = new WebClient())
+            using (HttpClient client = new HttpClient())
             {
                 try
                 {
-                    var strResponse = WebClientExtensions.DownloadString(wC, StrKillSwitchUri);
+                    var responseContent = client.GetAsync(StrKillSwitchUri).Result;
+                    if (responseContent.StatusCode != HttpStatusCode.OK)
+                        return true;
 
-                    if (strResponse == null)
-                        return false;
+                    var strResponse = responseContent.Content.ReadAsStringAsync().Result;
+                    if (string.IsNullOrEmpty(strResponse))
+                        return true;
 
                     var strSplit = strResponse.Split(';');
 
@@ -1457,18 +1461,18 @@ namespace RocketBot2.Forms
                                 return false;
                             }
 
-                            Logger.Write("The bot will now close", LogLevel.Error);
-                            Instance.startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
+                            Logger.Write("The bot will now close, please press enter to continue", LogLevel.Error);
                             Console.ReadLine();
+                            Environment.Exit(0);
                             return true;
                         }
                     }
                     else
                         return false;
                 }
-                catch (WebException)
+                catch (Exception ex)
                 {
-                    // ignored
+                    Logger.Write(ex.Message, LogLevel.Error);
                 }
             }
 
@@ -1485,24 +1489,24 @@ namespace RocketBot2.Forms
         {
             Logger.Write("Do you want to override killswitch to bot at your own risk? Y/N", LogLevel.Warning);
 
-            /*
-            while (true)
-            {
-                var strInput = Console.ReadLine().ToLower();
+            /*while (true)
+              {
+                  var strInput = Console.ReadLine().ToLower();
 
-                switch (strInput)
-                {
-                    case "y":
-                        // Override killswitch
-                        return true;
-                    case "n":
-                        return false;
-                    default:
-                        Logger.Write("Enter y or n", LogLevel.Error);
-                        continue;
-                }
-            }
-            */
+                  switch (strInput)
+                  {
+                      case "y":
+                          // Override killswitch
+                          return true;
+
+                      case "n":
+                          return false;
+
+                      default:
+                          Logger.Write("Enter y or n", LogLevel.Error);
+                          continue;
+                  }
+              }*/
             DialogResult result = MessageBox.Show($"{strReason} \n\r Do you want to override killswitch to bot at your own risk? Y/N", $"{Application.ProductName} - Old API detected", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             switch (result)
             {

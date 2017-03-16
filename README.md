@@ -1,12 +1,13 @@
-﻿<!-- define variables -->
+﻿
+<!-- define variables -->
 [1.1]: http://i.imgur.com/M4fJ65n.png (ATTENTION)
 [1.2]: https://discordapp.com/api/guilds/208485545439920128/widget.png?style=banner2 (DISCORD)
 
 
 <!-- disclaimer -->
+[![Build status](https://ci.appveyor.com/api/projects/status/jkcqmoxr5wvo3vrq/branch/master?svg=true)](https://ci.appveyor.com/project/RocketBot/rocketbot/branch/master) 
 [![Github All Releases](https://img.shields.io/github/downloads/TheUnnamedOrganisation/RocketBot/total.svg?maxAge=250)](https://github.com/TheUnnamedOrganisation/RocketBot/releases) 
 [![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/TheUnnamedOrganisation/RocketBot/master/LICENSE.md) 
-[![Build status](https://ci.appveyor.com/api/projects/status/f759nsxul31rlub4/branch/master?svg=true)](https://ci.appveyor.com/project/RocketBot/rocketbot/branch/master)
 
 [![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=backlog&title=Backlog)](https://waffle.io/TheUnnamedOrganisation/RocketBot) 
 [![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.svg?label=in%20progress&title=In%20Progress)](http://waffle.io/TheUnnamedOrganisation/RocketBot) 

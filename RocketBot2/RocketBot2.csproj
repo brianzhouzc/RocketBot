@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{42B07AE9-E643-4212-A7DB-0611F9059670}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RocketBot2</RootNamespace>
     <AssemblyName>RocketBot2</AssemblyName>
@@ -99,6 +99,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -245,7 +246,6 @@
     <Compile Include="Helpers\MachineIdHelper.cs" />
     <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="Helpers\S2GMapDrawer.cs" />
-    <Compile Include="Helpers\TimeHelper.cs" />
     <Compile Include="Helpers\VersionHelper.cs" />
     <Compile Include="Forms\ItemSetting.cs">
       <SubType>UserControl</SubType>
