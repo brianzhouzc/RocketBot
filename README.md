@@ -1,8 +1,4 @@
-﻿<!-- define variables -->
-[1.1]: http://i.imgur.com/M4fJ65n.png (ATTENTION)
-[1.2]: https://discordapp.com/api/guilds/208485545439920128/widget.png?style=banner2 (DISCORD)
-
-
+﻿
 <!-- disclaimer -->
 [![Build status](https://ci.appveyor.com/api/projects/status/jkcqmoxr5wvo3vrq/branch/master?svg=true)](https://ci.appveyor.com/project/RocketBot/rocketbot/branch/master)
 [![Github All Releases](https://img.shields.io/github/downloads/TheUnnamedOrganisation/RocketBot/total.svg?maxAge=250)](https://github.com/TheUnnamedOrganisation/RocketBot/releases) 
@@ -13,7 +9,7 @@
 [![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=ready&title=Ready)](https://waffle.io/TheUnnamedOrganisation/RocketBot) 
 [![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=done&title=Done)](https://waffle.io/TheUnnamedOrganisation/RocketBot)
 
-![alt text][1.1] <strong><em>`The contents of this repo are a proof of concept and are for educational use only`</em></strong>![alt text][1.1]<br/>
+<img src="http://i.imgur.com/M4fJ65n.png" alt="(ATTENTION)"><strong><em>`The contents of this repo are a proof of concept and are for educational use only`</em></strong><img src="http://i.imgur.com/M4fJ65n.png" alt="(ATTENTION)"><br/>
 
 <h1>RocketBot2 is now compatible with 0.57.4 API.</h1>
 
