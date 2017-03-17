@@ -1047,6 +1047,7 @@ namespace RocketBot2.Forms
                 item = new ToolStripMenuItem { Text = @"PowerUp" };
                 item.Click += delegate { PowerUpPokemon(pokemons); };
                 cmsPokemonList.Items.Add(item);
+                /*
                 cmsPokemonList.Items.Add(separator);
 
                 item = new ToolStripMenuItem { Text = @"Transfer Clean Up (Keep highest IV)" };
@@ -1066,6 +1067,7 @@ namespace RocketBot2.Forms
                 cmsPokemonList.Items.Add(item);
 
                 cmsPokemonList.Items.Add(separator);
+                */
             };
         }
 
@@ -1131,9 +1133,22 @@ namespace RocketBot2.Forms
             SetState(false);
             foreach (var pokemon in pokemons)
             {
-                await Task.Run(async () => { await UpgradeSinglePokemonTask.Execute(_session, pokemon.Id, false, 1 /* Only upgrade 1 time */); });
+                DialogResult result = MessageBox.Show($"Full Power Up {_session.Translation.GetPokemonTranslation(pokemon.PokemonId)}?", $"{Application.ProductName} - Max Power Up", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        await Task.Run(async () => { await UpgradeSinglePokemonTask.Execute(_session, pokemon.Id, true /* upgrade x times */); });
+                        await ReloadPokemonList();
+                        break;
+                    case DialogResult.No:
+                        await Task.Run(async () => { await UpgradeSinglePokemonTask.Execute(_session, pokemon.Id, false, 1 /* Only upgrade 1 time */); });
+                        await ReloadPokemonList();
+                        break;
+                    default:
+                        SetState(true);
+                        return;
+                }
             }
-            await ReloadPokemonList();
         }
 
         private async void EvolvePokemon(IEnumerable<PokemonData> pokemons)
@@ -1314,16 +1329,16 @@ namespace RocketBot2.Forms
                     .SelectMany(aItems => aItems.Item)
                     .ToDictionary(item => item.ItemId, item => new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(item.ExpireMs));
 
-                flpItems.Controls.Clear();
+                     flpItems.Controls.Clear();
 
-                foreach (var item in items)
-                {
-                    var box = new ItemBox(item);
-                    if (appliedItems.ContainsKey(item.ItemId))
-                        box.expires = appliedItems[item.ItemId];
-                    box.ItemClick += ItemBox_ItemClick;
-                    flpItems.Controls.Add(box);
-                }
+                     foreach (var item in items)
+                     {
+                         var box = new ItemBox(item);
+                         if (appliedItems.ContainsKey(item.ItemId))
+                             box.expires = appliedItems[item.ItemId];
+                         box.ItemClick += ItemBox_ItemClick;
+                         flpItems.Controls.Add(box);
+                     }
 
                 lblInventory.Text =
                         $"Types: {items.Count()} / Total: {_session.Inventory.GetTotalItemCount()} / Storage: {_session.Client.Player.PlayerData.MaxItemStorage}";
