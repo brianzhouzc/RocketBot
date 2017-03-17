@@ -43,13 +43,15 @@ using PokemonGo.RocketAPI;
 using RocketBot2.Win32;
 using System.Net.Http;
 using PokemonGo.RocketAPI.Logging;
+using POGOProtos.Enums;
+using POGOProtos.Networking.Responses;
 
 #endregion
 
 
 namespace RocketBot2.Forms
 {
-    public partial class MainForm : Form
+    public partial class MainForm : System.Windows.Forms.Form
     {
         public static MainForm Instance;
         public static SynchronizationContext SynchronizationContext;
@@ -664,8 +666,34 @@ namespace RocketBot2.Forms
                 foreach (var pokeStop in pokeStops)
                 {
                     var pokeStopLoc = new PointLatLng(pokeStop.Latitude, pokeStop.Longitude);
-                    var pokestopMarker = new GMapMarkerPokestops(pokeStopLoc, 
-                        ResourceHelper.GetImage("Pokestop"));
+                    Image fort = null;
+                    switch (pokeStop.Type)
+                    {
+                        case FortType.Checkpoint:
+                            fort = ResourceHelper.GetImage("Pokestop");
+                            break;
+                        case FortType .Gym:
+                            switch (pokeStop.OwnedByTeam)
+                            {
+                                case POGOProtos.Enums.TeamColor.Neutral:
+                                    fort = ResourceHelper.GetImage("GymVide");
+                                    break;
+                                case POGOProtos.Enums.TeamColor.Blue:
+                                    fort = ResourceHelper.GetImage("GymBlue");
+                                    break;
+                                case POGOProtos.Enums.TeamColor.Red:
+                                    fort = ResourceHelper.GetImage("GymRed");
+                                    break;
+                                case POGOProtos.Enums.TeamColor.Yellow:
+                                    fort = ResourceHelper.GetImage("GymYellow");
+                                    break;
+                            }
+                            break;
+                        default:
+                            fort = ResourceHelper.GetImage("Pokestop");
+                            break;
+                    }
+                    var pokestopMarker = new GMapMarkerPokestops(pokeStopLoc, fort);
                     _pokestopsOverlay.Markers.Add(pokestopMarker);
                 }
             }, null);
@@ -914,7 +942,7 @@ namespace RocketBot2.Forms
 
         private void todoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form settingsForm = new SettingsForm(ref _settings);
+            System.Windows.Forms.Form settingsForm = new SettingsForm(ref _settings);
             settingsForm.ShowDialog();
             var newLocation = new PointLatLng(_settings.LocationConfig.DefaultLatitude, _settings.LocationConfig.DefaultLongitude);
             gMapControl1.Position = newLocation;
