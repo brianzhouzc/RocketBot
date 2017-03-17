@@ -80,7 +80,6 @@ namespace RocketBot2.Forms
         private readonly GMapOverlay _pokemonsOverlay = new GMapOverlay("pokemons");
         private readonly GMapOverlay _pokestopsOverlay = new GMapOverlay("pokestops");
         private readonly GMapOverlay _searchAreaOverlay = new GMapOverlay("areas");
-        private Image Me = ResourceHelper.GetImage("PlayerLocation");
 
         public static Session _session;
 
@@ -915,7 +914,7 @@ namespace RocketBot2.Forms
             Instance.statusLabel.Text = text;
 
             if (checkBoxAutoRefresh.Checked)
-            await ReloadPokemonList();
+            await ReloadPokemonList().ConfigureAwait(false);
         }
 
         #endregion INTERFACE
@@ -924,7 +923,7 @@ namespace RocketBot2.Forms
 
         private async void btnRefresh_Click(object sender, EventArgs e)
         {
-              await ReloadPokemonList();
+              await ReloadPokemonList().ConfigureAwait(false);
         }
 
         private void startStopBotToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1104,13 +1103,12 @@ namespace RocketBot2.Forms
             catch (Exception ex)
             {
                 Logger.Write(ex.ToString(), LogLevel.Error);
-                await ReloadPokemonList();
+                await ReloadPokemonList().ConfigureAwait(false);
             }
         }
 
         private async void TransferPokemon(IEnumerable<PokemonData> pokemons)
         {
-            SetState(false);
             var _pokemons = new List<ulong>();
             string poketotransfert = null;
             foreach (var pokemon in pokemons)
@@ -1129,8 +1127,6 @@ namespace RocketBot2.Forms
                              _session, _session.CancellationTokenSource.Token, _pokemons
                          );
                      });
-
-                        await ReloadPokemonList();
                     }
                     break;
             }
@@ -1138,7 +1134,6 @@ namespace RocketBot2.Forms
 
         private async void PowerUpPokemon(IEnumerable<PokemonData> pokemons)
         {
-            SetState(false);
             foreach (var pokemon in pokemons)
             {
                 DialogResult result = MessageBox.Show($"Full Power Up {_session.Translation.GetPokemonTranslation(pokemon.PokemonId)}?", $"{Application.ProductName} - Max Power Up", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
@@ -1146,111 +1141,24 @@ namespace RocketBot2.Forms
                 {
                     case DialogResult.Yes:
                         await Task.Run(async () => { await UpgradeSinglePokemonTask.Execute(_session, pokemon.Id, true /* upgrade x times */); });
-                        await ReloadPokemonList();
                         break;
                     case DialogResult.No:
                         await Task.Run(async () => { await UpgradeSinglePokemonTask.Execute(_session, pokemon.Id, false, 1 /* Only upgrade 1 time */); });
-                        await ReloadPokemonList();
                         break;
-                    default:
-                        SetState(true);
-                        return;
                 }
             }
         }
 
         private async void EvolvePokemon(IEnumerable<PokemonData> pokemons)
         {
-            SetState(false);
             foreach (var pokemon in pokemons)
             {
                 await Task.Run(async () => { await Logic.Tasks.EvolveSpecificPokemonTask.Execute(_session, pokemon.Id); });
-            }
-            await ReloadPokemonList();
-        }
-
-        private async void CleanUpTransferPokemon(PokemonObject pokemon, string type)
-        {
-            var et = pokemon.EvolveTimes;
-            var pokemonCount =
-                olvPokemonList.Objects
-                    .Cast<PokemonObject>()
-                    .Count(p => p.PokemonId == pokemon.PokemonId);
-
-            if (pokemonCount < et)
-            {
-                await ReloadPokemonList();
-                return;
-            }
-
-            if (et == 0)
-                et = 1;
-
-            if (type.Equals("IV"))
-            {
-                var pokemons =
-                    olvPokemonList.Objects.Cast<PokemonObject>()
-                        .Where(p => p.PokemonId == pokemon.PokemonId)
-                        .Select(p => p.PokemonData)
-                        .OrderBy(p => p.Cp)
-                        .ThenBy(PokemonInfo.CalculatePokemonPerfection)
-                        .Take(pokemonCount - et);
-
-                TransferPokemon(pokemons);
-            }
-            else if (type.Equals("CP"))
-            {
-                var pokemons =
-                    olvPokemonList.Objects.Cast<PokemonObject>()
-                        .Where(p => p.PokemonId == pokemon.PokemonId)
-                        .Select(p => p.PokemonData)
-                        .OrderBy(PokemonInfo.CalculatePokemonPerfection)
-                        .ThenBy(p => p.Cp)
-                        .Take(pokemonCount - et);
-
-                TransferPokemon(pokemons);
-            }
-        }
-
-        private async void CleanUpEvolvePokemon(PokemonObject pokemon, string type)
-        {
-            var et = pokemon.EvolveTimes;
-
-            if (et < 1)
-            {
-                await ReloadPokemonList();
-                return;
-            }
-
-            if (type.Equals("IV"))
-            {
-                var pokemons =
-                    olvPokemonList.Objects.Cast<PokemonObject>()
-                        .Where(p => p.PokemonId == pokemon.PokemonId)
-                        .Select(p => p.PokemonData)
-                        .OrderByDescending(p => p.Cp)
-                        .ThenByDescending(PokemonInfo.CalculatePokemonPerfection)
-                        .Take(et);
-
-                EvolvePokemon(pokemons);
-            }
-            else if (type.Equals("CP"))
-            {
-                var pokemons =
-                    olvPokemonList.Objects.Cast<PokemonObject>()
-                        .Where(p => p.PokemonId == pokemon.PokemonId)
-                        .Select(p => p.PokemonData)
-                        .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
-                        .ThenByDescending(p => p.Cp)
-                        .Take(et);
-
-                EvolvePokemon(pokemons);
             }
         }
 
         public async void NicknamePokemon(IEnumerable<PokemonData> pokemons, string nickname)
         {
-            SetState(false);
             var pokemonDatas = pokemons as IList<PokemonData> ?? pokemons.ToList();
             foreach (var pokemon in pokemonDatas)
             {
@@ -1274,7 +1182,6 @@ namespace RocketBot2.Forms
                 }
                 await Task.Run(async () => { await RenameSinglePokemonTask.Execute(_session, pokemon.Id, nickname, _session.CancellationTokenSource.Token); });
             }
-            await ReloadPokemonList().ConfigureAwait(false); 
         }
 
         private async Task ReloadPokemonList()
@@ -1373,7 +1280,6 @@ namespace RocketBot2.Forms
             {
                 var result = form.ShowDialog();
                 if (result != DialogResult.OK) return;
-                SetState(false);
                 switch (item.ItemId)
                 {
                     case ItemId.ItemLuckyEgg:
@@ -1392,7 +1298,6 @@ namespace RocketBot2.Forms
                         }
                         break;
                 }
-                await ReloadPokemonList();
             }
         }
 
