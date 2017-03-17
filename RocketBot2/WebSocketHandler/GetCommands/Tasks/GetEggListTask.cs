@@ -14,20 +14,18 @@ namespace RocketBot2.WebSocketHandler.GetCommands.Tasks
 {
     internal class GetEggListTask
     {
-        // jjskuld - Ignore CS1998 warning for now.
-        #pragma warning disable 1998
         public static async Task Execute(ISession session, WebSocketSession webSocketSession, string requestID)
         {
             // using (var blocker = new BlockableScope(session, BotActions.Eggs))
             {
                 // if (!await blocker.WaitToRun()) return;
 
-                var incubators = session.Inventory.GetEggIncubators()
+                var incubators = (await session.Inventory.GetEggIncubators())
                     .Where(x => x.UsesRemaining > 0 || x.ItemId == ItemId.ItemIncubatorBasicUnlimited)
                     .OrderByDescending(x => x.ItemId == ItemId.ItemIncubatorBasicUnlimited)
                     .ToList();
 
-                var unusedEggs = session.Inventory.GetEggs()
+                var unusedEggs = (await session.Inventory.GetEggs())
                     .Where(x => string.IsNullOrEmpty(x.EggIncubatorId))
                     .OrderBy(x => x.EggKmWalkedTarget - x.EggKmWalkedStart)
                     .ToList();
@@ -41,6 +39,5 @@ namespace RocketBot2.WebSocketHandler.GetCommands.Tasks
                 webSocketSession.Send(EncodingHelper.Serialize(new EggListResponce(list, requestID)));
             }
         }
-        #pragma warning restore 1998
     }
 }

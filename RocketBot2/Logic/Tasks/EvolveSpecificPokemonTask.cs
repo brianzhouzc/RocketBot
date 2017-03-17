@@ -19,7 +19,7 @@ namespace RocketBot2.Logic.Tasks
             {
                 if (!await blocker.WaitToRun()) return;
 
-                var all = session.Inventory.GetPokemons();
+                var all = session.Inventory.GetPokemons().Result;
                 var pokemons = all.OrderByDescending(x => x.Cp).ThenBy(n => n.StaminaMax);
                 var pokemon = pokemons.FirstOrDefault(p => p.Id == pokemonId);
 

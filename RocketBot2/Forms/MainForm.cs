@@ -1274,7 +1274,7 @@ namespace RocketBot2.Forms
                 }
                 await Task.Run(async () => { await RenameSinglePokemonTask.Execute(_session, pokemon.Id, nickname, _session.CancellationTokenSource.Token); });
             }
-            await ReloadPokemonList();
+            await ReloadPokemonList().ConfigureAwait(false); 
         }
 
         private async Task ReloadPokemonList()
@@ -1284,7 +1284,7 @@ namespace RocketBot2.Forms
             try
             {
                 if (_session.Client.Download.ItemTemplates == null)
-                    await _session.Client.Download.GetItemTemplates();
+                    await _session.Client.Download.GetItemTemplates().ConfigureAwait(false); 
 
                 var templates =  _session.Client.Download.ItemTemplates.Where(x => x.PokemonSettings != null)
                         .Select(x => x.PokemonSettings)
@@ -1292,12 +1292,12 @@ namespace RocketBot2.Forms
 
                 PokemonObject.Initilize(_session, templates);
 
-                var pokemons =
-                    _session.Inventory.GetPokemons()
-                    .Where(p => p != null && p.PokemonId > 0)
-                    .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
-                    .ThenByDescending(key => key.Cp)
-                    .OrderBy(key => key.PokemonId);
+                var pokemons = 
+                   _session.Inventory.GetPokemons().Result
+                   .Where(p => p != null && p.PokemonId > 0)
+                   .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
+                   .ThenByDescending(key => key.Cp)
+                   .OrderBy(key => key.PokemonId);
 
                 var pokemonObjects = new List<PokemonObject>();
 
@@ -1312,7 +1312,7 @@ namespace RocketBot2.Forms
                 olvPokemonList.SetObjects(pokemonObjects);
                 olvPokemonList.TopItemIndex = prevTopItem;
 
-                var PokeDex = _session.Inventory.GetPokeDexItems();
+                var PokeDex = _session.Inventory.GetPokeDexItems().Result;
                 var _totalUniqueEncounters = PokeDex.Select(
                     i => new
                     {
@@ -1324,15 +1324,15 @@ namespace RocketBot2.Forms
                 var _totalData = PokeDex.Count();
 
                 lblPokemonList.Text = _session.Translation.GetTranslation(TranslationString.AmountPkmSeenCaught, _totalData, _totalCaptures) +
-                    $" / Storage: {_session.Client.Player.PlayerData.MaxPokemonStorage} ({pokemons.Count()} Pokémons, {_session.Inventory.GetEggs().Count()} Eggs)";
+                    $" / Storage: {_session.Client.Player.PlayerData.MaxPokemonStorage} ({pokemons.Count()} Pokémons, {_session.Inventory.GetEggs().Result.Count()} Eggs)";
 
                 var items =
-                    _session.Inventory.GetItems()
+                    _session.Inventory.GetItems().Result
                     .Where(i => i != null)
                     .OrderBy(i => i.ItemId);
 
                 var appliedItems =
-                    _session.Inventory.GetAppliedItems()
+                    _session.Inventory.GetAppliedItems().Result
                     .Where(aItems => aItems?.Item != null)
                     .SelectMany(aItems => aItems.Item)
                     .ToDictionary(item => item.ItemId, item => new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(item.ExpireMs));

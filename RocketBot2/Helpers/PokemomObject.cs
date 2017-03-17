@@ -83,7 +83,7 @@ namespace RocketBot2.Helpers
         {
             get
             {
-               return PokemonInfo.GetCandy(_session, PokemonData);
+               return PokemonInfo.GetCandy(_session, PokemonData).Result;
             }
         }
 

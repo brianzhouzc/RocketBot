@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
@@ -375,7 +376,7 @@ namespace RocketBot2
                             Move1 = move1,
                             Move2 = move2,
                             ExpiredTime = data.ExpireTimestamp
-                        });
+                        }).Result;
                         if (added)
                         {
                             session.EventDispatcher.Send(new AutoSnipePokemonAddedEvent(data));
@@ -426,7 +427,7 @@ namespace RocketBot2
                     Move1 = move1,
                     ExpiredTime = data.ExpireTimestamp,
                     Move2 = move2
-                }, true);
+                }, true).Wait();
             }
         }
         private static Queue<string> servers = new Queue<string>();
