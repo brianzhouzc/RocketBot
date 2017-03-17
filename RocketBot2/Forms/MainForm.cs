@@ -109,7 +109,6 @@ namespace RocketBot2.Forms
             InitializeMap();
             VersionHelper.CheckVersion();
             btnRefresh.Enabled = false;
-            pokeEaseToolStripMenuItem.Enabled = false;
             ConsoleHelper.HideConsoleWindow();
         }
 
@@ -927,10 +926,23 @@ namespace RocketBot2.Forms
 
         private void pokeEaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var profilePath = Path.Combine(Directory.GetCurrentDirectory(), _subPath);
-            var profileConfigPath = Path.Combine(profilePath, "PokeEase");
-            var exeFile = Path.Combine(profileConfigPath, "RocketBot2.exe");
-            Process.Start(exeFile);
+            if (pokeEaseToolStripMenuItem.Text.Equals(@"Show PokeEase"))
+            {
+                if (ConsoleHelper.ShowConsoleWindowPokeEase())
+                {
+                    pokeEaseToolStripMenuItem.Text = @"Hide PokeEase";
+                    return;
+                }
+
+                var profilePath = Path.Combine(Directory.GetCurrentDirectory(), _subPath);
+                var profileConfigPath = Path.Combine(profilePath, "PokeEase");
+                var exeFile = Path.Combine(profileConfigPath, "RocketBot2.exe");
+                Process.Start(exeFile);
+                pokeEaseToolStripMenuItem.Text = @"Hide PokeEase";
+                return;
+            }
+                pokeEaseToolStripMenuItem.Text = @"Show PokeEase";
+                ConsoleHelper.HideConsoleWindowPokeEase();
         }
 
         private void showConsoleToolStripMenuItem_Click(object sender, EventArgs e)

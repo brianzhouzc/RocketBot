@@ -70,10 +70,10 @@ namespace RocketBot2.Forms
             this.followTrainerCheckBox = new System.Windows.Forms.CheckBox();
             this.showMoreCheckBox = new System.Windows.Forms.CheckBox();
             this.speedLable = new System.Windows.Forms.Label();
+            this.checkBoxAutoRefresh = new System.Windows.Forms.CheckBox();
             this.lblInventory = new System.Windows.Forms.Label();
             this.flpItems = new System.Windows.Forms.FlowLayoutPanel();
             this.lblPokemonList = new System.Windows.Forms.Label();
-            this.checkBoxAutoRefresh = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.olvPokemonList)).BeginInit();
@@ -161,8 +161,8 @@ namespace RocketBot2.Forms
             // pokeEaseToolStripMenuItem
             // 
             this.pokeEaseToolStripMenuItem.Name = "pokeEaseToolStripMenuItem";
-            this.pokeEaseToolStripMenuItem.Size = new System.Drawing.Size(82, 24);
-            this.pokeEaseToolStripMenuItem.Text = "PokeEase";
+            this.pokeEaseToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
+            this.pokeEaseToolStripMenuItem.Text = "Show PokeEase";
             this.pokeEaseToolStripMenuItem.Click += new System.EventHandler(this.pokeEaseToolStripMenuItem_Click);
             // 
             // showConsoleToolStripMenuItem
@@ -205,7 +205,7 @@ namespace RocketBot2.Forms
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(644, 244);
+            this.gMapControl1.Size = new System.Drawing.Size(644, 243);
             this.gMapControl1.TabIndex = 23;
             this.gMapControl1.Zoom = 0D;
             // 
@@ -258,7 +258,7 @@ namespace RocketBot2.Forms
             this.olvPokemonList.Name = "olvPokemonList";
             this.olvPokemonList.RowHeight = 32;
             this.olvPokemonList.ShowGroups = false;
-            this.olvPokemonList.Size = new System.Drawing.Size(673, 355);
+            this.olvPokemonList.Size = new System.Drawing.Size(672, 355);
             this.olvPokemonList.SmallImageList = this.smallPokemonImageList;
             this.olvPokemonList.TabIndex = 25;
             this.olvPokemonList.UseCompatibleStateImageBehavior = false;
@@ -396,7 +396,7 @@ namespace RocketBot2.Forms
             this.btnRefresh.Location = new System.Drawing.Point(144, 512);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(531, 28);
+            this.btnRefresh.Size = new System.Drawing.Size(530, 28);
             this.btnRefresh.TabIndex = 26;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -515,6 +515,20 @@ namespace RocketBot2.Forms
             this.speedLable.Size = new System.Drawing.Size(0, 17);
             this.speedLable.TabIndex = 24;
             // 
+            // checkBoxAutoRefresh
+            // 
+            this.checkBoxAutoRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxAutoRefresh.AutoSize = true;
+            this.checkBoxAutoRefresh.Checked = true;
+            this.checkBoxAutoRefresh.CheckState = System.Windows.Forms.CheckState.Indeterminate;
+            this.checkBoxAutoRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.checkBoxAutoRefresh.Location = new System.Drawing.Point(11, 516);
+            this.checkBoxAutoRefresh.Name = "checkBoxAutoRefresh";
+            this.checkBoxAutoRefresh.Size = new System.Drawing.Size(133, 21);
+            this.checkBoxAutoRefresh.TabIndex = 34;
+            this.checkBoxAutoRefresh.Text = "Auto Resfresh";
+            this.checkBoxAutoRefresh.UseVisualStyleBackColor = true;
+            // 
             // lblInventory
             // 
             this.lblInventory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -522,7 +536,7 @@ namespace RocketBot2.Forms
             this.lblInventory.Location = new System.Drawing.Point(2, 494);
             this.lblInventory.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.lblInventory.Name = "lblInventory";
-            this.lblInventory.Size = new System.Drawing.Size(673, 16);
+            this.lblInventory.Size = new System.Drawing.Size(672, 16);
             this.lblInventory.TabIndex = 33;
             this.lblInventory.Text = "0 / 0 ";
             this.lblInventory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -538,7 +552,7 @@ namespace RocketBot2.Forms
             this.flpItems.Location = new System.Drawing.Point(2, 377);
             this.flpItems.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.flpItems.Name = "flpItems";
-            this.flpItems.Size = new System.Drawing.Size(673, 114);
+            this.flpItems.Size = new System.Drawing.Size(672, 114);
             this.flpItems.TabIndex = 32;
             // 
             // lblPokemonList
@@ -548,23 +562,10 @@ namespace RocketBot2.Forms
             this.lblPokemonList.Location = new System.Drawing.Point(3, 357);
             this.lblPokemonList.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.lblPokemonList.Name = "lblPokemonList";
-            this.lblPokemonList.Size = new System.Drawing.Size(673, 16);
+            this.lblPokemonList.Size = new System.Drawing.Size(672, 16);
             this.lblPokemonList.TabIndex = 27;
             this.lblPokemonList.Text = "0 / 0";
             this.lblPokemonList.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // checkBoxAutoRefresh
-            // 
-            this.checkBoxAutoRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkBoxAutoRefresh.AutoSize = true;
-            this.checkBoxAutoRefresh.Checked = true;
-            this.checkBoxAutoRefresh.CheckState = System.Windows.Forms.CheckState.Indeterminate;
-            this.checkBoxAutoRefresh.Location = new System.Drawing.Point(11, 516);
-            this.checkBoxAutoRefresh.Name = "checkBoxAutoRefresh";
-            this.checkBoxAutoRefresh.Size = new System.Drawing.Size(120, 21);
-            this.checkBoxAutoRefresh.TabIndex = 34;
-            this.checkBoxAutoRefresh.Text = "Auto Resfresh";
-            this.checkBoxAutoRefresh.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
