@@ -431,6 +431,7 @@
     <None Include="Images\Markers\Normal.png" />
     <None Include="Images\Markers\team-Instinct.png" />
     <None Include="Images\Markers\team-mystic.png" />
+    <None Include="Images\Markers\location.png" />
     <Content Include="Resources\Ico.ico" />
     <None Include="packages.config">
       <SubType>Designer</SubType>

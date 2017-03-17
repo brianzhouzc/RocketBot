@@ -132,6 +132,16 @@ namespace RocketBot2.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap PlayerLocation {
+            get {
+                object obj = ResourceManager.GetObject("PlayerLocation", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Pokestop {
             get {
                 object obj = ResourceManager.GetObject("Pokestop", resourceCulture);
@@ -155,36 +165,6 @@ namespace RocketBot2.Properties {
         public static System.Drawing.Bitmap question {
             get {
                 object obj = ResourceManager.GetObject("question", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Trainer_Front {
-            get {
-                object obj = ResourceManager.GetObject("Trainer_Front", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Trainer_Left {
-            get {
-                object obj = ResourceManager.GetObject("Trainer_Left", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Trainer_Right {
-            get {
-                object obj = ResourceManager.GetObject("Trainer_Right", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

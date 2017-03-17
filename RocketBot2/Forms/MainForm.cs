@@ -80,6 +80,7 @@ namespace RocketBot2.Forms
         private readonly GMapOverlay _pokemonsOverlay = new GMapOverlay("pokemons");
         private readonly GMapOverlay _pokestopsOverlay = new GMapOverlay("pokestops");
         private readonly GMapOverlay _searchAreaOverlay = new GMapOverlay("areas");
+        private Image Me = ResourceHelper.GetImage("PlayerLocation");
 
         public static Session _session;
 
@@ -134,7 +135,7 @@ namespace RocketBot2.Forms
             gMapControl1.Overlays.Add(_playerOverlay);
             gMapControl1.Overlays.Add(_playerRouteOverlay);
 
-            _playerMarker = new GMapMarkerTrainer(new PointLatLng(lat, lng), ResourceHelper.GetImage("Trainer_Front"));
+            _playerMarker = new GMapMarkerTrainer(new PointLatLng(lat, lng), ResourceHelper.GetImage("PlayerLocation", 50, 50));
             _playerOverlay.Markers.Add(_playerMarker);
             _playerMarker.Position = new PointLatLng(lat, lng);
             _searchAreaOverlay.Polygons.Clear();
@@ -709,8 +710,8 @@ namespace RocketBot2.Forms
                 _playerOverlay.Markers.Remove(_playerMarker);
                 if (!_currentLatLng.IsEmpty)
                     _playerMarker = _currentLatLng.Lng < latlng.Lng
-                        ? new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("Trainer_Right"))
-                        : new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("Trainer_Left"));
+                        ? new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("question", 50, 50))
+                        : new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("PlayerLocation", 50, 50));
                 _playerOverlay.Markers.Add(_playerMarker);
                 if (followTrainerCheckBox.Checked)
                     gMapControl1.Position = latlng;
@@ -1075,28 +1076,7 @@ namespace RocketBot2.Forms
                 item = new ToolStripMenuItem { Text = @"PowerUp" };
                 item.Click += delegate { PowerUpPokemon(pokemons); };
                 cmsPokemonList.Items.Add(item);
-                /*
-                cmsPokemonList.Items.Add(separator);
-
-                item = new ToolStripMenuItem { Text = @"Transfer Clean Up (Keep highest IV)" };
-                item.Click += delegate { CleanUpTransferPokemon(pokemonObject, "IV"); };
-                cmsPokemonList.Items.Add(item);
-
-                item = new ToolStripMenuItem { Text = @"Transfer Clean Up (Keep highest CP)" };
-                item.Click += delegate { CleanUpTransferPokemon(pokemonObject, "CP"); };
-                cmsPokemonList.Items.Add(item);
-
-                item = new ToolStripMenuItem { Text = @"Evolve Clean Up (Highest IV)" };
-                item.Click += delegate { CleanUpEvolvePokemon(pokemonObject, "IV"); };
-                cmsPokemonList.Items.Add(item);
-
-                item = new ToolStripMenuItem { Text = @"Evolve Clean Up (Highest CP)" };
-                item.Click += delegate { CleanUpEvolvePokemon(pokemonObject, "CP"); };
-                cmsPokemonList.Items.Add(item);
-
-                cmsPokemonList.Items.Add(separator);
-                */
-            };
+             };
         }
 
         private async void olvPokemonList_ButtonClick(object sender, CellClickEventArgs e)
