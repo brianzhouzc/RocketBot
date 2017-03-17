@@ -42,6 +42,7 @@ using System.Diagnostics;
 using PokemonGo.RocketAPI;
 using RocketBot2.Win32;
 using System.Net.Http;
+using PokemonGo.RocketAPI.Logging;
 
 #endregion
 
@@ -455,10 +456,13 @@ namespace RocketBot2.Forms
             var strVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(4);
             stats.DirtyEvent +=
                 () =>
+                {
                     SetStatusText($"[RocketBot2 v{strVersion}] " +
                                     stats.GetTemplatedStats(
                                         _session.Translation.GetTranslation(TranslationString.StatsTemplateString),
                                         _session.Translation.GetTranslation(TranslationString.StatsXpTemplateString)));
+                };
+
             Resources.ProgressBar.Fill(40);
 
             var aggregator = new StatisticsAggregator(stats);
@@ -872,7 +876,7 @@ namespace RocketBot2.Forms
             Instance.showMoreCheckBox.Enabled = Instance._botStarted;
         }
 
-        public static void SetStatusText(string text)
+        public async void SetStatusText(string text)
         {
             if (Instance.InvokeRequired)
             {
@@ -881,6 +885,9 @@ namespace RocketBot2.Forms
             }
             Instance.Text = text;
             Instance.statusLabel.Text = text;
+
+            if (checkBoxAutoRefresh.Checked)
+            await ReloadPokemonList();
         }
 
         #endregion INTERFACE
@@ -889,7 +896,7 @@ namespace RocketBot2.Forms
 
         private async void btnRefresh_Click(object sender, EventArgs e)
         {
-            await ReloadPokemonList();
+              await ReloadPokemonList();
         }
 
         private void startStopBotToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1237,6 +1244,7 @@ namespace RocketBot2.Forms
 
         private async Task ReloadPokemonList()
         {
+            if (!_botStarted) return;
             SetState(false);
             try
             {
