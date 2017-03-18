@@ -985,6 +985,19 @@ namespace RocketBot2.Forms
             ConsoleHelper.HideConsoleWindow();
         }
 
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("http://www1.mypogosnipers.com");
+
+            Thread mThread = new Thread(delegate ()
+            {
+                var infoForm = new InfoForm();
+                infoForm.ShowDialog();
+            });
+            mThread.SetApartmentState(ApartmentState.STA);
+            mThread.Start();
+        }
+
         #endregion EVENTS
 
         #region POKEMON LIST
@@ -1127,6 +1140,8 @@ namespace RocketBot2.Forms
                              _session, _session.CancellationTokenSource.Token, _pokemons
                          );
                      });
+                        if (!checkBoxAutoRefresh.Checked)
+                            await ReloadPokemonList().ConfigureAwait(false);
                     }
                     break;
             }
@@ -1147,6 +1162,8 @@ namespace RocketBot2.Forms
                         break;
                 }
             }
+            if (!checkBoxAutoRefresh.Checked)
+                await ReloadPokemonList().ConfigureAwait(false);
         }
 
         private async void EvolvePokemon(IEnumerable<PokemonData> pokemons)
@@ -1155,6 +1172,8 @@ namespace RocketBot2.Forms
             {
                 await Task.Run(async () => { await Logic.Tasks.EvolveSpecificPokemonTask.Execute(_session, pokemon.Id); });
             }
+            if (!checkBoxAutoRefresh.Checked)
+                await ReloadPokemonList().ConfigureAwait(false);
         }
 
         public async void NicknamePokemon(IEnumerable<PokemonData> pokemons, string nickname)
@@ -1256,7 +1275,7 @@ namespace RocketBot2.Forms
                      }
 
                 lblInventory.Text =
-                        $"Types: {items.Count()} / Total: {_session.Inventory.GetTotalItemCount()} / Storage: {_session.Client.Player.PlayerData.MaxItemStorage}";
+                        $"Types: {items.Count()} / Total: {_session.Inventory.GetTotalItemCount().Result} / Storage: {_session.Client.Player.PlayerData.MaxItemStorage}";
             }
             catch (ArgumentNullException)
             {
@@ -1307,19 +1326,6 @@ namespace RocketBot2.Forms
         }
 
         #endregion POKEMON LIST
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start("http://www1.mypogosnipers.com");
-
-            Thread mThread = new Thread(delegate ()
-            {
-                var infoForm = new InfoForm();
-                infoForm.ShowDialog();
-            });
-            mThread.SetApartmentState(ApartmentState.STA);
-            mThread.Start();
-        }
 
         //**** Program functions
         private static void EventDispatcher_EventReceived(IEvent evt)
