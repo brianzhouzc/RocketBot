@@ -1200,6 +1200,8 @@ namespace RocketBot2.Forms
                     continue;
                 }
                 await Task.Run(async () => { await RenameSinglePokemonTask.Execute(_session, pokemon.Id, nickname, _session.CancellationTokenSource.Token); });
+                if (!checkBoxAutoRefresh.Checked)
+                    await ReloadPokemonList().ConfigureAwait(false);
             }
         }
 
@@ -1320,6 +1322,8 @@ namespace RocketBot2.Forms
                         }
                         break;
                 }
+                if (!checkBoxAutoRefresh.Checked)
+                    await ReloadPokemonList().ConfigureAwait(false);
             }
         }
 
