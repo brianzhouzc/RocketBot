@@ -539,19 +539,8 @@ namespace RocketBot2.Forms
                     var _item = new ToolStripMenuItem();
                     _item.Text = _bot.Username;
                     _item.Click += delegate
-                    {
-                        foreach (ToolStripMenuItem en in accountsToolStripMenuItem.DropDownItems)
-                        {
-                            if (en.Text == _item.Text)
-                            {
-                                if (!_botStarted)
-                                    _session.ReInitSessionWithNextBot(_bot);
-
-                                _item.Enabled = false;
-                            }
-                            else
-                                en.Enabled = true;
-                        }
+                    {                       
+                        if (!_botStarted) _session.ReInitSessionWithNextBot(_bot);
                         accountManager.SwitchAccountTo(_bot);
                     };
 
@@ -986,8 +975,6 @@ namespace RocketBot2.Forms
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("http://www1.mypogosnipers.com");
-
             Thread mThread = new Thread(delegate ()
             {
                 var infoForm = new InfoForm();
@@ -995,6 +982,17 @@ namespace RocketBot2.Forms
             });
             mThread.SetApartmentState(ApartmentState.STA);
             mThread.Start();
+        }
+
+        private void accountsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (ToolStripMenuItem en in accountsToolStripMenuItem.DropDownItems)
+            {
+                if (en.Text == _settings.Auth.CurrentAuthConfig.Username)
+                    en.Enabled = false;
+                else
+                    en.Enabled = true;
+            }
         }
 
         #endregion EVENTS
