@@ -30,7 +30,7 @@ namespace RocketBot2.Forms
             if (e.KeyCode == Keys.Escape)
             {
                 DialogResult = DialogResult.Cancel;
-                Close();
+                this.Close();
             }
         }
 
