@@ -590,15 +590,14 @@ namespace RocketBot2.Forms
 
             if (_settings.TelegramConfig.UseTelegramAPI)
                 _session.Telegram = new TelegramService(_settings.TelegramConfig.TelegramAPIKey, _session);
-
             if (_session.LogicSettings.EnableHumanWalkingSnipe &&
-                _session.LogicSettings.HumanWalkingSnipeUseFastPokemap)
+                            _session.LogicSettings.HumanWalkingSnipeUseFastPokemap)
             {
                 // jjskuld - Ignore CS4014 warning for now.
-//#pragma warning disable 4014
+                //#pragma warning disable 4014
                 HumanWalkSnipeTask.StartFastPokemapAsync(_session,
-                    _session.CancellationTokenSource.Token); // that need to keep data live
-//#pragma warning restore 4014
+                    _session.CancellationTokenSource.Token).ConfigureAwait(false); // that need to keep data live
+                //#pragma warning restore 4014
             }
 
             if (_session.LogicSettings.UseSnipeLocationServer ||
@@ -618,8 +617,8 @@ namespace RocketBot2.Forms
                 ServicePointManager.ServerCertificateValidationCallback +=
                     (sender, certificate, chain, sslPolicyErrors) => true;
                 //temporary disable MSniper connection because site under attacking.
-                MSniperServiceTask.ConnectToService();
-                _session.EventDispatcher.EventReceived += evt => MSniperServiceTask.AddToList(evt);
+                //MSniperServiceTask.ConnectToService();
+                //_session.EventDispatcher.EventReceived += evt => MSniperServiceTask.AddToList(evt);
             }
             var trackFile = Path.GetTempPath() + "\\rocketbot2.io";
 

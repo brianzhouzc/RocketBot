@@ -287,9 +287,9 @@ namespace RocketBot2.Forms
             tbForceExcellentThrowOverIv.Text = _setting.CustomCatchConfig.ForceExcellentThrowOverIv.ToString(CultureInfo.InvariantCulture);
             tbForceGreatThrowOverCp.Text = _setting.CustomCatchConfig.ForceGreatThrowOverCp.ToString();
             tbForceExcellentThrowOverCp.Text = _setting.CustomCatchConfig.ForceExcellentThrowOverCp.ToString();
-
-            #endregion
         }
+            #endregion
+
 
         #region Help button for API key
 
@@ -643,11 +643,9 @@ namespace RocketBot2.Forms
                 #endregion
 
                 _setting.Save(ConfigFilePath);
+                Close();
 
                 #endregion
-
-                Application.Restart();
-                Close();
             }
         }
 
@@ -811,10 +809,5 @@ namespace RocketBot2.Forms
         }
 
         #endregion
-
-        private void DeviceModelTb_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

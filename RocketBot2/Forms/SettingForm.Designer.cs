@@ -975,7 +975,6 @@
             this.DeviceModelTb.Name = "DeviceModelTb";
             this.DeviceModelTb.Size = new System.Drawing.Size(283, 27);
             this.DeviceModelTb.TabIndex = 55;
-            this.DeviceModelTb.TextChanged += new System.EventHandler(this.DeviceModelTb_TextChanged);
             // 
             // label15
             // 
