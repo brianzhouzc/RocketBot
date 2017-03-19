@@ -40,6 +40,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -418,6 +419,19 @@
     </None>
     <None Include="Images\Miscs\Logo.png" />
     <None Include="Resources\msvc.cer" />
+    <None Include="Images\Markers\gym-unoccupied.png" />
+    <None Include="Images\Markers\team-unoccupied.png" />
+    <None Include="Images\Markers\team-valor.png" />
+    <None Include="Images\Markers\Visited.png" />
+    <None Include="Images\Markers\VisitedLure.png" />
+    <None Include="Images\Markers\gym-instinct.png" />
+    <None Include="Images\Markers\gym-mystic.png" />
+    <None Include="Images\Markers\gym-valor.png" />
+    <None Include="Images\Markers\Lured.png" />
+    <None Include="Images\Markers\Normal.png" />
+    <None Include="Images\Markers\team-Instinct.png" />
+    <None Include="Images\Markers\team-mystic.png" />
+    <None Include="Images\Markers\location.png" />
     <Content Include="Resources\Ico.ico" />
     <None Include="packages.config">
       <SubType>Designer</SubType>

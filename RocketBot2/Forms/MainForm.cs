@@ -42,13 +42,16 @@ using System.Diagnostics;
 using PokemonGo.RocketAPI;
 using RocketBot2.Win32;
 using System.Net.Http;
+using PokemonGo.RocketAPI.Logging;
+using POGOProtos.Enums;
+using POGOProtos.Networking.Responses;
 
 #endregion
 
 
 namespace RocketBot2.Forms
 {
-    public partial class MainForm : Form
+    public partial class MainForm : System.Windows.Forms.Form
     {
         public static MainForm Instance;
         public static SynchronizationContext SynchronizationContext;
@@ -108,7 +111,6 @@ namespace RocketBot2.Forms
             InitializeMap();
             VersionHelper.CheckVersion();
             btnRefresh.Enabled = false;
-            pokeEaseToolStripMenuItem.Enabled = false;
             ConsoleHelper.HideConsoleWindow();
         }
 
@@ -132,7 +134,7 @@ namespace RocketBot2.Forms
             gMapControl1.Overlays.Add(_playerOverlay);
             gMapControl1.Overlays.Add(_playerRouteOverlay);
 
-            _playerMarker = new GMapMarkerTrainer(new PointLatLng(lat, lng), ResourceHelper.GetImage("Trainer_Front"));
+            _playerMarker = new GMapMarkerTrainer(new PointLatLng(lat, lng), ResourceHelper.GetImage("PlayerLocation", 50, 50));
             _playerOverlay.Markers.Add(_playerMarker);
             _playerMarker.Position = new PointLatLng(lat, lng);
             _searchAreaOverlay.Polygons.Clear();
@@ -455,10 +457,13 @@ namespace RocketBot2.Forms
             var strVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(4);
             stats.DirtyEvent +=
                 () =>
+                {
                     SetStatusText($"[RocketBot2 v{strVersion}] " +
                                     stats.GetTemplatedStats(
                                         _session.Translation.GetTranslation(TranslationString.StatsTemplateString),
                                         _session.Translation.GetTranslation(TranslationString.StatsXpTemplateString)));
+                };
+
             Resources.ProgressBar.Fill(40);
 
             var aggregator = new StatisticsAggregator(stats);
@@ -661,8 +666,34 @@ namespace RocketBot2.Forms
                 foreach (var pokeStop in pokeStops)
                 {
                     var pokeStopLoc = new PointLatLng(pokeStop.Latitude, pokeStop.Longitude);
-                    var pokestopMarker = new GMapMarkerPokestops(pokeStopLoc, 
-                        ResourceHelper.GetImage("Pokestop"));
+                    Image fort = null;
+                    switch (pokeStop.Type)
+                    {
+                        case FortType.Checkpoint:
+                            fort = ResourceHelper.GetImage("Pokestop");
+                            break;
+                        case FortType .Gym:
+                            switch (pokeStop.OwnedByTeam)
+                            {
+                                case POGOProtos.Enums.TeamColor.Neutral:
+                                    fort = ResourceHelper.GetImage("GymVide");
+                                    break;
+                                case POGOProtos.Enums.TeamColor.Blue:
+                                    fort = ResourceHelper.GetImage("GymBlue");
+                                    break;
+                                case POGOProtos.Enums.TeamColor.Red:
+                                    fort = ResourceHelper.GetImage("GymRed");
+                                    break;
+                                case POGOProtos.Enums.TeamColor.Yellow:
+                                    fort = ResourceHelper.GetImage("GymYellow");
+                                    break;
+                            }
+                            break;
+                        default:
+                            fort = ResourceHelper.GetImage("Pokestop");
+                            break;
+                    }
+                    var pokestopMarker = new GMapMarkerPokestops(pokeStopLoc, fort);
                     _pokestopsOverlay.Markers.Add(pokestopMarker);
                 }
             }, null);
@@ -678,8 +709,8 @@ namespace RocketBot2.Forms
                 _playerOverlay.Markers.Remove(_playerMarker);
                 if (!_currentLatLng.IsEmpty)
                     _playerMarker = _currentLatLng.Lng < latlng.Lng
-                        ? new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("Trainer_Right"))
-                        : new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("Trainer_Left"));
+                        ? new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("question", 50, 50))
+                        : new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("PlayerLocation", 50, 50));
                 _playerOverlay.Markers.Add(_playerMarker);
                 if (followTrainerCheckBox.Checked)
                     gMapControl1.Position = latlng;
@@ -872,7 +903,7 @@ namespace RocketBot2.Forms
             Instance.showMoreCheckBox.Enabled = Instance._botStarted;
         }
 
-        public static void SetStatusText(string text)
+        public async void SetStatusText(string text)
         {
             if (Instance.InvokeRequired)
             {
@@ -881,6 +912,9 @@ namespace RocketBot2.Forms
             }
             Instance.Text = text;
             Instance.statusLabel.Text = text;
+
+            if (checkBoxAutoRefresh.Checked)
+            await ReloadPokemonList().ConfigureAwait(false);
         }
 
         #endregion INTERFACE
@@ -889,7 +923,7 @@ namespace RocketBot2.Forms
 
         private async void btnRefresh_Click(object sender, EventArgs e)
         {
-            await ReloadPokemonList();
+              await ReloadPokemonList().ConfigureAwait(false);
         }
 
         private void startStopBotToolStripMenuItem_Click(object sender, EventArgs e)
@@ -908,7 +942,7 @@ namespace RocketBot2.Forms
 
         private void todoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form settingsForm = new SettingsForm(ref _settings);
+            System.Windows.Forms.Form settingsForm = new SettingsForm(ref _settings);
             settingsForm.ShowDialog();
             var newLocation = new PointLatLng(_settings.LocationConfig.DefaultLatitude, _settings.LocationConfig.DefaultLongitude);
             gMapControl1.Position = newLocation;
@@ -920,10 +954,23 @@ namespace RocketBot2.Forms
 
         private void pokeEaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var profilePath = Path.Combine(Directory.GetCurrentDirectory(), _subPath);
-            var profileConfigPath = Path.Combine(profilePath, "PokeEase");
-            var exeFile = Path.Combine(profileConfigPath, "RocketBot2.exe");
-            Process.Start(exeFile);
+            if (pokeEaseToolStripMenuItem.Text.Equals(@"Show PokeEase"))
+            {
+                if (ConsoleHelper.ShowConsoleWindowPokeEase())
+                {
+                    pokeEaseToolStripMenuItem.Text = @"Hide PokeEase";
+                    return;
+                }
+
+                var profilePath = Path.Combine(Directory.GetCurrentDirectory(), _subPath);
+                var profileConfigPath = Path.Combine(profilePath, "PokeEase");
+                var exeFile = Path.Combine(profileConfigPath, "RocketBot2.exe");
+                Process.Start(exeFile);
+                pokeEaseToolStripMenuItem.Text = @"Hide PokeEase";
+                return;
+            }
+                pokeEaseToolStripMenuItem.Text = @"Show PokeEase";
+                ConsoleHelper.HideConsoleWindowPokeEase();
         }
 
         private void showConsoleToolStripMenuItem_Click(object sender, EventArgs e)
@@ -936,6 +983,19 @@ namespace RocketBot2.Forms
             }
             showConsoleToolStripMenuItem.Text = @"Show Console";
             ConsoleHelper.HideConsoleWindow();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("http://www1.mypogosnipers.com");
+
+            Thread mThread = new Thread(delegate ()
+            {
+                var infoForm = new InfoForm();
+                infoForm.ShowDialog();
+            });
+            mThread.SetApartmentState(ApartmentState.STA);
+            mThread.Start();
         }
 
         #endregion EVENTS
@@ -969,12 +1029,21 @@ namespace RocketBot2.Forms
                     .Count(p => p == pok.PokemonId) > 1)
                     e.Item.BackColor = Color.LightGreen;
 
-                e.Item.Text = _session.Translation.GetPokemonTranslation(pok.PokemonId);
+                var text = string.IsNullOrEmpty(pok.Nickname) ? _session.Translation.GetPokemonTranslation(pok.PokemonId) : pok.Nickname;
+                e.Item.Text = pok.Favorited ? $"★ {text}" : text;
 
                 foreach (OLVListSubItem sub in e.Item.SubItems)
                 {
                     // ReSharper disable once PossibleNullReferenceException
-                    if (sub.Text.Equals("Evolve") && !pok.CanEvolve)
+                    if (sub.Text.Equals("Evolve") && !pok.AllowEvolve)
+                    {
+                        sub.CellPadding = new Rectangle(100, 100, 0, 0);
+                    }
+                    if (sub.Text.Equals("Transfer") && !pok.AllowTransfer)
+                    {
+                        sub.CellPadding = new Rectangle(100, 100, 0, 0);
+                    }
+                    if (sub.Text.Equals("Power Up") && !pok.AllowPowerup)
                     {
                         sub.CellPadding = new Rectangle(100, 100, 0, 0);
                     }
@@ -987,8 +1056,10 @@ namespace RocketBot2.Forms
                 cmsPokemonList.Items.Clear();
 
                 var pokemons = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o.PokemonData).ToList();
-                var canAllEvolve =
-                    olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).All(o => o.CanEvolve);
+                var AllowEvolve = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).All(o => o.AllowEvolve);
+                var AllowTransfer = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).All(o => o.AllowTransfer);
+                var AllowPowerup = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).All(o => o.AllowPowerup);
+                var Favorited = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).All(o => o.Favorited);
                 var count = pokemons.Count();
 
                 if (count < 1)
@@ -996,17 +1067,40 @@ namespace RocketBot2.Forms
                     e.Cancel = true;
                 }
 
-                var pokemonObject = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).First();
-
                 var item = new ToolStripMenuItem();
                 var separator = new ToolStripSeparator();
-                item.Text = $"Transfer {count} pokemon";
-                item.Click += delegate { TransferPokemon(pokemons); };
+
+                if (AllowTransfer)
+                {
+                    item.Text = $"Transfer {count} Pokémons";
+                    item.Click += delegate { TransferPokemon(pokemons); };
+                    cmsPokemonList.Items.Add(item);
+                }
+
+                if (AllowEvolve)
+                {
+                    item = new ToolStripMenuItem { Text = $"Evolve {count} Pokémons" };
+                    item.Click += delegate { EvolvePokemon(pokemons); };
+                    cmsPokemonList.Items.Add(item);
+                }
+
+                if (AllowPowerup)
+                {
+                    item = new ToolStripMenuItem { Text = $"PowerUp {count} Pokémons" };
+                    item.Click += delegate { PowerUpPokemon(pokemons); };
+                    cmsPokemonList.Items.Add(item);
+                }
+
+                if (count != 1) return;
+
+                item = new ToolStripMenuItem { Text = Favorited ? "Un-Favorite" : "Favorite" };
+                item.Click += delegate { FavoritedPokemon(pokemons, Favorited); };
                 cmsPokemonList.Items.Add(item);
 
                 item = new ToolStripMenuItem { Text = @"Rename" };
                 item.Click += delegate
                 {
+                    var pokemonObject = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).First();
                     using (var form = count == 1 ? new NicknamePokemonForm(pokemonObject) : new NicknamePokemonForm())
                     {
                         if (form.ShowDialog() == DialogResult.OK)
@@ -1017,40 +1111,10 @@ namespace RocketBot2.Forms
                 };
                 cmsPokemonList.Items.Add(item);
 
-                if (canAllEvolve)
-                {
-                    item = new ToolStripMenuItem { Text = $"Evolve {count} pokemon" };
-                    item.Click += delegate { EvolvePokemon(pokemons); };
-                    cmsPokemonList.Items.Add(item);
-                }
-
-                if (count != 1) return;
-                item = new ToolStripMenuItem { Text = @"PowerUp" };
-                item.Click += delegate { PowerUpPokemon(pokemons); };
-                cmsPokemonList.Items.Add(item);
-                cmsPokemonList.Items.Add(separator);
-
-                item = new ToolStripMenuItem { Text = @"Transfer Clean Up (Keep highest IV)" };
-                item.Click += delegate { CleanUpTransferPokemon(pokemonObject, "IV"); };
-                cmsPokemonList.Items.Add(item);
-
-                item = new ToolStripMenuItem { Text = @"Transfer Clean Up (Keep highest CP)" };
-                item.Click += delegate { CleanUpTransferPokemon(pokemonObject, "CP"); };
-                cmsPokemonList.Items.Add(item);
-
-                item = new ToolStripMenuItem { Text = @"Evolve Clean Up (Highest IV)" };
-                item.Click += delegate { CleanUpEvolvePokemon(pokemonObject, "IV"); };
-                cmsPokemonList.Items.Add(item);
-
-                item = new ToolStripMenuItem { Text = @"Evolve Clean Up (Highest CP)" };
-                item.Click += delegate { CleanUpEvolvePokemon(pokemonObject, "CP"); };
-                cmsPokemonList.Items.Add(item);
-
-                cmsPokemonList.Items.Add(separator);
-            };
+         };
         }
 
-        private async void olvPokemonList_ButtonClick(object sender, CellClickEventArgs e)
+        private void olvPokemonList_ButtonClick(object sender, CellClickEventArgs e)
         {
             try
             {
@@ -1075,13 +1139,21 @@ namespace RocketBot2.Forms
             catch (Exception ex)
             {
                 Logger.Write(ex.ToString(), LogLevel.Error);
-                await ReloadPokemonList();
             }
+        }
+
+        private async void FavoritedPokemon(IEnumerable<PokemonData> pokemons, bool fav)
+        {
+            foreach (var pokemon in pokemons)
+            {
+                await Task.Run(async () => { await FavoritePokemonTask.Execute(_session, pokemon.Id, !fav); });
+            }
+            if (!checkBoxAutoRefresh.Checked)
+                await ReloadPokemonList().ConfigureAwait(false);
         }
 
         private async void TransferPokemon(IEnumerable<PokemonData> pokemons)
         {
-            SetState(false);
             var _pokemons = new List<ulong>();
             string poketotransfert = null;
             foreach (var pokemon in pokemons)
@@ -1100,8 +1172,8 @@ namespace RocketBot2.Forms
                              _session, _session.CancellationTokenSource.Token, _pokemons
                          );
                      });
-
-                        await ReloadPokemonList();
+                        if (!checkBoxAutoRefresh.Checked)
+                            await ReloadPokemonList().ConfigureAwait(false);
                     }
                     break;
             }
@@ -1109,106 +1181,35 @@ namespace RocketBot2.Forms
 
         private async void PowerUpPokemon(IEnumerable<PokemonData> pokemons)
         {
-            SetState(false);
             foreach (var pokemon in pokemons)
             {
-                await Task.Run(async () => { await UpgradeSinglePokemonTask.Execute(_session, pokemon.Id, false, 1 /* Only upgrade 1 time */); });
+                DialogResult result = MessageBox.Show($"Full Power Up {_session.Translation.GetPokemonTranslation(pokemon.PokemonId)}?", $"{Application.ProductName} - Max Power Up", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        await Task.Run(async () => { await UpgradeSinglePokemonTask.Execute(_session, pokemon.Id, true /* upgrade x times */); });
+                        break;
+                    case DialogResult.No:
+                        await Task.Run(async () => { await UpgradeSinglePokemonTask.Execute(_session, pokemon.Id, false, 1 /* Only upgrade 1 time */); });
+                        break;
+                }
             }
-            await ReloadPokemonList();
+            if (!checkBoxAutoRefresh.Checked)
+                await ReloadPokemonList().ConfigureAwait(false);
         }
 
         private async void EvolvePokemon(IEnumerable<PokemonData> pokemons)
         {
-            SetState(false);
-            foreach (var pokemon in pokemons)
+          foreach (var pokemon in pokemons)
             {
                 await Task.Run(async () => { await Logic.Tasks.EvolveSpecificPokemonTask.Execute(_session, pokemon.Id); });
             }
-            await ReloadPokemonList();
-        }
-
-        private async void CleanUpTransferPokemon(PokemonObject pokemon, string type)
-        {
-            var et = pokemon.EvolveTimes;
-            var pokemonCount =
-                olvPokemonList.Objects
-                    .Cast<PokemonObject>()
-                    .Count(p => p.PokemonId == pokemon.PokemonId);
-
-            if (pokemonCount < et)
-            {
-                await ReloadPokemonList();
-                return;
-            }
-
-            if (et == 0)
-                et = 1;
-
-            if (type.Equals("IV"))
-            {
-                var pokemons =
-                    olvPokemonList.Objects.Cast<PokemonObject>()
-                        .Where(p => p.PokemonId == pokemon.PokemonId)
-                        .Select(p => p.PokemonData)
-                        .OrderBy(p => p.Cp)
-                        .ThenBy(PokemonInfo.CalculatePokemonPerfection)
-                        .Take(pokemonCount - et);
-
-                TransferPokemon(pokemons);
-            }
-            else if (type.Equals("CP"))
-            {
-                var pokemons =
-                    olvPokemonList.Objects.Cast<PokemonObject>()
-                        .Where(p => p.PokemonId == pokemon.PokemonId)
-                        .Select(p => p.PokemonData)
-                        .OrderBy(PokemonInfo.CalculatePokemonPerfection)
-                        .ThenBy(p => p.Cp)
-                        .Take(pokemonCount - et);
-
-                TransferPokemon(pokemons);
-            }
-        }
-
-        private async void CleanUpEvolvePokemon(PokemonObject pokemon, string type)
-        {
-            var et = pokemon.EvolveTimes;
-
-            if (et < 1)
-            {
-                await ReloadPokemonList();
-                return;
-            }
-
-            if (type.Equals("IV"))
-            {
-                var pokemons =
-                    olvPokemonList.Objects.Cast<PokemonObject>()
-                        .Where(p => p.PokemonId == pokemon.PokemonId)
-                        .Select(p => p.PokemonData)
-                        .OrderByDescending(p => p.Cp)
-                        .ThenByDescending(PokemonInfo.CalculatePokemonPerfection)
-                        .Take(et);
-
-                EvolvePokemon(pokemons);
-            }
-            else if (type.Equals("CP"))
-            {
-                var pokemons =
-                    olvPokemonList.Objects.Cast<PokemonObject>()
-                        .Where(p => p.PokemonId == pokemon.PokemonId)
-                        .Select(p => p.PokemonData)
-                        .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
-                        .ThenByDescending(p => p.Cp)
-                        .Take(et);
-
-                EvolvePokemon(pokemons);
-            }
+            if (!checkBoxAutoRefresh.Checked)
+                await ReloadPokemonList().ConfigureAwait(false);
         }
 
         public async void NicknamePokemon(IEnumerable<PokemonData> pokemons, string nickname)
         {
-            SetState(false);
             var pokemonDatas = pokemons as IList<PokemonData> ?? pokemons.ToList();
             foreach (var pokemon in pokemonDatas)
             {
@@ -1231,17 +1232,19 @@ namespace RocketBot2.Forms
                     continue;
                 }
                 await Task.Run(async () => { await RenameSinglePokemonTask.Execute(_session, pokemon.Id, nickname, _session.CancellationTokenSource.Token); });
+                if (!checkBoxAutoRefresh.Checked)
+                    await ReloadPokemonList().ConfigureAwait(false);
             }
-            await ReloadPokemonList();
         }
 
         private async Task ReloadPokemonList()
         {
+            if (!_botStarted) return;
             SetState(false);
             try
             {
                 if (_session.Client.Download.ItemTemplates == null)
-                    await _session.Client.Download.GetItemTemplates();
+                    await _session.Client.Download.GetItemTemplates().ConfigureAwait(false); 
 
                 var templates =  _session.Client.Download.ItemTemplates.Where(x => x.PokemonSettings != null)
                         .Select(x => x.PokemonSettings)
@@ -1249,12 +1252,12 @@ namespace RocketBot2.Forms
 
                 PokemonObject.Initilize(_session, templates);
 
-                var pokemons =
-                    _session.Inventory.GetPokemons()
-                    .Where(p => p != null && p.PokemonId > 0)
-                    .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
-                    .ThenByDescending(key => key.Cp)
-                    .OrderBy(key => key.PokemonId);
+                var pokemons = 
+                   _session.Inventory.GetPokemons().Result
+                   .Where(p => p != null && p.PokemonId > 0)
+                   .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
+                   .ThenByDescending(key => key.Cp)
+                   .OrderBy(key => key.PokemonId);
 
                 var pokemonObjects = new List<PokemonObject>();
 
@@ -1269,7 +1272,7 @@ namespace RocketBot2.Forms
                 olvPokemonList.SetObjects(pokemonObjects);
                 olvPokemonList.TopItemIndex = prevTopItem;
 
-                var PokeDex = _session.Inventory.GetPokeDexItems();
+                var PokeDex = _session.Inventory.GetPokeDexItems().Result;
                 var _totalUniqueEncounters = PokeDex.Select(
                     i => new
                     {
@@ -1281,15 +1284,15 @@ namespace RocketBot2.Forms
                 var _totalData = PokeDex.Count();
 
                 lblPokemonList.Text = _session.Translation.GetTranslation(TranslationString.AmountPkmSeenCaught, _totalData, _totalCaptures) +
-                    $" / Storage: {_session.Client.Player.PlayerData.MaxPokemonStorage} ({pokemons.Count()} Pokémons, {_session.Inventory.GetEggs().Count()} Eggs)";
+                    $" / Storage: {_session.Client.Player.PlayerData.MaxPokemonStorage} ({pokemons.Count()} Pokémons, {_session.Inventory.GetEggs().Result.Count()} Eggs)";
 
                 var items =
-                    _session.Inventory.GetItems()
+                    _session.Inventory.GetItems().Result
                     .Where(i => i != null)
                     .OrderBy(i => i.ItemId);
 
                 var appliedItems =
-                    _session.Inventory.GetAppliedItems()
+                    _session.Inventory.GetAppliedItems().Result
                     .Where(aItems => aItems?.Item != null)
                     .SelectMany(aItems => aItems.Item)
                     .ToDictionary(item => item.ItemId, item => new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(item.ExpireMs));
@@ -1300,13 +1303,16 @@ namespace RocketBot2.Forms
                 {
                     var box = new ItemBox(item);
                     if (appliedItems.ContainsKey(item.ItemId))
+                    {
                         box.expires = appliedItems[item.ItemId];
-                    box.ItemClick += ItemBox_ItemClick;
+                        box.Enabled = false;
+                    }
+                         box.ItemClick += ItemBox_ItemClick;
                     flpItems.Controls.Add(box);
                 }
 
                 lblInventory.Text =
-                        $"Types: {items.Count()} / Total: {_session.Inventory.GetTotalItemCount()} / Storage: {_session.Client.Player.PlayerData.MaxItemStorage}";
+                        $"Types: {items.Count()} / Total: {_session.Inventory.GetTotalItemCount().Result} / Storage: {_session.Client.Player.PlayerData.MaxItemStorage}";
             }
             catch (ArgumentNullException)
             {
@@ -1330,7 +1336,6 @@ namespace RocketBot2.Forms
             {
                 var result = form.ShowDialog();
                 if (result != DialogResult.OK) return;
-                SetState(false);
                 switch (item.ItemId)
                 {
                     case ItemId.ItemLuckyEgg:
@@ -1349,31 +1354,17 @@ namespace RocketBot2.Forms
                         }
                         break;
                 }
-                await ReloadPokemonList();
+                if (!checkBoxAutoRefresh.Checked)
+                    await ReloadPokemonList().ConfigureAwait(false);
             }
         }
 
         private void SetState(bool state)
         {
             btnRefresh.Enabled = state;
-            olvPokemonList.Enabled = state;
-            flpItems.Enabled = state;
         }
 
         #endregion POKEMON LIST
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start("http://www1.mypogosnipers.com");
-
-            Thread mThread = new Thread(delegate ()
-            {
-                var infoForm = new InfoForm();
-                infoForm.ShowDialog();
-            });
-            mThread.SetApartmentState(ApartmentState.STA);
-            mThread.Start();
-        }
 
         //**** Program functions
         private static void EventDispatcher_EventReceived(IEvent evt)

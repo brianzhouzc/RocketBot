@@ -3,6 +3,7 @@
 using PoGo.NecroBot.Logic.PoGoUtils;
 using POGOProtos.Data;
 using PoGo.NecroBot.Logic.State;
+using System.Threading.Tasks;
 
 #endregion
 
@@ -21,6 +22,6 @@ namespace RocketBot2.WebSocketHandler.GetCommands.Helpers
 
         public double IvPerfection => PokemonInfo.CalculatePokemonPerfection(Base);
         public double Level => PokemonInfo.GetLevel(Base);
-        public int FamilyCandies => PokemonInfo.GetCandy(_session, Base);
+        public int FamilyCandies => PokemonInfo.GetCandy(_session, Base).Result;
     }
 }
