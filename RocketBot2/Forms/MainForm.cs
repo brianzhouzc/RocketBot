@@ -904,6 +904,7 @@ namespace RocketBot2.Forms
             }
             Instance.Text = text;
             Instance.statusLabel.Text = text;
+            Console.Title = text;
 
             if (checkBoxAutoRefresh.Checked)
                 await ReloadPokemonList().ConfigureAwait(false);
