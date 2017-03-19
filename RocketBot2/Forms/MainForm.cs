@@ -126,7 +126,7 @@ namespace RocketBot2.Forms
 
                 gMapControl1.MinZoom = 1;
                 gMapControl1.MaxZoom = 20;
-                gMapControl1.Zoom = 17;
+                gMapControl1.Zoom = 15;
 
                 gMapControl1.Overlays.Add(_searchAreaOverlay);
                 gMapControl1.Overlays.Add(_pokestopsOverlay);
@@ -630,12 +630,20 @@ namespace RocketBot2.Forms
         }
 #pragma warning restore 1998
 
-        private void InitializePokestopsAndRoute(List<FortData> pokeStops)
+        private void InitializePokestopsAndRoute()
         {
             SynchronizationContext.Post(o =>
             {
-                _pokestopsOverlay.Routes.Clear();
+                _playerOverlay.Markers.Clear();
+                _pokemonsOverlay.Markers.Clear();
                 _pokestopsOverlay.Markers.Clear();
+                _pokestopsOverlay.Routes.Clear();
+                _playerLocations.Clear();
+
+                //get optimized route
+                var pokeStops = Logic.Utils.RouteOptimizeUtil.Optimize(_session.Forts.ToArray(), _session.Client.CurrentLatitude,
+                    _session.Client.CurrentLongitude);
+
                 _routePoints =
                     (from pokeStop in pokeStops
                      where pokeStop != null
@@ -784,20 +792,13 @@ namespace RocketBot2.Forms
 
                 if (encounterPokemonsCount > 5 || encounterPokemonsCount == 0)
                 {
-                    _playerOverlay.Markers.Clear();
-                    _pokemonsOverlay.Markers.Clear();
-                    _playerLocations.Clear();
-                    Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude,
-                        _session.Client.CurrentLongitude);
-                    //get optimized route
-                    var _pokeStops = Logic.Utils.RouteOptimizeUtil.Optimize(_session.Forts.ToArray(), _session.Client.CurrentLatitude,
-                        _session.Client.CurrentLongitude);
-                    InitializePokestopsAndRoute(_pokeStops);
+                    InitializePokestopsAndRoute();
                     encounterPokemonsCount = 0;
                 }
 
                 encounterPokemonsCount++;
                 _playerRouteOverlay.Routes.Clear();
+                Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
                 _playerRouteOverlay.Routes.Add(routes);
             }, null);
         }
