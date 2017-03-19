@@ -689,23 +689,21 @@ namespace RocketBot2.Forms
 		
         private void Navigation_UpdatePositionEvent(double lat, double lng)
         {           
-            var latlng = new PointLatLng(lat, lng);
-            _playerLocations.Add(latlng);
-
             SynchronizationContext.Post(o =>
             {
+                var latlng = new PointLatLng(lat, lng);
+                _playerLocations.Add(latlng);
                 _playerOverlay.Markers.Remove(_playerMarker);
                 if (!_currentLatLng.IsEmpty)
                     _playerMarker = _currentLatLng.Lng < latlng.Lng
-                        ? new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("question", 50, 50))
+                        ? new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("PlayerLocation2", 50, 50))
                         : new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("PlayerLocation", 50, 50));
                 _playerOverlay.Markers.Add(_playerMarker);
                 if (followTrainerCheckBox.Checked)
                     gMapControl1.Position = latlng;
+                _currentLatLng = latlng;
+                UpdateMap();
             }, null);
-
-            _currentLatLng = latlng;
-            UpdateMap();
         }
 
         private void showMoreCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -737,17 +735,20 @@ namespace RocketBot2.Forms
 
         private void togglePrecalRoute_CheckedChanged(object sender, EventArgs e)
         {
-            if (togglePrecalRoute.Checked)
+            SynchronizationContext.Post(o =>
             {
-                _pokestopsOverlay.Routes.Clear();
-                var route = new GMapRoute(_routePoints, "Walking Path")
+                if (togglePrecalRoute.Checked)
                 {
-                    Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
-                };
-                _pokestopsOverlay.Routes.Add(route);
-                return;
-            }
+                    _pokestopsOverlay.Routes.Clear();
+                    var route = new GMapRoute(_routePoints, "Walking Path")
+                    {
+                        Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
+                    };
+                    _pokestopsOverlay.Routes.Add(route);
+                    return;
+                }
                 _pokestopsOverlay.Routes.Clear();
+            }, null);
         }
 
         #region UPDATEMAP
@@ -767,34 +768,37 @@ namespace RocketBot2.Forms
 
         private int encounterPokemonsCount;
         private void UpdateMap(List<GeoCoordinate> points)
-        { 
-            var routePointLatLngs = new List<PointLatLng>();
-            foreach (var item in points)
+        {
+            SynchronizationContext.Post(o =>
             {
-                routePointLatLngs.Add(new PointLatLng(item.Latitude, item.Longitude));
-            }
-            var routes = new GMapRoute(routePointLatLngs, routePointLatLngs.ToString())
-            {
-                Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4) { DashStyle = DashStyle.Dash }
-            };
+                var routePointLatLngs = new List<PointLatLng>();
+                foreach (var item in points)
+                {
+                    routePointLatLngs.Add(new PointLatLng(item.Latitude, item.Longitude));
+                }
+                var routes = new GMapRoute(routePointLatLngs, routePointLatLngs.ToString())
+                {
+                    Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4) { DashStyle = DashStyle.Dash }
+                };
 
-            if (encounterPokemonsCount > 5 || encounterPokemonsCount == 0)
-            {
-                _playerOverlay.Markers.Clear();
-                _pokemonsOverlay.Markers.Clear();
-                _playerLocations.Clear();
-                Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude,
-                    _session.Client.CurrentLongitude);
-                //get optimized route
-                var _pokeStops = Logic.Utils.RouteOptimizeUtil.Optimize(_session.Forts.ToArray(), _session.Client.CurrentLatitude,
-                    _session.Client.CurrentLongitude);
-                InitializePokestopsAndRoute(_pokeStops);
-                encounterPokemonsCount = 0;
-             }
+                if (encounterPokemonsCount > 5 || encounterPokemonsCount == 0)
+                {
+                    _playerOverlay.Markers.Clear();
+                    _pokemonsOverlay.Markers.Clear();
+                    _playerLocations.Clear();
+                    Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude,
+                        _session.Client.CurrentLongitude);
+                    //get optimized route
+                    var _pokeStops = Logic.Utils.RouteOptimizeUtil.Optimize(_session.Forts.ToArray(), _session.Client.CurrentLatitude,
+                        _session.Client.CurrentLongitude);
+                    InitializePokestopsAndRoute(_pokeStops);
+                    encounterPokemonsCount = 0;
+                }
 
-            encounterPokemonsCount++;
-            //_playerRouteOverlay.Routes.Clear();
-            //_playerRouteOverlay.Routes.Add(routes);
+                encounterPokemonsCount++;
+                _playerRouteOverlay.Routes.Clear();
+                _playerRouteOverlay.Routes.Add(routes);
+            }, null);
         }
 
         private void UpdateMap(FortData pokestop)
@@ -902,7 +906,7 @@ namespace RocketBot2.Forms
             Instance.statusLabel.Text = text;
 
             if (checkBoxAutoRefresh.Checked)
-            await ReloadPokemonList().ConfigureAwait(false);
+                await ReloadPokemonList().ConfigureAwait(false);
         }
 
         #endregion INTERFACE
@@ -911,7 +915,7 @@ namespace RocketBot2.Forms
 
         private async void btnRefresh_Click(object sender, EventArgs e)
         {
-              await ReloadPokemonList().ConfigureAwait(false);
+            await ReloadPokemonList().ConfigureAwait(false);
         }
 
         private void startStopBotToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1256,7 +1260,7 @@ namespace RocketBot2.Forms
             try
             {
                 if (_session.Client.Download.ItemTemplates == null)
-                    await _session.Client.Download.GetItemTemplates().ConfigureAwait(false); 
+                      await _session.Client.Download.GetItemTemplates().ConfigureAwait(false);
 
                 var templates =  _session.Client.Download.ItemTemplates.Where(x => x.PokemonSettings != null)
                         .Select(x => x.PokemonSettings)
