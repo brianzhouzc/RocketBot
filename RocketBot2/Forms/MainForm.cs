@@ -488,7 +488,7 @@ namespace RocketBot2.Forms
             _session.Navigation.WalkStrategy.UpdatePositionEvent += 
                 (session, lat, lng, speed) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng, Speed = speed });
             _session.Navigation.WalkStrategy.UpdatePositionEvent += LoadSaveState.SaveLocationToDisk;
-
+            
             Navigation.GetHumanizeRouteEvent +=
                 (points)  => _session.EventDispatcher.Send(new Logic.Event.GetHumanizeRouteEvent { Points = points} );
             Navigation.GetHumanizeRouteEvent += UpdateMap;
@@ -766,10 +766,10 @@ namespace RocketBot2.Forms
         }
 
         private int encounterPokemonsCount;
-        private void UpdateMap(List<GeoCoordinate> route)
-        {
+        private void UpdateMap(List<GeoCoordinate> points)
+        { 
             var routePointLatLngs = new List<PointLatLng>();
-            foreach (var item in route)
+            foreach (var item in points)
             {
                 routePointLatLngs.Add(new PointLatLng(item.Latitude, item.Longitude));
             }
@@ -793,8 +793,8 @@ namespace RocketBot2.Forms
              }
 
             encounterPokemonsCount++;
-            _playerRouteOverlay.Routes.Clear();
-            _playerRouteOverlay.Routes.Add(routes);
+            //_playerRouteOverlay.Routes.Clear();
+            //_playerRouteOverlay.Routes.Add(routes);
         }
 
         private void UpdateMap(FortData pokestop)
@@ -853,7 +853,7 @@ namespace RocketBot2.Forms
             if (text.Contains("Error with API request type: DownloadRemoteConfigVersion"))
             {
                 Instance.logTextBox.SelectionColor = Color.Yellow;
-                Instance.logTextBox.AppendText($"Warning: with API request type: DownloadRemoteConfigVersion\r\nPlease wait...\r\n");
+                Instance.logTextBox.AppendText($"Warning: with API request type: DownloadRemoteConfigVersion. Please wait...\r\n");
                 Instance.logTextBox.ScrollToCaret();
                 return;
             }
@@ -1074,21 +1074,24 @@ namespace RocketBot2.Forms
                     cmsPokemonList.Items.Add(item);
                 }
 
+                if (count != 1) return;
+
                 if (AllowEvolve)
                 {
-                    item = new ToolStripMenuItem { Text = $"Evolve {count} Pokémons" };
-                    item.Click += delegate { EvolvePokemon(pokemons); };
+                    item = new ToolStripMenuItem { Text = $"Evolve" };
+                    item.Click += delegate {
+                        var pokemon = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).First();
+                        EvolvePokemon(pokemon.PokemonData);
+                    };
                     cmsPokemonList.Items.Add(item);
                 }
 
                 if (AllowPowerup)
                 {
-                    item = new ToolStripMenuItem { Text = $"PowerUp {count} Pokémons" };
+                    item = new ToolStripMenuItem { Text = $"PowerUp" };
                     item.Click += delegate { PowerUpPokemon(pokemons); };
                     cmsPokemonList.Items.Add(item);
                 }
-
-                if (count != 1) return;
 
                 item = new ToolStripMenuItem { Text = Favorited ? "Un-Favorite" : "Favorite" };
                 item.Click += delegate { FavoritedPokemon(pokemons, Favorited); };
@@ -1130,7 +1133,7 @@ namespace RocketBot2.Forms
                 else if (cName.Equals("Evolve"))
                 {
                     // ReSharper disable once PossibleNullReferenceException
-                    EvolvePokemon(new List<PokemonData> { pokemon.PokemonData });
+                    EvolvePokemon(pokemon.PokemonData);
                 }
             }
             catch (Exception ex)
@@ -1195,14 +1198,26 @@ namespace RocketBot2.Forms
                 await ReloadPokemonList().ConfigureAwait(false);
         }
 
-        private async void EvolvePokemon(IEnumerable<PokemonData> pokemons)
+        private void EvolvePokemon(PokemonData pokemon)
         {
-          foreach (var pokemon in pokemons)
+            using (var form = new EvoleToPokemon())
             {
-                await Task.Run(async () => { await Logic.Tasks.EvolveSpecificPokemonTask.Execute(_session, pokemon.Id); });
+                PokemonEvoleTo pok = new PokemonEvoleTo(_session, pokemon);
+                foreach (var to in pok.EvolutionBranchs)
+                {
+                    var item = new PictureBox();
+                    item.Image = ResourceHelper.ResizeImage(ResourceHelper.GetPokemonImage((int)to.Pokemon), item, true);
+                    item.Click += async delegate
+                    {
+                        await Task.Run(async () => { await EvolveSpecificPokemonTask.Execute(_session, to.OriginPokemonId, to.Pokemon); });
+                        if (!checkBoxAutoRefresh.Checked)
+                            await ReloadPokemonList().ConfigureAwait(false);
+                        form.Close();
+                    };
+                    form.flpPokemonToEvole.Controls.Add(item);
+                }
+                form.ShowDialog();
             }
-            if (!checkBoxAutoRefresh.Checked)
-                await ReloadPokemonList().ConfigureAwait(false);
         }
 
         public async void NicknamePokemon(IEnumerable<PokemonData> pokemons, string nickname)

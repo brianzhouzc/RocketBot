@@ -15,6 +15,7 @@
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -29,7 +30,6 @@
     <ApplicationVersion>2.7.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -40,7 +40,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -201,6 +201,12 @@
     <Compile Include="Forms\AuthAPIForm.Designer.cs">
       <DependentUpon>AuthAPIForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\EvoleToPokemon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EvoleToPokemon.Designer.cs">
+      <DependentUpon>EvoleToPokemon.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\InfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -221,7 +227,6 @@
     </Compile>
     <Compile Include="Helpers\DeviceInfoHelper.cs" />
     <Compile Include="Helpers\Options.cs" />
-    <Compile Include="Logic\Tasks\EvolveSpecificPokemonTask.cs" />
     <Compile Include="Logic\Event\GetHumanizeRouteEvent.cs" />
     <Compile Include="Logic\Event\LootPokestopEvent.cs" />
     <Compile Include="Logic\Event\PokemonsEncounterEvent.cs" />
@@ -272,6 +277,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Resources\ProgressBar.cs" />
     <Compile Include="SniperEventListener.cs" />
     <Compile Include="WebSocketHandler\ActionCommands\DropItemHandler.cs" />
@@ -319,6 +329,7 @@
     <Compile Include="Win32\ConsoleHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Config\log4net.config" />
     <None Include="Config\log4net.unix.config" />
     <None Include="cert.pfx">
@@ -414,6 +425,10 @@
     <None Include="Config\Translations\translation.zh-TW.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="RunWithExcelConfig.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -451,6 +466,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Forms\AuthAPIForm.resx">
       <DependentUpon>AuthAPIForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EvoleToPokemon.resx">
+      <DependentUpon>EvoleToPokemon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InfoForm.resx">
       <DependentUpon>InfoForm.cs</DependentUpon>

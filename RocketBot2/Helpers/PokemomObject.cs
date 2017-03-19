@@ -8,13 +8,56 @@ using PoGo.NecroBot.Logic.State;
 using RocketBot2.Forms;
 using System.Linq;
 using POGOProtos.Settings.Master;
+using POGOProtos.Inventory.Item;
 
 namespace RocketBot2.Helpers
 {
+    public class EvolutionToPokemon
+    {
+        public int CandyNeed { get; set; }
+        public ulong OriginPokemonId { get; set; }
+        public PokemonId Pokemon { get; set; }
+        public bool AllowEvolve { get; set; }
+        public ItemId ItemNeed { get; set; }
+    }
+
+    public class PokemonEvoleTo 
+    {
+        private static ISession Session;
+        private PokemonSettings setting;
+        public PokemonData PokemonData { get; set; }
+        public bool Displayed { get; set; }
+        public List<EvolutionToPokemon> EvolutionBranchs { get; set; }
+        public PokemonEvoleTo(ISession session, PokemonData pokemon)
+        {
+            Session = session;
+            PokemonData = pokemon;
+            this.Displayed = true;
+            var pkmSettings = session.Inventory.GetPokemonSettings().Result;
+            setting = pkmSettings.FirstOrDefault(x => x.PokemonId == pokemon.PokemonId);
+
+            this.EvolutionBranchs = new List<EvolutionToPokemon>();
+
+            //TODO - implement the candy count for enable evolution
+            foreach (var item in setting.EvolutionBranch)
+            {
+                this.EvolutionBranchs.Add(new EvolutionToPokemon()
+                {
+                    CandyNeed = item.CandyCost,
+                    ItemNeed = item.EvolutionItemRequirement,
+                    Pokemon = item.Evolution,
+                    AllowEvolve = session.Inventory.CanEvolvePokemon(pokemon).Result,
+                    OriginPokemonId = pokemon.Id
+                });
+            }
+        }
+    }
+
+
     public class PokemonObject
     {
         private static bool _initialized;
-        private static Session _session;
+        private static Session Session;
         public static Dictionary<PokemonId, int> CandyToEvolveDict = new Dictionary<PokemonId, int>();
 
         public PokemonObject(PokemonData pokemonData)
@@ -71,19 +114,19 @@ namespace RocketBot2.Helpers
 
         public string Move1
         {
-            get { return _session.Translation.GetPokemonMovesetTranslation(PokemonData.Move1); }
+            get { return Session.Translation.GetPokemonMovesetTranslation(PokemonData.Move1); }
         }
 
         public string Move2
         {
-            get { return _session.Translation.GetPokemonMovesetTranslation(PokemonData.Move2); }
+            get { return Session.Translation.GetPokemonMovesetTranslation(PokemonData.Move2); }
         }
 
         public int Candy
         {
             get
             {
-                return _session.Inventory.GetCandyCount(this.PokemonData.PokemonId).Result;
+                return Session.Inventory.GetCandyCount(this.PokemonData.PokemonId).Result;
             }
         }
 
@@ -123,7 +166,7 @@ namespace RocketBot2.Helpers
         {
             get
             {
-                return _session.Inventory.CanUpgradePokemon(this.PokemonData).Result;
+                return Session.Inventory.CanUpgradePokemon(this.PokemonData).Result;
             }
         }
 
@@ -131,7 +174,7 @@ namespace RocketBot2.Helpers
         {
             get
             {
-                return _session.Inventory.CanEvolvePokemon(this.PokemonData).Result;
+                return Session.Inventory.CanEvolvePokemon(this.PokemonData).Result;
             }
         }
 
@@ -139,7 +182,7 @@ namespace RocketBot2.Helpers
         {
             get
             {
-                return _session.Inventory.CanTransferPokemon(this.PokemonData);
+                return Session.Inventory.CanTransferPokemon(this.PokemonData);
             }
         }
                
@@ -148,7 +191,7 @@ namespace RocketBot2.Helpers
             if (!_initialized)
             {
                 _initialized = true;
-                _session = session;
+                Session = session;
 
                 foreach (var t in templates)
                 {
