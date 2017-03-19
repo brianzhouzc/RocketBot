@@ -116,29 +116,33 @@ namespace RocketBot2.Forms
 
         private void InitializeMap()
         {
-            var lat = _session.Client.Settings.DefaultLatitude;
-            var lng = _session.Client.Settings.DefaultLongitude;
-            gMapControl1.MapProvider = GoogleMapProvider.Instance;
-            gMapControl1.Manager.Mode = AccessMode.ServerOnly;
-            GMapProvider.WebProxy = null;
-            gMapControl1.Position = new PointLatLng(lat, lng);
-            gMapControl1.DragButton = MouseButtons.Left;
+            SynchronizationContext.Post(o =>
+            {
 
-            gMapControl1.MinZoom = 1;
-            gMapControl1.MaxZoom = 20;
-            gMapControl1.Zoom = 17;
+                var lat = _session.Client.Settings.DefaultLatitude;
+                var lng = _session.Client.Settings.DefaultLongitude;
+                gMapControl1.MapProvider = GoogleMapProvider.Instance;
+                gMapControl1.Manager.Mode = AccessMode.ServerOnly;
+                GMapProvider.WebProxy = null;
+                gMapControl1.Position = new PointLatLng(lat, lng);
+                gMapControl1.DragButton = MouseButtons.Left;
 
-            gMapControl1.Overlays.Add(_searchAreaOverlay);
-            gMapControl1.Overlays.Add(_pokestopsOverlay);
-            gMapControl1.Overlays.Add(_pokemonsOverlay);
-            gMapControl1.Overlays.Add(_playerOverlay);
-            gMapControl1.Overlays.Add(_playerRouteOverlay);
+                gMapControl1.MinZoom = 1;
+                gMapControl1.MaxZoom = 20;
+                gMapControl1.Zoom = 17;
 
-            _playerMarker = new GMapMarkerTrainer(new PointLatLng(lat, lng), ResourceHelper.GetImage("PlayerLocation", 50, 50));
-            _playerOverlay.Markers.Add(_playerMarker);
-            _playerMarker.Position = new PointLatLng(lat, lng);
-            _searchAreaOverlay.Polygons.Clear();
-            S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(lng, lat), _searchAreaOverlay);
+                gMapControl1.Overlays.Add(_searchAreaOverlay);
+                gMapControl1.Overlays.Add(_pokestopsOverlay);
+                gMapControl1.Overlays.Add(_pokemonsOverlay);
+                gMapControl1.Overlays.Add(_playerOverlay);
+                gMapControl1.Overlays.Add(_playerRouteOverlay);
+
+                _playerMarker = new GMapMarkerTrainer(new PointLatLng(lat, lng), ResourceHelper.GetImage("PlayerLocation", 50, 50));
+                _playerOverlay.Markers.Add(_playerMarker);
+                _playerMarker.Position = new PointLatLng(lat, lng);
+                _searchAreaOverlay.Polygons.Clear();
+                S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(lng, lat), _searchAreaOverlay);
+            }, null);
         }
 
         private void InitializeBot(Action<ISession, StatisticsAggregator> onBotStarted)
