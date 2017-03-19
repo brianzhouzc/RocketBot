@@ -852,8 +852,8 @@ namespace RocketBot2.Forms
 
             if (text.Contains("Error with API request type: DownloadRemoteConfigVersion"))
             {
-                Instance.logTextBox.SelectionColor = Color.Red;
-                Instance.logTextBox.AppendText($"Error with API request type: DownloadRemoteConfigVersion\r\nPlease restart RocketBot.\r\n");
+                Instance.logTextBox.SelectionColor = Color.Yellow;
+                Instance.logTextBox.AppendText($"Warning: with API request type: DownloadRemoteConfigVersion\r\nPlease wait...\r\n");
                 Instance.logTextBox.ScrollToCaret();
                 return;
             }
