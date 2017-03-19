@@ -116,9 +116,6 @@ namespace RocketBot2.Forms
 
         private void InitializeMap()
         {
-            SynchronizationContext.Post(o =>
-            {
-
                 var lat = _session.Client.Settings.DefaultLatitude;
                 var lng = _session.Client.Settings.DefaultLongitude;
                 gMapControl1.MapProvider = GoogleMapProvider.Instance;
@@ -142,7 +139,6 @@ namespace RocketBot2.Forms
                 _playerMarker.Position = new PointLatLng(lat, lng);
                 _searchAreaOverlay.Polygons.Clear();
                 S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(lng, lat), _searchAreaOverlay);
-            }, null);
         }
 
         private void InitializeBot(Action<ISession, StatisticsAggregator> onBotStarted)
@@ -692,11 +688,12 @@ namespace RocketBot2.Forms
         }
 		
         private void Navigation_UpdatePositionEvent(double lat, double lng)
-        {           
+        {
+            var latlng = new PointLatLng(lat, lng);
+            _playerLocations.Add(latlng);
+
             SynchronizationContext.Post(o =>
             {
-                var latlng = new PointLatLng(lat, lng);
-                _playerLocations.Add(latlng);
                 _playerOverlay.Markers.Remove(_playerMarker);
                 if (!_currentLatLng.IsEmpty)
                     _playerMarker = _currentLatLng.Lng < latlng.Lng
@@ -705,9 +702,9 @@ namespace RocketBot2.Forms
                 _playerOverlay.Markers.Add(_playerMarker);
                 if (followTrainerCheckBox.Checked)
                     gMapControl1.Position = latlng;
-                _currentLatLng = latlng;
-                UpdateMap();
             }, null);
+            _currentLatLng = latlng;
+            UpdateMap();
         }
 
         private void showMoreCheckBox_CheckedChanged(object sender, EventArgs e)
