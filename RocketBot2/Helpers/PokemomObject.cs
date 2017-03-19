@@ -83,7 +83,7 @@ namespace RocketBot2.Helpers
         {
             get
             {
-               return PokemonInfo.GetCandy(_session, PokemonData).Result;
+                return _session.Inventory.GetCandyCount(this.PokemonData.PokemonId).Result;
             }
         }
 
@@ -111,11 +111,38 @@ namespace RocketBot2.Helpers
             }
         }
 
-        public bool CanEvolve
+        public bool Favorited
         {
-            get { return EvolveTimes > 0; }
+            get
+            {
+                return PokemonData.Favorite == 1;
+            }
         }
 
+        public bool AllowPowerup
+        {
+            get
+            {
+                return _session.Inventory.CanUpgradePokemon(this.PokemonData).Result;
+            }
+        }
+
+        public bool AllowEvolve
+        {
+            get
+            {
+                return _session.Inventory.CanEvolvePokemon(this.PokemonData).Result;
+            }
+        }
+
+        public bool AllowTransfer
+        {
+            get
+            {
+                return _session.Inventory.CanTransferPokemon(this.PokemonData);
+            }
+        }
+               
         public static void Initilize(Session session, List<PokemonSettings> templates)
         {
             if (!_initialized)

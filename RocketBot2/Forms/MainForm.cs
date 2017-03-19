@@ -1029,12 +1029,21 @@ namespace RocketBot2.Forms
                     .Count(p => p == pok.PokemonId) > 1)
                     e.Item.BackColor = Color.LightGreen;
 
-                e.Item.Text = _session.Translation.GetPokemonTranslation(pok.PokemonId);
+                var text = string.IsNullOrEmpty(pok.Nickname) ? _session.Translation.GetPokemonTranslation(pok.PokemonId) : pok.Nickname;
+                e.Item.Text = pok.Favorited ? $"★ {text}" : text;
 
                 foreach (OLVListSubItem sub in e.Item.SubItems)
                 {
                     // ReSharper disable once PossibleNullReferenceException
-                    if (sub.Text.Equals("Evolve") && !pok.CanEvolve)
+                    if (sub.Text.Equals("Evolve") && !pok.AllowEvolve)
+                    {
+                        sub.CellPadding = new Rectangle(100, 100, 0, 0);
+                    }
+                    if (sub.Text.Equals("Transfer") && !pok.AllowTransfer)
+                    {
+                        sub.CellPadding = new Rectangle(100, 100, 0, 0);
+                    }
+                    if (sub.Text.Equals("Power Up") && !pok.AllowPowerup)
                     {
                         sub.CellPadding = new Rectangle(100, 100, 0, 0);
                     }
@@ -1047,8 +1056,10 @@ namespace RocketBot2.Forms
                 cmsPokemonList.Items.Clear();
 
                 var pokemons = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o.PokemonData).ToList();
-                var canAllEvolve =
-                    olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).All(o => o.CanEvolve);
+                var AllowEvolve = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).All(o => o.AllowEvolve);
+                var AllowTransfer = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).All(o => o.AllowTransfer);
+                var AllowPowerup = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).All(o => o.AllowPowerup);
+                var Favorited = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).All(o => o.Favorited);
                 var count = pokemons.Count();
 
                 if (count < 1)
@@ -1056,17 +1067,40 @@ namespace RocketBot2.Forms
                     e.Cancel = true;
                 }
 
-                var pokemonObject = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).First();
-
                 var item = new ToolStripMenuItem();
                 var separator = new ToolStripSeparator();
-                item.Text = $"Transfer {count} pokemon";
-                item.Click += delegate { TransferPokemon(pokemons); };
+
+                if (AllowTransfer)
+                {
+                    item.Text = $"Transfer {count} Pokémons";
+                    item.Click += delegate { TransferPokemon(pokemons); };
+                    cmsPokemonList.Items.Add(item);
+                }
+
+                if (AllowEvolve)
+                {
+                    item = new ToolStripMenuItem { Text = $"Evolve {count} Pokémons" };
+                    item.Click += delegate { EvolvePokemon(pokemons); };
+                    cmsPokemonList.Items.Add(item);
+                }
+
+                if (AllowPowerup)
+                {
+                    item = new ToolStripMenuItem { Text = $"PowerUp {count} Pokémons" };
+                    item.Click += delegate { PowerUpPokemon(pokemons); };
+                    cmsPokemonList.Items.Add(item);
+                }
+
+                if (count != 1) return;
+
+                item = new ToolStripMenuItem { Text = Favorited ? "Un-Favorite" : "Favorite" };
+                item.Click += delegate { FavoritedPokemon(pokemons, Favorited); };
                 cmsPokemonList.Items.Add(item);
 
                 item = new ToolStripMenuItem { Text = @"Rename" };
                 item.Click += delegate
                 {
+                    var pokemonObject = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).First();
                     using (var form = count == 1 ? new NicknamePokemonForm(pokemonObject) : new NicknamePokemonForm())
                     {
                         if (form.ShowDialog() == DialogResult.OK)
@@ -1077,21 +1111,10 @@ namespace RocketBot2.Forms
                 };
                 cmsPokemonList.Items.Add(item);
 
-                if (canAllEvolve)
-                {
-                    item = new ToolStripMenuItem { Text = $"Evolve {count} pokemon" };
-                    item.Click += delegate { EvolvePokemon(pokemons); };
-                    cmsPokemonList.Items.Add(item);
-                }
-
-                if (count != 1) return;
-                item = new ToolStripMenuItem { Text = @"PowerUp" };
-                item.Click += delegate { PowerUpPokemon(pokemons); };
-                cmsPokemonList.Items.Add(item);
-             };
+         };
         }
 
-        private async void olvPokemonList_ButtonClick(object sender, CellClickEventArgs e)
+        private void olvPokemonList_ButtonClick(object sender, CellClickEventArgs e)
         {
             try
             {
@@ -1116,8 +1139,17 @@ namespace RocketBot2.Forms
             catch (Exception ex)
             {
                 Logger.Write(ex.ToString(), LogLevel.Error);
-                await ReloadPokemonList().ConfigureAwait(false);
             }
+        }
+
+        private async void FavoritedPokemon(IEnumerable<PokemonData> pokemons, bool fav)
+        {
+            foreach (var pokemon in pokemons)
+            {
+                await Task.Run(async () => { await FavoritePokemonTask.Execute(_session, pokemon.Id, !fav); });
+            }
+            if (!checkBoxAutoRefresh.Checked)
+                await ReloadPokemonList().ConfigureAwait(false);
         }
 
         private async void TransferPokemon(IEnumerable<PokemonData> pokemons)
@@ -1168,7 +1200,7 @@ namespace RocketBot2.Forms
 
         private async void EvolvePokemon(IEnumerable<PokemonData> pokemons)
         {
-            foreach (var pokemon in pokemons)
+          foreach (var pokemon in pokemons)
             {
                 await Task.Run(async () => { await Logic.Tasks.EvolveSpecificPokemonTask.Execute(_session, pokemon.Id); });
             }
