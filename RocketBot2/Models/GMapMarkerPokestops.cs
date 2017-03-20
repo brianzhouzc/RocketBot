@@ -1,9 +1,12 @@
 ﻿using System.Drawing;
 using GMap.NET;
 using GMap.NET.WindowsForms;
+using System;
 
 namespace RocketBot2.Models
 {
+    [Serializable]
+
     public class GMapMarkerPokestops : GMapMarker
     {
         /// <summary>

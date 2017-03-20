@@ -13,6 +13,7 @@ using PokemonGo.RocketAPI.Enums;
 using PoGo.NecroBot.Logic.Model.Settings;
 using RocketBot2.Helpers;
 using POGOProtos.Enums;
+using RocketBot2.Win32;
 
 namespace RocketBot2.Forms
 {
@@ -302,7 +303,7 @@ namespace RocketBot2.Forms
             btn.Click += googleapihep_click;
             GoogleApiBox.Controls.Add(btn);
             // Send EM_SETMARGINS to prevent text from disappearing underneath the button
-            SendMessage(GoogleApiBox.Handle, 0xd3, (IntPtr) 2, (IntPtr) (btn.Width << 16));
+            ConsoleHelper.SendMessage(GoogleApiBox.Handle, 0xd3, (IntPtr) 2, (IntPtr) (btn.Width << 16));
             base.OnLoad(e);
         }
 
@@ -310,9 +311,6 @@ namespace RocketBot2.Forms
         {
             Process.Start("https://developers.google.com/maps/documentation/directions/get-api-key");
         }
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
 
         #endregion
 

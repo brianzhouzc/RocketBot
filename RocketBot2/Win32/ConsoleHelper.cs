@@ -4,55 +4,70 @@ using System.Runtime.InteropServices;
 
 namespace RocketBot2.Win32
 {
-    class ConsoleHelper
+    internal static class NativeMethods
     {
         [DllImport("Kernel32.dll")]
-        public static extern bool AttachConsole(int processId);
+        internal static extern bool AttachConsole(int processId);
         [DllImport("user32.dll")]
-        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        internal static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
         /// <summary>
         /// Allocates a new console for current process.
         /// </summary>
         [DllImport("kernel32.dll")]
-        public static extern bool AllocConsole();
+        internal static extern bool AllocConsole();
 
         /// <summary>
         /// Frees the console.
         /// </summary>
         [DllImport("kernel32.dll")]
-        public static extern bool FreeConsole();
+        internal static extern bool FreeConsole();
 
         [DllImport("kernel32.dll")]
-        static extern IntPtr GetConsoleWindow();
+        internal static extern IntPtr GetConsoleWindow();
 
 
         //const int SW_HIDE = 0;
         //const int SW_SHOW = 5;
 
         [DllImport("user32.dll")]
-        static extern bool EnableMenuItem(IntPtr hMenu, uint uIDEnableItem, uint uEnable);
+        internal static extern bool EnableMenuItem(IntPtr hMenu, uint uIDEnableItem, uint uEnable);
 
         [DllImport("user32.dll")]
-        static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
+        internal static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
 
         [DllImport("user32.dll")]
-        static extern IntPtr RemoveMenu(IntPtr hMenu, uint nPosition, uint wFlags);
+        internal static extern IntPtr RemoveMenu(IntPtr hMenu, uint nPosition, uint wFlags);
 
         //********** add testes
         // For Windows Mobile, replace user32.dll with coredll.dll
-        [DllImport("user32.dll", SetLastError = true)]
-        static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        internal static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
         // Find window by Caption only. Note you must pass IntPtr.Zero as the first parameter.
 
-        [DllImport("user32.dll", EntryPoint = "FindWindow", SetLastError = true)]
-        static extern IntPtr FindWindowByCaption(IntPtr ZeroOnly, string lpWindowName);
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, EntryPoint = "FindWindow", SetLastError = true)]
+        internal static extern IntPtr FindWindowByCaption(IntPtr ZeroOnly, string lpWindowName);
 
+        [DllImport("user32.dll")]
+        internal static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
+    }
+
+    class ConsoleHelper
+    {
+        public static bool AllocConsole()
+        {
+           return NativeMethods.AllocConsole();
+        }
+
+        public static IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp)
+        {
+            return NativeMethods.SendMessage(hWnd, msg, wp, lp);
+        }
         // Find window by Caption
         public static IntPtr FindWindow(string windowName)
         {
-            var hWnd = FindWindow(windowName, null);
+            var hWnd = NativeMethods.FindWindow(windowName, null);
             return hWnd;
         }
 
@@ -84,40 +99,40 @@ namespace RocketBot2.Win32
         public static void HideConsoleWindow()
         {
             //IntPtr hWnd = Process.GetCurrentProcess().MainWindowHandle;
-            IntPtr hWnd = GetConsoleWindow();
+            IntPtr hWnd = NativeMethods.GetConsoleWindow();
             if (hWnd != IntPtr.Zero)
             {
-                ShowWindow(hWnd, (int)SW_HIDE); // 0 = SW_HIDE
+                NativeMethods.ShowWindow(hWnd, (int)SW_HIDE); // 0 = SW_HIDE
             }
         }
 
         public static void HideConsoleWindowPokeEase()
         {
             //IntPtr hWnd = Process.GetCurrentProcess().MainWindowHandle;
-            IntPtr hWnd = FindWindowByCaption(IntPtr.Zero, @"PokeEase");
+            IntPtr hWnd = NativeMethods.FindWindowByCaption(IntPtr.Zero, @"PokeEase");
             if (hWnd != IntPtr.Zero)
             {
-                ShowWindow(hWnd, (int)SW_HIDE); // 0 = SW_HIDE
+                NativeMethods.ShowWindow(hWnd, (int)SW_HIDE); // 0 = SW_HIDE
             }
         }
 
         public static void ShowConsoleWindow()
         {
-            IntPtr hWnd = GetConsoleWindow();
+            IntPtr hWnd = NativeMethods.GetConsoleWindow();
 
             if (hWnd != IntPtr.Zero)
             {
-                IntPtr hSystemMenu = GetSystemMenu(hWnd, false);
-                EnableMenuItem(hSystemMenu, SC_CLOSE, MF_GRAYED);
-                RemoveMenu(hSystemMenu, SC_CLOSE, MF_BYCOMMAND);
+                IntPtr hSystemMenu = NativeMethods.GetSystemMenu(hWnd, false);
+                NativeMethods.EnableMenuItem(hSystemMenu, SC_CLOSE, MF_GRAYED);
+                NativeMethods.RemoveMenu(hSystemMenu, SC_CLOSE, MF_BYCOMMAND);
 
-                ShowWindow(hWnd, (int)SW_SHOW); // 0 = SM_SHOW
+                NativeMethods.ShowWindow(hWnd, (int)SW_SHOW); // 0 = SM_SHOW
             }
         }
 
         public static bool ShowConsoleWindowPokeEase()
         {
-            IntPtr hWnd = FindWindowByCaption(IntPtr.Zero, @"PokeEase");
+            IntPtr hWnd = NativeMethods.FindWindowByCaption(IntPtr.Zero, @"PokeEase");
             if (hWnd != IntPtr.Zero)
             {
                 /*
@@ -126,7 +141,7 @@ namespace RocketBot2.Win32
                 RemoveMenu(hSystemMenu, SC_CLOSE, MF_BYCOMMAND);
                 */
 
-                ShowWindow(hWnd, (int)SW_SHOW); // 0 = SM_SHOW
+                NativeMethods.ShowWindow(hWnd, (int)SW_SHOW); // 0 = SM_SHOW
                 return true;
             }
             return false;
