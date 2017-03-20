@@ -229,9 +229,6 @@
     </Compile>
     <Compile Include="Helpers\DeviceInfoHelper.cs" />
     <Compile Include="Helpers\Options.cs" />
-    <Compile Include="Logic\Event\GetHumanizeRouteEvent.cs" />
-    <Compile Include="Logic\Event\LootPokestopEvent.cs" />
-    <Compile Include="Logic\Event\PokemonsEncounterEvent.cs" />
     <Compile Include="Helpers\DeviceHelper.cs" />
     <Compile Include="Forms\ItemBox.cs">
       <SubType>UserControl</SubType>
@@ -261,7 +258,6 @@
     <Compile Include="Forms\ItemSetting.Designer.cs">
       <DependentUpon>ItemSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="Logic\Utils\RouteOptimizeUtil.cs" />
     <Compile Include="Logic\State\VersionCheckState.cs" />
     <Compile Include="Models\GMapMarkerPokestops.cs" />
     <Compile Include="Models\GMapMarkerTrainer.cs" />
