@@ -209,6 +209,7 @@
     <Compile Include="Forms\EvoleToPokemon.Designer.cs">
       <DependentUpon>EvoleToPokemon.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\IDisposedAttribute.cs" />
     <Compile Include="Forms\InfoForm.cs">
       <SubType>Form</SubType>
     </Compile>

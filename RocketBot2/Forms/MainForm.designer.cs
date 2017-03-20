@@ -1,26 +1,31 @@
-﻿using System.Windows.Forms;
+﻿using RocketBot2.Models;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace RocketBot2.Forms
 {
-    partial class MainForm
+    //[IDisposed]
+
+    partial class MainForm 
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        //private System.ComponentModel.IContainer components = null;
+        private Container components;
 
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
+        /*protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
             {
                 components.Dispose();
             }
             base.Dispose(disposing);
-        }
+        }*/
 
         #region Windows Form Designer generated code
 

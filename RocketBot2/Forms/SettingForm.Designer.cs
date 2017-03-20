@@ -248,6 +248,8 @@
             this.label50 = new System.Windows.Forms.Label();
             this.tbDelayBetweenPokemonCatch = new System.Windows.Forms.TextBox();
             this.saveBtn = new System.Windows.Forms.Button();
+            this.cbAutoSniper = new System.Windows.Forms.CheckBox();
+            this.cbEnableGyms = new System.Windows.Forms.CheckBox();
             this.tabControl.SuspendLayout();
             this.tabAuth.SuspendLayout();
             this.proxyGb.SuspendLayout();
@@ -1425,7 +1427,7 @@
             this.clbIgnore.Location = new System.Drawing.Point(3, 49);
             this.clbIgnore.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbIgnore.Name = "clbIgnore";
-            this.clbIgnore.Size = new System.Drawing.Size(416, 136);
+            this.clbIgnore.Size = new System.Drawing.Size(416, 114);
             this.clbIgnore.TabIndex = 0;
             // 
             // tBMaxBerriesToUsePerPokemon
@@ -1487,7 +1489,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(412, 446);
+            this.groupBox1.Size = new System.Drawing.Size(412, 450);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Exclude Transfer";
@@ -1832,7 +1834,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox4.Size = new System.Drawing.Size(413, 446);
+            this.groupBox4.Size = new System.Drawing.Size(413, 450);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Power Up";
@@ -2012,7 +2014,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox3.Size = new System.Drawing.Size(412, 453);
+            this.groupBox3.Size = new System.Drawing.Size(412, 457);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Evolve";
@@ -2596,11 +2598,33 @@
             this.saveBtn.UseVisualStyleBackColor = true;
             this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
             // 
+            // cbAutoSniper
+            // 
+            this.cbAutoSniper.AutoSize = true;
+            this.cbAutoSniper.Location = new System.Drawing.Point(14, 512);
+            this.cbAutoSniper.Name = "cbAutoSniper";
+            this.cbAutoSniper.Size = new System.Drawing.Size(167, 24);
+            this.cbAutoSniper.TabIndex = 33;
+            this.cbAutoSniper.Text = "Activate Auto Sniper";
+            this.cbAutoSniper.UseVisualStyleBackColor = true;
+            // 
+            // cbEnableGyms
+            // 
+            this.cbEnableGyms.AutoSize = true;
+            this.cbEnableGyms.Location = new System.Drawing.Point(14, 539);
+            this.cbEnableGyms.Name = "cbEnableGyms";
+            this.cbEnableGyms.Size = new System.Drawing.Size(116, 24);
+            this.cbEnableGyms.TabIndex = 34;
+            this.cbEnableGyms.Text = "Enable Gmys";
+            this.cbEnableGyms.UseVisualStyleBackColor = true;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(976, 585);
+            this.Controls.Add(this.cbEnableGyms);
+            this.Controls.Add(this.cbAutoSniper);
             this.Controls.Add(this.enableAdvSettingCb);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.tabControl);
@@ -2893,5 +2917,7 @@
         private System.Windows.Forms.Label GoogleApiLabel;
         private System.Windows.Forms.CheckBox cbShowWalkingSpeed;
         private System.Windows.Forms.CheckBox cbUseWalkingSpeedVariant;
+        private System.Windows.Forms.CheckBox cbAutoSniper;
+        private System.Windows.Forms.CheckBox cbEnableGyms;
     }
 }

@@ -3,9 +3,12 @@ using System.Drawing;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using Google.Common.Geometry;
+using RocketBot2.Forms;
 
 namespace RocketBot2.Helpers
 {
+    [IDisposed]
+
     internal class S2GMapDrawer
     {
         public static void DrawS2Cells(List<ulong> cellsIds, GMapOverlay mapLayer)
