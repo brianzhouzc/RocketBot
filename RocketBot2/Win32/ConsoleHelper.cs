@@ -55,6 +55,24 @@ namespace RocketBot2.Win32
 
     class ConsoleHelper
     {
+        //Definitions For Different Window Placement Constants
+        const uint SW_HIDE = 0;
+        const uint SW_SHOWNORMAL = 1;
+        const uint SW_NORMAL = 1;
+        const uint SW_SHOWMINIMIZED = 2;
+        const uint SW_SHOWMAXIMIZED = 3;
+        const uint SW_MAXIMIZE = 3;
+        const uint SW_SHOWNOACTIVATE = 4;
+        const uint SW_SHOW = 5;
+        const uint SW_MINIMIZE = 6;
+        const uint SW_SHOWMINNOACTIVE = 7;
+        const uint SW_SHOWNA = 8;
+        const uint SW_RESTORE = 9;
+
+        internal const uint SC_CLOSE = 0xF060;
+        internal const uint MF_GRAYED = 0x00000001;
+        internal const uint MF_BYCOMMAND = 0x00000000;
+
         public static bool AllocConsole()
         {
            return NativeMethods.AllocConsole();
@@ -71,45 +89,10 @@ namespace RocketBot2.Win32
             return hWnd;
         }
 
-        // You can also call FindWindow(default(string), lpWindowName) or FindWindow((string)null, lpWindowName)
-
-        //Definitions For Different Window Placement Constants
-        const uint SW_HIDE = 0;
-        const uint SW_SHOWNORMAL = 1;
-        const uint SW_NORMAL = 1;
-        const uint SW_SHOWMINIMIZED = 2;
-        const uint SW_SHOWMAXIMIZED = 3;
-        const uint SW_MAXIMIZE = 3;
-        const uint SW_SHOWNOACTIVATE = 4;
-        const uint SW_SHOW = 5;
-        const uint SW_MINIMIZE = 6;
-        const uint SW_SHOWMINNOACTIVE = 7;
-        const uint SW_SHOWNA = 8;
-        const uint SW_RESTORE = 9;
-
- 
-//***************************************************
-
-        internal const uint SC_CLOSE = 0xF060;
-        internal const uint MF_GRAYED = 0x00000001;
-        internal const uint MF_BYCOMMAND = 0x00000000;
-
-
-
         public static void HideConsoleWindow()
         {
             //IntPtr hWnd = Process.GetCurrentProcess().MainWindowHandle;
             IntPtr hWnd = NativeMethods.GetConsoleWindow();
-            if (hWnd != IntPtr.Zero)
-            {
-                NativeMethods.ShowWindow(hWnd, (int)SW_HIDE); // 0 = SW_HIDE
-            }
-        }
-
-        public static void HideConsoleWindowPokeEase()
-        {
-            //IntPtr hWnd = Process.GetCurrentProcess().MainWindowHandle;
-            IntPtr hWnd = NativeMethods.FindWindowByCaption(IntPtr.Zero, @"PokeEase");
             if (hWnd != IntPtr.Zero)
             {
                 NativeMethods.ShowWindow(hWnd, (int)SW_HIDE); // 0 = SW_HIDE
@@ -129,23 +112,5 @@ namespace RocketBot2.Win32
                 NativeMethods.ShowWindow(hWnd, (int)SW_SHOW); // 0 = SM_SHOW
             }
         }
-
-        public static bool ShowConsoleWindowPokeEase()
-        {
-            IntPtr hWnd = NativeMethods.FindWindowByCaption(IntPtr.Zero, @"PokeEase");
-            if (hWnd != IntPtr.Zero)
-            {
-                /*
-                IntPtr hSystemMenu = GetSystemMenu(hWnd, false);
-                EnableMenuItem(hSystemMenu, SC_CLOSE, MF_GRAYED);
-                RemoveMenu(hSystemMenu, SC_CLOSE, MF_BYCOMMAND);
-                */
-
-                NativeMethods.ShowWindow(hWnd, (int)SW_SHOW); // 0 = SM_SHOW
-                return true;
-            }
-            return false;
-        }
-
     }
 }

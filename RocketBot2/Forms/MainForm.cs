@@ -931,7 +931,6 @@ namespace RocketBot2.Forms
             startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
             _botStarted = true;
             btnRefresh.Enabled = true;
-            pokeEaseToolStripMenuItem.Enabled = true;
             Task.Run(StartBot);
         }
 
@@ -945,27 +944,6 @@ namespace RocketBot2.Forms
             _playerLocations.Clear();
             _playerLocations.Add(newLocation);
             UpdateMap();
-        }
-
-        private void pokeEaseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (pokeEaseToolStripMenuItem.Text.Equals(@"Show PokeEase"))
-            {
-                if (ConsoleHelper.ShowConsoleWindowPokeEase())
-                {
-                    pokeEaseToolStripMenuItem.Text = @"Hide PokeEase";
-                    return;
-                }
-
-                var profilePath = Path.Combine(Directory.GetCurrentDirectory(), _subPath);
-                var profileConfigPath = Path.Combine(profilePath, "PokeEase");
-                var exeFile = Path.Combine(profileConfigPath, "RocketBot2.exe");
-                Process.Start(exeFile);
-                pokeEaseToolStripMenuItem.Text = @"Hide PokeEase";
-                return;
-            }
-                pokeEaseToolStripMenuItem.Text = @"Show PokeEase";
-                ConsoleHelper.HideConsoleWindowPokeEase();
         }
 
         private void showConsoleToolStripMenuItem_Click(object sender, EventArgs e)
