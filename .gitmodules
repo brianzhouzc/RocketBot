@@ -9,7 +9,7 @@
 [submodule "PoGo.NecroBot.Logic"]
 	path = PoGo.NecroBot.Logic
 	url = https://github.com/TheUnnamedOrganisation/PoGo.NecroBot.Logic.git
-	branch = Logic/Base
+	branch = master
 [submodule "PokeEase"]
 	path = PokeEase
 	url = https://github.com/TheUnnamedOrganisation/PokeEase.git

@@ -13,6 +13,7 @@ using PokemonGo.RocketAPI.Enums;
 using PoGo.NecroBot.Logic.Model.Settings;
 using RocketBot2.Helpers;
 using POGOProtos.Enums;
+using RocketBot2.Win32;
 
 namespace RocketBot2.Forms
 {
@@ -48,6 +49,8 @@ namespace RocketBot2.Forms
             }
         }
 
+        #region Advanced Setting Init
+
         private void SettingsForm_Load(object sender, EventArgs e)
         {
             var languageList = GetLanguageList();
@@ -55,33 +58,20 @@ namespace RocketBot2.Forms
             cbLanguage.DataSource = languageList;
             cbLanguage.SelectedIndex = languageIndex == -1 ? 0 : languageIndex;
 
-            #region Advanced Setting Init
-
             //proxy
-            //proxyGb.Visible = _setting.EnableAdvancedSettings;
+            //proxyGb.Visible = true;
             //advanced tab
             _tabAdvSettingTab = tabAdvSetting;
             //enableAdvSettingCb.Checked = _setting.EnableAdvancedSettings;
-            if (!enableAdvSettingCb.Checked)
-            {
-                tabControl.TabPages.Remove(_tabAdvSettingTab);
-            }
-            else
-            {
-                _tabAdvSettingTab.Enabled = true;
-            }
-
+            //_tabAdvSettingTab.Enabled = true;
+            
             #endregion
 
             #region Login Type and info
 
             authTypeCb.Text = _setting.Auth.CurrentAuthConfig.AuthType.ToString();
-            UserLoginBox.Text = _setting.Auth.CurrentAuthConfig.Username; /*_setting.Auth.AuthConfig.AuthType == AuthType.Google
-                ? _setting.Auth.AuthConfig.GoogleUsername
-                : _setting.Auth.AuthConfig.PtcUsername;*/
-            UserPasswordBox.Text = _setting.Auth.CurrentAuthConfig.Password; /*_setting.Auth.AuthConfig.AuthType == AuthType.Google
-                ? _setting.Auth.AuthConfig.GooglePassword
-                : _setting.Auth.AuthConfig.PtcPassword;*/
+            UserLoginBox.Text = _setting.Auth.CurrentAuthConfig.Username; 
+            UserPasswordBox.Text = _setting.Auth.CurrentAuthConfig.Password;
 
             //google api
             if (_setting.GoogleWalkConfig.GoogleAPIKey != null)
@@ -274,8 +264,6 @@ namespace RocketBot2.Forms
             tbMaxTravelDistanceInMeters.Text = _setting.LocationConfig.MaxTravelDistanceInMeters.ToString();
             tbDelayBetweenPlayerActions.Text = _setting.PlayerConfig.DelayBetweenPlayerActions.ToString();
             tbDelayBetweenPokemonCatch.Text = _setting.PokemonConfig.DelayBetweenPokemonCatch.ToString();
-            //TODO:
-            //tbDelayBetweenRecycle.Text = _setting.DelayBetweenRecycle.ToString();
             cbRandomizeRecycle.Checked = _setting.RecycleConfig.RandomizeRecycle;
             tbRandomRecycleValue.Text = _setting.RecycleConfig.RandomRecycleValue.ToString();
             cbEnableHumanizedThrows.Checked = _setting.CustomCatchConfig.EnableHumanizedThrows;
@@ -287,9 +275,10 @@ namespace RocketBot2.Forms
             tbForceExcellentThrowOverIv.Text = _setting.CustomCatchConfig.ForceExcellentThrowOverIv.ToString(CultureInfo.InvariantCulture);
             tbForceGreatThrowOverCp.Text = _setting.CustomCatchConfig.ForceGreatThrowOverCp.ToString();
             tbForceExcellentThrowOverCp.Text = _setting.CustomCatchConfig.ForceExcellentThrowOverCp.ToString();
-
-            #endregion
+            cbAutoSniper.Checked = _setting.DataSharingConfig.AutoSnipe;
+            cbEnableGyms.Checked = _setting.GymConfig.Enable;
         }
+            #endregion
 
         #region Help button for API key
 
@@ -302,7 +291,7 @@ namespace RocketBot2.Forms
             btn.Click += googleapihep_click;
             GoogleApiBox.Controls.Add(btn);
             // Send EM_SETMARGINS to prevent text from disappearing underneath the button
-            SendMessage(GoogleApiBox.Handle, 0xd3, (IntPtr) 2, (IntPtr) (btn.Width << 16));
+            ConsoleHelper.SendMessage(GoogleApiBox.Handle, 0xd3, (IntPtr) 2, (IntPtr) (btn.Width << 16));
             base.OnLoad(e);
         }
 
@@ -310,9 +299,6 @@ namespace RocketBot2.Forms
         {
             Process.Start("https://developers.google.com/maps/documentation/directions/get-api-key");
         }
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
 
         #endregion
 
@@ -469,20 +455,8 @@ namespace RocketBot2.Forms
                     File.Delete(lastPosFile);
                 }
                 _setting.Auth.CurrentAuthConfig.AuthType = authTypeCb.Text == @"Google" ? AuthType.Google : AuthType.Ptc;
-                /*if (_setting.Auth.AuthConfig.AuthType == AuthType.Google)
-                {*/
-                    _setting.Auth.CurrentAuthConfig.Username = UserLoginBox.Text;
-                    _setting.Auth.CurrentAuthConfig.Password = UserPasswordBox.Text;
-                /*    _setting.Auth.AuthConfig.PtcUsername = null;
-                    _setting.Auth.AuthConfig.PtcPassword = null;
-                }
-                else
-                {
-                    _setting.Auth.AuthConfig.GoogleUsername = null;
-                    _setting.Auth.AuthConfig.GooglePassword = null;
-                    _setting.Auth.AuthConfig.PtcUsername = UserLoginBox.Text;
-                    _setting.Auth.AuthConfig.PtcPassword = UserPasswordBox.Text;
-                }*/
+                _setting.Auth.CurrentAuthConfig.Username = UserLoginBox.Text;
+                _setting.Auth.CurrentAuthConfig.Password = UserPasswordBox.Text;
                 _setting.GoogleWalkConfig.GoogleAPIKey = GoogleApiBox.Text == "" ? null : GoogleApiBox.Text;
                 _setting.Auth.ProxyConfig.UseProxy = useProxyCb.Checked == true ? true : false;
                 _setting.Auth.ProxyConfig.UseProxyHost = proxyHostTb.Text == "" ? null : proxyHostTb.Text;
@@ -504,13 +478,13 @@ namespace RocketBot2.Forms
                 _setting.Auth.DeviceConfig.FirmwareTags = FirmwareTagsTb.Text == "" ? null : FirmwareTagsTb.Text;
                 _setting.Auth.DeviceConfig.FirmwareType = FirmwareTypeTb.Text == "" ? null: FirmwareTypeTb.Text;
                 _setting.Auth.DeviceConfig.FirmwareFingerprint = FirmwareFingerprintTb.Text == "" ? null : FirmwareFingerprintTb.Text;
+                _setting.ConsoleConfig.TranslationLanguageCode = cbLanguage.Text;
                 _setting.Auth.Save(AuthFilePath);
                 
                 #endregion
 
                 #region RocketBot2.Form Settings
 
-                _setting.ConsoleConfig.TranslationLanguageCode = cbLanguage.Text;
 
                 #region Location
 
@@ -639,15 +613,15 @@ namespace RocketBot2.Forms
                 _setting.CustomCatchConfig.ForceExcellentThrowOverIv = ConvertStringToDouble(tbForceExcellentThrowOverIv.Text);
                 _setting.CustomCatchConfig.ForceGreatThrowOverCp = ConvertStringToInt(tbForceGreatThrowOverCp.Text);
                 _setting.CustomCatchConfig.ForceExcellentThrowOverCp = ConvertStringToInt(tbForceExcellentThrowOverCp.Text);
+                _setting.GymConfig.Enable = cbEnableGyms.Checked;
+                _setting.DataSharingConfig.AutoSnipe = cbAutoSniper.Checked;
 
                 #endregion
 
                 _setting.Save(ConfigFilePath);
+                Close();
 
                 #endregion
-
-                Application.Restart();
-                Close();
             }
         }
 
@@ -791,30 +765,6 @@ namespace RocketBot2.Forms
         {
             ListSelectAllHandler(clbTransfer, cbNotTransferAll.Checked);
         }
-
-        private void enableAdvSettingCb_Click(object sender, EventArgs e)
-        {
-            //proxyGb.Visible = _setting.EnableAdvancedSettings = enableAdvSettingCb.Checked;
-            if (enableAdvSettingCb.Checked)
-            {
-                _tabAdvSettingTab.Enabled = true;
-                tabControl.TabPages.Add(_tabAdvSettingTab);
-                proxyGb.Visible = true;
-                
-            }
-            else
-            {
-                _tabAdvSettingTab.Enabled = false;
-                tabControl.TabPages.Remove(_tabAdvSettingTab);
-                proxyGb.Visible = false;
-            }
-        }
-
         #endregion
-
-        private void DeviceModelTb_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

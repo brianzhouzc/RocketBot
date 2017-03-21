@@ -1,26 +1,31 @@
-﻿using System.Windows.Forms;
+﻿using RocketBot2.Models;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace RocketBot2.Forms
 {
-    partial class MainForm
+    //[IDisposed]
+
+    partial class MainForm 
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        //private System.ComponentModel.IContainer components = null;
+        private Container components;
 
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
+        /*protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
             {
                 components.Dispose();
             }
             base.Dispose(disposing);
-        }
+        }*/
 
         #region Windows Form Designer generated code
 
@@ -39,7 +44,6 @@ namespace RocketBot2.Forms
             this.startStopBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.accountsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pokeEaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
@@ -127,7 +131,6 @@ namespace RocketBot2.Forms
             this.startStopBotToolStripMenuItem,
             this.settingToolStripMenuItem,
             this.accountsToolStripMenuItem,
-            this.pokeEaseToolStripMenuItem,
             this.showConsoleToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -156,13 +159,7 @@ namespace RocketBot2.Forms
             this.accountsToolStripMenuItem.Name = "accountsToolStripMenuItem";
             this.accountsToolStripMenuItem.Size = new System.Drawing.Size(81, 24);
             this.accountsToolStripMenuItem.Text = "Accounts";
-            // 
-            // pokeEaseToolStripMenuItem
-            // 
-            this.pokeEaseToolStripMenuItem.Name = "pokeEaseToolStripMenuItem";
-            this.pokeEaseToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
-            this.pokeEaseToolStripMenuItem.Text = "Show PokeEase";
-            this.pokeEaseToolStripMenuItem.Click += new System.EventHandler(this.pokeEaseToolStripMenuItem_Click);
+            this.accountsToolStripMenuItem.Click += new System.EventHandler(this.accountsToolStripMenuItem_Click);
             // 
             // showConsoleToolStripMenuItem
             // 
@@ -204,7 +201,7 @@ namespace RocketBot2.Forms
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(644, 249);
+            this.gMapControl1.Size = new System.Drawing.Size(644, 246);
             this.gMapControl1.TabIndex = 23;
             this.gMapControl1.Zoom = 0D;
             // 
@@ -255,7 +252,7 @@ namespace RocketBot2.Forms
             this.olvPokemonList.Name = "olvPokemonList";
             this.olvPokemonList.RowHeight = 32;
             this.olvPokemonList.ShowGroups = false;
-            this.olvPokemonList.Size = new System.Drawing.Size(681, 355);
+            this.olvPokemonList.Size = new System.Drawing.Size(678, 355);
             this.olvPokemonList.SmallImageList = this.smallPokemonImageList;
             this.olvPokemonList.TabIndex = 25;
             this.olvPokemonList.UseCompatibleStateImageBehavior = false;
@@ -387,7 +384,7 @@ namespace RocketBot2.Forms
             this.btnRefresh.Location = new System.Drawing.Point(154, 512);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(527, 28);
+            this.btnRefresh.Size = new System.Drawing.Size(524, 28);
             this.btnRefresh.TabIndex = 26;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -527,7 +524,7 @@ namespace RocketBot2.Forms
             this.lblInventory.Location = new System.Drawing.Point(2, 494);
             this.lblInventory.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.lblInventory.Name = "lblInventory";
-            this.lblInventory.Size = new System.Drawing.Size(681, 16);
+            this.lblInventory.Size = new System.Drawing.Size(678, 16);
             this.lblInventory.TabIndex = 33;
             this.lblInventory.Text = "0 / 0 ";
             this.lblInventory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -543,7 +540,7 @@ namespace RocketBot2.Forms
             this.flpItems.Location = new System.Drawing.Point(2, 377);
             this.flpItems.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.flpItems.Name = "flpItems";
-            this.flpItems.Size = new System.Drawing.Size(681, 114);
+            this.flpItems.Size = new System.Drawing.Size(678, 114);
             this.flpItems.TabIndex = 32;
             // 
             // lblPokemonList
@@ -553,7 +550,7 @@ namespace RocketBot2.Forms
             this.lblPokemonList.Location = new System.Drawing.Point(3, 357);
             this.lblPokemonList.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.lblPokemonList.Name = "lblPokemonList";
-            this.lblPokemonList.Size = new System.Drawing.Size(681, 16);
+            this.lblPokemonList.Size = new System.Drawing.Size(678, 16);
             this.lblPokemonList.TabIndex = 27;
             this.lblPokemonList.Text = "0 / 0";
             this.lblPokemonList.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -635,7 +632,6 @@ namespace RocketBot2.Forms
         private CheckBox followTrainerCheckBox;
         private CheckBox showMoreCheckBox;
         private ToolStripMenuItem accountsToolStripMenuItem;
-        private ToolStripMenuItem pokeEaseToolStripMenuItem;
         private ToolStripMenuItem showConsoleToolStripMenuItem;
         private CheckBox checkBoxAutoRefresh;
     }

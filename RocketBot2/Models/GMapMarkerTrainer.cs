@@ -1,9 +1,12 @@
 ﻿using System.Drawing;
 using GMap.NET;
 using GMap.NET.WindowsForms;
+using RocketBot2.Forms;
 
 namespace RocketBot2.Models
 {
+    [IDisposed]
+
     public class GMapMarkerTrainer : GMapMarker
     {
         /// <summary>

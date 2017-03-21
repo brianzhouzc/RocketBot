@@ -1,57 +1,56 @@
 ﻿#region using directives
 
+using BrightIdeasSoftware;
+using GeoCoordinatePortable;
+using GMap.NET;
+using GMap.NET.MapProviders;
+using GMap.NET.WindowsForms;
+using PoGo.NecroBot.Logic;
+using PoGo.NecroBot.Logic.Common;
+using PoGo.NecroBot.Logic.Event;
+using PoGo.NecroBot.Logic.Logging;
+using PoGo.NecroBot.Logic.Model.Settings;
+using PoGo.NecroBot.Logic.PoGoUtils;
+using PoGo.NecroBot.Logic.Service;
+using PoGo.NecroBot.Logic.Service.Elevation;
+using PoGo.NecroBot.Logic.State;
+using PoGo.NecroBot.Logic.Tasks;
+using PoGo.NecroBot.Logic.Utils;
+using POGOProtos.Data;
+using POGOProtos.Inventory.Item;
+using POGOProtos.Map.Fort;
+using POGOProtos.Map.Pokemon;
+using PokemonGo.RocketAPI;
+using PokemonGo.RocketAPI.Helpers;
+using RocketBot2.CommandLineUtility;
+using RocketBot2.Helpers;
+using RocketBot2.Models;
+using RocketBot2.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BrightIdeasSoftware;
-using System.Device.Location;
-using GMap.NET;
-using GMap.NET.MapProviders;
-using GMap.NET.WindowsForms;
-using POGOProtos.Data;
-using POGOProtos.Inventory.Item;
-using POGOProtos.Map.Fort;
-using POGOProtos.Map.Pokemon;
-using PokemonGo.RocketAPI.Helpers;
-using PoGo.NecroBot.Logic.PoGoUtils;
-using PoGo.NecroBot.Logic.Common;
-using PoGo.NecroBot.Logic.Logging;
-using PoGo.NecroBot.Logic.Service;
-using PoGo.NecroBot.Logic.State;
-using PoGo.NecroBot.Logic.Utils;
-using PoGo.NecroBot.Logic.Model.Settings;
-using PoGo.NecroBot.Logic.Service.Elevation;
-using RocketBot2.Helpers;
-using RocketBot2.Models;
-using PoGo.NecroBot.Logic.Event;
-using PoGo.NecroBot.Logic;
-using System.Reflection;
-using PoGo.NecroBot.Logic.Tasks;
-using System.Net;
-using RocketBot2.CommandLineUtility;
-using System.Diagnostics;
-using PokemonGo.RocketAPI;
-using RocketBot2.Win32;
-using System.Net.Http;
-using PokemonGo.RocketAPI.Logging;
-using POGOProtos.Enums;
-using POGOProtos.Networking.Responses;
 
 #endregion
 
 
 namespace RocketBot2.Forms
 {
-    public partial class MainForm : System.Windows.Forms.Form
+    [IDisposed]
+
+    public partial class MainForm : System.Windows.Forms.Form 
     {
         public static MainForm Instance;
         public static SynchronizationContext SynchronizationContext;
@@ -116,29 +115,29 @@ namespace RocketBot2.Forms
 
         private void InitializeMap()
         {
-            var lat = _session.Client.Settings.DefaultLatitude;
-            var lng = _session.Client.Settings.DefaultLongitude;
-            gMapControl1.MapProvider = GoogleMapProvider.Instance;
-            gMapControl1.Manager.Mode = AccessMode.ServerOnly;
-            GMapProvider.WebProxy = null;
-            gMapControl1.Position = new PointLatLng(lat, lng);
-            gMapControl1.DragButton = MouseButtons.Left;
+                var lat = _session.Client.Settings.DefaultLatitude;
+                var lng = _session.Client.Settings.DefaultLongitude;
+                gMapControl1.MapProvider = GoogleMapProvider.Instance;
+                gMapControl1.Manager.Mode = AccessMode.ServerOnly;
+                GMapProvider.WebProxy = null;
+                gMapControl1.Position = new PointLatLng(lat, lng);
+                gMapControl1.DragButton = MouseButtons.Left;
 
-            gMapControl1.MinZoom = 1;
-            gMapControl1.MaxZoom = 20;
-            gMapControl1.Zoom = 17;
+                gMapControl1.MinZoom = 1;
+                gMapControl1.MaxZoom = 20;
+                gMapControl1.Zoom = 15;
 
-            gMapControl1.Overlays.Add(_searchAreaOverlay);
-            gMapControl1.Overlays.Add(_pokestopsOverlay);
-            gMapControl1.Overlays.Add(_pokemonsOverlay);
-            gMapControl1.Overlays.Add(_playerOverlay);
-            gMapControl1.Overlays.Add(_playerRouteOverlay);
+                gMapControl1.Overlays.Add(_searchAreaOverlay);
+                gMapControl1.Overlays.Add(_pokestopsOverlay);
+                gMapControl1.Overlays.Add(_pokemonsOverlay);
+                gMapControl1.Overlays.Add(_playerOverlay);
+                gMapControl1.Overlays.Add(_playerRouteOverlay);
 
-            _playerMarker = new GMapMarkerTrainer(new PointLatLng(lat, lng), ResourceHelper.GetImage("PlayerLocation", 50, 50));
-            _playerOverlay.Markers.Add(_playerMarker);
-            _playerMarker.Position = new PointLatLng(lat, lng);
-            _searchAreaOverlay.Polygons.Clear();
-            S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(lng, lat), _searchAreaOverlay);
+                _playerMarker = new GMapMarkerTrainer(new PointLatLng(lat, lng), ResourceHelper.GetImage("PlayerLocation", 50, 50));
+                _playerOverlay.Markers.Add(_playerMarker);
+                _playerMarker.Position = new PointLatLng(lat, lng);
+                _searchAreaOverlay.Polygons.Clear();
+                S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(lng, lat), _searchAreaOverlay);
         }
 
         private void InitializeBot(Action<ISession, StatisticsAggregator> onBotStarted)
@@ -488,25 +487,25 @@ namespace RocketBot2.Forms
             _session.Navigation.WalkStrategy.UpdatePositionEvent += 
                 (session, lat, lng, speed) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng, Speed = speed });
             _session.Navigation.WalkStrategy.UpdatePositionEvent += LoadSaveState.SaveLocationToDisk;
-
+            
             Navigation.GetHumanizeRouteEvent +=
-                (points)  => _session.EventDispatcher.Send(new Logic.Event.GetHumanizeRouteEvent { Points = points} );
+                (points)  => _session.EventDispatcher.Send(new GetHumanizeRouteEvent { Points = points} );
             Navigation.GetHumanizeRouteEvent += UpdateMap;
 
             UseNearbyPokestopsTask.LootPokestopEvent +=
-                pokestop => _session.EventDispatcher.Send(new Logic.Event.LootPokestopEvent { Pokestop = pokestop });
+                pokestop => _session.EventDispatcher.Send(new LootPokestopEvent { Pokestop = pokestop });
             UseNearbyPokestopsTask.LootPokestopEvent += UpdateMap;
 
             CatchNearbyPokemonsTask.PokemonEncounterEvent +=
-                mappokemons => _session.EventDispatcher.Send(new Logic.Event.PokemonsEncounterEvent { EncounterPokemons = mappokemons });
+                mappokemons => _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
             CatchNearbyPokemonsTask.PokemonEncounterEvent += UpdateMap;
 
             CatchIncensePokemonsTask.PokemonEncounterEvent +=
-                mappokemons => _session.EventDispatcher.Send(new Logic.Event.PokemonsEncounterEvent { EncounterPokemons = mappokemons });
+                mappokemons => _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
             CatchIncensePokemonsTask.PokemonEncounterEvent += UpdateMap;
 
             CatchLurePokemonsTask.PokemonEncounterEvent +=
-                         mappokemons => _session.EventDispatcher.Send(new Logic.Event.PokemonsEncounterEvent { EncounterPokemons = mappokemons });
+                         mappokemons => _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
             CatchLurePokemonsTask.PokemonEncounterEvent += UpdateMap;
 
             Resources.ProgressBar.Fill(100);
@@ -539,19 +538,8 @@ namespace RocketBot2.Forms
                     var _item = new ToolStripMenuItem();
                     _item.Text = _bot.Username;
                     _item.Click += delegate
-                    {
-                        foreach (ToolStripMenuItem en in accountsToolStripMenuItem.DropDownItems)
-                        {
-                            if (en.Text == _item.Text)
-                            {
-                                if (!_botStarted)
-                                    _session.ReInitSessionWithNextBot(_bot);
-
-                                _item.Enabled = false;
-                            }
-                            else
-                                en.Enabled = true;
-                        }
+                    {                       
+                        if (!_botStarted) _session.ReInitSessionWithNextBot(_bot);
                         accountManager.SwitchAccountTo(_bot);
                     };
 
@@ -590,15 +578,14 @@ namespace RocketBot2.Forms
 
             if (_settings.TelegramConfig.UseTelegramAPI)
                 _session.Telegram = new TelegramService(_settings.TelegramConfig.TelegramAPIKey, _session);
-
             if (_session.LogicSettings.EnableHumanWalkingSnipe &&
-                _session.LogicSettings.HumanWalkingSnipeUseFastPokemap)
+                            _session.LogicSettings.HumanWalkingSnipeUseFastPokemap)
             {
                 // jjskuld - Ignore CS4014 warning for now.
-//#pragma warning disable 4014
+                //#pragma warning disable 4014
                 HumanWalkSnipeTask.StartFastPokemapAsync(_session,
-                    _session.CancellationTokenSource.Token); // that need to keep data live
-//#pragma warning restore 4014
+                    _session.CancellationTokenSource.Token).ConfigureAwait(false); // that need to keep data live
+                //#pragma warning restore 4014
             }
 
             if (_session.LogicSettings.UseSnipeLocationServer ||
@@ -618,8 +605,8 @@ namespace RocketBot2.Forms
                 ServicePointManager.ServerCertificateValidationCallback +=
                     (sender, certificate, chain, sslPolicyErrors) => true;
                 //temporary disable MSniper connection because site under attacking.
-                MSniperServiceTask.ConnectToService();
-                _session.EventDispatcher.EventReceived += evt => MSniperServiceTask.AddToList(evt);
+                //MSniperServiceTask.ConnectToService();
+                //_session.EventDispatcher.EventReceived += evt => MSniperServiceTask.AddToList(evt);
             }
             var trackFile = Path.GetTempPath() + "\\rocketbot2.io";
 
@@ -642,12 +629,20 @@ namespace RocketBot2.Forms
         }
 #pragma warning restore 1998
 
-        private void InitializePokestopsAndRoute(List<FortData> pokeStops)
+        private void InitializePokestopsAndRoute()
         {
             SynchronizationContext.Post(o =>
             {
-                _pokestopsOverlay.Routes.Clear();
+                _playerOverlay.Markers.Clear();
+                _pokemonsOverlay.Markers.Clear();
                 _pokestopsOverlay.Markers.Clear();
+                _pokestopsOverlay.Routes.Clear();
+                _playerLocations.Clear();
+
+                //get optimized route
+                var pokeStops = RouteOptimizeUtil.Optimize(_session.Forts.ToArray(), _session.Client.CurrentLatitude,
+                    _session.Client.CurrentLongitude);
+
                 _routePoints =
                     (from pokeStop in pokeStops
                      where pokeStop != null
@@ -700,7 +695,7 @@ namespace RocketBot2.Forms
         }
 		
         private void Navigation_UpdatePositionEvent(double lat, double lng)
-        {           
+        {
             var latlng = new PointLatLng(lat, lng);
             _playerLocations.Add(latlng);
 
@@ -709,13 +704,12 @@ namespace RocketBot2.Forms
                 _playerOverlay.Markers.Remove(_playerMarker);
                 if (!_currentLatLng.IsEmpty)
                     _playerMarker = _currentLatLng.Lng < latlng.Lng
-                        ? new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("question", 50, 50))
+                        ? new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("PlayerLocation2", 50, 50))
                         : new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("PlayerLocation", 50, 50));
                 _playerOverlay.Markers.Add(_playerMarker);
                 if (followTrainerCheckBox.Checked)
                     gMapControl1.Position = latlng;
             }, null);
-
             _currentLatLng = latlng;
             UpdateMap();
         }
@@ -749,17 +743,20 @@ namespace RocketBot2.Forms
 
         private void togglePrecalRoute_CheckedChanged(object sender, EventArgs e)
         {
-            if (togglePrecalRoute.Checked)
+            SynchronizationContext.Post(o =>
             {
-                _pokestopsOverlay.Routes.Clear();
-                var route = new GMapRoute(_routePoints, "Walking Path")
+                if (togglePrecalRoute.Checked)
                 {
-                    Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
-                };
-                _pokestopsOverlay.Routes.Add(route);
-                return;
-            }
+                    _pokestopsOverlay.Routes.Clear();
+                    var route = new GMapRoute(_routePoints, "Walking Path")
+                    {
+                        Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
+                    };
+                    _pokestopsOverlay.Routes.Add(route);
+                    return;
+                }
                 _pokestopsOverlay.Routes.Clear();
+            }, null);
         }
 
         #region UPDATEMAP
@@ -778,35 +775,31 @@ namespace RocketBot2.Forms
         }
 
         private int encounterPokemonsCount;
-        private void UpdateMap(List<GeoCoordinate> route)
+        private void UpdateMap(List<GeoCoordinate> points)
         {
-            var routePointLatLngs = new List<PointLatLng>();
-            foreach (var item in route)
+            SynchronizationContext.Post(o =>
             {
-                routePointLatLngs.Add(new PointLatLng(item.Latitude, item.Longitude));
-            }
-            var routes = new GMapRoute(routePointLatLngs, routePointLatLngs.ToString())
-            {
-                Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4) { DashStyle = DashStyle.Dash }
-            };
+                var routePointLatLngs = new List<PointLatLng>();
+                foreach (var item in points)
+                {
+                    routePointLatLngs.Add(new PointLatLng(item.Latitude, item.Longitude));
+                }
+                var routes = new GMapRoute(routePointLatLngs, routePointLatLngs.ToString())
+                {
+                    Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4) { DashStyle = DashStyle.Dash }
+                };
 
-            if (encounterPokemonsCount > 5 || encounterPokemonsCount == 0)
-            {
-                _playerOverlay.Markers.Clear();
-                _pokemonsOverlay.Markers.Clear();
-                _playerLocations.Clear();
-                Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude,
-                    _session.Client.CurrentLongitude);
-                //get optimized route
-                var _pokeStops = Logic.Utils.RouteOptimizeUtil.Optimize(_session.Forts.ToArray(), _session.Client.CurrentLatitude,
-                    _session.Client.CurrentLongitude);
-                InitializePokestopsAndRoute(_pokeStops);
-                encounterPokemonsCount = 0;
-             }
+                if (encounterPokemonsCount > 5 || encounterPokemonsCount == 0)
+                {
+                    InitializePokestopsAndRoute();
+                    encounterPokemonsCount = 0;
+                }
 
-            encounterPokemonsCount++;
-            _playerRouteOverlay.Routes.Clear();
-            _playerRouteOverlay.Routes.Add(routes);
+                encounterPokemonsCount++;
+                _playerRouteOverlay.Routes.Clear();
+                Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
+                _playerRouteOverlay.Routes.Add(routes);
+            }, null);
         }
 
         private void UpdateMap(FortData pokestop)
@@ -864,8 +857,8 @@ namespace RocketBot2.Forms
 
             if (text.Contains("Error with API request type: DownloadRemoteConfigVersion"))
             {
-                Instance.logTextBox.SelectionColor = Color.Red;
-                Instance.logTextBox.AppendText($"Error with API request type: DownloadRemoteConfigVersion\r\nPlease restart RocketBot.\r\n");
+                Instance.logTextBox.SelectionColor = Color.Yellow;
+                Instance.logTextBox.AppendText($"Warning: with API request type: DownloadRemoteConfigVersion. Please wait...\r\n");
                 Instance.logTextBox.ScrollToCaret();
                 return;
             }
@@ -912,9 +905,10 @@ namespace RocketBot2.Forms
             }
             Instance.Text = text;
             Instance.statusLabel.Text = text;
+            Console.Title = text;
 
             if (checkBoxAutoRefresh.Checked)
-            await ReloadPokemonList().ConfigureAwait(false);
+                await ReloadPokemonList().ConfigureAwait(false);
         }
 
         #endregion INTERFACE
@@ -923,7 +917,7 @@ namespace RocketBot2.Forms
 
         private async void btnRefresh_Click(object sender, EventArgs e)
         {
-              await ReloadPokemonList().ConfigureAwait(false);
+            await ReloadPokemonList().ConfigureAwait(false);
         }
 
         private void startStopBotToolStripMenuItem_Click(object sender, EventArgs e)
@@ -936,7 +930,6 @@ namespace RocketBot2.Forms
             startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
             _botStarted = true;
             btnRefresh.Enabled = true;
-            pokeEaseToolStripMenuItem.Enabled = true;
             Task.Run(StartBot);
         }
 
@@ -950,27 +943,6 @@ namespace RocketBot2.Forms
             _playerLocations.Clear();
             _playerLocations.Add(newLocation);
             UpdateMap();
-        }
-
-        private void pokeEaseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (pokeEaseToolStripMenuItem.Text.Equals(@"Show PokeEase"))
-            {
-                if (ConsoleHelper.ShowConsoleWindowPokeEase())
-                {
-                    pokeEaseToolStripMenuItem.Text = @"Hide PokeEase";
-                    return;
-                }
-
-                var profilePath = Path.Combine(Directory.GetCurrentDirectory(), _subPath);
-                var profileConfigPath = Path.Combine(profilePath, "PokeEase");
-                var exeFile = Path.Combine(profileConfigPath, "RocketBot2.exe");
-                Process.Start(exeFile);
-                pokeEaseToolStripMenuItem.Text = @"Hide PokeEase";
-                return;
-            }
-                pokeEaseToolStripMenuItem.Text = @"Show PokeEase";
-                ConsoleHelper.HideConsoleWindowPokeEase();
         }
 
         private void showConsoleToolStripMenuItem_Click(object sender, EventArgs e)
@@ -987,8 +959,6 @@ namespace RocketBot2.Forms
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("http://www1.mypogosnipers.com");
-
             Thread mThread = new Thread(delegate ()
             {
                 var infoForm = new InfoForm();
@@ -996,6 +966,17 @@ namespace RocketBot2.Forms
             });
             mThread.SetApartmentState(ApartmentState.STA);
             mThread.Start();
+        }
+
+        private void accountsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (ToolStripMenuItem en in accountsToolStripMenuItem.DropDownItems)
+            {
+                if (en.Text == _settings.Auth.CurrentAuthConfig.Username)
+                    en.Enabled = false;
+                else
+                    en.Enabled = true;
+            }
         }
 
         #endregion EVENTS
@@ -1077,21 +1058,24 @@ namespace RocketBot2.Forms
                     cmsPokemonList.Items.Add(item);
                 }
 
+                if (count != 1) return;
+
                 if (AllowEvolve)
                 {
-                    item = new ToolStripMenuItem { Text = $"Evolve {count} Pokémons" };
-                    item.Click += delegate { EvolvePokemon(pokemons); };
+                    item = new ToolStripMenuItem { Text = $"Evolve" };
+                    item.Click += delegate {
+                        var pokemon = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).First();
+                        EvolvePokemon(pokemon.PokemonData);
+                    };
                     cmsPokemonList.Items.Add(item);
                 }
 
                 if (AllowPowerup)
                 {
-                    item = new ToolStripMenuItem { Text = $"PowerUp {count} Pokémons" };
+                    item = new ToolStripMenuItem { Text = $"PowerUp" };
                     item.Click += delegate { PowerUpPokemon(pokemons); };
                     cmsPokemonList.Items.Add(item);
                 }
-
-                if (count != 1) return;
 
                 item = new ToolStripMenuItem { Text = Favorited ? "Un-Favorite" : "Favorite" };
                 item.Click += delegate { FavoritedPokemon(pokemons, Favorited); };
@@ -1133,7 +1117,7 @@ namespace RocketBot2.Forms
                 else if (cName.Equals("Evolve"))
                 {
                     // ReSharper disable once PossibleNullReferenceException
-                    EvolvePokemon(new List<PokemonData> { pokemon.PokemonData });
+                    EvolvePokemon(pokemon.PokemonData);
                 }
             }
             catch (Exception ex)
@@ -1198,14 +1182,26 @@ namespace RocketBot2.Forms
                 await ReloadPokemonList().ConfigureAwait(false);
         }
 
-        private async void EvolvePokemon(IEnumerable<PokemonData> pokemons)
+        private void EvolvePokemon(PokemonData pokemon)
         {
-          foreach (var pokemon in pokemons)
+            using (var form = new EvoleToPokemon())
             {
-                await Task.Run(async () => { await Logic.Tasks.EvolveSpecificPokemonTask.Execute(_session, pokemon.Id); });
+                PokemonEvoleTo pok = new PokemonEvoleTo(_session, pokemon);
+                foreach (var to in pok.EvolutionBranchs)
+                {
+                    var item = new PictureBox();
+                    item.Image = ResourceHelper.ResizeImage(ResourceHelper.GetPokemonImage((int)to.Pokemon), item, true);
+                    item.Click += async delegate
+                    {
+                        await Task.Run(async () => { await EvolveSpecificPokemonTask.Execute(_session, to.OriginPokemonId, to.Pokemon); });
+                        if (!checkBoxAutoRefresh.Checked)
+                            await ReloadPokemonList().ConfigureAwait(false);
+                        form.Close();
+                    };
+                    form.flpPokemonToEvole.Controls.Add(item);
+                }
+                form.ShowDialog();
             }
-            if (!checkBoxAutoRefresh.Checked)
-                await ReloadPokemonList().ConfigureAwait(false);
         }
 
         public async void NicknamePokemon(IEnumerable<PokemonData> pokemons, string nickname)
@@ -1244,7 +1240,7 @@ namespace RocketBot2.Forms
             try
             {
                 if (_session.Client.Download.ItemTemplates == null)
-                    await _session.Client.Download.GetItemTemplates().ConfigureAwait(false); 
+                      await _session.Client.Download.GetItemTemplates().ConfigureAwait(false);
 
                 var templates =  _session.Client.Download.ItemTemplates.Where(x => x.PokemonSettings != null)
                         .Select(x => x.PokemonSettings)

@@ -15,6 +15,7 @@
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -29,7 +30,6 @@
     <ApplicationVersion>2.7.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,10 +37,11 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>false</RunCodeAnalysis>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -51,6 +52,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>false</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -72,7 +74,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -83,7 +85,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>RocketBot2.Program</StartupObject>
@@ -96,7 +98,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Device" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Management" />
@@ -105,16 +106,16 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="GeoCoordinate.NetStandard1, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\GeoCoordinate.NetStandard1.1.0.0\lib\netstandard1.0\GeoCoordinate.NetStandard1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="AeroWizard, Version=2.1.9.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\AeroWizard.2.1.9\lib\net452\AeroWizard.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="CommandLine, Version=1.9.71.2, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="C5, Version=2.4.5947.17248, Culture=neutral, PublicKeyToken=282361b99ded7e8e, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\C5.2.4.5947.17249\lib\net45\C5.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="GMap.NET.Core, Version=1.7.5.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
@@ -151,10 +152,6 @@
     </Reference>
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="CloudFlareUtilities, Version=0.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\CloudFlareUtilities.0.2.1-alpha\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\CloudFlareUtilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -201,6 +198,13 @@
     <Compile Include="Forms\AuthAPIForm.Designer.cs">
       <DependentUpon>AuthAPIForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\EvoleToPokemon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EvoleToPokemon.Designer.cs">
+      <DependentUpon>EvoleToPokemon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\IDisposedAttribute.cs" />
     <Compile Include="Forms\InfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -221,10 +225,6 @@
     </Compile>
     <Compile Include="Helpers\DeviceInfoHelper.cs" />
     <Compile Include="Helpers\Options.cs" />
-    <Compile Include="Logic\Tasks\EvolveSpecificPokemonTask.cs" />
-    <Compile Include="Logic\Event\GetHumanizeRouteEvent.cs" />
-    <Compile Include="Logic\Event\LootPokestopEvent.cs" />
-    <Compile Include="Logic\Event\PokemonsEncounterEvent.cs" />
     <Compile Include="Helpers\DeviceHelper.cs" />
     <Compile Include="Forms\ItemBox.cs">
       <SubType>UserControl</SubType>
@@ -254,7 +254,6 @@
     <Compile Include="Forms\ItemSetting.Designer.cs">
       <DependentUpon>ItemSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="Logic\Utils\RouteOptimizeUtil.cs" />
     <Compile Include="Logic\State\VersionCheckState.cs" />
     <Compile Include="Models\GMapMarkerPokestops.cs" />
     <Compile Include="Models\GMapMarkerTrainer.cs" />
@@ -271,6 +270,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Resources\ProgressBar.cs" />
     <Compile Include="SniperEventListener.cs" />
@@ -319,6 +323,7 @@
     <Compile Include="Win32\ConsoleHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Config\log4net.config" />
     <None Include="Config\log4net.unix.config" />
     <None Include="cert.pfx">
@@ -414,24 +419,23 @@
     <None Include="Config\Translations\translation.zh-TW.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="RunWithExcelConfig.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Images\Miscs\Logo.png" />
     <None Include="Resources\msvc.cer" />
     <None Include="Images\Markers\gym-unoccupied.png" />
-    <None Include="Images\Markers\team-unoccupied.png" />
-    <None Include="Images\Markers\team-valor.png" />
     <None Include="Images\Markers\Visited.png" />
-    <None Include="Images\Markers\VisitedLure.png" />
     <None Include="Images\Markers\gym-instinct.png" />
     <None Include="Images\Markers\gym-mystic.png" />
     <None Include="Images\Markers\gym-valor.png" />
-    <None Include="Images\Markers\Lured.png" />
     <None Include="Images\Markers\Normal.png" />
-    <None Include="Images\Markers\team-Instinct.png" />
-    <None Include="Images\Markers\team-mystic.png" />
     <None Include="Images\Markers\location.png" />
+    <Content Include="Images\Markers\location2.png" />
     <Content Include="Resources\Ico.ico" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
@@ -442,15 +446,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\Miscs\question.png" />
-    <Content Include="Images\Markers\Pokestop.png" />
-    <Content Include="Images\Markers\Pokestop_looted.png" />
-    <Content Include="Images\Markers\Trainer_Front.png" />
-    <Content Include="Images\Markers\Trainer_Left.png" />
-    <Content Include="Images\Markers\Trainer_Right.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Forms\AuthAPIForm.resx">
       <DependentUpon>AuthAPIForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EvoleToPokemon.resx">
+      <DependentUpon>EvoleToPokemon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InfoForm.resx">
       <DependentUpon>InfoForm.cs</DependentUpon>
@@ -508,7 +510,6 @@
       <Name>PoGo.NecroBot.Logic</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
@@ -550,15 +551,15 @@ foreach (var item in filesToCleanup)
   <Target Name="CleanReferenceCopyLocalPaths" AfterTargets="AfterBuild;NonWinFodyTarget">
     <CosturaCleanup Config="FodyWeavers.xml" Files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
   </Target>
-  <Import Project="$(SolutionDir)\packages\Fody.1.29.4\build\dotnet\Fody.targets" Condition="Exists('$(SolutionDir)\packages\Fody.1.29.4\build\dotnet\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\packages\Fody.1.29.4\build\dotnet\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\Fody.1.29.4\build\dotnet\Fody.targets'))" />
     <Error Condition="!Exists('$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.27.0\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.27.0\build\Selenium.WebDriver.ChromeDriver.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)\packages\Fody.1.29.4\build\dotnet\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\Fody.1.29.4\build\dotnet\Fody.targets'))" />
   </Target>
   <Import Project="$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.27.0\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.27.0\build\Selenium.WebDriver.ChromeDriver.targets')" />
+  <Import Project="$(SolutionDir)\packages\Fody.1.29.4\build\dotnet\Fody.targets" Condition="Exists('$(SolutionDir)\packages\Fody.1.29.4\build\dotnet\Fody.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
