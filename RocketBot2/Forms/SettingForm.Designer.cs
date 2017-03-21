@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
-            this.enableAdvSettingCb = new System.Windows.Forms.CheckBox();
             this.cancelBtn = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabAuth = new System.Windows.Forms.TabPage();
@@ -283,18 +282,6 @@
             this.groupBox15.SuspendLayout();
             this.SuspendLayout();
             // 
-            // enableAdvSettingCb
-            // 
-            this.enableAdvSettingCb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.enableAdvSettingCb.AutoSize = true;
-            this.enableAdvSettingCb.Location = new System.Drawing.Point(761, 512);
-            this.enableAdvSettingCb.Name = "enableAdvSettingCb";
-            this.enableAdvSettingCb.Size = new System.Drawing.Size(203, 24);
-            this.enableAdvSettingCb.TabIndex = 32;
-            this.enableAdvSettingCb.Text = "Enable Advanced Settings";
-            this.enableAdvSettingCb.UseVisualStyleBackColor = true;
-            this.enableAdvSettingCb.Click += new System.EventHandler(this.enableAdvSettingCb_Click);
-            // 
             // cancelBtn
             // 
             this.cancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -470,7 +457,6 @@
             this.proxyGb.TabIndex = 27;
             this.proxyGb.TabStop = false;
             this.proxyGb.Text = "Proxy Setting";
-            this.proxyGb.Visible = false;
             // 
             // proxyPortTb
             // 
@@ -1427,7 +1413,7 @@
             this.clbIgnore.Location = new System.Drawing.Point(3, 49);
             this.clbIgnore.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbIgnore.Name = "clbIgnore";
-            this.clbIgnore.Size = new System.Drawing.Size(416, 114);
+            this.clbIgnore.Size = new System.Drawing.Size(416, 4);
             this.clbIgnore.TabIndex = 0;
             // 
             // tBMaxBerriesToUsePerPokemon
@@ -1489,7 +1475,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(412, 450);
+            this.groupBox1.Size = new System.Drawing.Size(412, 462);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Exclude Transfer";
@@ -1834,7 +1820,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox4.Size = new System.Drawing.Size(413, 450);
+            this.groupBox4.Size = new System.Drawing.Size(413, 462);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Power Up";
@@ -2014,7 +2000,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox3.Size = new System.Drawing.Size(412, 457);
+            this.groupBox3.Size = new System.Drawing.Size(412, 469);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Evolve";
@@ -2625,7 +2611,6 @@
             this.ClientSize = new System.Drawing.Size(976, 585);
             this.Controls.Add(this.cbEnableGyms);
             this.Controls.Add(this.cbAutoSniper);
-            this.Controls.Add(this.enableAdvSettingCb);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.saveBtn);
@@ -2697,8 +2682,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.CheckBox enableAdvSettingCb;
         private System.Windows.Forms.Button cancelBtn;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabAuth;

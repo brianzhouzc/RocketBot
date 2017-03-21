@@ -1,57 +1,54 @@
 ﻿#region using directives
 
+using BrightIdeasSoftware;
+using GeoCoordinatePortable;
+using GMap.NET;
+using GMap.NET.MapProviders;
+using GMap.NET.WindowsForms;
+using PoGo.NecroBot.Logic;
+using PoGo.NecroBot.Logic.Common;
+using PoGo.NecroBot.Logic.Event;
+using PoGo.NecroBot.Logic.Logging;
+using PoGo.NecroBot.Logic.Model.Settings;
+using PoGo.NecroBot.Logic.PoGoUtils;
+using PoGo.NecroBot.Logic.Service;
+using PoGo.NecroBot.Logic.Service.Elevation;
+using PoGo.NecroBot.Logic.State;
+using PoGo.NecroBot.Logic.Tasks;
+using PoGo.NecroBot.Logic.Utils;
+using POGOProtos.Data;
+using POGOProtos.Inventory.Item;
+using POGOProtos.Map.Fort;
+using POGOProtos.Map.Pokemon;
+using PokemonGo.RocketAPI;
+using PokemonGo.RocketAPI.Helpers;
+using RocketBot2.CommandLineUtility;
+using RocketBot2.Helpers;
+using RocketBot2.Models;
+using RocketBot2.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BrightIdeasSoftware;
-using System.Device.Location;
-using GMap.NET;
-using GMap.NET.MapProviders;
-using GMap.NET.WindowsForms;
-using POGOProtos.Data;
-using POGOProtos.Inventory.Item;
-using POGOProtos.Map.Fort;
-using POGOProtos.Map.Pokemon;
-using PokemonGo.RocketAPI.Helpers;
-using PoGo.NecroBot.Logic.PoGoUtils;
-using PoGo.NecroBot.Logic.Common;
-using PoGo.NecroBot.Logic.Logging;
-using PoGo.NecroBot.Logic.Service;
-using PoGo.NecroBot.Logic.State;
-using PoGo.NecroBot.Logic.Utils;
-using PoGo.NecroBot.Logic.Model.Settings;
-using PoGo.NecroBot.Logic.Service.Elevation;
-using RocketBot2.Helpers;
-using RocketBot2.Models;
-using PoGo.NecroBot.Logic.Event;
-using PoGo.NecroBot.Logic;
-using System.Reflection;
-using PoGo.NecroBot.Logic.Tasks;
-using System.Net;
-using RocketBot2.CommandLineUtility;
-using System.Diagnostics;
-using PokemonGo.RocketAPI;
-using RocketBot2.Win32;
-using System.Net.Http;
-using PokemonGo.RocketAPI.Logging;
-using POGOProtos.Enums;
-using POGOProtos.Networking.Responses;
 
 #endregion
 
 
 namespace RocketBot2.Forms
 {
-   [IDisposed]
+    [IDisposed]
 
     public partial class MainForm : System.Windows.Forms.Form 
     {

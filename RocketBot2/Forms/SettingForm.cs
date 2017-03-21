@@ -59,19 +59,12 @@ namespace RocketBot2.Forms
             cbLanguage.SelectedIndex = languageIndex == -1 ? 0 : languageIndex;
 
             //proxy
-            //proxyGb.Visible = _setting.EnableAdvancedSettings;
+            //proxyGb.Visible = true;
             //advanced tab
             _tabAdvSettingTab = tabAdvSetting;
             //enableAdvSettingCb.Checked = _setting.EnableAdvancedSettings;
-            if (!enableAdvSettingCb.Checked)
-            {
-                tabControl.TabPages.Remove(_tabAdvSettingTab);
-            }
-            else
-            {
-                _tabAdvSettingTab.Enabled = true;
-            }
-
+            //_tabAdvSettingTab.Enabled = true;
+            
             #endregion
 
             #region Login Type and info
@@ -772,25 +765,6 @@ namespace RocketBot2.Forms
         {
             ListSelectAllHandler(clbTransfer, cbNotTransferAll.Checked);
         }
-
-        private void enableAdvSettingCb_Click(object sender, EventArgs e)
-        {
-            //proxyGb.Visible = _setting.EnableAdvancedSettings = enableAdvSettingCb.Checked;
-            if (enableAdvSettingCb.Checked)
-            {
-                _tabAdvSettingTab.Enabled = true;
-                tabControl.TabPages.Add(_tabAdvSettingTab);
-                proxyGb.Visible = true;
-                
-            }
-            else
-            {
-                _tabAdvSettingTab.Enabled = false;
-                tabControl.TabPages.Remove(_tabAdvSettingTab);
-                proxyGb.Visible = false;
-            }
-        }
-
         #endregion
     }
 }
