@@ -48,8 +48,6 @@ using System.Windows.Forms;
 
 namespace RocketBot2.Forms
 {
-    [IDisposed]
-
     public partial class MainForm : System.Windows.Forms.Form 
     {
         public static MainForm Instance;
