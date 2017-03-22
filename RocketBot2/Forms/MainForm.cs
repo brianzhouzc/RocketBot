@@ -79,7 +79,6 @@ namespace RocketBot2.Forms
         private readonly GMapOverlay _searchAreaOverlay = new GMapOverlay("areas");
 
         public static Session _session;
-        public string CurrentBot; 
 
         public MainForm(string[] _args)
         {
@@ -541,6 +540,7 @@ namespace RocketBot2.Forms
                         if (!_botStarted)
                             _session.ReInitSessionWithNextBot(_bot);
                         accountManager.SwitchAccountTo(_bot);
+                        Instance.checkBoxAutoRefresh.CheckState = CheckState.Indeterminate;
                     };
 
                     if (_item.Text == bot.Username)
@@ -556,7 +556,7 @@ namespace RocketBot2.Forms
                 _session.ReInitSessionWithNextBot(bot);
                 menuStrip1.Items.Remove(accountsToolStripMenuItem);
             }
-
+            
             _machine = machine;
             _settings = settings;
             _excelConfigAllow = excelConfigAllow;
@@ -907,9 +907,9 @@ namespace RocketBot2.Forms
             Instance.statusLabel.Text = text;
             Console.Title = text;
 
-            
-                if (checkBoxAutoRefresh.Checked)
-                    await ReloadPokemonList().ConfigureAwait(false);
+
+            if (checkBoxAutoRefresh.Checked)
+                await ReloadPokemonList().ConfigureAwait(false);
         }
 
         #endregion INTERFACE
