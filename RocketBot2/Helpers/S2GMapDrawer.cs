@@ -3,7 +3,6 @@ using System.Drawing;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using Google.Common.Geometry;
-using RocketBot2.Forms;
 
 namespace RocketBot2.Helpers
 {

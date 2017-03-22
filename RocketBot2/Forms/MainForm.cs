@@ -540,7 +540,6 @@ namespace RocketBot2.Forms
                         if (!_botStarted)
                             _session.ReInitSessionWithNextBot(_bot);
                         accountManager.SwitchAccountTo(_bot);
-                        Instance.checkBoxAutoRefresh.CheckState = CheckState.Indeterminate;
                     };
 
                     if (_item.Text == bot.Username)
@@ -884,6 +883,11 @@ namespace RocketBot2.Forms
             Instance.logTextBox.ScrollToCaret();
         }
 
+        public static void BotChange(bool b)
+        {
+            if (b) Instance.checkBoxAutoRefresh.CheckState = CheckState.Indeterminate;
+        }
+
         public static void SetSpeedLable(string text)
         {
             if (Instance.InvokeRequired)
@@ -1201,6 +1205,8 @@ namespace RocketBot2.Forms
                             await ReloadPokemonList().ConfigureAwait(false);
                         form.Close();
                     };
+                    /*item.MouseLeave += delegate { item.BackColor = Color.Transparent; };
+                    item.MouseEnter += delegate { item.BackColor = Color.LightGreen; };*/
                     form.flpPokemonToEvole.Controls.Add(item);
                 }
                 form.ShowDialog();
