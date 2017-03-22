@@ -79,6 +79,7 @@ namespace RocketBot2.Forms
         private readonly GMapOverlay _searchAreaOverlay = new GMapOverlay("areas");
 
         public static Session _session;
+        public string CurrentBot; 
 
         public MainForm(string[] _args)
         {
@@ -536,8 +537,9 @@ namespace RocketBot2.Forms
                     var _item = new ToolStripMenuItem();
                     _item.Text = _bot.Username;
                     _item.Click += delegate
-                    {                       
-                        if (!_botStarted) _session.ReInitSessionWithNextBot(_bot);
+                    {
+                        if (!_botStarted)
+                            _session.ReInitSessionWithNextBot(_bot);
                         accountManager.SwitchAccountTo(_bot);
                     };
 
@@ -629,6 +631,10 @@ namespace RocketBot2.Forms
 
         private void InitializePokestopsAndRoute()
         {
+            //get optimized route
+            var pokeStops = RouteOptimizeUtil.Optimize(_session.Forts.ToArray(), _session.Client.CurrentLatitude,
+                    _session.Client.CurrentLongitude);
+
             SynchronizationContext.Post(o =>
             {
                 _playerOverlay.Markers.Clear();
@@ -636,10 +642,6 @@ namespace RocketBot2.Forms
                 _pokestopsOverlay.Markers.Clear();
                 _pokestopsOverlay.Routes.Clear();
                 _playerLocations.Clear();
-
-                //get optimized route
-                var pokeStops = RouteOptimizeUtil.Optimize(_session.Forts.ToArray(), _session.Client.CurrentLatitude,
-                    _session.Client.CurrentLongitude);
 
                 _routePoints =
                     (from pokeStop in pokeStops
@@ -905,8 +907,9 @@ namespace RocketBot2.Forms
             Instance.statusLabel.Text = text;
             Console.Title = text;
 
-            if (checkBoxAutoRefresh.Checked)
-                await ReloadPokemonList().ConfigureAwait(false);
+            
+                if (checkBoxAutoRefresh.Checked)
+                    await ReloadPokemonList().ConfigureAwait(false);
         }
 
         #endregion INTERFACE
@@ -1170,14 +1173,16 @@ namespace RocketBot2.Forms
                 {
                     case DialogResult.Yes:
                         await Task.Run(async () => { await UpgradeSinglePokemonTask.Execute(_session, pokemon.Id, true /* upgrade x times */); });
+                        if (!checkBoxAutoRefresh.Checked)
+                            await ReloadPokemonList().ConfigureAwait(false);
                         break;
                     case DialogResult.No:
                         await Task.Run(async () => { await UpgradeSinglePokemonTask.Execute(_session, pokemon.Id, false, 1 /* Only upgrade 1 time */); });
+                        if (!checkBoxAutoRefresh.Checked)
+                            await ReloadPokemonList().ConfigureAwait(false);
                         break;
                 }
             }
-            if (!checkBoxAutoRefresh.Checked)
-                await ReloadPokemonList().ConfigureAwait(false);
         }
 
         private void EvolvePokemon(PokemonData pokemon)
@@ -1244,7 +1249,7 @@ namespace RocketBot2.Forms
                         .Select(x => x.PokemonSettings)
                         .ToList();
 
-                PokemonObject.Initilize(_session, templates);
+                PokemonObject.Initilize(templates);
 
                 var pokemons = 
                    _session.Inventory.GetPokemons().Result
@@ -1257,8 +1262,7 @@ namespace RocketBot2.Forms
 
                 foreach (var pokemon in pokemons)
                 {
-                    var pokemonObject = new PokemonObject(pokemon);
-                    //pokemonObject.Candy = PokemonInfo.GetCandy(_session, pokemon);
+                    var pokemonObject = new PokemonObject(_session, pokemon);
                     pokemonObjects.Add(pokemonObject);
                 }
 
