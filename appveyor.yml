@@ -189,8 +189,7 @@ deploy:
     description: '[CHANGELOG.md](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/CHANGELOG.md)'
     release: RocketBot2 $(APPVEYOR_REPO_TAG_NAME)
     auth_token: $(auth_token)
-    artifact: RocketBot2
-    #;android-debug;android-debug-unaligned;android-release-unsigned;PokeEase.WebCli
+    artifact: RocketBot2;android-debug;android-debug-unaligned;android-release-unsigned;PokeEase
     draft: false
     prerelease: false
     force_update: true

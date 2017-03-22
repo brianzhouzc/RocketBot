@@ -1301,7 +1301,7 @@ namespace RocketBot2.Forms
                     .SelectMany(aItems => aItems.Item)
                     .ToDictionary(item => item.ItemId, item => new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(item.ExpireMs));
 
-                flpItems.Controls.Clear();
+                if (flpItems.Controls.Count > 1) flpItems.Controls.Clear();
 
                 foreach (var item in items)
                 {
