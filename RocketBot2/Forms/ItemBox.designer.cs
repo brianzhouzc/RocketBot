@@ -100,6 +100,6 @@
         private System.Windows.Forms.PictureBox pb;
         private System.Windows.Forms.Label lbl;
         private System.Windows.Forms.Timer tmr;
-        private System.Windows.Forms.Label lblTime;
+        public System.Windows.Forms.Label lblTime;
     }
 }

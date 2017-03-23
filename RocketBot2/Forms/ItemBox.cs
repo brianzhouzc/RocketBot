@@ -95,6 +95,7 @@ namespace RocketBot2.Forms
             }
             else
             {
+                Enabled = false;
                 lblTime.Visible = true;
                 lblTime.Text = $"{time.Minutes}m {Math.Abs(time.Seconds)}s";
             }

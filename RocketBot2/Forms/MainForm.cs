@@ -1316,7 +1316,6 @@ namespace RocketBot2.Forms
                     if (appliedItems.ContainsKey(item.ItemId))
                     {
                         box.expires = appliedItems[item.ItemId];
-                        box.Enabled = false;
                     }
                          box.ItemClick += ItemBox_ItemClick;
                     flpItems.Controls.Add(box);
