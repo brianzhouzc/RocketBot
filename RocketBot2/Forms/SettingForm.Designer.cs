@@ -249,6 +249,8 @@
             this.saveBtn = new System.Windows.Forms.Button();
             this.cbAutoSniper = new System.Windows.Forms.CheckBox();
             this.cbEnableGyms = new System.Windows.Forms.CheckBox();
+            this.label48 = new System.Windows.Forms.Label();
+            this.tbDataServiceIdentification = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabAuth.SuspendLayout();
             this.proxyGb.SuspendLayout();
@@ -1413,7 +1415,7 @@
             this.clbIgnore.Location = new System.Drawing.Point(3, 49);
             this.clbIgnore.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbIgnore.Name = "clbIgnore";
-            this.clbIgnore.Size = new System.Drawing.Size(416, 4);
+            this.clbIgnore.Size = new System.Drawing.Size(416, 224);
             this.clbIgnore.TabIndex = 0;
             // 
             // tBMaxBerriesToUsePerPokemon
@@ -1475,7 +1477,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(412, 462);
+            this.groupBox1.Size = new System.Drawing.Size(412, 470);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Exclude Transfer";
@@ -1503,7 +1505,7 @@
             this.clbTransfer.Location = new System.Drawing.Point(6, 50);
             this.clbTransfer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbTransfer.Name = "clbTransfer";
-            this.clbTransfer.Size = new System.Drawing.Size(405, 356);
+            this.clbTransfer.Size = new System.Drawing.Size(405, 378);
             this.clbTransfer.TabIndex = 0;
             // 
             // groupBox8
@@ -1820,7 +1822,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox4.Size = new System.Drawing.Size(413, 462);
+            this.groupBox4.Size = new System.Drawing.Size(413, 470);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Power Up";
@@ -1848,7 +1850,7 @@
             this.clbPowerUp.Location = new System.Drawing.Point(6, 50);
             this.clbPowerUp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbPowerUp.Name = "clbPowerUp";
-            this.clbPowerUp.Size = new System.Drawing.Size(406, 356);
+            this.clbPowerUp.Size = new System.Drawing.Size(406, 378);
             this.clbPowerUp.TabIndex = 0;
             // 
             // cbAutoPowerUp
@@ -2000,7 +2002,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox3.Size = new System.Drawing.Size(412, 469);
+            this.groupBox3.Size = new System.Drawing.Size(412, 477);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Evolve";
@@ -2028,7 +2030,7 @@
             this.clbEvolve.Location = new System.Drawing.Point(6, 50);
             this.clbEvolve.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbEvolve.Name = "clbEvolve";
-            this.clbEvolve.Size = new System.Drawing.Size(405, 356);
+            this.clbEvolve.Size = new System.Drawing.Size(405, 378);
             this.clbEvolve.TabIndex = 0;
             // 
             // tabItems
@@ -2604,11 +2606,33 @@
             this.cbEnableGyms.Text = "Enable Gmys";
             this.cbEnableGyms.UseVisualStyleBackColor = true;
             // 
+            // label48
+            // 
+            this.label48.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(203, 516);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(176, 20);
+            this.label48.TabIndex = 35;
+            this.label48.Text = "DataServiceIdentification";
+            // 
+            // tbDataServiceIdentification
+            // 
+            this.tbDataServiceIdentification.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbDataServiceIdentification.Location = new System.Drawing.Point(207, 539);
+            this.tbDataServiceIdentification.Name = "tbDataServiceIdentification";
+            this.tbDataServiceIdentification.Size = new System.Drawing.Size(172, 27);
+            this.tbDataServiceIdentification.TabIndex = 36;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(976, 585);
+            this.Controls.Add(this.tbDataServiceIdentification);
+            this.Controls.Add(this.label48);
             this.Controls.Add(this.cbEnableGyms);
             this.Controls.Add(this.cbAutoSniper);
             this.Controls.Add(this.cancelBtn);
@@ -2902,5 +2926,7 @@
         private System.Windows.Forms.CheckBox cbUseWalkingSpeedVariant;
         private System.Windows.Forms.CheckBox cbAutoSniper;
         private System.Windows.Forms.CheckBox cbEnableGyms;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.TextBox tbDataServiceIdentification;
     }
 }
