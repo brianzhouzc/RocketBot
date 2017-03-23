@@ -1197,7 +1197,7 @@ namespace RocketBot2.Forms
                 foreach (var to in pok.EvolutionBranchs)
                 {
                     var item = new PictureBox();
-                    item.Image = ResourceHelper.ResizeImage(ResourceHelper.GetPokemonImage((int)to.Pokemon), item, true);
+                    item.Image = ResourceHelper.GetImage("Pokemon_" + to.Pokemon.GetHashCode(), item.Height, item.Width);
                     item.Click += async delegate
                     {
                         await Task.Run(async () => { await EvolveSpecificPokemonTask.Execute(_session, to.OriginPokemonId, to.Pokemon); });
@@ -1205,8 +1205,8 @@ namespace RocketBot2.Forms
                             await ReloadPokemonList().ConfigureAwait(false);
                         form.Close();
                     };
-                    /*item.MouseLeave += delegate { item.BackColor = Color.Transparent; };
-                    item.MouseEnter += delegate { item.BackColor = Color.LightGreen; };*/
+                    item.MouseLeave += delegate { item.BackColor = Color.Transparent; };
+                    item.MouseEnter += delegate { item.BackColor = Color.LightGreen; };
                     form.flpPokemonToEvole.Controls.Add(item);
                 }
                 form.ShowDialog();
