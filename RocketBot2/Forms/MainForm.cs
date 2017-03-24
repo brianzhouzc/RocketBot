@@ -121,8 +121,8 @@ namespace RocketBot2.Forms
                 gMapControl1.Position = new PointLatLng(lat, lng);
                 gMapControl1.DragButton = MouseButtons.Left;
 
-                gMapControl1.MinZoom = 1;
-                gMapControl1.MaxZoom = 20;
+                gMapControl1.MinZoom = 2;
+                gMapControl1.MaxZoom = 18;
                 gMapControl1.Zoom = 15;
 
                 gMapControl1.Overlays.Add(_searchAreaOverlay);
@@ -545,7 +545,6 @@ namespace RocketBot2.Forms
                     if (_item.Text == bot.Username)
                     {
                         _session.ReInitSessionWithNextBot(_bot);
-                        _item.Enabled = false;
                     }
                     accountsToolStripMenuItem.DropDownItems.Add(_item);
                 }
@@ -628,7 +627,7 @@ namespace RocketBot2.Forms
         }
 #pragma warning restore 1998
 
-        private void InitializePokestopsAndRoute()
+        private Task InitializePokestopsAndRoute()
         {
             //get optimized route
             var pokeStops = RouteOptimizeUtil.Optimize(_session.Forts.ToArray(), _session.Client.CurrentLatitude,
@@ -691,6 +690,7 @@ namespace RocketBot2.Forms
                     _pokestopsOverlay.Markers.Add(pokestopMarker);
                 }
             }, null);
+            return null;
         }
 		
         private void Navigation_UpdatePositionEvent(double lat, double lng)
@@ -790,7 +790,7 @@ namespace RocketBot2.Forms
 
                 if (encounterPokemonsCount > 5 || encounterPokemonsCount == 0)
                 {
-                    InitializePokestopsAndRoute();
+                    Task.Run(InitializePokestopsAndRoute).ConfigureAwait(false);
                     encounterPokemonsCount = 0;
                 }
 
@@ -843,6 +843,7 @@ namespace RocketBot2.Forms
 
         #region INTERFACE
 
+        private DateTime lastClearLog = DateTime.Now;
         public static void ColoredConsoleWrite(Color color, string text)
         {
             if (text.Length <= 0)
@@ -852,6 +853,14 @@ namespace RocketBot2.Forms
             {
                 Instance.Invoke(new Action<Color, string>(ColoredConsoleWrite), color, text);
                 return;
+            }
+
+#pragma warning disable CS1690
+            if (Instance.lastClearLog.AddMinutes(20) < DateTime.Now)
+#pragma warning restore CS1690
+            {
+                Instance.logTextBox.Text = string.Empty;
+                Instance.lastClearLog = DateTime.Now;
             }
 
             if (text.Contains("Error with API request type: DownloadRemoteConfigVersion"))
@@ -883,11 +892,6 @@ namespace RocketBot2.Forms
             Instance.logTextBox.ScrollToCaret();
         }
 
-        public static void BotChange(bool b)
-        {
-            if (b) Instance.checkBoxAutoRefresh.CheckState = CheckState.Indeterminate;
-        }
-
         public static void SetSpeedLable(string text)
         {
             if (Instance.InvokeRequired)
@@ -911,7 +915,6 @@ namespace RocketBot2.Forms
             Instance.statusLabel.Text = text;
             Console.Title = text;
 
-
             if (checkBoxAutoRefresh.Checked)
                 await ReloadPokemonList().ConfigureAwait(false);
         }
@@ -934,7 +937,6 @@ namespace RocketBot2.Forms
             }
             startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
             _botStarted = true;
-            btnRefresh.Enabled = true;
             Task.Run(StartBot);
         }
 

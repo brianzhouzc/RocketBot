@@ -1,4 +1,11 @@
-﻿using System;
+﻿using GMap.NET;
+using GMap.NET.MapProviders;
+using PoGo.NecroBot.Logic.Model.Settings;
+using POGOProtos.Enums;
+using PokemonGo.RocketAPI.Enums;
+using RocketBot2.Helpers;
+using RocketBot2.Win32;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -6,13 +13,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using GMap.NET;
-using GMap.NET.MapProviders;
-using PokemonGo.RocketAPI.Enums;
-using PoGo.NecroBot.Logic.Model.Settings;
-using RocketBot2.Helpers;
-using POGOProtos.Enums;
-using RocketBot2.Win32;
 
 namespace RocketBot2.Forms
 {
@@ -57,12 +57,7 @@ namespace RocketBot2.Forms
             cbLanguage.DataSource = languageList;
             cbLanguage.SelectedIndex = languageIndex == -1 ? 0 : languageIndex;
 
-            //proxy
-            //proxyGb.Visible = true;
-            //advanced tab
             _tabAdvSettingTab = tabAdvSetting;
-            //enableAdvSettingCb.Checked = _setting.EnableAdvancedSettings;
-            //_tabAdvSettingTab.Enabled = true;
             
             #endregion
 
@@ -596,14 +591,10 @@ namespace RocketBot2.Forms
                 _setting.LocationConfig.ShowVariantWalking = cbShowWalkingSpeed.Checked;
                 _setting.LocationConfig.MaxSpawnLocationOffset = ConvertStringToInt(tbMaxSpawnLocationOffset.Text);
                 _setting.LocationConfig.MaxTravelDistanceInMeters = ConvertStringToInt(tbMaxTravelDistanceInMeters.Text);
-
                 _setting.PlayerConfig.DelayBetweenPlayerActions = ConvertStringToInt(tbDelayBetweenPlayerActions.Text);
                 _setting.PokemonConfig.DelayBetweenPokemonCatch = ConvertStringToInt(tbDelayBetweenPokemonCatch.Text);
-                //_setting.PlayerConfig.DelayBetweenRecycle = ConvertStringToInt(tbDelayBetweenRecycle.Text);
-
                 _setting.RecycleConfig.RandomizeRecycle = cbRandomizeRecycle.Checked;
                 _setting.RecycleConfig.RandomRecycleValue = ConvertStringToInt(tbRandomRecycleValue.Text);
-
                 _setting.CustomCatchConfig.EnableHumanizedThrows = cbEnableHumanizedThrows.Checked;
                 _setting.CustomCatchConfig.NiceThrowChance = ConvertStringToInt(tbNiceThrowChance.Text);
                 _setting.CustomCatchConfig.GreatThrowChance = ConvertStringToInt(tbGreatThrowChance.Text);

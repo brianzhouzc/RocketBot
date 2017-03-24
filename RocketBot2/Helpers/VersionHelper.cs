@@ -11,7 +11,7 @@ namespace RocketBot2.Helpers
             try
             {
                 Logger.Write("You can find it at https://github.com/TheUnnamedOrganisation/RocketBot/releases", LogLevel.Info, ConsoleColor.White);
-                Logger.Write("Your version is " + Application.ProductVersion);
+                Logger.Write("Your version is " + Application.ProductVersion, LogLevel.Info, ConsoleColor.Magenta);
                 Logic.State.VersionCheckState.IsLatest();
                 Logger.Write("GitHub version is " + Logic.State.VersionCheckState.RemoteVersion, LogLevel.Update);
             }
