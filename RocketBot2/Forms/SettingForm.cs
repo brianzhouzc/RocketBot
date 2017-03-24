@@ -99,7 +99,7 @@ namespace RocketBot2.Forms
             //disable map focus
             gMapCtrl.DisableFocusOnMouseEnter = true;
 
-            tbWalkingSpeed.Text = _setting.LocationConfig.WalkingSpeedInKilometerPerHour.ToString(CultureInfo.InvariantCulture);
+            tbWalkingSpeed.Text = _setting.LocationConfig.WalkingSpeedVariant.ToString(CultureInfo.InvariantCulture);
 
             #endregion
 
@@ -298,28 +298,12 @@ namespace RocketBot2.Forms
         #endregion
 
         #region private methods
-
-        private static int ConvertStringToInt(string input)
-        {
-            var output = 0;
-            int.TryParse(input, out output);
-            return output;
-        }
-
         private static float ConvertStringToFloat(string input)
         {
             float output = 0;
             float.TryParse(input, out output);
             return output;
         }
-
-        private static double ConvertStringToDouble(string input)
-        {
-            double output = 0;
-            double.TryParse(input, out output);
-            return output;
-        }
-
         private static List<PokemonId> ConvertClbToList(CheckedListBox input)
         {
             return input.CheckedItems.Cast<PokemonId>().ToList();
@@ -483,9 +467,9 @@ namespace RocketBot2.Forms
 
                 #region Location
 
-                _setting.LocationConfig.DefaultLatitude = ConvertStringToDouble(tbLatitude.Text);
-                _setting.LocationConfig.DefaultLongitude = ConvertStringToDouble(tbLongitude.Text);
-                _setting.LocationConfig.WalkingSpeedInKilometerPerHour = ConvertStringToDouble(tbWalkingSpeed.Text);
+                _setting.LocationConfig.DefaultLatitude = Convert.ToDouble(tbLatitude.Text);
+                _setting.LocationConfig.DefaultLongitude = Convert.ToDouble(tbLongitude.Text);
+                _setting.LocationConfig.WalkingSpeedInKilometerPerHour = Convert.ToDouble(tbWalkingSpeed.Text);
 
                 #endregion
 
@@ -495,43 +479,43 @@ namespace RocketBot2.Forms
 
                 _setting.PokemonConfig.CatchPokemon = cbCatchPoke.Checked;
                 _setting.PokemonConfig.UseEggIncubators = cbUseEggIncubators.Checked;
-                _setting.PokemonConfig.MaxPokeballsPerPokemon = ConvertStringToInt(tbMaxPokeballsPerPokemon.Text);
+                _setting.PokemonConfig.MaxPokeballsPerPokemon = Convert.ToInt32(tbMaxPokeballsPerPokemon.Text);
                 _setting.PokemonsToIgnore = ConvertClbToList(clbIgnore);
                 _setting.PokemonConfig.AutoFavoritePokemon = cbAutoFavoritePokemon.Checked;
                 _setting.PokemonConfig.FavoriteMinIvPercentage = ConvertStringToFloat(tbFavoriteMinIvPercentage.Text);
 
-                _setting.ItemUseFilters.FirstOrDefault().Value.MaxItemsUsePerPokemon = ConvertStringToInt(tBMaxBerriesToUsePerPokemon.Text);
-                _setting.ItemUseFilters.FirstOrDefault().Value.UseItemMinCP = ConvertStringToInt(tbUseBerriesMinCp.Text);
-                _setting.ItemUseFilters.FirstOrDefault().Value.UseItemMinIV = ConvertStringToInt(tbUseBerriesMinIv.Text);
-                _setting.ItemUseFilters.FirstOrDefault().Value.CatchProbability = ConvertStringToDouble(tbUseBerriesBelowCatchProbability.Text);
+                _setting.ItemUseFilters.FirstOrDefault().Value.MaxItemsUsePerPokemon = Convert.ToInt32(tBMaxBerriesToUsePerPokemon.Text);
+                _setting.ItemUseFilters.FirstOrDefault().Value.UseItemMinCP = Convert.ToInt32(tbUseBerriesMinCp.Text);
+                _setting.ItemUseFilters.FirstOrDefault().Value.UseItemMinIV = Convert.ToInt32(tbUseBerriesMinIv.Text);
+                _setting.ItemUseFilters.FirstOrDefault().Value.CatchProbability = Convert.ToDouble(tbUseBerriesBelowCatchProbability.Text);
                 _setting.ItemUseFilters.FirstOrDefault().Value.Operator = cbUseBerriesOperator.SelectedIndex == 0 ? "and" : "or";
 
-                _setting.PokemonConfig.UseGreatBallAboveCp = ConvertStringToInt(tbUseGreatBallAboveCp.Text);
-                _setting.PokemonConfig.UseUltraBallAboveCp = ConvertStringToInt(tbUseUltraBallAboveCp.Text);
-                _setting.PokemonConfig.UseMasterBallAboveCp = ConvertStringToInt(tbUseMasterBallAboveCp.Text);
-                _setting.PokemonConfig.UseGreatBallAboveIv = ConvertStringToDouble(tbUseGreatBallAboveIv.Text);
-                _setting.PokemonConfig.UseUltraBallAboveIv = ConvertStringToDouble(tbUseUltraBallAboveIv.Text);
+                _setting.PokemonConfig.UseGreatBallAboveCp = Convert.ToInt32(tbUseGreatBallAboveCp.Text);
+                _setting.PokemonConfig.UseUltraBallAboveCp = Convert.ToInt32(tbUseUltraBallAboveCp.Text);
+                _setting.PokemonConfig.UseMasterBallAboveCp = Convert.ToInt32(tbUseMasterBallAboveCp.Text);
+                _setting.PokemonConfig.UseGreatBallAboveIv = Convert.ToDouble(tbUseGreatBallAboveIv.Text);
+                _setting.PokemonConfig.UseUltraBallAboveIv = Convert.ToDouble(tbUseUltraBallAboveIv.Text);
                 _setting.PokemonConfig.UseGreatBallBelowCatchProbability =
-                    ConvertStringToDouble(tbUseGreatBallBelowCatchProbability.Text);
+                    Convert.ToDouble(tbUseGreatBallBelowCatchProbability.Text);
                 _setting.PokemonConfig.UseUltraBallBelowCatchProbability =
-                    ConvertStringToDouble(tbUseUltraBallBelowCatchProbability.Text);
+                    Convert.ToDouble(tbUseUltraBallBelowCatchProbability.Text);
                 _setting.PokemonConfig.UseMasterBallBelowCatchProbability =
-                    ConvertStringToDouble(tbUseMasterBallBelowCatchProbability.Text);
+                    Convert.ToDouble(tbUseMasterBallBelowCatchProbability.Text);
 
                 #endregion
 
                 #region Transfer
 
                 _setting.PokemonConfig.PrioritizeIvOverCp = cbPrioritizeIvOverCp.Checked;
-                _setting.PokemonConfig.KeepMinCp = ConvertStringToInt(tbKeepMinCp.Text);
+                _setting.PokemonConfig.KeepMinCp = Convert.ToInt32(tbKeepMinCp.Text);
                 _setting.PokemonConfig.KeepMinIvPercentage = ConvertStringToFloat(tbKeepMinIV.Text);
-                _setting.PokemonConfig.KeepMinLvl = ConvertStringToInt(tbKeepMinLvl.Text);
+                _setting.PokemonConfig.KeepMinLvl = Convert.ToInt32(tbKeepMinLvl.Text);
                 _setting.PokemonConfig.KeepMinOperator = cbKeepMinOperator.SelectedIndex == 0 ? "and" : "or";
                 _setting.PokemonConfig.TransferWeakPokemon = cbTransferWeakPokemon.Checked;
                 _setting.PokemonConfig.TransferDuplicatePokemon = cbTransferDuplicatePokemon.Checked;
                 _setting.PokemonConfig.TransferDuplicatePokemonOnCapture = cbTransferDuplicatePokemonOnCapture.Checked;
 
-                _setting.PokemonConfig.KeepMinDuplicatePokemon = ConvertStringToInt(tbKeepMinDuplicatePokemon.Text);
+                _setting.PokemonConfig.KeepMinDuplicatePokemon = Convert.ToInt32(tbKeepMinDuplicatePokemon.Text);
                 _setting.PokemonConfig.UseKeepMinLvl = cbUseKeepMinLvl.Checked;
                 _setting.PokemonsNotToTransfer = ConvertClbToList(clbTransfer);
 
@@ -545,7 +529,7 @@ namespace RocketBot2.Forms
                 _setting.PokemonConfig.OnlyUpgradeFavorites = cbPowerUpFav.Checked;
                 _setting.PokemonConfig.LevelUpByCPorIv = cbPowerUpType.SelectedIndex == 0 ? "iv" : "cp";
                 _setting.PokemonConfig.UpgradePokemonMinimumStatsOperator = cbPowerUpCondiction.SelectedIndex == 0 ? "and" : "or";
-                _setting.PokemonConfig.GetMinStarDustForLevelUp = ConvertStringToInt(cbPowerUpMinStarDust.Text);
+                _setting.PokemonConfig.GetMinStarDustForLevelUp = Convert.ToInt32(cbPowerUpMinStarDust.Text);
                 _setting.PokemonConfig.UpgradePokemonIvMinimum = ConvertStringToFloat(tbPowerUpMinIV.Text);
                 _setting.PokemonConfig.UpgradePokemonCpMinimum = ConvertStringToFloat(tbPowerUpMinCP.Text);
                 _setting.PokemonsToLevelUp = ConvertClbToList(clbPowerUp);
@@ -560,8 +544,8 @@ namespace RocketBot2.Forms
                 _setting.PokemonConfig.KeepPokemonsThatCanEvolve = cbKeepPokemonsThatCanEvolve.Checked;
                 _setting.PokemonConfig.UseLuckyEggsWhileEvolving = cbUseLuckyEggsWhileEvolving.Checked;
                 _setting.PokemonConfig.EvolveKeptPokemonsAtStorageUsagePercentage =
-                    ConvertStringToDouble(tbEvolveKeptPokemonsAtStorageUsagePercentage.Text);
-                _setting.PokemonConfig.UseLuckyEggsMinPokemonAmount = ConvertStringToInt(tbUseLuckyEggsMinPokemonAmount.Text);
+                    Convert.ToDouble(tbEvolveKeptPokemonsAtStorageUsagePercentage.Text);
+                _setting.PokemonConfig.UseLuckyEggsMinPokemonAmount = Convert.ToInt32(tbUseLuckyEggsMinPokemonAmount.Text);
                 //TODO:
                 //_setting.PokemonEvolveFilter = ConvertClbToList(clbEvolve);
 
@@ -573,13 +557,13 @@ namespace RocketBot2.Forms
 
                 _setting.PokemonConfig.UseLuckyEggConstantly = cbUseLuckyEggConstantly.Checked;
                 _setting.PokemonConfig.UseIncenseConstantly = cbUseIncenseConstantly.Checked;
-                _setting.RecycleConfig.TotalAmountOfPokeballsToKeep = ConvertStringToInt(tbTotalAmountOfPokeballsToKeep.Text);
-                _setting.RecycleConfig.TotalAmountOfPotionsToKeep = ConvertStringToInt(tbTotalAmountOfPotionsToKeep.Text);
-                _setting.RecycleConfig.TotalAmountOfRevivesToKeep = ConvertStringToInt(tbTotalAmountOfRevivesToKeep.Text);
-                _setting.RecycleConfig.TotalAmountOfBerriesToKeep = ConvertStringToInt(tbTotalAmountOfBerriesToKeep.Text);
+                _setting.RecycleConfig.TotalAmountOfPokeballsToKeep = Convert.ToInt32(tbTotalAmountOfPokeballsToKeep.Text);
+                _setting.RecycleConfig.TotalAmountOfPotionsToKeep = Convert.ToInt32(tbTotalAmountOfPotionsToKeep.Text);
+                _setting.RecycleConfig.TotalAmountOfRevivesToKeep = Convert.ToInt32(tbTotalAmountOfRevivesToKeep.Text);
+                _setting.RecycleConfig.TotalAmountOfBerriesToKeep = Convert.ToInt32(tbTotalAmountOfBerriesToKeep.Text);
                 _setting.RecycleConfig.VerboseRecycling = cbVerboseRecycling.Checked;
                 _setting.RecycleConfig.RecycleInventoryAtUsagePercentage =
-                    ConvertStringToDouble(tbRecycleInventoryAtUsagePercentage.Text);
+                    Convert.ToDouble(tbRecycleInventoryAtUsagePercentage.Text);
 
                 #endregion
 
@@ -587,23 +571,23 @@ namespace RocketBot2.Forms
 
                 _setting.LocationConfig.DisableHumanWalking = cbDisableHumanWalking.Checked;
                 _setting.LocationConfig.UseWalkingSpeedVariant = cbUseWalkingSpeedVariant.Checked;
-                _setting.LocationConfig.WalkingSpeedVariant = ConvertStringToDouble(tbWalkingSpeedVariantInKilometerPerHour.Text);
+                _setting.LocationConfig.WalkingSpeedVariant = Convert.ToDouble(tbWalkingSpeedVariantInKilometerPerHour.Text);
                 _setting.LocationConfig.ShowVariantWalking = cbShowWalkingSpeed.Checked;
-                _setting.LocationConfig.MaxSpawnLocationOffset = ConvertStringToInt(tbMaxSpawnLocationOffset.Text);
-                _setting.LocationConfig.MaxTravelDistanceInMeters = ConvertStringToInt(tbMaxTravelDistanceInMeters.Text);
-                _setting.PlayerConfig.DelayBetweenPlayerActions = ConvertStringToInt(tbDelayBetweenPlayerActions.Text);
-                _setting.PokemonConfig.DelayBetweenPokemonCatch = ConvertStringToInt(tbDelayBetweenPokemonCatch.Text);
+                _setting.LocationConfig.MaxSpawnLocationOffset = Convert.ToInt32(tbMaxSpawnLocationOffset.Text);
+                _setting.LocationConfig.MaxTravelDistanceInMeters = Convert.ToInt32(tbMaxTravelDistanceInMeters.Text);
+                _setting.PlayerConfig.DelayBetweenPlayerActions = Convert.ToInt32(tbDelayBetweenPlayerActions.Text);
+                _setting.PokemonConfig.DelayBetweenPokemonCatch = Convert.ToInt32(tbDelayBetweenPokemonCatch.Text);
                 _setting.RecycleConfig.RandomizeRecycle = cbRandomizeRecycle.Checked;
-                _setting.RecycleConfig.RandomRecycleValue = ConvertStringToInt(tbRandomRecycleValue.Text);
+                _setting.RecycleConfig.RandomRecycleValue = Convert.ToInt32(tbRandomRecycleValue.Text);
                 _setting.CustomCatchConfig.EnableHumanizedThrows = cbEnableHumanizedThrows.Checked;
-                _setting.CustomCatchConfig.NiceThrowChance = ConvertStringToInt(tbNiceThrowChance.Text);
-                _setting.CustomCatchConfig.GreatThrowChance = ConvertStringToInt(tbGreatThrowChance.Text);
-                _setting.CustomCatchConfig.ExcellentThrowChance = ConvertStringToInt(tbExcellentThrowChance.Text);
-                _setting.CustomCatchConfig.CurveThrowChance = ConvertStringToInt(tbCurveThrowChance.Text);
-                _setting.CustomCatchConfig.ForceGreatThrowOverIv = ConvertStringToDouble(tbForceGreatThrowOverIv.Text);
-                _setting.CustomCatchConfig.ForceExcellentThrowOverIv = ConvertStringToDouble(tbForceExcellentThrowOverIv.Text);
-                _setting.CustomCatchConfig.ForceGreatThrowOverCp = ConvertStringToInt(tbForceGreatThrowOverCp.Text);
-                _setting.CustomCatchConfig.ForceExcellentThrowOverCp = ConvertStringToInt(tbForceExcellentThrowOverCp.Text);
+                _setting.CustomCatchConfig.NiceThrowChance = Convert.ToInt32(tbNiceThrowChance.Text);
+                _setting.CustomCatchConfig.GreatThrowChance = Convert.ToInt32(tbGreatThrowChance.Text);
+                _setting.CustomCatchConfig.ExcellentThrowChance = Convert.ToInt32(tbExcellentThrowChance.Text);
+                _setting.CustomCatchConfig.CurveThrowChance = Convert.ToInt32(tbCurveThrowChance.Text);
+                _setting.CustomCatchConfig.ForceGreatThrowOverIv = Convert.ToInt32(tbForceGreatThrowOverIv.Text);
+                _setting.CustomCatchConfig.ForceExcellentThrowOverIv = Convert.ToInt32(tbForceExcellentThrowOverIv.Text);
+                _setting.CustomCatchConfig.ForceGreatThrowOverCp = Convert.ToInt32(tbForceGreatThrowOverCp.Text);
+                _setting.CustomCatchConfig.ForceExcellentThrowOverCp = Convert.ToInt32(tbForceExcellentThrowOverCp.Text);
                 _setting.GymConfig.Enable = cbEnableGyms.Checked;
                 _setting.DataSharingConfig.AutoSnipe = cbAutoSniper.Checked;
                 _setting.DataSharingConfig.DataServiceIdentification = tbDataServiceIdentification.Text;
@@ -651,12 +635,12 @@ namespace RocketBot2.Forms
 
         private void latitudeText_Leave(object sender, EventArgs e)
         {
-            UpdateMapLocation(ConvertStringToDouble(tbLatitude.Text), ConvertStringToDouble(tbLongitude.Text));
+            UpdateMapLocation(Convert.ToDouble(tbLatitude.Text), Convert.ToDouble(tbLongitude.Text));
         }
 
         private void longitudeText_Leave(object sender, EventArgs e)
         {
-            UpdateMapLocation(ConvertStringToDouble(tbLatitude.Text), ConvertStringToDouble(tbLongitude.Text));
+            UpdateMapLocation(Convert.ToDouble(tbLatitude.Text), Convert.ToDouble(tbLongitude.Text));
         }
 
         private void AdressBox_Enter(object sender, EventArgs e)

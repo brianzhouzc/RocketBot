@@ -560,12 +560,9 @@ namespace RocketBot2.Forms
             _excelConfigAllow = excelConfigAllow;
         }
 
-#pragma warning disable 1998
-        private async Task StartBot()
+        private Task StartBot()
         {
-#pragma warning disable 4014
             _machine.AsyncStart(new Logic.State.VersionCheckState(), _session, _subPath, _excelConfigAllow);
-         
             try
             {
                 Console.Clear();
@@ -623,9 +620,8 @@ namespace RocketBot2.Forms
             }
 
             QuitEvent.WaitOne();
-#pragma warning restore 4014
+            return null;
         }
-#pragma warning restore 1998
 
         private Task InitializePokestopsAndRoute()
         {
@@ -693,7 +689,7 @@ namespace RocketBot2.Forms
             return null;
         }
 		
-        private void Navigation_UpdatePositionEvent(double lat, double lng)
+        private Task Navigation_UpdatePositionEvent(double lat, double lng)
         {
             var latlng = new PointLatLng(lat, lng);
             _playerLocations.Add(latlng);
@@ -711,6 +707,7 @@ namespace RocketBot2.Forms
             }, null);
             _currentLatLng = latlng;
             UpdateMap();
+            return null;
         }
 
         private void showMoreCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -790,13 +787,13 @@ namespace RocketBot2.Forms
 
                 if (encounterPokemonsCount > 5 || encounterPokemonsCount == 0)
                 {
-                    Task.Run(InitializePokestopsAndRoute).ConfigureAwait(false);
+                    Task.Run(InitializePokestopsAndRoute);
                     encounterPokemonsCount = 0;
                 }
 
                 encounterPokemonsCount++;
                 _playerRouteOverlay.Routes.Clear();
-                Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
+                Task.Run(() => Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude));
                 _playerRouteOverlay.Routes.Add(routes);
             }, null);
         }
@@ -900,7 +897,7 @@ namespace RocketBot2.Forms
                 return;
             }
             Instance.speedLable.Text = text;
-            Instance.Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
+            Task.Run(() => Instance.Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude));
             Instance.showMoreCheckBox.Enabled = Instance._botStarted;
         }
 
