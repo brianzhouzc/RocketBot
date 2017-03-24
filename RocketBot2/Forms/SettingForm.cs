@@ -485,7 +485,7 @@ namespace RocketBot2.Forms
 
                 _setting.LocationConfig.DefaultLatitude = ConvertStringToDouble(tbLatitude.Text);
                 _setting.LocationConfig.DefaultLongitude = ConvertStringToDouble(tbLongitude.Text);
-                _setting.LocationConfig.WalkingSpeedInKilometerPerHour = ConvertStringToInt(tbWalkingSpeed.Text);
+                _setting.LocationConfig.WalkingSpeedInKilometerPerHour = ConvertStringToDouble(tbWalkingSpeed.Text);
 
                 #endregion
 
