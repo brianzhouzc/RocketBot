@@ -242,6 +242,7 @@
             this.label59 = new System.Windows.Forms.Label();
             this.tbMaxTravelDistanceInMeters = new System.Windows.Forms.TextBox();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
+            this.cbUseHumanlikeDelays = new System.Windows.Forms.CheckBox();
             this.label49 = new System.Windows.Forms.Label();
             this.tbDelayBetweenPlayerActions = new System.Windows.Forms.TextBox();
             this.label50 = new System.Windows.Forms.Label();
@@ -1415,7 +1416,7 @@
             this.clbIgnore.Location = new System.Drawing.Point(3, 49);
             this.clbIgnore.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbIgnore.Name = "clbIgnore";
-            this.clbIgnore.Size = new System.Drawing.Size(416, 224);
+            this.clbIgnore.Size = new System.Drawing.Size(416, 180);
             this.clbIgnore.TabIndex = 0;
             // 
             // tBMaxBerriesToUsePerPokemon
@@ -1477,7 +1478,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(412, 470);
+            this.groupBox1.Size = new System.Drawing.Size(412, 478);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Exclude Transfer";
@@ -1822,7 +1823,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox4.Size = new System.Drawing.Size(413, 470);
+            this.groupBox4.Size = new System.Drawing.Size(413, 478);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Power Up";
@@ -2002,7 +2003,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox3.Size = new System.Drawing.Size(412, 477);
+            this.groupBox3.Size = new System.Drawing.Size(412, 485);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Evolve";
@@ -2529,6 +2530,7 @@
             // 
             // groupBox15
             // 
+            this.groupBox15.Controls.Add(this.cbUseHumanlikeDelays);
             this.groupBox15.Controls.Add(this.label49);
             this.groupBox15.Controls.Add(this.tbDelayBetweenPlayerActions);
             this.groupBox15.Controls.Add(this.label50);
@@ -2539,6 +2541,16 @@
             this.groupBox15.TabIndex = 18;
             this.groupBox15.TabStop = false;
             this.groupBox15.Text = "Action Behavior";
+            // 
+            // cbUseHumanlikeDelays
+            // 
+            this.cbUseHumanlikeDelays.AutoSize = true;
+            this.cbUseHumanlikeDelays.Location = new System.Drawing.Point(10, 84);
+            this.cbUseHumanlikeDelays.Name = "cbUseHumanlikeDelays";
+            this.cbUseHumanlikeDelays.Size = new System.Drawing.Size(170, 24);
+            this.cbUseHumanlikeDelays.TabIndex = 16;
+            this.cbUseHumanlikeDelays.Text = "UseHumanlikeDelays";
+            this.cbUseHumanlikeDelays.UseVisualStyleBackColor = true;
             // 
             // label49
             // 
@@ -2928,5 +2940,6 @@
         private System.Windows.Forms.CheckBox cbEnableGyms;
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.TextBox tbDataServiceIdentification;
+        private System.Windows.Forms.CheckBox cbUseHumanlikeDelays;
     }
 }

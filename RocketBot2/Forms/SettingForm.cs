@@ -99,7 +99,7 @@ namespace RocketBot2.Forms
             //disable map focus
             gMapCtrl.DisableFocusOnMouseEnter = true;
 
-            tbWalkingSpeed.Text = _setting.LocationConfig.WalkingSpeedVariant.ToString(CultureInfo.InvariantCulture);
+            tbWalkingSpeed.Text = _setting.LocationConfig.WalkingSpeedInKilometerPerHour.ToString(CultureInfo.InvariantCulture);
 
             #endregion
 
@@ -272,6 +272,7 @@ namespace RocketBot2.Forms
             cbAutoSniper.Checked = _setting.DataSharingConfig.AutoSnipe;
             cbEnableGyms.Checked = _setting.GymConfig.Enable;
             tbDataServiceIdentification.Text = _setting.DataSharingConfig.DataServiceIdentification;
+            cbUseHumanlikeDelays.Checked = _setting.HumanlikeDelays.UseHumanlikeDelays;
         }
             #endregion
 
@@ -591,6 +592,7 @@ namespace RocketBot2.Forms
                 _setting.GymConfig.Enable = cbEnableGyms.Checked;
                 _setting.DataSharingConfig.AutoSnipe = cbAutoSniper.Checked;
                 _setting.DataSharingConfig.DataServiceIdentification = tbDataServiceIdentification.Text;
+                _setting.HumanlikeDelays.UseHumanlikeDelays = cbUseHumanlikeDelays.Checked;
 
                 #endregion
 
