@@ -689,7 +689,7 @@ namespace RocketBot2.Forms
             return null;
         }
 		
-        private Task Navigation_UpdatePositionEvent(double lat, double lng)
+        private void Navigation_UpdatePositionEvent(double lat, double lng)
         {
             var latlng = new PointLatLng(lat, lng);
             _playerLocations.Add(latlng);
@@ -707,7 +707,6 @@ namespace RocketBot2.Forms
             }, null);
             _currentLatLng = latlng;
             UpdateMap();
-            return null;
         }
 
         private void showMoreCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -793,7 +792,7 @@ namespace RocketBot2.Forms
 
                 encounterPokemonsCount++;
                 _playerRouteOverlay.Routes.Clear();
-                Task.Run(() => Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude));
+                Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
                 _playerRouteOverlay.Routes.Add(routes);
             }, null);
         }
@@ -897,7 +896,7 @@ namespace RocketBot2.Forms
                 return;
             }
             Instance.speedLable.Text = text;
-            Task.Run(() => Instance.Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude));
+            Instance.Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
             Instance.showMoreCheckBox.Enabled = Instance._botStarted;
         }
 
@@ -989,8 +988,6 @@ namespace RocketBot2.Forms
 
         private void InitializePokemonForm()
         {
-            //olvPokemonList.ButtonClick += PokemonListButton_Click;
-
             pkmnName.ImageGetter = delegate (object rowObject)
             {
                 var pokemon = rowObject as PokemonObject;
@@ -1098,7 +1095,6 @@ namespace RocketBot2.Forms
                     }
                 };
                 cmsPokemonList.Items.Add(item);
-
          };
         }
 
@@ -1227,7 +1223,7 @@ namespace RocketBot2.Forms
                 newName.Replace("{IS}", Convert.ToString(pokemon.IndividualStamina));
                 if (nickname.Length > 12)
                 {
-                    Logger.Write($"\"{newName}\" is too long, please choose another name");
+                    Logger.Write($"\"{newName}\" is too long, please choose another name", LogLevel.Error);
                     if (pokemonDatas.Count() == 1)
                     {
                         SetState(true);
@@ -1287,7 +1283,7 @@ namespace RocketBot2.Forms
                 var _totalData = PokeDex.Count();
 
                 lblPokemonList.Text = _session.Translation.GetTranslation(TranslationString.AmountPkmSeenCaught, _totalData, _totalCaptures) +
-                    $" / Storage: {_session.Client.Player.PlayerData.MaxPokemonStorage} ({pokemons.Count()} Pokémons, {_session.Inventory.GetEggs().Result.Count()} Eggs)";
+                    $" | Storage: {_session.Client.Player.PlayerData.MaxPokemonStorage} ({pokemons.Count()} Pokémons, {_session.Inventory.GetEggs().Result.Count()} Eggs)";
 
                 var items =
                     _session.Inventory.GetItems().Result
@@ -1300,14 +1296,7 @@ namespace RocketBot2.Forms
                     .SelectMany(aItems => aItems.Item)
                     .ToDictionary(item => item.ItemId, item => new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(item.ExpireMs));
 
-                try
-                {
-                    flpItems.Controls.Clear();
-                }
-                catch
-                {
-                    //not implanted
-                }
+                flpItems.Controls.Clear();
 
                 foreach (var item in items)
                 {
@@ -1321,7 +1310,7 @@ namespace RocketBot2.Forms
                 }
 
                 lblInventory.Text =
-                        $"Types: {items.Count()} / Total: {_session.Inventory.GetTotalItemCount().Result} / Storage: {_session.Client.Player.PlayerData.MaxItemStorage}";
+                        $"Types: {items.Count()} | Total: {_session.Inventory.GetTotalItemCount().Result} | Storage: {_session.Client.Player.PlayerData.MaxItemStorage}";
             }
             catch (ArgumentNullException)
             {
