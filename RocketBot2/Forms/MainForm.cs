@@ -560,11 +560,8 @@ namespace RocketBot2.Forms
             _excelConfigAllow = excelConfigAllow;
         }
 
-#pragma warning disable 1998
-        private async Task StartBot()
-#pragma warning restore 1998
+        private Task StartBot()
         {
-            #pragma warning disable 4014
             _machine.AsyncStart(new Logic.State.VersionCheckState(), _session, _subPath, _excelConfigAllow);
 
             try
@@ -624,12 +621,11 @@ namespace RocketBot2.Forms
             }
 
             QuitEvent.WaitOne();
-            #pragma warning restore 4014
+            return Task.CompletedTask;
+            //return new Task(() => { });
         }
 
-#pragma warning disable 1998
-        private async Task InitializePokestopsAndRoute()
-#pragma warning restore 1998
+        private  Task InitializePokestopsAndRoute()
         {               
             //get optimized route
             var pokeStops = RouteOptimizeUtil.Optimize(_session.Forts.ToArray(), _session.Client.CurrentLatitude,
@@ -692,6 +688,7 @@ namespace RocketBot2.Forms
                     _pokestopsOverlay.Markers.Add(pokestopMarker);
                 }
             }, null);
+            return Task.CompletedTask;
         }
 
         private void Navigation_UpdatePositionEvent(double lat, double lng)

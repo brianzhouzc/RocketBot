@@ -168,6 +168,9 @@ namespace RocketBot2.Helpers
         }
         public static Image GetPokemonImage(int pokemonId)
         {
+            return LoadPicture($"http://assets.pokemon.com/assets/cms2/img/pokedex/full/{(int)pokemonId:000}.png");
+
+            /*
             if (pokemonId > 151)
             {
                return  LoadPicture($"https://rankedboost.com/wp-content/plugins/ice/riot/poksimages/pokemons2/{pokemonId:000}.png");
@@ -176,8 +179,8 @@ namespace RocketBot2.Helpers
             {
                return LoadPicture($"https://rankedboost.com/wp-content/plugins/ice/riot/poksimages/pokemons/{pokemonId:000}.png");
             }
+            */
         }
-
 #region Image Utilities
 
         /// <summary>
