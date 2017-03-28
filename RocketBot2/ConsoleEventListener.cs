@@ -295,6 +295,7 @@ namespace RocketBot2
                     pokemonCaptureEvent.Longitude.ToString("0.000000"),
                     pokemonCaptureEvent.Move1, pokemonCaptureEvent.Move2, pokemonCaptureEvent.Rarity,
                     pokemonCaptureEvent.CaptureReason,
+                    pokemonCaptureEvent.Shiny,
                     pokemonCaptureEvent.Gender
                 );
                 Logger.Write(message, LogLevel.Caught);
@@ -485,8 +486,6 @@ namespace RocketBot2
                 session.Translation.GetTranslation(TranslationString.LoggingIn, e.AuthType, e.Username),
                 LogLevel.Info, ConsoleColor.DarkYellow
             );
-            //activate auto refresh
-            MainForm.Instance.checkBoxAutoRefresh.CheckState = System.Windows.Forms.CheckState.Indeterminate;
         }
 
         private static void HandleEvent(UpdatePositionEvent event1, ISession session)

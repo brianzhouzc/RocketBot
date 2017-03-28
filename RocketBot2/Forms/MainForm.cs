@@ -625,8 +625,10 @@ namespace RocketBot2.Forms
             //return new Task(() => { });
         }
 
-        private  Task InitializePokestopsAndRoute()
-        {               
+        #region UPDATEMAP
+
+        private Task InitializePokestopsAndRoute()
+        {
             //get optimized route
             var pokeStops = RouteOptimizeUtil.Optimize(_session.Forts.ToArray(), _session.Client.CurrentLatitude,
                     _session.Client.CurrentLongitude);
@@ -710,53 +712,6 @@ namespace RocketBot2.Forms
             _currentLatLng = latlng;
             UpdateMap();
         }
-
-        private void showMoreCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (showMoreCheckBox.Checked)
-            {
-                followTrainerCheckBox.Visible = true;
-                togglePrecalRoute.Visible = true;
-            }
-            else
-            {
-                followTrainerCheckBox.Visible = false;
-                togglePrecalRoute.Visible = false;
-            }
-        }
-
-        private void followTrainerCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (followTrainerCheckBox.Checked)
-            {
-                gMapControl1.CanDragMap = false;
-                gMapControl1.Position = _currentLatLng;
-            }
-            else
-            {
-                gMapControl1.CanDragMap = true;
-            }
-        }
-
-        private void togglePrecalRoute_CheckedChanged(object sender, EventArgs e)
-        {
-            SynchronizationContext.Post(o =>
-            {
-                if (togglePrecalRoute.Checked)
-                {
-                    _pokestopsOverlay.Routes.Clear();
-                    var route = new GMapRoute(_routePoints, "Walking Path")
-                    {
-                        Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
-                    };
-                    _pokestopsOverlay.Routes.Add(route);
-                    return;
-                }
-                _pokestopsOverlay.Routes.Clear();
-            }, null);
-        }
-
-        #region UPDATEMAP
 
         private void UpdateMap()
         {
@@ -913,6 +868,9 @@ namespace RocketBot2.Forms
             Instance.statusLabel.Text = text;
             Console.Title = text;
 
+            //activate auto refresh
+            Instance.btnRefresh.Enabled = !Instance.checkBoxAutoRefresh.Checked;
+
             if (checkBoxAutoRefresh.Checked)
                 await ReloadPokemonList().ConfigureAwait(false);
         }
@@ -982,6 +940,56 @@ namespace RocketBot2.Forms
                 else
                     en.Enabled = true;
             }
+        }
+
+        private void showMoreCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (showMoreCheckBox.Checked)
+            {
+                followTrainerCheckBox.Visible = true;
+                togglePrecalRoute.Visible = true;
+            }
+            else
+            {
+                followTrainerCheckBox.Visible = false;
+                togglePrecalRoute.Visible = false;
+            }
+        }
+
+        private void followTrainerCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (followTrainerCheckBox.Checked)
+            {
+                gMapControl1.CanDragMap = false;
+                gMapControl1.Position = _currentLatLng;
+            }
+            else
+            {
+                gMapControl1.CanDragMap = true;
+            }
+        }
+
+        private void togglePrecalRoute_CheckedChanged(object sender, EventArgs e)
+        {
+            SynchronizationContext.Post(o =>
+            {
+                if (togglePrecalRoute.Checked)
+                {
+                    _pokestopsOverlay.Routes.Clear();
+                    var route = new GMapRoute(_routePoints, "Walking Path")
+                    {
+                        Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
+                    };
+                    _pokestopsOverlay.Routes.Add(route);
+                    return;
+                }
+                _pokestopsOverlay.Routes.Clear();
+            }, null);
+        }
+
+        private void checkBoxAutoRefresh_CheckedChanged(object sender, EventArgs e)
+        {
+            Instance.btnRefresh.Enabled = !Instance.checkBoxAutoRefresh.Checked;
         }
 
         #endregion EVENTS
@@ -1244,7 +1252,12 @@ namespace RocketBot2.Forms
 
         private async Task ReloadPokemonList()
         {
-            if (!_botStarted) return;
+            if (!_botStarted)
+            {
+                Logger.Write("Please start the bot or wait until login is finished before loading Pokemon List",
+                    LogLevel.Warning);
+                return;
+            }
             SetState(false);
             try
             {

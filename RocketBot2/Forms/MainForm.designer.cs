@@ -513,6 +513,7 @@ namespace RocketBot2.Forms
             this.checkBoxAutoRefresh.TabIndex = 34;
             this.checkBoxAutoRefresh.Text = "Auto Resfresh";
             this.checkBoxAutoRefresh.UseVisualStyleBackColor = true;
+            this.checkBoxAutoRefresh.CheckedChanged += new System.EventHandler(this.checkBoxAutoRefresh_CheckedChanged);
             // 
             // lblInventory
             // 
