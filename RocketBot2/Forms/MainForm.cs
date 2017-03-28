@@ -1377,7 +1377,7 @@ namespace RocketBot2.Forms
 
         private void SetState(bool state)
         {
-            btnRefresh.Enabled = state;
+            Instance.btnRefresh.Enabled = state;
         }
 
         #endregion POKEMON LIST
