@@ -5,6 +5,7 @@ using POGOProtos.Enums;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Settings.Master;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace RocketBot2.Helpers
@@ -52,14 +53,14 @@ namespace RocketBot2.Helpers
 
     public class PokemonObject
     {
-        private ISession Session { get; set; }
+        private static ISession Session;
         public PokemonData PokemonData { get; }
         public static bool _initialized { get; set; }
         public static Dictionary<PokemonId, int> CandyToEvolveDict = new Dictionary<PokemonId, int>();
 
         public PokemonObject(ISession session, PokemonData pokemonData)
         {
-            this.Session = session;
+            Session = session;
             this.PokemonData = pokemonData;
         }
 
@@ -110,19 +111,19 @@ namespace RocketBot2.Helpers
 
         public string Move1
         {
-            get { return this.Session.Translation.GetPokemonMovesetTranslation(this.PokemonData.Move1); }
+            get { return Session.Translation.GetPokemonMovesetTranslation(this.PokemonData.Move1); }
         }
 
         public string Move2
         {
-            get { return this.Session.Translation.GetPokemonMovesetTranslation(this.PokemonData.Move2); }
+            get { return Session.Translation.GetPokemonMovesetTranslation(this.PokemonData.Move2); }
         }
 
         public int Candy
         {
             get
             {
-                return this.Session.Inventory.GetCandyCount(this.PokemonData.PokemonId).Result;
+                return Session.Inventory.GetCandyCount(this.PokemonData.PokemonId).Result;
             }
         }
 
@@ -162,7 +163,7 @@ namespace RocketBot2.Helpers
         {
             get
             {
-                return this.Session.Inventory.CanUpgradePokemon(this.PokemonData).Result;
+                return Session.Inventory.CanUpgradePokemon(this.PokemonData).Result;
             }
         }
 
@@ -170,7 +171,7 @@ namespace RocketBot2.Helpers
         {
             get
             {
-                return this.Session.Inventory.CanEvolvePokemon(this.PokemonData).Result;
+                return Session.Inventory.CanEvolvePokemon(this.PokemonData).Result;
             }
         }
 
@@ -178,12 +179,21 @@ namespace RocketBot2.Helpers
         {
             get
             {
-                return this.Session.Inventory.CanTransferPokemon(this.PokemonData);
+                return Session.Inventory.CanTransferPokemon(this.PokemonData);
+            }
+        }
+
+        public Image Icon
+        {
+            get
+            {
+                return ResourceHelper.GetPokemonImage((int)this.PokemonData.PokemonId);
             }
         }
                
-        public static void Initilize(List<PokemonSettings> templates)
+        public static void Initilize(ISession session, List<PokemonSettings> templates)
         {
+            Session = session;
             if (!_initialized)
             {
                 _initialized = true;
