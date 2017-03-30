@@ -131,13 +131,14 @@ namespace RocketBot2.Forms
             gMapControl1.Overlays.Add(_playerOverlay);
             gMapControl1.Overlays.Add(_playerRouteOverlay);
 
-            _playerMarker = new GMapMarkerTrainer(new PointLatLng(lat, lng), ResourceHelper.GetImage("PlayerLocation", 50, 50));
+            _playerMarker = new GMapMarkerTrainer(new PointLatLng(lat, lng), ResourceHelper.GetImage("PlayerLocation", 0, false, 50, 50));
             _playerOverlay.Markers.Add(_playerMarker);
             _playerMarker.Position = new PointLatLng(lat, lng);
             _searchAreaOverlay.Polygons.Clear();
             S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(lng, lat), _searchAreaOverlay);
         }
 
+        #region Bot 
         private void InitializeBot(Action<ISession, StatisticsAggregator> onBotStarted)
         {
             var ioc = TinyIoC.TinyIoCContainer.Current;
@@ -620,6 +621,7 @@ namespace RocketBot2.Forms
             return Task.CompletedTask;
             //return new Task(() => { });
         }
+        #endregion
 
         #region UPDATEMAP
 
@@ -699,8 +701,8 @@ namespace RocketBot2.Forms
                 _playerOverlay.Markers.Remove(_playerMarker);
                 if (!_currentLatLng.IsEmpty)
                     _playerMarker = _currentLatLng.Lng < latlng.Lng
-                        ? new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("PlayerLocation2", 50, 50))
-                        : new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("PlayerLocation", 50, 50));
+                        ? new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("PlayerLocation2", 0, false, 50, 50))
+                        : new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("PlayerLocation", 0, false, 50, 50));
                 _playerOverlay.Markers.Add(_playerMarker);
                 if (followTrainerCheckBox.Checked)
                     gMapControl1.Position = latlng;
@@ -780,7 +782,7 @@ namespace RocketBot2.Forms
             {
                 foreach (var pokemon in encounterPokemons)
                 {
-                    var pkmImage = ResourceHelper.GetImage("Pokemon_" + pokemon.PokemonId.GetHashCode(), 36, 36);
+                    var pkmImage = ResourceHelper.GetImage(null, pokemon.PokemonId.GetHashCode(), pokemon.PokemonDisplay.Shiny, 48, 48);
                     var pointLatLng = new PointLatLng(pokemon.Latitude, pokemon.Longitude);
                     GMapMarker pkmMarker = new GMapMarkerTrainer(pointLatLng, pkmImage);
                     _pokemonsOverlay.Markers.Add(pkmMarker);
@@ -1202,7 +1204,7 @@ namespace RocketBot2.Forms
                 foreach (var to in pok.EvolutionBranchs)
                 {
                     var item = new PictureBox();
-                    item.Image = ResourceHelper.GetImage("Pokemon_" + to.Pokemon.GetHashCode(), item.Height, item.Width);
+                    item.Image = ResourceHelper.GetImage(null, to.Pokemon.GetHashCode(), pokemon.PokemonDisplay.Shiny, item.Height, item.Width);
                     item.Click += async delegate
                     {
                         await Task.Run(async () => { await EvolveSpecificPokemonTask.Execute(_session, to.OriginPokemonId, to.Pokemon); });

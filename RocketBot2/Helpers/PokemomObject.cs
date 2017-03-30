@@ -65,7 +65,7 @@ namespace RocketBot2.Helpers
         }
 
         public ulong Id
-        {           
+        {
             get { return this.PokemonData.Id; }
         }
 
@@ -96,7 +96,7 @@ namespace RocketBot2.Helpers
 
         public double GetIV
         {
-            get { return PokemonInfo.CalculatePokemonPerfection(this.PokemonData)/100; }
+            get { return PokemonInfo.CalculatePokemonPerfection(this.PokemonData) / 100; }
         }
 
         public double GetLv
@@ -145,7 +145,7 @@ namespace RocketBot2.Helpers
             {
                 if (CandyToEvolve > 0)
                 {
-                    return Candy/CandyToEvolve;
+                    return Candy / CandyToEvolve;
                 }
                 return 0;
             }
@@ -187,10 +187,10 @@ namespace RocketBot2.Helpers
         {
             get
             {
-                return ResourceHelper.GetPokemonImage((int)this.PokemonData.PokemonId);
+                return ResourceHelper.GetPokemonImage((int)this.PokemonData.PokemonId, this.PokemonData.PokemonDisplay.Shiny);
             }
         }
-               
+             
         public static void Initilize(ISession session, List<PokemonSettings> templates)
         {
             Session = session;
