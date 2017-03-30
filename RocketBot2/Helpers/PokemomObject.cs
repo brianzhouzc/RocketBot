@@ -51,17 +51,18 @@ namespace RocketBot2.Helpers
         }
     }
 
-    public class PokemonObject
+    public class PokemonObject 
     {
         private static ISession Session;
-        public PokemonData PokemonData { get; }
+        //private PokemonSettings setting;
+        public PokemonData PokemonData { get; set; }
         public static bool _initialized { get; set; }
         public static Dictionary<PokemonId, int> CandyToEvolveDict = new Dictionary<PokemonId, int>();
 
         public PokemonObject(ISession session, PokemonData pokemonData)
         {
-            Session = session;
-            this.PokemonData = pokemonData;
+            //Session = session;
+            PokemonData = pokemonData;
         }
 
         public ulong Id
@@ -187,10 +188,13 @@ namespace RocketBot2.Helpers
         {
             get
             {
-                return ResourceHelper.GetPokemonImage((int)this.PokemonData.PokemonId, this.PokemonData.PokemonDisplay.Shiny);
+                return ResourceHelper.GetPokemonImage((int)this.PokemonData.PokemonId, this.Shiny);
             }
         }
-             
+
+        public bool Shiny => this.PokemonData.PokemonDisplay.Shiny ? true : false;
+        public string Sex => this.PokemonData.PokemonDisplay.Gender.ToString();
+
         public static void Initilize(ISession session, List<PokemonSettings> templates)
         {
             Session = session;

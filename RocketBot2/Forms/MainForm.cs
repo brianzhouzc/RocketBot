@@ -782,7 +782,8 @@ namespace RocketBot2.Forms
             {
                 foreach (var pokemon in encounterPokemons)
                 {
-                    var pkmImage = ResourceHelper.GetImage(null, pokemon.PokemonId.GetHashCode(), pokemon.PokemonDisplay.Shiny, 48, 48);
+                    bool Shiny = pokemon.PokemonDisplay.Shiny ? true : false;
+                    var pkmImage = ResourceHelper.GetImage(null, pokemon.PokemonId.GetHashCode(), Shiny, 36, 36);
                     var pointLatLng = new PointLatLng(pokemon.Latitude, pokemon.Longitude);
                     GMapMarker pkmMarker = new GMapMarkerTrainer(pointLatLng, pkmImage);
                     _pokemonsOverlay.Markers.Add(pkmMarker);
