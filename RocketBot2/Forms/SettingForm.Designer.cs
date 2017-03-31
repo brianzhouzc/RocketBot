@@ -247,6 +247,8 @@
             this.tbDelayBetweenPlayerActions = new System.Windows.Forms.TextBox();
             this.label50 = new System.Windows.Forms.Label();
             this.tbDelayBetweenPokemonCatch = new System.Windows.Forms.TextBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.JsonTreeView = new System.Windows.Forms.TreeView();
             this.saveBtn = new System.Windows.Forms.Button();
             this.cbAutoSniper = new System.Windows.Forms.CheckBox();
             this.cbEnableGyms = new System.Windows.Forms.CheckBox();
@@ -283,6 +285,7 @@
             this.groupBox17.SuspendLayout();
             this.groupBox16.SuspendLayout();
             this.groupBox15.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelBtn
@@ -307,6 +310,7 @@
             this.tabControl.Controls.Add(this.tabPokemon);
             this.tabControl.Controls.Add(this.tabItems);
             this.tabControl.Controls.Add(this.tabAdvSetting);
+            this.tabControl.Controls.Add(this.tabPage1);
             this.tabControl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
@@ -2586,6 +2590,28 @@
             this.tbDelayBetweenPokemonCatch.Size = new System.Drawing.Size(123, 27);
             this.tbDelayBetweenPokemonCatch.TabIndex = 15;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.JsonTreeView);
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(964, 473);
+            this.tabPage1.TabIndex = 5;
+            this.tabPage1.Text = "Config.json";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // JsonTreeView
+            // 
+            this.JsonTreeView.AllowDrop = true;
+            this.JsonTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JsonTreeView.LabelEdit = true;
+            this.JsonTreeView.Location = new System.Drawing.Point(3, 3);
+            this.JsonTreeView.Margin = new System.Windows.Forms.Padding(4);
+            this.JsonTreeView.Name = "JsonTreeView";
+            this.JsonTreeView.Size = new System.Drawing.Size(958, 467);
+            this.JsonTreeView.TabIndex = 1;
+            // 
             // saveBtn
             // 
             this.saveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -2712,6 +2738,7 @@
             this.groupBox16.PerformLayout();
             this.groupBox15.ResumeLayout(false);
             this.groupBox15.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2941,5 +2968,7 @@
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.TextBox tbDataServiceIdentification;
         private System.Windows.Forms.CheckBox cbUseHumanlikeDelays;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TreeView JsonTreeView;
     }
 }

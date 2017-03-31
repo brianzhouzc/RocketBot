@@ -256,6 +256,7 @@
     <Compile Include="Logic\State\VersionCheckState.cs" />
     <Compile Include="Models\GMapMarkerPokestops.cs" />
     <Compile Include="Models\GMapMarkerTrainer.cs" />
+    <Compile Include="Forms\advSettings\JsonTreeViewLoader.cs" />
     <Compile Include="Forms\NicknamePokemonForm.cs">
       <SubType>Form</SubType>
     </Compile>

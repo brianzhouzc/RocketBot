@@ -3,6 +3,7 @@ using GMap.NET.MapProviders;
 using PoGo.NecroBot.Logic.Model.Settings;
 using POGOProtos.Enums;
 using PokemonGo.RocketAPI.Enums;
+using RocketBot2.Forms.advSettings;
 using RocketBot2.Helpers;
 using RocketBot2.Win32;
 using System;
@@ -27,7 +28,6 @@ namespace RocketBot2.Forms
         private readonly DeviceHelper _deviceHelper;
         private readonly List<DeviceInfo> _deviceInfos;
         private readonly GlobalSettings _settings;
-        private TabPage _tabAdvSettingTab;
 
         public SettingsForm(ref GlobalSettings settings)
         {
@@ -46,6 +46,12 @@ namespace RocketBot2.Forms
                 clbPowerUp.Items.Add(pokemon);
                 clbEvolve.Items.Add(pokemon);
             }
+
+            StreamReader sr = new StreamReader(ConfigFilePath);
+            //textView.Text = sr.ReadToEnd();
+
+            JsonTreeView.LoadJsonToTreeView(sr.ReadToEnd());
+            //JsonTreeView.ExpandAll();
         }
 
         #region Advanced Setting Init
@@ -56,8 +62,6 @@ namespace RocketBot2.Forms
             var  languageIndex = languageList.IndexOf(_settings.ConsoleConfig.TranslationLanguageCode);
             cbLanguage.DataSource = languageList;
             cbLanguage.SelectedIndex = languageIndex == -1 ? 0 : languageIndex;
-
-            _tabAdvSettingTab = tabAdvSetting;
             
             #endregion
 
