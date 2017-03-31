@@ -1,9 +1,12 @@
-﻿using PoGo.NecroBot.Logic.PoGoUtils;
+﻿using PoGo.NecroBot.Logic.Model;
+using PoGo.NecroBot.Logic.PoGoUtils;
 using PoGo.NecroBot.Logic.State;
 using POGOProtos.Data;
 using POGOProtos.Enums;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Settings.Master;
+using PokemonGo.RocketAPI.Util;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -24,20 +27,18 @@ namespace RocketBot2.Helpers
         private static ISession Session;
         private PokemonSettings setting;
         public PokemonData PokemonData { get; set; }
-        public bool Displayed { get; set; }
         public List<EvolutionToPokemon> EvolutionBranchs { get; set; }
         public PokemonEvoleTo(ISession session, PokemonData pokemon)
         {
             Session = session;
-            PokemonData = pokemon;
-            this.Displayed = true;
+            this.PokemonData = pokemon;
             var pkmSettings = session.Inventory.GetPokemonSettings().Result;
-            setting = pkmSettings.FirstOrDefault(x => x.PokemonId == pokemon.PokemonId);
+            this.setting = pkmSettings.FirstOrDefault(x => x.PokemonId == pokemon.PokemonId);
 
             this.EvolutionBranchs = new List<EvolutionToPokemon>();
 
             //TODO - implement the candy count for enable evolution
-            foreach (var item in setting.EvolutionBranch)
+            foreach (var item in this.setting.EvolutionBranch)
             {
                 this.EvolutionBranchs.Add(new EvolutionToPokemon()
                 {
@@ -54,14 +55,14 @@ namespace RocketBot2.Helpers
     public class PokemonObject 
     {
         private static ISession Session;
-        //private PokemonSettings setting;
+        private PokemonSettings settings;
         public PokemonData PokemonData { get; set; }
         public static bool _initialized { get; set; }
         public static Dictionary<PokemonId, int> CandyToEvolveDict = new Dictionary<PokemonId, int>();
 
         public PokemonObject(ISession session, PokemonData pokemonData)
         {
-            //Session = session;
+            Session = session;
             PokemonData = pokemonData;
         }
 
@@ -188,12 +189,78 @@ namespace RocketBot2.Helpers
         {
             get
             {
-                return ResourceHelper.GetPokemonImage((int)this.PokemonData.PokemonId, this.Shiny);
+                return ResourceHelper.GetImage(null, (int)this.PokemonData.PokemonId, this.PokemonData.PokemonDisplay.Shiny);
             }
         }
 
         public bool Shiny => this.PokemonData.PokemonDisplay.Shiny ? true : false;
+
         public string Sex => this.PokemonData.PokemonDisplay.Gender.ToString();
+
+        public string Types
+        {
+            get
+            {
+                return this.settings.Type.ToString() + ((this.settings.Type2 != PokemonType.None) ? "," + this.settings.Type2.ToString() : "");
+            }
+        }
+
+        public PokemonFamilyId FamilyId
+        {
+            get
+            {
+                return PokemonSettings.FamilyId;
+            }
+        }
+
+        public PokemonSettings PokemonSettings
+        {
+            get
+            {
+                return Session.Inventory.GetPokemonSettings().Result.FirstOrDefault(x => x.PokemonId == PokemonId);
+            }
+        }
+
+        public DateTime CaughtTime => TimeUtil.GetDateTimeFromMilliseconds((long)this.PokemonData.CreationTimeMs).ToLocalTime();
+
+        private GeoLocation geoLocation;
+        public GeoLocation GeoLocation
+        {
+            get
+            {
+                return geoLocation;
+            }
+        }
+
+        public string CaughtLocation
+        {
+            get
+            {
+                if (geoLocation == null)
+                {
+                    // Just return latitude, longitude string
+                    return new GeoLocation(this.PokemonData.CapturedCellId).ToString();
+                }
+
+                return geoLocation.ToString();
+            }
+        }
+
+        public int HP
+        {
+            get
+            {
+                return this.PokemonData.Stamina;
+            }
+        }
+
+        public int MaxHP
+        {
+            get
+            {
+                return this.PokemonData.StaminaMax;
+            }
+        }
 
         public static void Initilize(ISession session, List<PokemonSettings> templates)
         {

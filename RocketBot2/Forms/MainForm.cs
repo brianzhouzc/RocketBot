@@ -92,12 +92,6 @@ namespace RocketBot2.Forms
             currentDomain.UnhandledException += new UnhandledExceptionEventHandler(this.ErrorHandler);
         }
 
-        private void ErrorHandler(object sender, UnhandledExceptionEventArgs e)
-        {
-            Debug.WriteLine(e.ExceptionObject.ToString());
-            ConsoleHelper.ShowConsoleWindow();
-        }
-
         private void MainForm_Load(object sender, EventArgs e)
         {
             SetStatusText(Application.ProductName + " " + Application.ProductVersion);
@@ -1398,6 +1392,12 @@ namespace RocketBot2.Forms
         private static void EventDispatcher_EventReceived(IEvent evt)
         {
             throw new NotImplementedException();
+        }
+
+        private void ErrorHandler(object sender, UnhandledExceptionEventArgs e)
+        {
+            Debug.WriteLine(e.ExceptionObject.ToString());
+            ConsoleHelper.ShowConsoleWindow();
         }
 
         private static bool CheckMKillSwitch()

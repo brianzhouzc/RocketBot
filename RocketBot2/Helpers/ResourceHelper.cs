@@ -139,7 +139,7 @@ namespace RocketBot2.Helpers
             return GetImage(name, 0, false);
         }
 
-        public static Image GetImage(string name, int pokemonId = 0, bool isShiny = false)
+        public static Image GetImage(string name, int pokemonId, bool isShiny)
         {
             if (pokemonId > 0)
             {
@@ -148,7 +148,7 @@ namespace RocketBot2.Helpers
             return (Image)Properties.Resources.ResourceManager.GetObject(name);
         }
 
-        public static Image GetImage(string name, int pokemonId = 0, bool isShiny = false, int maxHeight = 0, int maxWidth = 0)
+        public static Image GetImage(string name, int pokemonId, bool isShiny, int maxHeight, int maxWidth)
         {
                 var image = GetImage(name, pokemonId, isShiny);
                 var ratioX = (double)maxWidth /  image.Width;
@@ -165,7 +165,7 @@ namespace RocketBot2.Helpers
                 return  newImage;
         }
 
-        public static Image GetPokemonImage(int pokemonId, bool isShiny = false)
+        public static Image GetPokemonImage(int pokemonId, bool isShiny)
         {
             if (isShiny)
             {
