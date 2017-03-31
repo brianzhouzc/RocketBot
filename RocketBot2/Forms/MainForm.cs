@@ -858,7 +858,18 @@ namespace RocketBot2.Forms
                 Instance.Invoke(new Action(flpItemsClean));
                 return;
             }
-            Instance.flpItems.Controls.Clear();
+            List<Control> listControls = new List<Control>();
+
+            foreach (Control control in flpItems.Controls)
+            {
+                listControls.Add(control);
+            }
+
+            foreach (Control control in listControls)
+            {
+                flpItems.Controls.Remove(control);
+                control.Dispose();
+            }
         }
 
         private async void ItemBox_ItemClick(object sender, EventArgs e)
