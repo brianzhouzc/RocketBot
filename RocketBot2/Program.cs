@@ -15,8 +15,8 @@ namespace RocketBot2
 
         private static void Main(string[] args)
         {
-            ConsoleHelper.AllocConsole();
             Application.EnableVisualStyles();
+            ConsoleHelper.AllocConsole();
             Application.Run(new MainForm(args));
         }
     }
