@@ -115,492 +115,88 @@ namespace RocketBot2.Forms
 
         #endregion
 
-        #region ROCKETBOT INIT -> START
+        #region INTERFACE
 
-        private void InitializeBot(Action<ISession, StatisticsAggregator> onBotStarted)
+        private DateTime lastClearLog = DateTime.Now;
+
+        public static void ColoredConsoleWrite(Color color, string text)
         {
-            var ioc = TinyIoC.TinyIoCContainer.Current;
-            //Setup Logger for API
-            APIConfiguration.Logger = new APILogListener();
+            if (text.Length <= 0)
+                return;
 
-            //Application.EnableVisualStyles();
-            var strCulture = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
-
-            var culture = CultureInfo.CreateSpecificCulture("en");
-            CultureInfo.DefaultThreadCurrentCulture = culture;
-            Thread.CurrentThread.CurrentCulture = culture;
-
-            AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionEventHandler;
-
-            Console.Title = @"RocketBot2";
-            Console.CancelKeyPress += (sender, eArgs) =>
+            if (Instance.InvokeRequired)
             {
-                QuitEvent.Set();
-                eArgs.Cancel = true;
-            };
-
-            // Command line parsing
-            var commandLine = new Arguments(args);
-            // Look for specific arguments values
-            if (commandLine["subpath"] != null && commandLine["subpath"].Length > 0)
-            {
-                _subPath = commandLine["subpath"];
-            }
-            if (commandLine["jsonvalid"] != null && commandLine["jsonvalid"].Length > 0)
-            {
-                switch (commandLine["jsonvalid"])
-                {
-                    case "true":
-                        _enableJsonValidation = true;
-                        break;
-
-                    case "false":
-                        _enableJsonValidation = false;
-                        break;
-                }
-            }
-            if (commandLine["killswitch"] != null && commandLine["killswitch"].Length > 0)
-            {
-                switch (commandLine["killswitch"])
-                {
-                    case "true":
-                        _ignoreKillSwitch = false;
-                        break;
-
-                    case "false":
-                        _ignoreKillSwitch = true;
-                        break;
-                }
-            }
-
-            bool excelConfigAllow = false;
-            if (commandLine["provider"] != null && commandLine["provider"] == "excel")
-            {
-                excelConfigAllow = true;
-            }
-
-            var _fileName = $"RocketBot2-{DateTime.Today.ToString("dd-MM-yyyy")}-{DateTime.Now.ToString("HH-mm-ss")}.txt";
-
-            Logger.AddLogger(new ConsoleLogger(LogLevel.Service), _subPath);
-            Logger.AddLogger(new FileLogger(LogLevel.Service, _fileName), _subPath);
-            Logger.AddLogger(new WebSocketLogger(LogLevel.Service), _subPath);
-
-            var profilePath = Path.Combine(Directory.GetCurrentDirectory(), _subPath);
-            var profileConfigPath = Path.Combine(profilePath, "config");
-            var configFile = Path.Combine(profileConfigPath, "config.json");
-            var excelConfigFile = Path.Combine(profileConfigPath, "config.xlsm");
-
-            GlobalSettings settings;
-            var boolNeedsSetup = false;
-
-            if (File.Exists(configFile))
-            {
-                // Load the settings from the config file
-                settings = GlobalSettings.Load(_subPath, _enableJsonValidation);
-                if (excelConfigAllow)
-                {
-                    if (!File.Exists(excelConfigFile))
-                    {
-                        Logger.Write(
-                            "Migrating existing json confix to excel config, please check the config.xlsm in your config folder"
-                        );
-
-                        ExcelConfigHelper.MigrateFromObject(settings, excelConfigFile);
-                    }
-                    else
-                        settings = ExcelConfigHelper.ReadExcel(settings, excelConfigFile);
-
-                    Logger.Write("Bot will run with your excel config, loading excel config");
-                }
-            }
-            else
-            {
-                settings = new GlobalSettings
-                {
-                    ProfilePath = profilePath,
-                    ProfileConfigPath = profileConfigPath,
-                    GeneralConfigPath = Path.Combine(Directory.GetCurrentDirectory(), "config"),
-                    ConsoleConfig = { TranslationLanguageCode = strCulture }
-                };
-
-                boolNeedsSetup = true;
-            }
-            if (commandLine["latlng"] != null && commandLine["latlng"].Length > 0)
-            {
-                var crds = commandLine["latlng"].Split(',');
-                try
-                {
-                    var lat = double.Parse(crds[0]);
-                    var lng = double.Parse(crds[1]);
-                    settings.LocationConfig.DefaultLatitude = lat;
-                    settings.LocationConfig.DefaultLongitude = lng;
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
-            }
-
-            var options = new Options();
-            if (CommandLine.Parser.Default.ParseArguments(args, options))
-            {
-                // Values are available here
-                if (options.Init)
-                {
-                    settings.GenerateAccount(options.IsGoogle, options.Template, options.Start, options.End, options.Password);
-                }
-            }
-
-            var lastPosFile = Path.Combine(profileConfigPath, "LastPos.ini");
-            if (File.Exists(lastPosFile) && settings.LocationConfig.StartFromLastPosition)
-            {
-                var text = File.ReadAllText(lastPosFile);
-                var crds = text.Split(':');
-                try
-                {
-                    var lat = double.Parse(crds[0]);
-                    var lng = double.Parse(crds[1]);
-                    //If lastcoord is snipe coord, bot start from default location
-
-                    if (LocationUtils.CalculateDistanceInMeters(lat, lng, settings.LocationConfig.DefaultLatitude, settings.LocationConfig.DefaultLongitude) < 2000)
-                    {
-                        settings.LocationConfig.DefaultLatitude = lat;
-                        settings.LocationConfig.DefaultLongitude = lng;
-                    }
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
-            }
-
-            if (!_ignoreKillSwitch)
-            {
-                if (CheckMKillSwitch())
-                {
-                    return;
-                }
-                _botStarted = CheckKillSwitch();
-            }
-
-            var logicSettings = new LogicSettings(settings);
-            var translation = Translation.Load(logicSettings);
-            TinyIoC.TinyIoCContainer.Current.Register<ITranslation>(translation);
-
-            if (settings.GPXConfig.UseGpxPathing)
-            {
-                var xmlString = File.ReadAllText(settings.GPXConfig.GpxFile);
-                var readgpx = new GpxReader(xmlString, translation);
-                var nearestPt = readgpx.Tracks.SelectMany(
-                        (trk, trkindex) =>
-                            trk.Segments.SelectMany(
-                                (seg, segindex) =>
-                                    seg.TrackPoints.Select(
-                                        (pt, ptindex) =>
-                                            new
-                                            {
-                                                TrackPoint = pt,
-                                                TrackIndex = trkindex,
-                                                SegIndex = segindex,
-                                                PtIndex = ptindex,
-                                                Latitude = Convert.ToDouble(pt.Lat, CultureInfo.InvariantCulture),
-                                                Longitude = Convert.ToDouble(pt.Lon, CultureInfo.InvariantCulture),
-                                                Distance = LocationUtils.CalculateDistanceInMeters(
-                                                    settings.LocationConfig.DefaultLatitude,
-                                                    settings.LocationConfig.DefaultLongitude,
-                                                    Convert.ToDouble(pt.Lat, CultureInfo.InvariantCulture),
-                                                    Convert.ToDouble(pt.Lon, CultureInfo.InvariantCulture)
-                                                )
-                                            }
-                                    )
-                            )
-                    )
-                    .OrderBy(pt => pt.Distance)
-                    .FirstOrDefault(pt => pt.Distance <= 5000);
-
-                if (nearestPt != null)
-                {
-                    settings.LocationConfig.DefaultLatitude = nearestPt.Latitude;
-                    settings.LocationConfig.DefaultLongitude = nearestPt.Longitude;
-                    settings.LocationConfig.ResumeTrack = nearestPt.TrackIndex;
-                    settings.LocationConfig.ResumeTrackSeg = nearestPt.SegIndex;
-                    settings.LocationConfig.ResumeTrackPt = nearestPt.PtIndex;
-                }
-            }
-            IElevationService elevationService = new ElevationService(settings);
-
-            //validation auth.config
-            if (boolNeedsSetup)
-            {
-                AuthAPIForm form = new AuthAPIForm(true);
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    settings.Auth.APIConfig = form.Config;
-                }
-            }
-            else
-            {
-                var apiCfg = settings.Auth.APIConfig;
-
-                if (apiCfg.UsePogoDevAPI)
-                {
-                    if (string.IsNullOrEmpty(apiCfg.AuthAPIKey))
-                    {
-                        Logger.Write(
-                            "You select pogodev API but not provide API Key, please press any key to exit and correct you auth.json, \r\n The Pogodev API key call be purchased at - https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer",
-                            LogLevel.Error
-                        );
-
-                        Console.ReadKey();
-                        Environment.Exit(0);
-                    }
-                    //TODO - test api call to valida auth key
-                }
-                else if (apiCfg.UseLegacyAPI)
-                {
-                    Logger.Write(
-                        "You bot will start after 15 second, You are running bot with  Legacy API (0.45) it will increase your risk to be banned and trigger captcha. Config captcha in config.json to auto resolve them",
-                        LogLevel.Warning
-                    );
-
-#if RELEASE
-                    Thread.Sleep(15000);
-#endif
-                }
-                else
-                {
-                    Logger.Write(
-                        "At least 1 authentication method is selected, please correct your auth.json, ",
-                        LogLevel.Error
-                    );
-                    Console.ReadKey();
-                    Environment.Exit(0);
-                }
-            }
-
-            _session = new Session(settings,
-                new ClientSettings(settings, elevationService), logicSettings, elevationService, translation);
-
-            ioc.Register<ISession>(_session);
-
-            Logger.SetLoggerContext(_session);
-
-            MultiAccountManager accountManager = new MultiAccountManager(logicSettings.Bots);
-            ioc.Register<MultiAccountManager>(accountManager);
-
-            if (boolNeedsSetup)
-            {
-                StarterConfigForm configForm = new StarterConfigForm(_session, settings, elevationService, configFile);
-                if (configForm.ShowDialog() == DialogResult.OK)
-                {
-                    var fileName = Assembly.GetEntryAssembly().Location;
-                    Process.Start(fileName);
-                    Environment.Exit(0);
-                }
-
-                //if (GlobalSettings.PromptForSetup(_session.Translation))
-                //{
-                //    _session = GlobalSettings.SetupSettings(_session, settings, elevationService, configFile);
-
-                //    var fileName = Assembly.GetExecutingAssembly().Location;
-                //    Process.Start(fileName);
-                //    Environment.Exit(0);
-                //}
-                else
-                {
-                    GlobalSettings.Load(_subPath, _enableJsonValidation);
-
-                    Logger.Write("Press a Key to continue...",
-                        LogLevel.Warning);
-                    Console.ReadKey();
-                    return;
-                }
-
-                if (excelConfigAllow)
-                {
-                    ExcelConfigHelper.MigrateFromObject(settings, excelConfigFile);
-                }
-            }
-
-            Resources.ProgressBar.Start("RocketBot2 is starting up", 10);
-
-            Resources.ProgressBar.Fill(20);
-
-            var machine = new StateMachine();
-            var stats = _session.RuntimeStatistics;
-
-            Resources.ProgressBar.Fill(30);
-            var strVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(4);
-            stats.DirtyEvent +=
-                () =>
-                {
-                    SetStatusText($"[RocketBot2 v{strVersion}] " +
-                                    stats.GetTemplatedStats(
-                                        _session.Translation.GetTranslation(TranslationString.StatsTemplateString),
-                                        _session.Translation.GetTranslation(TranslationString.StatsXpTemplateString)));
-                };
-
-            Resources.ProgressBar.Fill(40);
-
-            var aggregator = new StatisticsAggregator(stats);
-            if (onBotStarted != null) onBotStarted(_session, aggregator);
-
-            Resources.ProgressBar.Fill(50);
-            var listener = new ConsoleEventListener();
-            Resources.ProgressBar.Fill(60);
-            var snipeEventListener = new SniperEventListener();
-
-            _session.EventDispatcher.EventReceived += evt => listener.Listen(evt, _session);
-            _session.EventDispatcher.EventReceived += evt => aggregator.Listen(evt, _session);
-            _session.EventDispatcher.EventReceived += evt => snipeEventListener.Listen(evt, _session);
-
-            Resources.ProgressBar.Fill(70);
-
-            machine.SetFailureState(new LoginState());
-            Resources.ProgressBar.Fill(80);
-
-            Resources.ProgressBar.Fill(90);
-
-            _session.Navigation.WalkStrategy.UpdatePositionEvent +=
-                (session, lat, lng, speed) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng, Speed = speed });
-            _session.Navigation.WalkStrategy.UpdatePositionEvent += LoadSaveState.SaveLocationToDisk;
-
-            Navigation.GetHumanizeRouteEvent +=
-                (points) => _session.EventDispatcher.Send(new GetHumanizeRouteEvent { Points = points });
-            Navigation.GetHumanizeRouteEvent += UpdateMap;
-
-            UseNearbyPokestopsTask.LootPokestopEvent +=
-                pokestop => _session.EventDispatcher.Send(new LootPokestopEvent { Pokestop = pokestop });
-            UseNearbyPokestopsTask.LootPokestopEvent += UpdateMap;
-
-            CatchNearbyPokemonsTask.PokemonEncounterEvent +=
-                mappokemons => _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
-            CatchNearbyPokemonsTask.PokemonEncounterEvent += UpdateMap;
-
-            CatchIncensePokemonsTask.PokemonEncounterEvent +=
-                mappokemons => _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
-            CatchIncensePokemonsTask.PokemonEncounterEvent += UpdateMap;
-
-            CatchLurePokemonsTask.PokemonEncounterEvent +=
-                         mappokemons => _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
-            CatchLurePokemonsTask.PokemonEncounterEvent += UpdateMap;
-
-            Resources.ProgressBar.Fill(100);
-
-            //TODO: temporary
-            if (settings.Auth.APIConfig.UseLegacyAPI)
-            {
-                Logger.Write("The PoGoDev Community Has Updated The Hashing Service To Be Compatible With 0.57.4 So We Have Updated Our Code To Be Compliant. Unfortunately During This Update Niantic Has Also Attempted To Block The Legacy .45 Service Again So At The Moment Only Hashing Service Users Are Able To Login Successfully. Please Be Patient As Always We Will Attempt To Keep The Bot 100% Free But Please Realize We Have Already Done Quite A Few Workarounds To Keep .45 Alive For You Guys.  Even If We Are Able To Get Access Again To The .45 API Again It Is Over 3 Months Old So Is Going To Be More Detectable And Cause Captchas. Please Consider Upgrading To A Paid API Key To Avoid Captchas And You Will  Be Connecting Using Latest Version So Less Detectable So More Safe For You In The End.", LogLevel.Warning);
-                Logger.Write("The bot will now close", LogLevel.Error);
-                Console.ReadKey();
-                Environment.Exit(0);
+                Instance.Invoke(new Action<Color, string>(ColoredConsoleWrite), color, text);
                 return;
             }
-            //
 
-            if (settings.WebsocketsConfig.UseWebsocket)
+            #pragma warning disable CS1690
+            if (Instance.lastClearLog.AddMinutes(20) < DateTime.Now)
+            #pragma warning restore CS1690
             {
-                var websocket = new WebSocketInterface(settings.WebsocketsConfig.WebSocketPort, _session);
-                _session.EventDispatcher.EventReceived += evt => websocket.Listen(evt, _session);
+                Instance.logTextBox.Text = string.Empty;
+                Instance.lastClearLog = DateTime.Now;
             }
 
-            ioc.Register<MultiAccountManager>(accountManager);
-
-            var bot = accountManager.GetStartUpAccount();
-
-            if (accountManager.Accounts.Count > 1)
+            if (text.Contains("Error with API request type: DownloadRemoteConfigVersion"))
             {
-                foreach (var _bot in accountManager.Accounts)
-                {
-                    var _item = new ToolStripMenuItem();
-                    _item.Text = _bot.Username;
-                    _item.Click += delegate
-                    {
-                        if (!Instance._botStarted)
-                            _session.ReInitSessionWithNextBot(_bot);
-                        accountManager.SwitchAccountTo(_bot);
-                    };
-                    accountsToolStripMenuItem.DropDownItems.Add(_item);
-                }
-                _session.ReInitSessionWithNextBot(bot);
-            }
-            else
-            {
-                _session.ReInitSessionWithNextBot(bot);
-                menuStrip1.Items.Remove(accountsToolStripMenuItem);
+                Instance.logTextBox.SelectionColor = Color.Yellow;
+                Instance.logTextBox.AppendText($"Warning: with API request type: DownloadRemoteConfigVersion. Please wait...\r\n");
+                Instance.logTextBox.ScrollToCaret();
+                return;
             }
 
-            _machine = machine;
-            _settings = settings;
-            _excelConfigAllow = excelConfigAllow;
+            if (text.Contains("PokemonGo.RocketAPI.Exceptions.CaptchaException:"))
+            {
+                Instance.logTextBox.SelectionColor = Color.Yellow;
+                Instance.logTextBox.AppendText($"Warning: with CaptchaException not login conected\r\nPlease refresh Inventory list.\r\n");
+                Instance.logTextBox.ScrollToCaret();
+                return;
+            }
+
+            if (text.Contains("PoGo.NecroBot.Logic.Strategies.Walk.BaseWalkStrategy.<DoWalk>"))
+            {
+                Instance.logTextBox.SelectionColor = Color.Red;
+                Instance.logTextBox.AppendText($"Error: with BaseWalkStrategy quota depassed\r\nPlease close RocketBot and wait.\r\n");
+                Instance.logTextBox.ScrollToCaret();
+                return;
+            }
+
+            Instance.logTextBox.SelectionColor = color;
+            Instance.logTextBox.AppendText(text + $"\r\n");
+            Instance.logTextBox.ScrollToCaret();
         }
 
-        private Task StartBot()
+        public static void SetSpeedLable(string text)
         {
-            _machine.AsyncStart(new Logic.State.VersionCheckState(), _session, _subPath, _excelConfigAllow);
-
-            try
+            if (Instance.InvokeRequired)
             {
-                Console.Clear();
+                Instance.Invoke(new Action<string>(SetSpeedLable), text);
+                return;
             }
-            catch (IOException)
-            {
-            }
-
-            if (_settings.TelegramConfig.UseTelegramAPI)
-                _session.Telegram = new TelegramService(_settings.TelegramConfig.TelegramAPIKey, _session);
-            if (_session.LogicSettings.EnableHumanWalkingSnipe &&
-                            _session.LogicSettings.HumanWalkingSnipeUseFastPokemap)
-            {
-                // jjskuld - Ignore CS4014 warning for now.
-                //#pragma warning disable 4014
-                HumanWalkSnipeTask.StartFastPokemapAsync(_session,
-                    _session.CancellationTokenSource.Token).ConfigureAwait(false); // that need to keep data live
-                //#pragma warning restore 4014
-            }
-
-            if (_session.LogicSettings.UseSnipeLocationServer ||
-              _session.LogicSettings.HumanWalkingSnipeUsePogoLocationFeeder)
-                SnipePokemonTask.AsyncStart(_session);
-
-
-            if (_session.LogicSettings.DataSharingConfig.EnableSyncData)
-            {
-                 BotDataSocketClient.StartAsync(_session);
-                _session.EventDispatcher.EventReceived += evt => BotDataSocketClient.Listen(evt, _session);
-            }
-            _settings.CheckProxy(_session.Translation);
-
-            if (_session.LogicSettings.ActivateMSniper)
-            {
-                ServicePointManager.ServerCertificateValidationCallback +=
-                    (sender, certificate, chain, sslPolicyErrors) => true;
-                //temporary disable MSniper connection because site under attacking.
-                //MSniperServiceTask.ConnectToService();
-                //_session.EventDispatcher.EventReceived += evt => MSniperServiceTask.AddToList(evt);
-            }
-            var trackFile = Path.GetTempPath() + "\\rocketbot2.io";
-
-            if (!File.Exists(trackFile) || File.GetLastWriteTime(trackFile) < DateTime.Now.AddDays(-1))
-            {
-                Thread.Sleep(10000);
-                Thread mThread = new Thread(delegate ()
-                {
-                    var infoForm = new InfoForm();
-                    infoForm.ShowDialog();
-                });
-                File.WriteAllText(trackFile, DateTime.Now.Ticks.ToString());
-                mThread.SetApartmentState(ApartmentState.STA);
-
-                mThread.Start();
-            }
-
-            QuitEvent.WaitOne();
-            return Task.CompletedTask;
-            //return new Task(() => { });
+            Instance.speedLable.Text = text;
+            Instance.Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
+            Instance.showMoreCheckBox.Enabled = Instance._botStarted;
         }
-        
-        #endregion
+
+        public async void SetStatusText(string text)
+        {
+            if (Instance.InvokeRequired)
+            {
+                Instance.Invoke(new Action<string>(SetStatusText), text);
+                return;
+            }
+            Instance.Text = text;
+            Instance.statusLabel.Text = text;
+            Console.Title = text;
+
+            SetState(true);
+
+            if (checkBoxAutoRefresh.Checked)
+                await ReloadPokemonList().ConfigureAwait(false);
+        }
+
+        #endregion INTERFACE
 
         #region GMAP
 
@@ -800,94 +396,11 @@ namespace RocketBot2.Forms
 
         #endregion
 
-        #region INTERFACE
-
-        private DateTime lastClearLog = DateTime.Now;
-
-        public static void ColoredConsoleWrite(Color color, string text)
-        {
-            if (text.Length <= 0)
-                return;
-
-            if (Instance.InvokeRequired)
-            {
-                Instance.Invoke(new Action<Color, string>(ColoredConsoleWrite), color, text);
-                return;
-            }
-
-#pragma warning disable CS1690
-            if (Instance.lastClearLog.AddMinutes(20) < DateTime.Now)
-#pragma warning restore CS1690
-            {
-                Instance.logTextBox.Text = string.Empty;
-                Instance.lastClearLog = DateTime.Now;
-            }
-
-            if (text.Contains("Error with API request type: DownloadRemoteConfigVersion"))
-            {
-                Instance.logTextBox.SelectionColor = Color.Yellow;
-                Instance.logTextBox.AppendText($"Warning: with API request type: DownloadRemoteConfigVersion. Please wait...\r\n");
-                Instance.logTextBox.ScrollToCaret();
-                return;
-            }
-
-            if (text.Contains("PokemonGo.RocketAPI.Exceptions.CaptchaException:"))
-            {
-                Instance.logTextBox.SelectionColor = Color.Yellow;
-                Instance.logTextBox.AppendText($"Warning: with CaptchaException not login conected\r\nPlease refresh Inventory list.\r\n");
-                Instance.logTextBox.ScrollToCaret();
-                return;
-            }
-
-            if (text.Contains("PoGo.NecroBot.Logic.Strategies.Walk.BaseWalkStrategy.<DoWalk>"))
-            {
-                Instance.logTextBox.SelectionColor = Color.Red;
-                Instance.logTextBox.AppendText($"Error: with BaseWalkStrategy quota depassed\r\nPlease close RocketBot and wait.\r\n");
-                Instance.logTextBox.ScrollToCaret();
-                return;
-            }
-
-            Instance.logTextBox.SelectionColor = color;
-            Instance.logTextBox.AppendText(text + $"\r\n");
-            Instance.logTextBox.ScrollToCaret();
-        }
-
-        public static void SetSpeedLable(string text)
-        {
-            if (Instance.InvokeRequired)
-            {
-                Instance.Invoke(new Action<string>(SetSpeedLable), text);
-                return;
-            }
-            Instance.speedLable.Text = text;
-            Instance.Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
-            Instance.showMoreCheckBox.Enabled = Instance._botStarted;
-        }
-
-        public async void SetStatusText(string text)
-        {
-            if (Instance.InvokeRequired)
-            {
-                Instance.Invoke(new Action<string>(SetStatusText), text);
-                return;
-            }
-            Instance.Text = text;
-            Instance.statusLabel.Text = text;
-            Console.Title = text;
-
-            SetState(true);
-
-            if (checkBoxAutoRefresh.Checked)
-                await ReloadPokemonList().ConfigureAwait(false);
-        }
-
-        #endregion INTERFACE
-
         #region EVENTS
 
         private async void btnRefresh_Click(object sender, EventArgs e)
         {
-            await ReloadPokemonList().ConfigureAwait(false);
+            await ReloadPokemonList();
         }
 
         private async void startStopBotToolStripMenuItem_Click(object sender, EventArgs e)
@@ -899,7 +412,7 @@ namespace RocketBot2.Forms
             }
             startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
             _botStarted = true;
-            await Task.Run(StartBot).ConfigureAwait(false);
+            await Task.Run(StartBot);
         }
 
         private void todoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1393,6 +906,493 @@ namespace RocketBot2.Forms
         }
 
         #endregion POKEMON LIST
+
+        #region ROCKETBOT INIT -> START
+
+        private void InitializeBot(Action<ISession, StatisticsAggregator> onBotStarted)
+        {
+            var ioc = TinyIoC.TinyIoCContainer.Current;
+            //Setup Logger for API
+            APIConfiguration.Logger = new APILogListener();
+
+            //Application.EnableVisualStyles();
+            var strCulture = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+
+            var culture = CultureInfo.CreateSpecificCulture("en");
+            CultureInfo.DefaultThreadCurrentCulture = culture;
+            Thread.CurrentThread.CurrentCulture = culture;
+
+            AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionEventHandler;
+
+            Console.Title = @"RocketBot2";
+            Console.CancelKeyPress += (sender, eArgs) =>
+            {
+                QuitEvent.Set();
+                eArgs.Cancel = true;
+            };
+
+            // Command line parsing
+            var commandLine = new Arguments(args);
+            // Look for specific arguments values
+            if (commandLine["subpath"] != null && commandLine["subpath"].Length > 0)
+            {
+                _subPath = commandLine["subpath"];
+            }
+            if (commandLine["jsonvalid"] != null && commandLine["jsonvalid"].Length > 0)
+            {
+                switch (commandLine["jsonvalid"])
+                {
+                    case "true":
+                        _enableJsonValidation = true;
+                        break;
+
+                    case "false":
+                        _enableJsonValidation = false;
+                        break;
+                }
+            }
+            if (commandLine["killswitch"] != null && commandLine["killswitch"].Length > 0)
+            {
+                switch (commandLine["killswitch"])
+                {
+                    case "true":
+                        _ignoreKillSwitch = false;
+                        break;
+
+                    case "false":
+                        _ignoreKillSwitch = true;
+                        break;
+                }
+            }
+
+            bool excelConfigAllow = false;
+            if (commandLine["provider"] != null && commandLine["provider"] == "excel")
+            {
+                excelConfigAllow = true;
+            }
+
+            var _fileName = $"RocketBot2-{DateTime.Today.ToString("dd-MM-yyyy")}-{DateTime.Now.ToString("HH-mm-ss")}.txt";
+
+            Logger.AddLogger(new ConsoleLogger(LogLevel.Service), _subPath);
+            Logger.AddLogger(new FileLogger(LogLevel.Service, _fileName), _subPath);
+            Logger.AddLogger(new WebSocketLogger(LogLevel.Service), _subPath);
+
+            var profilePath = Path.Combine(Directory.GetCurrentDirectory(), _subPath);
+            var profileConfigPath = Path.Combine(profilePath, "config");
+            var configFile = Path.Combine(profileConfigPath, "config.json");
+            var excelConfigFile = Path.Combine(profileConfigPath, "config.xlsm");
+
+            GlobalSettings settings;
+            var boolNeedsSetup = false;
+
+            if (File.Exists(configFile))
+            {
+                // Load the settings from the config file
+                settings = GlobalSettings.Load(_subPath, _enableJsonValidation);
+                if (excelConfigAllow)
+                {
+                    if (!File.Exists(excelConfigFile))
+                    {
+                        Logger.Write(
+                            "Migrating existing json confix to excel config, please check the config.xlsm in your config folder"
+                        );
+
+                        ExcelConfigHelper.MigrateFromObject(settings, excelConfigFile);
+                    }
+                    else
+                        settings = ExcelConfigHelper.ReadExcel(settings, excelConfigFile);
+
+                    Logger.Write("Bot will run with your excel config, loading excel config");
+                }
+            }
+            else
+            {
+                settings = new GlobalSettings
+                {
+                    ProfilePath = profilePath,
+                    ProfileConfigPath = profileConfigPath,
+                    GeneralConfigPath = Path.Combine(Directory.GetCurrentDirectory(), "config"),
+                    ConsoleConfig = { TranslationLanguageCode = strCulture }
+                };
+
+                boolNeedsSetup = true;
+            }
+            if (commandLine["latlng"] != null && commandLine["latlng"].Length > 0)
+            {
+                var crds = commandLine["latlng"].Split(',');
+                try
+                {
+                    var lat = double.Parse(crds[0]);
+                    var lng = double.Parse(crds[1]);
+                    settings.LocationConfig.DefaultLatitude = lat;
+                    settings.LocationConfig.DefaultLongitude = lng;
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
+            }
+
+            var options = new Options();
+            if (CommandLine.Parser.Default.ParseArguments(args, options))
+            {
+                // Values are available here
+                if (options.Init)
+                {
+                    settings.GenerateAccount(options.IsGoogle, options.Template, options.Start, options.End, options.Password);
+                }
+            }
+
+            var lastPosFile = Path.Combine(profileConfigPath, "LastPos.ini");
+            if (File.Exists(lastPosFile) && settings.LocationConfig.StartFromLastPosition)
+            {
+                var text = File.ReadAllText(lastPosFile);
+                var crds = text.Split(':');
+                try
+                {
+                    var lat = double.Parse(crds[0]);
+                    var lng = double.Parse(crds[1]);
+                    //If lastcoord is snipe coord, bot start from default location
+
+                    if (LocationUtils.CalculateDistanceInMeters(lat, lng, settings.LocationConfig.DefaultLatitude, settings.LocationConfig.DefaultLongitude) < 2000)
+                    {
+                        settings.LocationConfig.DefaultLatitude = lat;
+                        settings.LocationConfig.DefaultLongitude = lng;
+                    }
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
+            }
+
+            if (!_ignoreKillSwitch)
+            {
+                if (CheckMKillSwitch())
+                {
+                    return;
+                }
+                _botStarted = CheckKillSwitch();
+            }
+
+            var logicSettings = new LogicSettings(settings);
+            var translation = Translation.Load(logicSettings);
+            TinyIoC.TinyIoCContainer.Current.Register<ITranslation>(translation);
+
+            if (settings.GPXConfig.UseGpxPathing)
+            {
+                var xmlString = File.ReadAllText(settings.GPXConfig.GpxFile);
+                var readgpx = new GpxReader(xmlString, translation);
+                var nearestPt = readgpx.Tracks.SelectMany(
+                        (trk, trkindex) =>
+                            trk.Segments.SelectMany(
+                                (seg, segindex) =>
+                                    seg.TrackPoints.Select(
+                                        (pt, ptindex) =>
+                                            new
+                                            {
+                                                TrackPoint = pt,
+                                                TrackIndex = trkindex,
+                                                SegIndex = segindex,
+                                                PtIndex = ptindex,
+                                                Latitude = Convert.ToDouble(pt.Lat, CultureInfo.InvariantCulture),
+                                                Longitude = Convert.ToDouble(pt.Lon, CultureInfo.InvariantCulture),
+                                                Distance = LocationUtils.CalculateDistanceInMeters(
+                                                    settings.LocationConfig.DefaultLatitude,
+                                                    settings.LocationConfig.DefaultLongitude,
+                                                    Convert.ToDouble(pt.Lat, CultureInfo.InvariantCulture),
+                                                    Convert.ToDouble(pt.Lon, CultureInfo.InvariantCulture)
+                                                )
+                                            }
+                                    )
+                            )
+                    )
+                    .OrderBy(pt => pt.Distance)
+                    .FirstOrDefault(pt => pt.Distance <= 5000);
+
+                if (nearestPt != null)
+                {
+                    settings.LocationConfig.DefaultLatitude = nearestPt.Latitude;
+                    settings.LocationConfig.DefaultLongitude = nearestPt.Longitude;
+                    settings.LocationConfig.ResumeTrack = nearestPt.TrackIndex;
+                    settings.LocationConfig.ResumeTrackSeg = nearestPt.SegIndex;
+                    settings.LocationConfig.ResumeTrackPt = nearestPt.PtIndex;
+                }
+            }
+            IElevationService elevationService = new ElevationService(settings);
+
+            //validation auth.config
+            if (boolNeedsSetup)
+            {
+                AuthAPIForm form = new AuthAPIForm(true);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    settings.Auth.APIConfig = form.Config;
+                }
+            }
+            else
+            {
+                var apiCfg = settings.Auth.APIConfig;
+
+                if (apiCfg.UsePogoDevAPI)
+                {
+                    if (string.IsNullOrEmpty(apiCfg.AuthAPIKey))
+                    {
+                        Logger.Write(
+                            "You select pogodev API but not provide API Key, please press any key to exit and correct you auth.json, \r\n The Pogodev API key call be purchased at - https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer",
+                            LogLevel.Error
+                        );
+
+                        Console.ReadKey();
+                        Environment.Exit(0);
+                    }
+                    //TODO - test api call to valida auth key
+                }
+                else if (apiCfg.UseLegacyAPI)
+                {
+                    Logger.Write(
+                        "You bot will start after 15 second, You are running bot with  Legacy API (0.45) it will increase your risk to be banned and trigger captcha. Config captcha in config.json to auto resolve them",
+                        LogLevel.Warning
+                    );
+
+#if RELEASE
+                    Thread.Sleep(15000);
+#endif
+                }
+                else
+                {
+                    Logger.Write(
+                        "At least 1 authentication method is selected, please correct your auth.json, ",
+                        LogLevel.Error
+                    );
+                    Console.ReadKey();
+                    Environment.Exit(0);
+                }
+            }
+
+            _session = new Session(settings,
+                new ClientSettings(settings, elevationService), logicSettings, elevationService, translation);
+
+            ioc.Register<ISession>(_session);
+
+            Logger.SetLoggerContext(_session);
+
+            MultiAccountManager accountManager = new MultiAccountManager(logicSettings.Bots);
+            ioc.Register<MultiAccountManager>(accountManager);
+
+            if (boolNeedsSetup)
+            {
+                StarterConfigForm configForm = new StarterConfigForm(_session, settings, elevationService, configFile);
+                if (configForm.ShowDialog() == DialogResult.OK)
+                {
+                    var fileName = Assembly.GetEntryAssembly().Location;
+                    Process.Start(fileName);
+                    Environment.Exit(0);
+                }
+
+                //if (GlobalSettings.PromptForSetup(_session.Translation))
+                //{
+                //    _session = GlobalSettings.SetupSettings(_session, settings, elevationService, configFile);
+
+                //    var fileName = Assembly.GetExecutingAssembly().Location;
+                //    Process.Start(fileName);
+                //    Environment.Exit(0);
+                //}
+                else
+                {
+                    GlobalSettings.Load(_subPath, _enableJsonValidation);
+
+                    Logger.Write("Press a Key to continue...",
+                        LogLevel.Warning);
+                    Console.ReadKey();
+                    return;
+                }
+
+                if (excelConfigAllow)
+                {
+                    ExcelConfigHelper.MigrateFromObject(settings, excelConfigFile);
+                }
+            }
+
+            Resources.ProgressBar.Start("RocketBot2 is starting up", 10);
+
+            Resources.ProgressBar.Fill(20);
+
+            var machine = new StateMachine();
+            var stats = _session.RuntimeStatistics;
+
+            Resources.ProgressBar.Fill(30);
+            var strVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(4);
+            stats.DirtyEvent +=
+                () =>
+                {
+                    SetStatusText($"[RocketBot2 v{strVersion}] " +
+                                    stats.GetTemplatedStats(
+                                        _session.Translation.GetTranslation(TranslationString.StatsTemplateString),
+                                        _session.Translation.GetTranslation(TranslationString.StatsXpTemplateString)));
+                };
+
+            Resources.ProgressBar.Fill(40);
+
+            var aggregator = new StatisticsAggregator(stats);
+            if (onBotStarted != null) onBotStarted(_session, aggregator);
+
+            Resources.ProgressBar.Fill(50);
+            var listener = new ConsoleEventListener();
+            Resources.ProgressBar.Fill(60);
+            var snipeEventListener = new SniperEventListener();
+
+            _session.EventDispatcher.EventReceived += evt => listener.Listen(evt, _session);
+            _session.EventDispatcher.EventReceived += evt => aggregator.Listen(evt, _session);
+            _session.EventDispatcher.EventReceived += evt => snipeEventListener.Listen(evt, _session);
+
+            Resources.ProgressBar.Fill(70);
+
+            machine.SetFailureState(new LoginState());
+            Resources.ProgressBar.Fill(80);
+
+            Resources.ProgressBar.Fill(90);
+
+            _session.Navigation.WalkStrategy.UpdatePositionEvent +=
+                (session, lat, lng, speed) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng, Speed = speed });
+            _session.Navigation.WalkStrategy.UpdatePositionEvent += LoadSaveState.SaveLocationToDisk;
+
+            Navigation.GetHumanizeRouteEvent +=
+                (points) => _session.EventDispatcher.Send(new GetHumanizeRouteEvent { Points = points });
+            Navigation.GetHumanizeRouteEvent += UpdateMap;
+
+            UseNearbyPokestopsTask.LootPokestopEvent +=
+                pokestop => _session.EventDispatcher.Send(new LootPokestopEvent { Pokestop = pokestop });
+            UseNearbyPokestopsTask.LootPokestopEvent += UpdateMap;
+
+            CatchNearbyPokemonsTask.PokemonEncounterEvent +=
+                mappokemons => _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
+            CatchNearbyPokemonsTask.PokemonEncounterEvent += UpdateMap;
+
+            CatchIncensePokemonsTask.PokemonEncounterEvent +=
+                mappokemons => _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
+            CatchIncensePokemonsTask.PokemonEncounterEvent += UpdateMap;
+
+            CatchLurePokemonsTask.PokemonEncounterEvent +=
+                         mappokemons => _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
+            CatchLurePokemonsTask.PokemonEncounterEvent += UpdateMap;
+
+            Resources.ProgressBar.Fill(100);
+
+            //TODO: temporary
+            if (settings.Auth.APIConfig.UseLegacyAPI)
+            {
+                Logger.Write("The PoGoDev Community Has Updated The Hashing Service To Be Compatible With 0.57.4 So We Have Updated Our Code To Be Compliant. Unfortunately During This Update Niantic Has Also Attempted To Block The Legacy .45 Service Again So At The Moment Only Hashing Service Users Are Able To Login Successfully. Please Be Patient As Always We Will Attempt To Keep The Bot 100% Free But Please Realize We Have Already Done Quite A Few Workarounds To Keep .45 Alive For You Guys.  Even If We Are Able To Get Access Again To The .45 API Again It Is Over 3 Months Old So Is Going To Be More Detectable And Cause Captchas. Please Consider Upgrading To A Paid API Key To Avoid Captchas And You Will  Be Connecting Using Latest Version So Less Detectable So More Safe For You In The End.", LogLevel.Warning);
+                Logger.Write("The bot will now close", LogLevel.Error);
+                Console.ReadKey();
+                Environment.Exit(0);
+                return;
+            }
+            //
+
+            if (settings.WebsocketsConfig.UseWebsocket)
+            {
+                var websocket = new WebSocketInterface(settings.WebsocketsConfig.WebSocketPort, _session);
+                _session.EventDispatcher.EventReceived += evt => websocket.Listen(evt, _session);
+            }
+
+            ioc.Register<MultiAccountManager>(accountManager);
+
+            var bot = accountManager.GetStartUpAccount();
+
+            if (accountManager.Accounts.Count > 1)
+            {
+                foreach (var _bot in accountManager.Accounts)
+                {
+                    var _item = new ToolStripMenuItem();
+                    _item.Text = _bot.Username;
+                    _item.Click += delegate
+                    {
+                        if (!Instance._botStarted)
+                            _session.ReInitSessionWithNextBot(_bot);
+                        accountManager.SwitchAccountTo(_bot);
+                    };
+                    accountsToolStripMenuItem.DropDownItems.Add(_item);
+                }
+                _session.ReInitSessionWithNextBot(bot);
+            }
+            else
+            {
+                _session.ReInitSessionWithNextBot(bot);
+                menuStrip1.Items.Remove(accountsToolStripMenuItem);
+            }
+
+            _machine = machine;
+            _settings = settings;
+            _excelConfigAllow = excelConfigAllow;
+        }
+
+        private Task StartBot()
+        {
+            _machine.AsyncStart(new Logic.State.VersionCheckState(), _session, _subPath, _excelConfigAllow);
+
+            try
+            {
+                Console.Clear();
+            }
+            catch (IOException)
+            {
+            }
+
+            if (_settings.TelegramConfig.UseTelegramAPI)
+                _session.Telegram = new TelegramService(_settings.TelegramConfig.TelegramAPIKey, _session);
+            if (_session.LogicSettings.EnableHumanWalkingSnipe &&
+                            _session.LogicSettings.HumanWalkingSnipeUseFastPokemap)
+            {
+                // jjskuld - Ignore CS4014 warning for now.
+                //#pragma warning disable 4014
+                HumanWalkSnipeTask.StartFastPokemapAsync(_session,
+                    _session.CancellationTokenSource.Token).ConfigureAwait(false); // that need to keep data live
+                //#pragma warning restore 4014
+            }
+
+            if (_session.LogicSettings.UseSnipeLocationServer ||
+              _session.LogicSettings.HumanWalkingSnipeUsePogoLocationFeeder)
+                SnipePokemonTask.AsyncStart(_session);
+
+
+            if (_session.LogicSettings.DataSharingConfig.EnableSyncData)
+            {
+                BotDataSocketClient.StartAsync(_session);
+                _session.EventDispatcher.EventReceived += evt => BotDataSocketClient.Listen(evt, _session);
+            }
+            _settings.CheckProxy(_session.Translation);
+
+            if (_session.LogicSettings.ActivateMSniper)
+            {
+                ServicePointManager.ServerCertificateValidationCallback +=
+                    (sender, certificate, chain, sslPolicyErrors) => true;
+                //temporary disable MSniper connection because site under attacking.
+                //MSniperServiceTask.ConnectToService();
+                //_session.EventDispatcher.EventReceived += evt => MSniperServiceTask.AddToList(evt);
+            }
+            var trackFile = Path.GetTempPath() + "\\rocketbot2.io";
+
+            if (!File.Exists(trackFile) || File.GetLastWriteTime(trackFile) < DateTime.Now.AddDays(-1))
+            {
+                Thread.Sleep(10000);
+                Thread mThread = new Thread(delegate ()
+                {
+                    var infoForm = new InfoForm();
+                    infoForm.ShowDialog();
+                });
+                File.WriteAllText(trackFile, DateTime.Now.Ticks.ToString());
+                mThread.SetApartmentState(ApartmentState.STA);
+
+                mThread.Start();
+            }
+
+            QuitEvent.WaitOne();
+            return Task.CompletedTask;
+            //return new Task(() => { });
+        }
+
+        #endregion
 
         #region PROGRAM CLIENT FUNCTIONS
 
