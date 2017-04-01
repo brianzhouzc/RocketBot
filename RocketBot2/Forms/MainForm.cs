@@ -960,7 +960,7 @@ namespace RocketBot2.Forms
 
             AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionEventHandler;
 
-            Console.Title = @"RocketBot2";
+            Console.Title = @"RocketBot2 Loading ";
             Console.CancelKeyPress += (sender, eArgs) =>
             {
                 QuitEvent.Set();
