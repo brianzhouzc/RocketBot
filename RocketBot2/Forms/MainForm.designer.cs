@@ -201,6 +201,7 @@ namespace RocketBot2.Forms
             this.gMapControl1.Size = new System.Drawing.Size(644, 246);
             this.gMapControl1.TabIndex = 23;
             this.gMapControl1.Zoom = 15D;
+            this.gMapControl1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.gMapControl1_MouseDoubleClick);
             // 
             // olvPokemonList
             // 
