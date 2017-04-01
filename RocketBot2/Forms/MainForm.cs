@@ -644,7 +644,7 @@ namespace RocketBot2.Forms
 
         private void PokemonProperties(PokemonObject pokemonObject)
         {
-            using (var form = new PokemonPropertiesForm(pokemonObject))
+            using (var form = new PokemonPropertiesForm(_session, pokemonObject))
             {
                 form.ShowDialog();
             }

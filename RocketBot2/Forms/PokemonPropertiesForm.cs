@@ -1,4 +1,5 @@
 ﻿using PoGo.NecroBot.Logic.Model;
+using PoGo.NecroBot.Logic.State;
 using RocketBot2.Helpers;
 using System;
 using System.Collections.Generic;
@@ -19,20 +20,20 @@ namespace RocketBot2.Forms
             InitializeComponent();
         }
 
-        public PokemonPropertiesForm(PokemonObject pokemon)
+        public PokemonPropertiesForm(ISession session, PokemonObject pokemon)
         {
             InitializeComponent();
 
             pbPokemon.Image = ResourceHelper.GetImage(null, (int)pokemon.PokemonId, pokemon.Shiny, pbPokemon.Size.Height, pbPokemon.Size.Width);
-            lbName.Text = string.IsNullOrEmpty(pokemon.Nickname) ? pokemon.PokemonId.ToString() : pokemon.Nickname;
+            lbName.Text = string.IsNullOrEmpty(pokemon.Nickname) ? session.Translation.GetPokemonTranslation(pokemon.PokemonId) : pokemon.Nickname;
             Text = $"Properties of {lbName.Text}";
             lbTypes.Text = $"Types \n\r {pokemon.Types}";
             lbSex.Text = $"Sex: {pokemon.Sex}";
             lbShiny.Text = pokemon.Shiny ? "Shiny: Yes" : "Shiny: No";
-            lbMove1.Text = "Move1 \n\r {pokemon.Move1}";
+            lbMove1.Text = $"Move1 \n\r {pokemon.Move1}";
             lbMove2.Text = $"Move2 \n\r {pokemon.Move2}";
             lbHP.Text = $"HP: {pokemon.HP}/{pokemon.MaxHP}";
-            lbCp.Text = $"CP: {pokemon.Cp.ToString()}";
+            lbCp.Text = $"CP: {pokemon.Cp}";
             lbIV.Text = $"IV: {pokemon.GetIV * 100}%";
             lbLevel.Text = $"Level: {pokemon.GetLv}";
             lbCaughtloc.Text = $"Caught Location: {pokemon.CaughtLocation}";
