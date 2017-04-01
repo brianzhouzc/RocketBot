@@ -588,7 +588,7 @@
             this.gMapCtrl.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.gMapCtrl.MarkersEnabled = true;
             this.gMapCtrl.MaxZoom = 18;
-            this.gMapCtrl.MinZoom = 0;
+            this.gMapCtrl.MinZoom = 2;
             this.gMapCtrl.MouseWheelZoomEnabled = true;
             this.gMapCtrl.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionWithoutCenter;
             this.gMapCtrl.Name = "gMapCtrl";

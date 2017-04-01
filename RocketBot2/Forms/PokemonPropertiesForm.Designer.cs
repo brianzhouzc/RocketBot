@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PokemonPropertiesForm));
             this.pbPokemon = new System.Windows.Forms.PictureBox();
             this.btnClose = new System.Windows.Forms.Button();
             this.lbName = new System.Windows.Forms.Label();
@@ -85,11 +86,11 @@
             this.lbTypes.AutoSize = true;
             this.lbTypes.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTypes.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.lbTypes.Location = new System.Drawing.Point(267, 66);
+            this.lbTypes.Location = new System.Drawing.Point(267, 51);
             this.lbTypes.Name = "lbTypes";
-            this.lbTypes.Size = new System.Drawing.Size(213, 28);
+            this.lbTypes.Size = new System.Drawing.Size(156, 56);
             this.lbTypes.TabIndex = 3;
-            this.lbTypes.Text = "Types: xxxxxxx/xxxxxx";
+            this.lbTypes.Text = "Types\r\n xxxxxxx/xxxxxx";
             // 
             // lbSex
             // 
@@ -118,7 +119,7 @@
             this.lbMove1.AutoSize = true;
             this.lbMove1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbMove1.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lbMove1.Location = new System.Drawing.Point(267, 107);
+            this.lbMove1.Location = new System.Drawing.Point(267, 112);
             this.lbMove1.Name = "lbMove1";
             this.lbMove1.Size = new System.Drawing.Size(142, 56);
             this.lbMove1.TabIndex = 6;
@@ -129,7 +130,7 @@
             this.lbMove2.AutoSize = true;
             this.lbMove2.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbMove2.ForeColor = System.Drawing.Color.DarkGoldenrod;
-            this.lbMove2.Location = new System.Drawing.Point(569, 107);
+            this.lbMove2.Location = new System.Drawing.Point(569, 112);
             this.lbMove2.Name = "lbMove2";
             this.lbMove2.Size = new System.Drawing.Size(152, 56);
             this.lbMove2.TabIndex = 7;
@@ -184,7 +185,7 @@
             this.lbCaughtloc.AutoSize = true;
             this.lbCaughtloc.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbCaughtloc.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lbCaughtloc.Location = new System.Drawing.Point(266, 172);
+            this.lbCaughtloc.Location = new System.Drawing.Point(266, 181);
             this.lbCaughtloc.Name = "lbCaughtloc";
             this.lbCaughtloc.Size = new System.Drawing.Size(372, 28);
             this.lbCaughtloc.TabIndex = 12;
@@ -239,7 +240,7 @@
             this.lbCandy.AutoSize = true;
             this.lbCandy.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbCandy.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lbCandy.Location = new System.Drawing.Point(723, 172);
+            this.lbCandy.Location = new System.Drawing.Point(716, 181);
             this.lbCandy.Name = "lbCandy";
             this.lbCandy.Size = new System.Drawing.Size(149, 28);
             this.lbCandy.TabIndex = 17;
@@ -250,11 +251,11 @@
             this.lbCaughtTime.AutoSize = true;
             this.lbCaughtTime.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbCaughtTime.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lbCaughtTime.Location = new System.Drawing.Point(499, 66);
+            this.lbCaughtTime.Location = new System.Drawing.Point(517, 51);
             this.lbCaughtTime.Name = "lbCaughtTime";
-            this.lbCaughtTime.Size = new System.Drawing.Size(219, 28);
+            this.lbCaughtTime.Size = new System.Drawing.Size(348, 28);
             this.lbCaughtTime.TabIndex = 18;
-            this.lbCaughtTime.Text = "Caught Time: xx:xx,xxx";
+            this.lbCaughtTime.Text = "Caught Time: xx/xx/xxxx xx:xx:xx AM";
             // 
             // lbCantoEvo
             // 
@@ -294,6 +295,7 @@
             this.Controls.Add(this.pbPokemon);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "PokemonPropertiesForm";
             this.Text = "PokemonProperties";

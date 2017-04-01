@@ -387,6 +387,12 @@ namespace RocketBot2.Forms
             }, null);
         }
 
+        private async void gMapControl1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var pos = gMapControl1.FromLocalToLatLng(e.Location.X, e.Location.Y);
+            await SetMoveToTargetTask.Execute(pos.Lat, pos.Lng);
+        }
+
         #endregion
 
         #region EVENTS
