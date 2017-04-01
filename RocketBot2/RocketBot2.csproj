@@ -210,6 +210,12 @@
     <Compile Include="Forms\InfoForm.Designer.cs">
       <DependentUpon>InfoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\PokemonPropertiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PokemonPropertiesForm.Designer.cs">
+      <DependentUpon>PokemonPropertiesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SettingForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -468,6 +474,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NicknamePokemonForm.resx">
       <DependentUpon>NicknamePokemonForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PokemonPropertiesForm.resx">
+      <DependentUpon>PokemonPropertiesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SettingForm.resx">
       <DependentUpon>SettingForm.cs</DependentUpon>

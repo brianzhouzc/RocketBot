@@ -25,6 +25,7 @@ namespace RocketBot2.Forms.advSettings
             {
                 AddTokenNodes(property.Value, property.Name, node.Nodes);
             }
+            @object = null;
         }
 
         private static void AddArrayNodes(JArray array, string name, TreeNodeCollection parent)

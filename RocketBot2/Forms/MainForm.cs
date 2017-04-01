@@ -620,9 +620,28 @@ namespace RocketBot2.Forms
                         }
                     }
                 };
+
+                cmsPokemonList.Items.Add(separator);
+
+                item = new ToolStripMenuItem { Text = @"Properties" };
+                item.Click += delegate
+                {
+                    var pokemonObject = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).First();
+                    PokemonProperties(pokemonObject);
+                };
+
                 cmsPokemonList.Items.Add(item);
+              
 
             };
+        }
+
+        private void PokemonProperties(PokemonObject pokemonObject)
+        {
+            using (var form = new PokemonPropertiesForm(pokemonObject))
+            {
+                form.ShowDialog();
+            }
         }
 
         private void olvPokemonList_ButtonClick(object sender, CellClickEventArgs e)
@@ -651,6 +670,12 @@ namespace RocketBot2.Forms
             {
                 Logger.Write(ex.ToString(), LogLevel.Error);
             }
+        }
+
+        private void olvPokemonList_DoubleClick(object sender, EventArgs e)
+        {
+            var pokemonObject = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).First();
+            PokemonProperties(pokemonObject);
         }
 
         private async void FavoritedPokemon(IEnumerable<PokemonData> pokemons, bool fav)
@@ -1545,7 +1570,8 @@ namespace RocketBot2.Forms
             }
             return false;
         }
-       
+
         #endregion
+
     }
 }

@@ -64,6 +64,8 @@ namespace RocketBot2.Helpers
         {
             Session = session;
             PokemonData = pokemonData;
+            var pkmSettings = session.Inventory.GetPokemonSettings().Result;
+            this.settings = pkmSettings.FirstOrDefault(x => x.PokemonId == pokemonData.PokemonId);
         }
 
         public ulong Id

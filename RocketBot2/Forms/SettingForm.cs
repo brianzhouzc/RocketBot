@@ -48,8 +48,6 @@ namespace RocketBot2.Forms
             }
 
             //StreamReader sr = new StreamReader(ConfigFilePath);
-            //textView.Text = sr.ReadToEnd();
-
             //JsonTreeView.LoadJsonToTreeView(sr.ReadToEnd());
             //JsonTreeView.ExpandAll();
         }
