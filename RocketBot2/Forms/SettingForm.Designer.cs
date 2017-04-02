@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
-            this.enableAdvSettingCb = new System.Windows.Forms.CheckBox();
             this.cancelBtn = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabAuth = new System.Windows.Forms.TabPage();
@@ -243,11 +242,18 @@
             this.label59 = new System.Windows.Forms.Label();
             this.tbMaxTravelDistanceInMeters = new System.Windows.Forms.TextBox();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
+            this.cbUseHumanlikeDelays = new System.Windows.Forms.CheckBox();
             this.label49 = new System.Windows.Forms.Label();
             this.tbDelayBetweenPlayerActions = new System.Windows.Forms.TextBox();
             this.label50 = new System.Windows.Forms.Label();
             this.tbDelayBetweenPokemonCatch = new System.Windows.Forms.TextBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.JsonTreeView = new System.Windows.Forms.TreeView();
             this.saveBtn = new System.Windows.Forms.Button();
+            this.cbAutoSniper = new System.Windows.Forms.CheckBox();
+            this.cbEnableGyms = new System.Windows.Forms.CheckBox();
+            this.label48 = new System.Windows.Forms.Label();
+            this.tbDataServiceIdentification = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabAuth.SuspendLayout();
             this.proxyGb.SuspendLayout();
@@ -279,19 +285,8 @@
             this.groupBox17.SuspendLayout();
             this.groupBox16.SuspendLayout();
             this.groupBox15.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // enableAdvSettingCb
-            // 
-            this.enableAdvSettingCb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.enableAdvSettingCb.AutoSize = true;
-            this.enableAdvSettingCb.Location = new System.Drawing.Point(761, 512);
-            this.enableAdvSettingCb.Name = "enableAdvSettingCb";
-            this.enableAdvSettingCb.Size = new System.Drawing.Size(203, 24);
-            this.enableAdvSettingCb.TabIndex = 32;
-            this.enableAdvSettingCb.Text = "Enable Advanced Settings";
-            this.enableAdvSettingCb.UseVisualStyleBackColor = true;
-            this.enableAdvSettingCb.Click += new System.EventHandler(this.enableAdvSettingCb_Click);
             // 
             // cancelBtn
             // 
@@ -315,6 +310,7 @@
             this.tabControl.Controls.Add(this.tabPokemon);
             this.tabControl.Controls.Add(this.tabItems);
             this.tabControl.Controls.Add(this.tabAdvSetting);
+            this.tabControl.Controls.Add(this.tabPage1);
             this.tabControl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
@@ -468,7 +464,6 @@
             this.proxyGb.TabIndex = 27;
             this.proxyGb.TabStop = false;
             this.proxyGb.Text = "Proxy Setting";
-            this.proxyGb.Visible = false;
             // 
             // proxyPortTb
             // 
@@ -593,7 +588,7 @@
             this.gMapCtrl.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.gMapCtrl.MarkersEnabled = true;
             this.gMapCtrl.MaxZoom = 18;
-            this.gMapCtrl.MinZoom = 0;
+            this.gMapCtrl.MinZoom = 2;
             this.gMapCtrl.MouseWheelZoomEnabled = true;
             this.gMapCtrl.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionWithoutCenter;
             this.gMapCtrl.Name = "gMapCtrl";
@@ -975,7 +970,6 @@
             this.DeviceModelTb.Name = "DeviceModelTb";
             this.DeviceModelTb.Size = new System.Drawing.Size(283, 27);
             this.DeviceModelTb.TabIndex = 55;
-            this.DeviceModelTb.TextChanged += new System.EventHandler(this.DeviceModelTb_TextChanged);
             // 
             // label15
             // 
@@ -1426,7 +1420,7 @@
             this.clbIgnore.Location = new System.Drawing.Point(3, 49);
             this.clbIgnore.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbIgnore.Name = "clbIgnore";
-            this.clbIgnore.Size = new System.Drawing.Size(416, 158);
+            this.clbIgnore.Size = new System.Drawing.Size(416, 180);
             this.clbIgnore.TabIndex = 0;
             // 
             // tBMaxBerriesToUsePerPokemon
@@ -1488,7 +1482,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(412, 442);
+            this.groupBox1.Size = new System.Drawing.Size(412, 478);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Exclude Transfer";
@@ -1516,7 +1510,7 @@
             this.clbTransfer.Location = new System.Drawing.Point(6, 50);
             this.clbTransfer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbTransfer.Name = "clbTransfer";
-            this.clbTransfer.Size = new System.Drawing.Size(405, 356);
+            this.clbTransfer.Size = new System.Drawing.Size(405, 378);
             this.clbTransfer.TabIndex = 0;
             // 
             // groupBox8
@@ -1833,7 +1827,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox4.Size = new System.Drawing.Size(413, 442);
+            this.groupBox4.Size = new System.Drawing.Size(413, 478);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Power Up";
@@ -1861,7 +1855,7 @@
             this.clbPowerUp.Location = new System.Drawing.Point(6, 50);
             this.clbPowerUp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbPowerUp.Name = "clbPowerUp";
-            this.clbPowerUp.Size = new System.Drawing.Size(406, 356);
+            this.clbPowerUp.Size = new System.Drawing.Size(406, 378);
             this.clbPowerUp.TabIndex = 0;
             // 
             // cbAutoPowerUp
@@ -2013,7 +2007,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox3.Size = new System.Drawing.Size(412, 449);
+            this.groupBox3.Size = new System.Drawing.Size(412, 485);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Evolve";
@@ -2041,7 +2035,7 @@
             this.clbEvolve.Location = new System.Drawing.Point(6, 50);
             this.clbEvolve.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbEvolve.Name = "clbEvolve";
-            this.clbEvolve.Size = new System.Drawing.Size(405, 356);
+            this.clbEvolve.Size = new System.Drawing.Size(405, 378);
             this.clbEvolve.TabIndex = 0;
             // 
             // tabItems
@@ -2540,6 +2534,7 @@
             // 
             // groupBox15
             // 
+            this.groupBox15.Controls.Add(this.cbUseHumanlikeDelays);
             this.groupBox15.Controls.Add(this.label49);
             this.groupBox15.Controls.Add(this.tbDelayBetweenPlayerActions);
             this.groupBox15.Controls.Add(this.label50);
@@ -2550,6 +2545,16 @@
             this.groupBox15.TabIndex = 18;
             this.groupBox15.TabStop = false;
             this.groupBox15.Text = "Action Behavior";
+            // 
+            // cbUseHumanlikeDelays
+            // 
+            this.cbUseHumanlikeDelays.AutoSize = true;
+            this.cbUseHumanlikeDelays.Location = new System.Drawing.Point(10, 84);
+            this.cbUseHumanlikeDelays.Name = "cbUseHumanlikeDelays";
+            this.cbUseHumanlikeDelays.Size = new System.Drawing.Size(170, 24);
+            this.cbUseHumanlikeDelays.TabIndex = 16;
+            this.cbUseHumanlikeDelays.Text = "UseHumanlikeDelays";
+            this.cbUseHumanlikeDelays.UseVisualStyleBackColor = true;
             // 
             // label49
             // 
@@ -2585,6 +2590,28 @@
             this.tbDelayBetweenPokemonCatch.Size = new System.Drawing.Size(123, 27);
             this.tbDelayBetweenPokemonCatch.TabIndex = 15;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.JsonTreeView);
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(964, 473);
+            this.tabPage1.TabIndex = 5;
+            this.tabPage1.Text = "Config.json";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // JsonTreeView
+            // 
+            this.JsonTreeView.AllowDrop = true;
+            this.JsonTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JsonTreeView.LabelEdit = true;
+            this.JsonTreeView.Location = new System.Drawing.Point(3, 3);
+            this.JsonTreeView.Margin = new System.Windows.Forms.Padding(4);
+            this.JsonTreeView.Name = "JsonTreeView";
+            this.JsonTreeView.Size = new System.Drawing.Size(958, 467);
+            this.JsonTreeView.TabIndex = 1;
+            // 
             // saveBtn
             // 
             this.saveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -2593,16 +2620,59 @@
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(286, 30);
             this.saveBtn.TabIndex = 29;
-            this.saveBtn.Text = "Save and restart";
+            this.saveBtn.Text = "Save";
             this.saveBtn.UseVisualStyleBackColor = true;
             this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
+            // 
+            // cbAutoSniper
+            // 
+            this.cbAutoSniper.AutoSize = true;
+            this.cbAutoSniper.Location = new System.Drawing.Point(14, 512);
+            this.cbAutoSniper.Name = "cbAutoSniper";
+            this.cbAutoSniper.Size = new System.Drawing.Size(167, 24);
+            this.cbAutoSniper.TabIndex = 33;
+            this.cbAutoSniper.Text = "Activate Auto Sniper";
+            this.cbAutoSniper.UseVisualStyleBackColor = true;
+            // 
+            // cbEnableGyms
+            // 
+            this.cbEnableGyms.AutoSize = true;
+            this.cbEnableGyms.Location = new System.Drawing.Point(14, 539);
+            this.cbEnableGyms.Name = "cbEnableGyms";
+            this.cbEnableGyms.Size = new System.Drawing.Size(116, 24);
+            this.cbEnableGyms.TabIndex = 34;
+            this.cbEnableGyms.Text = "Enable Gmys";
+            this.cbEnableGyms.UseVisualStyleBackColor = true;
+            // 
+            // label48
+            // 
+            this.label48.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(203, 516);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(176, 20);
+            this.label48.TabIndex = 35;
+            this.label48.Text = "DataServiceIdentification";
+            // 
+            // tbDataServiceIdentification
+            // 
+            this.tbDataServiceIdentification.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbDataServiceIdentification.Location = new System.Drawing.Point(207, 539);
+            this.tbDataServiceIdentification.Name = "tbDataServiceIdentification";
+            this.tbDataServiceIdentification.Size = new System.Drawing.Size(172, 27);
+            this.tbDataServiceIdentification.TabIndex = 36;
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(976, 585);
-            this.Controls.Add(this.enableAdvSettingCb);
+            this.Controls.Add(this.tbDataServiceIdentification);
+            this.Controls.Add(this.label48);
+            this.Controls.Add(this.cbEnableGyms);
+            this.Controls.Add(this.cbAutoSniper);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.saveBtn);
@@ -2668,14 +2738,13 @@
             this.groupBox16.PerformLayout();
             this.groupBox15.ResumeLayout(false);
             this.groupBox15.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.CheckBox enableAdvSettingCb;
         private System.Windows.Forms.Button cancelBtn;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabAuth;
@@ -2894,5 +2963,12 @@
         private System.Windows.Forms.Label GoogleApiLabel;
         private System.Windows.Forms.CheckBox cbShowWalkingSpeed;
         private System.Windows.Forms.CheckBox cbUseWalkingSpeedVariant;
+        private System.Windows.Forms.CheckBox cbAutoSniper;
+        private System.Windows.Forms.CheckBox cbEnableGyms;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.TextBox tbDataServiceIdentification;
+        private System.Windows.Forms.CheckBox cbUseHumanlikeDelays;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TreeView JsonTreeView;
     }
 }

@@ -1,4 +1,7 @@
-﻿using POGOProtos.Inventory.Item;
+﻿using POGOProtos.Data;
+using POGOProtos.Enums;
+using POGOProtos.Inventory.Item;
+using POGOProtos.Map.Pokemon;
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -136,49 +139,107 @@ namespace RocketBot2.Helpers
 
         public static Image GetImage(string name)
         {
-            var strSplit = name.Split('_');
-            if (strSplit.Length > 1)
-            {
-                var strStatus = strSplit[0];
-                var id = strSplit[1];
+            return GetImage(name, null, null);
+        }
 
-                if (strStatus.ToLower().Contains("pokemon"))
-                {
-                    return GetPokemonImage(Convert.ToInt32(id));  
-                }
-            }
+        public static Image GetImage(string name, PokemonData pokemon = null, MapPokemon _pokemon = null)
+        {
+            if (pokemon != null) return GetPokemonImage(pokemon);
+            if (_pokemon != null) return GetPokemonImage(_pokemon);
             return (Image)Properties.Resources.ResourceManager.GetObject(name);
         }
 
-        public static Image GetImage(string name, int maxHeight, int maxWidth)
+        public static Image GetImage(string name, PokemonData pokemon = null, MapPokemon _pokemon = null, int maxHeight = 0, int maxWidth = 0)
         {
-                var image = GetImage(name);
-                var ratioX = (double)maxWidth /  image.Width;
-                var ratioY = (double)maxHeight / image.Height;
-                var ratio = Math.Min(ratioX, ratioY);
+            var image = GetImage(name, pokemon, _pokemon);
+            var ratioX = (double)maxWidth / image.Width;
+            var ratioY = (double)maxHeight / image.Height;
+            var ratio = Math.Min(ratioX, ratioY);
 
-                var newWidth = (int)(image.Width * ratio);
-                var newHeight = (int)(image.Height * ratio);
+            var newWidth = (int)(image.Width * ratio);
+            var newHeight = (int)(image.Height * ratio);
 
-                var newImage = new Bitmap(newWidth, newHeight);
+            var newImage = new Bitmap(newWidth, newHeight);
 
-                using (var graphics = Graphics.FromImage(newImage))
-                    graphics.DrawImage(image, 0, 0, newWidth, newHeight);
-                return  newImage;
-        }
-        public static Image GetPokemonImage(int pokemonId)
-        {
-            if (pokemonId > 151)
-            {
-               return  LoadPicture($"https://rankedboost.com/wp-content/plugins/ice/riot/poksimages/pokemons2/{pokemonId:000}.png");
-            }
-            else
-            {
-               return LoadPicture($"https://rankedboost.com/wp-content/plugins/ice/riot/poksimages/pokemons/{pokemonId:000}.png");
-            }
+            using (var graphics = Graphics.FromImage(newImage))
+                graphics.DrawImage(image, 0, 0, newWidth, newHeight);
+            return newImage;
         }
 
-#region Image Utilities
+        public static Image GetImageSize(Image image, int maxHeight, int maxWidth)
+        {
+            var ratioX = (double)maxWidth / image.Width;
+            var ratioY = (double)maxHeight / image.Height;
+            var ratio = Math.Min(ratioX, ratioY);
+
+            var newWidth = (int)(image.Width * ratio);
+            var newHeight = (int)(image.Height * ratio);
+
+            var newImage = new Bitmap(newWidth, newHeight);
+
+            using (var graphics = Graphics.FromImage(newImage))
+                graphics.DrawImage(image, 0, 0, newWidth, newHeight);
+            return newImage;
+        }
+
+        public static Image GetPokemonImage(PokemonData pokemon)
+        {
+            var additional = "";
+            if (pokemon.PokemonDisplay.Costume != Costume.Unset)
+            {
+                additional = additional + "-" + pokemon.PokemonDisplay.Costume.ToString();
+            }
+            if (pokemon.PokemonDisplay.Form != POGOProtos.Enums.Form.Unset)
+            {
+                additional = additional + "-" + pokemon.PokemonDisplay.Form.ToString().Replace("Unown", "").Replace("ExclamationPoint", "!").Replace("QuestionMark", "?");
+            }
+            if (pokemon.PokemonDisplay.Shiny)
+            {
+                additional += "-shiny";
+            }
+            return LoadPicture($"https://raw.githubusercontent.com/Necrobot-Private/PokemonGO-Assets/master/pokemon/{(int)pokemon.PokemonId:000}{additional}.png");
+            //return LoadPicture($"http://assets.pokemon.com/assets/cms2/img/pokedex/full/{(int)pokemonId:000}.png");
+        }
+
+        public static Image GetPokemonImage(MapPokemon pokemon)
+        {
+            var additional = "";
+            if (pokemon.PokemonDisplay.Costume != Costume.Unset)
+            {
+                additional = additional + "-" + pokemon.PokemonDisplay.Costume.ToString();
+            }
+            if (pokemon.PokemonDisplay.Form != POGOProtos.Enums.Form.Unset)
+            {
+                additional = additional + "-" + pokemon.PokemonDisplay.Form.ToString().Replace("Unown", "").Replace("ExclamationPoint", "!").Replace("QuestionMark", "?");
+            }
+            if (pokemon.PokemonDisplay.Shiny)
+            {
+                additional += "-shiny";
+            }
+            return LoadPicture($"https://raw.githubusercontent.com/Necrobot-Private/PokemonGO-Assets/master/pokemon/{(int)pokemon.PokemonId:000}{additional}.png");
+            //return LoadPicture($"http://assets.pokemon.com/assets/cms2/img/pokedex/full/{(int)pokemonId:000}.png");
+        }
+
+        public static Image GetPokemonImage(int ToPokemonId, PokemonData pokemon)
+        {
+            var additional = "";
+            if (pokemon.PokemonDisplay.Costume != Costume.Unset)
+            {
+                additional = additional + "-" + pokemon.PokemonDisplay.Costume.ToString();
+            }
+            if (pokemon.PokemonDisplay.Form != POGOProtos.Enums.Form.Unset)
+            {
+                additional = additional + "-" + pokemon.PokemonDisplay.Form.ToString().Replace("Unown", "").Replace("ExclamationPoint", "!").Replace("QuestionMark", "?");
+            }
+            if (pokemon.PokemonDisplay.Shiny)
+            {
+                additional += "-shiny";
+            }
+            return LoadPicture($"https://raw.githubusercontent.com/Necrobot-Private/PokemonGO-Assets/master/pokemon/{(int)ToPokemonId:000}{additional}.png");
+            //return LoadPicture($"http://assets.pokemon.com/assets/cms2/img/pokedex/full/{(int)pokemonId:000}.png");
+        }
+
+        #region Image Utilities
 
         /// <summary>
         /// Loads an image from a URL into a Bitmap object.

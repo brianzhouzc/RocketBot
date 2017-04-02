@@ -27,7 +27,7 @@ namespace RocketBot2.Forms
                 DialogResult = DialogResult.OK;
                 Close();
             }
-            if (e.KeyCode == Keys.Escape)
+            else if (e.KeyCode == Keys.Escape)
             {
                 DialogResult = DialogResult.Cancel;
                 Close();

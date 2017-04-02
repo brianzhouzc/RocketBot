@@ -3,7 +3,6 @@
 using PoGo.NecroBot.Logic.PoGoUtils;
 using POGOProtos.Data;
 using PoGo.NecroBot.Logic.State;
-using System.Threading.Tasks;
 
 #endregion
 

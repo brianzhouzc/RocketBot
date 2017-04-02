@@ -1,18 +1,19 @@
-﻿using System;
+﻿using GMap.NET;
+using GMap.NET.MapProviders;
+using PoGo.NecroBot.Logic.Model.Settings;
+using POGOProtos.Enums;
+using PokemonGo.RocketAPI.Enums;
+using RocketBot2.Forms.advSettings;
+using RocketBot2.Helpers;
+using RocketBot2.Win32;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using GMap.NET;
-using GMap.NET.MapProviders;
-using PokemonGo.RocketAPI.Enums;
-using PoGo.NecroBot.Logic.Model.Settings;
-using RocketBot2.Helpers;
-using POGOProtos.Enums;
 
 namespace RocketBot2.Forms
 {
@@ -26,13 +27,12 @@ namespace RocketBot2.Forms
         private static readonly string LanguagePath = Path.Combine(ConfigFolderPath, "Translations");
         private readonly DeviceHelper _deviceHelper;
         private readonly List<DeviceInfo> _deviceInfos;
-        private readonly GlobalSettings _setting;
-        private TabPage _tabAdvSettingTab;
+        private readonly GlobalSettings _settings;
 
         public SettingsForm(ref GlobalSettings settings)
         {
             InitializeComponent();
-            _setting = settings;
+            _settings = settings;
 
             _deviceHelper = new DeviceHelper();
             _deviceInfos = _deviceHelper.DeviceBucket;
@@ -46,50 +46,36 @@ namespace RocketBot2.Forms
                 clbPowerUp.Items.Add(pokemon);
                 clbEvolve.Items.Add(pokemon);
             }
+
+            //StreamReader sr = new StreamReader(ConfigFilePath);
+            //JsonTreeView.LoadJsonToTreeView(sr.ReadToEnd());
+            //JsonTreeView.ExpandAll();
         }
+
+        #region Advanced Setting Init
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
             var languageList = GetLanguageList();
-            var  languageIndex = languageList.IndexOf(_setting.ConsoleConfig.TranslationLanguageCode);
+            var  languageIndex = languageList.IndexOf(_settings.ConsoleConfig.TranslationLanguageCode);
             cbLanguage.DataSource = languageList;
             cbLanguage.SelectedIndex = languageIndex == -1 ? 0 : languageIndex;
-
-            #region Advanced Setting Init
-
-            //proxy
-            //proxyGb.Visible = _setting.EnableAdvancedSettings;
-            //advanced tab
-            _tabAdvSettingTab = tabAdvSetting;
-            //enableAdvSettingCb.Checked = _setting.EnableAdvancedSettings;
-            if (!enableAdvSettingCb.Checked)
-            {
-                tabControl.TabPages.Remove(_tabAdvSettingTab);
-            }
-            else
-            {
-                _tabAdvSettingTab.Enabled = true;
-            }
-
+            
             #endregion
 
             #region Login Type and info
 
-            authTypeCb.Text = _setting.Auth.CurrentAuthConfig.AuthType.ToString();
-            UserLoginBox.Text = _setting.Auth.CurrentAuthConfig.Username; /*_setting.Auth.AuthConfig.AuthType == AuthType.Google
-                ? _setting.Auth.AuthConfig.GoogleUsername
-                : _setting.Auth.AuthConfig.PtcUsername;*/
-            UserPasswordBox.Text = _setting.Auth.CurrentAuthConfig.Password; /*_setting.Auth.AuthConfig.AuthType == AuthType.Google
-                ? _setting.Auth.AuthConfig.GooglePassword
-                : _setting.Auth.AuthConfig.PtcPassword;*/
+            authTypeCb.Text = _settings.Auth.CurrentAuthConfig.AuthType.ToString();
+            UserLoginBox.Text = _settings.Auth.CurrentAuthConfig.Username; 
+            UserPasswordBox.Text = _settings.Auth.CurrentAuthConfig.Password;
 
             //google api
-            if (_setting.GoogleWalkConfig.GoogleAPIKey != null)
-            GoogleApiBox.Text = _setting.GoogleWalkConfig.GoogleAPIKey;
+            if (_settings.GoogleWalkConfig.GoogleAPIKey != null)
+            GoogleApiBox.Text = _settings.GoogleWalkConfig.GoogleAPIKey;
 
             //proxy
-            useProxyCb.Checked = _setting.Auth.ProxyConfig.UseProxy;
-            useProxyAuthCb.Checked = _setting.Auth.ProxyConfig.UseProxy && _setting.Auth.ProxyConfig.UseProxyAuthentication;
+            useProxyCb.Checked = _settings.Auth.ProxyConfig.UseProxy;
+            useProxyAuthCb.Checked = _settings.Auth.ProxyConfig.UseProxy && _settings.Auth.ProxyConfig.UseProxyAuthentication;
             ToggleProxyCtrls();
 
             #endregion
@@ -103,7 +89,7 @@ namespace RocketBot2.Forms
             //not use proxy
             GMapProvider.WebProxy = null;
             //center map on moscow
-            gMapCtrl.Position = new PointLatLng(_setting.LocationConfig.DefaultLatitude, _setting.LocationConfig.DefaultLongitude);
+            gMapCtrl.Position = new PointLatLng(_settings.LocationConfig.DefaultLatitude, _settings.LocationConfig.DefaultLongitude);
             //zoom min/max; default both = 2
             gMapCtrl.DragButton = MouseButtons.Left;
             gMapCtrl.CenterPen = new Pen(Color.Red, 2);
@@ -115,27 +101,27 @@ namespace RocketBot2.Forms
             //disable map focus
             gMapCtrl.DisableFocusOnMouseEnter = true;
 
-            tbWalkingSpeed.Text = _setting.LocationConfig.WalkingSpeedInKilometerPerHour.ToString(CultureInfo.InvariantCulture);
+            tbWalkingSpeed.Text = _settings.LocationConfig.WalkingSpeedInKilometerPerHour.ToString(CultureInfo.InvariantCulture);
 
             #endregion
 
             #region Device Info
 
             //by default, select one from Necro's device dictionary
-            DeviceIdTb.Text = _setting.Auth.DeviceConfig.DeviceId;
-            AndroidBoardNameTb.Text = _setting.Auth.DeviceConfig.AndroidBoardName;
-            AndroidBootloaderTb.Text = _setting.Auth.DeviceConfig.AndroidBootloader;
-            DeviceBrandTb.Text = _setting.Auth.DeviceConfig.DeviceBrand;
-            DeviceModelTb.Text = _setting.Auth.DeviceConfig.DeviceModel;
-            DeviceModelIdentifierTb.Text = _setting.Auth.DeviceConfig.DeviceModelIdentifier;
-            DeviceModelBootTb.Text = _setting.Auth.DeviceConfig.DeviceModelBoot;
-            HardwareManufacturerTb.Text = _setting.Auth.DeviceConfig.HardwareManufacturer;
-            HardwareModelTb.Text = _setting.Auth.DeviceConfig.HardwareModel;
-            FirmwareBrandTb.Text = _setting.Auth.DeviceConfig.FirmwareBrand;
-            FirmwareTagsTb.Text = _setting.Auth.DeviceConfig.FirmwareTags;
-            FirmwareTypeTb.Text = _setting.Auth.DeviceConfig.FirmwareType;
-            FirmwareFingerprintTb.Text = _setting.Auth.DeviceConfig.FirmwareFingerprint;
-            deviceTypeCb.SelectedIndex = _setting.Auth.DeviceConfig.DeviceBrand.ToLower() == "apple" ? 0 : 1;
+            DeviceIdTb.Text = _settings.Auth.DeviceConfig.DeviceId;
+            AndroidBoardNameTb.Text = _settings.Auth.DeviceConfig.AndroidBoardName;
+            AndroidBootloaderTb.Text = _settings.Auth.DeviceConfig.AndroidBootloader;
+            DeviceBrandTb.Text = _settings.Auth.DeviceConfig.DeviceBrand;
+            DeviceModelTb.Text = _settings.Auth.DeviceConfig.DeviceModel;
+            DeviceModelIdentifierTb.Text = _settings.Auth.DeviceConfig.DeviceModelIdentifier;
+            DeviceModelBootTb.Text = _settings.Auth.DeviceConfig.DeviceModelBoot;
+            HardwareManufacturerTb.Text = _settings.Auth.DeviceConfig.HardwareManufacturer;
+            HardwareModelTb.Text = _settings.Auth.DeviceConfig.HardwareModel;
+            FirmwareBrandTb.Text = _settings.Auth.DeviceConfig.FirmwareBrand;
+            FirmwareTagsTb.Text = _settings.Auth.DeviceConfig.FirmwareTags;
+            FirmwareTypeTb.Text = _settings.Auth.DeviceConfig.FirmwareType;
+            FirmwareFingerprintTb.Text = _settings.Auth.DeviceConfig.FirmwareFingerprint;
+            deviceTypeCb.SelectedIndex = _settings.Auth.DeviceConfig.DeviceBrand.ToLower() == "apple" ? 0 : 1;
 
             #endregion
 
@@ -143,33 +129,33 @@ namespace RocketBot2.Forms
 
             #region Catch
 
-            cbCatchPoke.Checked = _setting.PokemonConfig.CatchPokemon;
-            cbUseEggIncubators.Checked = _setting.PokemonConfig.UseEggIncubators;
+            cbCatchPoke.Checked = _settings.PokemonConfig.CatchPokemon;
+            cbUseEggIncubators.Checked = _settings.PokemonConfig.UseEggIncubators;
 
 
-            tbMaxPokeballsPerPokemon.Text = _setting.PokemonConfig.MaxPokeballsPerPokemon.ToString();
-            cbAutoFavoritePokemon.Checked = _setting.PokemonConfig.AutoFavoritePokemon;
-            tbFavoriteMinIvPercentage.Text = _setting.PokemonConfig.FavoriteMinIvPercentage.ToString(CultureInfo.InvariantCulture);
+            tbMaxPokeballsPerPokemon.Text = _settings.PokemonConfig.MaxPokeballsPerPokemon.ToString();
+            cbAutoFavoritePokemon.Checked = _settings.PokemonConfig.AutoFavoritePokemon;
+            tbFavoriteMinIvPercentage.Text = _settings.PokemonConfig.FavoriteMinIvPercentage.ToString(CultureInfo.InvariantCulture);
 
-            tBMaxBerriesToUsePerPokemon.Text = _setting.ItemUseFilters.FirstOrDefault().Value.MaxItemsUsePerPokemon.ToString();
-            tbUseBerriesMinCp.Text = _setting.ItemUseFilters.FirstOrDefault().Value.UseItemMinCP.ToString();
-            tbUseBerriesMinIv.Text = _setting.ItemUseFilters.FirstOrDefault().Value.UseItemMinIV.ToString(CultureInfo.InvariantCulture);
-            tbUseBerriesBelowCatchProbability.Text =_setting.ItemUseFilters.FirstOrDefault().Value.CatchProbability.ToString(CultureInfo.InvariantCulture);
-            cbUseBerriesOperator.SelectedIndex = _setting.ItemUseFilters.FirstOrDefault().Value.Operator == "and" ? 0 : 1;
+            tBMaxBerriesToUsePerPokemon.Text = _settings.ItemUseFilters.FirstOrDefault().Value.MaxItemsUsePerPokemon.ToString();
+            tbUseBerriesMinCp.Text = _settings.ItemUseFilters.FirstOrDefault().Value.UseItemMinCP.ToString();
+            tbUseBerriesMinIv.Text = _settings.ItemUseFilters.FirstOrDefault().Value.UseItemMinIV.ToString(CultureInfo.InvariantCulture);
+            tbUseBerriesBelowCatchProbability.Text =_settings.ItemUseFilters.FirstOrDefault().Value.CatchProbability.ToString(CultureInfo.InvariantCulture);
+            cbUseBerriesOperator.SelectedIndex = _settings.ItemUseFilters.FirstOrDefault().Value.Operator == "and" ? 0 : 1;
            
-            tbUseGreatBallAboveCp.Text = _setting.PokemonConfig.UseGreatBallAboveCp.ToString();
-            tbUseUltraBallAboveCp.Text = _setting.PokemonConfig.UseUltraBallAboveCp.ToString();
-            tbUseMasterBallAboveCp.Text = _setting.PokemonConfig.UseMasterBallAboveCp.ToString();
-            tbUseGreatBallAboveIv.Text = _setting.PokemonConfig.UseGreatBallAboveIv.ToString(CultureInfo.InvariantCulture);
-            tbUseUltraBallAboveIv.Text = _setting.PokemonConfig.UseUltraBallAboveIv.ToString(CultureInfo.InvariantCulture);
+            tbUseGreatBallAboveCp.Text = _settings.PokemonConfig.UseGreatBallAboveCp.ToString();
+            tbUseUltraBallAboveCp.Text = _settings.PokemonConfig.UseUltraBallAboveCp.ToString();
+            tbUseMasterBallAboveCp.Text = _settings.PokemonConfig.UseMasterBallAboveCp.ToString();
+            tbUseGreatBallAboveIv.Text = _settings.PokemonConfig.UseGreatBallAboveIv.ToString(CultureInfo.InvariantCulture);
+            tbUseUltraBallAboveIv.Text = _settings.PokemonConfig.UseUltraBallAboveIv.ToString(CultureInfo.InvariantCulture);
             tbUseGreatBallBelowCatchProbability.Text =
-                _setting.PokemonConfig.UseGreatBallBelowCatchProbability.ToString(CultureInfo.InvariantCulture);
+                _settings.PokemonConfig.UseGreatBallBelowCatchProbability.ToString(CultureInfo.InvariantCulture);
             tbUseUltraBallBelowCatchProbability.Text =
-                _setting.PokemonConfig.UseUltraBallBelowCatchProbability.ToString(CultureInfo.InvariantCulture);
+                _settings.PokemonConfig.UseUltraBallBelowCatchProbability.ToString(CultureInfo.InvariantCulture);
             tbUseMasterBallBelowCatchProbability.Text =
-                _setting.PokemonConfig.UseMasterBallBelowCatchProbability.ToString(CultureInfo.InvariantCulture);
+                _settings.PokemonConfig.UseMasterBallBelowCatchProbability.ToString(CultureInfo.InvariantCulture);
 
-            foreach (var poke in _setting.PokemonsToIgnore)
+            foreach (var poke in _settings.PokemonsToIgnore)
             {
                 clbIgnore.SetItemChecked(clbIgnore.FindStringExact(poke.ToString()), true);
             }
@@ -178,18 +164,18 @@ namespace RocketBot2.Forms
 
             #region Transfer
 
-            cbPrioritizeIvOverCp.Checked = _setting.PokemonConfig.PrioritizeIvOverCp;
-            tbKeepMinCp.Text = _setting.PokemonConfig.KeepMinCp.ToString();
-            tbKeepMinIV.Text = _setting.PokemonConfig.KeepMinIvPercentage.ToString(CultureInfo.InvariantCulture);
-            tbKeepMinLvl.Text = _setting.PokemonConfig.KeepMinLvl.ToString();
-            cbKeepMinOperator.SelectedIndex = _setting.PokemonConfig.KeepMinOperator.ToLowerInvariant() == "and" ? 0 : 1;
-            cbTransferWeakPokemon.Checked = _setting.PokemonConfig.TransferWeakPokemon;
-            cbTransferDuplicatePokemon.Checked = _setting.PokemonConfig.TransferDuplicatePokemon;
-            cbTransferDuplicatePokemonOnCapture.Checked = _setting.PokemonConfig.TransferDuplicatePokemonOnCapture;
+            cbPrioritizeIvOverCp.Checked = _settings.PokemonConfig.PrioritizeIvOverCp;
+            tbKeepMinCp.Text = _settings.PokemonConfig.KeepMinCp.ToString();
+            tbKeepMinIV.Text = _settings.PokemonConfig.KeepMinIvPercentage.ToString(CultureInfo.InvariantCulture);
+            tbKeepMinLvl.Text = _settings.PokemonConfig.KeepMinLvl.ToString();
+            cbKeepMinOperator.SelectedIndex = _settings.PokemonConfig.KeepMinOperator.ToLowerInvariant() == "and" ? 0 : 1;
+            cbTransferWeakPokemon.Checked = _settings.PokemonConfig.TransferWeakPokemon;
+            cbTransferDuplicatePokemon.Checked = _settings.PokemonConfig.TransferDuplicatePokemon;
+            cbTransferDuplicatePokemonOnCapture.Checked = _settings.PokemonConfig.TransferDuplicatePokemonOnCapture;
 
-            tbKeepMinDuplicatePokemon.Text = _setting.PokemonConfig.KeepMinDuplicatePokemon.ToString();
-            cbUseKeepMinLvl.Checked = _setting.PokemonConfig.UseKeepMinLvl;
-            foreach (var poke in _setting.PokemonsNotToTransfer)
+            tbKeepMinDuplicatePokemon.Text = _settings.PokemonConfig.KeepMinDuplicatePokemon.ToString();
+            cbUseKeepMinLvl.Checked = _settings.PokemonConfig.UseKeepMinLvl;
+            foreach (var poke in _settings.PokemonsNotToTransfer)
             {
                 clbTransfer.SetItemChecked(clbTransfer.FindStringExact(poke.ToString()), true);
             }
@@ -199,20 +185,20 @@ namespace RocketBot2.Forms
             #region Powerup
 
             //focuse to use filter list
-            _setting.PokemonConfig.UseLevelUpList = true;
+            _settings.PokemonConfig.UseLevelUpList = true;
 
-            cbAutoPowerUp.Checked = _setting.PokemonConfig.AutomaticallyLevelUpPokemon;
-            cbPowerUpFav.Checked = _setting.PokemonConfig.OnlyUpgradeFavorites;
-            cbPowerUpType.SelectedIndex = _setting.PokemonConfig.LevelUpByCPorIv == "iv" ? 0 : 1;
-            cbPowerUpCondiction.SelectedIndex = _setting.PokemonConfig.UpgradePokemonMinimumStatsOperator == "and" ? 0 : 1;
-            cbPowerUpMinStarDust.Text = _setting.PokemonConfig.GetMinStarDustForLevelUp.ToString();
-            tbPowerUpMinIV.Text = _setting.PokemonConfig.UpgradePokemonIvMinimum.ToString(CultureInfo.InvariantCulture);
-            tbPowerUpMinCP.Text = _setting.PokemonConfig.UpgradePokemonCpMinimum.ToString(CultureInfo.InvariantCulture);
-            foreach (var poke in _setting.PokemonsToLevelUp)
+            cbAutoPowerUp.Checked = _settings.PokemonConfig.AutomaticallyLevelUpPokemon;
+            cbPowerUpFav.Checked = _settings.PokemonConfig.OnlyUpgradeFavorites;
+            cbPowerUpType.SelectedIndex = _settings.PokemonConfig.LevelUpByCPorIv == "iv" ? 0 : 1;
+            cbPowerUpCondiction.SelectedIndex = _settings.PokemonConfig.UpgradePokemonMinimumStatsOperator == "and" ? 0 : 1;
+            cbPowerUpMinStarDust.Text = _settings.PokemonConfig.GetMinStarDustForLevelUp.ToString();
+            tbPowerUpMinIV.Text = _settings.PokemonConfig.UpgradePokemonIvMinimum.ToString(CultureInfo.InvariantCulture);
+            tbPowerUpMinCP.Text = _settings.PokemonConfig.UpgradePokemonCpMinimum.ToString(CultureInfo.InvariantCulture);
+            foreach (var poke in _settings.PokemonsToLevelUp)
             {
                 clbPowerUp.SetItemChecked(clbPowerUp.FindStringExact(poke.ToString()), true);
             }
-            if (_setting.PokemonConfig.LevelUpByCPorIv == "iv")
+            if (_settings.PokemonConfig.LevelUpByCPorIv == "iv")
             {
                 label31.Visible = true;
                 tbPowerUpMinIV.Visible = true;
@@ -231,17 +217,17 @@ namespace RocketBot2.Forms
 
             #region Evo
 
-            cbEvoAllAboveIV.Checked = _setting.PokemonConfig.EvolveAllPokemonAboveIv;
-            tbEvoAboveIV.Text = _setting.PokemonConfig.EvolveAboveIvValue.ToString(CultureInfo.InvariantCulture);
-            cbEvolveAllPokemonWithEnoughCandy.Checked = _setting.PokemonConfig.EvolveAllPokemonWithEnoughCandy;
-            cbKeepPokemonsThatCanEvolve.Checked = _setting.PokemonConfig.KeepPokemonsThatCanEvolve;
+            cbEvoAllAboveIV.Checked = _settings.PokemonConfig.EvolveAllPokemonAboveIv;
+            tbEvoAboveIV.Text = _settings.PokemonConfig.EvolveAboveIvValue.ToString(CultureInfo.InvariantCulture);
+            cbEvolveAllPokemonWithEnoughCandy.Checked = _settings.PokemonConfig.EvolveAllPokemonWithEnoughCandy;
+            cbKeepPokemonsThatCanEvolve.Checked = _settings.PokemonConfig.KeepPokemonsThatCanEvolve;
             tbEvolveKeptPokemonsAtStorageUsagePercentage.Text =
-                _setting.PokemonConfig.EvolveKeptPokemonsAtStorageUsagePercentage.ToString(CultureInfo.InvariantCulture);
-            cbUseLuckyEggsWhileEvolving.Checked = _setting.PokemonConfig.UseLuckyEggsWhileEvolving;
-            tbUseLuckyEggsMinPokemonAmount.Text = _setting.PokemonConfig.UseLuckyEggsMinPokemonAmount.ToString();
+                _settings.PokemonConfig.EvolveKeptPokemonsAtStorageUsagePercentage.ToString(CultureInfo.InvariantCulture);
+            cbUseLuckyEggsWhileEvolving.Checked = _settings.PokemonConfig.UseLuckyEggsWhileEvolving;
+            tbUseLuckyEggsMinPokemonAmount.Text = _settings.PokemonConfig.UseLuckyEggsMinPokemonAmount.ToString();
             //TODO:
             /*
-            foreach (var poke in _setting.PokemonEvolveFilter)
+            foreach (var poke in _settings.PokemonEvolveFilter)
             {
                 clbEvolve.SetItemChecked(clbEvolve.FindStringExact(poke.ToString()), true);
             }
@@ -252,44 +238,45 @@ namespace RocketBot2.Forms
 
             #region Item Info
 
-            cbUseLuckyEggConstantly.Checked = _setting.PokemonConfig.UseLuckyEggConstantly;
-            cbUseIncenseConstantly.Checked = _setting.PokemonConfig.UseIncenseConstantly;
-            tbTotalAmountOfPokeballsToKeep.Text = _setting.RecycleConfig.TotalAmountOfPokeballsToKeep.ToString();
-            tbTotalAmountOfPotionsToKeep.Text = _setting.RecycleConfig.TotalAmountOfPotionsToKeep.ToString();
-            tbTotalAmountOfRevivesToKeep.Text = _setting.RecycleConfig.TotalAmountOfRevivesToKeep.ToString();
-            tbTotalAmountOfBerriesToKeep.Text = _setting.RecycleConfig.TotalAmountOfBerriesToKeep.ToString();
-            cbVerboseRecycling.Checked = _setting.RecycleConfig.VerboseRecycling;
+            cbUseLuckyEggConstantly.Checked = _settings.PokemonConfig.UseLuckyEggConstantly;
+            cbUseIncenseConstantly.Checked = _settings.PokemonConfig.UseIncenseConstantly;
+            tbTotalAmountOfPokeballsToKeep.Text = _settings.RecycleConfig.TotalAmountOfPokeballsToKeep.ToString();
+            tbTotalAmountOfPotionsToKeep.Text = _settings.RecycleConfig.TotalAmountOfPotionsToKeep.ToString();
+            tbTotalAmountOfRevivesToKeep.Text = _settings.RecycleConfig.TotalAmountOfRevivesToKeep.ToString();
+            tbTotalAmountOfBerriesToKeep.Text = _settings.RecycleConfig.TotalAmountOfBerriesToKeep.ToString();
+            cbVerboseRecycling.Checked = _settings.RecycleConfig.VerboseRecycling;
             tbRecycleInventoryAtUsagePercentage.Text =
-                _setting.RecycleConfig.RecycleInventoryAtUsagePercentage.ToString(CultureInfo.InvariantCulture);
+                _settings.RecycleConfig.RecycleInventoryAtUsagePercentage.ToString(CultureInfo.InvariantCulture);
 
             #endregion
 
             #region Advance Settings
 
-            cbDisableHumanWalking.Checked = _setting.LocationConfig.DisableHumanWalking;
-            cbUseWalkingSpeedVariant.Checked = _setting.LocationConfig.UseWalkingSpeedVariant;
-            tbWalkingSpeedVariantInKilometerPerHour.Text = _setting.LocationConfig.WalkingSpeedVariant.ToString(CultureInfo.InvariantCulture);
-            cbShowWalkingSpeed.Checked = _setting.LocationConfig.ShowVariantWalking;
-            tbMaxSpawnLocationOffset.Text = _setting.LocationConfig.MaxSpawnLocationOffset.ToString();
-            tbMaxTravelDistanceInMeters.Text = _setting.LocationConfig.MaxTravelDistanceInMeters.ToString();
-            tbDelayBetweenPlayerActions.Text = _setting.PlayerConfig.DelayBetweenPlayerActions.ToString();
-            tbDelayBetweenPokemonCatch.Text = _setting.PokemonConfig.DelayBetweenPokemonCatch.ToString();
-            //TODO:
-            //tbDelayBetweenRecycle.Text = _setting.DelayBetweenRecycle.ToString();
-            cbRandomizeRecycle.Checked = _setting.RecycleConfig.RandomizeRecycle;
-            tbRandomRecycleValue.Text = _setting.RecycleConfig.RandomRecycleValue.ToString();
-            cbEnableHumanizedThrows.Checked = _setting.CustomCatchConfig.EnableHumanizedThrows;
-            tbNiceThrowChance.Text = _setting.CustomCatchConfig.NiceThrowChance.ToString();
-            tbGreatThrowChance.Text = _setting.CustomCatchConfig.GreatThrowChance.ToString();
-            tbExcellentThrowChance.Text = _setting.CustomCatchConfig.ExcellentThrowChance.ToString();
-            tbCurveThrowChance.Text = _setting.CustomCatchConfig.CurveThrowChance.ToString();
-            tbForceGreatThrowOverIv.Text = _setting.CustomCatchConfig.ForceGreatThrowOverIv.ToString(CultureInfo.InvariantCulture);
-            tbForceExcellentThrowOverIv.Text = _setting.CustomCatchConfig.ForceExcellentThrowOverIv.ToString(CultureInfo.InvariantCulture);
-            tbForceGreatThrowOverCp.Text = _setting.CustomCatchConfig.ForceGreatThrowOverCp.ToString();
-            tbForceExcellentThrowOverCp.Text = _setting.CustomCatchConfig.ForceExcellentThrowOverCp.ToString();
-
-            #endregion
+            cbDisableHumanWalking.Checked = _settings.LocationConfig.DisableHumanWalking;
+            cbUseWalkingSpeedVariant.Checked = _settings.LocationConfig.UseWalkingSpeedVariant;
+            tbWalkingSpeedVariantInKilometerPerHour.Text = _settings.LocationConfig.WalkingSpeedVariant.ToString(CultureInfo.InvariantCulture);
+            cbShowWalkingSpeed.Checked = _settings.LocationConfig.ShowVariantWalking;
+            tbMaxSpawnLocationOffset.Text = _settings.LocationConfig.MaxSpawnLocationOffset.ToString();
+            tbMaxTravelDistanceInMeters.Text = _settings.LocationConfig.MaxTravelDistanceInMeters.ToString();
+            tbDelayBetweenPlayerActions.Text = _settings.PlayerConfig.DelayBetweenPlayerActions.ToString();
+            tbDelayBetweenPokemonCatch.Text = _settings.PokemonConfig.DelayBetweenPokemonCatch.ToString();
+            cbRandomizeRecycle.Checked = _settings.RecycleConfig.RandomizeRecycle;
+            tbRandomRecycleValue.Text = _settings.RecycleConfig.RandomRecycleValue.ToString();
+            cbEnableHumanizedThrows.Checked = _settings.CustomCatchConfig.EnableHumanizedThrows;
+            tbNiceThrowChance.Text = _settings.CustomCatchConfig.NiceThrowChance.ToString();
+            tbGreatThrowChance.Text = _settings.CustomCatchConfig.GreatThrowChance.ToString();
+            tbExcellentThrowChance.Text = _settings.CustomCatchConfig.ExcellentThrowChance.ToString();
+            tbCurveThrowChance.Text = _settings.CustomCatchConfig.CurveThrowChance.ToString();
+            tbForceGreatThrowOverIv.Text = _settings.CustomCatchConfig.ForceGreatThrowOverIv.ToString(CultureInfo.InvariantCulture);
+            tbForceExcellentThrowOverIv.Text = _settings.CustomCatchConfig.ForceExcellentThrowOverIv.ToString(CultureInfo.InvariantCulture);
+            tbForceGreatThrowOverCp.Text = _settings.CustomCatchConfig.ForceGreatThrowOverCp.ToString();
+            tbForceExcellentThrowOverCp.Text = _settings.CustomCatchConfig.ForceExcellentThrowOverCp.ToString();
+            cbAutoSniper.Checked = _settings.DataSharingConfig.AutoSnipe;
+            cbEnableGyms.Checked = _settings.GymConfig.Enable;
+            tbDataServiceIdentification.Text = _settings.DataSharingConfig.DataServiceIdentification;
+            cbUseHumanlikeDelays.Checked = _settings.HumanlikeDelays.UseHumanlikeDelays;
         }
+            #endregion
 
         #region Help button for API key
 
@@ -302,7 +289,7 @@ namespace RocketBot2.Forms
             btn.Click += googleapihep_click;
             GoogleApiBox.Controls.Add(btn);
             // Send EM_SETMARGINS to prevent text from disappearing underneath the button
-            SendMessage(GoogleApiBox.Handle, 0xd3, (IntPtr) 2, (IntPtr) (btn.Width << 16));
+            ConsoleHelper.SendMessage(GoogleApiBox.Handle, 0xd3, (IntPtr) 2, (IntPtr) (btn.Width << 16));
             base.OnLoad(e);
         }
 
@@ -311,34 +298,15 @@ namespace RocketBot2.Forms
             Process.Start("https://developers.google.com/maps/documentation/directions/get-api-key");
         }
 
-        [DllImport("user32.dll")]
-        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
-
         #endregion
 
         #region private methods
-
-        private static int ConvertStringToInt(string input)
-        {
-            var output = 0;
-            int.TryParse(input, out output);
-            return output;
-        }
-
         private static float ConvertStringToFloat(string input)
         {
             float output = 0;
             float.TryParse(input, out output);
             return output;
         }
-
-        private static double ConvertStringToDouble(string input)
-        {
-            double output = 0;
-            double.TryParse(input, out output);
-            return output;
-        }
-
         private static List<PokemonId> ConvertClbToList(CheckedListBox input)
         {
             return input.CheckedItems.Cast<PokemonId>().ToList();
@@ -384,32 +352,32 @@ namespace RocketBot2.Forms
             if (useProxyCb.Checked)
             {
                 proxyHostTb.Enabled = true;
-                proxyHostTb.Text = _setting.Auth.ProxyConfig.UseProxyHost;
+                proxyHostTb.Text = _settings.Auth.ProxyConfig.UseProxyHost;
                 proxyPortTb.Enabled = true;
-                proxyPortTb.Text = _setting.Auth.ProxyConfig.UseProxyPort;
+                proxyPortTb.Text = _settings.Auth.ProxyConfig.UseProxyPort;
                 useProxyAuthCb.Enabled = true;
             }
             else
             {
                 proxyHostTb.Enabled = false;
-                proxyHostTb.Text = _setting.Auth.ProxyConfig.UseProxyHost = "";
+                proxyHostTb.Text = _settings.Auth.ProxyConfig.UseProxyHost = "";
                 proxyPortTb.Enabled = false;
-                proxyPortTb.Text = _setting.Auth.ProxyConfig.UseProxyPort = "";
+                proxyPortTb.Text = _settings.Auth.ProxyConfig.UseProxyPort = "";
                 useProxyAuthCb.Enabled = false;
             }
             if (useProxyAuthCb.Checked)
             {
                 proxyUserTb.Enabled = true;
-                proxyUserTb.Text = _setting.Auth.ProxyConfig.UseProxyUsername;
+                proxyUserTb.Text = _settings.Auth.ProxyConfig.UseProxyUsername;
                 proxyPwTb.Enabled = true;
-                proxyPwTb.Text = _setting.Auth.ProxyConfig.UseProxyPassword;
+                proxyPwTb.Text = _settings.Auth.ProxyConfig.UseProxyPassword;
             }
             else
             {
                 proxyUserTb.Enabled = false;
-                proxyUserTb.Text = _setting.Auth.ProxyConfig.UseProxyUsername = "";
+                proxyUserTb.Text = _settings.Auth.ProxyConfig.UseProxyUsername = "";
                 proxyPwTb.Enabled = false;
-                proxyPwTb.Text = _setting.Auth.ProxyConfig.UseProxyPassword = "";
+                proxyPwTb.Text = _settings.Auth.ProxyConfig.UseProxyPassword = "";
             }
         }
 
@@ -463,60 +431,48 @@ namespace RocketBot2.Forms
             {
                 #region Auth Settings
 
-                var lastPosFile = Path.Combine(_setting.ProfileConfigPath, "LastPos.ini");
+                var lastPosFile = Path.Combine(_settings.ProfileConfigPath, "LastPos.ini");
                 if (File.Exists(lastPosFile))
                 {
                     File.Delete(lastPosFile);
                 }
-                _setting.Auth.CurrentAuthConfig.AuthType = authTypeCb.Text == @"Google" ? AuthType.Google : AuthType.Ptc;
-                /*if (_setting.Auth.AuthConfig.AuthType == AuthType.Google)
-                {*/
-                    _setting.Auth.CurrentAuthConfig.Username = UserLoginBox.Text;
-                    _setting.Auth.CurrentAuthConfig.Password = UserPasswordBox.Text;
-                /*    _setting.Auth.AuthConfig.PtcUsername = null;
-                    _setting.Auth.AuthConfig.PtcPassword = null;
-                }
-                else
-                {
-                    _setting.Auth.AuthConfig.GoogleUsername = null;
-                    _setting.Auth.AuthConfig.GooglePassword = null;
-                    _setting.Auth.AuthConfig.PtcUsername = UserLoginBox.Text;
-                    _setting.Auth.AuthConfig.PtcPassword = UserPasswordBox.Text;
-                }*/
-                _setting.GoogleWalkConfig.GoogleAPIKey = GoogleApiBox.Text == "" ? null : GoogleApiBox.Text;
-                _setting.Auth.ProxyConfig.UseProxy = useProxyCb.Checked == true ? true : false;
-                _setting.Auth.ProxyConfig.UseProxyHost = proxyHostTb.Text == "" ? null : proxyHostTb.Text;
-                _setting.Auth.ProxyConfig.UseProxyPort = proxyPortTb.Text == "" ? null : proxyPortTb.Text;
-                _setting.Auth.ProxyConfig.UseProxyAuthentication = useProxyAuthCb.Checked == true ? true : false;
-                _setting.Auth.ProxyConfig.UseProxyUsername = proxyUserTb.Text == "" ? null : proxyUserTb.Text;
-                _setting.Auth.ProxyConfig.UseProxyPassword = proxyPwTb.Text == "" ? null : proxyPwTb.Text;
-                _setting.Auth.DeviceConfig.DevicePackageName = "custom";
-                _setting.Auth.DeviceConfig.DeviceId = DeviceIdTb.Text == "" ? null : DeviceIdTb.Text;
-                _setting.Auth.DeviceConfig.AndroidBoardName = AndroidBoardNameTb.Text == "" ? null : AndroidBoardNameTb.Text;
-                _setting.Auth.DeviceConfig.AndroidBootloader = AndroidBootloaderTb.Text == "" ? null : AndroidBootloaderTb.Text;
-                _setting.Auth.DeviceConfig.DeviceBrand = DeviceBrandTb.Text == "" ? null : DeviceBrandTb.Text;
-                _setting.Auth.DeviceConfig.DeviceModel = DeviceModelTb.Text == "" ? null : DeviceModelTb.Text;
-                _setting.Auth.DeviceConfig.DeviceModelIdentifier = DeviceModelIdentifierTb.Text == "" ? null : DeviceModelIdentifierTb.Text;
-                _setting.Auth.DeviceConfig.DeviceModelBoot = DeviceModelBootTb.Text == "" ? null : DeviceModelBootTb.Text;
-                _setting.Auth.DeviceConfig.HardwareManufacturer = HardwareManufacturerTb.Text == "" ? null : HardwareManufacturerTb.Text;
-                _setting.Auth.DeviceConfig.HardwareModel = HardwareModelTb.Text == "" ? null : HardwareModelTb.Text;
-                _setting.Auth.DeviceConfig.FirmwareBrand = FirmwareBrandTb.Text == "" ? null : FirmwareBrandTb.Text;
-                _setting.Auth.DeviceConfig.FirmwareTags = FirmwareTagsTb.Text == "" ? null : FirmwareTagsTb.Text;
-                _setting.Auth.DeviceConfig.FirmwareType = FirmwareTypeTb.Text == "" ? null: FirmwareTypeTb.Text;
-                _setting.Auth.DeviceConfig.FirmwareFingerprint = FirmwareFingerprintTb.Text == "" ? null : FirmwareFingerprintTb.Text;
-                _setting.Auth.Save(AuthFilePath);
+                _settings.Auth.CurrentAuthConfig.AuthType = authTypeCb.Text == @"Google" ? AuthType.Google : AuthType.Ptc;
+                _settings.Auth.CurrentAuthConfig.Username = UserLoginBox.Text;
+                _settings.Auth.CurrentAuthConfig.Password = UserPasswordBox.Text;
+                _settings.GoogleWalkConfig.GoogleAPIKey = GoogleApiBox.Text == "" ? null : GoogleApiBox.Text;
+                _settings.Auth.ProxyConfig.UseProxy = useProxyCb.Checked == true ? true : false;
+                _settings.Auth.ProxyConfig.UseProxyHost = proxyHostTb.Text == "" ? null : proxyHostTb.Text;
+                _settings.Auth.ProxyConfig.UseProxyPort = proxyPortTb.Text == "" ? null : proxyPortTb.Text;
+                _settings.Auth.ProxyConfig.UseProxyAuthentication = useProxyAuthCb.Checked == true ? true : false;
+                _settings.Auth.ProxyConfig.UseProxyUsername = proxyUserTb.Text == "" ? null : proxyUserTb.Text;
+                _settings.Auth.ProxyConfig.UseProxyPassword = proxyPwTb.Text == "" ? null : proxyPwTb.Text;
+                _settings.Auth.DeviceConfig.DevicePackageName = "custom";
+                _settings.Auth.DeviceConfig.DeviceId = DeviceIdTb.Text == "" ? null : DeviceIdTb.Text;
+                _settings.Auth.DeviceConfig.AndroidBoardName = AndroidBoardNameTb.Text == "" ? null : AndroidBoardNameTb.Text;
+                _settings.Auth.DeviceConfig.AndroidBootloader = AndroidBootloaderTb.Text == "" ? null : AndroidBootloaderTb.Text;
+                _settings.Auth.DeviceConfig.DeviceBrand = DeviceBrandTb.Text == "" ? null : DeviceBrandTb.Text;
+                _settings.Auth.DeviceConfig.DeviceModel = DeviceModelTb.Text == "" ? null : DeviceModelTb.Text;
+                _settings.Auth.DeviceConfig.DeviceModelIdentifier = DeviceModelIdentifierTb.Text == "" ? null : DeviceModelIdentifierTb.Text;
+                _settings.Auth.DeviceConfig.DeviceModelBoot = DeviceModelBootTb.Text == "" ? null : DeviceModelBootTb.Text;
+                _settings.Auth.DeviceConfig.HardwareManufacturer = HardwareManufacturerTb.Text == "" ? null : HardwareManufacturerTb.Text;
+                _settings.Auth.DeviceConfig.HardwareModel = HardwareModelTb.Text == "" ? null : HardwareModelTb.Text;
+                _settings.Auth.DeviceConfig.FirmwareBrand = FirmwareBrandTb.Text == "" ? null : FirmwareBrandTb.Text;
+                _settings.Auth.DeviceConfig.FirmwareTags = FirmwareTagsTb.Text == "" ? null : FirmwareTagsTb.Text;
+                _settings.Auth.DeviceConfig.FirmwareType = FirmwareTypeTb.Text == "" ? null: FirmwareTypeTb.Text;
+                _settings.Auth.DeviceConfig.FirmwareFingerprint = FirmwareFingerprintTb.Text == "" ? null : FirmwareFingerprintTb.Text;
+                _settings.ConsoleConfig.TranslationLanguageCode = cbLanguage.Text;
+                _settings.Auth.Save(AuthFilePath);
                 
                 #endregion
 
                 #region RocketBot2.Form Settings
 
-                _setting.ConsoleConfig.TranslationLanguageCode = cbLanguage.Text;
 
                 #region Location
 
-                _setting.LocationConfig.DefaultLatitude = ConvertStringToDouble(tbLatitude.Text);
-                _setting.LocationConfig.DefaultLongitude = ConvertStringToDouble(tbLongitude.Text);
-                _setting.LocationConfig.WalkingSpeedInKilometerPerHour = ConvertStringToInt(tbWalkingSpeed.Text);
+                _settings.LocationConfig.DefaultLatitude = Convert.ToDouble(tbLatitude.Text);
+                _settings.LocationConfig.DefaultLongitude = Convert.ToDouble(tbLongitude.Text);
+                _settings.LocationConfig.WalkingSpeedInKilometerPerHour = Convert.ToDouble(tbWalkingSpeed.Text);
 
                 #endregion
 
@@ -524,77 +480,77 @@ namespace RocketBot2.Forms
 
                 #region Catch
 
-                _setting.PokemonConfig.CatchPokemon = cbCatchPoke.Checked;
-                _setting.PokemonConfig.UseEggIncubators = cbUseEggIncubators.Checked;
-                _setting.PokemonConfig.MaxPokeballsPerPokemon = ConvertStringToInt(tbMaxPokeballsPerPokemon.Text);
-                _setting.PokemonsToIgnore = ConvertClbToList(clbIgnore);
-                _setting.PokemonConfig.AutoFavoritePokemon = cbAutoFavoritePokemon.Checked;
-                _setting.PokemonConfig.FavoriteMinIvPercentage = ConvertStringToFloat(tbFavoriteMinIvPercentage.Text);
+                _settings.PokemonConfig.CatchPokemon = cbCatchPoke.Checked;
+                _settings.PokemonConfig.UseEggIncubators = cbUseEggIncubators.Checked;
+                _settings.PokemonConfig.MaxPokeballsPerPokemon = Convert.ToInt32(tbMaxPokeballsPerPokemon.Text);
+                _settings.PokemonsToIgnore = ConvertClbToList(clbIgnore);
+                _settings.PokemonConfig.AutoFavoritePokemon = cbAutoFavoritePokemon.Checked;
+                _settings.PokemonConfig.FavoriteMinIvPercentage = ConvertStringToFloat(tbFavoriteMinIvPercentage.Text);
 
-                _setting.ItemUseFilters.FirstOrDefault().Value.MaxItemsUsePerPokemon = ConvertStringToInt(tBMaxBerriesToUsePerPokemon.Text);
-                _setting.ItemUseFilters.FirstOrDefault().Value.UseItemMinCP = ConvertStringToInt(tbUseBerriesMinCp.Text);
-                _setting.ItemUseFilters.FirstOrDefault().Value.UseItemMinIV = ConvertStringToInt(tbUseBerriesMinIv.Text);
-                _setting.ItemUseFilters.FirstOrDefault().Value.CatchProbability = ConvertStringToDouble(tbUseBerriesBelowCatchProbability.Text);
-                _setting.ItemUseFilters.FirstOrDefault().Value.Operator = cbUseBerriesOperator.SelectedIndex == 0 ? "and" : "or";
+                _settings.ItemUseFilters.FirstOrDefault().Value.MaxItemsUsePerPokemon = Convert.ToInt32(tBMaxBerriesToUsePerPokemon.Text);
+                _settings.ItemUseFilters.FirstOrDefault().Value.UseItemMinCP = Convert.ToInt32(tbUseBerriesMinCp.Text);
+                _settings.ItemUseFilters.FirstOrDefault().Value.UseItemMinIV = Convert.ToInt32(tbUseBerriesMinIv.Text);
+                _settings.ItemUseFilters.FirstOrDefault().Value.CatchProbability = Convert.ToDouble(tbUseBerriesBelowCatchProbability.Text);
+                _settings.ItemUseFilters.FirstOrDefault().Value.Operator = cbUseBerriesOperator.SelectedIndex == 0 ? "and" : "or";
 
-                _setting.PokemonConfig.UseGreatBallAboveCp = ConvertStringToInt(tbUseGreatBallAboveCp.Text);
-                _setting.PokemonConfig.UseUltraBallAboveCp = ConvertStringToInt(tbUseUltraBallAboveCp.Text);
-                _setting.PokemonConfig.UseMasterBallAboveCp = ConvertStringToInt(tbUseMasterBallAboveCp.Text);
-                _setting.PokemonConfig.UseGreatBallAboveIv = ConvertStringToDouble(tbUseGreatBallAboveIv.Text);
-                _setting.PokemonConfig.UseUltraBallAboveIv = ConvertStringToDouble(tbUseUltraBallAboveIv.Text);
-                _setting.PokemonConfig.UseGreatBallBelowCatchProbability =
-                    ConvertStringToDouble(tbUseGreatBallBelowCatchProbability.Text);
-                _setting.PokemonConfig.UseUltraBallBelowCatchProbability =
-                    ConvertStringToDouble(tbUseUltraBallBelowCatchProbability.Text);
-                _setting.PokemonConfig.UseMasterBallBelowCatchProbability =
-                    ConvertStringToDouble(tbUseMasterBallBelowCatchProbability.Text);
+                _settings.PokemonConfig.UseGreatBallAboveCp = Convert.ToInt32(tbUseGreatBallAboveCp.Text);
+                _settings.PokemonConfig.UseUltraBallAboveCp = Convert.ToInt32(tbUseUltraBallAboveCp.Text);
+                _settings.PokemonConfig.UseMasterBallAboveCp = Convert.ToInt32(tbUseMasterBallAboveCp.Text);
+                _settings.PokemonConfig.UseGreatBallAboveIv = Convert.ToDouble(tbUseGreatBallAboveIv.Text);
+                _settings.PokemonConfig.UseUltraBallAboveIv = Convert.ToDouble(tbUseUltraBallAboveIv.Text);
+                _settings.PokemonConfig.UseGreatBallBelowCatchProbability =
+                    Convert.ToDouble(tbUseGreatBallBelowCatchProbability.Text);
+                _settings.PokemonConfig.UseUltraBallBelowCatchProbability =
+                    Convert.ToDouble(tbUseUltraBallBelowCatchProbability.Text);
+                _settings.PokemonConfig.UseMasterBallBelowCatchProbability =
+                    Convert.ToDouble(tbUseMasterBallBelowCatchProbability.Text);
 
                 #endregion
 
                 #region Transfer
 
-                _setting.PokemonConfig.PrioritizeIvOverCp = cbPrioritizeIvOverCp.Checked;
-                _setting.PokemonConfig.KeepMinCp = ConvertStringToInt(tbKeepMinCp.Text);
-                _setting.PokemonConfig.KeepMinIvPercentage = ConvertStringToFloat(tbKeepMinIV.Text);
-                _setting.PokemonConfig.KeepMinLvl = ConvertStringToInt(tbKeepMinLvl.Text);
-                _setting.PokemonConfig.KeepMinOperator = cbKeepMinOperator.SelectedIndex == 0 ? "and" : "or";
-                _setting.PokemonConfig.TransferWeakPokemon = cbTransferWeakPokemon.Checked;
-                _setting.PokemonConfig.TransferDuplicatePokemon = cbTransferDuplicatePokemon.Checked;
-                _setting.PokemonConfig.TransferDuplicatePokemonOnCapture = cbTransferDuplicatePokemonOnCapture.Checked;
+                _settings.PokemonConfig.PrioritizeIvOverCp = cbPrioritizeIvOverCp.Checked;
+                _settings.PokemonConfig.KeepMinCp = Convert.ToInt32(tbKeepMinCp.Text);
+                _settings.PokemonConfig.KeepMinIvPercentage = ConvertStringToFloat(tbKeepMinIV.Text);
+                _settings.PokemonConfig.KeepMinLvl = Convert.ToInt32(tbKeepMinLvl.Text);
+                _settings.PokemonConfig.KeepMinOperator = cbKeepMinOperator.SelectedIndex == 0 ? "and" : "or";
+                _settings.PokemonConfig.TransferWeakPokemon = cbTransferWeakPokemon.Checked;
+                _settings.PokemonConfig.TransferDuplicatePokemon = cbTransferDuplicatePokemon.Checked;
+                _settings.PokemonConfig.TransferDuplicatePokemonOnCapture = cbTransferDuplicatePokemonOnCapture.Checked;
 
-                _setting.PokemonConfig.KeepMinDuplicatePokemon = ConvertStringToInt(tbKeepMinDuplicatePokemon.Text);
-                _setting.PokemonConfig.UseKeepMinLvl = cbUseKeepMinLvl.Checked;
-                _setting.PokemonsNotToTransfer = ConvertClbToList(clbTransfer);
+                _settings.PokemonConfig.KeepMinDuplicatePokemon = Convert.ToInt32(tbKeepMinDuplicatePokemon.Text);
+                _settings.PokemonConfig.UseKeepMinLvl = cbUseKeepMinLvl.Checked;
+                _settings.PokemonsNotToTransfer = ConvertClbToList(clbTransfer);
 
                 #endregion
 
                 #region PowerUp
 
-                _setting.PokemonConfig.UseLevelUpList = true;
+                _settings.PokemonConfig.UseLevelUpList = true;
 
-                _setting.PokemonConfig.AutomaticallyLevelUpPokemon = cbAutoPowerUp.Checked;
-                _setting.PokemonConfig.OnlyUpgradeFavorites = cbPowerUpFav.Checked;
-                _setting.PokemonConfig.LevelUpByCPorIv = cbPowerUpType.SelectedIndex == 0 ? "iv" : "cp";
-                _setting.PokemonConfig.UpgradePokemonMinimumStatsOperator = cbPowerUpCondiction.SelectedIndex == 0 ? "and" : "or";
-                _setting.PokemonConfig.GetMinStarDustForLevelUp = ConvertStringToInt(cbPowerUpMinStarDust.Text);
-                _setting.PokemonConfig.UpgradePokemonIvMinimum = ConvertStringToFloat(tbPowerUpMinIV.Text);
-                _setting.PokemonConfig.UpgradePokemonCpMinimum = ConvertStringToFloat(tbPowerUpMinCP.Text);
-                _setting.PokemonsToLevelUp = ConvertClbToList(clbPowerUp);
+                _settings.PokemonConfig.AutomaticallyLevelUpPokemon = cbAutoPowerUp.Checked;
+                _settings.PokemonConfig.OnlyUpgradeFavorites = cbPowerUpFav.Checked;
+                _settings.PokemonConfig.LevelUpByCPorIv = cbPowerUpType.SelectedIndex == 0 ? "iv" : "cp";
+                _settings.PokemonConfig.UpgradePokemonMinimumStatsOperator = cbPowerUpCondiction.SelectedIndex == 0 ? "and" : "or";
+                _settings.PokemonConfig.GetMinStarDustForLevelUp = Convert.ToInt32(cbPowerUpMinStarDust.Text);
+                _settings.PokemonConfig.UpgradePokemonIvMinimum = ConvertStringToFloat(tbPowerUpMinIV.Text);
+                _settings.PokemonConfig.UpgradePokemonCpMinimum = ConvertStringToFloat(tbPowerUpMinCP.Text);
+                _settings.PokemonsToLevelUp = ConvertClbToList(clbPowerUp);
 
                 #endregion
 
                 #region Evo
 
-                _setting.PokemonConfig.EvolveAllPokemonAboveIv = cbEvoAllAboveIV.Checked;
-                _setting.PokemonConfig.EvolveAboveIvValue = ConvertStringToFloat(tbEvoAboveIV.Text);
-                _setting.PokemonConfig.EvolveAllPokemonWithEnoughCandy = cbEvolveAllPokemonWithEnoughCandy.Checked;
-                _setting.PokemonConfig.KeepPokemonsThatCanEvolve = cbKeepPokemonsThatCanEvolve.Checked;
-                _setting.PokemonConfig.UseLuckyEggsWhileEvolving = cbUseLuckyEggsWhileEvolving.Checked;
-                _setting.PokemonConfig.EvolveKeptPokemonsAtStorageUsagePercentage =
-                    ConvertStringToDouble(tbEvolveKeptPokemonsAtStorageUsagePercentage.Text);
-                _setting.PokemonConfig.UseLuckyEggsMinPokemonAmount = ConvertStringToInt(tbUseLuckyEggsMinPokemonAmount.Text);
+                _settings.PokemonConfig.EvolveAllPokemonAboveIv = cbEvoAllAboveIV.Checked;
+                _settings.PokemonConfig.EvolveAboveIvValue = ConvertStringToFloat(tbEvoAboveIV.Text);
+                _settings.PokemonConfig.EvolveAllPokemonWithEnoughCandy = cbEvolveAllPokemonWithEnoughCandy.Checked;
+                _settings.PokemonConfig.KeepPokemonsThatCanEvolve = cbKeepPokemonsThatCanEvolve.Checked;
+                _settings.PokemonConfig.UseLuckyEggsWhileEvolving = cbUseLuckyEggsWhileEvolving.Checked;
+                _settings.PokemonConfig.EvolveKeptPokemonsAtStorageUsagePercentage =
+                    Convert.ToDouble(tbEvolveKeptPokemonsAtStorageUsagePercentage.Text);
+                _settings.PokemonConfig.UseLuckyEggsMinPokemonAmount = Convert.ToInt32(tbUseLuckyEggsMinPokemonAmount.Text);
                 //TODO:
-                //_setting.PokemonEvolveFilter = ConvertClbToList(clbEvolve);
+                //_settings.PokemonEvolveFilter = ConvertClbToList(clbEvolve);
 
                 #endregion
 
@@ -602,52 +558,50 @@ namespace RocketBot2.Forms
 
                 #region Item
 
-                _setting.PokemonConfig.UseLuckyEggConstantly = cbUseLuckyEggConstantly.Checked;
-                _setting.PokemonConfig.UseIncenseConstantly = cbUseIncenseConstantly.Checked;
-                _setting.RecycleConfig.TotalAmountOfPokeballsToKeep = ConvertStringToInt(tbTotalAmountOfPokeballsToKeep.Text);
-                _setting.RecycleConfig.TotalAmountOfPotionsToKeep = ConvertStringToInt(tbTotalAmountOfPotionsToKeep.Text);
-                _setting.RecycleConfig.TotalAmountOfRevivesToKeep = ConvertStringToInt(tbTotalAmountOfRevivesToKeep.Text);
-                _setting.RecycleConfig.TotalAmountOfBerriesToKeep = ConvertStringToInt(tbTotalAmountOfBerriesToKeep.Text);
-                _setting.RecycleConfig.VerboseRecycling = cbVerboseRecycling.Checked;
-                _setting.RecycleConfig.RecycleInventoryAtUsagePercentage =
-                    ConvertStringToDouble(tbRecycleInventoryAtUsagePercentage.Text);
+                _settings.PokemonConfig.UseLuckyEggConstantly = cbUseLuckyEggConstantly.Checked;
+                _settings.PokemonConfig.UseIncenseConstantly = cbUseIncenseConstantly.Checked;
+                _settings.RecycleConfig.TotalAmountOfPokeballsToKeep = Convert.ToInt32(tbTotalAmountOfPokeballsToKeep.Text);
+                _settings.RecycleConfig.TotalAmountOfPotionsToKeep = Convert.ToInt32(tbTotalAmountOfPotionsToKeep.Text);
+                _settings.RecycleConfig.TotalAmountOfRevivesToKeep = Convert.ToInt32(tbTotalAmountOfRevivesToKeep.Text);
+                _settings.RecycleConfig.TotalAmountOfBerriesToKeep = Convert.ToInt32(tbTotalAmountOfBerriesToKeep.Text);
+                _settings.RecycleConfig.VerboseRecycling = cbVerboseRecycling.Checked;
+                _settings.RecycleConfig.RecycleInventoryAtUsagePercentage =
+                    Convert.ToDouble(tbRecycleInventoryAtUsagePercentage.Text);
 
                 #endregion
 
                 #region Advanced Settings
 
-                _setting.LocationConfig.DisableHumanWalking = cbDisableHumanWalking.Checked;
-                _setting.LocationConfig.UseWalkingSpeedVariant = cbUseWalkingSpeedVariant.Checked;
-                _setting.LocationConfig.WalkingSpeedVariant = ConvertStringToDouble(tbWalkingSpeedVariantInKilometerPerHour.Text);
-                _setting.LocationConfig.ShowVariantWalking = cbShowWalkingSpeed.Checked;
-                _setting.LocationConfig.MaxSpawnLocationOffset = ConvertStringToInt(tbMaxSpawnLocationOffset.Text);
-                _setting.LocationConfig.MaxTravelDistanceInMeters = ConvertStringToInt(tbMaxTravelDistanceInMeters.Text);
-
-                _setting.PlayerConfig.DelayBetweenPlayerActions = ConvertStringToInt(tbDelayBetweenPlayerActions.Text);
-                _setting.PokemonConfig.DelayBetweenPokemonCatch = ConvertStringToInt(tbDelayBetweenPokemonCatch.Text);
-                //_setting.PlayerConfig.DelayBetweenRecycle = ConvertStringToInt(tbDelayBetweenRecycle.Text);
-
-                _setting.RecycleConfig.RandomizeRecycle = cbRandomizeRecycle.Checked;
-                _setting.RecycleConfig.RandomRecycleValue = ConvertStringToInt(tbRandomRecycleValue.Text);
-
-                _setting.CustomCatchConfig.EnableHumanizedThrows = cbEnableHumanizedThrows.Checked;
-                _setting.CustomCatchConfig.NiceThrowChance = ConvertStringToInt(tbNiceThrowChance.Text);
-                _setting.CustomCatchConfig.GreatThrowChance = ConvertStringToInt(tbGreatThrowChance.Text);
-                _setting.CustomCatchConfig.ExcellentThrowChance = ConvertStringToInt(tbExcellentThrowChance.Text);
-                _setting.CustomCatchConfig.CurveThrowChance = ConvertStringToInt(tbCurveThrowChance.Text);
-                _setting.CustomCatchConfig.ForceGreatThrowOverIv = ConvertStringToDouble(tbForceGreatThrowOverIv.Text);
-                _setting.CustomCatchConfig.ForceExcellentThrowOverIv = ConvertStringToDouble(tbForceExcellentThrowOverIv.Text);
-                _setting.CustomCatchConfig.ForceGreatThrowOverCp = ConvertStringToInt(tbForceGreatThrowOverCp.Text);
-                _setting.CustomCatchConfig.ForceExcellentThrowOverCp = ConvertStringToInt(tbForceExcellentThrowOverCp.Text);
-
-                #endregion
-
-                _setting.Save(ConfigFilePath);
+                _settings.LocationConfig.DisableHumanWalking = cbDisableHumanWalking.Checked;
+                _settings.LocationConfig.UseWalkingSpeedVariant = cbUseWalkingSpeedVariant.Checked;
+                _settings.LocationConfig.WalkingSpeedVariant = Convert.ToDouble(tbWalkingSpeedVariantInKilometerPerHour.Text);
+                _settings.LocationConfig.ShowVariantWalking = cbShowWalkingSpeed.Checked;
+                _settings.LocationConfig.MaxSpawnLocationOffset = Convert.ToInt32(tbMaxSpawnLocationOffset.Text);
+                _settings.LocationConfig.MaxTravelDistanceInMeters = Convert.ToInt32(tbMaxTravelDistanceInMeters.Text);
+                _settings.PlayerConfig.DelayBetweenPlayerActions = Convert.ToInt32(tbDelayBetweenPlayerActions.Text);
+                _settings.PokemonConfig.DelayBetweenPokemonCatch = Convert.ToInt32(tbDelayBetweenPokemonCatch.Text);
+                _settings.RecycleConfig.RandomizeRecycle = cbRandomizeRecycle.Checked;
+                _settings.RecycleConfig.RandomRecycleValue = Convert.ToInt32(tbRandomRecycleValue.Text);
+                _settings.CustomCatchConfig.EnableHumanizedThrows = cbEnableHumanizedThrows.Checked;
+                _settings.CustomCatchConfig.NiceThrowChance = Convert.ToInt32(tbNiceThrowChance.Text);
+                _settings.CustomCatchConfig.GreatThrowChance = Convert.ToInt32(tbGreatThrowChance.Text);
+                _settings.CustomCatchConfig.ExcellentThrowChance = Convert.ToInt32(tbExcellentThrowChance.Text);
+                _settings.CustomCatchConfig.CurveThrowChance = Convert.ToInt32(tbCurveThrowChance.Text);
+                _settings.CustomCatchConfig.ForceGreatThrowOverIv = Convert.ToInt32(tbForceGreatThrowOverIv.Text);
+                _settings.CustomCatchConfig.ForceExcellentThrowOverIv = Convert.ToInt32(tbForceExcellentThrowOverIv.Text);
+                _settings.CustomCatchConfig.ForceGreatThrowOverCp = Convert.ToInt32(tbForceGreatThrowOverCp.Text);
+                _settings.CustomCatchConfig.ForceExcellentThrowOverCp = Convert.ToInt32(tbForceExcellentThrowOverCp.Text);
+                _settings.GymConfig.Enable = cbEnableGyms.Checked;
+                _settings.DataSharingConfig.AutoSnipe = cbAutoSniper.Checked;
+                _settings.DataSharingConfig.DataServiceIdentification = tbDataServiceIdentification.Text;
+                _settings.HumanlikeDelays.UseHumanlikeDelays = cbUseHumanlikeDelays.Checked;
 
                 #endregion
 
-                Application.Restart();
+                _settings.Save(ConfigFilePath);
                 Close();
+
+                #endregion
             }
         }
 
@@ -674,7 +628,7 @@ namespace RocketBot2.Forms
         private void ResetLocationBtn_Click(object sender, EventArgs e)
         {
             gMapCtrl.Zoom = trackBar.Value = DefaultZoomLevel;
-            UpdateMapLocation(_setting.LocationConfig.DefaultLatitude, _setting.LocationConfig.DefaultLongitude);
+            UpdateMapLocation(_settings.LocationConfig.DefaultLatitude, _settings.LocationConfig.DefaultLongitude);
         }
 
         private void gMapCtrl_MouseClick(object sender, MouseEventArgs e)
@@ -685,12 +639,12 @@ namespace RocketBot2.Forms
 
         private void latitudeText_Leave(object sender, EventArgs e)
         {
-            UpdateMapLocation(ConvertStringToDouble(tbLatitude.Text), ConvertStringToDouble(tbLongitude.Text));
+            UpdateMapLocation(Convert.ToDouble(tbLatitude.Text), Convert.ToDouble(tbLongitude.Text));
         }
 
         private void longitudeText_Leave(object sender, EventArgs e)
         {
-            UpdateMapLocation(ConvertStringToDouble(tbLatitude.Text), ConvertStringToDouble(tbLongitude.Text));
+            UpdateMapLocation(Convert.ToDouble(tbLatitude.Text), Convert.ToDouble(tbLongitude.Text));
         }
 
         private void AdressBox_Enter(object sender, EventArgs e)
@@ -791,30 +745,6 @@ namespace RocketBot2.Forms
         {
             ListSelectAllHandler(clbTransfer, cbNotTransferAll.Checked);
         }
-
-        private void enableAdvSettingCb_Click(object sender, EventArgs e)
-        {
-            //proxyGb.Visible = _setting.EnableAdvancedSettings = enableAdvSettingCb.Checked;
-            if (enableAdvSettingCb.Checked)
-            {
-                _tabAdvSettingTab.Enabled = true;
-                tabControl.TabPages.Add(_tabAdvSettingTab);
-                proxyGb.Visible = true;
-                
-            }
-            else
-            {
-                _tabAdvSettingTab.Enabled = false;
-                tabControl.TabPages.Remove(_tabAdvSettingTab);
-                proxyGb.Visible = false;
-            }
-        }
-
         #endregion
-
-        private void DeviceModelTb_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
