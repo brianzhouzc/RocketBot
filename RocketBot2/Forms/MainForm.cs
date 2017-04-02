@@ -627,9 +627,9 @@ namespace RocketBot2.Forms
                         }
                     }
                 };
+                cmsPokemonList.Items.Add(item);
 
                 cmsPokemonList.Items.Add(separator);
-
                 item = new ToolStripMenuItem { Text = @"Properties" };
                 item.Click += delegate
                 {
@@ -638,8 +638,6 @@ namespace RocketBot2.Forms
                 };
 
                 cmsPokemonList.Items.Add(item);
-              
-
             };
         }
 
