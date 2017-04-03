@@ -52,7 +52,7 @@ cd RocketBot
 git submodule update --init --recursive
 ```
 
-A Pokémon Go bot in C#
+## A Pokémon Go bot in C#
 
 
 ## `Features`
@@ -76,34 +76,11 @@ A Pokémon Go bot in C#
  - Automatic Update checker
  - Logs everything into Logs folder
 
-## `Language`
-- <img src="http://emojipedia-us.s3.amazonaws.com/cache/1e/68/1e68375522a6ffb537842bd0724cdad1.png" width="30" height="30"> - Outputs caught Pokémon in Canada name.
-- <img src="http://emojipedia-us.s3.amazonaws.com/cache/ef/b3/efb33c0125caa0fa86f22f195cd84905.png" width="30" height="30">  - Outputs caught Pokémon in German name.
-- <img src="http://emojipedia-us.s3.amazonaws.com/cache/a9/9f/a99f118ccb81ab3146472e7e167f506e.png" width="30" height="30">  - Outputs caught Pokémon in Spain name.
-- <img src="http://emojipedia-us.s3.amazonaws.com/cache/91/ae/91aeb9c122c0e7bceb412b66828d14bc.png" width="30" height="30">  - Outputs caught Pokémon in Ethiopia name.
-- <img src="http://emojipedia-us.s3.amazonaws.com/cache/cd/2c/cd2c853e168e2a0f5d4d35c1b6ed9248.png" width="30" height="30">  - Outputs caught Pokémon in France name.
-- <img src="http://emojipedia-us.s3.amazonaws.com/cache/ca/2b/ca2bd67715180ef35bfdffcf3c4bc9a4.png" width="30" height="30">  - Outputs caught Pokémon in Hungary name.
-- <img src="http://emojipedia-us.s3.amazonaws.com/cache/bd/d1/bdd1fefbd80bddd45c22b209bb622063.png" width="30" height="30">  - Outputs caught Pokémon in Indonesia name.
-- <img src="http://emojipedia-us.s3.amazonaws.com/cache/d4/dc/d4dc863162299e3287d632c277dc4c6b.png" width="30" height="30">  - Outputs caught Pokémon in Italy name.
-- <img src="http://emojipedia-us.s3.amazonaws.com/cache/e4/78/e47801e74b3256afc8bfcbe51f070e28.png" width="30" height="30">  - Outputs caught Pokémon in Japan name.
-- <img src="http://emojipedia-us.s3.amazonaws.com/cache/8a/09/8a09deaf908f951806592115c2c45145.png" width="30" height="30">  - Outputs caught Pokémon in Cambodia name.
-- <img src="http://emojipedia-us.s3.amazonaws.com/cache/4a/33/4a33aeca1851b124611ee9f4b9910df5.png" width="30" height="30">  - Outputs caught Pokémon in Lithuania name.
-- <img src="http://emojipedia-us.s3.amazonaws.com/cache/99/13/9913209659d21bba6d0a48c1e4e8c347.png" width="30" height="30">  - Outputs caught Pokémon in Netherlands name.
-- <img src="http://emojipedia-us.s3.amazonaws.com/cache/d2/d7/d2d725f58064791fa4b0ebcd9fe89b56.png" width="30" height="30">  - Outputs caught Pokémon in Poland name.
-- <img src="http://emojipedia-us.s3.amazonaws.com/cache/7f/b8/7fb84e84c869db92406578bd8ac639fc.png" width="30" height="30">  - Outputs caught Pokémon in Portugal name.
-- <img src="http://emojipedia-us.s3.amazonaws.com/cache/ac/ff/acff2554c55840b743c5b0538fe3021c.png" width="30" height="30">  - Outputs caught Pokémon in Brazil name.
-- <img src="http://emojipedia-us.s3.amazonaws.com/cache/8b/b6/8bb6bcf7ef6980ed373b538555f452c3.png" width="30" height="30">  - Outputs caught Pokémon in Romania name.
-- <img src="http://emojipedia-us.s3.amazonaws.com/cache/20/f5/20f5c2b61463d2a5e614d5e98432e205.png" width="30" height="30">  - Outputs caught Pokémon in Russia name.
-- <img src="http://emojipedia-us.s3.amazonaws.com/cache/9e/f5/9ef56aecd0677f91fadad1bc6ab0c5e4.png" width="30" height="30">  - Outputs caught Pokémon in El Salvador name.
-- <img src="http://emojipedia-us.s3.amazonaws.com/cache/fd/1c/fd1cc63a058b402b617020c2f6109185.png" width="30" height="30">  - Outputs caught Pokémon in Thailand name.
-- <img src="http://emojipedia-us.s3.amazonaws.com/cache/fc/7c/fc7cb7a82f151e73b1f8a2258e0f5cb7.png" width="30" height="30">  - Outputs caught Pokémon in Turkey name.
-- <img src="http://emojipedia-us.s3.amazonaws.com/cache/73/68/736811c48e6420d34c45118c7bf052f5.png" width="30" height="30">  - Outputs caught Pokémon in U.S. Virgin Islands name.
-
 ## `Getting Started`
 
 ### `Download`
 Download the bot from the [release](https://github.com/TheUnnamedOrganisation/RocketBot/releases) tab.  
-If you want the latest Beta-Build, you have to download the build from the Beta-Build branch and compile them by yourself with VisualStudio 2015.
+If you want the latest Beta-Build, you have to download the build from the Beta-Build branch and compile them by yourself with VisualStudio 2017.
 
 **Waning: Beta are unstable and might cause damage to your account, use at your own risk**
 
@@ -136,81 +113,5 @@ In order to help us fix the problem, please take a screenshot of the error you g
 ### `Suggestions/ideas`
  Tell us what you think we can do better in [issues](https://github.com/TheUnnamedOrganisation/RocketBot/issues).  
 Give detailed discription to help us understand what you are looking for. Add [Suggestion] to the title to help us quickly identify the category of the issue. Your suggestion might not be accept, but hey, maybe we will accept your suggestion next time! :)
-
-## `For developers:`
- You can contribute to the project by helping us on coding.  
-Fork this project and create a new branch to add your code or fix a known issue.  
-Use pull request to submit your code. Remember, submit to *[Beta](https://github.com/TheUnnamedOrganisation/RocketBot/tree/Beta)* branch! :D
-
-# `Settings`
-
-## `AuthType`
-
- - *google* - Google login
- - *ptc* - Pokémon Trainer Club
-
-## `PtcUsername`
-- *username* - for PTC account. No need for when using Google.
-
-## `PtcPassword`
-- *password* - for PTC account. No need for when using Google.
-
-## `Email`
-- *email@gmail.com* - for Google account. No need for when using PTC.
-
-## `Password`
-- *password* - for Google account. No need for when using PTC.
-
-## `GoogleRefreshToken`
-- *token* - for Google account. No need for wen using PTC. (Obsolete)
-
-## `DefaultLatitude`
-- *40.785092* - Latitude of your location you want to use the bot in. Number between -90 and +90. Doesn't matter how many numbers stand after the comma.
-
-## `DefaultLongitude`
-- *-73.968286* - Longitude of your location you want to use the bot in. Number between -180 and +180. Doesn't matter how many numbers stand after the comma.
-
-## `LevelOutput`
-- *time* - Every X amount of time it prints the current level and experience needed for the next level.
-- *levelup* - Only outputs the level and needed experience for next level on levelup.
-
-## `LevelTimeInterval`
-- *seconds* - After X seconds it will print the current level and experience needed for levelup when using *time* mode.
-
-## `Recycler`
-- *false* - Recycler not active.
-- *true* - Recycler active.
-
-## `RazzBerryMode`
-- *cp* - Use RazzBerry when Pokémon is over specific CP.
-- *probability* - Use RazzBerry when Pokémon catch chance is under a specific percentage.
-
-## `RazzBerrySetting`
-- *cp value* - If RazzBerryMode is cp. Use RazzBerry when Pokémon is over this value
-- *probability value* - If RazzBerryMode is probability. Use Razzberry when % of catching is under this value. Between 0 and 1.
-
-## `TransferType`
-- *none* - disables transferring
-- *cp* - transfers all Pokémon below the CP threshold in the app.config, EXCEPT for those types specified in program.cs in TransferAllWeakPokemon
-- *leaveStrongest* - transfers all but the highest CP Pokémon of each type SPECIFIED IN program.cs in TransferAllButStrongestUnwantedPokemon (those that aren't specified are untouched)
-- *duplicate* - same as above but for all Pokémon (no need to specify type), (will not transfer favorited Pokémon)
-- *all* - transfers all Pokémon
-
-## `TransferCPThreshold`
-- *CP* - transfers all Pokémon with less CP than this value.
-
-## `TransferIVThreshold`
-- *IV* - transfers all Pokémon with less IV than this value. Between 0 and 1.
-
-## `TravelSpeed`
-- *Speed* - Travel speed in km/h
-
-## `CatchPokemon`
-- *true* - Catch Pokémon and get Items from PokéStops
-- *false* - Don't catch Pokémon and get Items from PokéStops
-
-## `EvolveAllGivenPokemons`
-- *false* - Evolves no Pokémon.
-- *true* - Evolves all Pokémon.
 
 ## [Credits](https://github.com/Necrobot-Private)
