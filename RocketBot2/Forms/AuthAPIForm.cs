@@ -34,7 +34,7 @@ namespace RocketBot2.Forms
             if (forceInput)
             {
                 this.forceInput = forceInput;
-                this.ControlBox = false;
+                ControlBox = false;
                 btnCancel.Visible = false;
             }
         }
@@ -55,12 +55,12 @@ namespace RocketBot2.Forms
             }
         }
 
-        private void lnkBuy_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LnkBuy_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer");
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
             if (radHashServer.Checked && string.IsNullOrEmpty(txtAPIKey.Text))
             {
@@ -74,8 +74,8 @@ namespace RocketBot2.Forms
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         private void AuthAPIForm_Load(object sender, EventArgs e)

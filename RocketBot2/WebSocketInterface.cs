@@ -78,7 +78,7 @@ namespace RocketBot2
             }
             else
             {
-                Logger.Write($"Counld't start socket server at port {port}, this port maybe in use or block, please change config to other port and restart bot if you want to use web gui.", LogLevel.Error);
+                Logger.Write($"Counld't start socket server at port {port}, this port may be in use or blocked, please change your config to another port and restart bot if you want to use web gui.", LogLevel.Error);
             }
         }
 
@@ -90,7 +90,7 @@ namespace RocketBot2
                 {
                     session.Send(message);
                 }
-                catch (Exception )
+                catch (Exception)
                 {
 #if DEBUG
                     //Logger.Write(ex.Message);

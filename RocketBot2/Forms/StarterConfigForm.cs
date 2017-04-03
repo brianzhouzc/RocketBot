@@ -33,34 +33,35 @@ namespace RocketBot2.Forms
         public StarterConfigForm(Session _session, GlobalSettings settings,
             IElevationService elevationService, string configFile) : this(_session)
         {
-            this.Session = _session;
-            this.txtLanguage.Text = this.Session.LogicSettings.TranslationLanguageCode;
-            this.txtLat.Text = settings.LocationConfig.DefaultLatitude.ToString();
-            this.txtLng.Text = settings.LocationConfig.DefaultLongitude.ToString();
+            Session = _session;
+            txtLanguage.Text = Session.LogicSettings.TranslationLanguageCode;
+            txtLat.Text = settings.LocationConfig.DefaultLatitude.ToString();
+            txtLng.Text = settings.LocationConfig.DefaultLongitude.ToString();
             this.settings = settings;
-            this.txtWebsocketPort.Text = settings.WebsocketsConfig.WebSocketPort.ToString();
-            this.chkAllowWebsocket.Checked = settings.WebsocketsConfig.UseWebsocket;
+            txtWebsocketPort.Text = settings.WebsocketsConfig.WebSocketPort.ToString();
+            chkAllowWebsocket.Checked = settings.WebsocketsConfig.UseWebsocket;
 
-            this.chkSnipeDex.Checked = this.Session.LogicSettings.SnipePokemonNotInPokedex;
-            this.chkEnableSnipe.Checked = this.Session.LogicSettings.DataSharingConfig.AutoSnipe;
-            this.txtMinIV.Text = this.Session.LogicSettings.MinIVForAutoSnipe.ToString();
-            this.txtMinLevel.Text = this.Session.LogicSettings.MinLevelForAutoSnipe.ToString();
+            chkSnipeDex.Checked = Session.LogicSettings.SnipePokemonNotInPokedex;
+            chkEnableSnipe.Checked = Session.LogicSettings.DataSharingConfig.AutoSnipe;
+            txtMinIV.Text = Session.LogicSettings.MinIVForAutoSnipe.ToString();
+            txtMinLevel.Text = Session.LogicSettings.MinLevelForAutoSnipe.ToString();
             this.elevationService = elevationService;
             this.configFile = configFile;
         }
 
-        private void wizardPage2_Commit(object sender, WizardPageConfirmEventArgs e)
+        private void WizardPage2_Commit(object sender, WizardPageConfirmEventArgs e)
         {
-            this.settings.Auth.CurrentAuthConfig.AuthType = comboBox1.Text == "ptc" ? AuthType.Ptc : AuthType.Google;
-            this.settings.Auth.CurrentAuthConfig.Username = txtUsername.Text;
-            this.settings.Auth.CurrentAuthConfig.Password = txtPassword.Text;      }
+            settings.Auth.CurrentAuthConfig.AuthType = comboBox1.Text == "ptc" ? AuthType.Ptc : AuthType.Google;
+            settings.Auth.CurrentAuthConfig.Username = txtUsername.Text;
+            settings.Auth.CurrentAuthConfig.Password = txtPassword.Text;
+        }
 
         private void SelectLanguagePage_Commit(object sender, WizardPageConfirmEventArgs e)
         {
             
         }
 
-        private void wizardPage4_Click(object sender, EventArgs e)
+        private void WizardPage4_Click(object sender, EventArgs e)
         {
         }
 
@@ -69,11 +70,11 @@ namespace RocketBot2.Forms
         
         }
 
-        private void chkAllowVariant_Click(object sender, EventArgs e)
+        private void ChkAllowVariant_Click(object sender, EventArgs e)
         {
         }
 
-        private void checkBox1_Click(object sender, EventArgs e)
+        private void CheckBox1_Click(object sender, EventArgs e)
         {
         }
 
@@ -82,41 +83,41 @@ namespace RocketBot2.Forms
           
         }
 
-        private void wizardControl1_Finished(object sender, EventArgs e)
+        private void WizardControl1_Finished(object sender, EventArgs e)
         {
-            GlobalSettings.SaveFiles(settings, this.configFile);
+            GlobalSettings.SaveFiles(settings, configFile);
             new Session(settings,new ClientSettings(settings, elevationService), new LogicSettings(settings), elevationService);
             Logger.Write(Session.Translation.GetTranslation(TranslationString.FirstStartSetupCompleted), LogLevel.Info);
         }
 
         private void SelectLanguagePage_Click(object sender, EventArgs e)
         {
-            this.Session = new Session(settings,
+            Session = new Session(settings,
                 new ClientSettings(settings, elevationService),
                 new LogicSettings(settings),
                 elevationService
             );
 
-            this.settings.ConsoleConfig.TranslationLanguageCode = this.txtLanguage.Text;
+            settings.ConsoleConfig.TranslationLanguageCode = txtLanguage.Text;
         }
 
-        private void wizardControl1_Cancelling(object sender, CancelEventArgs e)
+        private void WizardControl1_Cancelling(object sender, CancelEventArgs e)
         {
             DialogResult = DialogResult.Cancel;
-            this.Close();
+            Close();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
-            GlobalSettings.SaveFiles(settings, this.configFile);
+            GlobalSettings.SaveFiles(settings, configFile);
             new Session(settings,new ClientSettings(settings, elevationService), new LogicSettings(settings), elevationService);
             Logger.Write(Session.Translation.GetTranslation(TranslationString.FirstStartSetupCompleted), LogLevel.Info);
 
-            this.Close();
+            Close();
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("http://necrobot2.com/config.json/2017/01/07/how-to-config-auto-snipe/");
         }
@@ -128,37 +129,37 @@ namespace RocketBot2.Forms
 
         private void LocationPage_Commit(object sender, WizardPageConfirmEventArgs e)
         {
-            this.settings.LocationConfig.DefaultLatitude = Convert.ToDouble(txtLat.Text);
-            this.settings.LocationConfig.DefaultLongitude = Convert.ToDouble(txtLng.Text);
+            settings.LocationConfig.DefaultLatitude = Convert.ToDouble(txtLat.Text);
+            settings.LocationConfig.DefaultLongitude = Convert.ToDouble(txtLng.Text);
 
         }
 
         private void WalkinSpeedPage_Commit(object sender, WizardPageConfirmEventArgs e)
         {
-            this.settings.LocationConfig.WalkingSpeedInKilometerPerHour = Convert.ToDouble(txtSpeed.Text);
-            this.settings.LocationConfig.WalkingSpeedVariant = Convert.ToDouble(txtSpeed.Text);
-            this.settings.LocationConfig.UseWalkingSpeedVariant = chkAllowVariant.Checked;
+            settings.LocationConfig.WalkingSpeedInKilometerPerHour = Convert.ToDouble(txtSpeed.Text);
+            settings.LocationConfig.WalkingSpeedVariant = Convert.ToDouble(txtSpeed.Text);
+            settings.LocationConfig.UseWalkingSpeedVariant = chkAllowVariant.Checked;
 
-            this.settings.GoogleWalkConfig.UseGoogleWalk = chkEnableGoogle.Checked;
-            this.settings.GoogleWalkConfig.GoogleAPIKey = txtGoogleKey.Text;
-            this.settings.GoogleWalkConfig.UseGoogleWalk = chkAllowYourwalk.Checked;
+            settings.GoogleWalkConfig.UseGoogleWalk = chkEnableGoogle.Checked;
+            settings.GoogleWalkConfig.GoogleAPIKey = txtGoogleKey.Text;
+            settings.GoogleWalkConfig.UseGoogleWalk = chkAllowYourwalk.Checked;
 
-            this.settings.MapzenWalkConfig.UseMapzenWalk = chkMazen.Checked;
-            this.settings.MapzenWalkConfig.MapzenTurnByTurnApiKey = txtMapzenKey.Text;
+            settings.MapzenWalkConfig.UseMapzenWalk = chkMazen.Checked;
+            settings.MapzenWalkConfig.MapzenTurnByTurnApiKey = txtMapzenKey.Text;
         }
 
         private void WebSocketPage_Commit(object sender, WizardPageConfirmEventArgs e)
         {
-            this.settings.WebsocketsConfig.UseWebsocket = chkAllowWebsocket.Checked;
-            this.settings.WebsocketsConfig.WebSocketPort = Convert.ToInt32(txtWebsocketPort.Text);
+            settings.WebsocketsConfig.UseWebsocket = chkAllowWebsocket.Checked;
+            settings.WebsocketsConfig.WebSocketPort = Convert.ToInt32(txtWebsocketPort.Text);
         }
 
         private void SnipePage_Commit(object sender, WizardPageConfirmEventArgs e)
         {
-            this.settings.SnipeConfig.MinLevelForAutoSnipe = int.Parse(txtMinLevel.Text);
-            this.settings.SnipeConfig.MinIVForAutoSnipe = int.Parse(txtMinIV.Text);
-            this.settings.DataSharingConfig.AutoSnipe = chkEnableSnipe.Checked;
-            this.settings.SnipeConfig.SnipePokemonNotInPokedex = chkSnipeDex.Checked;
+            settings.SnipeConfig.MinLevelForAutoSnipe = int.Parse(txtMinLevel.Text);
+            settings.SnipeConfig.MinIVForAutoSnipe = int.Parse(txtMinIV.Text);
+            settings.DataSharingConfig.AutoSnipe = chkEnableSnipe.Checked;
+            settings.SnipeConfig.SnipePokemonNotInPokedex = chkSnipeDex.Checked;
 
         }
 
