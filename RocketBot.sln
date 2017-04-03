@@ -385,11 +385,7 @@ Global
 		{D7310128-97E4-4096-8679-93577CD08C06}.Debug|Windows-x86.Build.0 = Debug|Windows-x86
 		{D7310128-97E4-4096-8679-93577CD08C06}.Debug|Windows-x86.Deploy.0 = Debug|Windows-x86
 		{D7310128-97E4-4096-8679-93577CD08C06}.Debug|x64.ActiveCfg = Debug|Android
-		{D7310128-97E4-4096-8679-93577CD08C06}.Debug|x64.Build.0 = Debug|Android
-		{D7310128-97E4-4096-8679-93577CD08C06}.Debug|x64.Deploy.0 = Debug|Android
 		{D7310128-97E4-4096-8679-93577CD08C06}.Debug|x86.ActiveCfg = Debug|Android
-		{D7310128-97E4-4096-8679-93577CD08C06}.Debug|x86.Build.0 = Debug|Android
-		{D7310128-97E4-4096-8679-93577CD08C06}.Debug|x86.Deploy.0 = Debug|Android
 		{D7310128-97E4-4096-8679-93577CD08C06}.Release RocketBot|Android.ActiveCfg = Release|Android
 		{D7310128-97E4-4096-8679-93577CD08C06}.Release RocketBot|Android.Build.0 = Release|Android
 		{D7310128-97E4-4096-8679-93577CD08C06}.Release RocketBot|Android.Deploy.0 = Release|Android
@@ -445,11 +441,7 @@ Global
 		{D7310128-97E4-4096-8679-93577CD08C06}.Release|Windows-x86.Build.0 = Release|Windows-x86
 		{D7310128-97E4-4096-8679-93577CD08C06}.Release|Windows-x86.Deploy.0 = Release|Windows-x86
 		{D7310128-97E4-4096-8679-93577CD08C06}.Release|x64.ActiveCfg = Release|Android
-		{D7310128-97E4-4096-8679-93577CD08C06}.Release|x64.Build.0 = Release|Android
-		{D7310128-97E4-4096-8679-93577CD08C06}.Release|x64.Deploy.0 = Release|Android
 		{D7310128-97E4-4096-8679-93577CD08C06}.Release|x86.ActiveCfg = Release|Android
-		{D7310128-97E4-4096-8679-93577CD08C06}.Release|x86.Build.0 = Release|Android
-		{D7310128-97E4-4096-8679-93577CD08C06}.Release|x86.Deploy.0 = Release|Android
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug RocketBot|Android.ActiveCfg = Debug|Any CPU
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug RocketBot|Android.Build.0 = Debug|Any CPU
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug RocketBot|Any CPU.ActiveCfg = Debug|Any CPU
