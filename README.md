@@ -26,16 +26,31 @@ See https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer for pricing 
 
 [![Stories in Ready](https://discordapp.com/api/guilds/208485545439920128/widget.png?style=banner3&time-)](https://discord.gg/y6EU2qY)
 
-## Images
-<img src="https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/MainForm.png" width="865">
-<img src="https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/SettingForm.png" width="430" height="286">
-<img src="https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/SettingForm_2.png" width="430" height="286">
-<img src="https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/SettingForm_3.png" width="430" height="286">
-<img src="https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/SettingForm_4.png" width="430" height="286">
-<img src="https://github.com/TheUnnamedOrganisation/RocketBot/blob/Pages/resources/Images/SettingForm_5.png" width="430" height="286">
-<img src="https://cdn.discordapp.com/attachments/270204623019573250/272446141411491841/Sans_titre.png" width="430" height="286">
-<img src="https://cdn.discordapp.com/attachments/270204623019573250/271006046418370561/0cbc77ee-ce24-11e6-8201-0dd75a004e26.png" width="430" height="286">
-<img src="https://cdn.discordapp.com/attachments/270204623019573250/271006060532334592/268e24aa-cfa1-11e6-9c0f-16429cc474bb.png" width="430" height="286">
+## Developers and Contributors
+
+### Requirements
+
+To contribute to development, you will need to download and install the required software first.
+
+- [Git](https://git-scm.com/downloads)
+- [Visual Studio 2017](https://www.visualstudio.com/vs/whatsnew/) - We are using C# 7.0 code so VS 2017 is required to compile.  VS 2015 or older will not be able to compile the code.
+- [.NET 4.6.2 SDK](https://www.microsoft.com/en-us/download/details.aspx?id=53321)
+
+### Cloning Source Code
+
+Next, you need to get the source code.  This source code repository uses git submodules. So when you clone the source code, you will need to clone recursively:
+
+```
+git clone --recursive https://github.com/TheUnnamedOrganisation/RocketBot.git
+```
+
+Or if you already cloned without the recursive option, you can update the submodules by running:
+
+```
+git clone --recursive https://github.com/TheUnnamedOrganisation/RocketBot.git
+cd RocketBot
+git submodule update --init --recursive
+```
 
 A Pokémon Go bot in C#
 
