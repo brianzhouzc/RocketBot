@@ -225,7 +225,9 @@ namespace RocketBot2.Helpers
 
         public DateTime CaughtTime => TimeUtil.GetDateTimeFromMilliseconds((long)this.PokemonData.CreationTimeMs).ToLocalTime();
 
+#pragma warning disable CS0649 // Le champ 'PokemonObject.geoLocation' n'est jamais assigné et aura toujours sa valeur par défaut null
         private GeoLocation geoLocation;
+#pragma warning restore CS0649 // Le champ 'PokemonObject.geoLocation' n'est jamais assigné et aura toujours sa valeur par défaut null
         public GeoLocation GeoLocation
         {
             get

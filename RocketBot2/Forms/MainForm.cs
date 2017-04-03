@@ -958,7 +958,7 @@ namespace RocketBot2.Forms
 
             AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionEventHandler;
 
-            Console.Title = @"RocketBot2 Loading ";
+            Console.Title = @"RocketBot2 Loading";
             Console.CancelKeyPress += (sender, eArgs) =>
             {
                 QuitEvent.Set();
@@ -1173,7 +1173,7 @@ namespace RocketBot2.Forms
                     if (string.IsNullOrEmpty(apiCfg.AuthAPIKey))
                     {
                         Logger.Write(
-                            "You select pogodev API but not provide API Key, please press any key to exit and correct you auth.json, \r\n The Pogodev API key call be purchased at - https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer",
+                            "You have selected PogoDev API but have not provided an API Key, please press any key to exit and correct you auth.json, \r\n The Pogodev API key can be purchased at - https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer",
                             LogLevel.Error
                         );
 
@@ -1185,9 +1185,9 @@ namespace RocketBot2.Forms
                 else if (apiCfg.UseLegacyAPI)
                 {
                     Logger.Write(
-                        "You bot will start after 15 second, You are running bot with  Legacy API (0.45) it will increase your risk to be banned and trigger captcha. Config captcha in config.json to auto resolve them",
-                        LogLevel.Warning
-                    );
+                   "You bot will start after 15 seconds, You are running bot with Legacy API (0.45), but it will increase your risk of being banned and triggering captchas. Config Captchas in config.json to auto-resolve them",
+                   LogLevel.Warning
+               );
 
 #if RELEASE
                     Thread.Sleep(15000);
@@ -1196,9 +1196,9 @@ namespace RocketBot2.Forms
                 else
                 {
                     Logger.Write(
-                        "At least 1 authentication method is selected, please correct your auth.json, ",
-                        LogLevel.Error
-                    );
+                         "At least 1 authentication method must be selected, please correct your auth.json.",
+                         LogLevel.Error
+                     );
                     Console.ReadKey();
                     Environment.Exit(0);
                 }
@@ -1212,7 +1212,7 @@ namespace RocketBot2.Forms
             Logger.SetLoggerContext(_session);
 
             MultiAccountManager accountManager = new MultiAccountManager(logicSettings.Bots);
-            ioc.Register<MultiAccountManager>(accountManager);
+            ioc.Register(accountManager);
 
             if (boolNeedsSetup)
             {
@@ -1269,7 +1269,7 @@ namespace RocketBot2.Forms
             Resources.ProgressBar.Fill(40);
 
             var aggregator = new StatisticsAggregator(stats);
-            if (onBotStarted != null) onBotStarted(_session, aggregator);
+            onBotStarted?.Invoke(_session, aggregator);
 
             Resources.ProgressBar.Fill(50);
             var listener = new ConsoleEventListener();
@@ -1517,7 +1517,7 @@ namespace RocketBot2.Forms
                             if (PromptForKillSwitchOverride(strReason))
                             {
                                 // Override
-                                Logger.Write("Overriding killswitch... you have been warned!", LogLevel.Warning);
+                                Logger.Write("Overriding Killswitch... you have been warned!", LogLevel.Warning);
                                 return false;
                             }
 

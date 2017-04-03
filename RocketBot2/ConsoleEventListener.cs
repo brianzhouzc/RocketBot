@@ -191,7 +191,7 @@ namespace RocketBot2
         {
             if (fortFailedEvent.Try != 1 && fortFailedEvent.Looted == false)
             {
-                Logger.lineSelect(); // Replaces the last line to prevent spam.
+                Logger.LineSelect(); // Replaces the last line to prevent spam.
             }
 
             if (fortFailedEvent.Looted)
@@ -613,13 +613,13 @@ namespace RocketBot2
         //TODO - move to string translation later.
         private static void HandleEvent(GymDeployEvent ev, ISession session)
         {
-            Logger.Write($"Great!!! Your {ev.PokemonId.ToString()} now is defending for GYM {ev.Name}",
+            Logger.Write($"Great!!! Your {ev.PokemonId.ToString()} is now defending for GYM {ev.Name}",
                 LogLevel.Gym, ConsoleColor.Green);
         }
 
         private static void HandleEvent(GymBattleStarted ev, ISession session)
         {
-            Logger.Write($"Battle Started with gym: {ev.GymName}...", LogLevel.Gym, ConsoleColor.Blue);
+            Logger.Write($"Battle has Started with gym: {ev.GymName}...", LogLevel.Gym, ConsoleColor.Blue);
         }
 
         private static void HandleEvent(GymErrorUnset ev, ISession session)
@@ -655,7 +655,7 @@ namespace RocketBot2
                             : (ev.Team == TeamColor.Yellow ? ConsoleColor.Yellow : ConsoleColor.Blue));
                     break;
                 case SetPlayerTeamResponse.Types.Status.TeamAlreadySet:
-                    Logger.Write($"You have joined team already! ", LogLevel.Gym, color: ConsoleColor.Red);
+                    Logger.Write($"You have joined this team already! ", LogLevel.Gym, color: ConsoleColor.Red);
                     break;
                 case SetPlayerTeamResponse.Types.Status.Failure:
                     Logger.Write($"Unable to join team : {ev.Team.ToString()}", color: ConsoleColor.Red);
@@ -668,14 +668,14 @@ namespace RocketBot2
         private static void HandleEvent(EventUsedPotion ev, ISession session)
         {
             Logger.Write(
-                $"Used Potion: {ev.Type} on Pokemon: {ev.PokemonId} with CP: {ev.PokemonCp}. Remaning: {ev.Remaining}"
+                $"Used a Potion: {ev.Type} on Pokemon: {ev.PokemonId} with CP: {ev.PokemonCp}. Remaning: {ev.Remaining}"
             );
         }
 
         private static void HandleEvent(EventUsedRevive ev, ISession session)
         {
             Logger.Write(
-                $"User Revive: {ev.Type} on Pokemon: {ev.PokemonId} with CP: {ev.PokemonCp}. Remaining: {ev.Remaining}"
+                $"Used Revive: {ev.Type} on Pokemon: {ev.PokemonId} with CP: {ev.PokemonCp}. Remaining: {ev.Remaining}"
             );
         }
 

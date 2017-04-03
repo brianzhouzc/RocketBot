@@ -13,4 +13,4 @@
 [submodule "PokeEase"]
 	path = PokeEase
 	url = https://github.com/TheUnnamedOrganisation/PokeEase.git
-	branch = RocketBot/APK
+	branch = master

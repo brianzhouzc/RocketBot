@@ -52,7 +52,7 @@ namespace RocketBot2.WebSocketHandler.ActionCommands
                 {
                     session.EventDispatcher.Send(new NoticeEvent()
                     {
-                        Message = $"Couldn't change your nick name"
+                        Message = $"Couldn't change your nickname"
                     });
                 }
             }

@@ -111,7 +111,7 @@ namespace RocketBot2
             }
         }
 
-        public void lineSelect(int lineChar = 0, int linesUp = 1)
+        public void LineSelect(int lineChar = 0, int linesUp = 1)
         {
             Console.SetCursorPosition(lineChar, Console.CursorTop - linesUp);
         }

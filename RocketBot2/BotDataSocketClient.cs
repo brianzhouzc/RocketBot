@@ -42,12 +42,12 @@ namespace RocketBot2
 
             public SocketClientUpdate()
             {
-                this.Identitier = TinyIoCContainer.Current.Resolve<ISession>().LogicSettings.DataSharingConfig.DataServiceIdentification;
-                this.ManualSnipes = new List<string>();
-                this.Pokemons = new List<EncounteredEvent>();
-                this.SnipeFailedPokemons = new List<SnipeFailedEvent>();
-                this.ExpiredPokemons = new List<string>();
-                this.ClientVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                Identitier = TinyIoCContainer.Current.Resolve<ISession>().LogicSettings.DataSharingConfig.DataServiceIdentification;
+                ManualSnipes = new List<string>();
+                Pokemons = new List<EncounteredEvent>();
+                SnipeFailedPokemons = new List<SnipeFailedEvent>();
+                ExpiredPokemons = new List<string>();
+                ClientVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
             }
 
@@ -132,7 +132,7 @@ namespace RocketBot2
         public static String SHA256Hash(String value)
         {
             StringBuilder Sb = new StringBuilder();
-            using (SHA256 hash = SHA256Managed.Create())
+            using (SHA256 hash = SHA256.Create())
             {
                 Encoding enc = Encoding.UTF8;
                 Byte[] result = hash.ComputeHash(enc.GetBytes(value));
@@ -180,7 +180,7 @@ namespace RocketBot2
                     //silenly, no log exception message to screen that scare people :)
                 };
 
-                ws.OnMessage += (sender, e) => { onSocketMessageRecieved(session, sender, e); };
+                ws.OnMessage += (sender, e) => { OnSocketMessageRecieved(session, sender, e); };
 
                 ws.Connect();
                 while (true && !termintated)
@@ -192,7 +192,7 @@ namespace RocketBot2
                             //failed to make connection to server  times contiuing, temporary stop for 10 mins.
                             session.EventDispatcher.Send(new WarnEvent()
                             {
-                                Message = $"Couldn't establish the connection to necro socket server : {socketURL}"
+                                Message = $"Couldn't establish the connection to necrobot socket server : {socketURL}"
                             });
                             if (session.LogicSettings.DataSharingConfig.EnableFailoverDataServers && servers.Count > 1)
                             {
@@ -231,7 +231,7 @@ namespace RocketBot2
                     {
                         session.EventDispatcher.Send(new WarnEvent
                         {
-                            Message = "Disconnect to necro socket. New connection will be established when service available..."
+                            Message = "Disconnected from necrobot socket. New connection will be established when service becomes available..."
                         });
 
                     }
@@ -247,7 +247,7 @@ namespace RocketBot2
             }
         }
 
-        private static void onSocketMessageRecieved(ISession session, object sender, MessageEventArgs e)
+        private static void OnSocketMessageRecieved(ISession session, object sender, MessageEventArgs e)
         {
             try
             {
@@ -355,8 +355,8 @@ namespace RocketBot2
                 {
                     var move1 = PokemonMove.MoveUnset;
                     var move2 = PokemonMove.MoveUnset;
-                    Enum.TryParse<PokemonMove>(data.Move1, true, out move1);
-                    Enum.TryParse<PokemonMove>(data.Move2, true, out move2);
+                    Enum.TryParse(data.Move1, true, out move1);
+                    Enum.TryParse(data.Move2, true, out move2);
 
                     bool caught = CheckIfPokemonBeenCaught(data.Latitude, data.Longitude,
                         data.PokemonId, encounterid, session);
@@ -399,8 +399,8 @@ namespace RocketBot2
 
                 var move1 = PokemonMove.Absorb;
                 var move2 = PokemonMove.Absorb;
-                Enum.TryParse<PokemonMove>(data.Move1, true, out move1);
-                Enum.TryParse<PokemonMove>(data.Move1, true, out move2);
+                Enum.TryParse(data.Move1, true, out move1);
+                Enum.TryParse(data.Move1, true, out move2);
                 ulong encounterid = 0;
                 ulong.TryParse(data.EncounterId, out encounterid);
 
@@ -453,7 +453,7 @@ namespace RocketBot2
 
         public static SocketMessage Encrypt(string message)
         {
-            var encryptedtulp = Encrypt(message, RocketBot2.Properties.Resources.EncryptKey, false);
+            var encryptedtulp = Encrypt(message, Properties.Resources.EncryptKey, false);
 
             var socketMessage = new SocketMessage()
             {
@@ -469,9 +469,9 @@ namespace RocketBot2
         {
             // step 1, calculate MD5 hash from input
 
-            MD5 md5 = System.Security.Cryptography.MD5.Create();
+            MD5 md5 = MD5.Create();
 
-            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+            byte[] inputBytes = Encoding.ASCII.GetBytes(input);
 
             byte[] hash = md5.ComputeHash(inputBytes);
 
@@ -495,18 +495,20 @@ namespace RocketBot2
         public static Tuple<string, string> Encrypt(string toEncrypt, string key, bool useHashing)
         {
             byte[] keyArray;
-            byte[] toEncryptArray = UTF8Encoding.UTF8.GetBytes(toEncrypt);
+            byte[] toEncryptArray = Encoding.UTF8.GetBytes(toEncrypt);
 
             if (useHashing)
             {
                 MD5CryptoServiceProvider hashmd5 = new MD5CryptoServiceProvider();
-                keyArray = hashmd5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
+                keyArray = hashmd5.ComputeHash(Encoding.UTF8.GetBytes(key));
             }
             else
-                keyArray = UTF8Encoding.UTF8.GetBytes(key);
+                keyArray = Encoding.UTF8.GetBytes(key);
 
-            var tdes = new TripleDESCryptoServiceProvider();
-            tdes.Key = keyArray;
+            var tdes = new TripleDESCryptoServiceProvider()
+            {
+                Key = keyArray
+            };
             // tdes.Mode = CipherMode.CBC;  // which is default     
             // tdes.Padding = PaddingMode.PKCS7;  // which is default
 
