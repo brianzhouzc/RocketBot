@@ -54,7 +54,9 @@ git submodule update --init --recursive
 
 A Pokémon Go bot in C#
 
+
 ## `Features`
+```
  - PTC / Google Login
  - Get Map Objects and Inventory
  - Live map showing Pokéstops and farming path
@@ -74,7 +76,8 @@ A Pokémon Go bot in C#
  - Automatic use of Razzberries
  - Automatic Update checker
  - Logs everything into Logs folder
- 
+```
+
 ## `Language`
 - <img src="http://emojipedia-us.s3.amazonaws.com/cache/1e/68/1e68375522a6ffb537842bd0724cdad1.png" width="30" height="30"> - Outputs caught Pokémon in Canada name.
 - <img src="http://emojipedia-us.s3.amazonaws.com/cache/ef/b3/efb33c0125caa0fa86f22f195cd84905.png" width="30" height="30">  - Outputs caught Pokémon in German name.
