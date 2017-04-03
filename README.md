@@ -26,6 +26,12 @@ See https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer for pricing 
 
 [![Stories in Ready](https://discordapp.com/api/guilds/208485545439920128/widget.png?style=banner3&time-)](https://discord.gg/y6EU2qY)
 
+### `Download`
+Download the bot from the [release](https://github.com/TheUnnamedOrganisation/RocketBot/releases) tab.  
+If you want the latest Beta-Build, you have to download the build from the Beta-Build branch and compile them by yourself with VisualStudio 2017.
+
+**Waning: Beta are unstable and might cause damage to your account, use at your own risk**
+
 ## Developers and Contributors
 
 ### Requirements
@@ -51,50 +57,6 @@ git clone --recursive https://github.com/TheUnnamedOrganisation/RocketBot.git
 cd RocketBot
 git submodule update --init --recursive
 ```
-
-## A Pokémon Go bot in C#
-
-
-## `Features`
- - PTC / Google Login
- - Get Map Objects and Inventory
- - Live map showing Pokéstops and farming path
- - Search for Pokéstop
- - Farm Pokéstops
- - Farm all Pokémon in the neighbourhood
- - Evolve Pokémon
- - Transfer Pokémon
- - Powerup Pokémon
- - Force unban
- - Use LuckyEgg
- - Auto-Recycle uneeded items
- - View all Pokémon CP/IV %
- - Transfer/Powerup/Evolve Pokémon
- - Output level and needed XP for levelup
- - Output Username, Level, Stardust, XP/hour, Pokémon/hour in Console Title
- - Automatic use of Razzberries
- - Automatic Update checker
- - Logs everything into Logs folder
-
-## `Getting Started`
-
-### `Download`
-Download the bot from the [release](https://github.com/TheUnnamedOrganisation/RocketBot/releases) tab.  
-If you want the latest Beta-Build, you have to download the build from the Beta-Build branch and compile them by yourself with VisualStudio 2017.
-
-**Waning: Beta are unstable and might cause damage to your account, use at your own risk**
-
-### `Login`
-There are problems with google oauth login, so we have to use account and password to login for now.  
-To ensure your account's safety, we suggest you to creat an app password just for botting. This will also allows users with 2-fact-auth enable to use the bot.  
-Tutorial on how to use app password: [Google support](https://support.google.com/mail/answer/185833?hl=en)
-
-### `Settings`
-Change your settings using the settings tab on the bot. If you want more advance settings, edit the settings file under the bot's folder.
-
-### `Wola`
- Click `▶ Start RocketBot2` and enjoy!
-
 # `How can I contribute?`
 
 ## `For users:`
@@ -113,5 +75,7 @@ In order to help us fix the problem, please take a screenshot of the error you g
 ### `Suggestions/ideas`
  Tell us what you think we can do better in [issues](https://github.com/TheUnnamedOrganisation/RocketBot/issues).  
 Give detailed discription to help us understand what you are looking for. Add [Suggestion] to the title to help us quickly identify the category of the issue. Your suggestion might not be accept, but hey, maybe we will accept your suggestion next time! :)
+
+## A Pokémon Go bot in C#
 
 ## [Credits](https://github.com/Necrobot-Private)
