@@ -363,8 +363,6 @@ Global
 		{D7310128-97E4-4096-8679-93577CD08C06}.Debug|Android.Build.0 = Debug|Android
 		{D7310128-97E4-4096-8679-93577CD08C06}.Debug|Android.Deploy.0 = Debug|Android
 		{D7310128-97E4-4096-8679-93577CD08C06}.Debug|Any CPU.ActiveCfg = Debug|Android
-		{D7310128-97E4-4096-8679-93577CD08C06}.Debug|Any CPU.Build.0 = Debug|Android
-		{D7310128-97E4-4096-8679-93577CD08C06}.Debug|Any CPU.Deploy.0 = Debug|Android
 		{D7310128-97E4-4096-8679-93577CD08C06}.Debug|iOS.ActiveCfg = Debug|iOS
 		{D7310128-97E4-4096-8679-93577CD08C06}.Debug|iOS.Build.0 = Debug|iOS
 		{D7310128-97E4-4096-8679-93577CD08C06}.Debug|iOS.Deploy.0 = Debug|iOS
@@ -425,8 +423,6 @@ Global
 		{D7310128-97E4-4096-8679-93577CD08C06}.Release|Android.Build.0 = Release|Android
 		{D7310128-97E4-4096-8679-93577CD08C06}.Release|Android.Deploy.0 = Release|Android
 		{D7310128-97E4-4096-8679-93577CD08C06}.Release|Any CPU.ActiveCfg = Release|Android
-		{D7310128-97E4-4096-8679-93577CD08C06}.Release|Any CPU.Build.0 = Release|Android
-		{D7310128-97E4-4096-8679-93577CD08C06}.Release|Any CPU.Deploy.0 = Release|Android
 		{D7310128-97E4-4096-8679-93577CD08C06}.Release|iOS.ActiveCfg = Release|iOS
 		{D7310128-97E4-4096-8679-93577CD08C06}.Release|iOS.Build.0 = Release|iOS
 		{D7310128-97E4-4096-8679-93577CD08C06}.Release|iOS.Deploy.0 = Release|iOS
