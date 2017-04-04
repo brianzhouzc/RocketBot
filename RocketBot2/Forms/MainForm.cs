@@ -9,6 +9,7 @@ using PoGo.NecroBot.Logic;
 using PoGo.NecroBot.Logic.Common;
 using PoGo.NecroBot.Logic.Event;
 using PoGo.NecroBot.Logic.Logging;
+using PoGo.NecroBot.Logic.Model;
 using PoGo.NecroBot.Logic.Model.Settings;
 using PoGo.NecroBot.Logic.PoGoUtils;
 using PoGo.NecroBot.Logic.Service;
@@ -89,7 +90,7 @@ namespace RocketBot2.Forms
             Instance = this;
             args = _args;
             AppDomain currentDomain = AppDomain.CurrentDomain;
-            currentDomain.UnhandledException += new UnhandledExceptionEventHandler(this.ErrorHandler);
+            currentDomain.UnhandledException += new UnhandledExceptionEventHandler(ErrorHandler);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -571,6 +572,7 @@ namespace RocketBot2.Forms
                 cmsPokemonList.Items.Clear();
 
                 var pokemons = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o.PokemonData).ToList();
+                var pokemon = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).First();
                 var AllowEvolve = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).All(o => o.AllowEvolve);
                 var AllowTransfer = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).All(o => o.AllowTransfer);
                 var AllowPowerup = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).All(o => o.AllowPowerup);
@@ -582,12 +584,11 @@ namespace RocketBot2.Forms
                     e.Cancel = true;
                 }
 
-                var item = new ToolStripMenuItem();
-                var separator = new ToolStripSeparator();
+                ToolStripMenuItem item;
 
                 if (AllowTransfer)
                 {
-                    item.Text = $"Transfer {count} Pokémons";
+                    item = new ToolStripMenuItem(Text = $"Transfer {count} Pokémons");
                     item.Click += delegate { TransferPokemon(pokemons); };
                     cmsPokemonList.Items.Add(item);
                 }
@@ -596,9 +597,8 @@ namespace RocketBot2.Forms
 
                 if (AllowEvolve)
                 {
-                    item = new ToolStripMenuItem { Text = $"Evolve" };
+                    item = new ToolStripMenuItem(Text = $"Evolve");
                     item.Click += delegate {
-                        var pokemon = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).First();
                         EvolvePokemon(pokemon.PokemonData);
                     };
                     cmsPokemonList.Items.Add(item);
@@ -606,20 +606,19 @@ namespace RocketBot2.Forms
 
                 if (AllowPowerup)
                 {
-                    item = new ToolStripMenuItem { Text = $"PowerUp" };
+                    item = new ToolStripMenuItem(Text = $"PowerUp");
                     item.Click += delegate { PowerUpPokemon(pokemons); };
                     cmsPokemonList.Items.Add(item);
                 }
 
-                item = new ToolStripMenuItem { Text = Favorited ? "Un-Favorite" : "Favorite" };
+                item = new ToolStripMenuItem(Text = Favorited ? "Un-Favorite" : "Favorite");
                 item.Click += delegate { FavoritedPokemon(pokemons, Favorited); };
                 cmsPokemonList.Items.Add(item);
 
-                item = new ToolStripMenuItem { Text = @"Rename" };
+                item = new ToolStripMenuItem(Text = @"Rename");
                 item.Click += delegate
                 {
-                    var pokemonObject = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).First();
-                    using (var form = count == 1 ? new NicknamePokemonForm(pokemonObject) : new NicknamePokemonForm())
+                    using (var form = count == 1 ? new NicknamePokemonForm(pokemon) : new NicknamePokemonForm())
                     {
                         if (form.ShowDialog() == DialogResult.OK)
                         {
@@ -629,16 +628,31 @@ namespace RocketBot2.Forms
                 };
                 cmsPokemonList.Items.Add(item);
 
-                cmsPokemonList.Items.Add(separator);
-                item = new ToolStripMenuItem { Text = @"Properties" };
+                cmsPokemonList.Items.Add(new ToolStripSeparator());
+
+                item = new ToolStripMenuItem(Text = @"Set Buddy");
+                item.Click += delegate { SetBuddy_Click(pokemon); };
+                cmsPokemonList.Items.Add(item);
+
+                cmsPokemonList.Items.Add(new ToolStripSeparator());
+
+                item = new ToolStripMenuItem(Text = @"Properties");
                 item.Click += delegate
                 {
-                    var pokemonObject = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).First();
-                    PokemonProperties(pokemonObject);
+                    PokemonProperties(pokemon);
                 };
-
                 cmsPokemonList.Items.Add(item);
             };
+        }
+
+        private async void SetBuddy_Click(PokemonObject pokemonObject)
+        {
+            await SelectBuddyPokemonTask.Execute(
+                _session,
+                _session.CancellationTokenSource.Token,
+                pokemonObject.Id);
+            if (!checkBoxAutoRefresh.Checked)
+                await ReloadPokemonList().ConfigureAwait(false);
         }
 
         private void PokemonProperties(PokemonObject pokemonObject)
@@ -958,7 +972,7 @@ namespace RocketBot2.Forms
 
             AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionEventHandler;
 
-            Console.Title = @"RocketBot2 Loading ";
+            Console.Title = @"RocketBot2 Loading";
             Console.CancelKeyPress += (sender, eArgs) =>
             {
                 QuitEvent.Set();
@@ -1173,7 +1187,7 @@ namespace RocketBot2.Forms
                     if (string.IsNullOrEmpty(apiCfg.AuthAPIKey))
                     {
                         Logger.Write(
-                            "You select pogodev API but not provide API Key, please press any key to exit and correct you auth.json, \r\n The Pogodev API key call be purchased at - https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer",
+                            "You have selected PogoDev API but you have not provided an API Key, please press any key to exit and correct you auth.json, \r\n The Pogodev API key can be purchased at - https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer",
                             LogLevel.Error
                         );
 
@@ -1185,9 +1199,9 @@ namespace RocketBot2.Forms
                 else if (apiCfg.UseLegacyAPI)
                 {
                     Logger.Write(
-                        "You bot will start after 15 second, You are running bot with  Legacy API (0.45) it will increase your risk to be banned and trigger captcha. Config captcha in config.json to auto resolve them",
-                        LogLevel.Warning
-                    );
+                   "You bot will start after 15 seconds, You are running bot with Legacy API (0.45), but it will increase your risk of being banned and triggering captchas. Config Captchas in config.json to auto-resolve them",
+                   LogLevel.Warning
+               );
 
 #if RELEASE
                     Thread.Sleep(15000);
@@ -1196,9 +1210,9 @@ namespace RocketBot2.Forms
                 else
                 {
                     Logger.Write(
-                        "At least 1 authentication method is selected, please correct your auth.json, ",
-                        LogLevel.Error
-                    );
+                         "At least 1 authentication method must be selected, please correct your auth.json.",
+                         LogLevel.Error
+                     );
                     Console.ReadKey();
                     Environment.Exit(0);
                 }
@@ -1212,7 +1226,7 @@ namespace RocketBot2.Forms
             Logger.SetLoggerContext(_session);
 
             MultiAccountManager accountManager = new MultiAccountManager(logicSettings.Bots);
-            ioc.Register<MultiAccountManager>(accountManager);
+            ioc.Register(accountManager);
 
             if (boolNeedsSetup)
             {
@@ -1269,7 +1283,7 @@ namespace RocketBot2.Forms
             Resources.ProgressBar.Fill(40);
 
             var aggregator = new StatisticsAggregator(stats);
-            if (onBotStarted != null) onBotStarted(_session, aggregator);
+            onBotStarted?.Invoke(_session, aggregator);
 
             Resources.ProgressBar.Fill(50);
             var listener = new ConsoleEventListener();
@@ -1517,7 +1531,7 @@ namespace RocketBot2.Forms
                             if (PromptForKillSwitchOverride(strReason))
                             {
                                 // Override
-                                Logger.Write("Overriding killswitch... you have been warned!", LogLevel.Warning);
+                                Logger.Write("Overriding Killswitch... you have been warned!", LogLevel.Warning);
                                 return false;
                             }
 

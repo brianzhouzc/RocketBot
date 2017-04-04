@@ -1,4 +1,6 @@
-﻿namespace RocketBot2.Forms
+﻿using PokemonGo.RocketAPI;
+
+namespace RocketBot2.Forms
 {
     partial class AuthAPIForm
     {
@@ -48,7 +50,7 @@
             this.btnOK.TabIndex = 0;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // label1
             // 
@@ -90,7 +92,7 @@
             this.lnkBuy.TabIndex = 4;
             this.lnkBuy.TabStop = true;
             this.lnkBuy.Text = "Buy";
-            this.lnkBuy.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkBuy_LinkClicked);
+            this.lnkBuy.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LnkBuy_LinkClicked);
             // 
             // radHashServer
             // 
@@ -101,7 +103,7 @@
             this.radHashServer.Size = new System.Drawing.Size(300, 24);
             this.radHashServer.TabIndex = 5;
             this.radHashServer.TabStop = true;
-            this.radHashServer.Text = "Pogodev hash server api - Latest API 0.55";
+            this.radHashServer.Text = $"PogoDev Hash Server API - Latest API {Client.API_VERSION}";
             this.radHashServer.UseVisualStyleBackColor = true;
             // 
             // label2
@@ -123,9 +125,8 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(347, 80);
             this.label3.TabIndex = 7;
-            this.label3.Text = "We don\'t provide key, you will have to buy it  from Pogodev. RPM = Request per mi" +
-    "nute, it depend on how fast your config setup.  150RPM will sufficient enought f" +
-    "or 2-3 normal bot. ";
+            this.label3.Text = "We don't provide keys, you will have to buy it from Pogodev. RPM = Requests per minute," 
+			+ " it depends on how fast your config setup is. 150RPM will be sufficient for 2-" + "3 normal bots.";
             // 
             // btnCancel
             // 
