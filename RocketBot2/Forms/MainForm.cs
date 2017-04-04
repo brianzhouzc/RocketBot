@@ -1173,7 +1173,7 @@ namespace RocketBot2.Forms
                     if (string.IsNullOrEmpty(apiCfg.AuthAPIKey))
                     {
                         Logger.Write(
-                            "You have selected PogoDev API but have not provided an API Key, please press any key to exit and correct you auth.json, \r\n The Pogodev API key can be purchased at - https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer",
+                            "You have selected PogoDev API but you have not provided an API Key, please press any key to exit and correct you auth.json, \r\n The Pogodev API key can be purchased at - https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer",
                             LogLevel.Error
                         );
 
