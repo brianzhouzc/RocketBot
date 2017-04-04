@@ -32,6 +32,8 @@ If you want the latest Beta-Build, you have to download the build from the Beta-
 
 **Waning: Beta are unstable and might cause damage to your account, use at your own risk**
 
+<img src="https://cdn.discordapp.com/attachments/208485545439920128/298918598234341386/MainForm.png" alt="RocketBot2">
+
 ## Developers and Contributors
 
 ### Requirements
