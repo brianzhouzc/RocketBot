@@ -31,16 +31,16 @@ namespace RocketBot2.Helpers
         public PokemonEvoleTo(ISession session, PokemonData pokemon)
         {
             Session = session;
-            this.PokemonData = pokemon;
+            PokemonData = pokemon;
             var pkmSettings = session.Inventory.GetPokemonSettings().Result;
-            this.setting = pkmSettings.FirstOrDefault(x => x.PokemonId == pokemon.PokemonId);
+            setting = pkmSettings.FirstOrDefault(x => x.PokemonId == pokemon.PokemonId);
 
-            this.EvolutionBranchs = new List<EvolutionToPokemon>();
+            EvolutionBranchs = new List<EvolutionToPokemon>();
 
             //TODO - implement the candy count for enable evolution
-            foreach (var item in this.setting.EvolutionBranch)
+            foreach (var item in setting.EvolutionBranch)
             {
-                this.EvolutionBranchs.Add(new EvolutionToPokemon()
+                EvolutionBranchs.Add(new EvolutionToPokemon()
                 {
                     CandyNeed = item.CandyCost,
                     ItemNeed = item.EvolutionItemRequirement,
@@ -65,69 +65,79 @@ namespace RocketBot2.Helpers
             Session = session;
             PokemonData = pokemonData;
             var pkmSettings = session.Inventory.GetPokemonSettings().Result;
-            this.settings = pkmSettings.FirstOrDefault(x => x.PokemonId == pokemonData.PokemonId);
+            settings = pkmSettings.FirstOrDefault(x => x.PokemonId == pokemonData.PokemonId);
         }
-
+ 
         public ulong Id
         {
-            get { return this.PokemonData.Id; }
+            get { return PokemonData.Id; }
         }
 
         public PokemonId PokemonId
         {
-            get { return this.PokemonData.PokemonId; }
+            get { return PokemonData.PokemonId; }
         }
 
         public int Cp
         {
-            get { return this.PokemonData.Cp; }
+            get { return PokemonData.Cp; }
         }
 
         public int IndividualAttack
         {
-            get { return this.PokemonData.IndividualAttack; }
+            get { return PokemonData.IndividualAttack; }
         }
 
         public int IndividualDefense
         {
-            get { return this.PokemonData.IndividualDefense; }
+            get { return PokemonData.IndividualDefense; }
         }
 
         public int IndividualStamina
         {
-            get { return this.PokemonData.IndividualStamina; }
+            get { return PokemonData.IndividualStamina; }
         }
 
         public double GetIV
         {
-            get { return PokemonInfo.CalculatePokemonPerfection(this.PokemonData) / 100; }
+            get { return PokemonInfo.CalculatePokemonPerfection(PokemonData) / 100; }
         }
 
         public double GetLv
         {
-            get { return PokemonInfo.GetLevel(this.PokemonData); }
+            get { return PokemonInfo.GetLevel(PokemonData); }
         }
 
         public string Nickname
         {
-            get { return this.PokemonData.Nickname; }
+            get { return PokemonData.Nickname; }
         }
 
         public string Move1
         {
-            get { return Session.Translation.GetPokemonMovesetTranslation(this.PokemonData.Move1); }
+            get { return Session.Translation.GetPokemonMovesetTranslation(PokemonData.Move1); }
+        }
+
+        public float HeightM
+        {
+            get { return (float)Math.Round(PokemonData.HeightM,2); }
         }
 
         public string Move2
         {
-            get { return Session.Translation.GetPokemonMovesetTranslation(this.PokemonData.Move2); }
+            get { return Session.Translation.GetPokemonMovesetTranslation(PokemonData.Move2); }
+        }
+
+        public float WeightKg
+        {
+            get { return (float)Math.Round(PokemonData.WeightKg,2); }
         }
 
         public int Candy
         {
             get
             {
-                return Session.Inventory.GetCandyCount(this.PokemonData.PokemonId).Result;
+                return Session.Inventory.GetCandyCount(PokemonData.PokemonId).Result;
             }
         }
 
@@ -135,9 +145,9 @@ namespace RocketBot2.Helpers
         {
             get
             {
-                if (CandyToEvolveDict.ContainsKey(this.PokemonData.PokemonId))
+                if (CandyToEvolveDict.ContainsKey(PokemonData.PokemonId))
                 {
-                    return CandyToEvolveDict[this.PokemonData.PokemonId];
+                    return CandyToEvolveDict[PokemonData.PokemonId];
                 }
                 return 0;
             }
@@ -159,7 +169,7 @@ namespace RocketBot2.Helpers
         {
             get
             {
-                return this.PokemonData.Favorite == 1;
+                return PokemonData.Favorite == 1;
             }
         }
 
@@ -167,7 +177,7 @@ namespace RocketBot2.Helpers
         {
             get
             {
-                return Session.Inventory.CanUpgradePokemon(this.PokemonData).Result;
+                return Session.Inventory.CanUpgradePokemon(PokemonData).Result;
             }
         }
 
@@ -175,7 +185,7 @@ namespace RocketBot2.Helpers
         {
             get
             {
-                return Session.Inventory.CanEvolvePokemon(this.PokemonData).Result;
+                return Session.Inventory.CanEvolvePokemon(PokemonData).Result;
             }
         }
 
@@ -183,7 +193,7 @@ namespace RocketBot2.Helpers
         {
             get
             {
-                return Session.Inventory.CanTransferPokemon(this.PokemonData);
+                return Session.Inventory.CanTransferPokemon(PokemonData);
             }
         }
 
@@ -191,19 +201,19 @@ namespace RocketBot2.Helpers
         {
             get
             {
-                return ResourceHelper.GetPokemonImage(this.PokemonData);
+                return ResourceHelper.GetPokemonImage(PokemonData);
             }
         }
 
-        public bool Shiny => this.PokemonData.PokemonDisplay.Shiny ? true : false;
+        public bool Shiny => PokemonData.PokemonDisplay.Shiny ? true : false;
 
-        public string Sex => this.PokemonData.PokemonDisplay.Gender.ToString();
+        public string Sex => PokemonData.PokemonDisplay.Gender.ToString();
 
         public string Types
         {
             get
             {
-                return this.settings.Type.ToString() + ((this.settings.Type2 != PokemonType.None) ? "," + this.settings.Type2.ToString() : "");
+                return settings.Type.ToString() + ((settings.Type2 != PokemonType.None) ? "," + settings.Type2.ToString() : "");
             }
         }
 
@@ -223,16 +233,19 @@ namespace RocketBot2.Helpers
             }
         }
 
-        public DateTime CaughtTime => TimeUtil.GetDateTimeFromMilliseconds((long)this.PokemonData.CreationTimeMs).ToLocalTime();
+        public DateTime CaughtTime => TimeUtil.GetDateTimeFromMilliseconds((long)PokemonData.CreationTimeMs).ToLocalTime();
 
-#pragma warning disable CS0649 // Le champ 'PokemonObject.geoLocation' n'est jamais assigné et aura toujours sa valeur par défaut null
         private GeoLocation geoLocation;
-#pragma warning restore CS0649 // Le champ 'PokemonObject.geoLocation' n'est jamais assigné et aura toujours sa valeur par défaut null
         public GeoLocation GeoLocation
         {
             get
             {
-                return geoLocation;
+                return GeoLocation.FindOrUpdateInDatabase(PokemonData.CapturedCellId).Result;
+                //return geoLocation;
+            }
+            set
+            {
+                geoLocation = value;
             }
         }
 
@@ -243,7 +256,7 @@ namespace RocketBot2.Helpers
                 if (geoLocation == null)
                 {
                     // Just return latitude, longitude string
-                    return new GeoLocation(this.PokemonData.CapturedCellId).ToString();
+                    return new GeoLocation(PokemonData.CapturedCellId).ToString();
                 }
 
                 return geoLocation.ToString();
@@ -254,7 +267,7 @@ namespace RocketBot2.Helpers
         {
             get
             {
-                return this.PokemonData.Stamina;
+                return PokemonData.Stamina;
             }
         }
 
@@ -262,7 +275,7 @@ namespace RocketBot2.Helpers
         {
             get
             {
-                return this.PokemonData.StaminaMax;
+                return PokemonData.StaminaMax;
             }
         }
 
