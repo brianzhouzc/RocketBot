@@ -10,7 +10,7 @@ namespace RocketBot2.Forms
         {
             InitializeComponent();
 
-            pb.Image = ResourceHelper.ItemPicture(item);
+            pb.Image = ResourceHelper.GetImageSize(ResourceHelper.ItemPicture(item), pb.Size.Height, pb.Size.Width);
             numCount.Maximum = item.Count;
 
             if (item.ItemId == ItemId.ItemLuckyEgg || item.ItemId == ItemId.ItemIncenseOrdinary)

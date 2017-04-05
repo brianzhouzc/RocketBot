@@ -9,7 +9,7 @@ namespace RocketBot2.Forms
     public partial class ItemBox : UserControl
     {
         public DateTime expires = new DateTime(0);
-        public ItemData item_ { get; }
+        public ItemData Item_ { get; }
 
 
         public ItemBox(ItemData item)
@@ -20,13 +20,13 @@ namespace RocketBot2.Forms
             lbl.Text = item.Count.ToString();
             lblTime.Parent = pb;
 
-            item_ = item;
+            Item_ = item;
 
             foreach (Control control in Controls)
             {
-                control.MouseEnter += childMouseEnter;
-                control.MouseLeave += childMouseLeave;
-                control.MouseClick += childMouseClick;
+                control.MouseEnter += ChildMouseEnter;
+                control.MouseLeave += ChildMouseLeave;
+                control.MouseClick += ChildMouseClick;
             }
 
             if (item.ItemId == ItemId.ItemIncubatorBasic 
@@ -44,23 +44,23 @@ namespace RocketBot2.Forms
 
         public event EventHandler ItemClick;
 
-        private void childMouseClick(object sender, MouseEventArgs e)
+        private void ChildMouseClick(object sender, MouseEventArgs e)
         {
-            OnItemClick(item_, EventArgs.Empty);
+            OnItemClick(Item_, EventArgs.Empty);
         }
 
         protected override void OnMouseClick(MouseEventArgs e)
         {
             base.OnMouseClick(e);
-            OnItemClick(item_, EventArgs.Empty);
+            OnItemClick(Item_, EventArgs.Empty);
         }
 
-        private void childMouseLeave(object sender, EventArgs e)
+        private void ChildMouseLeave(object sender, EventArgs e)
         {
             OnMouseLeave(e);
         }
 
-        private void childMouseEnter(object sender, EventArgs e)
+        private void ChildMouseEnter(object sender, EventArgs e)
         {
             OnMouseEnter(e);
         }
@@ -86,7 +86,7 @@ namespace RocketBot2.Forms
             }
         }
 
-        private void tmr_Tick(object sender, EventArgs e)
+        private void Tmr_Tick(object sender, EventArgs e)
         {
             var time = expires - DateTime.UtcNow;
             if (expires.Ticks == 0 || time.TotalSeconds < 0)

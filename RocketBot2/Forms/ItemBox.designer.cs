@@ -51,10 +51,10 @@
             this.pb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pb.BackColor = System.Drawing.Color.Transparent;
-            this.pb.Location = new System.Drawing.Point(4, 0);
+            this.pb.Location = new System.Drawing.Point(9, 0);
             this.pb.Margin = new System.Windows.Forms.Padding(0);
             this.pb.Name = "pb";
-            this.pb.Size = new System.Drawing.Size(75, 79);
+            this.pb.Size = new System.Drawing.Size(65, 69);
             this.pb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pb.TabIndex = 0;
             this.pb.TabStop = false;
@@ -63,7 +63,7 @@
             // 
             this.tmr.Enabled = true;
             this.tmr.Interval = 1000;
-            this.tmr.Tick += new System.EventHandler(this.tmr_Tick);
+            this.tmr.Tick += new System.EventHandler(this.Tmr_Tick);
             // 
             // lblTime
             // 

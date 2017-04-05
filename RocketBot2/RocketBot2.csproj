@@ -588,7 +588,11 @@ foreach (var item in filesToCleanup)
   </Target>
   <Import Project="$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.28.0\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.28.0\build\Selenium.WebDriver.ChromeDriver.targets')" />
   <Import Project="$(SolutionDir)\packages\Fody.1.29.4\build\dotnet\Fody.targets" Condition="Exists('$(SolutionDir)\packages\Fody.1.29.4\build\dotnet\Fody.targets')" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+  <!--<PropertyGroup>
+   <PostBuildEvent>cd "$(TargetDir)"
+     xcopy /y /f /e "$(SolutionDir)\PokeEase\www" "$(TargetDir)\PokeEase\"</PostBuildEvent>
+  </PropertyGroup> -->
+ <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
