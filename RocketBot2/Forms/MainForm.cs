@@ -536,13 +536,15 @@ namespace RocketBot2.Forms
             olvPokemonList.FormatRow += delegate (object sender, FormatRowEventArgs e)
             {
                 var pok = e.Model as PokemonObject;
+                e.Item.BackColor = pok.Favorited ? Color.LightYellow : e.Item.BackColor;
                 if (olvPokemonList.Objects
                     .Cast<PokemonObject>()
                     .Select(i => i.PokemonId)
                     // ReSharper disable once PossibleNullReferenceException
                     .Count(p => p == pok.PokemonId) > 1)
-                    e.Item.BackColor = Color.LightGreen;
-                e.Item.BackColor = pok.Favorited ? Color.LightYellow : e.Item.BackColor;
+                {
+                    e.Item.BackColor = pok.Favorited ? Color.LightBlue : Color.LightGreen;
+                }
 
                 var text = string.IsNullOrEmpty(pok.Nickname) ? _session.Translation.GetPokemonTranslation(pok.PokemonId) : pok.Nickname;
                 e.Item.Text = pok.Favorited ? $"★ {text}" : text;
