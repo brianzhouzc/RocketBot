@@ -15,7 +15,7 @@ namespace RocketBot2.Helpers
     {
         public static Image ItemPicture(ItemData item)
         {
-            var image = LoadPicture($"https://raw.githubusercontent.com/TheUnnamedOrganisation/PokeEase/RocketBot/APK/www/images/items/{(int)item.ItemId}.png");
+            var image = LoadPicture($"https://raw.githubusercontent.com/TheUnnamedOrganisation/PokemonGO-Assets/itemId/items-icons/{(int)item.ItemId}.png");
             if (image != null) return image;
             return (Image)Properties.Resources.ResourceManager.GetObject("question");
         }
@@ -82,7 +82,7 @@ namespace RocketBot2.Helpers
             {
                 additional += "-shiny";
             }
-            var image = LoadPicture($"https://raw.githubusercontent.com/Necrobot-Private/PokemonGO-Assets/master/pokemon/{(int)pokemon.PokemonId:000}{additional}.png");
+            var image = LoadPicture($"https://raw.githubusercontent.com/TheUnnamedOrganisation/PokemonGO-Assets/itemId/pokemon/{(int)pokemon.PokemonId:000}{additional}.png");
             if (image != null) return image;
             return (Image)Properties.Resources.ResourceManager.GetObject("question");
             //return LoadPicture($"http://assets.pokemon.com/assets/cms2/img/pokedex/full/{(int)pokemonId:000}.png");
@@ -103,7 +103,7 @@ namespace RocketBot2.Helpers
             {
                 additional += "-shiny";
             }*/
-            var image = LoadPicture($"https://raw.githubusercontent.com/Necrobot-Private/PokemonGO-Assets/master/pokemon/{(int)pokemon.PokemonId:000}{additional}.png");
+            var image = LoadPicture($"https://raw.githubusercontent.com/TheUnnamedOrganisation/PokemonGO-Assets/itemId/pokemon/{(int)pokemon.PokemonId:000}{additional}.png");
             if (image != null) return image;
             return (Image)Properties.Resources.ResourceManager.GetObject("question");
             //return LoadPicture($"http://assets.pokemon.com/assets/cms2/img/pokedex/full/{(int)pokemon.PokemonId:000}.png");
@@ -124,7 +124,7 @@ namespace RocketBot2.Helpers
             {
                 additional += "-shiny";
             }
-            var image = LoadPicture($"https://raw.githubusercontent.com/Necrobot-Private/PokemonGO-Assets/master/pokemon/{(int)ToPokemonId:000}{additional}.png");
+            var image = LoadPicture($"https://raw.githubusercontent.com/TheUnnamedOrganisation/PokemonGO-Assets/itemId/pokemon/{(int)ToPokemonId:000}{additional}.png");
             if (image != null) return image;
             return (Image)Properties.Resources.ResourceManager.GetObject("question");
             //return LoadPicture($"http://assets.pokemon.com/assets/cms2/img/pokedex/full/{(int)pokemonId:000}.png");
