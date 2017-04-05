@@ -93,15 +93,15 @@ namespace RocketBot2.Helpers
             var additional = "";
             /*if (pokemon.PokemonDisplay.Costume != Costume.Unset)
             {
-                additional = additional + "-" + pokemon.PokemonDisplay.Costume.ToString();
+                additional = additional + "_" + pokemon.PokemonDisplay.Costume.ToString();
             }
             if (pokemon.PokemonDisplay.Form != POGOProtos.Enums.Form.Unset)
             {
-                additional = additional + "-" + pokemon.PokemonDisplay.Form.ToString().Replace("Unown", "").Replace("ExclamationPoint", "!").Replace("QuestionMark", "?");
+                additional = additional + "_" + pokemon.PokemonDisplay.Form.ToString().Replace("Unown", "").Replace("ExclamationPoint", "!").Replace("QuestionMark", "?");
             }
             if (pokemon.PokemonDisplay.Shiny)
             {
-                additional += "-shiny";
+                additional += "_shiny";
             }*/
 
             var image = (Image)Resources.PokemonDB.ResourceManager.GetObject($"_{(int)pokemon.PokemonId:000}{additional}");
