@@ -653,7 +653,6 @@ namespace RocketBot2.Forms
                 _session,
                 _session.CancellationTokenSource.Token,
                 pokemonObject.Id);
-            if (!checkBoxAutoRefresh.Checked)
                 await ReloadPokemonList().ConfigureAwait(false);
         }
 
@@ -705,7 +704,6 @@ namespace RocketBot2.Forms
             {
                 await Task.Run(async () => { await FavoritePokemonTask.Execute(_session, pokemon.Id, !fav); });
             }
-            if (!checkBoxAutoRefresh.Checked)
                 await ReloadPokemonList().ConfigureAwait(false);
         }
 
@@ -729,7 +727,6 @@ namespace RocketBot2.Forms
                                 _session, _session.CancellationTokenSource.Token, _pokemons
                             );
                         });
-                        if (!checkBoxAutoRefresh.Checked)
                             await ReloadPokemonList().ConfigureAwait(false);
                     }
                     break;
@@ -745,12 +742,10 @@ namespace RocketBot2.Forms
                 {
                     case DialogResult.Yes:
                         await Task.Run(async () => { await UpgradeSinglePokemonTask.Execute(_session, pokemon.Id, true /* upgrade x times */); });
-                        if (!checkBoxAutoRefresh.Checked)
                             await ReloadPokemonList().ConfigureAwait(false);
                         break;
                     case DialogResult.No:
                         await Task.Run(async () => { await UpgradeSinglePokemonTask.Execute(_session, pokemon.Id, false, 1 /* Only upgrade 1 time */); });
-                        if (!checkBoxAutoRefresh.Checked)
                             await ReloadPokemonList().ConfigureAwait(false);
                         break;
                 }
@@ -769,7 +764,6 @@ namespace RocketBot2.Forms
                     item.Click += async delegate
                     {
                         await Task.Run(async () => { await EvolveSpecificPokemonTask.Execute(_session, to.OriginPokemonId, to.Pokemon); });
-                        if (!checkBoxAutoRefresh.Checked)
                             await ReloadPokemonList().ConfigureAwait(false);
                         form.Close();
                     };
@@ -805,7 +799,6 @@ namespace RocketBot2.Forms
                     continue;
                 }
                 await Task.Run(async () => { await RenameSinglePokemonTask.Execute(_session, pokemon.Id, nickname, _session.CancellationTokenSource.Token); });
-                if (!checkBoxAutoRefresh.Checked)
                     await ReloadPokemonList().ConfigureAwait(false);
             }
         }
@@ -938,7 +931,6 @@ namespace RocketBot2.Forms
                         }
                         break;
                 }
-                if (!checkBoxAutoRefresh.Checked)
                     await ReloadPokemonList().ConfigureAwait(false);
             }
         }
