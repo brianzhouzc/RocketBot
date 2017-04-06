@@ -34,6 +34,7 @@
             // 
             // flpPokemonToEvole
             // 
+            this.flpPokemonToEvole.BackColor = System.Drawing.Color.White;
             this.flpPokemonToEvole.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flpPokemonToEvole.Location = new System.Drawing.Point(0, 0);
             this.flpPokemonToEvole.Name = "flpPokemonToEvole";

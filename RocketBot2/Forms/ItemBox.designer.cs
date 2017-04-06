@@ -43,7 +43,7 @@
             this.lbl.Name = "lbl";
             this.lbl.Size = new System.Drawing.Size(85, 30);
             this.lbl.TabIndex = 1;
-            this.lbl.Text = "999";
+            this.lbl.Text = "99999";
             this.lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pb
@@ -51,11 +51,11 @@
             this.pb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pb.BackColor = System.Drawing.Color.Transparent;
-            this.pb.Location = new System.Drawing.Point(0, 0);
+            this.pb.Location = new System.Drawing.Point(0, -1);
             this.pb.Margin = new System.Windows.Forms.Padding(0);
             this.pb.Name = "pb";
-            this.pb.Size = new System.Drawing.Size(85, 79);
-            this.pb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pb.Size = new System.Drawing.Size(85, 85);
+            this.pb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pb.TabIndex = 0;
             this.pb.TabStop = false;
             // 
@@ -63,7 +63,7 @@
             // 
             this.tmr.Enabled = true;
             this.tmr.Interval = 1000;
-            this.tmr.Tick += new System.EventHandler(this.tmr_Tick);
+            this.tmr.Tick += new System.EventHandler(this.Tmr_Tick);
             // 
             // lblTime
             // 
@@ -87,7 +87,7 @@
             this.Controls.Add(this.lbl);
             this.Controls.Add(this.pb);
             this.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ItemBox";
             this.Size = new System.Drawing.Size(85, 108);
             ((System.ComponentModel.ISupportInitialize)(this.pb)).EndInit();

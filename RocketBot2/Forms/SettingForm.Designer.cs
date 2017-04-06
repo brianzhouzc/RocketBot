@@ -298,7 +298,7 @@
             this.cancelBtn.TabIndex = 31;
             this.cancelBtn.Text = "Cancel";
             this.cancelBtn.UseVisualStyleBackColor = true;
-            this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
+            this.cancelBtn.Click += new System.EventHandler(this.CancelBtn_Click);
             // 
             // tabControl
             // 
@@ -525,7 +525,7 @@
             this.useProxyAuthCb.TabIndex = 29;
             this.useProxyAuthCb.Text = "Use Proxy Authentication";
             this.useProxyAuthCb.UseVisualStyleBackColor = true;
-            this.useProxyAuthCb.CheckedChanged += new System.EventHandler(this.useProxyAuthCb_CheckedChanged);
+            this.useProxyAuthCb.CheckedChanged += new System.EventHandler(this.UseProxyAuthCb_CheckedChanged);
             // 
             // label19
             // 
@@ -545,7 +545,7 @@
             this.useProxyCb.TabIndex = 30;
             this.useProxyCb.Text = "Use Proxy\r\n";
             this.useProxyCb.UseVisualStyleBackColor = true;
-            this.useProxyCb.CheckedChanged += new System.EventHandler(this.useProxyCb_CheckedChanged);
+            this.useProxyCb.CheckedChanged += new System.EventHandler(this.UseProxyCb_CheckedChanged);
             // 
             // label23
             // 
@@ -570,7 +570,7 @@
             this.trackBar.TabIndex = 25;
             this.trackBar.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
             this.trackBar.Value = 2;
-            this.trackBar.Scroll += new System.EventHandler(this.trackBar_Scroll);
+            this.trackBar.Scroll += new System.EventHandler(this.TrackBar_Scroll);
             // 
             // gMapCtrl
             // 
@@ -602,9 +602,9 @@
             this.gMapCtrl.Size = new System.Drawing.Size(628, 461);
             this.gMapCtrl.TabIndex = 22;
             this.gMapCtrl.Zoom = 0D;
-            this.gMapCtrl.OnMapZoomChanged += new GMap.NET.MapZoomChanged(this.gMapCtrl_OnMapZoomChanged);
-            this.gMapCtrl.MouseClick += new System.Windows.Forms.MouseEventHandler(this.gMapCtrl_MouseClick);
-            this.gMapCtrl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.gMapCtrl_MouseUp);
+            this.gMapCtrl.OnMapZoomChanged += new GMap.NET.MapZoomChanged(this.GMapCtrl_OnMapZoomChanged);
+            this.gMapCtrl.MouseClick += new System.Windows.Forms.MouseEventHandler(this.GMapCtrl_MouseClick);
+            this.gMapCtrl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GMapCtrl_MouseUp);
             // 
             // UserLoginBox
             // 
@@ -630,7 +630,7 @@
             this.tbLatitude.Name = "tbLatitude";
             this.tbLatitude.Size = new System.Drawing.Size(172, 27);
             this.tbLatitude.TabIndex = 13;
-            this.tbLatitude.Leave += new System.EventHandler(this.latitudeText_Leave);
+            this.tbLatitude.Leave += new System.EventHandler(this.LatitudeText_Leave);
             // 
             // tbLongitude
             // 
@@ -639,7 +639,7 @@
             this.tbLongitude.Name = "tbLongitude";
             this.tbLongitude.Size = new System.Drawing.Size(172, 27);
             this.tbLongitude.TabIndex = 14;
-            this.tbLongitude.Leave += new System.EventHandler(this.longitudeText_Leave);
+            this.tbLongitude.Leave += new System.EventHandler(this.LongitudeText_Leave);
             // 
             // authTypeLabel
             // 
@@ -796,7 +796,7 @@
             this.deviceTypeCb.Name = "deviceTypeCb";
             this.deviceTypeCb.Size = new System.Drawing.Size(174, 28);
             this.deviceTypeCb.TabIndex = 37;
-            this.deviceTypeCb.SelectionChangeCommitted += new System.EventHandler(this.deviceTypeCb_SelectionChangeCommitted);
+            this.deviceTypeCb.SelectionChangeCommitted += new System.EventHandler(this.DeviceTypeCb_SelectionChangeCommitted);
             // 
             // RandomDeviceBtn
             // 
@@ -1407,7 +1407,7 @@
             this.cbIgnoreAll.TabIndex = 1;
             this.cbIgnoreAll.Text = "Select All";
             this.cbIgnoreAll.UseVisualStyleBackColor = true;
-            this.cbIgnoreAll.CheckedChanged += new System.EventHandler(this.cbSelectAllCatch_CheckedChanged);
+            this.cbIgnoreAll.CheckedChanged += new System.EventHandler(this.CbSelectAllCatch_CheckedChanged);
             // 
             // clbIgnore
             // 
@@ -1497,7 +1497,7 @@
             this.cbNotTransferAll.TabIndex = 1;
             this.cbNotTransferAll.Text = "Select All";
             this.cbNotTransferAll.UseVisualStyleBackColor = true;
-            this.cbNotTransferAll.CheckedChanged += new System.EventHandler(this.cbSelectAllTransfer_CheckedChanged);
+            this.cbNotTransferAll.CheckedChanged += new System.EventHandler(this.CbSelectAllTransfer_CheckedChanged);
             // 
             // clbTransfer
             // 
@@ -1806,7 +1806,7 @@
             this.cbPowerUpType.Name = "cbPowerUpType";
             this.cbPowerUpType.Size = new System.Drawing.Size(121, 28);
             this.cbPowerUpType.TabIndex = 9;
-            this.cbPowerUpType.SelectionChangeCommitted += new System.EventHandler(this.cbPowerUpType_SelectionChangeCommitted);
+            this.cbPowerUpType.SelectionChangeCommitted += new System.EventHandler(this.CbPowerUpType_SelectionChangeCommitted);
             // 
             // label29
             // 
@@ -1842,7 +1842,7 @@
             this.cbPowerUpAll.TabIndex = 1;
             this.cbPowerUpAll.Text = "Select All";
             this.cbPowerUpAll.UseVisualStyleBackColor = true;
-            this.cbPowerUpAll.CheckedChanged += new System.EventHandler(this.cbPowerUpAll_CheckedChanged);
+            this.cbPowerUpAll.CheckedChanged += new System.EventHandler(this.CbPowerUpAll_CheckedChanged);
             // 
             // clbPowerUp
             // 
@@ -2022,7 +2022,7 @@
             this.cbEvolveAll.TabIndex = 1;
             this.cbEvolveAll.Text = "Select All";
             this.cbEvolveAll.UseVisualStyleBackColor = true;
-            this.cbEvolveAll.CheckedChanged += new System.EventHandler(this.cbSelectAllEvolve_CheckedChanged);
+            this.cbEvolveAll.CheckedChanged += new System.EventHandler(this.CbSelectAllEvolve_CheckedChanged);
             // 
             // clbEvolve
             // 
@@ -2622,7 +2622,7 @@
             this.saveBtn.TabIndex = 29;
             this.saveBtn.Text = "Save";
             this.saveBtn.UseVisualStyleBackColor = true;
-            this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
+            this.saveBtn.Click += new System.EventHandler(this.SaveBtn_Click);
             // 
             // cbAutoSniper
             // 

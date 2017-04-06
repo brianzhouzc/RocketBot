@@ -96,10 +96,10 @@ namespace RocketBot2.Forms
         private void MainForm_Load(object sender, EventArgs e)
         {
             SetStatusText(Application.ProductName + " " + Application.ProductVersion);
-            speedLable.Parent = gMapControl1;
-            showMoreCheckBox.Parent = gMapControl1;
-            followTrainerCheckBox.Parent = gMapControl1;
-            togglePrecalRoute.Parent = gMapControl1;
+            speedLable.Parent = GMapControl1;
+            showMoreCheckBox.Parent = GMapControl1;
+            followTrainerCheckBox.Parent = GMapControl1;
+            togglePrecalRoute.Parent = GMapControl1;
             InitializeBot(null);
             InitializePokemonForm();
             InitializeMap();
@@ -112,7 +112,7 @@ namespace RocketBot2.Forms
 
         #region INTERFACE
 
-        private DateTime lastClearLog = DateTime.Now;
+        private DateTime LastClearLog = DateTime.Now;
 
         public static void ColoredConsoleWrite(Color color, string text)
         {
@@ -126,11 +126,11 @@ namespace RocketBot2.Forms
             }
 
             #pragma warning disable CS1690
-            if (Instance.lastClearLog.AddMinutes(20) < DateTime.Now)
+            if (Instance.LastClearLog.AddMinutes(20) < DateTime.Now)
             #pragma warning restore CS1690
             {
                 Instance.logTextBox.Text = string.Empty;
-                Instance.lastClearLog = DateTime.Now;
+                Instance.LastClearLog = DateTime.Now;
             }
 
             if (text.Contains("Error with API request type: DownloadRemoteConfigVersion"))
@@ -199,21 +199,21 @@ namespace RocketBot2.Forms
         {
             var lat = _session.Client.Settings.DefaultLatitude;
             var lng = _session.Client.Settings.DefaultLongitude;
-            gMapControl1.MapProvider = GoogleMapProvider.Instance;
-            gMapControl1.Manager.Mode = AccessMode.ServerOnly;
+            GMapControl1.MapProvider = GoogleMapProvider.Instance;
+            GMapControl1.Manager.Mode = AccessMode.ServerOnly;
             GMapProvider.WebProxy = null;
-            gMapControl1.Position = new PointLatLng(lat, lng);
-            gMapControl1.DragButton = MouseButtons.Left;
+            GMapControl1.Position = new PointLatLng(lat, lng);
+            GMapControl1.DragButton = MouseButtons.Left;
 
-            gMapControl1.MinZoom = 2;
-            gMapControl1.MaxZoom = 18;
-            gMapControl1.Zoom = 15;
+            GMapControl1.MinZoom = 2;
+            GMapControl1.MaxZoom = 18;
+            GMapControl1.Zoom = 15;
 
-            gMapControl1.Overlays.Add(_searchAreaOverlay);
-            gMapControl1.Overlays.Add(_pokestopsOverlay);
-            gMapControl1.Overlays.Add(_pokemonsOverlay);
-            gMapControl1.Overlays.Add(_playerOverlay);
-            gMapControl1.Overlays.Add(_playerRouteOverlay);
+            GMapControl1.Overlays.Add(_searchAreaOverlay);
+            GMapControl1.Overlays.Add(_pokestopsOverlay);
+            GMapControl1.Overlays.Add(_pokemonsOverlay);
+            GMapControl1.Overlays.Add(_playerOverlay);
+            GMapControl1.Overlays.Add(_playerRouteOverlay);
 
             _playerMarker = new GMapMarkerTrainer(new PointLatLng(lat, lng), ResourceHelper.GetImage("PlayerLocation", null, null, 50, 50));
             _playerOverlay.Markers.Add(_playerMarker);
@@ -304,7 +304,7 @@ namespace RocketBot2.Forms
                         : new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("PlayerLocation", null, null, 50, 50));
                 _playerOverlay.Markers.Add(_playerMarker);
                 if (followTrainerCheckBox.Checked)
-                    gMapControl1.Position = latlng;
+                    GMapControl1.Position = latlng;
             }, null);
             _currentLatLng = latlng;
             UpdateMap();
@@ -388,10 +388,10 @@ namespace RocketBot2.Forms
             }, null);
         }
 
-        private async void gMapControl1_MouseDoubleClick(object sender, MouseEventArgs e)
+        private async void GMapControl1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (!_botStarted) return;
-            var pos = gMapControl1.FromLocalToLatLng(e.Location.X, e.Location.Y);
+            var pos = GMapControl1.FromLocalToLatLng(e.Location.X, e.Location.Y);
             await SetMoveToTargetTask.Execute(pos.Lat, pos.Lng);
         }
 
@@ -399,12 +399,12 @@ namespace RocketBot2.Forms
 
         #region EVENTS
 
-        private async void btnRefresh_Click(object sender, EventArgs e)
+        private async void BtnRefresh_Click(object sender, EventArgs e)
         {
             await ReloadPokemonList();
         }
 
-        private async void startStopBotToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void StartStopBotToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (_botStarted)
             {
@@ -416,19 +416,19 @@ namespace RocketBot2.Forms
             await Task.Run(StartBot);
         }
 
-        private void todoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TodoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Windows.Forms.Form settingsForm = new SettingsForm(ref _settings);
             settingsForm.ShowDialog();
             var newLocation = new PointLatLng(_settings.LocationConfig.DefaultLatitude, _settings.LocationConfig.DefaultLongitude);
-            gMapControl1.Position = newLocation;
+            GMapControl1.Position = newLocation;
             _playerMarker.Position = newLocation;
             _playerLocations.Clear();
             _playerLocations.Add(newLocation);
             UpdateMap();
         }
 
-        private void showConsoleToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ShowConsoleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (showConsoleToolStripMenuItem.Text.Equals(@"Show Console"))
             {
@@ -440,7 +440,7 @@ namespace RocketBot2.Forms
             ConsoleHelper.HideConsoleWindow();
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Thread mThread = new Thread(delegate ()
             {
@@ -451,7 +451,7 @@ namespace RocketBot2.Forms
             mThread.Start();
         }
 
-        private void accountsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AccountsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             foreach (ToolStripMenuItem en in accountsToolStripMenuItem.DropDownItems)
             {
@@ -462,7 +462,7 @@ namespace RocketBot2.Forms
             }
         }
 
-        private void showMoreCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void ShowMoreCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (showMoreCheckBox.Checked)
             {
@@ -476,20 +476,20 @@ namespace RocketBot2.Forms
             }
         }
 
-        private void followTrainerCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void FollowTrainerCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (followTrainerCheckBox.Checked)
             {
-                gMapControl1.CanDragMap = false;
-                gMapControl1.Position = _currentLatLng;
+                GMapControl1.CanDragMap = false;
+                GMapControl1.Position = _currentLatLng;
             }
             else
             {
-                gMapControl1.CanDragMap = true;
+                GMapControl1.CanDragMap = true;
             }
         }
 
-        private void togglePrecalRoute_CheckedChanged(object sender, EventArgs e)
+        private void TogglePrecalRoute_CheckedChanged(object sender, EventArgs e)
         {
             SynchronizationContext.Post(o =>
             {
@@ -507,7 +507,7 @@ namespace RocketBot2.Forms
             }, null);
         }
 
-        private void checkBoxAutoRefresh_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxAutoRefresh_CheckedChanged(object sender, EventArgs e)
         {
             if (Instance._botStarted)
             Instance.btnRefresh.Enabled = !Instance.checkBoxAutoRefresh.Checked;
@@ -536,13 +536,15 @@ namespace RocketBot2.Forms
             olvPokemonList.FormatRow += delegate (object sender, FormatRowEventArgs e)
             {
                 var pok = e.Model as PokemonObject;
+                e.Item.BackColor = pok.Favorited ? Color.LightYellow : e.Item.BackColor;
                 if (olvPokemonList.Objects
                     .Cast<PokemonObject>()
                     .Select(i => i.PokemonId)
                     // ReSharper disable once PossibleNullReferenceException
                     .Count(p => p == pok.PokemonId) > 1)
-                    e.Item.BackColor = Color.LightGreen;
-                e.Item.BackColor = pok.Favorited ? Color.LightYellow : e.Item.BackColor;
+                {
+                    e.Item.BackColor = pok.Favorited ? Color.LightBlue : Color.LightGreen;
+                }
 
                 var text = string.IsNullOrEmpty(pok.Nickname) ? _session.Translation.GetPokemonTranslation(pok.PokemonId) : pok.Nickname;
                 e.Item.Text = pok.Favorited ? $"★ {text}" : text;
@@ -663,7 +665,7 @@ namespace RocketBot2.Forms
             }
         }
 
-        private void olvPokemonList_ButtonClick(object sender, CellClickEventArgs e)
+        private void OlvPokemonList_ButtonClick(object sender, CellClickEventArgs e)
         {
             try
             {
@@ -691,7 +693,7 @@ namespace RocketBot2.Forms
             }
         }
 
-        private void olvPokemonList_DoubleClick(object sender, EventArgs e)
+        private void OlvPokemonList_DoubleClick(object sender, EventArgs e)
         {
             var pokemonObject = olvPokemonList.SelectedObjects.Cast<PokemonObject>().Select(o => o).First();
             PokemonProperties(pokemonObject);
@@ -808,13 +810,13 @@ namespace RocketBot2.Forms
             }
         }
 
-        private Task ReloadPokemonList()
+        private async Task ReloadPokemonList()
         {
             Instance.SetState(false);
             try
             {
                 if (_session.Client.Download.ItemTemplates == null)
-                     _session.Client.Download.GetItemTemplates().ConfigureAwait(false);
+                    await _session.Client.Download.GetItemTemplates().ConfigureAwait(false);
 
                 var templates = _session.Client.Download.ItemTemplates.Where(x => x.PokemonSettings != null)
                         .Select(x => x.PokemonSettings)
@@ -866,18 +868,7 @@ namespace RocketBot2.Forms
                     .SelectMany(aItems => aItems.Item)
                     .ToDictionary(item => item.ItemId, item => new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(item.ExpireMs));
 
-                flpItemsClean();
-
-                foreach (var item in items)
-                {
-                    var box = new ItemBox(item);
-                    if (appliedItems.ContainsKey(item.ItemId))
-                    {
-                        box.expires = appliedItems[item.ItemId];
-                    }
-                    box.ItemClick += ItemBox_ItemClick;
-                    Instance.flpItems.Controls.Add(box);
-                }
+                FlpItemsClean(items, appliedItems);
 
                 Instance.lblInventory.Text =
                         $"Types: {items.Count()} | Total: {_session.Inventory.GetTotalItemCount().Result} | Storage: {_session.Client.Player.PlayerData.MaxItemStorage}";
@@ -892,27 +883,32 @@ namespace RocketBot2.Forms
                 Logger.Write(ex.ToString(), LogLevel.Error);
             }
             Instance.SetState(true);
-            return Task.CompletedTask;
         }
 
-        private void flpItemsClean()
+        private static void FlpItemsClean(IOrderedEnumerable<ItemData> items, Dictionary<ItemId, DateTime> appliedItems)
         {
-            if (Instance.InvokeRequired)
-            {
-                Instance.Invoke(new Action(flpItemsClean));
-                return;
-            }
             List<Control> listControls = new List<Control>();
 
-            foreach (Control control in flpItems.Controls)
+            foreach (Control control in Instance.flpItems.Controls)
             {
                 listControls.Add(control);
             }
 
             foreach (Control control in listControls)
             {
-                flpItems.Controls.Remove(control);
+                Instance.flpItems.Controls.Remove(control);
                 control.Dispose();
+            }
+
+            foreach (var item in items)
+            {
+                var box = new ItemBox(item);
+                if (appliedItems.ContainsKey(item.ItemId))
+                {
+                    box.expires = appliedItems[item.ItemId];
+                }
+                box.ItemClick += Instance.ItemBox_ItemClick;
+                Instance.flpItems.Controls.Add(box);
             }
         }
 
@@ -1352,8 +1348,10 @@ namespace RocketBot2.Forms
             {
                 foreach (var _bot in accountManager.Accounts)
                 {
-                    var _item = new ToolStripMenuItem();
-                    _item.Text = _bot.Username;
+                    var _item = new ToolStripMenuItem()
+                    {
+                        Text = _bot.Username
+                    };
                     _item.Click += delegate
                     {
                         if (!Instance._botStarted)

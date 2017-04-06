@@ -302,6 +302,16 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Resources\ItemIdDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ItemIdDB.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\PokemonDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PokemonDB.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\ProgressBar.cs" />
     <Compile Include="SniperEventListener.cs" />
     <Compile Include="WebSocketHandler\ActionCommands\DropItemHandler.cs" />
@@ -349,6 +359,357 @@
     <Compile Include="Win32\ConsoleHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\PokemonGO-Assets\audio\badge.mp3" />
+    <Content Include="Resources\PokemonGO-Assets\audio\bagfull.mp3" />
+    <Content Include="Resources\PokemonGO-Assets\audio\caught.mp3" />
+    <Content Include="Resources\PokemonGO-Assets\audio\escaped.mp3" />
+    <Content Include="Resources\PokemonGO-Assets\audio\evolved.mp3" />
+    <Content Include="Resources\PokemonGO-Assets\audio\fled.mp3" />
+    <Content Include="Resources\PokemonGO-Assets\audio\generic.mp3" />
+    <Content Include="Resources\PokemonGO-Assets\audio\hatched.mp3" />
+    <Content Include="Resources\PokemonGO-Assets\audio\levelup.mp3" />
+    <Content Include="Resources\PokemonGO-Assets\audio\missed.mp3" />
+    <Content Include="Resources\PokemonGO-Assets\audio\pickup.mp3" />
+    <Content Include="Resources\PokemonGO-Assets\audio\pokedex.mp3" />
+    <Content Include="Resources\PokemonGO-Assets\audio\powerup.mp3" />
+    <Content Include="Resources\PokemonGO-Assets\audio\robbed.mp3" />
+    <Content Include="Resources\PokemonGO-Assets\audio\struggle.mp3" />
+    <Content Include="Resources\PokemonGO-Assets\audio\throwing.mp3" />
+    <Content Include="Resources\PokemonGO-Assets\audio\transfered.mp3" />
+    <Content Include="Resources\PokemonGO-Assets\eggs\egg.png" />
+    <Content Include="Resources\PokemonGO-Assets\eggs\egg_10.png" />
+    <Content Include="Resources\PokemonGO-Assets\eggs\egg_10_incubator.png" />
+    <Content Include="Resources\PokemonGO-Assets\eggs\egg_10_incubator_unlimited.png" />
+    <Content Include="Resources\PokemonGO-Assets\eggs\egg_2.png" />
+    <Content Include="Resources\PokemonGO-Assets\eggs\egg_2_incubator.png" />
+    <Content Include="Resources\PokemonGO-Assets\eggs\egg_2_incubator_unlimited.png" />
+    <Content Include="Resources\PokemonGO-Assets\eggs\egg_5.png" />
+    <Content Include="Resources\PokemonGO-Assets\eggs\egg_5_incubator.png" />
+    <Content Include="Resources\PokemonGO-Assets\eggs\egg_5_incubator_unlimited.png" />
+    <Content Include="Resources\PokemonGO-Assets\eggs\egg_incubator.png" />
+    <Content Include="Resources\PokemonGO-Assets\eggs\egg_incubator_unlimited.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\0.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\1.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\1001.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\1002.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\101.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\102.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\103.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\104.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\1101.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\1102.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\1103.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\1104.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\1105.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\2.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\201.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\202.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\3.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\301.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\4.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\401.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\402.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\403.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\404.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\501.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\701.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\702.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\703.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\704.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\705.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\706.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\707.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\801.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\901.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\902.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\PokeCoin.png" />
+    <Content Include="Resources\PokemonGO-Assets\items-icons\Stardust.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\000.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\001.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\002.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\003.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\004.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\005.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\006.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\007.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\008.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\009.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\010.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\011.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\012.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\013.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\014.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\015.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\016.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\017.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\018.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\019.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\020.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\021.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\022.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\023.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\024.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\025-Anniversary.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\025-Holiday2016.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\025.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\026-Anniversary.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\026-Holiday2016.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\026.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\027.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\028.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\029.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\030.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\031.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\032.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\033.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\034.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\035.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\036.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\037.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\038.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\039.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\040.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\041.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\042.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\043.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\044.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\045.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\046.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\047.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\048.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\049.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\050.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\051.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\052.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\053.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\054.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\055.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\056.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\057.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\058.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\059.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\060.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\061.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\062.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\063.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\064.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\065.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\066.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\067.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\068.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\069.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\070.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\071.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\072.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\073.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\074.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\075.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\076.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\077.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\078.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\079.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\080.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\081.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\082.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\083.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\084.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\085.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\086.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\087.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\088.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\089.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\090.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\091.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\092.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\093.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\094.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\095.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\096.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\097.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\098.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\099.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\100.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\101.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\102.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\103.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\104.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\105.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\106.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\107.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\108.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\109.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\110.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\111.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\112.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\113.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\114.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\115.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\116.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\117.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\118.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\119.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\120.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\121.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\122.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\123.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\124.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\125.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\126.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\127.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\128.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\129-shiny.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\129.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\130-shiny.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\130.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\131.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\132.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\133.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\134.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\135.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\136.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\137.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\138.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\139.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\140.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\141.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\142.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\143.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\144.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\145.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\146.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\147.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\148.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\149.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\150.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\151.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\152.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\153.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\154.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\155.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\156.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\157.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\158.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\159.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\160.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\161.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\162.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\163.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\164.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\165.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\166.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\167.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\168.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\169.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\170.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\171.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\172.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\173.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\174.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\175.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\176.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\177.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\178.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\179.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\180.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\181.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\182.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\183.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\184.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\185.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\186.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\187.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\188.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\189.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\190.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\191.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\192.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\193.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\194.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\195.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\196.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\197.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\198.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\199.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\200.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-!.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-A.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-B.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-C.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-D.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-E.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-F.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-G.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-H.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-I.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-J.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-K.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-L.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-M.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-N.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-O.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-P.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-Q.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-R.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-S.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-T.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-U.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-V.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-W.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-X.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-Y.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-Z.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-_.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\202.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\203.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\204.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\205.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\206.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\207.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\208.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\209.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\210.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\211.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\212.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\213.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\214.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\215.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\216.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\217.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\218.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\219.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\220.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\221.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\222.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\223.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\224.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\225.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\226.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\227.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\228.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\229.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\230.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\231.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\232.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\233.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\234.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\235.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\236.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\237.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\238.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\239.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\240.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\241.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\242.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\243.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\244.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\245.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\246.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\247.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\248.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\249.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\250.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\251.png" />
     <None Include="cert.pfx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -511,6 +872,14 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ItemIdDB.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ItemIdDB.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PokemonDB.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PokemonDB.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
@@ -588,6 +957,10 @@ foreach (var item in filesToCleanup)
   </Target>
   <Import Project="$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.28.0\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.28.0\build\Selenium.WebDriver.ChromeDriver.targets')" />
   <Import Project="$(SolutionDir)\packages\Fody.1.29.4\build\dotnet\Fody.targets" Condition="Exists('$(SolutionDir)\packages\Fody.1.29.4\build\dotnet\Fody.targets')" />
+  <!--<PropertyGroup>
+   <PostBuildEvent>cd "$(TargetDir)"
+     xcopy /y /f /e "$(SolutionDir)\PokeEase\www" "$(TargetDir)\PokeEase\"</PostBuildEvent>
+  </PropertyGroup> -->
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
