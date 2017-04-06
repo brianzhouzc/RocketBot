@@ -43,7 +43,7 @@ namespace RocketBot2.Forms
             this.accountsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
+            this.GMapControl1 = new GMap.NET.WindowsForms.GMapControl();
             this.olvPokemonList = new BrightIdeasSoftware.ObjectListView();
             this.pkmnName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pkmnCP = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -142,66 +142,66 @@ namespace RocketBot2.Forms
             this.startStopBotToolStripMenuItem.Name = "startStopBotToolStripMenuItem";
             this.startStopBotToolStripMenuItem.Size = new System.Drawing.Size(149, 24);
             this.startStopBotToolStripMenuItem.Text = "▶ Start RocketBot2";
-            this.startStopBotToolStripMenuItem.Click += new System.EventHandler(this.startStopBotToolStripMenuItem_Click);
+            this.startStopBotToolStripMenuItem.Click += new System.EventHandler(this.StartStopBotToolStripMenuItem_Click);
             // 
             // settingToolStripMenuItem
             // 
             this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
             this.settingToolStripMenuItem.Size = new System.Drawing.Size(74, 24);
             this.settingToolStripMenuItem.Text = "Settings";
-            this.settingToolStripMenuItem.Click += new System.EventHandler(this.todoToolStripMenuItem_Click);
+            this.settingToolStripMenuItem.Click += new System.EventHandler(this.TodoToolStripMenuItem_Click);
             // 
             // accountsToolStripMenuItem
             // 
             this.accountsToolStripMenuItem.Name = "accountsToolStripMenuItem";
             this.accountsToolStripMenuItem.Size = new System.Drawing.Size(81, 24);
             this.accountsToolStripMenuItem.Text = "Accounts";
-            this.accountsToolStripMenuItem.Click += new System.EventHandler(this.accountsToolStripMenuItem_Click);
+            this.accountsToolStripMenuItem.Click += new System.EventHandler(this.AccountsToolStripMenuItem_Click);
             // 
             // showConsoleToolStripMenuItem
             // 
             this.showConsoleToolStripMenuItem.Name = "showConsoleToolStripMenuItem";
             this.showConsoleToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
             this.showConsoleToolStripMenuItem.Text = "Show Console";
-            this.showConsoleToolStripMenuItem.Click += new System.EventHandler(this.showConsoleToolStripMenuItem_Click);
+            this.showConsoleToolStripMenuItem.Click += new System.EventHandler(this.ShowConsoleToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(124, 24);
             this.aboutToolStripMenuItem.Text = "About && Sniper";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
-            // gMapControl1
+            // GMapControl1
             // 
-            this.gMapControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.GMapControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gMapControl1.Bearing = 0F;
-            this.gMapControl1.CanDragMap = true;
-            this.gMapControl1.EmptyTileColor = System.Drawing.Color.Navy;
-            this.gMapControl1.GrayScaleMode = false;
-            this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
-            this.gMapControl1.LevelsKeepInMemmory = 5;
-            this.gMapControl1.Location = new System.Drawing.Point(5, 4);
-            this.gMapControl1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.gMapControl1.MarkersEnabled = true;
-            this.gMapControl1.MaxZoom = 18;
-            this.gMapControl1.MinZoom = 2;
-            this.gMapControl1.MouseWheelZoomEnabled = true;
-            this.gMapControl1.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
-            this.gMapControl1.Name = "gMapControl1";
-            this.gMapControl1.NegativeMode = false;
-            this.gMapControl1.PolygonsEnabled = true;
-            this.gMapControl1.RetryLoadTile = 0;
-            this.gMapControl1.RoutesEnabled = true;
-            this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
-            this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
-            this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(644, 246);
-            this.gMapControl1.TabIndex = 23;
-            this.gMapControl1.Zoom = 15D;
-            this.gMapControl1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.gMapControl1_MouseDoubleClick);
+            this.GMapControl1.Bearing = 0F;
+            this.GMapControl1.CanDragMap = true;
+            this.GMapControl1.EmptyTileColor = System.Drawing.Color.Navy;
+            this.GMapControl1.GrayScaleMode = false;
+            this.GMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
+            this.GMapControl1.LevelsKeepInMemmory = 5;
+            this.GMapControl1.Location = new System.Drawing.Point(5, 4);
+            this.GMapControl1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.GMapControl1.MarkersEnabled = true;
+            this.GMapControl1.MaxZoom = 18;
+            this.GMapControl1.MinZoom = 2;
+            this.GMapControl1.MouseWheelZoomEnabled = true;
+            this.GMapControl1.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            this.GMapControl1.Name = "GMapControl1";
+            this.GMapControl1.NegativeMode = false;
+            this.GMapControl1.PolygonsEnabled = true;
+            this.GMapControl1.RetryLoadTile = 0;
+            this.GMapControl1.RoutesEnabled = true;
+            this.GMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
+            this.GMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
+            this.GMapControl1.ShowTileGridLines = false;
+            this.GMapControl1.Size = new System.Drawing.Size(644, 246);
+            this.GMapControl1.TabIndex = 23;
+            this.GMapControl1.Zoom = 15D;
+            this.GMapControl1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.GMapControl1_MouseDoubleClick);
             // 
             // olvPokemonList
             // 
@@ -255,8 +255,8 @@ namespace RocketBot2.Forms
             this.olvPokemonList.TabIndex = 25;
             this.olvPokemonList.UseCompatibleStateImageBehavior = false;
             this.olvPokemonList.View = System.Windows.Forms.View.Details;
-            this.olvPokemonList.ButtonClick += new System.EventHandler<BrightIdeasSoftware.CellClickEventArgs>(this.olvPokemonList_ButtonClick);
-            this.olvPokemonList.DoubleClick += new System.EventHandler(this.olvPokemonList_DoubleClick);
+            this.olvPokemonList.ButtonClick += new System.EventHandler<BrightIdeasSoftware.CellClickEventArgs>(this.OlvPokemonList_ButtonClick);
+            this.olvPokemonList.DoubleClick += new System.EventHandler(this.OlvPokemonList_DoubleClick);
             // 
             // pkmnName
             // 
@@ -387,7 +387,7 @@ namespace RocketBot2.Forms
             this.btnRefresh.TabIndex = 26;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            this.btnRefresh.Click += new System.EventHandler(this.BtnRefresh_Click);
             // 
             // splitContainer1
             // 
@@ -431,7 +431,7 @@ namespace RocketBot2.Forms
             this.splitContainer2.Panel2.Controls.Add(this.followTrainerCheckBox);
             this.splitContainer2.Panel2.Controls.Add(this.showMoreCheckBox);
             this.splitContainer2.Panel2.Controls.Add(this.speedLable);
-            this.splitContainer2.Panel2.Controls.Add(this.gMapControl1);
+            this.splitContainer2.Panel2.Controls.Add(this.GMapControl1);
             this.splitContainer2.Size = new System.Drawing.Size(651, 541);
             this.splitContainer2.SplitterDistance = 283;
             this.splitContainer2.SplitterWidth = 5;
@@ -453,7 +453,7 @@ namespace RocketBot2.Forms
             this.togglePrecalRoute.Text = "Toggle Pre-Calculated Route";
             this.togglePrecalRoute.UseVisualStyleBackColor = false;
             this.togglePrecalRoute.Visible = false;
-            this.togglePrecalRoute.CheckedChanged += new System.EventHandler(this.togglePrecalRoute_CheckedChanged);
+            this.togglePrecalRoute.CheckedChanged += new System.EventHandler(this.TogglePrecalRoute_CheckedChanged);
             // 
             // followTrainerCheckBox
             // 
@@ -472,7 +472,7 @@ namespace RocketBot2.Forms
             this.followTrainerCheckBox.Text = "Map Follow Trainer";
             this.followTrainerCheckBox.UseVisualStyleBackColor = false;
             this.followTrainerCheckBox.Visible = false;
-            this.followTrainerCheckBox.CheckedChanged += new System.EventHandler(this.followTrainerCheckBox_CheckedChanged);
+            this.followTrainerCheckBox.CheckedChanged += new System.EventHandler(this.FollowTrainerCheckBox_CheckedChanged);
             // 
             // showMoreCheckBox
             // 
@@ -489,7 +489,7 @@ namespace RocketBot2.Forms
             this.showMoreCheckBox.TabIndex = 25;
             this.showMoreCheckBox.Text = "Show Advance Options";
             this.showMoreCheckBox.UseVisualStyleBackColor = false;
-            this.showMoreCheckBox.CheckedChanged += new System.EventHandler(this.showMoreCheckBox_CheckedChanged);
+            this.showMoreCheckBox.CheckedChanged += new System.EventHandler(this.ShowMoreCheckBox_CheckedChanged);
             // 
             // speedLable
             // 
@@ -515,7 +515,7 @@ namespace RocketBot2.Forms
             this.checkBoxAutoRefresh.TabIndex = 34;
             this.checkBoxAutoRefresh.Text = "Auto Resfresh";
             this.checkBoxAutoRefresh.UseVisualStyleBackColor = true;
-            this.checkBoxAutoRefresh.CheckedChanged += new System.EventHandler(this.checkBoxAutoRefresh_CheckedChanged);
+            this.checkBoxAutoRefresh.CheckedChanged += new System.EventHandler(this.CheckBoxAutoRefresh_CheckedChanged);
             // 
             // lblInventory
             // 
@@ -601,7 +601,7 @@ namespace RocketBot2.Forms
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.ToolStripMenuItem startStopBotToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private GMap.NET.WindowsForms.GMapControl gMapControl1;
+        private GMap.NET.WindowsForms.GMapControl GMapControl1;
         private BrightIdeasSoftware.ObjectListView olvPokemonList;
         private BrightIdeasSoftware.OLVColumn pkmnName;
         private BrightIdeasSoftware.OLVColumn pkmnCP;

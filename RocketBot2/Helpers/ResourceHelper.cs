@@ -126,7 +126,7 @@ namespace RocketBot2.Helpers
                 additional += "_shiny";
             }
 
-            var image = (Image)Resources.PokemonDB.ResourceManager.GetObject($"_{(int)pokemon.PokemonId:000}{additional}");
+            var image = (Image)Resources.PokemonDB.ResourceManager.GetObject($"_{ToPokemonId:000}{additional}");
             if (image != null) return image;
             return (Image)Properties.Resources.ResourceManager.GetObject("question");
             //return LoadPicture($"http://assets.pokemon.com/assets/cms2/img/pokedex/full/{(int)pokemonId:000}.png");

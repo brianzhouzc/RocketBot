@@ -286,14 +286,14 @@ namespace RocketBot2.Forms
             btn.Location = new Point(GoogleApiBox.ClientSize.Width - btn.Width, -1);
             btn.Cursor = Cursors.Default;
             btn.Image = ResourceHelper.GetImage("question");
-            btn.Click += googleapihep_click;
+            btn.Click += Googleapihep_click;
             GoogleApiBox.Controls.Add(btn);
             // Send EM_SETMARGINS to prevent text from disappearing underneath the button
             ConsoleHelper.SendMessage(GoogleApiBox.Handle, 0xd3, (IntPtr) 2, (IntPtr) (btn.Width << 16));
             base.OnLoad(e);
         }
 
-        private void googleapihep_click(object sender, EventArgs e)
+        private void Googleapihep_click(object sender, EventArgs e)
         {
             Process.Start("https://developers.google.com/maps/documentation/directions/get-api-key");
         }
@@ -303,8 +303,7 @@ namespace RocketBot2.Forms
         #region private methods
         private static float ConvertStringToFloat(string input)
         {
-            float output = 0;
-            float.TryParse(input, out output);
+            float.TryParse(input, out float output);
             return output;
         }
         private static List<PokemonId> ConvertClbToList(CheckedListBox input)
@@ -418,7 +417,7 @@ namespace RocketBot2.Forms
 
         #region Events
 
-        private void saveBtn_Click(object sender, EventArgs e)
+        private void SaveBtn_Click(object sender, EventArgs e)
         {
             if (UserLoginBox.Text.Length == 0 || UserPasswordBox.Text.Length == 0)
             {
@@ -605,22 +604,22 @@ namespace RocketBot2.Forms
             }
         }
 
-        private void cancelBtn_Click(object sender, EventArgs e)
+        private void CancelBtn_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void trackBar_Scroll(object sender, EventArgs e)
+        private void TrackBar_Scroll(object sender, EventArgs e)
         {
             gMapCtrl.Zoom = trackBar.Value;
         }
 
-        private void gMapCtrl_MouseUp(object sender, MouseEventArgs e)
+        private void GMapCtrl_MouseUp(object sender, MouseEventArgs e)
         {
             UpdateLocationInfo();
         }
 
-        private void gMapCtrl_OnMapZoomChanged()
+        private void GMapCtrl_OnMapZoomChanged()
         {
             UpdateLocationInfo();
         }
@@ -631,18 +630,18 @@ namespace RocketBot2.Forms
             UpdateMapLocation(_settings.LocationConfig.DefaultLatitude, _settings.LocationConfig.DefaultLongitude);
         }
 
-        private void gMapCtrl_MouseClick(object sender, MouseEventArgs e)
+        private void GMapCtrl_MouseClick(object sender, MouseEventArgs e)
         {
             var localCoordinates = e.Location;
             gMapCtrl.Position = gMapCtrl.FromLocalToLatLng(localCoordinates.X, localCoordinates.Y);
         }
 
-        private void latitudeText_Leave(object sender, EventArgs e)
+        private void LatitudeText_Leave(object sender, EventArgs e)
         {
             UpdateMapLocation(Convert.ToDouble(tbLatitude.Text), Convert.ToDouble(tbLongitude.Text));
         }
 
-        private void longitudeText_Leave(object sender, EventArgs e)
+        private void LongitudeText_Leave(object sender, EventArgs e)
         {
             UpdateMapLocation(Convert.ToDouble(tbLatitude.Text), Convert.ToDouble(tbLongitude.Text));
         }
@@ -693,27 +692,27 @@ namespace RocketBot2.Forms
             PopulateDevice();
         }
 
-        private void useProxyCb_CheckedChanged(object sender, EventArgs e)
+        private void UseProxyCb_CheckedChanged(object sender, EventArgs e)
         {
             ToggleProxyCtrls();
         }
 
-        private void useProxyAuthCb_CheckedChanged(object sender, EventArgs e)
+        private void UseProxyAuthCb_CheckedChanged(object sender, EventArgs e)
         {
             ToggleProxyCtrls();
         }
 
-        private void deviceTypeCb_SelectionChangeCommitted(object sender, EventArgs e)
+        private void DeviceTypeCb_SelectionChangeCommitted(object sender, EventArgs e)
         {
             PopulateDevice(deviceTypeCb.SelectedIndex);
         }
 
-        private void cbPowerUpAll_CheckedChanged(object sender, EventArgs e)
+        private void CbPowerUpAll_CheckedChanged(object sender, EventArgs e)
         {
             ListSelectAllHandler(clbPowerUp, cbPowerUpAll.Checked);
         }
 
-        private void cbPowerUpType_SelectionChangeCommitted(object sender, EventArgs e)
+        private void CbPowerUpType_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if (cbPowerUpType.Text.ToLowerInvariant() == "iv")
             {
@@ -731,17 +730,17 @@ namespace RocketBot2.Forms
             }
         }
 
-        private void cbSelectAllEvolve_CheckedChanged(object sender, EventArgs e)
+        private void CbSelectAllEvolve_CheckedChanged(object sender, EventArgs e)
         {
             ListSelectAllHandler(clbEvolve, cbEvolveAll.Checked);
         }
 
-        private void cbSelectAllCatch_CheckedChanged(object sender, EventArgs e)
+        private void CbSelectAllCatch_CheckedChanged(object sender, EventArgs e)
         {
             ListSelectAllHandler(clbIgnore, cbIgnoreAll.Checked);
         }
 
-        private void cbSelectAllTransfer_CheckedChanged(object sender, EventArgs e)
+        private void CbSelectAllTransfer_CheckedChanged(object sender, EventArgs e)
         {
             ListSelectAllHandler(clbTransfer, cbNotTransferAll.Checked);
         }

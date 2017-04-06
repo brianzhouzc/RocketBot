@@ -51,10 +51,10 @@
             this.pb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pb.BackColor = System.Drawing.Color.Transparent;
-            this.pb.Location = new System.Drawing.Point(5, 1);
+            this.pb.Location = new System.Drawing.Point(0, -1);
             this.pb.Margin = new System.Windows.Forms.Padding(0);
             this.pb.Name = "pb";
-            this.pb.Size = new System.Drawing.Size(75, 75);
+            this.pb.Size = new System.Drawing.Size(85, 85);
             this.pb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pb.TabIndex = 0;
             this.pb.TabStop = false;

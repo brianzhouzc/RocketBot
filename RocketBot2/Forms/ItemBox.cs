@@ -11,7 +11,6 @@ namespace RocketBot2.Forms
         public DateTime expires = new DateTime(0);
         public ItemData Item_ { get; }
 
-
         public ItemBox(ItemData item)
         {
             InitializeComponent();
@@ -79,11 +78,7 @@ namespace RocketBot2.Forms
 
         protected virtual void OnItemClick(ItemData item, EventArgs e)
         {
-            var handler = ItemClick;
-            if (handler != null)
-            {
-                handler(item, e);
-            }
+            ItemClick?.Invoke(item, e);
         }
 
         private void Tmr_Tick(object sender, EventArgs e)
