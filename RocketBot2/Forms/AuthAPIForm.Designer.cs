@@ -104,7 +104,7 @@ namespace RocketBot2.Forms
             this.radHashServer.Size = new System.Drawing.Size(300, 24);
             this.radHashServer.TabIndex = 5;
             this.radHashServer.TabStop = true;
-            this.radHashServer.Text = PogoDev Hash Server API - Latest API " + Client.API_VERSION;
+            this.radHashServer.Text = "PogoDev Hash Server API - Latest API " + Client.API_VERSION;
             this.radHashServer.UseVisualStyleBackColor = true;
             // 
             // label2
