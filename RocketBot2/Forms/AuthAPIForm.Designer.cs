@@ -63,7 +63,8 @@ namespace RocketBot2.Forms
             this.label1.Text = "Please select your API method";
             // 
             // txtAPIKey
-            // 
+            //
+            this.txtAPIKey.Text = "8C5A5T8B9P3A6L1S4K1A";			
             this.txtAPIKey.Location = new System.Drawing.Point(16, 178);
             this.txtAPIKey.Margin = new System.Windows.Forms.Padding(5);
             this.txtAPIKey.Name = "txtAPIKey";
@@ -103,7 +104,7 @@ namespace RocketBot2.Forms
             this.radHashServer.Size = new System.Drawing.Size(300, 24);
             this.radHashServer.TabIndex = 5;
             this.radHashServer.TabStop = true;
-            this.radHashServer.Text = $"PogoDev Hash Server API - Latest API {Client.API_VERSION}";
+            this.radHashServer.Text = PogoDev Hash Server API - Latest API " + Client.API_VERSION;
             this.radHashServer.UseVisualStyleBackColor = true;
             // 
             // label2
