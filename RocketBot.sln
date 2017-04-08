@@ -1,9 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.12
+VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RocketBot2", "RocketBot2\RocketBot2.csproj", "{42B07AE9-E643-4212-A7DB-0611F9059670}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0739E40D-C589-4AEB-93E5-EE8CD6773C60} = {0739E40D-C589-4AEB-93E5-EE8CD6773C60}
+		{05D2DA44-1B8E-4CF7-94ED-4D52451CD095} = {05D2DA44-1B8E-4CF7-94ED-4D52451CD095}
+		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB} = {A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonGo.RocketAPI", "FeroxRev\PokemonGo.RocketAPI.csproj", "{05D2DA44-1B8E-4CF7-94ED-4D52451CD095}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -12,8 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonGo.RocketAPI", "Fero
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoGo.NecroBot.Logic", "PoGo.NecroBot.Logic\PoGo.NecroBot.Logic.csproj", "{0739E40D-C589-4AEB-93E5-EE8CD6773C60}"
 	ProjectSection(ProjectDependencies) = postProject
-		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB} = {A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}
 		{05D2DA44-1B8E-4CF7-94ED-4D52451CD095} = {05D2DA44-1B8E-4CF7-94ED-4D52451CD095}
+		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB} = {A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}
 	EndProjectSection
 EndProject
 Project("{262852C6-CD72-467D-83FE-5EEB1973A190}") = "RocketBot2-APK", "PokeEase\RocketBot2-APK.jsproj", "{D7310128-97E4-4096-8679-93577CD08C06}"
