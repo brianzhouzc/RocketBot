@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using PoGo.NecroBot.Logic.Event;
 using PoGo.NecroBot.Logic.State;
 using PoGo.NecroBot.Logic.Tasks;
+using System.Threading.Tasks;
 
 #endregion
 
@@ -20,11 +21,11 @@ namespace RocketBot2
                 pokemonCaptureEvent.Longitude, pokemonCaptureEvent.Id);
         }
 
-        public static void HandleEvent(EncounteredEvent ev, ISession session)
+        public static async Task HandleEventAsync(EncounteredEvent ev, ISession session)
         {
             if (!ev.IsRecievedFromSocket) return;
 
-            HumanWalkSnipeTask.AddSnipePokemon("mypogosnipers.com",
+            await HumanWalkSnipeTask.AddSnipePokemon("mypogosnipers.com",
                 ev.PokemonId,
                 ev.Latitude,
                 ev.Longitude,
