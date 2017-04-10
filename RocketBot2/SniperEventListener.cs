@@ -32,7 +32,7 @@ namespace RocketBot2
                 ev.Expires,
                 ev.IV,
                 session
-            );
+            ).ConfigureAwait(false);
         }
 
         public static void HandleEvent(IEvent evt, ISession session)

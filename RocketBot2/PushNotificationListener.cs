@@ -16,7 +16,7 @@ namespace RocketBot2
     {
         private static async Task HandleEventAsync(ErrorEvent errorEvent, ISession session)
         {
-            await PushNotificationClient.SendNotification(session, "Error occured", errorEvent.Message);
+            await PushNotificationClient.SendNotification(session, "Error occured", errorEvent.Message).ConfigureAwait(false);
         }
 
         public static void HandleEvent(EncounteredEvent ev, ISession session)
