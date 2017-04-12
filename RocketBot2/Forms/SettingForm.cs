@@ -78,6 +78,12 @@ namespace RocketBot2.Forms
             useProxyAuthCb.Checked = _settings.Auth.ProxyConfig.UseProxy && _settings.Auth.ProxyConfig.UseProxyAuthentication;
             ToggleProxyCtrls();
 
+            //apiconfig
+            cbUsePogoDevAPI.Checked = _settings.Auth.APIConfig.UsePogoDevAPI;
+            tbAuthAPIKey.Text = _settings.Auth.APIConfig.AuthAPIKey;
+            cbUseLegacyAPI.Checked = _settings.Auth.APIConfig.UseLegacyAPI;
+            cbDiplayHashServerLog.Checked = _settings.Auth.APIConfig.DiplayHashServerLog;
+
             #endregion
 
             #region Map Info
@@ -272,8 +278,9 @@ namespace RocketBot2.Forms
             tbForceGreatThrowOverCp.Text = _settings.CustomCatchConfig.ForceGreatThrowOverCp.ToString();
             tbForceExcellentThrowOverCp.Text = _settings.CustomCatchConfig.ForceExcellentThrowOverCp.ToString();
             cbAutoSniper.Checked = _settings.DataSharingConfig.AutoSnipe;
-            cbEnableGyms.Checked = _settings.GymConfig.Enable;
             tbDataServiceIdentification.Text = _settings.DataSharingConfig.DataServiceIdentification;
+            cbEnableSyncData.Checked = _settings.DataSharingConfig.EnableSyncData;
+            cbEnableGyms.Checked = _settings.GymConfig.Enable;
             cbUseHumanlikeDelays.Checked = _settings.HumanlikeDelays.UseHumanlikeDelays;
         }
             #endregion
@@ -460,6 +467,10 @@ namespace RocketBot2.Forms
                 _settings.Auth.DeviceConfig.FirmwareType = FirmwareTypeTb.Text == "" ? null: FirmwareTypeTb.Text;
                 _settings.Auth.DeviceConfig.FirmwareFingerprint = FirmwareFingerprintTb.Text == "" ? null : FirmwareFingerprintTb.Text;
                 _settings.ConsoleConfig.TranslationLanguageCode = cbLanguage.Text;
+                _settings.Auth.APIConfig.UsePogoDevAPI = cbUsePogoDevAPI.Checked;
+                _settings.Auth.APIConfig.AuthAPIKey = tbAuthAPIKey.Text;
+                _settings.Auth.APIConfig.UseLegacyAPI = cbUseLegacyAPI.Checked;
+                _settings.Auth.APIConfig.DiplayHashServerLog = cbDiplayHashServerLog.Checked;
                 _settings.Auth.Save(AuthFilePath);
                 
                 #endregion
@@ -593,6 +604,7 @@ namespace RocketBot2.Forms
                 _settings.GymConfig.Enable = cbEnableGyms.Checked;
                 _settings.DataSharingConfig.AutoSnipe = cbAutoSniper.Checked;
                 _settings.DataSharingConfig.DataServiceIdentification = tbDataServiceIdentification.Text;
+                _settings.DataSharingConfig.EnableSyncData = cbEnableSyncData.Checked;
                 _settings.HumanlikeDelays.UseHumanlikeDelays = cbUseHumanlikeDelays.Checked;
 
                 #endregion
@@ -745,5 +757,15 @@ namespace RocketBot2.Forms
             ListSelectAllHandler(clbTransfer, cbNotTransferAll.Checked);
         }
         #endregion
+
+        private void CbUsePogoDevAPI_CheckedChanged(object sender, EventArgs e)
+        {
+            cbUseLegacyAPI.Checked = !cbUsePogoDevAPI.Checked;
+        }
+
+        private void CbUseLegacyAPI_CheckedChanged(object sender, EventArgs e)
+        {
+            cbUsePogoDevAPI.Checked = !cbUseLegacyAPI.Checked;
+        }
     }
 }
