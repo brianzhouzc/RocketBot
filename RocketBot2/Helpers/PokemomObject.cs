@@ -205,9 +205,10 @@ namespace RocketBot2.Helpers
             }
         }
 
+        public string Form => PokemonData.PokemonDisplay.Form.ToString().Replace("Unown", "").Replace("Unset", "Normal");
+        public string Costume => PokemonData.PokemonDisplay.Costume.ToString().Replace("Unset", "Regular");
+        public string Sex => PokemonData.PokemonDisplay.Gender.ToString().Replace("Less", "Genderless");
         public bool Shiny => PokemonData.PokemonDisplay.Shiny ? true : false;
-
-        public string Sex => PokemonData.PokemonDisplay.Gender.ToString();
 
         public string Types
         {

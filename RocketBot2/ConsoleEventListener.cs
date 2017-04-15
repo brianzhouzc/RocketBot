@@ -296,6 +296,8 @@ namespace RocketBot2
                     pokemonCaptureEvent.Move1, pokemonCaptureEvent.Move2, pokemonCaptureEvent.Rarity,
                     pokemonCaptureEvent.CaptureReason,
                     pokemonCaptureEvent.Shiny,
+                    pokemonCaptureEvent.Form,
+                    pokemonCaptureEvent.Costume,
                     pokemonCaptureEvent.Gender
                 );
                 Logger.Write(message, LogLevel.Caught);
