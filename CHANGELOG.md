@@ -1,6 +1,6 @@
 # Change Log
 ## v2.9.1.3
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.8.0.0...v2.9.1.3)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.8.0.1...v2.9.1.3)
 
 ## Bugs & Enhancements
 - Updated for 0.61.0 API
