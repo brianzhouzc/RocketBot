@@ -284,11 +284,10 @@ namespace RocketBot2.Forms
                     var pokestopMarker = new GMapMarkerPokestops(pokeStopLoc, fort);
                     _pokestopsOverlay.Markers.Add(pokestopMarker);
                 }
+                Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
             }, null);
             return Task.CompletedTask;
         }
-
-        private int encounterPokemonsCount;
 
         private void Navigation_UpdatePositionEvent(double lat, double lng)
         {
@@ -314,11 +313,11 @@ namespace RocketBot2.Forms
         {
             SynchronizationContext.Post(o =>
             {
+                _playerOverlay.Routes.Clear();
                 var route = new GMapRoute(_playerLocations, "step")
                 {
                     Stroke = new Pen(Color.FromArgb(175, 175, 175), 2) { DashStyle = DashStyle.Dot }
                 };
-                _playerOverlay.Routes.Clear();
                 _playerOverlay.Routes.Add(route);
             }, null);
         }
@@ -344,13 +343,17 @@ namespace RocketBot2.Forms
                         }
                     }
                 }
+                Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
             }, null);
         }
+
+        private int encounterPokemonsCount;
 
         private void UpdateMap(List<GeoCoordinate> points)
         {
             SynchronizationContext.Post(o =>
             {
+                _playerRouteOverlay.Routes.Clear();
                 var routePointLatLngs = new List<PointLatLng>();
                 foreach (var item in points)
                 {
@@ -360,17 +363,15 @@ namespace RocketBot2.Forms
                 {
                     Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4) { DashStyle = DashStyle.Dash }
                 };
+                _playerRouteOverlay.Routes.Add(routes);
 
                 if (encounterPokemonsCount > 5 || encounterPokemonsCount == 0)
                 {
                     Task.Run(InitializePokestopsAndRoute);
                     encounterPokemonsCount = 0;
                 }
-
                 encounterPokemonsCount++;
-                _playerRouteOverlay.Routes.Clear();
                 Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
-                _playerRouteOverlay.Routes.Add(routes);
             }, null);
         }
 
@@ -385,6 +386,7 @@ namespace RocketBot2.Forms
                     GMapMarker pkmMarker = new GMapMarkerTrainer(pointLatLng, pkmImage);
                     _pokemonsOverlay.Markers.Add(pkmMarker);
                 }
+                Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
             }, null);
         }
 
