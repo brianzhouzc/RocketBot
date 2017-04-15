@@ -338,13 +338,12 @@ namespace RocketBot2
             {
                 var data = JsonConvert.DeserializeObject<EncounteredEvent>(match.Groups[1].Value);
                 data.IsRecievedFromSocket = true;
-                ulong encounterid = 0;
                 if (Math.Abs(data.Latitude) > 90 || Math.Abs(data.Longitude) > 180)
                 {
                     return;
                 };
 
-                ulong.TryParse(data.EncounterId, out encounterid);
+                ulong.TryParse(data.EncounterId, out ulong encounterid);
                 if (encounterid > 0 && cache.Get(encounterid.ToString()) == null)
                 {
                     cache.Add(encounterid.ToString(), DateTime.Now, DateTime.Now.AddMinutes(15));
@@ -401,8 +400,7 @@ namespace RocketBot2
                 var move2 = PokemonMove.Absorb;
                 Enum.TryParse(data.Move1, true, out move1);
                 Enum.TryParse(data.Move1, true, out move2);
-                ulong encounterid = 0;
-                ulong.TryParse(data.EncounterId, out encounterid);
+                ulong.TryParse(data.EncounterId, out ulong encounterid);
 
                 bool caught = CheckIfPokemonBeenCaught(data.Latitude, data.Longitude, data.PokemonId, encounterid,
                     session);

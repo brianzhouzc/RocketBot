@@ -1213,7 +1213,7 @@ namespace RocketBot2.Forms
 
             Logger.SetLoggerContext(_session);
 
-            MultiAccountManager accountManager = new MultiAccountManager(logicSettings.Bots);
+            MultiAccountManager accountManager = new MultiAccountManager(settings, logicSettings.Bots);
             ioc.Register(accountManager);
 
             if (boolNeedsSetup)
