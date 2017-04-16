@@ -15,7 +15,7 @@ namespace RocketBot2.Forms
         {
             InitializeComponent();
 
-            pb.Image = ResourceHelper.GetImageSize(ResourceHelper.ItemPicture(item), pb.Size.Height, pb.Size.Width);
+            pb.Image = ResourceHelper.SetImageSize(ResourceHelper.ItemPicture(item), pb.Size.Height, pb.Size.Width);
             lbl.Text = item.Count.ToString();
             lblTime.Parent = pb;
 

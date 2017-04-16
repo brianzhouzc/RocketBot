@@ -50,7 +50,7 @@ namespace RocketBot2.Helpers
             return (Image)Properties.Resources.ResourceManager.GetObject("question");
         }
 
-        public static Image GetImageSize(Image image, int maxHeight, int maxWidth)
+        public static Image SetImageSize(Image image, int maxHeight, int maxWidth)
         {
             var ratioX = (double)maxWidth / image.Width;
             var ratioY = (double)maxHeight / image.Height;
@@ -101,6 +101,14 @@ namespace RocketBot2.Helpers
             if (pokemon.PokemonDisplay.Shiny) additional = "_shiny";
 
             var image = (Image)Resources.PokemonDB.ResourceManager.GetObject($"_{ToPokemonId:000}{additional}");
+            if (image != null) return image;
+            return (Image)Properties.Resources.ResourceManager.GetObject("question");
+            //return LoadPicture($"http://assets.pokemon.com/assets/cms2/img/pokedex/full/{(int)pokemonId:000}.png");
+        }
+
+        public static Image GetPokemonImageById(int PokemonId)
+        {
+            var image = (Image)Resources.PokemonDB.ResourceManager.GetObject($"_{PokemonId:000}");
             if (image != null) return image;
             return (Image)Properties.Resources.ResourceManager.GetObject("question");
             //return LoadPicture($"http://assets.pokemon.com/assets/cms2/img/pokedex/full/{(int)pokemonId:000}.png");

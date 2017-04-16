@@ -24,7 +24,7 @@ namespace RocketBot2.Forms
         {
             InitializeComponent();
 
-            pbPokemon.Image = ResourceHelper.GetImageSize(pokemon.Icon, pbPokemon.Size.Height, pbPokemon.Size.Width);
+            pbPokemon.Image = ResourceHelper.SetImageSize(pokemon.Icon, pbPokemon.Size.Height, pbPokemon.Size.Width);
             var pokName = string.IsNullOrEmpty(pokemon.Nickname) ? session.Translation.GetPokemonTranslation(pokemon.PokemonId) : pokemon.Nickname;
             lbName.Text = $"{pokName} Level: {pokemon.GetLv}";
             Text = $"Properties of {lbName.Text}";
