@@ -174,7 +174,7 @@ namespace RocketBot2.Forms
             Instance.showMoreCheckBox.Enabled = Instance._botStarted;
         }
 
-        public async void SetStatusText(string text)
+        public void SetStatusText(string text)
         {
             if (Instance.InvokeRequired)
             {
@@ -188,7 +188,7 @@ namespace RocketBot2.Forms
             SetState(true);
 
             if (checkBoxAutoRefresh.Checked)
-                await ReloadPokemonList().ConfigureAwait(false);
+                ReloadPokemonList().ConfigureAwait(false);
         }
 
         #endregion INTERFACE
