@@ -111,6 +111,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AeroWizard, Version=2.1.10.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\AeroWizard.2.1.10\lib\net452\AeroWizard.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>$(SolutionDir)\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
@@ -135,10 +138,6 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="GeoCoordinate.NetStandard1, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\GeoCoordinate.NetStandard1.1.0.0\lib\netstandard1.0\GeoCoordinate.NetStandard1.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="AeroWizard, Version=2.1.9.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\AeroWizard.2.1.9\lib\net452\AeroWizard.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="CommandLine, Version=1.9.71.2, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
@@ -228,6 +227,12 @@
     </Compile>
     <Compile Include="Forms\InfoForm.Designer.cs">
       <DependentUpon>InfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PokeDexForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PokeDexForm.Designer.cs">
+      <DependentUpon>PokeDexForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\PokemonPropertiesForm.cs">
       <SubType>Form</SubType>
@@ -854,6 +859,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NicknamePokemonForm.resx">
       <DependentUpon>NicknamePokemonForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PokeDexForm.resx">
+      <DependentUpon>PokeDexForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PokemonPropertiesForm.resx">
       <DependentUpon>PokemonPropertiesForm.cs</DependentUpon>

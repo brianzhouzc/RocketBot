@@ -86,11 +86,11 @@
     },
     {
       "Key": "gym",
-      "Value": "Gym"
+      "Value": "道場"
     },
     {
       "Key": "pokestop",
-      "Value": "Pokestop"
+      "Value": "補給站"
     },
     {
       "Key": "eventFortTargeted",
@@ -1609,6 +1609,10 @@
       "Value": "空氣砍"
     },
     {
+      "Key": "AirSlashFast",
+      "Value": "空氣砍"
+    },
+    {
       "Key": "heatWave",
       "Value": "熱風"
     },
@@ -1894,7 +1898,7 @@
     },
     {
       "Key": "absorb",
-      "Value": "Absorb"
+      "Value": "吸取"
     },
     {
       "Key": "gigaDrain",
@@ -2011,6 +2015,14 @@
     {
       "Key": "dragonBreathFast",
       "Value": "龍之吐息"
+    },
+    {
+      "Key": "dragonTailFast",
+      "Value": "龍尾"
+    },
+    {
+      "Key": "Outrage",
+      "Value": "逆鱗"
     },
     {
       "Key": "thunderShockFast",
@@ -2155,6 +2167,26 @@
     {
       "Key": "fireFangFast",
       "Value": "炎牙"
+    },
+    {
+      "Key": "CloseCombat",
+      "Value": "近身戰"
+    },
+    {
+      "Key": "Crunch",
+      "Value": "咬碎"
+    },
+    {
+      "Key": "CounterFast",
+      "Value": "反擊"
+    },
+    {
+      "Key": "NightShade",
+      "Value": "黑夜魔影"
+    },
+    {
+      "Key": "AuroraBeam",
+      "Value": "極光束"
     },
     {
       "Key": "rockSmashFast",

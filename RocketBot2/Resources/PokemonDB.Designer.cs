@@ -2143,26 +2143,6 @@ namespace RocketBot2.Resources {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _201__ {
-            get {
-                object obj = ResourceManager.GetObject("_201__", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _201__1 {
-            get {
-                object obj = ResourceManager.GetObject("_201__1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap _201_A {
             get {
                 object obj = ResourceManager.GetObject("_201_A", resourceCulture);
@@ -2206,6 +2186,16 @@ namespace RocketBot2.Resources {
         internal static System.Drawing.Bitmap _201_E {
             get {
                 object obj = ResourceManager.GetObject("_201_E", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _201_ex {
+            get {
+                object obj = ResourceManager.GetObject("_201_ex", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2326,6 +2316,16 @@ namespace RocketBot2.Resources {
         internal static System.Drawing.Bitmap _201_Q {
             get {
                 object obj = ResourceManager.GetObject("_201_Q", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _201_qts {
+            get {
+                object obj = ResourceManager.GetObject("_201_qts", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
