@@ -2,23 +2,23 @@
   "TranslationStrings": [
     {
       "Key": "HumanWalkSnipeNotEnoughtBalls",
-      "Value": "(HUMAN WALK) Not enough Pokeballs to activate catch Em-All mode. ({0})/{1}"
+      "Value": "(HUMAN WALK) Pas assez de Pokeballs pour activer le mode catch Em-All. ({0})/{1}"
     },
     {
       "Key": "HumanWalkSnipe",
-      "Value": "(HUMAN WALK) Found {0} spawning | lat: {1}, lng: {2}, dist {3:0.00}m , expired in {4:00} min {5:00} sec | Walk time est : {6:00} min {7:00} sec | Spin: {8} | Catch : {9} | Speed : {10:0.00}km/h"
+      "Value": "(HUMAN WALK) Trouvé {0} spawning | lat: {1}, lng: {2}, dist {3:0.00}m , expire dans {4:00} min {5:00} sec | Temps de marche est : {6:00} min {7:00} sec | Spin: {8} | Capture : {9} | Vitesse : {10:0.00}km/h"
     },
     {
       "Key": "HumanWalkSnipeUpdate",
-      "Value": "(HUMAN WALK) Found {0} pokemon matched with you filters. Human walking sniper won't catch em all, but will try to catch as many as possible"
+      "Value": "(HUMAN WALK) Trouvé {0} pokemon correspondant à vos filtres. Human walking sniper ne les attrapera pas tous, mais essaiera d'attraper autant que possible"
     },
     {
       "Key": "HumanWalkSnipeAddedPokestop",
-      "Value": "(HUMAN WALK) You are {0:0.00m} away from nearest pokestop. Restart farming at this place with {1} pokestops"
+      "Value": "(HUMAN WALK) Tu es {0:0.00m} loin du pokestop le plus proche. Rédemarrez  à cet endroit avec {1} pokestops"
     },
     {
       "Key": "HumanWalkSnipeDestinationReached",
-      "Value": "(HUMAN WALK) destination reached | lat: {0}, lng: {1} | wait  {3:0.00} sec"
+      "Value": "(HUMAN WALK) La destination à atteindre | lat: {0}, lng: {1} | patientez  {3:0.00} sec"
     },
     {
       "Key": "SniperCount",
@@ -26,23 +26,23 @@
     },
     {
       "Key": "SnipeExceeds",
-      "Value": "Sniper needs to take a rest before your account is banned"
+      "Value": "Le sniper doit se reposer avant que votre compte ne soit banni"
     },
     {
       "Key": "CatchExceeds",
-      "Value": "You are catching too fast. Your cannot catch another one until {0} seconds later"
+      "Value": "Vous capturez trop vite. Vous ne pouvez pas en capturer un autre jusqu'à {0} secondes"
     },
     {
       "Key": "PokeStopExceeds",
-      "Value": "You are visiting pokestops too fast. Your cannot visit another one until {0} seconds later"
+      "Value": "Vous visitez les pokestops trop vite. Vous ne pouvez pas visiter un autre jusqu'à {0} secondes"
     },
     {
       "Key": "Only10kmEggs",
-      "Value": "Player below level 20, saving this 10 km Egg for later"
+      "Value": "Joueur inférieur au niveau 20, sauvant cet oeuf de 10 km pour plus tard"
     },
     {
       "Key": "GoogleAPIWarning",
-      "Value": "Without a Google Api, you will have 2500 free quota limit, if you reach the maximum quota, try to change your IP. To configure \"GoogleAPIKey\", get API Key in link: https://developers.google.com/maps/documentation/directions/get-api-key"
+      "Value": "Sans Google Api, vous disposerez de 2500 limites de quota gratuites, si vous atteignez le quota maximal, essayez de modifier votre adresse IP. Pour configurer \"GoogleAPIKey\", obtenir une API Key visitez ce lien: https://developers.google.com/maps/documentation/directions/get-api-key"
     },
     {
       "Key": "pokeball",
@@ -86,7 +86,7 @@
     },
     {
       "Key": "gym",
-      "Value": "Gym"
+      "Value": "Arène"
     },
     {
       "Key": "pokestop",
@@ -126,11 +126,11 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | dist {8}m | {10} {9} restante(s) | {11}XP | {12} | lat: {13} long: {14} | Move1: {15} Move2: {16}"
+      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | dist {8}m | {10} {9} restante(s) | {11}XP | {12} | lat: {13} long: {14} | Attaque1: {15} Attaque2: {16}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | avec une {9} ({10} restante) | lat: {11} long: {12} | Move1: {13} Move2: {14}"
+      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | avec une {9} ({10} restante) | lat: {11} long: {12} | Attaque1: {13} Attaque2: {14}"
     },
     {
       "Key": "eventNoPokeballs",
@@ -270,7 +270,7 @@
     },
     {
       "Key": "logEntryUpdate",
-      "Value": "MÀJ"
+      "Value": "MISE A JOUR"
     },
     {
       "Key": "logEntryNew",
@@ -670,11 +670,11 @@
     },
     {
       "Key": "firstStartSetupDefaultLatLongPrompt",
-      "Value": "Please enter a Latitude and Longitude (Right click to paste) - Format: Value, Value"
+      "Value": "Entrez une Latitude et une Longitude (clic droit pour coller) - Format: Valeur, Valeur"
     },
     {
       "Key": "firstStartSetupDefaultLatLongConfirm",
-      "Value": "Lattitude and Longitude accepted: {0}"
+      "Value": "Latitude et Longitude acceptés: {0}"
     },
     {
       "Key": "firstStartSetupCompleted",
@@ -682,31 +682,31 @@
     },
     {
       "Key": "PokedexCatchedTelegram",
-      "Value": "--- Pokedex catched --- \n"
+      "Value": "--- Pokédex capturé --- \n"
     },
     {
       "Key": "PokedexPokemonCatchedTelegram",
-      "Value": "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"
+      "Value": "#{0} Nom: {1} | capturé: {2} | Rencontré: {3} \n"
     },
     {
       "Key": "PokedexNeededTelegram",
-      "Value": "--- Pokedex needed --- \n"
+      "Value": "--- Pokédex nécessaire --- \n"
     },
     {
       "Key": "PokedexPokemonNeededTelegram",
-      "Value": "#{0} Name: {1} \n"
+      "Value": "#{0} Nom: {1} \n"
     },
     {
       "Key": "Proxied",
-      "Value": "Your IP is: {0} | Proxy IP is: {1}"
+      "Value": "Votre IP est: {0} | Proxy IP est: {1}"
     },
     {
       "Key": "FixProxySettings",
-      "Value": "Press any key to exit so you can fix your proxy settings..."
+      "Value": "Appuyez sur n'importe quelle touche pour sortir afin que vous puissiez réparer vos paramètres proxy..."
     },
     {
       "Key": "Unproxied",
-      "Value": " Your IP is: {0}"
+      "Value": " Votre IP est: {0}"
     },
     {
       "Key": "HighestsPokemoHeader",
@@ -718,11 +718,11 @@
     },
     {
       "Key": "HumanWalkingVariant",
-      "Value": "Walking Speed: Has been changed, {0:n2} Km/h to {1:n2} Km/h"
+      "Value": "Vitesse de marche: a été changé, {0:n2} Km/h par {1:n2} Km/h"
     },
     {
       "Key": "AccountBanned",
-      "Value": "Probably Permanent Ban!"
+      "Value": "Probablement interdiction permanente!"
     }
   ],
   "PokemonStrings": [
@@ -1329,7 +1329,407 @@
     {
       "Key": "mew",
       "Value": "Mew"
-    }
+    },
+	{
+	  "Key": "chikorita",
+	  "Value": "Germignon"
+	},
+	{
+	  "Key": "bayleef",
+	  "Value": "Macronium"
+	},
+	{
+	  "Key": "meganium",
+	  "Value": "Méganium"
+	},
+	{
+	  "Key": "cyndaquil",
+	  "Value": "Héricendre"
+	},
+	{
+	  "Key": "quilava",
+	  "Value": "Feurisson"
+	},
+	{
+	  "Key": "typhlosion",
+	  "Value": "Typhlosion"
+	},
+	{
+	  "Key": "totodile",
+	  "Value": "Kaiminus"
+	},
+	{
+	  "Key": "croconaw",
+	  "Value": "Crocrodil"
+	},
+	{
+	  "Key": "feraligatr",
+	  "Value": "Aligatueur"
+	},
+	{
+   	  "Key": "sentret",
+	  "Value": "Fouinette"
+	},
+	{
+      "Key": "furret",
+	  "Value": "Fouinar"
+	},
+	{
+      "Key": "hoothoot",
+	  "Value": "Hoothoot"
+	},
+	{
+      "Key": "noctowl",
+	  "Value": "Noarfang"
+	},
+	{
+      "Key": "ledyba",
+	  "Value": "Coxy"
+	},
+	{
+      "Key": "ledian",
+	  "Value": "Coxyclaque"
+	},
+	{
+      "Key": "spinarak",
+	  "Value": "Mimigal"
+	},
+	{
+      "Key": "ariados",
+	  "Value": "Migalos"
+	},
+	{
+      "Key": "crobat",
+	  "Value": "Nostenfer"
+	},
+	{
+      "Key": "chinchou",
+	  "Value": "Loupio"
+	},
+	{
+      "Key": "lanturn",
+	  "Value": "Lanturn"
+	},
+	{
+      "Key": "pichu",
+	  "Value": "Pichu"
+	},
+	{
+      "Key": "cleffa",
+	  "Value": "Melo"
+	},
+	{
+      "Key": "igglybuff",
+	  "Value": "Toudoudou"
+	},
+	{
+      "Key": "togepi",
+	  "Value": "Togepi"
+	},
+	{
+      "Key": "togetic",
+	  "Value": "Togetic"
+	},
+	{
+      "Key": "natu",
+	  "Value": "Natu"
+	},
+	{
+      "Key": "xatu",
+	  "Value": "Xatu"
+	},
+	{
+      "Key": "mareep",
+	  "Value": "Wattouat"
+	},
+	{
+      "Key": "flaaffy",
+	  "Value": "Lainergie"
+	},
+	{
+      "Key": "ampharos",
+	  "Value": "Pharamp"
+	},
+	{
+      "Key": "bellossom",
+	  "Value": "Joliflor"
+	},
+	{
+      "Key": "marill",
+	  "Value": "Marill"
+	},
+	{
+      "Key": "azumarill",
+	  "Value": "Azumarill"
+	},
+	{
+      "Key": "sudowoodo",
+	  "Value": "Simularbre"
+	},
+	{
+      "Key": "politoed",
+	  "Value": "Tarpaud"
+	},
+	{
+      "Key": "hoppip",
+	  "Value": "Granivol"
+	},
+	{
+      "Key": "skiploom",
+	  "Value": "Floravol"
+	},
+	{
+      "Key": "jumpluff",
+	  "Value": "Cotovol"
+	},
+	{
+      "Key": "aipom",
+	  "Value": "Capumain"
+	},
+	{
+      "Key": "sunkern",
+	  "Value": "Tournegrin"
+	},
+	{
+      "Key": "sunflora",
+	  "Value": "Heliatronc"
+	},
+	{
+      "Key": "yanma",
+	  "Value": "Yanma"
+	},
+	{
+      "Key": "wooper",
+	  "Value": "Axoloto"
+	},
+	{
+      "Key": "quagsire",
+	  "Value": "Maraiste"
+	},
+	{
+      "Key": "espeon",
+	  "Value": "Mentali"
+	},
+	{
+      "Key": "umbreon",
+	  "Value": "Noctali"
+	},
+	{
+      "Key": "murkrow",
+	  "Value": "Cornebre"
+	},
+	{
+      "Key": "slowking",
+	  "Value": "Roigada"
+	},
+	{
+      "Key": "misdreavus",
+	  "Value": "Feuforeve"
+	},
+	{
+      "Key": "unown",
+	  "Value": "Zarbi"
+	},
+	{
+      "Key": "wobbuffet",
+	  "Value": "Qulbutoke"
+	},
+	{
+      "Key": "girafarig",
+	  "Value": "Girafarig"
+	},
+	{
+      "Key": "pineco",
+	  "Value": "Pomdepik"
+	},
+	{
+      "Key": "forretress",
+	  "Value": "Foretress"
+	},
+	{
+      "Key": "dunsparce",
+	  "Value": "Insolourdo"
+	},
+	{
+      "Key": "gligar",
+	  "Value": "Scorplane"
+	},
+	{
+      "Key": "steelix",
+	  "Value": "Steelix"
+	},
+	{
+      "Key": "snubbull",
+	  "Value": "Snubbull"
+	},
+	{
+      "Key": "granbull",
+	  "Value": "Granbull"
+	},
+	{
+      "Key": "qwilfish",
+	  "Value": "Qwilfish"
+	},
+	{
+      "Key": "scizor",
+	  "Value": "Cizayox"
+	},
+	{
+      "Key": "shuckle",
+	  "Value": "Caratroc"
+	},
+	{
+      "Key": "heracross",
+	  "Value": "Scarhino"
+	},
+	{
+      "Key": "sneasel",
+	  "Value": "Farfuret"
+	},
+	{
+      "Key": "teddiursa",
+	  "Value": "Teddiursa"
+	},
+	{
+      "Key": "ursaring",
+	  "Value": "Ursaring"
+	},
+	{
+      "Key": "slugma",
+	  "Value": "Limagma"
+	},
+	{
+      "Key": "magcargo",
+	  "Value": "Volcaropod"
+	},
+	{
+      "Key": "swinub",
+	  "Value": "Marcacrin"
+	},
+	{
+      "Key": "piloswine",
+	  "Value": "Cochignon"
+	},
+	{
+      "Key": "corsola",
+	  "Value": "Corayon"
+	},
+	{
+      "Key": "remoraid",
+	  "Value": "Remoraid"
+	},
+	{
+      "Key": "octillery",
+	  "Value": "Octillery"
+	},
+	{
+      "Key": "delibird",
+	  "Value": "Cadoizo"
+	},
+	{
+      "Key": "mantine",
+	  "Value": "Demanta"
+	},
+	{
+      "Key": "skarmory",
+	  "Value": "Airmure"
+	},
+	{
+      "Key": "houndour",
+	  "Value": "Malosse"
+	},
+	{
+      "Key": "houndoom",
+	  "Value": "Demolosse"
+	},
+	{
+      "Key": "kingdra",
+	  "Value": "Hyporoi"
+	},
+	{
+      "Key": "phanpy",
+	  "Value": "Phanpy"
+	},
+	{
+      "Key": "donphan",
+	  "Value": "Donphan"
+	},
+	{
+      "Key": "porygon2",
+	  "Value": "Porygon2"
+	},
+	{
+      "Key": "stantler",
+	  "Value": "Cerfrousse"
+	},
+	{
+      "Key": "smeargle",
+	  "Value": "Queulorior"
+	},
+	{
+      "Key": "tyrogue",
+	  "Value": "Debugant"
+	},
+	{
+      "Key": "hitmontop",
+	  "Value": "Kapoera"
+	},
+	{
+      "Key": "smoochum",
+	  "Value": "Lippouti"
+	},
+	{
+      "Key": "elekid",
+	  "Value": "Elekid"
+	},
+	{
+      "Key": "magby",
+	  "Value": "Magby"
+	},
+	{
+      "Key": "miltank",
+	  "Value": "Ecremeuh"
+	},
+	{
+      "Key": "blissey",
+	  "Value": "Leuphorie"
+	},
+	{
+      "Key": "raikou",
+	  "Value": "Raikou"
+	},
+	{
+      "Key": "entei",
+	  "Value": "Entei"
+	},
+	{
+      "Key": "suicune",
+	  "Value": "Suicune"
+	},
+	{
+      "Key": "larvitar",
+	  "Value": "Embrylex"
+	},
+	{
+      "Key": "pupitar",
+	  "Value": "Ymphect"
+	},
+	{
+      "Key": "tyranitar",
+	  "Value": "Tyranocif"
+	},
+	{
+      "Key": "lugia",
+	  "Value": "Lugia"
+	},
+	{
+      "Key": "hoOh",
+	  "Value": "Ho-oh"
+	},
+	{
+      "Key": "celebi",
+	  "Value": "Celebi"
+	}
   ],
   "PokemonMovesetStrings": [
     {
@@ -2051,6 +2451,166 @@
     {
       "Key": "rockSmashFast",
       "Value": "Éclate-Roc"
-    }
+    },
+	{
+      "Key": "TransformFast",
+	  "Value": "TransformFast"
+    },
+    {
+      "Key": "CounterFast",
+	  "Value": "CounterFast"
+    },
+    {
+      "Key": "PowderSnowFast",
+	  "Value": "PowderSnowFast"
+    },
+    {
+      "Key": "CloseCombat",
+	  "Value": "Close combat"
+    },
+    {
+      "Key": "DynamicPunch",
+	  "Value": "DynamicPunch"
+    },
+    {
+      "Key": "FocusBlast",
+	  "Value": "FocusBlast"
+    },
+    {
+      "Key": "AuroraBeam",
+	  "Value": "Aurora Beam"
+    },
+    {
+      "Key": "ChargeBeamFast",
+	  "Value": "Rayon Chargé"
+    },
+    {
+      "Key": "VoltSwitchFast",
+	  "Value": "VoltSwitchFast"
+    },
+    {
+      "Key": "WildCharge",
+	  "Value": "WildCharge"
+    },
+    {
+      "Key": "ZapCannon",
+	  "Value": "ZapCannon"
+    },
+    {
+      "Key": "DragonTailFast",
+	  "Value": "Draco Queue"
+    },
+    {
+      "Key": "Avalanche",
+	  "Value": "Avalanche"
+    },
+    {
+      "Key": "AirSlashFast",
+	  "Value": "AirSlashFast"
+    },
+    {
+      "Key": "BraveBird",
+	  "Value": "Brave Bird"
+    },
+    {
+      "Key": "SkyAttack",
+	  "Value": "SkyAttack"
+    },
+    {
+      "Key": "SandTomb",
+	  "Value": "SandTomb"
+    },
+    {
+      "Key": "RockBlast",
+	  "Value": "RockBlast"
+    },
+    {
+      "Key": "InfestationFast",
+	  "Value": "InfestationFast"
+    },
+    {
+      "Key": "StruggleBugFast",
+	  "Value": "StruggleBugFast"
+    },
+    {
+      "Key": "SilverWind",
+	  "Value": "SilverWind"
+    },
+    {
+      "Key": "AstonishFast",
+	  "Value": "AstonishFast"
+    },
+    {
+      "Key": "HexFast",
+	  "Value": "HexFast"
+    },
+    {
+      "Key": "NightShade",
+	  "Value": "NightShade"
+    },
+    {
+      "Key": "IronTailFast",
+	  "Value": "IronTailFast"
+    },
+    {
+      "Key": "GyroBall",
+	  "Value": "GyroBall"
+    },
+    {
+      "Key": "HeavySlam",
+	  "Value": "Tacle Lourd"
+    },
+    {
+      "Key": "FireSpinFast",
+	  "Value": "FireSpinFast"
+    },
+    {
+      "Key": "Overheat",
+	  "Value": "Surchauffer"
+    },
+    {
+      "Key": "BulletSeedFast",
+	  "Value": "Balle Graine"
+    },
+    {
+      "Key": "GrassKnot",
+	  "Value": "GrassKnot"
+    },
+    {
+      "Key": "EnergyBall",
+	  "Value": "EnergyBall"
+    },
+    {
+      "Key": "ExtrasensoryFast",
+	  "Value": "ExtrasensoryFast"
+    },
+    {
+      "Key": "Futuresight",
+	  "Value": "Futuresight"
+    },
+    {
+      "Key": "MirrorCoat",
+	  "Value": "MirrorCoat"
+    },
+    {
+      "Key": "Outrage",
+	  "Value": "Colère"
+    },
+    {
+      "Key": "SnarlFast",
+	  "Value": "SnarlFast"
+    },
+    {
+      "Key": "Crunch",
+	  "Value": "Machouille" 
+    },
+    {
+      "Key": "FoulPlay",
+	  "Value": "FoulPlay"
+    },
+    {
+      "Key": "HiddenPowerFast",
+	  "Value": "Puissance Caché"
+	}
   ]
 }
