@@ -2454,31 +2454,31 @@
     },
 	{
       "Key": "TransformFast",
-	  "Value": "TransformFast"
+	  "Value": "Morphing"
     },
     {
       "Key": "CounterFast",
-	  "Value": "CounterFast"
+	  "Value": "Riposte"
     },
     {
       "Key": "PowderSnowFast",
-	  "Value": "PowderSnowFast"
+	  "Value": "Poudreuse"
     },
     {
       "Key": "CloseCombat",
-	  "Value": "Close combat"
+	  "Value": "Close Combat"
     },
     {
       "Key": "DynamicPunch",
-	  "Value": "DynamicPunch"
+	  "Value": "Dynamopoing"
     },
     {
       "Key": "FocusBlast",
-	  "Value": "FocusBlast"
+	  "Value": "Exploforce"
     },
     {
       "Key": "AuroraBeam",
-	  "Value": "Aurora Beam"
+	  "Value": "Onde Boréale"
     },
     {
       "Key": "ChargeBeamFast",
@@ -2486,19 +2486,19 @@
     },
     {
       "Key": "VoltSwitchFast",
-	  "Value": "VoltSwitchFast"
+	  "Value": "Change Éclair"
     },
     {
       "Key": "WildCharge",
-	  "Value": "WildCharge"
+	  "Value": "Éclair Fou"
     },
     {
       "Key": "ZapCannon",
-	  "Value": "ZapCannon"
+	  "Value": "Élecanon"
     },
     {
       "Key": "DragonTailFast",
-	  "Value": "Draco Queue"
+	  "Value": "Draco-Queue"
     },
     {
       "Key": "Avalanche",
@@ -2506,55 +2506,55 @@
     },
     {
       "Key": "AirSlashFast",
-	  "Value": "AirSlashFast"
+	  "Value": "Lame d'Air"
     },
     {
       "Key": "BraveBird",
-	  "Value": "Brave Bird"
+	  "Value": "Rapace"
     },
     {
       "Key": "SkyAttack",
-	  "Value": "SkyAttack"
+	  "Value": "Piqué"
     },
     {
       "Key": "SandTomb",
-	  "Value": "SandTomb"
+	  "Value": "Tourbi-Sable"
     },
     {
       "Key": "RockBlast",
-	  "Value": "RockBlast"
+	  "Value": "Boule Roc"
     },
     {
       "Key": "InfestationFast",
-	  "Value": "InfestationFast"
+	  "Value": "Harcèlement"
     },
     {
       "Key": "StruggleBugFast",
-	  "Value": "StruggleBugFast"
+	  "Value": "Survinsecte"
     },
     {
       "Key": "SilverWind",
-	  "Value": "SilverWind"
+	  "Value": "Vent Argenté"
     },
     {
       "Key": "AstonishFast",
-	  "Value": "AstonishFast"
+	  "Value": "Étonnement"
     },
     {
       "Key": "HexFast",
-	  "Value": "HexFast"
+	  "Value": "Châtiment"
     },
     {
       "Key": "NightShade",
-	  "Value": "NightShade"
+	  "Value": "Ombre Nocturne"
     },
     {
       "Key": "IronTailFast",
-	  "Value": "IronTailFast"
+	  "Value": "Queue de Fer"
     },
     {
       "Key": "GyroBall",
-	  "Value": "GyroBall"
+	  "Value": "Gyroballe"
     },
     {
       "Key": "HeavySlam",
@@ -2562,11 +2562,11 @@
     },
     {
       "Key": "FireSpinFast",
-	  "Value": "FireSpinFast"
+	  "Value": "Danse Flamme"
     },
     {
       "Key": "Overheat",
-	  "Value": "Surchauffer"
+	  "Value": "Surchauffe"
     },
     {
       "Key": "BulletSeedFast",
@@ -2574,23 +2574,23 @@
     },
     {
       "Key": "GrassKnot",
-	  "Value": "GrassKnot"
+	  "Value": "Nœud Herbe"
     },
     {
       "Key": "EnergyBall",
-	  "Value": "EnergyBall"
+	  "Value": "Éco-Sphère"
     },
     {
       "Key": "ExtrasensoryFast",
-	  "Value": "ExtrasensoryFast"
+	  "Value": "Extrasenseur"
     },
     {
       "Key": "Futuresight",
-	  "Value": "Futuresight"
+	  "Value": "Prescience"
     },
     {
       "Key": "MirrorCoat",
-	  "Value": "MirrorCoat"
+	  "Value": "Voile Miroir"
     },
     {
       "Key": "Outrage",
@@ -2598,19 +2598,19 @@
     },
     {
       "Key": "SnarlFast",
-	  "Value": "SnarlFast"
+	  "Value": "Aboiement"
     },
     {
       "Key": "Crunch",
-	  "Value": "Machouille" 
+	  "Value": "Mâchouille" 
     },
     {
       "Key": "FoulPlay",
-	  "Value": "FoulPlay"
+	  "Value": "Tricherie"
     },
     {
       "Key": "HiddenPowerFast",
-	  "Value": "Puissance Caché"
+	  "Value": "Puissance Cachée"
 	}
   ]
 }
