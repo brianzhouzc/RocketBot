@@ -1,3 +1,8 @@
 @echo off
 nuget.exe restore "RocketBot.sln"
-"C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\MsBuild.exe" "RocketBot.sln" /property:Configuration="Release RocketBot" /property:Platform="Any CPU"
+set RocketBuilder=""
+for /f "delims=" %%i in ('dir /s /b /a-d "%programfiles(x86)%\MSBuild.exe"') do (
+if %RocketBuilder%=="" (set RocketBuilder="%%i")
+)
+%RocketBuilder% "RocketBot.sln" /property:Configuration="Release RocketBot" /property:Platform="Any CPU"
+set RocketBuilder=
