@@ -11,14 +11,17 @@ namespace RocketBot2.Forms
     {
         public DateTime expires = new DateTime(0);
         public ItemData Item_ { get; }
+        public bool isEggs = false;
 
         public ItemBox(EggViewModel item)
         {
             InitializeComponent();
-            item.UpdateWith(item);
+            isEggs = true;
+            //item.UpdateWith(item);
             pb.Image = item.Icon;
-            lbl.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            lbl.Text = $"{item.KM / 1000:0.0} / {item.TotalKM}";
+            lbl.Text = $"{item.TotalKM}Km";
+            lblTime.Visible = true;
+            lblTime.Text = $"{item.KM / 1000:0.0}Km";
             lblTime.Parent = pb;
             /*
             Item_ = item;
@@ -34,10 +37,12 @@ namespace RocketBot2.Forms
         public ItemBox(IncubatorViewModel item)
         {
             InitializeComponent();
-            item.UpdateWith(item);
-            pb.Image = item.Icon;
-            lbl.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            lbl.Text =  $"{item.KM / 1000:0.0} / {item.TotalKM / 1000:0}";
+            isEggs = true;
+            //item.UpdateWith(item);
+            pb.Image = item.Icon(item.IsUnlimited);
+            lbl.Text = $"{item.TotalKM - item.KM:0}Km";
+            lblTime.Visible = true;
+            lblTime.Text = $"{item.KM / 1000:0.00}Km";
             lblTime.Parent = pb;
             /*
             Item_ = item;
@@ -115,6 +120,7 @@ namespace RocketBot2.Forms
 
         private void Tmr_Tick(object sender, EventArgs e)
         {
+            if (isEggs) return;
             var time = expires - DateTime.UtcNow;
             if (expires.Ticks == 0 || time.TotalSeconds < 0)
             {

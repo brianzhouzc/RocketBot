@@ -70,7 +70,7 @@ namespace RocketBot2.Forms
         public EggViewModel(PokemonData egg)
         {
             Id = egg.Id;
-             TotalKM = egg.EggKmWalkedTarget;
+            TotalKM = egg.EggKmWalkedTarget;
             KM = egg.EggKmWalkedStart;
             this.egg = egg;
         }
@@ -166,10 +166,22 @@ namespace RocketBot2.Forms
 
     public class IncubatorViewModel
     {
+        Dictionary<double, Image> icons = new Dictionary<double, Image>()
+        {
+            {2.00, ResourceHelper.SetImageSize((Image)Resources.EggDB.ResourceManager.GetObject("egg_2_incubator"), 48, 48)},
+            {5.00, ResourceHelper.SetImageSize((Image)Resources.EggDB.ResourceManager.GetObject("egg_5_incubator"), 48, 48)},
+            {10.00, ResourceHelper.SetImageSize((Image)Resources.EggDB.ResourceManager.GetObject("egg_10_incubator"), 48, 48)}
+        };
+
+        Dictionary<double, Image> iconsUnlimited = new Dictionary<double, Image>()
+        {
+            {2.00, ResourceHelper.SetImageSize((Image)Resources.EggDB.ResourceManager.GetObject("egg_2_incubator_unlimited"), 48, 48)},
+            {5.00, ResourceHelper.SetImageSize((Image)Resources.EggDB.ResourceManager.GetObject("egg_5_incubator_unlimited"), 48, 48)},
+            {10.00, ResourceHelper.SetImageSize((Image)Resources.EggDB.ResourceManager.GetObject("egg_10_incubator_unlimited"), 48, 48)}
+        };
 
         public IncubatorViewModel(EggIncubator incu)
         {
-
             Id = incu.Id;
             InUse = incu.PokemonId > 0;
             KM = incu.StartKmWalked;
@@ -179,8 +191,14 @@ namespace RocketBot2.Forms
             IsUnlimited = incu.ItemId == POGOProtos.Inventory.Item.ItemId.ItemIncubatorBasicUnlimited;
         }
         public IncubatorViewModel() { }
-        
-        public Image Icon => ResourceHelper.SetImageSize((Image)Resources.EggDB.ResourceManager.GetObject("egg_incubator"), 48, 48);
+
+        public Image Icon (bool unlimited)
+        {
+            if (unlimited) return iconsUnlimited[TotalKM - KM];
+            return icons[TotalKM - KM];
+            //return ResourceHelper.SetImageSize((Image)Resources.EggDB.ResourceManager.GetObject("egg_incubator_unlimited"), 48, 48);
+        }
+
         public double Availbility => InUse ? 0 : 1;
 
         public string Id { get; set; }
