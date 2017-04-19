@@ -1,14 +1,7 @@
-﻿using PoGo.NecroBot.Logic.Model;
+﻿using PoGo.NecroBot.Logic.Common;
 using PoGo.NecroBot.Logic.State;
 using RocketBot2.Helpers;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RocketBot2.Forms
@@ -31,8 +24,8 @@ namespace RocketBot2.Forms
             lbTypes.Text = $"Types\n\r {pokemon.Types}";
             lbSex.Text = $"Sex: {pokemon.Sex}";
             lbShiny.Text = pokemon.Shiny ? "Shiny: Yes" : "Shiny: No";
-            lbMove1.Text = $"Move1\n\r {pokemon.Move1}";
-            lbMove2.Text = $"Move2\n\r {pokemon.Move2}";
+            lbMove1.Text = $"{session.Translation.GetTranslation(TranslationString.DisplayHighestMove1Header)}\n\r {pokemon.Move1}";
+            lbMove2.Text = $"{session.Translation.GetTranslation(TranslationString.DisplayHighestMove2Header)}\n\r {pokemon.Move2}";
             lbHP.Text = $"HP: {pokemon.HP}/{pokemon.MaxHP}";
             lbCp.Text = $"CP: {pokemon.Cp}";
             lbIV.Text = $"IV: {pokemon.GetIV * 100}%";
@@ -47,7 +40,7 @@ namespace RocketBot2.Forms
             lbHeight.Text = $"Height {pokemon.HeightM}m";
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             Close();
         }
