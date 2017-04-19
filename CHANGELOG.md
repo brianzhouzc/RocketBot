@@ -1,6 +1,6 @@
 # Change Log
-## v2.9.1.6
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.32...v2.9.1.6)
+## v2.9.1.7
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.32...v2.9.1.7)
 
 ## Bugs & Enhancements
 - Updated for 0.61.0 API
@@ -17,4 +17,5 @@
 - Many More Enhancements
 - Add Pokemon Properties
 - Add Shiny and Costume 
-- Add PokéDex
+- Add PokéDex Form
+- Add Eggs Form
