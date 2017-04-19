@@ -216,6 +216,12 @@
     <Compile Include="Forms\AuthAPIForm.Designer.cs">
       <DependentUpon>AuthAPIForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\EggsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EggsForm.Designer.cs">
+      <DependentUpon>EggsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\EvoleToPokemon.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -307,6 +313,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="PushNotificationListener.cs" />
+    <Compile Include="Resources\EggDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EggDB.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\ItemIdDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -842,6 +853,9 @@
     <EmbeddedResource Include="Forms\AuthAPIForm.resx">
       <DependentUpon>AuthAPIForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EggsForm.resx">
+      <DependentUpon>EggsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\EvoleToPokemon.resx">
       <DependentUpon>EvoleToPokemon.cs</DependentUpon>
     </EmbeddedResource>
@@ -879,6 +893,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\EggDB.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EggDB.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ItemIdDB.resx">
       <Generator>ResXFileCodeGenerator</Generator>

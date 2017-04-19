@@ -917,6 +917,14 @@ namespace RocketBot2.Forms
         {
             var item = (ItemData)sender;
 
+            if (item.ItemId == ItemId.ItemIncubatorBasic
+               || item.ItemId == ItemId.ItemIncubatorBasicUnlimited)
+            {
+                System.Windows.Forms.Form form = new EggsForm(_session);
+                form.ShowDialog();
+                return;
+            }
+
             using (var form = new ItemForm(item))
             {
                 var result = form.ShowDialog();

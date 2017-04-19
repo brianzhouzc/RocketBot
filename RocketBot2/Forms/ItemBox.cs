@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using POGOProtos.Inventory.Item;
 using RocketBot2.Helpers;
+using System.Globalization;
 
 namespace RocketBot2.Forms
 {
@@ -10,6 +11,44 @@ namespace RocketBot2.Forms
     {
         public DateTime expires = new DateTime(0);
         public ItemData Item_ { get; }
+
+        public ItemBox(EggViewModel item)
+        {
+            InitializeComponent();
+            item.UpdateWith(item);
+            pb.Image = item.Icon;
+            lbl.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lbl.Text = $"{item.KM / 1000:0.0} / {item.TotalKM}";
+            lblTime.Parent = pb;
+            /*
+            Item_ = item;
+
+            foreach (Control control in Controls)
+            {
+                control.MouseEnter += ChildMouseEnter;
+                control.MouseLeave += ChildMouseLeave;
+                control.MouseClick += ChildMouseClick;
+            }*/
+        }
+
+        public ItemBox(IncubatorViewModel item)
+        {
+            InitializeComponent();
+            item.UpdateWith(item);
+            pb.Image = item.Icon;
+            lbl.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lbl.Text =  $"{item.KM / 1000:0.0} / {item.TotalKM / 1000:0}";
+            lblTime.Parent = pb;
+            /*
+            Item_ = item;
+
+            foreach (Control control in Controls)
+            {
+                control.MouseEnter += ChildMouseEnter;
+                control.MouseLeave += ChildMouseLeave;
+                control.MouseClick += ChildMouseClick;
+            }*/
+        }
 
         public ItemBox(ItemData item)
         {
@@ -28,14 +67,7 @@ namespace RocketBot2.Forms
                 control.MouseClick += ChildMouseClick;
             }
 
-            if (item.ItemId == ItemId.ItemIncubatorBasic 
-                || item.ItemId == ItemId.ItemIncubatorBasicUnlimited 
-              /*|| item.ItemId == ItemId.ItemDragonScale
-                || item.ItemId == ItemId.ItemKingsRock
-                || item.ItemId == ItemId.ItemMetalCoat
-                || item.ItemId == ItemId.ItemSunStone
-                || item.ItemId == ItemId.ItemUpGrade*/
-                || item.Count < 1)
+            if (item.Count < 1)
             {
                 Enabled = false;
             }
