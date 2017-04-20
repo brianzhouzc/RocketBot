@@ -3,7 +3,6 @@ using GMap.NET.MapProviders;
 using PoGo.NecroBot.Logic.Model.Settings;
 using POGOProtos.Enums;
 using PokemonGo.RocketAPI.Enums;
-using RocketBot2.Forms.advSettings;
 using RocketBot2.Helpers;
 using RocketBot2.Win32;
 using System;

@@ -1,15 +1,9 @@
 ﻿using PoGo.NecroBot.Logic.State;
 using POGOProtos.Enums;
-using POGOProtos.Inventory;
 using RocketBot2.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -42,8 +36,8 @@ namespace RocketBot2.Forms
             {
                 if (e == PokemonId.Missingno || (int)e > 251) continue;
                 var Pok = new PictureBox();
-                Pok.Image = ResourceHelper.SetImageSize(ResourceHelper.GetPokemonImageById((int)e), Pok.Size.Height, Pok.Size.Width);
-                Pok.BackColor = i.Contains(e) ? Color.LightGreen : Color.LightGray;
+                Image img = ResourceHelper.SetImageSize(ResourceHelper.GetPokemonImageById((int)e), Pok.Size.Height, Pok.Size.Width);
+                Pok.Image = i.Contains(e) ? img : ResourceHelper.ConvertToBlack(img);
                 flpPokeDex.Controls.Add(Pok);
             }
         }

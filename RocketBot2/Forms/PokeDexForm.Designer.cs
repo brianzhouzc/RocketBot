@@ -35,7 +35,7 @@
             // flpPokeDex
             // 
             this.flpPokeDex.AutoScroll = true;
-            this.flpPokeDex.BackColor = System.Drawing.Color.White;
+            this.flpPokeDex.BackColor = System.Drawing.Color.Lavender;
             this.flpPokeDex.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flpPokeDex.Location = new System.Drawing.Point(0, 0);
             this.flpPokeDex.Name = "flpPokeDex";

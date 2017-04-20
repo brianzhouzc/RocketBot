@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using POGOProtos.Inventory.Item;
 using RocketBot2.Helpers;
+using System.Globalization;
 
 namespace RocketBot2.Forms
 {
@@ -10,6 +11,49 @@ namespace RocketBot2.Forms
     {
         public DateTime expires = new DateTime(0);
         public ItemData Item_ { get; }
+        public bool isEggs = false;
+
+        public ItemBox(EggViewModel item)
+        {
+            InitializeComponent();
+            isEggs = true;
+            //item.UpdateWith(item);
+            pb.Image = item.Icon;
+            lbl.Text = $"{item.TotalKM}Km";
+            lblTime.Visible = true;
+            lblTime.Text = $"{item.KM / 1000:0.0}Km";
+            lblTime.Parent = pb;
+            /*
+            Item_ = item;
+
+            foreach (Control control in Controls)
+            {
+                control.MouseEnter += ChildMouseEnter;
+                control.MouseLeave += ChildMouseLeave;
+                control.MouseClick += ChildMouseClick;
+            }*/
+        }
+
+        public ItemBox(IncubatorViewModel item)
+        {
+            InitializeComponent();
+            isEggs = true;
+            //item.UpdateWith(item);
+            pb.Image = item.Icon(item.IsUnlimited);
+            lbl.Text = $"{item.TotalKM - item.KM:0}Km";
+            lblTime.Visible = true;
+            lblTime.Text = $"{item.KM / 1000:0.00}Km";
+            lblTime.Parent = pb;
+            /*
+            Item_ = item;
+
+            foreach (Control control in Controls)
+            {
+                control.MouseEnter += ChildMouseEnter;
+                control.MouseLeave += ChildMouseLeave;
+                control.MouseClick += ChildMouseClick;
+            }*/
+        }
 
         public ItemBox(ItemData item)
         {
@@ -28,14 +72,7 @@ namespace RocketBot2.Forms
                 control.MouseClick += ChildMouseClick;
             }
 
-            if (item.ItemId == ItemId.ItemIncubatorBasic 
-                || item.ItemId == ItemId.ItemIncubatorBasicUnlimited 
-              /*|| item.ItemId == ItemId.ItemDragonScale
-                || item.ItemId == ItemId.ItemKingsRock
-                || item.ItemId == ItemId.ItemMetalCoat
-                || item.ItemId == ItemId.ItemSunStone
-                || item.ItemId == ItemId.ItemUpGrade*/
-                || item.Count < 1)
+            if (item.Count < 1)
             {
                 Enabled = false;
             }
@@ -83,6 +120,7 @@ namespace RocketBot2.Forms
 
         private void Tmr_Tick(object sender, EventArgs e)
         {
+            if (isEggs) return;
             var time = expires - DateTime.UtcNow;
             if (expires.Ticks == 0 || time.TotalSeconds < 0)
             {

@@ -9,10 +9,10 @@
 [![Github All Releases](https://img.shields.io/github/downloads/TheUnnamedOrganisation/RocketBot/total.svg?maxAge=250)](https://github.com/TheUnnamedOrganisation/RocketBot/releases) 
 [![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/TheUnnamedOrganisation/RocketBot/master/LICENSE.md) 
 
-[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=backlog&title=Backlog)](https://waffle.io/TheUnnamedOrganisation/RocketBot) 
-[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.svg?label=in%20progress&title=In%20Progress)](http://waffle.io/TheUnnamedOrganisation/RocketBot) 
-[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=ready&title=Ready)](https://waffle.io/TheUnnamedOrganisation/RocketBot) 
-[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=done&title=Done)](https://waffle.io/TheUnnamedOrganisation/RocketBot)
+[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=backlog&title=Backlog)](http://waffle.io/TheUnnamedOrganisation/RocketBot) 
+[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=ready&title=Ready)](http://waffle.io/TheUnnamedOrganisation/RocketBot) 
+[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=in%20progress&title=In%20Progress)](http://waffle.io/TheUnnamedOrganisation/RocketBot) 
+[![Stories in Ready](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.png?label=done&title=Done)](http://waffle.io/TheUnnamedOrganisation/RocketBot)
 
 ![alt text][1.1] <strong><em>`The contents of this repo are a proof of concept and are for educational use only`</em></strong>![alt text][1.1]<br/>
 
@@ -30,13 +30,16 @@ See https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer for pricing 
 Download the bot from the [release](https://github.com/TheUnnamedOrganisation/RocketBot/releases) tab.  
 If you want the latest Beta-Build, you have to download the build from the Beta-Build branch and compile them by yourself with VisualStudio 2017.
 
+## `Tranlations`
+If you wanted to participate in translations I invite you to click [here](https://github.com/TheUnnamedOrganisation/RocketBot/tree/master/RocketBot2/Config/Translations) edit the file then proposed your translation it will be tested before publishing.
+
 **Waning: Beta are unstable and might cause damage to your account, use at your own risk**
 
 <img src="https://cdn.discordapp.com/attachments/208485545439920128/298918598234341386/MainForm.png" alt="RocketBot2">
 
-## Developers and Contributors
+## `Developers and Contributors`
 
-### Requirements
+### `Requirements`
 
 To contribute to development, you will need to download and install the required software first.
 
@@ -44,7 +47,7 @@ To contribute to development, you will need to download and install the required
 - [Visual Studio 2017](https://www.visualstudio.com/vs/whatsnew/) - We are using C# 7.0 code so VS 2017 is required to compile.  VS 2015 or older will not be able to compile the code.
 - [.NET 4.6.2 SDK](https://www.microsoft.com/en-us/download/details.aspx?id=53321)
 
-### Cloning Source Code
+### `Cloning Source Code`
 
 Next, you need to get the source code.  This source code repository uses git submodules. So when you clone the source code, you will need to clone recursively:
 
@@ -59,9 +62,7 @@ git clone --recursive https://github.com/TheUnnamedOrganisation/RocketBot.git
 cd RocketBot
 git submodule update --init --recursive
 ```
-# `How can I contribute?`
 
-## `For users:`
  You can contribute in many ways, here are some that you can do to help the project out!
 
 ### `Join discord channel and help answer questions`
@@ -77,6 +78,14 @@ In order to help us fix the problem, please take a screenshot of the error you g
 ### `Suggestions/ideas`
  Tell us what you think we can do better in [issues](https://github.com/TheUnnamedOrganisation/RocketBot/issues).  
 Give detailed discription to help us understand what you are looking for. Add [Suggestion] to the title to help us quickly identify the category of the issue. Your suggestion might not be accept, but hey, maybe we will accept your suggestion next time! :)
+
+## `Legal Disclaimer`
+
+This Website and Project is in no way affiliated with, authorized, maintained, sponsored or endorsed by ANYONE. This is an independent and unofficial project for educational use ONLY. Do not use for any other purpose than education, testing and research.
+
+<h2>Using this project for anything other than education, testing or research is not advised.</h2>
+
+This is not a public release, just a project with releases for code testers for education and research on any privacy issues for the end user.
 
 ## A Pokémon Go bot in C#
 

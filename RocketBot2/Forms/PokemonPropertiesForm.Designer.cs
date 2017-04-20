@@ -54,7 +54,7 @@
             // 
             // pbPokemon
             // 
-            this.pbPokemon.Location = new System.Drawing.Point(112, 61);
+            this.pbPokemon.Location = new System.Drawing.Point(118, 61);
             this.pbPokemon.Name = "pbPokemon";
             this.pbPokemon.Size = new System.Drawing.Size(230, 230);
             this.pbPokemon.TabIndex = 0;
@@ -62,13 +62,13 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(343, 641);
+            this.btnClose.Location = new System.Drawing.Point(354, 642);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(103, 30);
             this.btnClose.TabIndex = 1;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            this.btnClose.Click += new System.EventHandler(this.BtnClose_Click);
             // 
             // lbName
             // 
@@ -100,9 +100,9 @@
             this.lbSex.ForeColor = System.Drawing.Color.DarkMagenta;
             this.lbSex.Location = new System.Drawing.Point(296, 297);
             this.lbSex.Name = "lbSex";
-            this.lbSex.Size = new System.Drawing.Size(125, 28);
+            this.lbSex.Size = new System.Drawing.Size(156, 28);
             this.lbSex.TabIndex = 4;
-            this.lbSex.Text = "Sex: xxxxxxx";
+            this.lbSex.Text = "Sex: Genderless";
             // 
             // lbShiny
             // 
@@ -273,7 +273,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(458, 684);
+            this.ClientSize = new System.Drawing.Size(469, 684);
             this.Controls.Add(this.lbHeight);
             this.Controls.Add(this.lbKg);
             this.Controls.Add(this.lbCaughtTime);

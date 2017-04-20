@@ -70,8 +70,8 @@ namespace RocketBot2.Helpers
         public static Image GetPokemonImage(PokemonData pokemon)
         {
             var additional = "";
-            if (pokemon.PokemonDisplay.Costume != Costume.Unset) additional = "_" + pokemon.PokemonDisplay.Costume.ToString();
-            if (pokemon.PokemonDisplay.Form != POGOProtos.Enums.Form.Unset) additional = "_" + pokemon.PokemonDisplay.Form.ToString().Replace("Unown", "").Replace("-ExclamationPoint", "_ex").Replace("-QuestionMark", "_qst");
+            if (pokemon.PokemonDisplay.Costume != Costume.Unset) additional = "_" + pokemon.PokemonDisplay.Costume.ToString().Replace("-Unset", "");
+            if (pokemon.PokemonDisplay.Form != POGOProtos.Enums.Form.Unset) additional = "_" + pokemon.PokemonDisplay.Form.ToString().Replace("Unown", "").Replace("-ExclamationPoint", "_ex").Replace("-QuestionMark", "_qst").Replace("-Unset", "");
             if (pokemon.PokemonDisplay.Shiny) additional = "_shiny";
 
             var image = (Image)Resources.PokemonDB.ResourceManager.GetObject($"_{(int)pokemon.PokemonId:000}{additional}");
@@ -83,8 +83,8 @@ namespace RocketBot2.Helpers
         public static Image GetPokemonImage(MapPokemon pokemon)
         {
             var additional = "";
-            /*if (pokemon.PokemonDisplay.Costume != Costume.Unset) additional = "_" + pokemon.PokemonDisplay.Costume.ToString();
-            if (pokemon.PokemonDisplay.Form != POGOProtos.Enums.Form.Unset) additional = "_" + pokemon.PokemonDisplay.Form.ToString().Replace("Unown", "").Replace("-ExclamationPoint", "_ex").Replace("-QuestionMark", "_qst");
+            /*if (pokemon.PokemonDisplay.Costume != Costume.Unset) additional = "_" + pokemon.PokemonDisplay.Costume.ToString().Replace("-Unset", "");
+            if (pokemon.PokemonDisplay.Form != POGOProtos.Enums.Form.Unset) additional = "_" + pokemon.PokemonDisplay.Form.ToString().Replace("Unown", "").Replace("-ExclamationPoint", "_ex").Replace("-QuestionMark", "_qst").Replace("-Unset", "");
             if (pokemon.PokemonDisplay.Shiny) additional = "_shiny";*/
 
             var image = (Image)Resources.PokemonDB.ResourceManager.GetObject($"_{(int)pokemon.PokemonId:000}{additional}");
@@ -96,8 +96,8 @@ namespace RocketBot2.Helpers
         public static Image GetPokemonImage(int ToPokemonId, PokemonData pokemon)
         {
             var additional = "";
-            if (pokemon.PokemonDisplay.Costume != Costume.Unset) additional = "_" + pokemon.PokemonDisplay.Costume.ToString();
-            if (pokemon.PokemonDisplay.Form != POGOProtos.Enums.Form.Unset) additional = "_" + pokemon.PokemonDisplay.Form.ToString().Replace("Unown", "").Replace("-ExclamationPoint", "_ex").Replace("-QuestionMark", "_qst");
+            if (pokemon.PokemonDisplay.Costume != Costume.Unset) additional = "_" + pokemon.PokemonDisplay.Costume.ToString().Replace("-Unset", "");
+            if (pokemon.PokemonDisplay.Form != POGOProtos.Enums.Form.Unset) additional = "_" + pokemon.PokemonDisplay.Form.ToString().Replace("Unown", "").Replace("-ExclamationPoint", "_ex").Replace("-QuestionMark", "_qst").Replace("-Unset", "");
             if (pokemon.PokemonDisplay.Shiny) additional = "_shiny";
 
             var image = (Image)Resources.PokemonDB.ResourceManager.GetObject($"_{ToPokemonId:000}{additional}");
@@ -228,6 +228,33 @@ namespace RocketBot2.Helpers
 
             return Image.FromStream(s);
         }
-#endregion
+
+        public static Image ConvertToBlack(Image image)
+        {
+            Bitmap bmp = new Bitmap(image);
+            int width = bmp.Width;
+            int height = bmp.Height;
+            int[] arr = new int[225];
+            Color p;
+
+            //Grayscale
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    p = bmp.GetPixel(x, y);
+                    int a = p.A;
+                    int r = p.R;
+                    int g = p.G;
+                    int b = p.B;
+                    int avg = (r + g + b) / 3;
+                    //avg = avg < 128 ? 0 : 255;     // Converting gray pixels to either pure black or pure white
+                    avg = 0;
+                    bmp.SetPixel(x, y, Color.FromArgb(a, avg, avg, avg));
+                }
+            }
+            return bmp;
+        }
+        #endregion
     }
 }

@@ -63,23 +63,23 @@ namespace RocketBot2.Forms
             this.label1.Text = "Please select your API method";
             // 
             // txtAPIKey
-            //
-            this.txtAPIKey.Text = "8C5A5T8B9P3A6L1S4K1A";			
+            // 
             this.txtAPIKey.Location = new System.Drawing.Point(16, 178);
             this.txtAPIKey.Margin = new System.Windows.Forms.Padding(5);
             this.txtAPIKey.Name = "txtAPIKey";
             this.txtAPIKey.Size = new System.Drawing.Size(303, 27);
             this.txtAPIKey.TabIndex = 2;
+            this.txtAPIKey.Text = "1V9I9R1Z9M5J8L5R1W8N";
             // 
             // radLegacy
             // 
             this.radLegacy.AutoSize = true;
+            this.radLegacy.Enabled = false;
             this.radLegacy.Location = new System.Drawing.Point(21, 61);
             this.radLegacy.Margin = new System.Windows.Forms.Padding(5);
             this.radLegacy.Name = "radLegacy";
             this.radLegacy.Size = new System.Drawing.Size(241, 24);
             this.radLegacy.TabIndex = 3;
-            this.radLegacy.TabStop = true;
             this.radLegacy.Text = "Legacy 0.45 API FREE - High risk";
             this.radLegacy.UseVisualStyleBackColor = true;
             // 
@@ -98,13 +98,14 @@ namespace RocketBot2.Forms
             // radHashServer
             // 
             this.radHashServer.AutoSize = true;
+            this.radHashServer.Checked = true;
             this.radHashServer.Location = new System.Drawing.Point(21, 114);
             this.radHashServer.Margin = new System.Windows.Forms.Padding(5);
             this.radHashServer.Name = "radHashServer";
-            this.radHashServer.Size = new System.Drawing.Size(300, 24);
+            this.radHashServer.Size = new System.Drawing.Size(319, 24);
             this.radHashServer.TabIndex = 5;
             this.radHashServer.TabStop = true;
-            this.radHashServer.Text = "PogoDev Hash Server API - Latest API " + Client.API_VERSION;
+            this.radHashServer.Text = "PogoDev Hash Server API - Latest API 0.61.0";
             this.radHashServer.UseVisualStyleBackColor = true;
             // 
             // label2
@@ -124,10 +125,11 @@ namespace RocketBot2.Forms
             this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label3.MaximumSize = new System.Drawing.Size(360, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(347, 80);
+            this.label3.Size = new System.Drawing.Size(359, 80);
             this.label3.TabIndex = 7;
-            this.label3.Text = "We don't provide keys, you will have to buy it from Pogodev. RPM = Requests per minute," 
-			+ " it depends on how fast your config setup is. 150RPM will be sufficient for 2-" + "3 normal bots.";
+            this.label3.Text = "We don\'t provide keys, you will have to buy it from Pogodev. RPM = Requests per m" +
+    "inute, it depends on how fast your config setup is. 150RPM will be sufficient fo" +
+    "r 2-3 normal bots.";
             // 
             // btnCancel
             // 

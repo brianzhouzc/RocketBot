@@ -9,7 +9,6 @@ using PoGo.NecroBot.Logic;
 using PoGo.NecroBot.Logic.Common;
 using PoGo.NecroBot.Logic.Event;
 using PoGo.NecroBot.Logic.Logging;
-using PoGo.NecroBot.Logic.Model;
 using PoGo.NecroBot.Logic.Model.Settings;
 using PoGo.NecroBot.Logic.PoGoUtils;
 using PoGo.NecroBot.Logic.Service;
@@ -917,6 +916,14 @@ namespace RocketBot2.Forms
         private async void ItemBox_ItemClick(object sender, EventArgs e)
         {
             var item = (ItemData)sender;
+
+            if (item.ItemId == ItemId.ItemIncubatorBasic
+               || item.ItemId == ItemId.ItemIncubatorBasicUnlimited)
+            {
+                System.Windows.Forms.Form form = new EggsForm(_session);
+                form.ShowDialog();
+                return;
+            }
 
             using (var form = new ItemForm(item))
             {
