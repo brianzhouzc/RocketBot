@@ -47,6 +47,11 @@ namespace RocketBot2.Forms
                 flpEggs.Controls.Add(pic);
             }
         }
+        public void OnBotEvent(EggIncubatorStatusEvent e)
+        {
+            var eggsListViewModel = new EggsListViewModel();
+            eggsListViewModel.OnEggIncubatorStatus(e);
+        }
     }
 
     public  class EggViewModel
@@ -123,6 +128,7 @@ namespace RocketBot2.Forms
             var existing = Incubators.FirstOrDefault(x => x.Id == incu.Id);
             if (existing != null)
             {
+                // Do not update, it overwrites OnEggIncubatorStatus Status updates
                 existing.UpdateWith(incuModel);
             }
             else
@@ -141,7 +147,7 @@ namespace RocketBot2.Forms
             if (existing != null)
             {
                 // Do not update, it overwrites OnEggIncubatorStatus Status updates
-                // existing.UpdateWith(eggModel);
+                //existing.UpdateWith(eggModel);
             }
             else
             {
@@ -149,7 +155,7 @@ namespace RocketBot2.Forms
             }
         }
 
-        public void OnEggIncubatorStatus(EggIncubatorStatusEvent e)
+        internal void OnEggIncubatorStatus(EggIncubatorStatusEvent e)
         {
             var egg = Eggs.FirstOrDefault(t => t.Id == e.PokemonId);
             var incu = Incubators.FirstOrDefault(t => t.Id == e.IncubatorId);
@@ -190,7 +196,6 @@ namespace RocketBot2.Forms
             UsesRemaining = incu.UsesRemaining;
             IsUnlimited = incu.ItemId == POGOProtos.Inventory.Item.ItemId.ItemIncubatorBasicUnlimited;
         }
-        public IncubatorViewModel() { }
 
         public Image Icon (bool unlimited)
         {
@@ -208,7 +213,6 @@ namespace RocketBot2.Forms
         public int UsesRemaining { get; set; }
         public double KM { get; set; }
         public double TotalKM { get; set; }
-        public int Count { get; set; }
 
         public void UpdateWith(IncubatorViewModel incuModel)
         {

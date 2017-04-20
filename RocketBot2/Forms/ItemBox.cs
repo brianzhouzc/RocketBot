@@ -17,7 +17,6 @@ namespace RocketBot2.Forms
         {
             InitializeComponent();
             isEggs = true;
-            //item.UpdateWith(item);
             pb.Image = item.Icon;
             lbl.Text = $"{item.TotalKM}Km";
             lblTime.Visible = true;
@@ -38,11 +37,10 @@ namespace RocketBot2.Forms
         {
             InitializeComponent();
             isEggs = true;
-            //item.UpdateWith(item);
             pb.Image = item.Icon(item.IsUnlimited);
             lbl.Text = $"{item.TotalKM - item.KM:0}Km";
             lblTime.Visible = true;
-            lblTime.Text = $"{item.KM / 1000:0.00}Km";
+            lblTime.Text = $"{(item.TotalKM + item.KM) / 1000:0.00}Km";
             lblTime.Parent = pb;
             /*
             Item_ = item;
