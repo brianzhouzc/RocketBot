@@ -3,7 +3,8 @@ using System.Drawing;
 using System.Windows.Forms;
 using POGOProtos.Inventory.Item;
 using RocketBot2.Helpers;
-using System.Globalization;
+using PoGo.NecroBot.Logic.Tasks;
+using PoGo.NecroBot.Logic.State;
 
 namespace RocketBot2.Forms
 {
@@ -12,45 +13,64 @@ namespace RocketBot2.Forms
         public DateTime expires = new DateTime(0);
         public ItemData Item_ { get; }
         public bool isEggs = false;
+        public static ISession Session;
+        public Incubators incubator;
 
-        public ItemBox(EggViewModel item)
+        public ItemBox(Eggs item, ISession session)
         {
             InitializeComponent();
+            Session = session;
             isEggs = true;
+            lbl.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             pb.Image = item.Icon;
-            lbl.Text = $"{item.TotalKM}Km";
+            lblTime.Text = $"{item.TotalKM:0.0}Km";
             lblTime.Visible = true;
-            lblTime.Text = $"{item.KM / 1000:0.0}Km";
+            lbl.Text = $"{item.KM:0.0}Km";
             lblTime.Parent = pb;
-            /*
-            Item_ = item;
-
+            
             foreach (Control control in Controls)
             {
                 control.MouseEnter += ChildMouseEnter;
                 control.MouseLeave += ChildMouseLeave;
-                control.MouseClick += ChildMouseClick;
-            }*/
+                control.MouseClick += HatchEgg_Click;
+            }
         }
 
-        public ItemBox(IncubatorViewModel item)
+        public ItemBox(Incubators item)
         {
             InitializeComponent();
             isEggs = true;
+            lbl.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             pb.Image = item.Icon(item.IsUnlimited);
-            lbl.Text = $"{item.TotalKM - item.KM:0}Km";
+            lblTime.Text = $"{item.TotalKM - item.KM:0.0}Km";
             lblTime.Visible = true;
-            lblTime.Text = $"{(item.TotalKM + item.KM) / 1000:0.00}Km";
+            lbl.Text = $"{item.TotalKM / 1000:0.0}Km";
             lblTime.Parent = pb;
-            /*
-            Item_ = item;
-
+ 
             foreach (Control control in Controls)
             {
                 control.MouseEnter += ChildMouseEnter;
                 control.MouseLeave += ChildMouseLeave;
-                control.MouseClick += ChildMouseClick;
-            }*/
+                //control.MouseClick += SetIncubator_Click;
+            }
+        }
+
+        private void SetIncubator_Click(object sender, MouseEventArgs e)
+        {
+            var incu = (Incubators)(sender);
+            if (!incu.InUse) incubator = incu;
+        }
+
+        private async void HatchEgg_Click(object sender, MouseEventArgs e)
+        {
+            if (incubator == null)
+            {
+                MessageBox.Show("Please select an incubator to hatch eggs", "Hatch Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            var eggs = (Eggs)(sender);
+            await UseIncubatorsTask.Execute(Session, Session.CancellationTokenSource.Token, eggs.Id, incubator.Id);
+            EggsForm.ActiveForm.Close();
         }
 
         public ItemBox(ItemData item)

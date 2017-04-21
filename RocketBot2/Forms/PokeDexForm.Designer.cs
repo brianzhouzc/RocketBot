@@ -50,6 +50,7 @@
             this.Controls.Add(this.flpPokeDex);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PokeDexForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "PokéDex";
             this.ResumeLayout(false);
 
