@@ -30,7 +30,7 @@ See https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer for pricing 
 Download the bot from the [release](https://github.com/TheUnnamedOrganisation/RocketBot/releases) tab.  
 If you want the latest Beta-Build, you have to download the build from the Beta-Build branch and compile them by yourself with VisualStudio 2017.
 
-## `Tranlations`
+## `Translations`
 If you wanted to participate in translations I invite you to click [here](https://github.com/TheUnnamedOrganisation/RocketBot/tree/master/RocketBot2/Config/Translations) edit the file then proposed your translation it will be tested before publishing.
 
 **Waning: Beta are unstable and might cause damage to your account, use at your own risk**

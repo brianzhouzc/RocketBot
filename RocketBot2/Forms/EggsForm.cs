@@ -16,28 +16,26 @@ using System.Windows.Forms;
 
 namespace RocketBot2.Forms
 {
-    
-
     public partial class EggsForm : System.Windows.Forms.Form
     {
-        private ISession session;
+        public static ISession Session;
         public EggsForm() { InitializeComponent(); }
 
         public EggsForm(Session session)
         {
             InitializeComponent();
-            this.session = session;
-            var inventory = session.Inventory.GetCachedInventory().Result;
-            var eggsListViewModel = new EggsListViewModel();
+            Session = session;
+            var inventory = Session.Inventory.GetCachedInventory().Result;
+            var eggsListViewModel = new ItemsList();
             eggsListViewModel.InventoryRefreshed(inventory);
             AddControls(eggsListViewModel);
         }
 
-        public void AddControls(EggsListViewModel eggsListViewModel)
+        public void AddControls(ItemsList eggsListViewModel)
         {
             foreach ( var item in eggsListViewModel.Eggs)
             {
-                var pic = new ItemBox(item);
+                var pic = new ItemBox(item, Session);
                 flpEggs.Controls.Add(pic);
             }
 
@@ -49,7 +47,7 @@ namespace RocketBot2.Forms
         }
     }
 
-    public  class EggViewModel
+    public  class Eggs
     {
         Dictionary<double, Image> icons = new Dictionary<double, Image>()
         {
@@ -66,30 +64,23 @@ namespace RocketBot2.Forms
 
         public bool Hatchable { get; set; }
         public Image Icon => icons[TotalKM];
-        public EggViewModel() { }
-        public EggViewModel(PokemonData egg)
+        public Eggs(PokemonData egg)
         {
             Id = egg.Id;
             TotalKM = egg.EggKmWalkedTarget;
             KM = egg.EggKmWalkedStart;
             this.egg = egg;
         }
-        public void UpdateWith(EggViewModel e)
-        {
-            KM = e.KM;
-        }
     }
 
-    //--------------------------------------------------
-
-    public  class EggsListViewModel
+    public  class ItemsList
     {
-        public ObservableCollection<EggViewModel> Eggs { get; set; }
-        public ObservableCollection<IncubatorViewModel> Incubators { get; set; }
-        public EggsListViewModel()
+        public ObservableCollection<Eggs> Eggs { get; set; }
+        public ObservableCollection<Incubators> Incubators { get; set; }
+        public ItemsList()
         {
-            Eggs = new ObservableCollection<EggViewModel>();
-            Incubators = new ObservableCollection<IncubatorViewModel>();
+            Eggs = new ObservableCollection<Eggs>();
+            Incubators = new ObservableCollection<Incubators>();
         }
 
         public void InventoryRefreshed(IEnumerable<InventoryItem> inventory)
@@ -112,59 +103,27 @@ namespace RocketBot2.Forms
             foreach (var egg in eggs)
             {
                 var incu = Incubators.FirstOrDefault(x => x.PokemonId == egg.Id);
-
                 AddOrUpdate(egg, incu);
             }
         }
 
         public void AddOrUpdateIncubator(EggIncubator incu)
         {
-            var incuModel = new IncubatorViewModel(incu);
-            var existing = Incubators.FirstOrDefault(x => x.Id == incu.Id);
-            if (existing != null)
-            {
-                existing.UpdateWith(incuModel);
-            }
-            else
-            {
-                Incubators.Add(incuModel);
-            }
+            var incuModel = new Incubators(incu);
+            Incubators.Add(incuModel);
         }
 
-        public void AddOrUpdate(PokemonData egg, IncubatorViewModel incu = null)
+        public void AddOrUpdate(PokemonData egg, Incubators incu = null)
         {
-            var eggModel = new EggViewModel(egg)
+            var eggModel = new Eggs(egg)
             {
                 Hatchable = incu == null
             };
-            var existing = Eggs.FirstOrDefault(x => x.Id == eggModel.Id);
-            if (existing != null)
-            {
-                // Do not update, it overwrites OnEggIncubatorStatus Status updates
-                // existing.UpdateWith(eggModel);
-            }
-            else
-            {
                 Eggs.Add(eggModel);
-            }
-        }
-
-        public void OnEggIncubatorStatus(EggIncubatorStatusEvent e)
-        {
-            var egg = Eggs.FirstOrDefault(t => t.Id == e.PokemonId);
-            var incu = Incubators.FirstOrDefault(t => t.Id == e.IncubatorId);
-
-            if (egg == null) return;
-
-            egg.Hatchable = false;
-            incu.InUse = true;
-            egg.KM = e.KmWalked;
         }
     }
 
-    //--------------------------------------------------
-
-    public class IncubatorViewModel
+    public class Incubators
     {
         Dictionary<double, Image> icons = new Dictionary<double, Image>()
         {
@@ -180,7 +139,7 @@ namespace RocketBot2.Forms
             {10.00, ResourceHelper.SetImageSize((Image)Resources.EggDB.ResourceManager.GetObject("egg_10_incubator_unlimited"), 48, 48)}
         };
 
-        public IncubatorViewModel(EggIncubator incu)
+        public Incubators(EggIncubator incu)
         {
             Id = incu.Id;
             InUse = incu.PokemonId > 0;
@@ -190,13 +149,19 @@ namespace RocketBot2.Forms
             UsesRemaining = incu.UsesRemaining;
             IsUnlimited = incu.ItemId == POGOProtos.Inventory.Item.ItemId.ItemIncubatorBasicUnlimited;
         }
-        public IncubatorViewModel() { }
 
         public Image Icon (bool unlimited)
         {
-            if (unlimited) return iconsUnlimited[TotalKM - KM];
-            return icons[TotalKM - KM];
-            //return ResourceHelper.SetImageSize((Image)Resources.EggDB.ResourceManager.GetObject("egg_incubator_unlimited"), 48, 48);
+            try
+            {
+                if (unlimited) return iconsUnlimited[TotalKM - KM];
+                return icons[TotalKM - KM];
+            }
+            catch
+            {
+                if (unlimited) return ResourceHelper.SetImageSize((Image)Resources.ItemIdDB.ResourceManager.GetObject("_901"), 48, 48);
+                return ResourceHelper.SetImageSize((Image)Resources.ItemIdDB.ResourceManager.GetObject("_902"), 48, 48);
+            }
         }
 
         public double Availbility => InUse ? 0 : 1;
@@ -208,15 +173,5 @@ namespace RocketBot2.Forms
         public int UsesRemaining { get; set; }
         public double KM { get; set; }
         public double TotalKM { get; set; }
-        public int Count { get; set; }
-
-        public void UpdateWith(IncubatorViewModel incuModel)
-        {
-            InUse = incuModel.PokemonId > 0;
-            PokemonId = incuModel.PokemonId;
-            UsesRemaining = incuModel.UsesRemaining;
-            KM = incuModel.KM;
-            TotalKM = incuModel.TotalKM;
-        }
     }
 }

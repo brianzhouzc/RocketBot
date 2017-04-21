@@ -26,8 +26,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>14</ApplicationRevision>
-    <ApplicationVersion>2.7.0.%2a</ApplicationVersion>
+    <ApplicationRevision>7</ApplicationRevision>
+    <ApplicationVersion>2.9.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -52,7 +52,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <Prefer32Bit>false</Prefer32Bit>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -188,10 +188,6 @@
       <HintPath>$(SolutionDir)\packages\SuperSocket.1.6.6.1\lib\net45\SuperSocket.SocketBase.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SuperSocket.WebSocket, Version=1.6.6.1, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\SuperSocket.WebSocket.1.6.6.1\lib\net45\SuperSocket.WebSocket.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="WebDriver, Version=3.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\Selenium.WebDriver.3.3.0\lib\net40\WebDriver.dll</HintPath>
       <Private>True</Private>
@@ -200,13 +196,8 @@
       <HintPath>$(SolutionDir)\packages\Selenium.Support.3.3.0\lib\net40\WebDriver.Support.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="websocket-sharp, Version=1.0.2.59611, Culture=neutral, PublicKeyToken=5660b08a1845a91e, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\WebSocketSharp.1.0.3-rc11\lib\websocket-sharp.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BotDataSocketClient.cs" />
     <Compile Include="CommandLineUtility\Arguments.cs" />
     <Compile Include="ConsoleEventListener.cs" />
     <Compile Include="ConsoleLogger.cs" />
@@ -330,48 +321,6 @@
     </Compile>
     <Compile Include="Resources\ProgressBar.cs" />
     <Compile Include="SniperEventListener.cs" />
-    <Compile Include="WebSocketHandler\ActionCommands\DropItemHandler.cs" />
-    <Compile Include="WebSocketHandler\ActionCommands\EvolvePokemonHandler.cs" />
-    <Compile Include="WebSocketHandler\ActionCommands\FastpokemapHandler.cs" />
-    <Compile Include="WebSocketHandler\ActionCommands\FavoritePokemonHandler.cs" />
-    <Compile Include="WebSocketHandler\ActionCommands\HumanSnipePriorityPokemonHandler.cs" />
-    <Compile Include="WebSocketHandler\ActionCommands\HumanSnipeRemovePokemonHandler.cs" />
-    <Compile Include="WebSocketHandler\ActionCommands\LevelUpPokemonHandler.cs" />
-    <Compile Include="WebSocketHandler\ActionCommands\SetConfigHandler.cs" />
-    <Compile Include="WebSocketHandler\ActionCommands\SetMoveToTargetHandler.cs" />
-    <Compile Include="WebSocketHandler\ActionCommands\SetTrainerNicknameHandler.cs" />
-    <Compile Include="WebSocketHandler\ActionCommands\TransferPokemonHandler.cs" />
-    <Compile Include="WebSocketHandler\ActionCommands\UpgradePokemonHandler.cs" />
-    <Compile Include="WebSocketHandler\EncodingHelper.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\Events\ConfigResponce.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\Events\EggListResponce.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\Events\ItemListResponce.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\Events\PokemonListResponce.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\Events\SnipeListResponce.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\Events\TrainerProfileResponce.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\Events\WebResponce.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\GetConfigHandler.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\GetEggListHandler.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\GetItemsListHandler.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\GetPokemonListHandler.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\GetPokemonSettingsHandler.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\GetPokemonSnipeListHandler.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\GetTrainerProfileHandler.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\Helpers\ConfigWeb.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\Helpers\EggListWeb.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\Helpers\PokemonListWeb.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\Helpers\TrainerProfileWeb.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\Tasks\GetConfigTask.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\Tasks\GetEggListTask.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\Tasks\GetItemListTask.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\Tasks\GetPokemonListTask.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\Tasks\GetPokemonSettingsTask.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\Tasks\GetPokemonSnipeListTask.cs" />
-    <Compile Include="WebSocketHandler\GetCommands\Tasks\GetTrainerProfileTask.cs" />
-    <Compile Include="WebSocketHandler\IWebSocketRequestHandler.cs" />
-    <Compile Include="WebSocketHandler\IWebSocketResponce.cs" />
-    <Compile Include="WebSocketHandler\WebSocketEventManager.cs" />
-    <Compile Include="WebSocketInterface.cs" />
     <Compile Include="Win32\ConsoleHelper.cs" />
   </ItemGroup>
   <ItemGroup>

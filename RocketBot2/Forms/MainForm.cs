@@ -1412,7 +1412,7 @@ namespace RocketBot2.Forms
 
             if (_session.LogicSettings.DataSharingConfig.EnableSyncData)
             {
-                BotDataSocketClient.StartAsync(_session);
+                BotDataSocketClient.StartAsync(_session, Properties.Resources.EncryptKey);
                 _session.EventDispatcher.EventReceived += evt => BotDataSocketClient.Listen(evt, _session);
             }
             _settings.CheckProxy(_session.Translation);

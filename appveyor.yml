@@ -15,7 +15,7 @@ skip_non_tags: false
 skip_commits:
   files:
   - '**\AssemblyInfo.*'
-#  - 'CHANGELOG.md'
+  - 'CHANGELOG.md'
 
 # 
 pull_requests:
