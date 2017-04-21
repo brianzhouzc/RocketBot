@@ -102,10 +102,10 @@
             this.linkLabel5.Location = new System.Drawing.Point(217, 417);
             this.linkLabel5.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.linkLabel5.Name = "linkLabel5";
-            this.linkLabel5.Size = new System.Drawing.Size(209, 17);
+            this.linkLabel5.Size = new System.Drawing.Size(201, 17);
             this.linkLabel5.TabIndex = 10;
             this.linkLabel5.TabStop = true;
-            this.linkLabel5.Text = "http://www1.mypogosnipers.com";
+            this.linkLabel5.Text = "http://www.mypogosnipers.com";
             this.linkLabel5.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Link_click);
             // 
             // label5

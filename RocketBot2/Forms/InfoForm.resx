@@ -132,7 +132,7 @@ I recommend to generate 1 UUID from here:</value>
     "EnableSyncData": true,
     "AutoSnipe": false,
     "DataServiceIdentification": "ca32d7dc-4443-4602-a568-2aa5887c8ba8 - this is the id you generate step 1",
-    "DataRecieverURL": "ws://necrosocket.herokuapp.com/socket.io/?EIO=3&amp;transport=websocket"
+    "DataRecieverURL": "ws://www.mypogosnipers.com/socket.io/?EIO=3&amp;transport=websocket"
   },
 This manual snipe mode even works with autosnipe so that you can leave autosnipe TRUE or FALSE doesn’t matter. 
 But you need turn on data sync EnableSyncData (set it to TRUE)
