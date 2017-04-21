@@ -137,7 +137,7 @@ I recommend to generate 1 UUID from here:</value>
 This manual snipe mode even works with autosnipe so that you can leave autosnipe TRUE or FALSE doesn’t matter. 
 But you need turn on data sync EnableSyncData (set it to TRUE)
 
-Step 3: Go to http://www1.mypogosnipers.com, then go to setting change sniper mode to use build in sniper and 
+Step 3: Go to http://www.mypogosnipers.com, then go to setting change sniper mode to use build in sniper and 
 use the UUID you generate and set in the data service Identification, save setting and you are all good.</value>
   </data>
 </root>
