@@ -14,7 +14,7 @@ namespace RocketBot2.Forms
 
         private void InfoForm_Load(object sender, EventArgs e)
         {
-            Text = "RocketBot2 2 - "
+            Text = "RocketBot2 "
                         + FileVersionInfo
                             .GetVersionInfo(Assembly.GetExecutingAssembly().Location)
                             .ProductVersion;

@@ -254,5 +254,5 @@ paket-files/
 
 # CodeRush
 .cr/
-/PoGo.NecroBot.GUI.Electron/plugins
-/PoGo.NecroBot.GUI.Electron/platforms
+[Pp]oGo.NecroBot.GUI.Electron/plugins
+[Pp]oGo.NecroBot.GUI.Electron/platforms

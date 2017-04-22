@@ -400,6 +400,11 @@ namespace RocketBot2.Forms
 
         #region EVENTS
 
+        private void pokeEaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://theunnamedorganisation.github.io/RocketBot/");
+        }
+
         private void BtnPokeDex_Click(object sender, EventArgs e)
         {
             System.Windows.Forms.Form PokeDexForm = new PokeDexForm(_session);
@@ -1597,5 +1602,6 @@ namespace RocketBot2.Forms
         }
 
         #endregion
+
     }
 }
