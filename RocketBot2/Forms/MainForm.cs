@@ -400,7 +400,7 @@ namespace RocketBot2.Forms
 
         #region EVENTS
 
-        private void pokeEaseToolStripMenuItem_Click(object sender, EventArgs e)
+        private void PokeEaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("https://theunnamedorganisation.github.io/RocketBot/");
         }

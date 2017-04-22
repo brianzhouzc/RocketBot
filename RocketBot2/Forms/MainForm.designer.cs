@@ -578,7 +578,7 @@ namespace RocketBot2.Forms
             this.pokeEaseToolStripMenuItem.Name = "pokeEaseToolStripMenuItem";
             this.pokeEaseToolStripMenuItem.Size = new System.Drawing.Size(82, 24);
             this.pokeEaseToolStripMenuItem.Text = "PokeEase";
-            this.pokeEaseToolStripMenuItem.Click += new System.EventHandler(this.pokeEaseToolStripMenuItem_Click);
+            this.pokeEaseToolStripMenuItem.Click += new System.EventHandler(this.PokeEaseToolStripMenuItem_Click);
             // 
             // MainForm
             // 
