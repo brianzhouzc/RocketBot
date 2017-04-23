@@ -15,6 +15,7 @@ namespace RocketBot2.Forms
         public bool DisableTimer = false;
         public static ISession Session;
         public Incubators incubator;
+        public Eggs egg;
 
         public ItemBox(int see, int cath, Image pic)
         {
@@ -40,6 +41,7 @@ namespace RocketBot2.Forms
             lblTime.Visible = true;
             lbl.Text = $"{item.KM:0.0}Km";
             lblTime.Parent = pb;
+            egg = item;
             
             foreach (Control control in Controls)
             {
@@ -86,8 +88,7 @@ namespace RocketBot2.Forms
                 MessageBox.Show("Please select an incubator to hatch eggs", "Hatch Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            var eggs = ((Eggs)sender);
-            await UseIncubatorsTask.Execute(Session, Session.CancellationTokenSource.Token, eggs.Id, incubator.Id);
+            await UseIncubatorsTask.Execute(Session, Session.CancellationTokenSource.Token, egg.Id, incubator.Id);
             EggsForm.ActiveForm.Close();
         }
 
