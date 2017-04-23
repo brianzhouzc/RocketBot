@@ -59,26 +59,24 @@ namespace RocketBot2.Forms
             lblTime.Visible = true;
             lbl.Text = $"{item.TotalKM / 1000:0.0}Km";
             lblTime.Parent = pb;
+            incubator = item;
  
             foreach (Control control in Controls)
             {
                 control.MouseEnter += ChildMouseEnter;
                 control.MouseLeave += ChildMouseLeave;
-                //TODO: Review click
-                //control.MouseClick += SetIncubator_Click;
+                control.MouseClick += SetIncubator_Click;
             }
         }
 
         private void SetIncubator_Click(object sender, MouseEventArgs e)
         {
-            var incu = ((Incubators)sender);
-            if (incu.InUse)
+            if (incubator.InUse)
             {
-                MessageBox.Show("Incubator in use choice an other", "Hatch Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Incubator in use choice an other", "Incubator Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
             ((ItemBox)sender).BackColor = Color.LightGreen;
-            incubator = incu;
         }
 
         private async void HatchEgg_Click(object sender, MouseEventArgs e)

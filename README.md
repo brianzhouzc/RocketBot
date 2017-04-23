@@ -87,6 +87,6 @@ This Website and Project is in no way affiliated with, authorized, maintained, s
 
 This is not a public release, just a project with releases for code testers for education and research on any privacy issues for the end user.
 
-## A Pokémon Go bot in C#
+## `A Pokémon Go bot in C#`
 
 ## [Credits](https://github.com/Necrobot-Private)
