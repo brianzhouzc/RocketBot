@@ -30,7 +30,13 @@ See https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer for pricing 
 Download the bot from the [release](https://github.com/TheUnnamedOrganisation/RocketBot/releases) tab.  
 If you want the latest Beta-Build, you have to download the build from the Beta-Build branch and compile them by yourself with VisualStudio 2017.
 
-## `Translations`
+### `Dependencies`
+ - Microsoft  [.NET 4.6.2 SDK](https://www.microsoft.com/en-us/download/details.aspx?id=53321)
+ - Windows 
+- If you have trouble with bot configuration download the examples here [sample configs](https://github.com/Furtif/confs) edits auth.json by putting your account data
+- PogoDev ApiKey valid to get one here [Buy](https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer)
+
+### `Translations`
 If you wanted to participate in translations I invite you to click [here](https://github.com/TheUnnamedOrganisation/RocketBot/tree/master/RocketBot2/Config/Translations) edit the file then proposed your translation it will be tested before publishing.
 
 **Waning: Beta are unstable and might cause damage to your account, use at your own risk**
@@ -79,11 +85,11 @@ In order to help us fix the problem, please take a screenshot of the error you g
  Tell us what you think we can do better in [issues](https://github.com/TheUnnamedOrganisation/RocketBot/issues).  
 Give detailed discription to help us understand what you are looking for. Add [Suggestion] to the title to help us quickly identify the category of the issue. Your suggestion might not be accept, but hey, maybe we will accept your suggestion next time! :)
 
-## `Legal Disclaimer`
+### `Legal Disclaimer`
 
 This Website and Project is in no way affiliated with, authorized, maintained, sponsored or endorsed by ANYONE. This is an independent and unofficial project for educational use ONLY. Do not use for any other purpose than education, testing and research.
 
-<h2>Using this project for anything other than education, testing or research is not advised.</h2>
+#### Using this project for anything other than education, testing or research is not advised.
 
 This is not a public release, just a project with releases for code testers for education and research on any privacy issues for the end user.
 
