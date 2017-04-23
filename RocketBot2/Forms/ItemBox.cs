@@ -24,7 +24,7 @@ namespace RocketBot2.Forms
             lbl.Font = new System.Drawing.Font("Segoe UI", 7.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lblTime.Font = new System.Drawing.Font("Segoe UI", 7.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             pb.Image = pic;
-            lblTime.Text = $"See: {see}";
+            lblTime.Text = $"Seen: {see}";
             lblTime.Visible = true;
             lbl.Text = $"Catch: {cath}";
             lblTime.Parent = pb;
