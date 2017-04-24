@@ -47,10 +47,15 @@ namespace RocketBot2.Forms
                 clbEvolve.Items.Add(pokemon);
             }
 
-            StreamReader sr = new StreamReader(ConfigFilePath);
-            JsonTreeView.LoadJsonToTreeView(sr.ReadToEnd());
+            StreamReader auth = new StreamReader(AuthFilePath);
+            Config.LoadJsonToTreeView(auth.ReadToEnd());
             //JsonTreeView.ExpandAll();
-            sr.Close();
+            auth.Close();
+
+            StreamReader config = new StreamReader(ConfigFilePath);
+            Config.LoadJsonToTreeView(config.ReadToEnd());
+            //JsonTreeView.ExpandAll();
+            config.Close();
         }
 
         #region Advanced Setting Init

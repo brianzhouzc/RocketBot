@@ -255,14 +255,16 @@
             this.tbDelayBetweenPlayerActions = new System.Windows.Forms.TextBox();
             this.label50 = new System.Windows.Forms.Label();
             this.tbDelayBetweenPokemonCatch = new System.Windows.Forms.TextBox();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.JsonTreeView = new System.Windows.Forms.TreeView();
+            this.tabConfigJson = new System.Windows.Forms.TabPage();
+            this.Config = new System.Windows.Forms.TreeView();
             this.saveBtn = new System.Windows.Forms.Button();
             this.cbAutoSniper = new System.Windows.Forms.CheckBox();
             this.cbEnableGyms = new System.Windows.Forms.CheckBox();
             this.label48 = new System.Windows.Forms.Label();
             this.tbDataServiceIdentification = new System.Windows.Forms.TextBox();
             this.cbEnableSyncData = new System.Windows.Forms.CheckBox();
+            this.tabAuthJson = new System.Windows.Forms.TabPage();
+            this.Auth = new System.Windows.Forms.TreeView();
             this.tabControl.SuspendLayout();
             this.tabAuth.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -297,7 +299,8 @@
             this.groupBox17.SuspendLayout();
             this.groupBox16.SuspendLayout();
             this.groupBox15.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabConfigJson.SuspendLayout();
+            this.tabAuthJson.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelBtn
@@ -321,7 +324,8 @@
             this.tabControl.Controls.Add(this.tabPokemon);
             this.tabControl.Controls.Add(this.tabItems);
             this.tabControl.Controls.Add(this.tabAdvSetting);
-            this.tabControl.Controls.Add(this.tabPage1);
+            this.tabControl.Controls.Add(this.tabAuthJson);
+            this.tabControl.Controls.Add(this.tabConfigJson);
             this.tabControl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
@@ -877,7 +881,7 @@
             // 
             this.tbAuthAPIKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbAuthAPIKey.Location = new System.Drawing.Point(98, 53);
+            this.tbAuthAPIKey.Location = new System.Drawing.Point(98, 57);
             this.tbAuthAPIKey.Name = "tbAuthAPIKey";
             this.tbAuthAPIKey.Size = new System.Drawing.Size(239, 27);
             this.tbAuthAPIKey.TabIndex = 37;
@@ -887,7 +891,7 @@
             this.label67.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(6, 56);
+            this.label67.Location = new System.Drawing.Point(6, 60);
             this.label67.Name = "label67";
             this.label67.Size = new System.Drawing.Size(86, 20);
             this.label67.TabIndex = 36;
@@ -1583,7 +1587,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(412, 517);
+            this.groupBox1.Size = new System.Drawing.Size(412, 521);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Exclude Transfer";
@@ -1928,7 +1932,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox4.Size = new System.Drawing.Size(413, 517);
+            this.groupBox4.Size = new System.Drawing.Size(413, 521);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Power Up";
@@ -2108,7 +2112,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox3.Size = new System.Drawing.Size(412, 524);
+            this.groupBox3.Size = new System.Drawing.Size(412, 528);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Evolve";
@@ -2691,27 +2695,27 @@
             this.tbDelayBetweenPokemonCatch.Size = new System.Drawing.Size(123, 27);
             this.tbDelayBetweenPokemonCatch.TabIndex = 15;
             // 
-            // tabPage1
+            // tabConfigJson
             // 
-            this.tabPage1.Controls.Add(this.JsonTreeView);
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(969, 476);
-            this.tabPage1.TabIndex = 5;
-            this.tabPage1.Text = "Config.json";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabConfigJson.Controls.Add(this.Config);
+            this.tabConfigJson.Location = new System.Drawing.Point(4, 29);
+            this.tabConfigJson.Name = "tabConfigJson";
+            this.tabConfigJson.Padding = new System.Windows.Forms.Padding(3);
+            this.tabConfigJson.Size = new System.Drawing.Size(969, 476);
+            this.tabConfigJson.TabIndex = 5;
+            this.tabConfigJson.Text = "Config.json";
+            this.tabConfigJson.UseVisualStyleBackColor = true;
             // 
-            // JsonTreeView
+            // Config
             // 
-            this.JsonTreeView.AllowDrop = true;
-            this.JsonTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.JsonTreeView.LabelEdit = true;
-            this.JsonTreeView.Location = new System.Drawing.Point(3, 3);
-            this.JsonTreeView.Margin = new System.Windows.Forms.Padding(4);
-            this.JsonTreeView.Name = "JsonTreeView";
-            this.JsonTreeView.Size = new System.Drawing.Size(963, 470);
-            this.JsonTreeView.TabIndex = 1;
+            this.Config.AllowDrop = true;
+            this.Config.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Config.LabelEdit = true;
+            this.Config.Location = new System.Drawing.Point(3, 3);
+            this.Config.Margin = new System.Windows.Forms.Padding(4);
+            this.Config.Name = "Config";
+            this.Config.Size = new System.Drawing.Size(963, 470);
+            this.Config.TabIndex = 1;
             // 
             // saveBtn
             // 
@@ -2774,6 +2778,28 @@
             this.cbEnableSyncData.TabIndex = 37;
             this.cbEnableSyncData.Text = "EnableSyncData";
             this.cbEnableSyncData.UseVisualStyleBackColor = true;
+            // 
+            // tabAuthJson
+            // 
+            this.tabAuthJson.Controls.Add(this.Auth);
+            this.tabAuthJson.Location = new System.Drawing.Point(4, 29);
+            this.tabAuthJson.Name = "tabAuthJson";
+            this.tabAuthJson.Padding = new System.Windows.Forms.Padding(3);
+            this.tabAuthJson.Size = new System.Drawing.Size(969, 476);
+            this.tabAuthJson.TabIndex = 6;
+            this.tabAuthJson.Text = "Auth.json";
+            this.tabAuthJson.UseVisualStyleBackColor = true;
+            // 
+            // Auth
+            // 
+            this.Auth.AllowDrop = true;
+            this.Auth.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Auth.LabelEdit = true;
+            this.Auth.Location = new System.Drawing.Point(3, 3);
+            this.Auth.Margin = new System.Windows.Forms.Padding(4);
+            this.Auth.Name = "Auth";
+            this.Auth.Size = new System.Drawing.Size(963, 470);
+            this.Auth.TabIndex = 2;
             // 
             // SettingsForm
             // 
@@ -2858,7 +2884,8 @@
             this.groupBox16.PerformLayout();
             this.groupBox15.ResumeLayout(false);
             this.groupBox15.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
+            this.tabConfigJson.ResumeLayout(false);
+            this.tabAuthJson.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3087,8 +3114,8 @@
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.TextBox tbDataServiceIdentification;
         private System.Windows.Forms.CheckBox cbUseHumanlikeDelays;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TreeView JsonTreeView;
+        private System.Windows.Forms.TabPage tabConfigJson;
+        private System.Windows.Forms.TreeView Config;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPosition;
         private System.Windows.Forms.TabPage tabDevice;
@@ -3099,5 +3126,7 @@
         private System.Windows.Forms.Label label67;
         private System.Windows.Forms.CheckBox cbUsePogoDevAPI;
         private System.Windows.Forms.CheckBox cbEnableSyncData;
+        private System.Windows.Forms.TabPage tabAuthJson;
+        private System.Windows.Forms.TreeView Auth;
     }
 }
