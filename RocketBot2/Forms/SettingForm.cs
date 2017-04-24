@@ -3,6 +3,7 @@ using GMap.NET.MapProviders;
 using PoGo.NecroBot.Logic.Model.Settings;
 using POGOProtos.Enums;
 using PokemonGo.RocketAPI.Enums;
+using RocketBot2.Forms.advSettings;
 using RocketBot2.Helpers;
 using RocketBot2.Win32;
 using System;
@@ -46,9 +47,10 @@ namespace RocketBot2.Forms
                 clbEvolve.Items.Add(pokemon);
             }
 
-            //StreamReader sr = new StreamReader(ConfigFilePath);
-            //JsonTreeView.LoadJsonToTreeView(sr.ReadToEnd());
+            StreamReader sr = new StreamReader(ConfigFilePath);
+            JsonTreeView.LoadJsonToTreeView(sr.ReadToEnd());
             //JsonTreeView.ExpandAll();
+            sr.Close();
         }
 
         #region Advanced Setting Init

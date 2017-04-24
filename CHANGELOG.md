@@ -1,6 +1,6 @@
 # Change Log
-## v2.9.1.11
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.32...v2.9.1.11)
+## v2.9.1.12
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.32...v2.9.1.12)
 
 ## Bugs & Enhancements
 - Updated for 0.61.0 API
@@ -21,3 +21,4 @@
 - Add Eggs Form
 - Fix snipe defaults
 - Add PokeEase
+- Add GMap Google Satellite Provider
