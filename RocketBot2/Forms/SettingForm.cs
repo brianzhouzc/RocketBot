@@ -48,7 +48,7 @@ namespace RocketBot2.Forms
             }
 
             StreamReader auth = new StreamReader(AuthFilePath);
-            Config.LoadJsonToTreeView(auth.ReadToEnd());
+            Auth.LoadJsonToTreeView(auth.ReadToEnd());
             //JsonTreeView.ExpandAll();
             auth.Close();
 
