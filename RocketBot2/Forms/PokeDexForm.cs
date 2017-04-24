@@ -23,13 +23,13 @@ namespace RocketBot2.Forms
         private async Task DefaultValuesAsync()
         {
             var x = await this.session.Inventory.GetPokeDexItems();
-            Dictionary<PokemonId, int> see = new Dictionary<PokemonId, int>();
+            Dictionary<PokemonId, int> seen = new Dictionary<PokemonId, int>();
             Dictionary<PokemonId, int> cath = new Dictionary<PokemonId, int>();
 
             foreach (var item in x)
             {
                 var entry = item.InventoryItemData.PokedexEntry;
-                see.Add(entry.PokemonId, entry.TimesEncountered);
+                seen.Add(entry.PokemonId, entry.TimesEncountered);
                 cath.Add(entry.PokemonId, entry.TimesCaptured);
             }
 
@@ -39,10 +39,10 @@ namespace RocketBot2.Forms
                 Image img = ResourceHelper.SetImageSize(ResourceHelper.GetPokemonImageById((int)e), 48, 48);
                 int vu = 0;
                 int cap = 0;
-                if (see.ContainsKey(e)) vu = see[e];
+                if (seen.ContainsKey(e)) vu = seen[e];
                 if (cath.ContainsKey(e)) cap = cath[e];
-                if (!see.ContainsKey(e) && !cath.ContainsKey(e)) img = ResourceHelper.ConvertToBlack(img);
-                if (see.ContainsKey(e) && !cath.ContainsKey(e)) img = ResourceHelper.ConvertToBlackAndWhite(img);
+                if (vu == 0 && cap == 0) img = ResourceHelper.ConvertToBlack(img);
+                if (vu > 0 && cap == 0) img = ResourceHelper.ConvertToBlackAndWhite(img);
                 var Pok = new ItemBox(vu, cap, img);
                 flpPokeDex.Controls.Add(Pok);
             }

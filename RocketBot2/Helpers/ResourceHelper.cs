@@ -256,7 +256,7 @@ namespace RocketBot2.Helpers
             return bmp;
         }
 
-        public static Image ConvertToBlackAndWhite(Image image)
+        public static Image ConvertToBlackAndWhite(Image image, int div = 128, int black = 0, int white = 255)
         {
             Bitmap bmp = new Bitmap(image);
             int width = bmp.Width;
@@ -275,7 +275,7 @@ namespace RocketBot2.Helpers
                     int g = p.G;
                     int b = p.B;
                     int avg = (r + g + b) / 3;
-                    avg = avg < 128 ? 0 : 255;     // Converting gray pixels to either pure black or pure white
+                    avg = avg < div ? black : white;     // Converting gray pixels to either pure black or pure white values 128 0 255
                     bmp.SetPixel(x, y, Color.FromArgb(a, avg, avg, avg));
                 }
             }
