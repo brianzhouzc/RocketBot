@@ -19,6 +19,7 @@ namespace RocketBot2.Forms
     public partial class EggsForm : System.Windows.Forms.Form
     {
         public static ISession Session;
+        
         public EggsForm() { InitializeComponent(); }
 
         public EggsForm(Session session)
@@ -139,12 +140,21 @@ namespace RocketBot2.Forms
             {10.00, ResourceHelper.SetImageSize((Image)Resources.EggDB.ResourceManager.GetObject("egg_10_incubator_unlimited"), 48, 48)}
         };
 
+        public float kmWalked;
+
+        public async Task GetPlayerStats()
+        {
+            var playerStats = (await EggsForm.Session.Inventory.GetPlayerStats().ConfigureAwait(false)).FirstOrDefault();
+            kmWalked = playerStats.KmWalked;
+        }
+
         public Incubators(EggIncubator incu)
         {
+            GetPlayerStats().ConfigureAwait(false);
             Id = incu.Id;
             InUse = incu.PokemonId > 0;
-            KM = incu.StartKmWalked;
-            TotalKM = incu.TargetKmWalked;
+            KM =  kmWalked - incu.StartKmWalked;
+            TotalKM = incu.TargetKmWalked - incu.StartKmWalked;
             PokemonId = incu.PokemonId;
             UsesRemaining = incu.UsesRemaining;
             IsUnlimited = incu.ItemId == POGOProtos.Inventory.Item.ItemId.ItemIncubatorBasicUnlimited;

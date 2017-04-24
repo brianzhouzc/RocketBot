@@ -19,10 +19,10 @@ namespace RocketBot2.Forms
         public ItemData Item_ { get; }
         public bool DisableTimer = false;
         public static ISession Session;
-        public Incubators Incubator { get; set; }
-        public Eggs egg { get; set; }
-        public float kmWalked;
-        public Control Box { get; set; }
+        public static Incubators _incubator;
+        public Control Box;
+
+        public ItemBox() { }
 
         public ItemBox(int see, int cath, Image pic)
         {
@@ -48,20 +48,13 @@ namespace RocketBot2.Forms
             lblTime.Visible = true;
             lbl.Text = String.Format(CultureInfo.InvariantCulture, "{0:0.0}Km", item.KM);
             lblTime.Parent = pb;
-            egg = item;
-            
+
             foreach (Control control in Controls)
             {
                 control.MouseEnter += ChildMouseEnter;
                 control.MouseLeave += ChildMouseLeave;
-                control.MouseClick += HatchEgg_Click;
+                control.MouseClick += delegate { HatchEgg_Click(item); };
             }
-        }
-
-        public async Task GetPlayerStats()
-        {
-            var playerStats = (await Session.Inventory.GetPlayerStats().ConfigureAwait(false)).FirstOrDefault();
-            kmWalked = playerStats.KmWalked;
         }
 
         public ItemBox(Incubators item)
@@ -69,41 +62,48 @@ namespace RocketBot2.Forms
             InitializeComponent();
             DisableTimer = true;
             lbl.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            GetPlayerStats().ConfigureAwait(false);
             pb.Image = item.Icon(item.IsUnlimited);
-            lblTime.Text = String.Format(CultureInfo.InvariantCulture, "{0:0.0}Km", item.TotalKM - item.KM);
+            lblTime.Text = String.Format(CultureInfo.InvariantCulture, "{0:0.0}Km", item.TotalKM);
             lblTime.Visible = true;
-            lbl.Text = String.Format(CultureInfo.InvariantCulture,"{0:0.0}Km", kmWalked - item.KM);
+            lbl.Text = item.InUse ? String.Format(CultureInfo.InvariantCulture,"{0:0.0}Km", item.KM) : "0.0Km";
             lblTime.Parent = pb;
-            Incubator = item;
- 
+
             foreach (Control control in Controls)
             {
                 control.MouseEnter += ChildMouseEnter;
                 control.MouseLeave += ChildMouseLeave;
-                control.MouseClick += SetIncubator_Click;
+                control.MouseClick += delegate { SetIncubator_Click(item); } ;
                 Box = control;
             }
         }
 
-        private void SetIncubator_Click(object sender, MouseEventArgs e)
+        private void SetIncubator_Click(Incubators Incubator)
         {
+            if (Box.BackColor == Color.LightGreen)
+            {
+                Box.BackColor = Color.Transparent; //SystemColors.Control;
+                _incubator = null;
+                return;
+            }
+
             if (Incubator.InUse)
             {
                 MessageBox.Show("Incubator in use choice an other", "Incubator Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-             Box.BackColor = Color.LightGreen;
+
+            _incubator = Incubator;
+            Box.BackColor = Color.LightGreen;
         }
 
-        private async void HatchEgg_Click(object sender, MouseEventArgs e)
+        private async void HatchEgg_Click(Eggs egg)
         {
-            if (Incubator == null)
+            if (_incubator == null)
             {
                 MessageBox.Show("Please select an incubator to hatch eggs", "Hatch Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            await UseIncubatorsTask.Execute(Session, Session.CancellationTokenSource.Token, egg.Id, Incubator.Id);
+            await UseIncubatorsTask.Execute(Session, Session.CancellationTokenSource.Token, egg.Id, _incubator.Id);
             EggsForm.ActiveForm.Close();
         }
 
