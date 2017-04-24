@@ -172,7 +172,9 @@ namespace RocketBot2.Forms
             }
             Instance.speedLable.Text = text;
             Instance.Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
-            Instance.showMoreCheckBox.Enabled = Instance._botStarted;
+
+            Instance.togglePrecalRoute.Enabled = Instance._botStarted;
+            Instance.followTrainerCheckBox.Enabled = Instance._botStarted;
         }
 
         public void SetStatusText(string text)
