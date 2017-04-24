@@ -67,7 +67,7 @@ namespace RocketBot2.Forms
             this.btnRefresh = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.GmapSatelite = new System.Windows.Forms.CheckBox();
+            this.GMAPSatellite = new System.Windows.Forms.CheckBox();
             this.togglePrecalRoute = new System.Windows.Forms.CheckBox();
             this.followTrainerCheckBox = new System.Windows.Forms.CheckBox();
             this.showMoreCheckBox = new System.Windows.Forms.CheckBox();
@@ -439,7 +439,7 @@ namespace RocketBot2.Forms
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.GmapSatelite);
+            this.splitContainer2.Panel2.Controls.Add(this.GMAPSatellite);
             this.splitContainer2.Panel2.Controls.Add(this.togglePrecalRoute);
             this.splitContainer2.Panel2.Controls.Add(this.followTrainerCheckBox);
             this.splitContainer2.Panel2.Controls.Add(this.showMoreCheckBox);
@@ -450,23 +450,23 @@ namespace RocketBot2.Forms
             this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 0;
             // 
-            // GmapSatelite
+            // GMAPSatellite
             // 
-            this.GmapSatelite.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.GmapSatelite.AutoSize = true;
-            this.GmapSatelite.BackColor = System.Drawing.Color.Transparent;
-            this.GmapSatelite.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.GmapSatelite.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.GmapSatelite.ForeColor = System.Drawing.Color.Red;
-            this.GmapSatelite.Location = new System.Drawing.Point(554, 68);
-            this.GmapSatelite.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.GmapSatelite.Name = "GmapSatelite";
-            this.GmapSatelite.Size = new System.Drawing.Size(85, 21);
-            this.GmapSatelite.TabIndex = 28;
-            this.GmapSatelite.Text = "Satelite";
-            this.GmapSatelite.UseVisualStyleBackColor = false;
-            this.GmapSatelite.Visible = false;
-            this.GmapSatelite.CheckedChanged += new System.EventHandler(this.GmapSatelite_CheckedChanged);
+            this.GMAPSatellite.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.GMAPSatellite.AutoSize = true;
+            this.GMAPSatellite.BackColor = System.Drawing.Color.Transparent;
+            this.GMAPSatellite.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.GMAPSatellite.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.GMAPSatellite.ForeColor = System.Drawing.Color.Red;
+            this.GMAPSatellite.Location = new System.Drawing.Point(554, 68);
+            this.GMAPSatellite.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.GMAPSatellite.Name = "GMAPSatellite";
+            this.GMAPSatellite.Size = new System.Drawing.Size(85, 21);
+            this.GMAPSatellite.TabIndex = 28;
+            this.GMAPSatellite.Text = "Satellite";
+            this.GMAPSatellite.UseVisualStyleBackColor = false;
+            this.GMAPSatellite.Visible = false;
+            this.GMAPSatellite.CheckedChanged += new System.EventHandler(this.GMAPSatellite_CheckedChanged);
             // 
             // togglePrecalRoute
             // 
@@ -685,6 +685,6 @@ namespace RocketBot2.Forms
         public CheckBox checkBoxAutoRefresh;
         private Button btnPokeDex;
         private ToolStripMenuItem pokeEaseToolStripMenuItem;
-        private CheckBox GmapSatelite;
+        private CheckBox GMAPSatellite;
     }
 }

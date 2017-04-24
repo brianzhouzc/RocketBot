@@ -99,7 +99,7 @@ namespace RocketBot2.Forms
             showMoreCheckBox.Parent = GMapControl1;
             followTrainerCheckBox.Parent = GMapControl1;
             togglePrecalRoute.Parent = GMapControl1;
-            GmapSatelite.Parent = GMapControl1;
+            GMAPSatellite.Parent = GMapControl1;
             InitializeBot(null);
             if (!_settings.WebsocketsConfig.UseWebsocket) menuStrip1.Items.Remove(pokeEaseToolStripMenuItem);
             InitializePokemonForm();
@@ -225,9 +225,9 @@ namespace RocketBot2.Forms
             S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(lng, lat), _searchAreaOverlay);
         }
 
-        private void GmapSatelite_CheckedChanged(object sender, EventArgs e)
+        private void GMAPSatellite_CheckedChanged(object sender, EventArgs e)
         {
-            if (GmapSatelite.Checked)
+            if (GMAPSatellite.Checked)
                 GMapControl1.MapProvider = GoogleSatelliteMapProvider.Instance;
             else
                 GMapControl1.MapProvider = GoogleMapProvider.Instance;
@@ -492,13 +492,13 @@ namespace RocketBot2.Forms
             {
                 followTrainerCheckBox.Visible = true;
                 togglePrecalRoute.Visible = true;
-                GmapSatelite.Visible = true;
+                GMAPSatellite.Visible = true;
             }
             else
             {
                 followTrainerCheckBox.Visible = false;
                 togglePrecalRoute.Visible = false;
-                GmapSatelite.Visible = false;
+                GMAPSatellite.Visible = false;
             }
         }
 
