@@ -1338,31 +1338,31 @@
     },
     {
       "Key": "thunderShock",
-      "Value": "ThunderShock"
+      "Value": "Impactrueno"
     },
     {
       "Key": "quickAttack",
-      "Value": "QuickAttack"
+      "Value": "Ataque Rápido"
     },
     {
       "Key": "scratch",
-      "Value": "Scratch"
+      "Value": "Arañazo"
     },
     {
       "Key": "ember",
-      "Value": "Ember"
+      "Value": "Ascuas"
     },
     {
       "Key": "vineWhip",
-      "Value": "VineWhip"
+      "Value": "Látigo Cepa"
     },
     {
       "Key": "tackle",
-      "Value": "Tackle"
+      "Value": "Placaje"
     },
     {
       "Key": "razorLeaf",
-      "Value": "RazorLeaf"
+      "Value": "Hoja Afilada"
     },
     {
       "Key": "takeDown",
