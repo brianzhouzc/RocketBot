@@ -932,7 +932,7 @@ foreach (var item in filesToCleanup)
   </Target>
   <Import Project="$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.29.0\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.29.0\build\Selenium.WebDriver.ChromeDriver.targets')" />
   <Import Project="$(SolutionDir)\packages\Fody.2.0.4\build\netstandard1.4\Fody.targets" Condition="Exists('$(SolutionDir)\packages\Fody.2.0.4\build\netstandard1.4\Fody.targets')" />
-  <!--<PropertyGroup>
+ <!--<PropertyGroup>
    <PostBuildEvent>cd "$(TargetDir)"
      xcopy /y /f /e "$(SolutionDir)\PokeEase\www" "$(TargetDir)\PokeEase\"</PostBuildEvent>
   </PropertyGroup> -->
