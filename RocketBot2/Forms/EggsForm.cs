@@ -164,8 +164,8 @@ namespace RocketBot2.Forms
         {
             try
             {
-                if (unlimited) return iconsUnlimited[TotalKM - KM];
-                return icons[TotalKM - KM];
+                if (unlimited) return iconsUnlimited[TotalKM];
+                return icons[TotalKM];
             }
             catch
             {
