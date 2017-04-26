@@ -928,10 +928,10 @@ foreach (var item in filesToCleanup)
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.29.0\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.29.0\build\Selenium.WebDriver.ChromeDriver.targets'))" />
-    <Error Condition="!Exists('..\packages\Fody.2.0.4\build\netstandard1.4\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.2.0.4\build\netstandard1.4\Fody.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)\packages\Fody.2.0.4\build\netstandard1.4\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\Fody.2.0.4\build\netstandard1.4\Fody.targets'))" />
   </Target>
   <Import Project="$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.29.0\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.29.0\build\Selenium.WebDriver.ChromeDriver.targets')" />
-  <Import Project="..\packages\Fody.2.0.4\build\netstandard1.4\Fody.targets" Condition="Exists('..\packages\Fody.2.0.4\build\netstandard1.4\Fody.targets')" />
+  <Import Project="$(SolutionDir)\packages\Fody.2.0.4\build\netstandard1.4\Fody.targets" Condition="Exists('$(SolutionDir)\packages\Fody.2.0.4\build\netstandard1.4\Fody.targets')" />
  <!--<PropertyGroup>
    <PostBuildEvent>cd "$(TargetDir)"
      xcopy /y /f /e "$(SolutionDir)\PokeEase\www" "$(TargetDir)\PokeEase\"</PostBuildEvent>
