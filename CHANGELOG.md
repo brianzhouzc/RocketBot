@@ -1,6 +1,6 @@
 # Change Log
-## v2.9.1.13
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.32...v2.9.1.13)
+## v2.9.1.15
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.32...v2.9.1.15)
 
 ## Bugs & Enhancements
 - Updated for 0.61.0 API
@@ -23,3 +23,4 @@
 - Add PokeEase
 - Add GMap Google Satellite Provider
 - Fix Egg attach manual mode
+- Decrease softban limits (500 pokemon, 700 pokestops)
