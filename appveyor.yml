@@ -94,7 +94,7 @@ platform: x86
 #  - Any CPU
 
 # build Configuration, i.e. Debug, Release, etc.
-configuration: Release
+configuration: Debug
 
 # to add several configurations to build matrix:
 #configuration:
