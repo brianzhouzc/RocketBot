@@ -143,6 +143,8 @@ namespace RocketBot2.Forms
 
             cbCatchPoke.Checked = _settings.PokemonConfig.CatchPokemon;
             cbUseEggIncubators.Checked = _settings.PokemonConfig.UseEggIncubators;
+            cbUseLimitedEggIncubators.Checked = _settings.PokemonConfig.UseLimitedEggIncubators;
+            cbAutoFavoriteShinyOnCatch.Checked = _settings.PokemonConfig.AutoFavoriteShinyOnCatch;
 
 
             tbMaxPokeballsPerPokemon.Text = _settings.PokemonConfig.MaxPokeballsPerPokemon.ToString();
@@ -237,13 +239,12 @@ namespace RocketBot2.Forms
                 _settings.PokemonConfig.EvolveKeptPokemonsAtStorageUsagePercentage.ToString(CultureInfo.InvariantCulture);
             cbUseLuckyEggsWhileEvolving.Checked = _settings.PokemonConfig.UseLuckyEggsWhileEvolving;
             tbUseLuckyEggsMinPokemonAmount.Text = _settings.PokemonConfig.UseLuckyEggsMinPokemonAmount.ToString();
-            //TODO:
-            /*
+            
             foreach (var poke in _settings.PokemonEvolveFilter)
             {
-                clbEvolve.SetItemChecked(clbEvolve.FindStringExact(poke.ToString()), true);
+                clbEvolve.SetItemChecked(clbEvolve.FindStringExact(poke.Key.ToString()), true);
             }
-            */
+            
             #endregion
 
             #endregion
@@ -287,6 +288,7 @@ namespace RocketBot2.Forms
             tbDataServiceIdentification.Text = _settings.DataSharingConfig.DataServiceIdentification;
             cbEnableSyncData.Checked = _settings.DataSharingConfig.EnableSyncData;
             cbEnableGyms.Checked = _settings.GymConfig.Enable;
+            cBoxTeaamColor.Text = _settings.GymConfig.DefaultTeam;
             cbUseHumanlikeDelays.Checked = _settings.HumanlikeDelays.UseHumanlikeDelays;
         }
             #endregion
@@ -322,6 +324,18 @@ namespace RocketBot2.Forms
         private static List<PokemonId> ConvertClbToList(CheckedListBox input)
         {
             return input.CheckedItems.Cast<PokemonId>().ToList();
+        }
+
+        private static Dictionary<PokemonId, EvolveFilter> ConvertClbDictionary(CheckedListBox input)
+        {
+            var x = input.CheckedItems.Cast<PokemonId>().ToList();
+            var results = new Dictionary<PokemonId, EvolveFilter>();
+            foreach (var i in x)
+            {
+                var y = new EvolveFilter();
+                results.Add(i, y);
+            }
+            return results;
         }
 
         /// <summary>
@@ -520,6 +534,8 @@ namespace RocketBot2.Forms
                     Convert.ToDouble(tbUseUltraBallBelowCatchProbability.Text);
                 _settings.PokemonConfig.UseMasterBallBelowCatchProbability =
                     Convert.ToDouble(tbUseMasterBallBelowCatchProbability.Text);
+                _settings.PokemonConfig.UseLimitedEggIncubators = cbUseLimitedEggIncubators.Checked;
+                _settings.PokemonConfig.AutoFavoriteShinyOnCatch = cbAutoFavoriteShinyOnCatch.Checked;
 
                 #endregion
 
@@ -565,8 +581,7 @@ namespace RocketBot2.Forms
                 _settings.PokemonConfig.EvolveKeptPokemonsAtStorageUsagePercentage =
                     Convert.ToDouble(tbEvolveKeptPokemonsAtStorageUsagePercentage.Text);
                 _settings.PokemonConfig.UseLuckyEggsMinPokemonAmount = Convert.ToInt32(tbUseLuckyEggsMinPokemonAmount.Text);
-                //TODO:
-                //_settings.PokemonEvolveFilter = ConvertClbToList(clbEvolve);
+                _settings.PokemonEvolveFilter = ConvertClbDictionary(clbEvolve);
 
                 #endregion
 
@@ -608,6 +623,7 @@ namespace RocketBot2.Forms
                 _settings.CustomCatchConfig.ForceGreatThrowOverCp = Convert.ToInt32(tbForceGreatThrowOverCp.Text);
                 _settings.CustomCatchConfig.ForceExcellentThrowOverCp = Convert.ToInt32(tbForceExcellentThrowOverCp.Text);
                 _settings.GymConfig.Enable = cbEnableGyms.Checked;
+                _settings.GymConfig.DefaultTeam = cBoxTeaamColor.Text;
                 _settings.DataSharingConfig.AutoSnipe = cbAutoSniper.Checked;
                 _settings.DataSharingConfig.DataServiceIdentification = tbDataServiceIdentification.Text;
                 _settings.DataSharingConfig.EnableSyncData = cbEnableSyncData.Checked;
