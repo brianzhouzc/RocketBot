@@ -45,6 +45,7 @@ namespace RocketBot2.Forms
                 clbTransfer.Items.Add(pokemon);
                 clbPowerUp.Items.Add(pokemon);
                 clbEvolve.Items.Add(pokemon);
+                clbSnipePokemonFilter.Items.Add(pokemon);
             }
 
             StreamReader auth = new StreamReader(AuthFilePath);
@@ -174,6 +175,11 @@ namespace RocketBot2.Forms
                 clbIgnore.SetItemChecked(clbIgnore.FindStringExact(poke.ToString()), true);
             }
 
+            foreach (var poke in _settings.SnipePokemonFilter)
+            {
+                clbSnipePokemonFilter.SetItemChecked(clbSnipePokemonFilter.FindStringExact(poke.Key.ToString()), true);
+            }
+
             #endregion
 
             #region Transfer
@@ -244,7 +250,7 @@ namespace RocketBot2.Forms
             {
                 clbEvolve.SetItemChecked(clbEvolve.FindStringExact(poke.Key.ToString()), true);
             }
-            
+
             #endregion
 
             #endregion
@@ -326,13 +332,25 @@ namespace RocketBot2.Forms
             return input.CheckedItems.Cast<PokemonId>().ToList();
         }
 
-        private static Dictionary<PokemonId, EvolveFilter> ConvertClbDictionary(CheckedListBox input)
+        private static Dictionary<PokemonId, EvolveFilter> EvolveFilterConvertClbDictionary(CheckedListBox input)
         {
             var x = input.CheckedItems.Cast<PokemonId>().ToList();
             var results = new Dictionary<PokemonId, EvolveFilter>();
             foreach (var i in x)
             {
                 var y = new EvolveFilter();
+                results.Add(i, y);
+            }
+            return results;
+        }
+
+        private static Dictionary<PokemonId, SnipeFilter> SnipeFilterConvertClbDictionary(CheckedListBox input)
+        {
+            var x = input.CheckedItems.Cast<PokemonId>().ToList();
+            var results = new Dictionary<PokemonId, SnipeFilter>();
+            foreach (var i in x)
+            {
+                var y = new SnipeFilter();
                 results.Add(i, y);
             }
             return results;
@@ -536,6 +554,7 @@ namespace RocketBot2.Forms
                     Convert.ToDouble(tbUseMasterBallBelowCatchProbability.Text);
                 _settings.PokemonConfig.UseLimitedEggIncubators = cbUseLimitedEggIncubators.Checked;
                 _settings.PokemonConfig.AutoFavoriteShinyOnCatch = cbAutoFavoriteShinyOnCatch.Checked;
+                _settings.SnipePokemonFilter = SnipeFilterConvertClbDictionary(clbSnipePokemonFilter);
 
                 #endregion
 
@@ -581,7 +600,7 @@ namespace RocketBot2.Forms
                 _settings.PokemonConfig.EvolveKeptPokemonsAtStorageUsagePercentage =
                     Convert.ToDouble(tbEvolveKeptPokemonsAtStorageUsagePercentage.Text);
                 _settings.PokemonConfig.UseLuckyEggsMinPokemonAmount = Convert.ToInt32(tbUseLuckyEggsMinPokemonAmount.Text);
-                _settings.PokemonEvolveFilter = ConvertClbDictionary(clbEvolve);
+                _settings.PokemonEvolveFilter = EvolveFilterConvertClbDictionary(clbEvolve);
 
                 #endregion
 
@@ -769,6 +788,11 @@ namespace RocketBot2.Forms
             ListSelectAllHandler(clbEvolve, cbEvolveAll.Checked);
         }
 
+        private void CbSelectAllSnipePokemonFilter_CheckedChanged(object sender, EventArgs e)
+        {
+            ListSelectAllHandler(clbSnipePokemonFilter, cbSnipePokemonFilterAll.Checked);
+        }
+
         private void CbSelectAllCatch_CheckedChanged(object sender, EventArgs e)
         {
             ListSelectAllHandler(clbIgnore, cbIgnoreAll.Checked);
@@ -780,14 +804,5 @@ namespace RocketBot2.Forms
         }
         #endregion
 
-        private void CbUsePogoDevAPI_CheckedChanged(object sender, EventArgs e)
-        {
-            cbUseLegacyAPI.Checked = !cbUsePogoDevAPI.Checked;
-        }
-
-        private void CbUseLegacyAPI_CheckedChanged(object sender, EventArgs e)
-        {
-            cbUsePogoDevAPI.Checked = !cbUseLegacyAPI.Checked;
-        }
     }
 }
