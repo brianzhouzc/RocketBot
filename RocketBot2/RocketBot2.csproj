@@ -324,6 +324,7 @@
     <Compile Include="Win32\ConsoleHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FodyWeavers.xml" />
     <Content Include="Resources\PokemonGO-Assets\audio\badge.mp3" />
     <Content Include="Resources\PokemonGO-Assets\audio\bagfull.mp3" />
     <Content Include="Resources\PokemonGO-Assets\audio\caught.mp3" />
