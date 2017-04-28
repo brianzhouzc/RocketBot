@@ -1505,6 +1505,10 @@
       "Value": "舌舔"
     },
     {
+      "Key": "LickFast",
+      "Value": "舌舔"
+    },
+    {
       "Key": "darkPulse",
       "Value": "惡之波動"
     },
@@ -2017,7 +2021,7 @@
       "Value": "龍之吐息"
     },
     {
-      "Key": "dragonTailFast",
+      "Key": "DragonTailFast",
       "Value": "龍尾"
     },
     {
@@ -2187,6 +2191,18 @@
     {
       "Key": "AuroraBeam",
       "Value": "極光束"
+    },
+    {
+      "Key": "WildCharge",
+      "Value": "瘋狂伏特"
+    },
+    {
+      "Key": "AerialAce",
+      "Value": "迴轉攻"
+    },
+    {
+      "Key": "HeavySlam",
+      "Value": "重磅衝撞"
     },
     {
       "Key": "rockSmashFast",
