@@ -45,7 +45,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -53,6 +53,7 @@
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <Prefer32Bit>true</Prefer32Bit>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -933,10 +934,12 @@ foreach (var item in filesToCleanup)
   </Target>
   <Import Project="$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.29.0\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.29.0\build\Selenium.WebDriver.ChromeDriver.targets')" />
   <Import Project="$(SolutionDir)\packages\Fody.2.0.6\build\netstandard1.4\Fody.targets" Condition="Exists('$(SolutionDir)\packages\Fody.2.0.6\build\netstandard1.4\Fody.targets')" />
-  <!--<PropertyGroup>
-   <PostBuildEvent>cd "$(TargetDir)"
-     xcopy /y /f /e "$(SolutionDir)\PokeEase\www" "$(TargetDir)\PokeEase\"</PostBuildEvent>
-  </PropertyGroup> -->
+  <PropertyGroup>
+    <PostBuildEvent>
+		del "$(TargetDir)\*.pdb"
+		del "$(TargetDir)\*.config"
+		<!--xcopy /y /f /e "$(SolutionDir)\PokeEase\www" "$(TargetDir)\PokeEase\"</PostBuildEvent>--></PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
