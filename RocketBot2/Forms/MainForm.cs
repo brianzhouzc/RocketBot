@@ -1465,6 +1465,13 @@ namespace RocketBot2.Forms
                 //MSniperServiceTask.ConnectToService();
                 //_session.EventDispatcher.EventReceived += evt => MSniperServiceTask.AddToList(evt);
             }
+
+            // jjskuld - Don't await the analytics service since it starts a worker thread that never returns.
+#pragma warning disable 4014
+            _session.AnalyticsService.StartAsync(_session, _session.CancellationTokenSource.Token);
+#pragma warning restore 4014
+            _session.EventDispatcher.EventReceived += evt => AnalyticsService.Listen(evt, _session);
+
             var trackFile = Path.GetTempPath() + "\\rocketbot2.io";
 
             if (!File.Exists(trackFile) || File.GetLastWriteTime(trackFile) < DateTime.Now.AddDays(-1))
