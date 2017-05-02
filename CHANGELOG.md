@@ -1,6 +1,6 @@
 # Change Log
-## v2.9.1.20
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.32...v2.9.1.20)
+## v2.9.1.21
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.32...v2.9.1.21)
 
 ## Bugs & Enhancements
 - Updated for 0.61.0 API
@@ -27,3 +27,4 @@
 - Fix Player warnings and organise settings
 - Fix Google API calls
 - Add Google analytics
+- Some snipe method change to adapt with new implement on server side
