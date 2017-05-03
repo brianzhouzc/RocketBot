@@ -96,3 +96,4 @@ This is not a public release, just a project with releases for code testers for 
 ## `A Pokémon Go bot in C#`
 
 ## [Credits](https://github.com/Necrobot-Private)
+
