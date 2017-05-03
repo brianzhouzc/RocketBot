@@ -1,6 +1,6 @@
 # Change Log
-## v2.9.1.22
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.32...v2.9.1.22)
+## v2.9.1.24
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.32...v2.9.1.24)
 
 ## Bugs & Enhancements
 - Updated for 0.61.0 API
@@ -29,3 +29,4 @@
 - Add Google analytics
 - Some snipe method change to adapt with new implement on server side
 - Revert to stable version (sorry)
+- Performance enhancements
