@@ -71,10 +71,10 @@ namespace RocketBot2.Helpers
         {
             var additional = "";
             if (pokemon.PokemonDisplay.Costume != Costume.Unset) additional = "_" + pokemon.PokemonDisplay.Costume.ToString().Replace("-Unset", "");
-            if (pokemon.PokemonDisplay.Form != POGOProtos.Enums.Form.Unset) additional = "_" + pokemon.PokemonDisplay.Form.ToString().Replace("Unown", "").Replace("-ExclamationPoint", "_ex").Replace("-QuestionMark", "_qst").Replace("-Unset", "");
+            if (pokemon.PokemonDisplay.Form != POGOProtos.Enums.Form.Unset) additional = "_" + pokemon.PokemonDisplay.Form.ToString().Replace("Unown", "").Replace("-ExclamationPoint", "_ExclamationPoint").Replace("-QuestionMark", "_QuestionMark").Replace("-Unset", "");
             if (pokemon.PokemonDisplay.Shiny) additional = "_shiny";
 
-            var image = (Image)Resources.PokemonDB.ResourceManager.GetObject($"_{(int)pokemon.PokemonId:000}{additional}");
+            var image = (Image)Resources.PokemonDB.ResourceManager.GetObject($"_{(int)pokemon.PokemonId}{additional}");
             if (image != null) return image;
             return (Image)Properties.Resources.ResourceManager.GetObject("question");
             //return LoadPicture($"http://assets.pokemon.com/assets/cms2/img/pokedex/full/{(int)pokemonId:000}.png");*/
@@ -84,10 +84,10 @@ namespace RocketBot2.Helpers
         {
             var additional = "";
             /*if (pokemon.PokemonDisplay.Costume != Costume.Unset) additional = "_" + pokemon.PokemonDisplay.Costume.ToString().Replace("-Unset", "");
-            if (pokemon.PokemonDisplay.Form != POGOProtos.Enums.Form.Unset) additional = "_" + pokemon.PokemonDisplay.Form.ToString().Replace("Unown", "").Replace("-ExclamationPoint", "_ex").Replace("-QuestionMark", "_qst").Replace("-Unset", "");
+            if (pokemon.PokemonDisplay.Form != POGOProtos.Enums.Form.Unset) additional = "_" + pokemon.PokemonDisplay.Form.ToString().Replace("Unown", "").Replace("-ExclamationPoint", "_ExclamationPoint").Replace("-QuestionMark", "_QuestionMark").Replace("-Unset", "");
             if (pokemon.PokemonDisplay.Shiny) additional = "_shiny";*/
 
-            var image = (Image)Resources.PokemonDB.ResourceManager.GetObject($"_{(int)pokemon.PokemonId:000}{additional}");
+            var image = (Image)Resources.PokemonDB.ResourceManager.GetObject($"_{(int)pokemon.PokemonId}{additional}");
             if (image != null) return image;
             return (Image)Properties.Resources.ResourceManager.GetObject("question");
             //return LoadPicture($"http://assets.pokemon.com/assets/cms2/img/pokedex/full/{(int)pokemon.PokemonId:000}.png");
@@ -97,10 +97,10 @@ namespace RocketBot2.Helpers
         {
             var additional = "";
             if (pokemon.PokemonDisplay.Costume != Costume.Unset) additional = "_" + pokemon.PokemonDisplay.Costume.ToString().Replace("-Unset", "");
-            if (pokemon.PokemonDisplay.Form != POGOProtos.Enums.Form.Unset) additional = "_" + pokemon.PokemonDisplay.Form.ToString().Replace("Unown", "").Replace("-ExclamationPoint", "_ex").Replace("-QuestionMark", "_qst").Replace("-Unset", "");
+            if (pokemon.PokemonDisplay.Form != POGOProtos.Enums.Form.Unset) additional = "_" + pokemon.PokemonDisplay.Form.ToString().Replace("Unown", "").Replace("-ExclamationPoint", "_ExclamationPoint").Replace("-QuestionMark", "_QuestionMark").Replace("-Unset", "");
             if (pokemon.PokemonDisplay.Shiny) additional = "_shiny";
 
-            var image = (Image)Resources.PokemonDB.ResourceManager.GetObject($"_{ToPokemonId:000}{additional}");
+            var image = (Image)Resources.PokemonDB.ResourceManager.GetObject($"_{ToPokemonId}{additional}");
             if (image != null) return image;
             return (Image)Properties.Resources.ResourceManager.GetObject("question");
             //return LoadPicture($"http://assets.pokemon.com/assets/cms2/img/pokedex/full/{(int)pokemonId:000}.png");
@@ -108,7 +108,7 @@ namespace RocketBot2.Helpers
 
         public static Image GetPokemonImageById(int PokemonId)
         {
-            var image = (Image)Resources.PokemonDB.ResourceManager.GetObject($"_{PokemonId:000}");
+            var image = (Image)Resources.PokemonDB.ResourceManager.GetObject($"_{PokemonId}");
             if (image != null) return image;
             return (Image)Properties.Resources.ResourceManager.GetObject("question");
             //return LoadPicture($"http://assets.pokemon.com/assets/cms2/img/pokedex/full/{(int)pokemonId:000}.png");
