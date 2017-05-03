@@ -16,5 +16,5 @@
 	branch = master
 [submodule "PokemonGO-Assets"]
 	path = RocketBot2/Resources/PokemonGO-Assets
-	url = https://github.com/TheUnnamedOrganisation/PokemonGO-Assets.git
+	url = https://github.com/Necrobot-Private/PokemonGO-Assets.git
 	branch = master
