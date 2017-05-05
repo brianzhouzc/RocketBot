@@ -334,6 +334,15 @@ namespace RocketBot2.Forms
 
         private void UpdateMap(FortData pokestop)
         {
+            //TODO: Temporay load pokestops
+            if (encounterPokemonsCount > 5 || encounterPokemonsCount == 0)
+            {
+                Task.Run(InitializePokestopsAndRoute);
+                encounterPokemonsCount = 0;
+            }
+            encounterPokemonsCount++;
+            //
+
             SynchronizationContext.Post(o =>
             {
                 var pokeStopLoc = new PointLatLng(pokestop.Latitude, pokestop.Longitude);
@@ -374,13 +383,14 @@ namespace RocketBot2.Forms
                     Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4) { DashStyle = DashStyle.Dash }
                 };
                 _playerRouteOverlay.Routes.Add(routes);
-
+                /*/TODO: Deplaced temporary
                 if (encounterPokemonsCount > 5 || encounterPokemonsCount == 0)
                 {
                     Task.Run(InitializePokestopsAndRoute);
                     encounterPokemonsCount = 0;
                 }
                 encounterPokemonsCount++;
+                /*/
                 Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
             }, null);
         }
@@ -1349,9 +1359,9 @@ namespace RocketBot2.Forms
                 (session, lat, lng, speed) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng, Speed = speed });
             _session.Navigation.WalkStrategy.UpdatePositionEvent += LoadSaveState.SaveLocationToDisk;
 
-            Navigation.GetHumanizeRouteEvent +=
-                (points) => _session.EventDispatcher.Send(new GetHumanizeRouteEvent { Points = points });
-            Navigation.GetHumanizeRouteEvent += UpdateMap;
+            _session.Navigation.WalkStrategy.GetRouteEvent +=
+                (points) => _session.EventDispatcher.Send(new GetRouteEvent { Points = points });
+            _session.Navigation.WalkStrategy.GetRouteEvent += UpdateMap;
 
             UseNearbyPokestopsTask.LootPokestopEvent +=
                 pokestop => _session.EventDispatcher.Send(new LootPokestopEvent { Pokestop = pokestop });

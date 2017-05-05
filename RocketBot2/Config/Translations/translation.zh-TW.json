@@ -1437,6 +1437,410 @@
     {
       "Key": "mew",
       "Value": "夢幻"
+    },
+    {
+      "Key": "Chikorita",
+      "Value": "菊草葉"
+    },
+    {
+      "Key": "Bayleef",
+      "Value": "月桂葉"
+    },
+    {
+      "Key": "Meganium",
+      "Value": "大菊花"
+    },
+    {
+      "Key": "Cyndaquil",
+      "Value": "火球鼠"
+    },
+    {
+      "Key": "Quilava",
+      "Value": "火岩鼠"
+    },
+    {
+      "Key": "Typhlosion",
+      "Value": "火暴獸"
+    },
+    {
+      "Key": "Totodile",
+      "Value": "小鋸鱷"
+    },
+    {
+      "Key": "Croconaw",
+      "Value": "藍鱷"
+    },
+    {
+      "Key": "Feraligatr",
+      "Value": "大力鱷"
+    },
+    {
+      "Key": "Sentret",
+      "Value": "尾立"
+    },
+    {
+      "Key": "Furret",
+      "Value": "大尾立"
+    },
+    {
+      "Key": "Hoothoot",
+      "Value": "咕咕"
+    },
+    {
+      "Key": "Noctowl",
+      "Value": "貓頭夜鷹"
+    },
+    {
+      "Key": "Ledyba",
+      "Value": "芭瓢蟲"
+    },
+    {
+      "Key": "Ledian",
+      "Value": "安瓢蟲"
+    },
+    {
+      "Key": "Spinarak",
+      "Value": "線球"
+    },
+    {
+      "Key": "Ariados",
+      "Value": "阿利多斯"
+    },
+    {
+      "Key": "Crobat",
+      "Value": "叉字蝠"
+    },
+    {
+      "Key": "Chinchou",
+      "Value": "燈籠魚"
+    },
+    {
+      "Key": "Lanturn",
+      "Value": "電燈怪"
+    },
+    {
+      "Key": "Pichu",
+      "Value": "皮丘"
+    },
+    {
+      "Key": "Cleffa",
+      "Value": "皮寶寶"
+    },
+    {
+      "Key": "Igglybuff",
+      "Value": "寶寶丁"
+    },
+    {
+      "Key": "Togepi",
+      "Value": "波克比"
+    },
+    {
+      "Key": "Togetic",
+      "Value": "波克基古"
+    },
+    {
+      "Key": "Natu",
+      "Value": "天然雀"
+    },
+    {
+      "Key": "Xatu",
+      "Value": "天然鳥"
+    },
+    {
+      "Key": "Mareep",
+      "Value": "咩利羊"
+    },
+    {
+      "Key": "Flaaffy",
+      "Value": "綿綿"
+    },
+    {
+      "Key": "Ampharos",
+      "Value": "電龍"
+    },
+    {
+      "Key": "Bellossom",
+      "Value": "美麗花"
+    },
+    {
+      "Key": "Marill",
+      "Value": "瑪力露"
+    },
+    {
+      "Key": "Azumarill",
+      "Value": "瑪力露麗"
+    },
+    {
+      "Key": "Sudowoodo",
+      "Value": "胡說樹"
+    },
+    {
+      "Key": "Politoed",
+      "Value": "蚊香蛙皇"
+    },
+    {
+      "Key": "Hoppip",
+      "Value": "毽子草"
+    },
+    {
+      "Key": "Skiploom",
+      "Value": "毽子花"
+    },
+    {
+      "Key": "Jumpluff",
+      "Value": "毽子綿"
+    },
+    {
+      "Key": "Aipom",
+      "Value": "長尾怪手"
+    },
+    {
+      "Key": "Sunkern",
+      "Value": "向日種子"
+    },
+    {
+      "Key": "Sunflora",
+      "Value": "向日花怪"
+    },
+    {
+      "Key": "Yanma",
+      "Value": "陽陽瑪"
+    },
+    {
+      "Key": "Wooper",
+      "Value": "烏波"
+    },
+    {
+      "Key": "Quagsire",
+      "Value": "沼王"
+    },
+    {
+      "Key": "Espeon",
+      "Value": "太陽伊布"
+    },
+    {
+      "Key": "Umbreon",
+      "Value": "月亮伊布"
+    },
+    {
+      "Key": "Murkrow",
+      "Value": "黑暗鴉"
+    },
+    {
+      "Key": "Slowking",
+      "Value": "河馬王"
+    },
+    {
+      "Key": "Misdreavus",
+      "Value": "夢妖"
+    },
+    {
+      "Key": "Unown",
+      "Value": "未知圖騰"
+    },
+    {
+      "Key": "Wobbuffet",
+      "Value": "果然翁"
+    },
+    {
+      "Key": "Girafarig",
+      "Value": "麒麟奇"
+    },
+    {
+      "Key": "Pineco",
+      "Value": "榛果球"
+    },
+    {
+      "Key": "Forretress",
+      "Value": "佛烈托斯"
+    },
+    {
+      "Key": "Dunsparce",
+      "Value": "土龍弟弟"
+    },
+    {
+      "Key": "Gligar",
+      "Value": "天蠍"
+    },
+    {
+      "Key": "Steelix",
+      "Value": "大鋼蛇"
+    },
+    {
+      "Key": "Snubbull",
+      "Value": "布盧"
+    },
+    {
+      "Key": "Granbull",
+      "Value": "布盧皇"
+    },
+    {
+      "Key": "Qwilfish",
+      "Value": "千針魚"
+    },
+    {
+      "Key": "Scizor",
+      "Value": "巨鉗螳螂"
+    },
+    {
+      "Key": "Shuckle",
+      "Value": "壺壺"
+    },
+    {
+      "Key": "Sneasel",
+      "Value": "赫拉克羅斯"
+    },
+    {
+      "Key": "Heracross",
+      "Value": "狃拉"
+    },
+    {
+      "Key": "Teddiursa",
+      "Value": "熊寶寶"
+    },
+    {
+      "Key": "Ursaring",
+      "Value": "圈圈熊"
+    },
+    {
+      "Key": "Slugma",
+      "Value": "熔岩蟲"
+    },
+    {
+      "Key": "Magcargo",
+      "Value": "熔岩蝸牛"
+    },
+    {
+      "Key": "Swinub",
+      "Value": "小山豬"
+    },
+    {
+      "Key": "Piloswine",
+      "Value": "長毛豬"
+    },
+    {
+      "Key": "Corsola",
+      "Value": "太陽珊瑚"
+    },
+    {
+      "Key": "Remoraid",
+      "Value": "鐵炮魚"
+    },
+    {
+      "Key": "Octillery",
+      "Value": "章魚桶"
+    },
+    {
+      "Key": "Delibird",
+      "Value": "信使鳥"
+    },
+    {
+      "Key": "Mantine",
+      "Value": "巨翅飛魚"
+    },
+    {
+      "Key": "Skarmory",
+      "Value": "盔甲鳥"
+    },
+    {
+      "Key": "Houndour",
+      "Value": "戴魯比"
+    },
+    {
+      "Key": "Houndoom",
+      "Value": "黑魯加"
+    },
+    {
+      "Key": "Kingdra",
+      "Value": "刺龍王"
+    },
+    {
+      "Key": "Phanpy",
+      "Value": "小小象"
+    },
+    {
+      "Key": "Donphan",
+      "Value": "頓甲"
+    },
+    {
+      "Key": "Porygon2",
+      "Value": "3D龍II"
+    },
+    {
+      "Key": "Stantler",
+      "Value": "驚角鹿"
+    },
+    {
+      "Key": "Smeargle",
+      "Value": "圖圖犬"
+    },
+    {
+      "Key": "Tyrogue",
+      "Value": "巴爾郎"
+    },
+    {
+      "Key": "Hitmontop",
+      "Value": "柯波朗"
+    },
+    {
+      "Key": "Smoochum",
+      "Value": "迷唇娃"
+    },
+    {
+      "Key": "Elekid",
+      "Value": "電擊怪"
+    },
+    {
+      "Key": "Magby",
+      "Value": "小鴨嘴龍"
+    },
+    {
+      "Key": "Miltank",
+      "Value": "大奶罐"
+    },
+    {
+      "Key": "Blissey",
+      "Value": "幸福蛋"
+    },
+    {
+      "Key": "Raikou",
+      "Value": "雷公"
+    },
+    {
+      "Key": "Entei",
+      "Value": "炎帝"
+    },
+    {
+      "Key": "Suicune",
+      "Value": "水君"
+    },
+    {
+      "Key": "Suicune",
+      "Value": "水君"
+    },
+    {
+      "Key": "Larvitar",
+      "Value": "由基拉"
+    },
+    {
+      "Key": "Pupitar",
+      "Value": "沙基拉"
+    },
+    {
+      "Key": "Tyranitar",
+      "Value": "班吉拉"
+    },
+    {
+      "Key": "Lugia",
+      "Value": "洛奇亞"
+    },
+    {
+      "Key": "Ho-Oh",
+      "Value": "鳳王"
+    },
+    {
+      "Key": "Celebi",
+      "Value": "雪拉比"
     }
   ],
   "PokemonMovesetStrings": [

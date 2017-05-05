@@ -802,6 +802,16 @@ namespace RocketBot2.Forms
         {
             ListSelectAllHandler(clbTransfer, cbNotTransferAll.Checked);
         }
+
+        private void CbUsePogoDevAPI_CheckedChanged(object sender, EventArgs e)
+        {
+            cbUseLegacyAPI.Checked = !cbUsePogoDevAPI.Checked;
+        }
+
+        private void CbUseLegacyAPI_CheckedChanged(object sender, EventArgs e)
+        {
+            cbUsePogoDevAPI.Checked = !cbUseLegacyAPI.Checked;
+        }
         #endregion
 
     }

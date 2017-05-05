@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -115,6 +115,9 @@
     <Reference Include="AeroWizard, Version=2.1.10.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\AeroWizard.2.1.10\lib\net452\AeroWizard.dll</HintPath>
     </Reference>
+    <Reference Include="Google.Protobuf, Version=3.3.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\Google.Protobuf.3.3.0\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>$(SolutionDir)\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
@@ -151,10 +154,6 @@
     </Reference>
     <Reference Include="GMap.NET.WindowsForms, Version=1.7.5.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\GMap.NET.WindowsForms.1.7.5\lib\net40\GMap.NET.WindowsForms.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Google.Protobuf, Version=3.2.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\Google.Protobuf.3.2.0\lib\net45\Google.Protobuf.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SuperSocket.Common, Version=1.6.6.1, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
@@ -947,29 +946,6 @@
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Resources\PokemonGO-Assets\.git\config" />
-    <None Include="Resources\PokemonGO-Assets\.git\description" />
-    <None Include="Resources\PokemonGO-Assets\.git\HEAD" />
-    <None Include="Resources\PokemonGO-Assets\.git\hooks\applypatch-msg.sample" />
-    <None Include="Resources\PokemonGO-Assets\.git\hooks\commit-msg.sample" />
-    <None Include="Resources\PokemonGO-Assets\.git\hooks\post-update.sample" />
-    <None Include="Resources\PokemonGO-Assets\.git\hooks\pre-applypatch.sample" />
-    <None Include="Resources\PokemonGO-Assets\.git\hooks\pre-commit.sample" />
-    <None Include="Resources\PokemonGO-Assets\.git\hooks\pre-push.sample" />
-    <None Include="Resources\PokemonGO-Assets\.git\hooks\pre-rebase.sample" />
-    <None Include="Resources\PokemonGO-Assets\.git\hooks\pre-receive.sample" />
-    <None Include="Resources\PokemonGO-Assets\.git\hooks\prepare-commit-msg.sample" />
-    <None Include="Resources\PokemonGO-Assets\.git\hooks\update.sample" />
-    <None Include="Resources\PokemonGO-Assets\.git\index" />
-    <None Include="Resources\PokemonGO-Assets\.git\info\exclude" />
-    <None Include="Resources\PokemonGO-Assets\.git\logs\HEAD" />
-    <None Include="Resources\PokemonGO-Assets\.git\logs\refs\heads\master" />
-    <None Include="Resources\PokemonGO-Assets\.git\logs\refs\remotes\origin\HEAD" />
-    <None Include="Resources\PokemonGO-Assets\.git\objects\pack\pack-018ba25a781cabc0110685eeabb2359958b69abe.idx" />
-    <None Include="Resources\PokemonGO-Assets\.git\objects\pack\pack-018ba25a781cabc0110685eeabb2359958b69abe.pack" />
-    <None Include="Resources\PokemonGO-Assets\.git\packed-refs" />
-    <None Include="Resources\PokemonGO-Assets\.git\refs\heads\master" />
-    <None Include="Resources\PokemonGO-Assets\.git\refs\remotes\origin\HEAD" />
     <None Include="Resources\PokemonGO-Assets\README.md" />
     <None Include="RunWithExcelConfig.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1079,10 +1055,6 @@
       <Name>PoGo.NecroBot.Logic</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\PokemonGO-Assets\.git\objects\info\" />
-    <Folder Include="Resources\PokemonGO-Assets\.git\refs\tags\" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
@@ -1129,10 +1101,10 @@ foreach (var item in filesToCleanup)
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.29.0\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.29.0\build\Selenium.WebDriver.ChromeDriver.targets'))" />
-    <Error Condition="!Exists('$(SolutionDir)\packages\Fody.2.0.6\build\netstandard1.4\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\Fody.2.0.6\build\netstandard1.4\Fody.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)\packages\Fody.2.0.7\build\netstandard1.4\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\Fody.2.0.7\build\netstandard1.4\Fody.targets'))" />
   </Target>
   <Import Project="$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.29.0\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.29.0\build\Selenium.WebDriver.ChromeDriver.targets')" />
-  <Import Project="$(SolutionDir)\packages\Fody.2.0.6\build\netstandard1.4\Fody.targets" Condition="Exists('$(SolutionDir)\packages\Fody.2.0.6\build\netstandard1.4\Fody.targets')" />
+  <Import Project="$(SolutionDir)\packages\Fody.2.0.7\build\netstandard1.4\Fody.targets" Condition="Exists('$(SolutionDir)\packages\Fody.2.0.7\build\netstandard1.4\Fody.targets')" />
   <PropertyGroup>
     <PostBuildEvent>del "$(TargetDir)\*.pdb"
 del "$(TargetDir)\*.config"</PostBuildEvent>
