@@ -431,6 +431,8 @@
     <Compile Include="Win32\ConsoleHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="costura32\sqlite3.dll" />
+    <EmbeddedResource Include="costura64\sqlite3.dll" />
     <Content Include="Resources\PokemonGO-Assets\audio\badge.mp3" />
     <Content Include="Resources\PokemonGO-Assets\audio\bagfull.mp3" />
     <Content Include="Resources\PokemonGO-Assets\audio\caught.mp3" />
@@ -1213,8 +1215,13 @@ foreach (var item in filesToCleanup)
   <Import Project="$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.29.0\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.29.0\build\Selenium.WebDriver.ChromeDriver.targets')" />
   <Import Project="$(SolutionDir)\packages\Fody.2.0.7\build\netstandard1.4\Fody.targets" Condition="Exists('$(SolutionDir)\packages\Fody.2.0.7\build\netstandard1.4\Fody.targets')" />
   <PropertyGroup>
-    <PostBuildEvent>del "$(TargetDir)\*.pdb"
-del "$(TargetDir)\*.config"</PostBuildEvent>
+    <PostBuildEvent>cd "$(TargetDir)"
+del *.pdb
+del *.config
+del /s /q x86
+rmdir /s /q x86
+del /s /q x64
+rmdir /s /q x64</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
