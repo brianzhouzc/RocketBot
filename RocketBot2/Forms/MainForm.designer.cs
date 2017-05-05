@@ -391,10 +391,10 @@ namespace RocketBot2.Forms
             this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnRefresh.Location = new System.Drawing.Point(520, 509);
+            this.btnRefresh.Location = new System.Drawing.Point(517, 509);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(65, 28);
+            this.btnRefresh.Size = new System.Drawing.Size(68, 28);
             this.btnRefresh.TabIndex = 26;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -458,10 +458,10 @@ namespace RocketBot2.Forms
             this.GMAPSatellite.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.GMAPSatellite.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.GMAPSatellite.ForeColor = System.Drawing.Color.Red;
-            this.GMAPSatellite.Location = new System.Drawing.Point(554, 68);
+            this.GMAPSatellite.Location = new System.Drawing.Point(550, 68);
             this.GMAPSatellite.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.GMAPSatellite.Name = "GMAPSatellite";
-            this.GMAPSatellite.Size = new System.Drawing.Size(85, 21);
+            this.GMAPSatellite.Size = new System.Drawing.Size(89, 21);
             this.GMAPSatellite.TabIndex = 28;
             this.GMAPSatellite.Text = "Satellite";
             this.GMAPSatellite.UseVisualStyleBackColor = false;
@@ -573,7 +573,7 @@ namespace RocketBot2.Forms
             this.lblInventory.Location = new System.Drawing.Point(2, 494);
             this.lblInventory.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.lblInventory.Name = "lblInventory";
-            this.lblInventory.Size = new System.Drawing.Size(682, 16);
+            this.lblInventory.Size = new System.Drawing.Size(683, 16);
             this.lblInventory.TabIndex = 33;
             this.lblInventory.Text = "0 / 0 ";
             this.lblInventory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -599,7 +599,7 @@ namespace RocketBot2.Forms
             this.lblPokemonList.Location = new System.Drawing.Point(3, 357);
             this.lblPokemonList.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.lblPokemonList.Name = "lblPokemonList";
-            this.lblPokemonList.Size = new System.Drawing.Size(682, 16);
+            this.lblPokemonList.Size = new System.Drawing.Size(683, 16);
             this.lblPokemonList.TabIndex = 27;
             this.lblPokemonList.Text = "0 / 0";
             this.lblPokemonList.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -620,6 +620,7 @@ namespace RocketBot2.Forms
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RocketBot2";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

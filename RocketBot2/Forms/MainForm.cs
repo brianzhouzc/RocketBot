@@ -421,6 +421,11 @@ namespace RocketBot2.Forms
 
         #region EVENTS
 
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            GMapControl1.Dispose();
+        }
+
         private void PokeEaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("https://theunnamedorganisation.github.io/RocketBot/");

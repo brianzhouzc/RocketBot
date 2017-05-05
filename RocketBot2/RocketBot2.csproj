@@ -45,15 +45,15 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>full</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
+    <ErrorReport>none</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <Prefer32Bit>false</Prefer32Bit>
-    <DebugSymbols>true</DebugSymbols>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -433,23 +433,6 @@
   <ItemGroup>
     <EmbeddedResource Include="costura32\sqlite3.dll" />
     <EmbeddedResource Include="costura64\sqlite3.dll" />
-    <Content Include="Resources\PokemonGO-Assets\audio\badge.mp3" />
-    <Content Include="Resources\PokemonGO-Assets\audio\bagfull.mp3" />
-    <Content Include="Resources\PokemonGO-Assets\audio\caught.mp3" />
-    <Content Include="Resources\PokemonGO-Assets\audio\escaped.mp3" />
-    <Content Include="Resources\PokemonGO-Assets\audio\evolved.mp3" />
-    <Content Include="Resources\PokemonGO-Assets\audio\fled.mp3" />
-    <Content Include="Resources\PokemonGO-Assets\audio\generic.mp3" />
-    <Content Include="Resources\PokemonGO-Assets\audio\hatched.mp3" />
-    <Content Include="Resources\PokemonGO-Assets\audio\levelup.mp3" />
-    <Content Include="Resources\PokemonGO-Assets\audio\missed.mp3" />
-    <Content Include="Resources\PokemonGO-Assets\audio\pickup.mp3" />
-    <Content Include="Resources\PokemonGO-Assets\audio\pokedex.mp3" />
-    <Content Include="Resources\PokemonGO-Assets\audio\powerup.mp3" />
-    <Content Include="Resources\PokemonGO-Assets\audio\robbed.mp3" />
-    <Content Include="Resources\PokemonGO-Assets\audio\struggle.mp3" />
-    <Content Include="Resources\PokemonGO-Assets\audio\throwing.mp3" />
-    <Content Include="Resources\PokemonGO-Assets\audio\transfered.mp3" />
     <Content Include="Resources\PokemonGO-Assets\eggs\egg.png" />
     <Content Include="Resources\PokemonGO-Assets\eggs\egg_10.png" />
     <Content Include="Resources\PokemonGO-Assets\eggs\egg_10_incubator.png" />
@@ -558,117 +541,6 @@
     <Content Include="Resources\PokemonGO-Assets\medals\ring_1.png" />
     <Content Include="Resources\PokemonGO-Assets\medals\ring_2.png" />
     <Content Include="Resources\PokemonGO-Assets\medals\ring_3.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\1.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\10.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\100.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\102.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\104.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\106.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\107.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\108.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\109.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\111.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\113.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\114.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\115.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\116.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\118.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\120.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\122.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\123.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\124.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\125.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\126.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\127.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\128.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\129.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\13.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\131.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\132.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\133.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\137.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\138.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\140.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\142.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\143.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\147.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\16.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\19.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\21.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\23.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\25.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\27.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\29.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\32.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\35.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\37.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\39.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\4.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\41.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\43.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\46.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\48.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\50.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\52.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\54.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\56.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\58.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\60.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\63.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\66.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\69.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\7.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\72.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\74.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\77.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\79.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\81.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\83.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\84.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\86.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\88.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\90.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\92.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\95.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\96.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\candies\98.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\clock.svg" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\delete.svg" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\distance.svg" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\eggs.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\favicon.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\gui\instinct-icon.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\gui\instinct.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\gui\lured-pokestop.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\gui\lured-visited-pokestop.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\gui\mystic-icon.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\gui\mystic.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\gui\neutral-icon.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\gui\neutral.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\gui\pokestop.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\gui\unoccupied-icon.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\gui\unoccupied.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\gui\valor-icon.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\gui\valor.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\gui\visited-pokestop.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\items.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\markers\instinct.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\markers\location.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\markers\Lured.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\markers\mystic.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\markers\Normal.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\markers\unoccupied.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\markers\valor.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\markers\Visited.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\markers\VisitedLure.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\move.svg" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\pokedex.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\pokemons.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\recycle.svg" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\settings.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\snipes.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\target-white.svg" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\target.svg" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\0.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\1.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\10.png" />
@@ -1216,7 +1088,6 @@ foreach (var item in filesToCleanup)
   <Import Project="$(SolutionDir)\packages\Fody.2.0.7\build\netstandard1.4\Fody.targets" Condition="Exists('$(SolutionDir)\packages\Fody.2.0.7\build\netstandard1.4\Fody.targets')" />
   <PropertyGroup>
     <PostBuildEvent>cd "$(TargetDir)"
-del *.pdb
 del *.config
 del /s /q x86
 rmdir /s /q x86
