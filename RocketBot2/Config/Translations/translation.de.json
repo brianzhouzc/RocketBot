@@ -2315,6 +2315,166 @@
     {
       "Key": "rockSmashFast",
       "Value": "Zertruemmerer"
-    }
+    },
+		{
+      "Key": "TransformFast",
+	  "Value": "Transform"
+    },
+    {
+      "Key": "CounterFast",
+	  "Value": "Counter"
+    },
+    {
+      "Key": "PowderSnowFast",
+	  "Value": "PowderSnow"
+    },
+    {
+      "Key": "CloseCombat",
+	  "Value": "CloseCombat"
+    },
+    {
+      "Key": "DynamicPunch",
+	  "Value": "DynamicPunch"
+    },
+    {
+      "Key": "FocusBlast",
+	  "Value": "FocusBlast"
+    },
+    {
+      "Key": "AuroraBeam",
+	  "Value": "AuroraBeam"
+    },
+    {
+      "Key": "ChargeBeamFast",
+	  "Value": "ChargeBeam"
+    },
+    {
+      "Key": "VoltSwitchFast",
+	  "Value": "VoltSwitch"
+    },
+    {
+      "Key": "WildCharge",
+	  "Value": "WildCharge"
+    },
+    {
+      "Key": "ZapCannon",
+	  "Value": "ZapCannon"
+    },
+    {
+      "Key": "DragonTailFast",
+	  "Value": "DragonTail"
+    },
+    {
+      "Key": "Avalanche",
+	  "Value": "Avalanche"
+    },
+    {
+      "Key": "AirSlashFast",
+	  "Value": "AirSlash"
+    },
+    {
+      "Key": "BraveBird",
+	  "Value": "BraveBird"
+    },
+    {
+      "Key": "SkyAttack",
+	  "Value": "SkyAttack"
+    },
+    {
+      "Key": "SandTomb",
+	  "Value": "SandTomb"
+    },
+    {
+      "Key": "RockBlast",
+	  "Value": "RockBlast"
+    },
+    {
+      "Key": "InfestationFast",
+	  "Value": "Infestation"
+    },
+    {
+      "Key": "StruggleBugFast",
+	  "Value": "StruggleBug"
+    },
+    {
+      "Key": "SilverWind",
+	  "Value": "VSilverWind"
+    },
+    {
+      "Key": "AstonishFast",
+	  "Value": "Astonish"
+    },
+    {
+      "Key": "HexFast",
+	  "Value": "Hex"
+    },
+    {
+      "Key": "NightShade",
+	  "Value": "NightShade"
+    },
+    {
+      "Key": "IronTailFast",
+	  "Value": "IronTail"
+    },
+    {
+      "Key": "GyroBall",
+	  "Value": "GyroBall"
+    },
+    {
+      "Key": "HeavySlam",
+	  "Value": "HeavySlam"
+    },
+    {
+      "Key": "FireSpinFast",
+	  "Value": "FireSpin"
+    },
+    {
+      "Key": "Overheat",
+	  "Value": "Overheat"
+    },
+    {
+      "Key": "BulletSeedFast",
+	  "Value": "BulletSeed"
+    },
+    {
+      "Key": "GrassKnot",
+	  "Value": "GrassKnot"
+    },
+    {
+      "Key": "EnergyBall",
+	  "Value": "EnergyBall"
+    },
+    {
+      "Key": "ExtrasensoryFast",
+	  "Value": "Extrasensory"
+    },
+    {
+      "Key": "Futuresight",
+	  "Value": "Futuresight"
+    },
+    {
+      "Key": "MirrorCoat",
+	  "Value": "MirrorCoat"
+    },
+    {
+      "Key": "Outrage",
+	  "Value": "Outrage"
+    },
+    {
+      "Key": "SnarlFast",
+	  "Value": "Snarl"
+    },
+    {
+      "Key": "Crunch",
+	  "Value": "Crunch" 
+    },
+    {
+      "Key": "FoulPlay",
+	  "Value": "FoulPlay"
+    },
+    {
+      "Key": "HiddenPowerFast",
+	  "Value": "HiddenPower"
+	}
   ]
 }
