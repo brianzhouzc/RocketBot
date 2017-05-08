@@ -1,6 +1,6 @@
 # Change Log
-## v2.9.2.1
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.32...v2.9.2.1)
+## v2.9.2.2
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.32...v2.9.2.2)
 
 ## Bugs & Enhancements
 - Updated for 0.61.0 API
@@ -32,4 +32,7 @@
 - Replace all LiteDB databases with SQLite.
 - Bug Fix - Google Walk API limit error 
 - POGOProtos 2.9.2
-- Fix Gyms
+- Add new cipher encryption. Credits to Xelwon of Pokemaster Bot
+- Refactoring - Move listeners from CLI to logic.
+- Fix gym battle to properly move on if gym is unattackable.
+- Updates TinyIoC Script
