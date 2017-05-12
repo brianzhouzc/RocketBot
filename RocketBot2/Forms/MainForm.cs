@@ -1346,6 +1346,11 @@ namespace RocketBot2.Forms
 
             Resources.ProgressBar.Fill(50);
             var listener = new ConsoleEventListener();
+            ConsoleEventListener.HumanWalkEvent += (humanWalkingEvent) =>
+            {
+                var speed = Math.Round(humanWalkingEvent.CurrentWalkingSpeed, 2);
+                MainForm.SetSpeedLable("Current Speed: " + speed + " km/h");
+            };
             Resources.ProgressBar.Fill(60);
             var snipeEventListener = new SniperEventListener();
 

@@ -305,7 +305,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandLineUtility\Arguments.cs" />
-    <Compile Include="ConsoleEventListener.cs" />
     <Compile Include="ConsoleLogger.cs" />
     <Compile Include="Forms\AuthAPIForm.cs">
       <SubType>Form</SubType>
@@ -409,7 +408,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="PushNotificationListener.cs" />
     <Compile Include="Resources\EggDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -426,7 +424,6 @@
       <DependentUpon>PokemonDB.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\ProgressBar.cs" />
-    <Compile Include="SniperEventListener.cs" />
     <Compile Include="Win32\ConsoleHelper.cs" />
   </ItemGroup>
   <ItemGroup>
