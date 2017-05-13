@@ -337,7 +337,7 @@ namespace RocketBot2.Forms
             //TODO: Temporay load pokestops
             if (encounterPokemonsCount > 5 || encounterPokemonsCount == 0)
             {
-                Task.Run(InitializePokestopsAndRoute);
+                Task.Run(InitializePokestopsAndRoute).ConfigureAwait(false);
                 encounterPokemonsCount = 0;
             }
             encounterPokemonsCount++;
@@ -386,7 +386,7 @@ namespace RocketBot2.Forms
                 /*/TODO: Deplaced temporary
                 if (encounterPokemonsCount > 5 || encounterPokemonsCount == 0)
                 {
-                    Task.Run(InitializePokestopsAndRoute);
+                    Task.Run(InitializePokestopsAndRoute).ConfigureAwait(false);
                     encounterPokemonsCount = 0;
                 }
                 encounterPokemonsCount++;
