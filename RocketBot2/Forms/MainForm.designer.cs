@@ -1,10 +1,11 @@
 ﻿using RocketBot2.Models;
+using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace RocketBot2.Forms
 {
-    partial class MainForm 
+    partial class MainForm : IDisposable
     {
         /// <summary>
         /// Required designer variable.
@@ -15,7 +16,7 @@ namespace RocketBot2.Forms
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
+        protected override void  Dispose(bool disposing)
         {
             if (disposing && (components != null))
             {
@@ -23,6 +24,17 @@ namespace RocketBot2.Forms
             }
             base.Dispose(disposing);
         }
+
+        public new void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /*~MainForm()
+        {
+            Dispose(false);
+        }*/
 
         #region Windows Form Designer generated code
 

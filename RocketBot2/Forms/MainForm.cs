@@ -428,10 +428,15 @@ namespace RocketBot2.Forms
             try
             {
                 _playerOverlay.Dispose();
+                GC.SuppressFinalize(_playerOverlay);
                 _playerRouteOverlay.Dispose();
+                GC.SuppressFinalize(_playerRouteOverlay);
                 _pokemonsOverlay.Dispose();
+                GC.SuppressFinalize(_pokemonsOverlay);
                 _pokestopsOverlay.Dispose();
+                GC.SuppressFinalize(_pokestopsOverlay);
                 _searchAreaOverlay.Dispose();
+                GC.SuppressFinalize(_searchAreaOverlay);
                 GMapControl1.Dispose();
                 GC.SuppressFinalize(GMapControl1);
             }

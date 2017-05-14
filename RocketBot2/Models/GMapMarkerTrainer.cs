@@ -2,12 +2,25 @@
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using System.Runtime.Serialization;
+using System;
+using System.Security.Permissions;
 
 namespace RocketBot2.Models
 {
-    //[SerializableAttribute]
+    [Serializable]
     public class GMapMarkerTrainer : GMapMarker, ISerializable
     {
+        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
+        protected virtual new void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            GetObjectData(info, context);
+        }
+
+        protected GMapMarkerTrainer(SerializationInfo info, StreamingContext context)
+           :base(info, context) 
+        {
+            //not implanted
+        }
         /// <summary>
         ///     Constructor
         /// </summary>
