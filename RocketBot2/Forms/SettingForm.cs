@@ -814,7 +814,11 @@ namespace RocketBot2.Forms
         {
             cbUsePogoDevAPI.Checked = !cbUseLegacyAPI.Checked;
         }
-        #endregion
 
-    }
+        private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            gMapCtrl.Dispose();
+        }
+        #endregion
+    }       
 }
