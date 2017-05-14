@@ -115,6 +115,7 @@ namespace RocketBot2.Forms
             gMapCtrl.DisableFocusOnMouseEnter = true;
 
             tbWalkingSpeed.Text = _settings.LocationConfig.WalkingSpeedInKilometerPerHour.ToString(CultureInfo.InvariantCulture);
+            cbStartFromLastPosition.Checked = _settings.LocationConfig.StartFromLastPosition;
 
             #endregion
 
@@ -521,6 +522,7 @@ namespace RocketBot2.Forms
                 _settings.LocationConfig.DefaultLatitude = Convert.ToDouble(tbLatitude.Text);
                 _settings.LocationConfig.DefaultLongitude = Convert.ToDouble(tbLongitude.Text);
                 _settings.LocationConfig.WalkingSpeedInKilometerPerHour = Convert.ToDouble(tbWalkingSpeed.Text);
+                _settings.LocationConfig.StartFromLastPosition = cbStartFromLastPosition.Checked;
 
                 #endregion
 
