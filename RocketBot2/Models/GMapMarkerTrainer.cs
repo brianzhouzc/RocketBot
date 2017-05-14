@@ -1,10 +1,12 @@
 ﻿using System.Drawing;
 using GMap.NET;
 using GMap.NET.WindowsForms;
+using System.Runtime.Serialization;
 
 namespace RocketBot2.Models
 {
-    public class GMapMarkerTrainer : GMapMarker
+    //[SerializableAttribute]
+    public class GMapMarkerTrainer : GMapMarker, ISerializable
     {
         /// <summary>
         ///     Constructor

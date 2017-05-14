@@ -427,6 +427,11 @@ namespace RocketBot2.Forms
             //TODO: Kills the application
             try
             {
+                _playerOverlay.Dispose();
+                _playerRouteOverlay.Dispose();
+                _pokemonsOverlay.Dispose();
+                _pokestopsOverlay.Dispose();
+                _searchAreaOverlay.Dispose();
                 GMapControl1.Dispose();
                 GC.SuppressFinalize(GMapControl1);
             }
