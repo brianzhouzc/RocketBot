@@ -439,6 +439,8 @@ namespace RocketBot2.Forms
                 GC.SuppressFinalize(_searchAreaOverlay);
                 GMapControl1.Dispose();
                 GC.SuppressFinalize(GMapControl1);
+                this.Dispose();
+                GC.SuppressFinalize(this);
             }
             catch
             {
