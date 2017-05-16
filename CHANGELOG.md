@@ -1,6 +1,6 @@
 # Change Log
-## v2.10.0.0
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.32...v2.10.0.0)
+## v2.10.0.3
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.32...v2.10.0.3)
 
 ## Bugs & Enhancements
 - Updated for 0.61.0 API
@@ -37,4 +37,5 @@
 - Fix gym battle to properly move on if gym is unattackable.
 - Updates TinyIoC Script
 - Updated for 0.63.1
+- Bug fix local sniping
 
