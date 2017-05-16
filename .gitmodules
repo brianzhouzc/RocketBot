@@ -5,7 +5,7 @@
 [submodule "FeroxRev"]
 	path = FeroxRev
 	url = https://github.com/TheUnnamedOrganisation/FeroxRev.git
-	branch = testes
+	branch = master
 [submodule "PoGo.NecroBot.Logic"]
 	path = PoGo.NecroBot.Logic
 	url = https://github.com/TheUnnamedOrganisation/PoGo.NecroBot.Logic.git
