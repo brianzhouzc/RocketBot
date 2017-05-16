@@ -427,6 +427,7 @@ namespace RocketBot2.Forms
             //TODO: Kills the application
             try
             {
+                this.Dispose(true);
                 _playerOverlay.Dispose();
                 GC.SuppressFinalize(_playerOverlay);
                 _playerRouteOverlay.Dispose();
@@ -439,7 +440,6 @@ namespace RocketBot2.Forms
                 GC.SuppressFinalize(_searchAreaOverlay);
                 GMapControl1.Dispose();
                 GC.SuppressFinalize(GMapControl1);
-                this.Dispose();
                 GC.SuppressFinalize(this);
             }
             catch
