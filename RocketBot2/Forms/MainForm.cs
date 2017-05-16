@@ -441,10 +441,13 @@ namespace RocketBot2.Forms
                 GMapControl1.Dispose();
                 GC.SuppressFinalize(GMapControl1);
                 GC.SuppressFinalize(this);
-            }
-            catch
-            {
+                // kills
                 Thread.CurrentThread.Abort(this);
+            }
+            catch (ThreadAbortException)
+            {
+                return;
+                //not implanted
             }
         }
 
