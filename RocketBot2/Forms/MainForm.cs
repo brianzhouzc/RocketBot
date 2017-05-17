@@ -454,7 +454,6 @@ namespace RocketBot2.Forms
 
         private void PokeEaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Logger.Write(Assembly.GetExecutingAssembly().GetName().Name);
             Process.Start("https://theunnamedorganisation.github.io/RocketBot/");
         }
 
