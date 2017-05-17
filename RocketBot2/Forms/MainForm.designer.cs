@@ -1,6 +1,5 @@
 ﻿using RocketBot2.Models;
 using System;
-using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace RocketBot2.Forms
@@ -25,7 +24,7 @@ namespace RocketBot2.Forms
             base.Dispose(disposing);
         }
 
-        public new void Dispose()
+        new void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);

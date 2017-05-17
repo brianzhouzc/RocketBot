@@ -2613,6 +2613,10 @@
       "Value": "雪崩"
     },
     {
+      "Key": "BulletSeedFast",
+      "Value": "種子機關槍"
+    },
+    {
       "Key": "rockSmashFast",
       "Value": "岩石粉碎"
     }
