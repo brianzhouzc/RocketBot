@@ -445,9 +445,17 @@ namespace RocketBot2.Forms
             {
                 Thread.ResetAbort();
             }
-            foreach (var process in Process.GetProcessesByName(Assembly.GetExecutingAssembly().GetName().Name))
+
+            try
             {
-                process.Kill();
+                foreach (var process in Process.GetProcessesByName(Assembly.GetExecutingAssembly().GetName().Name))
+                {
+                    process.Kill();
+                }
+            }
+            catch
+            {
+                //not implanted
             }
             //*/
         }
