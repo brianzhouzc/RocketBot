@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.3
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RocketBot2", "RocketBot2\RocketBot2.csproj", "{42B07AE9-E643-4212-A7DB-0611F9059670}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -399,8 +399,8 @@ Global
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug RocketBot|Windows-x64.Build.0 = Debug|Any CPU
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug RocketBot|Windows-x86.ActiveCfg = Debug|x86
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug RocketBot|Windows-x86.Build.0 = Debug|x86
-		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug RocketBot|x64.ActiveCfg = Debug|Any CPU
-		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug RocketBot|x64.Build.0 = Debug|Any CPU
+		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug RocketBot|x64.ActiveCfg = Debug|x64
+		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug RocketBot|x64.Build.0 = Debug|x64
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug RocketBot|x86.ActiveCfg = Debug|x86
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug RocketBot|x86.Build.0 = Debug|x86
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug|Android.ActiveCfg = Debug|Any CPU
@@ -421,8 +421,8 @@ Global
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug|Windows-x64.Build.0 = Debug|Any CPU
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug|Windows-x86.ActiveCfg = Debug|x86
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug|Windows-x86.Build.0 = Debug|x86
-		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug|x64.Build.0 = Debug|Any CPU
+		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug|x64.ActiveCfg = Debug|x64
+		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug|x64.Build.0 = Debug|x64
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug|x86.ActiveCfg = Debug|x86
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Debug|x86.Build.0 = Debug|x86
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Release RocketBot|Android.ActiveCfg = Release|Any CPU
@@ -443,8 +443,8 @@ Global
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Release RocketBot|Windows-x64.Build.0 = Release|Any CPU
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Release RocketBot|Windows-x86.ActiveCfg = Release|x86
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Release RocketBot|Windows-x86.Build.0 = Release|x86
-		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Release RocketBot|x64.ActiveCfg = Release|Any CPU
-		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Release RocketBot|x64.Build.0 = Release|Any CPU
+		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Release RocketBot|x64.ActiveCfg = Release|x64
+		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Release RocketBot|x64.Build.0 = Release|x64
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Release RocketBot|x86.ActiveCfg = Release|x86
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Release RocketBot|x86.Build.0 = Release|x86
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Release|Android.ActiveCfg = Release|Any CPU
@@ -465,8 +465,8 @@ Global
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Release|Windows-x64.Build.0 = Release|Any CPU
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Release|Windows-x86.ActiveCfg = Release|x86
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Release|Windows-x86.Build.0 = Release|x86
-		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Release|x64.ActiveCfg = Release|Any CPU
-		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Release|x64.Build.0 = Release|Any CPU
+		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Release|x64.ActiveCfg = Release|x64
+		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Release|x64.Build.0 = Release|x64
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Release|x86.ActiveCfg = Release|x86
 		{A03A7BB2-4F0B-467B-84B2-9A76E6AAE6FB}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
