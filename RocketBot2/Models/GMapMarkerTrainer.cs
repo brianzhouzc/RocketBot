@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using System.Runtime.Serialization;
@@ -30,7 +30,7 @@ namespace RocketBot2.Models
         {
             MarkerImage = image;
             Size = MarkerImage.Size;
-            Offset = new Point(-Size.Width/2, -Size.Height/2);
+            Offset = new Point(-Size.Width, -Size.Height);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace RocketBot2.Models
 
         public override void OnRender(Graphics g)
         {
-            g.DrawImage(MarkerImage, LocalPosition.X, LocalPosition.Y, Size.Width, Size.Height);
+            g.DrawImage(MarkerImage, LocalPosition.X + (Size.Width / 2), LocalPosition.Y + (Size.Height / 2), Size.Width, Size.Height);
         }
     }
 }

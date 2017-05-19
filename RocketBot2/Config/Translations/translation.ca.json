@@ -90,7 +90,7 @@
     },
     {
       "Key": "pokestop",
-      "Value":  "la Pokeparada"
+      "Value": "la Pokeparada"
     },
     {
       "Key": "eventFortTargeted",
@@ -249,6 +249,10 @@
     {
       "Key": "logEntryPKMN",
       "Value": "PKMN"
+    },
+    {
+      "Key": "logEntryLevelUP",
+      "Value": "Level Up"
     },
     {
       "Key": "logEntryTransfered",
@@ -751,7 +755,7 @@
     },
     {
       "Key": "nidoranFemale",
-      "Value": "NidoranFemella"
+      "Value": "Nidoran(F)"
     },
     {
       "Key": "nidorina",
@@ -763,7 +767,7 @@
     },
     {
       "Key": "nidoranMale",
-      "Value": "NidoranMascle"
+      "Value": "Nidoran(M)"
     },
     {
       "Key": "nidorino",
@@ -1641,7 +1645,7 @@
       "Key": "celebi",
 	  "Value": "Celebi"
 	}
-  ]
+  ],
   "PokemonMovesetStrings": [
     {
       "Key": "moveUnset",
@@ -2521,7 +2525,7 @@
     },
     {
       "Key": "HiddenPowerFast",
-	  "Value": "HiddenPower"
-	}
+      "Value": "HiddenPower"
+    }
   ]
 }

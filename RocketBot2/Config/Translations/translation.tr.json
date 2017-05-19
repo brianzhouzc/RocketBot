@@ -856,7 +856,7 @@
     },
     {
       "Key": "nidoranFemale",
-      "Value": "Nidoran♀"
+      "Value": "Nidoran(F)"
     },
     {
       "Key": "nidorina",
@@ -868,7 +868,7 @@
     },
     {
       "Key": "nidoranMale",
-      "Value": "Nidoran♂"
+        "Value": "Nidoran(M)"
     },
     {
       "Key": "nidorino",

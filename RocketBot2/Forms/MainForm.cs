@@ -62,9 +62,9 @@ namespace RocketBot2.Forms
         private bool _botStarted = false;
 
         private static readonly Uri StrKillSwitchUri =
-            new Uri("https://raw.githubusercontent.com/TheUnnamedOrganisation/RocketBot/master/KillSwitch.txt");
+            new Uri("https://cdn.rawgit.com/TheUnnamedOrganisation/RocketBot/master/KillSwitch.txt");
         private static readonly Uri StrMasterKillSwitchUri =
-            new Uri("https://raw.githubusercontent.com/TheUnnamedOrganisation/PoGo.NecroBot.Logic/master/MKS.txt");
+            new Uri("https://cdn.rawgit.com/TheUnnamedOrganisation/PoGo.NecroBot.Logic/master/MKS.txt");
 
         private GlobalSettings _settings;
         private StateMachine _machine;
@@ -310,8 +310,8 @@ namespace RocketBot2.Forms
                 _playerOverlay.Markers.Remove(_playerMarker);
                 if (!_currentLatLng.IsEmpty)
                     _playerMarker = _currentLatLng.Lng < latlng.Lng
-                        ? new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("PlayerLocation2", null, null, 50, 50))
-                        : new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("PlayerLocation", null, null, 50, 50));
+                        ? new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("PlayerLocation2", null, null, 25, 25))
+                        : new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("PlayerLocation", null, null, 25, 25));
                 _playerOverlay.Markers.Add(_playerMarker);
                 if (followTrainerCheckBox.Checked)
                     GMapControl1.Position = latlng;
@@ -327,7 +327,7 @@ namespace RocketBot2.Forms
                 _playerOverlay.Routes.Clear();
                 var route = new GMapRoute(_playerLocations, "step")
                 {
-                    Stroke = new Pen(Color.FromArgb(175, 175, 175), 2) { DashStyle = DashStyle.Dot }
+                    Stroke = new Pen(Color.FromArgb(0, 174, 0), 3) { DashStyle = DashStyle.Solid }
                 };
                 _playerOverlay.Routes.Add(route);
             }, null);
@@ -402,7 +402,7 @@ namespace RocketBot2.Forms
             {
                 foreach (var pokemon in encounterPokemons)
                 {
-                    var pkmImage = ResourceHelper.GetImage(null, null, pokemon, 36, 36);
+                    var pkmImage = ResourceHelper.GetImage(null, null, pokemon, 18, 18);
                     var pointLatLng = new PointLatLng(pokemon.Latitude, pokemon.Longitude);
                     GMapMarker pkmMarker = new GMapMarkerTrainer(pointLatLng, pkmImage);
                     _pokemonsOverlay.Markers.Add(pkmMarker);
@@ -427,37 +427,28 @@ namespace RocketBot2.Forms
             //TODO: Kills the application
             try
             {
-                List<Control> listControls = new List<Control>();
-                foreach (Control control in Instance.Controls)
-                {
-                    listControls.Add(control);
-                }
-                foreach (Control control in listControls)
-                {
-                    Instance.Controls.Remove(control);
-                    control.Dispose();
-                    GC.SuppressFinalize(control);
-                }
+                this.Dispose(true);
+                _playerOverlay.Dispose();
+                GC.SuppressFinalize(_playerOverlay);
+                _playerRouteOverlay.Dispose();
+                GC.SuppressFinalize(_playerRouteOverlay);
+                _pokemonsOverlay.Dispose();
+                GC.SuppressFinalize(_pokemonsOverlay);
+                _pokestopsOverlay.Dispose();
+                GC.SuppressFinalize(_pokestopsOverlay);
+                _searchAreaOverlay.Dispose();
+                GC.SuppressFinalize(_searchAreaOverlay);
+                GMapControl1.Dispose();
+                GC.SuppressFinalize(GMapControl1);
+                GC.SuppressFinalize(this);
                 // kills
                 Thread.CurrentThread.Abort(this);
             }
-            catch
+            catch (ThreadAbortException)
             {
-                Thread.ResetAbort();
-            }
-
-            try
-            {
-                foreach (var process in Process.GetProcessesByName(Assembly.GetExecutingAssembly().GetName().Name))
-                {
-                    process.Kill();
-                }
-            }
-            catch
-            {
+                return;
                 //not implanted
             }
-            //*/
         }
 
         private void PokeEaseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1270,7 +1261,7 @@ namespace RocketBot2.Forms
                         HttpClient client = new HttpClient();
                         client.DefaultRequestHeaders.Add("X-AuthToken", apiCfg.AuthAPIKey);
                         var maskedKey = apiCfg.AuthAPIKey.Substring(0, 4) + "".PadLeft(apiCfg.AuthAPIKey.Length - 8, 'X') + apiCfg.AuthAPIKey.Substring(apiCfg.AuthAPIKey.Length - 4, 4);
-                        HttpResponseMessage response = client.PostAsync("https://pokehash.buddyauth.com/api/v131_0/hash", null).Result;
+                        HttpResponseMessage response = client.PostAsync("https://pokehash.buddyauth.com/api/v133_1/hash", null).Result;
                         string AuthKey = response.Headers.GetValues("X-AuthToken").FirstOrDefault();
                         string MaxRequestCount = response.Headers.GetValues("X-MaxRequestCount").FirstOrDefault();
                         DateTime AuthTokenExpiration = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(Convert.ToDouble(response.Headers.GetValues("X-AuthTokenExpiration").FirstOrDefault()));

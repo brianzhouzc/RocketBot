@@ -692,7 +692,7 @@
     },
     {
       "Key": "nidoranFemale",
-      "Value": "Nidoran - samice"
+      "Value": "Nidoran(F)"
     },
     {
       "Key": "nidorina",
@@ -704,7 +704,7 @@
     },
     {
       "Key": "nidoranMale",
-      "Value": "Nidoran - samec"
+      "Value": "Nidoran(M)"
     },
     {
       "Key": "nidorino",
