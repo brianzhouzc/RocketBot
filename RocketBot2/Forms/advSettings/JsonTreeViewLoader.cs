@@ -5,7 +5,7 @@ namespace RocketBot2.Forms.advSettings
 {
 	public static class JsonTreeViewLoader
 	{
-        public static void LoadJsonToTreeView(this TreeView treeView, string json)
+        public static void LoadJsonToTreeView(this TreeView treeView, string json, string name = null)
         {
             if (string.IsNullOrWhiteSpace(json))
             {
@@ -13,7 +13,7 @@ namespace RocketBot2.Forms.advSettings
             }
 
             var @object = JObject.Parse(json);
-            AddObjectNodes(@object, $"JSON {Application.ProductName} Configuration", treeView.Nodes);
+            AddObjectNodes(@object, $"{name} JSON {Application.ProductName} Configuration", treeView.Nodes);
         }
 
         public static void AddObjectNodes(JObject @object, string name, TreeNodeCollection parent)

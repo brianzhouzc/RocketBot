@@ -49,12 +49,12 @@ namespace RocketBot2.Forms
             }
 
             StreamReader auth = new StreamReader(AuthFilePath);
-            Auth.LoadJsonToTreeView(auth.ReadToEnd());
+            Auth.LoadJsonToTreeView(auth.ReadToEnd(), "Auth");
             //JsonTreeView.ExpandAll();
             auth.Close();
 
             StreamReader config = new StreamReader(ConfigFilePath);
-            Config.LoadJsonToTreeView(config.ReadToEnd());
+            Config.LoadJsonToTreeView(config.ReadToEnd(), "Config");
             //JsonTreeView.ExpandAll();
             config.Close();
         }

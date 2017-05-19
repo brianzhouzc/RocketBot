@@ -2613,6 +2613,46 @@
       "Value": "雪崩"
     },
     {
+      "Key": "BulletSeedFast",
+      "Value": "種子機關槍"
+    },
+    {
+      "Key": "FocusBlast",
+      "Value": "真氣彈"
+    },
+    {
+      "Key": "SkyAttack",
+      "Value": "神鳥猛擊"
+    },
+    {
+      "Key": "IronTailFast",
+      "Value": "鐵尾"
+    },
+    {
+      "Key": "ExtrasensoryFast",
+      "Value": "神通力"
+    },
+    {
+      "Key": "VoltSwitchFast",
+      "Value": "伏特替換"
+    },
+    {
+      "Key": "Overheat",
+      "Value": "過熱"
+    },
+    {
+      "Key": "RockBlast",
+      "Value": "岩石爆擊"
+    },
+    {
+      "Key": "FireSpinFast",
+      "Value": "火焰旋渦"
+    },
+    {
+      "Key": "SnarlFast",
+      "Value": "大聲咆哮"
+    },
+    {
       "Key": "rockSmashFast",
       "Value": "岩石粉碎"
     }

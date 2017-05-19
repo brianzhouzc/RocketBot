@@ -427,28 +427,37 @@ namespace RocketBot2.Forms
             //TODO: Kills the application
             try
             {
-                this.Dispose(true);
-                _playerOverlay.Dispose();
-                GC.SuppressFinalize(_playerOverlay);
-                _playerRouteOverlay.Dispose();
-                GC.SuppressFinalize(_playerRouteOverlay);
-                _pokemonsOverlay.Dispose();
-                GC.SuppressFinalize(_pokemonsOverlay);
-                _pokestopsOverlay.Dispose();
-                GC.SuppressFinalize(_pokestopsOverlay);
-                _searchAreaOverlay.Dispose();
-                GC.SuppressFinalize(_searchAreaOverlay);
-                GMapControl1.Dispose();
-                GC.SuppressFinalize(GMapControl1);
-                GC.SuppressFinalize(this);
+                List<Control> listControls = new List<Control>();
+                foreach (Control control in Instance.Controls)
+                {
+                    listControls.Add(control);
+                }
+                foreach (Control control in listControls)
+                {
+                    Instance.Controls.Remove(control);
+                    control.Dispose();
+                    GC.SuppressFinalize(control);
+                }
                 // kills
                 Thread.CurrentThread.Abort(this);
             }
-            catch (ThreadAbortException)
+            catch
             {
-                return;
+                Thread.ResetAbort();
+            }
+
+            try
+            {
+                foreach (var process in Process.GetProcessesByName(Assembly.GetExecutingAssembly().GetName().Name))
+                {
+                    process.Kill();
+                }
+            }
+            catch
+            {
                 //not implanted
             }
+            //*/
         }
 
         private void PokeEaseToolStripMenuItem_Click(object sender, EventArgs e)
