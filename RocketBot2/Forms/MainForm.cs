@@ -114,7 +114,7 @@ namespace RocketBot2.Forms
 
         #region INTERFACE
 
-        private DateTime LastClearLog = DateTime.Now;
+        private static DateTime LastClearLog = DateTime.Now;
 
         public static void ColoredConsoleWrite(Color color, string text)
         {
@@ -127,12 +127,10 @@ namespace RocketBot2.Forms
                 return;
             }
 
-            #pragma warning disable CS1690
-            if (Instance.LastClearLog.AddMinutes(20) < DateTime.Now)
-            #pragma warning restore CS1690
+            if (LastClearLog.AddMinutes(20) < DateTime.Now)
             {
                 Instance.logTextBox.Text = string.Empty;
-                Instance.LastClearLog = DateTime.Now;
+                LastClearLog = DateTime.Now;
             }
 
             if (text.Contains("Error with API request type: DownloadRemoteConfigVersion"))
@@ -961,6 +959,17 @@ namespace RocketBot2.Forms
 
             foreach (var item in items)
             {
+                if (item.ItemId == ItemId.ItemIncubatorBasicUnlimited)
+                {
+                    ItemData extra = new ItemData()
+                    {
+                        ItemId = ItemId.ItemSpecialCamera
+                    };
+                    var extra_box = new ItemBox(extra);
+                    extra_box.ItemClick += Instance.ItemBox_ItemClick;
+                    Instance.flpItems.Controls.Add(extra_box);
+                }
+
                 var box = new ItemBox(item);
                 if (appliedItems.ContainsKey(item.ItemId))
                 {
