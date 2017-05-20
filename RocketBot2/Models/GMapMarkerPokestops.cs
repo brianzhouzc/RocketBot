@@ -1,4 +1,4 @@
-using System.Drawing;
+﻿using System.Drawing;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using System;
@@ -40,7 +40,7 @@ namespace RocketBot2.Models
 
         public override void OnRender(Graphics g)
         {
-            g.DrawImage(MarkerImage, LocalPosition.X + (Size.Width / 4 ), LocalPosition.Y + (Size.Height / 4 * 3 ), Size.Width / 2, Size.Height / 2);
+            g.DrawImage(MarkerImage, LocalPosition.X + (Size.Width / 4), LocalPosition.Y + (Size.Height / 4 * 3), Size.Width / 2, Size.Height / 2);
         }
     }
 }
