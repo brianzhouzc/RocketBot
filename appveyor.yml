@@ -55,7 +55,7 @@ environment:
   auth_token:
     secure: yNRb78M1kncUfbzKLWl1igKg2piIARVYUpr0508PrTS7N/AwwnYozd+Ntr1gfUT+
   github_user:
-    secure: Y6SY4Ebh099EW22odmEeVw== 
+    secure: EHfj3CL5trOMzKP1sceM5A== 
   github_email:
     secure: G641hL9+GJDfG5+L1lw0guzFoZlPVu1Zp+P39/l7/rU=
   priv_key:
