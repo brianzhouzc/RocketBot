@@ -172,7 +172,7 @@ namespace RocketBot2.Forms
                 return;
             }
             Instance.speedLable.Text = text;
-            Instance.Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
+            Instance.Navigation_UpdatePositionEvent();
 
             Instance.togglePrecalRoute.Enabled = Instance._botStarted;
             Instance.followTrainerCheckBox.Enabled = Instance._botStarted;
@@ -295,14 +295,14 @@ namespace RocketBot2.Forms
                     var pokestopMarker = new GMapMarkerPokestops(pokeStopLoc, fort);
                     _pokestopsOverlay.Markers.Add(pokestopMarker);
                 }
-                Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
+                Navigation_UpdatePositionEvent();
             }, null);
             return Task.CompletedTask;
         }
 
-        private void Navigation_UpdatePositionEvent(double lat, double lng)
+        private void Navigation_UpdatePositionEvent()
         {
-            var latlng = new PointLatLng(lat, lng);
+            var latlng = new PointLatLng(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
             _playerLocations.Add(latlng);
 
             SynchronizationContext.Post(o =>
@@ -363,7 +363,7 @@ namespace RocketBot2.Forms
                         }
                     }
                 }
-                Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
+                Navigation_UpdatePositionEvent();
             }, null);
         }
 
@@ -392,7 +392,7 @@ namespace RocketBot2.Forms
                 }
                 encounterPokemonsCount++;
                 /*/
-                Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
+                Navigation_UpdatePositionEvent();
             }, null);
         }
 
@@ -407,7 +407,7 @@ namespace RocketBot2.Forms
                     GMapMarker pkmMarker = new GMapMarkerTrainer(pointLatLng, pkmImage);
                     _pokemonsOverlay.Markers.Add(pkmMarker);
                 }
-                Navigation_UpdatePositionEvent(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
+                Navigation_UpdatePositionEvent();
             }, null);
         }
 
