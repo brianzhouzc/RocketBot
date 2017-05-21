@@ -62,9 +62,9 @@ namespace RocketBot2.Forms
         private bool _botStarted = false;
 
         private static readonly Uri StrKillSwitchUri =
-            new Uri("https://cdn.rawgit.com/TheUnnamedOrganisation/RocketBot/master/KillSwitch.txt");
+            new Uri("https://raw.githubusercontent.com/TheUnnamedOrganisation/RocketBot/master/KillSwitch.txt");
         private static readonly Uri StrMasterKillSwitchUri =
-            new Uri("https://cdn.rawgit.com/TheUnnamedOrganisation/PoGo.NecroBot.Logic/master/MKS.txt");
+            new Uri("https://raw.githubusercontent.com/TheUnnamedOrganisation/PoGo.NecroBot.Logic/master/MKS.txt");
 
         private GlobalSettings _settings;
         private StateMachine _machine;
