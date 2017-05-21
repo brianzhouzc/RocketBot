@@ -107,6 +107,8 @@ namespace RocketBot2.Forms
             InitializeMap();
             VersionHelper.CheckVersion();
             btnRefresh.Enabled = false;
+            this.splitContainer1.SplitterDistance = this.splitContainer1.Width / 2;
+            this.splitContainer2.SplitterDistance = this.splitContainer2.Height / 3;
             ConsoleHelper.HideConsoleWindow();
         }
 
