@@ -936,7 +936,7 @@ namespace RocketBot2.Forms
                     .SelectMany(aItems => aItems.Item)
                     .ToDictionary(item => item.ItemId, item => new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(item.ExpireMs));
 
-                FlpItemsClean(items, appliedItems);
+                await FlpItemsClean(items, appliedItems).ConfigureAwait(false);
 
                 Instance.lblInventory.Text =
                         $"Types: {items.Count()} | Total: {_session.Inventory.GetTotalItemCount().Result} | Storage: {_session.Client.Player.PlayerData.MaxItemStorage}";
@@ -953,7 +953,7 @@ namespace RocketBot2.Forms
             Instance.SetState(true);
         }
 
-        private static void FlpItemsClean(IOrderedEnumerable<ItemData> items, Dictionary<ItemId, DateTime> appliedItems)
+        private static Task FlpItemsClean(IOrderedEnumerable<ItemData> items, Dictionary<ItemId, DateTime> appliedItems)
         {
             List<Control> listControls = new List<Control>();
 
@@ -989,6 +989,7 @@ namespace RocketBot2.Forms
                 box.ItemClick += Instance.ItemBox_ItemClick;
                 Instance.flpItems.Controls.Add(box);
             }
+            return Task.CompletedTask;
         }
 
         private async void ItemBox_ItemClick(object sender, EventArgs e)
