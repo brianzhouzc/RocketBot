@@ -269,27 +269,27 @@ namespace RocketBot2.Forms
                     switch (pokeStop.Type)
                     {
                         case FortType.Checkpoint:
-                            fort = ResourceHelper.GetImage("Pokestop");
+                            fort = ResourceHelper.GetImage("Pokestop", null, null, 25, 25);
                             break;
                         case FortType.Gym:
                             switch (pokeStop.OwnedByTeam)
                             {
                                 case POGOProtos.Enums.TeamColor.Neutral:
-                                    fort = ResourceHelper.GetImage("GymVide");
+                                    fort = ResourceHelper.GetImage("GymVide", null, null, 25, 25);
                                     break;
                                 case POGOProtos.Enums.TeamColor.Blue:
-                                    fort = ResourceHelper.GetImage("GymBlue");
+                                    fort = ResourceHelper.GetImage("GymBlue", null, null, 25, 25);
                                     break;
                                 case POGOProtos.Enums.TeamColor.Red:
-                                    fort = ResourceHelper.GetImage("GymRed");
+                                    fort = ResourceHelper.GetImage("GymRed", null, null, 25, 25);
                                     break;
                                 case POGOProtos.Enums.TeamColor.Yellow:
-                                    fort = ResourceHelper.GetImage("GymYellow");
+                                    fort = ResourceHelper.GetImage("GymYellow", null, null, 25, 25);
                                     break;
                             }
                             break;
                         default:
-                            fort = ResourceHelper.GetImage("Pokestop");
+                            fort = ResourceHelper.GetImage("Pokestop", null, null, 25, 25);
                             break;
                     }
                     var pokestopMarker = new GMapMarkerPokestops(pokeStopLoc, fort);
@@ -356,7 +356,7 @@ namespace RocketBot2.Forms
                         {
                             _pokestopsOverlay.Markers.Remove(marker);
                             var pokestopMarker = new GMapMarkerPokestops(pokeStopLoc,
-                               ResourceHelper.GetImage("Pokestop_looted"));
+                               ResourceHelper.GetImage("Pokestop_looted", null, null, 25, 25));
                             //pokestopMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
                             //pokestopMarker.ToolTip = new GMapBaloonToolTip(pokestopMarker);
                             _pokestopsOverlay.Markers.Add(pokestopMarker);
