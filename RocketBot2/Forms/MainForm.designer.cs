@@ -106,7 +106,6 @@ namespace RocketBot2.Forms
             this.logTextBox.BackColor = System.Drawing.Color.Black;
             this.logTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.logTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.logTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.logTextBox.ForeColor = System.Drawing.Color.White;
             this.logTextBox.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.logTextBox.Location = new System.Drawing.Point(0, 0);
@@ -114,7 +113,7 @@ namespace RocketBot2.Forms
             this.logTextBox.Name = "logTextBox";
             this.logTextBox.ReadOnly = true;
             this.logTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.logTextBox.Size = new System.Drawing.Size(764, 416);
+            this.logTextBox.Size = new System.Drawing.Size(651, 283);
             this.logTextBox.TabIndex = 0;
             this.logTextBox.Text = "";
             // 
@@ -123,10 +122,10 @@ namespace RocketBot2.Forms
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 819);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 571);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1578, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(1341, 25);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -149,7 +148,7 @@ namespace RocketBot2.Forms
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 3, 0, 3);
-            this.menuStrip1.Size = new System.Drawing.Size(1578, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(1341, 30);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -221,7 +220,7 @@ namespace RocketBot2.Forms
             this.GMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.GMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.GMapControl1.ShowTileGridLines = false;
-            this.GMapControl1.Size = new System.Drawing.Size(757, 358);
+            this.GMapControl1.Size = new System.Drawing.Size(644, 246);
             this.GMapControl1.TabIndex = 23;
             this.GMapControl1.Zoom = 15D;
             this.GMapControl1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.GMapControl1_MouseDoubleClick);
@@ -273,7 +272,7 @@ namespace RocketBot2.Forms
             this.olvPokemonList.Name = "olvPokemonList";
             this.olvPokemonList.RowHeight = 32;
             this.olvPokemonList.ShowGroups = false;
-            this.olvPokemonList.Size = new System.Drawing.Size(804, 603);
+            this.olvPokemonList.Size = new System.Drawing.Size(683, 355);
             this.olvPokemonList.SmallImageList = this.smallPokemonImageList;
             this.olvPokemonList.TabIndex = 25;
             this.olvPokemonList.UseCompatibleStateImageBehavior = false;
@@ -400,13 +399,13 @@ namespace RocketBot2.Forms
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRefresh.AutoSize = true;
+            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnRefresh.Location = new System.Drawing.Point(639, 758);
+            this.btnRefresh.Location = new System.Drawing.Point(517, 509);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(68, 27);
+            this.btnRefresh.Size = new System.Drawing.Size(68, 28);
             this.btnRefresh.TabIndex = 26;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -425,15 +424,15 @@ namespace RocketBot2.Forms
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.btnRefresh);
             this.splitContainer1.Panel2.Controls.Add(this.btnPokeDex);
             this.splitContainer1.Panel2.Controls.Add(this.checkBoxAutoRefresh);
             this.splitContainer1.Panel2.Controls.Add(this.lblInventory);
             this.splitContainer1.Panel2.Controls.Add(this.flpItems);
             this.splitContainer1.Panel2.Controls.Add(this.lblPokemonList);
             this.splitContainer1.Panel2.Controls.Add(this.olvPokemonList);
-            this.splitContainer1.Size = new System.Drawing.Size(1578, 789);
-            this.splitContainer1.SplitterDistance = 764;
+            this.splitContainer1.Panel2.Controls.Add(this.btnRefresh);
+            this.splitContainer1.Size = new System.Drawing.Size(1341, 541);
+            this.splitContainer1.SplitterDistance = 651;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 27;
             // 
@@ -457,8 +456,8 @@ namespace RocketBot2.Forms
             this.splitContainer2.Panel2.Controls.Add(this.showMoreCheckBox);
             this.splitContainer2.Panel2.Controls.Add(this.speedLable);
             this.splitContainer2.Panel2.Controls.Add(this.GMapControl1);
-            this.splitContainer2.Size = new System.Drawing.Size(764, 789);
-            this.splitContainer2.SplitterDistance = 416;
+            this.splitContainer2.Size = new System.Drawing.Size(651, 541);
+            this.splitContainer2.SplitterDistance = 283;
             this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -470,7 +469,7 @@ namespace RocketBot2.Forms
             this.GMAPSatellite.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.GMAPSatellite.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.GMAPSatellite.ForeColor = System.Drawing.Color.Red;
-            this.GMAPSatellite.Location = new System.Drawing.Point(663, 68);
+            this.GMAPSatellite.Location = new System.Drawing.Point(550, 68);
             this.GMAPSatellite.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.GMAPSatellite.Name = "GMAPSatellite";
             this.GMAPSatellite.Size = new System.Drawing.Size(89, 21);
@@ -489,7 +488,7 @@ namespace RocketBot2.Forms
             this.togglePrecalRoute.Enabled = false;
             this.togglePrecalRoute.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.togglePrecalRoute.ForeColor = System.Drawing.Color.Red;
-            this.togglePrecalRoute.Location = new System.Drawing.Point(512, 46);
+            this.togglePrecalRoute.Location = new System.Drawing.Point(399, 46);
             this.togglePrecalRoute.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.togglePrecalRoute.Name = "togglePrecalRoute";
             this.togglePrecalRoute.Size = new System.Drawing.Size(240, 21);
@@ -510,7 +509,7 @@ namespace RocketBot2.Forms
             this.followTrainerCheckBox.Enabled = false;
             this.followTrainerCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.followTrainerCheckBox.ForeColor = System.Drawing.Color.Red;
-            this.followTrainerCheckBox.Location = new System.Drawing.Point(584, 25);
+            this.followTrainerCheckBox.Location = new System.Drawing.Point(471, 25);
             this.followTrainerCheckBox.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.followTrainerCheckBox.Name = "followTrainerCheckBox";
             this.followTrainerCheckBox.Size = new System.Drawing.Size(168, 21);
@@ -528,7 +527,7 @@ namespace RocketBot2.Forms
             this.showMoreCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.showMoreCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.showMoreCheckBox.ForeColor = System.Drawing.Color.Red;
-            this.showMoreCheckBox.Location = new System.Drawing.Point(556, 4);
+            this.showMoreCheckBox.Location = new System.Drawing.Point(443, 4);
             this.showMoreCheckBox.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.showMoreCheckBox.Name = "showMoreCheckBox";
             this.showMoreCheckBox.Size = new System.Drawing.Size(196, 21);
@@ -552,13 +551,12 @@ namespace RocketBot2.Forms
             // btnPokeDex
             // 
             this.btnPokeDex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPokeDex.AutoSize = true;
             this.btnPokeDex.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnPokeDex.Enabled = false;
-            this.btnPokeDex.Location = new System.Drawing.Point(717, 758);
+            this.btnPokeDex.Location = new System.Drawing.Point(597, 509);
             this.btnPokeDex.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnPokeDex.Name = "btnPokeDex";
-            this.btnPokeDex.Size = new System.Drawing.Size(74, 27);
+            this.btnPokeDex.Size = new System.Drawing.Size(73, 28);
             this.btnPokeDex.TabIndex = 35;
             this.btnPokeDex.Text = "PokéDex";
             this.btnPokeDex.UseVisualStyleBackColor = true;
@@ -571,7 +569,7 @@ namespace RocketBot2.Forms
             this.checkBoxAutoRefresh.Checked = true;
             this.checkBoxAutoRefresh.CheckState = System.Windows.Forms.CheckState.Indeterminate;
             this.checkBoxAutoRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.checkBoxAutoRefresh.Location = new System.Drawing.Point(11, 764);
+            this.checkBoxAutoRefresh.Location = new System.Drawing.Point(11, 516);
             this.checkBoxAutoRefresh.Name = "checkBoxAutoRefresh";
             this.checkBoxAutoRefresh.Size = new System.Drawing.Size(133, 21);
             this.checkBoxAutoRefresh.TabIndex = 34;
@@ -583,10 +581,10 @@ namespace RocketBot2.Forms
             // 
             this.lblInventory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblInventory.Location = new System.Drawing.Point(2, 742);
+            this.lblInventory.Location = new System.Drawing.Point(2, 494);
             this.lblInventory.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.lblInventory.Name = "lblInventory";
-            this.lblInventory.Size = new System.Drawing.Size(804, 16);
+            this.lblInventory.Size = new System.Drawing.Size(683, 16);
             this.lblInventory.TabIndex = 33;
             this.lblInventory.Text = "0 / 0 ";
             this.lblInventory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -599,20 +597,20 @@ namespace RocketBot2.Forms
             this.flpItems.BackColor = System.Drawing.SystemColors.Window;
             this.flpItems.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.flpItems.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flpItems.Location = new System.Drawing.Point(2, 625);
+            this.flpItems.Location = new System.Drawing.Point(2, 377);
             this.flpItems.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.flpItems.Name = "flpItems";
-            this.flpItems.Size = new System.Drawing.Size(804, 114);
+            this.flpItems.Size = new System.Drawing.Size(683, 114);
             this.flpItems.TabIndex = 32;
             // 
             // lblPokemonList
             // 
             this.lblPokemonList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblPokemonList.Location = new System.Drawing.Point(3, 605);
+            this.lblPokemonList.Location = new System.Drawing.Point(3, 357);
             this.lblPokemonList.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.lblPokemonList.Name = "lblPokemonList";
-            this.lblPokemonList.Size = new System.Drawing.Size(804, 16);
+            this.lblPokemonList.Size = new System.Drawing.Size(683, 16);
             this.lblPokemonList.TabIndex = 27;
             this.lblPokemonList.Text = "0 / 0";
             this.lblPokemonList.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -621,7 +619,7 @@ namespace RocketBot2.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1578, 844);
+            this.ClientSize = new System.Drawing.Size(1341, 596);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -633,7 +631,6 @@ namespace RocketBot2.Forms
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RocketBot2";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.statusStrip1.ResumeLayout(false);
