@@ -325,8 +325,11 @@ namespace RocketBot2.Forms
         #region private methods
         private static float ConvertStringToFloat(string input)
         {
-            float.TryParse(input, out float output);
+#pragma warning disable IDE0018 // Inline variable declaration - Build.Bat Error Happens if We Do
+            float output;
+            float.TryParse(input, out output);
             return output;
+#pragma warning restore IDE0018 // Inline variable declaration - Build.Bat Error Happens if We Do
         }
         private static List<PokemonId> ConvertClbToList(CheckedListBox input)
         {
