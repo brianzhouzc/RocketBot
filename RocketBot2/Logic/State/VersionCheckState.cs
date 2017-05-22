@@ -30,6 +30,9 @@ namespace RocketBot2.Logic.State
         public const string LatestReleaseApi =
             "https://api.github.com/repos/TheUnnamedOrganisation/RocketBot/releases/latest";
 
+        public const string ChangelogUri =
+             "https://raw.githubusercontent.com/TheUnnamedOrganisation/RocketBot/master/CHANGELOG.md";
+
         public static Version RemoteVersion;
 
         public async Task<IState> Execute(ISession session, CancellationToken cancellationToken)
@@ -78,6 +81,7 @@ namespace RocketBot2.Logic.State
             {
                 Session = session,
                 DownloadLink = downloadLink,
+                ChangelogLink = ChangelogUri,
                 Destination = downloadFilePath,
                 AutoUpdate = true,
                 CurrentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(),
