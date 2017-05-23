@@ -65,6 +65,7 @@ namespace RocketBot2.Forms
 
         public bool Hatchable { get; set; }
         public Image Icon => icons[TotalKM];
+
         public Eggs(PokemonData egg)
         {
             Id = egg.Id;
@@ -118,8 +119,10 @@ namespace RocketBot2.Forms
         {
             var eggModel = new Eggs(egg)
             {
-                Hatchable = incu == null
+                Hatchable = incu == null,
             };
+            if (!eggModel.Hatchable && incu != null)
+                eggModel.KM = incu.KM;
                 Eggs.Add(eggModel);
         }
     }
@@ -140,7 +143,7 @@ namespace RocketBot2.Forms
             {10.00, ResourceHelper.SetImageSize((Image)Resources.EggDB.ResourceManager.GetObject("egg_10_incubator_unlimited"), 48, 48)}
         };
 
-        public float kmWalked;
+        public static float kmWalked;
 
         public async Task GetPlayerStats()
         {
