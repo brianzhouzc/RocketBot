@@ -1,6 +1,6 @@
 # Change Log
-## v2.10.1.4
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.32...v2.10.1.4)
+## v2.10.1.5
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.32...v2.10.1.5)
 
 ## Bugs & Enhancements
 - Updated for 0.61.0 API
@@ -39,4 +39,7 @@
 - Updated for 0.63.1
 - Bug fix local sniping
 - Update POGOProtos to 2.10.1
+- Update map
+- Bug fix rocket api get remote version
+- Fix eggform distances
 
