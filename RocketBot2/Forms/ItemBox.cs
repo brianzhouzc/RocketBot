@@ -44,16 +44,10 @@ namespace RocketBot2.Forms
             DisableTimer = true;
             lbl.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             pb.Image = item.Icon;
-            lblTime.Parent = pb;
-            lblTime.Visible = true;
             lblTime.Text = String.Format(CultureInfo.InvariantCulture, "{0:0.0}Km", item.TotalKM);
-            if (!item.Hatchable)
-            {
-                Enabled = false;
-                lbl.Text = "Used";
-                return;
-            }
+            lblTime.Visible = true;
             lbl.Text = String.Format(CultureInfo.InvariantCulture, "{0:0.0}Km", item.KM);
+            lblTime.Parent = pb;
 
             foreach (Control control in Controls)
             {
@@ -73,13 +67,6 @@ namespace RocketBot2.Forms
             lblTime.Visible = true;
             lbl.Text = item.InUse ? String.Format(CultureInfo.InvariantCulture,"{0:0.0}Km", item.KM) : "0.0Km";
             lblTime.Parent = pb;
-
-            if (item.InUse)
-            {
-                Enabled = false;
-                return;
-            }
-            lblTime.Text = item.IsUnlimited ? "(∞)" : $"{item.UsesRemaining} times";
 
             foreach (Control control in Controls)
             {
