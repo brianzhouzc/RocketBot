@@ -216,6 +216,7 @@ before_deploy:
 - git config --global user.name "%github_user%"
 - git checkout -b Appveyor "%APPVEYOR_REPO_BRANCH%"
 - SET PATH=C:\Ruby23-x64\bin;%PATH%
+- SET CHANGELOG_GITHUB_TOKEN=$($env:auth_token)
 # Print version and location for pre-installed ruby
 - ruby --version
 - where ruby
