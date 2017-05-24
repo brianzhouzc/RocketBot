@@ -76,21 +76,20 @@ install:
 #- rmdir PokeEase/platform /S /Q
 #- Remove-Item item PokeEase\plugins -Recurse -Force
 #- cd PokeEase && npm install && cd ..
+- SET PATH=C:\Ruby%ruby_version%\bin;%PATH%
 
-  - SET PATH=C:\Ruby%ruby_version%\bin;%PATH%
+# Print version and location for pre-installed ruby
+- ruby --version
+- where ruby
 
-  # Print version and location for pre-installed ruby
-  - ruby --version
-  - where ruby
+# Install latest version of RubyGems
+- gem update --system --no-document --no-post-install-message
+- gem --version
+- where gem
 
-  # Install latest version of RubyGems
-  - gem update --system --no-document --no-post-install-message
-  - gem --version
-  - where gem
-
-  # Print version and location for pre-installed bundler
-  - bundler --version
-  - where bundler
+# Print version and location for pre-installed bundler
+- bundler --version
+- where bundler
 
 # enable patching of AssemblyInfo.* files
 assembly_info:
