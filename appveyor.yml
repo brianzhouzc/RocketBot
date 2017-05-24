@@ -52,6 +52,10 @@ shallow_clone: false
 
 # environment variables
 environment:
+  matrix:
+    - ruby_version: "21" # Older version, but matches Travis-CI
+    - ruby_version: "21-x64"
+
   auth_token:
     secure: yNRb78M1kncUfbzKLWl1igKg2piIARVYUpr0508PrTS7N/AwwnYozd+Ntr1gfUT+
   github_user:
@@ -72,6 +76,21 @@ install:
 #- rmdir PokeEase/platform /S /Q
 #- Remove-Item item PokeEase\plugins -Recurse -Force
 #- cd PokeEase && npm install && cd ..
+
+  - SET PATH=C:\Ruby%ruby_version%\bin;%PATH%
+
+  # Print version and location for pre-installed ruby
+  - ruby --version
+  - where ruby
+
+  # Install latest version of RubyGems
+  - gem update --system --no-document --no-post-install-message
+  - gem --version
+  - where gem
+
+  # Print version and location for pre-installed bundler
+  - bundler --version
+  - where bundler
 
 # enable patching of AssemblyInfo.* files
 assembly_info:
@@ -147,10 +166,17 @@ after_build:
 
 # to run your custom scripts instead of automatic MSBuild
 build_script:
+  # Install ruby dependencies
+  - bundle install --retry 3
+  - bundle exec rake checks
 
 #---------------------------------#
 #       tests configuration       #
 #---------------------------------#
+
+test_script:
+  - gem build github_changelog_generator
+  - gem install *.gem
 
 # to disable automatic tests
 test: off
