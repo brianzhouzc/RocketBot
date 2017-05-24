@@ -52,9 +52,9 @@ shallow_clone: false
 
 # environment variables
 environment:
-  matrix:
-    - ruby_version: "21" # Older version, but matches Travis-CI
-    - ruby_version: "21-x64"
+#  matrix:
+#    - ruby_version: "21" # Older version, but matches Travis-CI
+#    - ruby_version: "21-x64"
 
   auth_token:
     secure: yNRb78M1kncUfbzKLWl1igKg2piIARVYUpr0508PrTS7N/AwwnYozd+Ntr1gfUT+
