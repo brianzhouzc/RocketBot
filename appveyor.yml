@@ -72,7 +72,7 @@ environment:
 
 # scripts that run after cloning repository
 install:
-- git submodule update --init --recursive
+#- git submodule update --init --recursive
 #- rmdir PokeEase/platform /S /Q
 #- Remove-Item item PokeEase\plugins -Recurse -Force
 #- cd PokeEase && npm install && cd ..
@@ -90,6 +90,10 @@ install:
 # Print version and location for pre-installed bundler
 - bundler --version
 - where bundler
+
+# Install ruby dependencies
+- bundle install --retry 3
+- bundle exec github_changelog_generator
 
 # enable patching of AssemblyInfo.* files
 assembly_info:
@@ -165,17 +169,10 @@ after_build:
 
 # to run your custom scripts instead of automatic MSBuild
 build_script:
-  # Install ruby dependencies
-  - bundle install --retry 3
-  - bundle exec rake checks
 
 #---------------------------------#
 #       tests configuration       #
 #---------------------------------#
-
-test_script:
-  - gem build github_changelog_generator
-  - gem install *.gem
 
 # to disable automatic tests
 test: off
