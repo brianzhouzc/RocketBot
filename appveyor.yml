@@ -215,7 +215,7 @@ before_deploy:
 - git config --global user.email "%github_email%"
 - git config --global user.name "%github_user%"
 - git checkout -b Appveyor "%APPVEYOR_REPO_BRANCH%"
-- SET PATH=C:\Ruby23\bin;%PATH%
+- SET PATH=C:\Ruby23-x64\bin;%PATH%
 # Print version and location for pre-installed ruby
 - ruby --version
 - where ruby
@@ -226,11 +226,13 @@ before_deploy:
 - where gem
 
 # Print version and location for pre-installed bundler
-- bundler --version
-- where bundler
+#- bundler --version
+#- where bundler
 
 # Install ruby dependencies
-- bundle install --retry 3
+- gem install bundler
+- bundle install
+#- bundle install --retry 3
 - bundle exec github_changelog_generator
 
 - git add "RocketBot2/CHANGELOG.md"
