@@ -72,28 +72,10 @@ environment:
 
 # scripts that run after cloning repository
 install:
-#- git submodule update --init --recursive
+- git submodule update --init --recursive
 #- rmdir PokeEase/platform /S /Q
 #- Remove-Item item PokeEase\plugins -Recurse -Force
 #- cd PokeEase && npm install && cd ..
-- SET PATH=C:\Ruby23-x64\bin;%PATH%
-
-# Print version and location for pre-installed ruby
-- ruby --version
-- where ruby
-
-# Install latest version of RubyGems
-- gem update --system --no-document --no-post-install-message
-- gem --version
-- where gem
-
-# Print version and location for pre-installed bundler
-- bundler --version
-- where bundler
-
-# Install ruby dependencies
-- bundle install --retry 3
-- bundle exec github_changelog_generator
 
 # enable patching of AssemblyInfo.* files
 assembly_info:
@@ -233,6 +215,24 @@ before_deploy:
 - git config --global user.name "%github_user%"
 - git checkout -b Appveyor "%APPVEYOR_REPO_BRANCH%"
 - SET PATH=C:\Ruby23\bin;%PATH%
+# Print version and location for pre-installed ruby
+- ruby --version
+- where ruby
+
+# Install latest version of RubyGems
+- gem update --system --no-document --no-post-install-message
+- gem --version
+- where gem
+
+# Print version and location for pre-installed bundler
+- bundler --version
+- where bundler
+
+# Install ruby dependencies
+- bundle install --retry 3
+- bundle exec github_changelog_generator
+
+- git add "RocketBot2/CHANGELOG.md"
 - git add "RocketBot2/Properties/AssemblyInfo.cs"
 - git commit -m "%APPVEYOR_REPO_TAG_NAME%"
 - git checkout "%APPVEYOR_REPO_BRANCH%"
