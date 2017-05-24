@@ -76,7 +76,7 @@ install:
 #- rmdir PokeEase/platform /S /Q
 #- Remove-Item item PokeEase\plugins -Recurse -Force
 #- cd PokeEase && npm install && cd ..
-- SET PATH=C:\Ruby%ruby_version%\bin;%PATH%
+- SET PATH=C:\Ruby23-x64\bin;%PATH%
 
 # Print version and location for pre-installed ruby
 - ruby --version
