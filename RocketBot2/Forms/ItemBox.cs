@@ -37,23 +37,28 @@ namespace RocketBot2.Forms
             lblTime.Parent = pb;
         }
 
-        public ItemBox(Eggs item, ISession session)
+        public ItemBox(Eggs egg, ISession session)
         {
             InitializeComponent();
             Session = session;
             DisableTimer = true;
             lbl.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            pb.Image = item.Icon;
-            lblTime.Text = String.Format(CultureInfo.InvariantCulture, "{0:0.0}Km", item.TotalKM);
-            lblTime.Visible = true;
-            lbl.Text = String.Format(CultureInfo.InvariantCulture, "{0:0.0}Km", item.KM);
+            pb.Image = egg.Icon;
             lblTime.Parent = pb;
-
+            lblTime.Visible = true;
+            lblTime.Text = String.Format(CultureInfo.InvariantCulture, "{0:0.0}Km", egg.TotalKM);
+            lbl.Text = String.Format(CultureInfo.InvariantCulture, "{0:0.0}Km", egg.KM);
+            if (!egg.Hatchable)
+            {
+                Enabled = false;
+                return;
+            }
+ 
             foreach (Control control in Controls)
             {
                 control.MouseEnter += ChildMouseEnter;
                 control.MouseLeave += ChildMouseLeave;
-                control.MouseClick += delegate { HatchEgg_Click(item); };
+                control.MouseClick += delegate { HatchEgg_Click(egg); };
             }
         }
 
@@ -67,6 +72,14 @@ namespace RocketBot2.Forms
             lblTime.Visible = true;
             lbl.Text = item.InUse ? String.Format(CultureInfo.InvariantCulture,"{0:0.0}Km", item.KM) : "0.0Km";
             lblTime.Parent = pb;
+
+            if (item.InUse)
+            {
+                Enabled = false;
+                return;
+            }
+            lblTime.Text = "Empty";
+            lbl.Text = item.IsUnlimited ? "(∞)" : $"{item.UsesRemaining} times";
 
             foreach (Control control in Controls)
             {

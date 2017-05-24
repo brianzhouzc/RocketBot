@@ -52,6 +52,11 @@ shallow_clone: false
 
 # environment variables
 environment:
+#  matrix:
+#    - ruby_version: "21" # Older version, but matches Travis-CI
+#    - ruby_version: "21-x64"
+  CHANGELOG_GITHUB_TOKEN:
+    secure: FXU3yByW5MQpvhX5ijguTXwiKTgyPCcfcqaIXx03BkNfu9xxC2zAGQvrtVTeB6T8
   auth_token:
     secure: yNRb78M1kncUfbzKLWl1igKg2piIARVYUpr0508PrTS7N/AwwnYozd+Ntr1gfUT+
   github_user:
@@ -210,7 +215,27 @@ before_deploy:
 - git config --global user.email "%github_email%"
 - git config --global user.name "%github_user%"
 - git checkout -b Appveyor "%APPVEYOR_REPO_BRANCH%"
-- SET PATH=C:\Ruby23\bin;%PATH%
+- SET PATH=C:\Ruby23-x64\bin;%PATH%
+# Print version and location for pre-installed ruby
+- ruby --version
+- where ruby
+
+# Install latest version of RubyGems
+- gem update --system --no-document --no-post-install-message
+- gem --version
+- where gem
+
+# Print version and location for pre-installed bundler
+#- bundler --version
+#- where bundler
+
+# Install ruby dependencies
+- gem install bundler
+- bundle install
+#- bundle install --retry 3
+- bundle exec github_changelog_generator
+
+- git add "CHANGELOG.md"
 - git add "RocketBot2/Properties/AssemblyInfo.cs"
 - git commit -m "%APPVEYOR_REPO_TAG_NAME%"
 - git checkout "%APPVEYOR_REPO_BRANCH%"
