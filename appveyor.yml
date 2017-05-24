@@ -235,7 +235,7 @@ before_deploy:
 #- bundle install --retry 3
 - bundle exec github_changelog_generator
 
-- git add "RocketBot2/CHANGELOG.md"
+- git add "CHANGELOG.md"
 - git add "RocketBot2/Properties/AssemblyInfo.cs"
 - git commit -m "%APPVEYOR_REPO_TAG_NAME%"
 - git checkout "%APPVEYOR_REPO_BRANCH%"
