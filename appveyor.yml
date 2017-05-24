@@ -55,7 +55,8 @@ environment:
 #  matrix:
 #    - ruby_version: "21" # Older version, but matches Travis-CI
 #    - ruby_version: "21-x64"
-
+  CHANGELOG_GITHUB_TOKEN:
+    secure: FXU3yByW5MQpvhX5ijguTXwiKTgyPCcfcqaIXx03BkNfu9xxC2zAGQvrtVTeB6T8
   auth_token:
     secure: yNRb78M1kncUfbzKLWl1igKg2piIARVYUpr0508PrTS7N/AwwnYozd+Ntr1gfUT+
   github_user:
