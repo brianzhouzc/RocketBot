@@ -1285,14 +1285,10 @@ namespace RocketBot2.Forms
                         HttpResponseMessage response = client.PostAsync("https://pokehash.buddyauth.com/api/v133_1/hash", null).Result;
                         string AuthKey = response.Headers.GetValues("X-AuthToken").FirstOrDefault();
                         string MaxRequestCount = response.Headers.GetValues("X-MaxRequestCount").FirstOrDefault();
-                        DateTime AuthTokenExpiration = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(Convert.ToDouble(response.Headers.GetValues("X-AuthTokenExpiration").FirstOrDefault()));
-                        TimeSpan Expiration = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(Convert.ToDouble(response.Headers.GetValues("X-AuthTokenExpiration").FirstOrDefault())) - DateTime.UtcNow;
+                        DateTime AuthTokenExpiration = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Local).AddSeconds(Convert.ToDouble(response.Headers.GetValues("X-AuthTokenExpiration").FirstOrDefault())).ToLocalTime();
+                        TimeSpan Expiration = AuthTokenExpiration - DateTime.Now;
                         string Result = string.Format("Key: {0} RPM: {1} Expiration Date: {2}/{3}/{4}", maskedKey, MaxRequestCount, AuthTokenExpiration.Day, AuthTokenExpiration.Month, AuthTokenExpiration.Year);
                         Logger.Write(Result, LogLevel.Info, ConsoleColor.Green);
-                        AuthKey = null;
-                        MaxRequestCount = null;
-                        Expiration = new TimeSpan();
-                        Result = null;
                     }
                     catch
                     {
@@ -1447,12 +1443,6 @@ namespace RocketBot2.Forms
 
             var bot = accountManager.GetStartUpAccount();
 
-            Logger.Write(
-                $"(Start-Up Stats) User: {bot.Username} | XP: {bot.CurrentXp} | SD: {bot.Stardust}",
-                LogLevel.Info, ConsoleColor
-                .Magenta
-                );
-
             if (accountManager.AccountsReadOnly.Count > 1)
             {
                 foreach (var _bot in accountManager.AccountsReadOnly)
@@ -1466,15 +1456,30 @@ namespace RocketBot2.Forms
                         if (!Instance._botStarted)
                             _session.ReInitSessionWithNextBot(_bot);
                         accountManager.SwitchAccountTo(_bot);
+                        Logger.Write(
+                            $"(Start-Up Stats) User: {_bot.Username} | XP: {_bot.CurrentXp} | SD: {_bot.Stardust}",
+                            LogLevel.Info, ConsoleColor
+                            .Magenta
+                            );
                     };
                     accountsToolStripMenuItem.DropDownItems.Add(_item);
                 }
                 _session.ReInitSessionWithNextBot(bot);
+                Logger.Write(
+                    $"(Start-Up Stats) User: {bot.Username} | XP: {bot.CurrentXp} | SD: {bot.Stardust}",
+                    LogLevel.Info, ConsoleColor
+                    .Magenta
+                    );
             }
             else
             {
                 _session.ReInitSessionWithNextBot(bot);
                 menuStrip1.Items.Remove(accountsToolStripMenuItem);
+                Logger.Write(
+                    $"(Start-Up Stats) User: {bot.Username} | XP: {bot.CurrentXp} | SD: {bot.Stardust}",
+                    LogLevel.Info, ConsoleColor
+                    .Magenta
+                    );
             }
 
             _machine = machine;
