@@ -106,7 +106,7 @@ namespace RocketBot2.Forms
             this.logTextBox.BackColor = System.Drawing.Color.Black;
             this.logTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.logTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.logTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.logTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F); // increaced size for better viewing in tablet sized screens(Survace pro's)
             this.logTextBox.ForeColor = System.Drawing.Color.White;
             this.logTextBox.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.logTextBox.Location = new System.Drawing.Point(0, 0);
@@ -400,7 +400,7 @@ namespace RocketBot2.Forms
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right))); // Keeps the button anchored to the bottom right of window
             this.btnRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnRefresh.Location = new System.Drawing.Point(605, 745);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -552,7 +552,7 @@ namespace RocketBot2.Forms
             // 
             // btnPokeDex
             // 
-            this.btnPokeDex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPokeDex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right))); // Keeps the button anchored to the bottom right of window
             this.btnPokeDex.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnPokeDex.Enabled = false;
             this.btnPokeDex.Location = new System.Drawing.Point(705, 745);
