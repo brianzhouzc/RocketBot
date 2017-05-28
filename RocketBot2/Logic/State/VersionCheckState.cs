@@ -31,7 +31,7 @@ namespace RocketBot2.Logic.State
             "https://api.github.com/repos/TheUnnamedOrganisation/RocketBot/releases/latest";
 
         public const string ChangelogUri =
-             "https://raw.githubusercontent.com/TheUnnamedOrganisation/RocketBot/master/CHANGELOG.md";
+            "https://raw.githubusercontent.com/TheUnnamedOrganisation/RocketBot/master/CHANGELOG.md";
 
         public static Version RemoteVersion;
 
@@ -68,6 +68,7 @@ namespace RocketBot2.Logic.State
 
             var remoteReleaseUrl =
                 $"https://github.com/TheUnnamedOrganisation/RocketBot/releases/download/v{RemoteVersion}/";
+
             string zipName = "RocketBot2.zip";
             var downloadLink = remoteReleaseUrl + zipName;
 
@@ -81,7 +82,6 @@ namespace RocketBot2.Logic.State
             {
                 Session = session,
                 DownloadLink = downloadLink,
-                ChangelogLink = ChangelogUri,
                 Destination = downloadFilePath,
                 AutoUpdate = true,
                 CurrentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(),
