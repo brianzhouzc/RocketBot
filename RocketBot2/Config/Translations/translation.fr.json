@@ -126,11 +126,11 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | dist {8}m | avec une {9} ({10} restante(s)). | {11} EXP | {12} | lat: {13} long: {14} | Attaque1: {15} Attaque2: {16} | Rareté: {17} | Raison de capture: {18} | Shiny: {19} | Form: {20} | Costume: {21} |  Sex: {22}"
+      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | dist {8}m | avec une {9} ({10} restante(s)). | XP: {11} | SD: {12} | {13} | lat: {14} long: {15} | Attaque1: {16} Attaque2: {17} | Rareté: {18} | Raison de capture: {19} | Shiny: {20} | Form: {21} | Costume: {22} | Sex: {23}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | avec une {9} ({10} restante(s)) | lat: {11} long: {12} | Attaque1: {13} Attaque2: {14}  | Rareté :{15}"
+      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | avec une {9} ({10}  restante(s)). | XP: {11} | lat: {12} long: {13} | Attaque1: {14} Attaque2: {15} | Rareté :{16}"
     },
     {
       "Key": "eventNoPokeballs",
