@@ -1,0 +1,1102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{42B07AE9-E643-4212-A7DB-0611F9059670}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RocketBot2</RootNamespace>
+    <AssemblyName>RocketBot2</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>7</ApplicationRevision>
+    <ApplicationVersion>2.9.1.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>none</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>FABFDFD920EF90E9348A803A9225ADFB5B8BF8AB</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>RocketBot2_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\Ico.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>none</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>RocketBot2.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AeroWizard, Version=2.1.10.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\AeroWizard.2.1.10\lib\net452\AeroWizard.dll</HintPath>
+    </Reference>
+    <Reference Include="GeoCoordinate.NetStandard1, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\GeoCoordinate.NetStandard1.1.0.1\lib\netstandard1.1\GeoCoordinate.NetStandard1.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.3.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\Google.Protobuf.3.3.0\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>$(SolutionDir)\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\Microsoft.EntityFrameworkCore.1.1.2\lib\net451\Microsoft.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Caching.Abstractions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\Microsoft.Extensions.Caching.Abstractions.1.1.2\lib\netstandard1.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Caching.Memory, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\Microsoft.Extensions.Caching.Memory.1.1.2\lib\net451\Microsoft.Extensions.Caching.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\Microsoft.Extensions.DependencyInjection.1.1.1\lib\netstandard1.1\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\Microsoft.Extensions.DependencyInjection.Abstractions.1.1.1\lib\netstandard1.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\Microsoft.Extensions.Logging.1.1.2\lib\netstandard1.1\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\Microsoft.Extensions.Logging.Abstractions.1.1.2\lib\netstandard1.1\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\Microsoft.Extensions.Options.1.1.2\lib\netstandard1.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\Microsoft.Extensions.Primitives.1.1.1\lib\netstandard1.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq, Version=2.1.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\Remotion.Linq.2.1.1\lib\net45\Remotion.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.AppContext.4.3.0\lib\net46\System.AppContext.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=1.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.Collections.Immutable.1.3.1\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Console, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.Console.4.3.0\lib\net46\System.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.Diagnostics.DiagnosticSource.4.3.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Tracing, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.Diagnostics.Tracing.4.3.0\lib\net462\System.Diagnostics.Tracing.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Globalization.Calendars, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.Globalization.Calendars.4.3.0\lib\net46\System.Globalization.Calendars.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Interactive.Async, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.Interactive.Async.3.1.1\lib\net46\System.Interactive.Async.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.IO.FileSystem.4.3.0\lib\net46\System.IO.FileSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Net.Http, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.Net.Http.4.3.2\lib\net46\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Sockets, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.Reflection.4.3.0\lib\net462\System.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.Runtime.CompilerServices.Unsafe.4.3.0\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.Runtime.Extensions.4.3.0\lib\net462\System.Runtime.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.Runtime.InteropServices.4.3.0\lib\net462\System.Runtime.InteropServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="CommandLine, Version=1.9.71.2, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GMap.NET.Core, Version=1.7.5.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\GMap.NET.WindowsForms.1.7.5\lib\net40\GMap.NET.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GMap.NET.WindowsForms, Version=1.7.5.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\GMap.NET.WindowsForms.1.7.5\lib\net40\GMap.NET.WindowsForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SuperSocket.Common, Version=1.6.6.1, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\SuperSocket.1.6.6.1\lib\net45\SuperSocket.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SuperSocket.Facility, Version=1.6.6.1, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\SuperSocket.1.6.6.1\lib\net45\SuperSocket.Facility.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SuperSocket.SocketEngine, Version=1.6.6.1, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\SuperSocket.Engine.1.6.6.1\lib\net45\SuperSocket.SocketEngine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SuperSocket.SocketService, Version=1.6.6.1, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\SuperSocket.Engine.1.6.6.1\lib\net45\SuperSocket.SocketService.exe</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ObjectListView, Version=2.9.1.1072, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\ObjectListView.Official.2.9.1\lib\net20\ObjectListView.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="S2Geometry, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\S2Geometry.1.0.3\lib\portable-net45+wp8+win8\S2Geometry.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SuperSocket.SocketBase, Version=1.6.6.1, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\SuperSocket.1.6.6.1\lib\net45\SuperSocket.SocketBase.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\System.Xml.ReaderWriter.4.3.0\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
+    </Reference>
+    <Reference Include="WebDriver, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\Selenium.WebDriver.3.4.0\lib\net40\WebDriver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebDriver.Support">
+      <HintPath>$(SolutionDir)\packages\Selenium.Support.3.4.0\lib\net40\WebDriver.Support.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CommandLineUtility\Arguments.cs" />
+    <Compile Include="ConsoleLogger.cs" />
+    <Compile Include="Forms\AuthAPIForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AuthAPIForm.Designer.cs">
+      <DependentUpon>AuthAPIForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EggsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EggsForm.Designer.cs">
+      <DependentUpon>EggsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EvoleToPokemon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EvoleToPokemon.Designer.cs">
+      <DependentUpon>EvoleToPokemon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\InfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InfoForm.Designer.cs">
+      <DependentUpon>InfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PokeDexForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PokeDexForm.Designer.cs">
+      <DependentUpon>PokeDexForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PokemonPropertiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PokemonPropertiesForm.Designer.cs">
+      <DependentUpon>PokemonPropertiesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SettingForm.Designer.cs">
+      <DependentUpon>SettingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\StarterConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\StarterConfigForm.Designer.cs">
+      <DependentUpon>StarterConfigForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\DeviceInfoHelper.cs" />
+    <Compile Include="Helpers\Options.cs" />
+    <Compile Include="Helpers\DeviceHelper.cs" />
+    <Compile Include="Forms\ItemBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\ItemBox.designer.cs">
+      <DependentUpon>ItemBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ItemForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ItemForm.designer.cs">
+      <DependentUpon>ItemForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainForm.designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\MachineIdHelper.cs" />
+    <Compile Include="Helpers\ResourceHelper.cs" />
+    <Compile Include="Helpers\S2GMapDrawer.cs" />
+    <Compile Include="Helpers\VersionHelper.cs" />
+    <Compile Include="Forms\ItemSetting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\ItemSetting.Designer.cs">
+      <DependentUpon>ItemSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Logic\State\VersionCheckState.cs" />
+    <Compile Include="Models\GMapMarkerPokestops.cs" />
+    <Compile Include="Models\GMapMarkerTrainer.cs" />
+    <Compile Include="Forms\advSettings\JsonTreeViewLoader.cs" />
+    <Compile Include="Forms\NicknamePokemonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NicknamePokemonForm.designer.cs">
+      <DependentUpon>NicknamePokemonForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\PokemomObject.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\EggDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EggDB.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ItemIdDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ItemIdDB.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\PokemonDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PokemonDB.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ProgressBar.cs" />
+    <Compile Include="Win32\ConsoleHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="costura32\sqlite3.dll" />
+    <EmbeddedResource Include="costura64\sqlite3.dll" />
+    <Content Include="Resources\PokemonGO-Assets\eggs\egg.png" />
+    <Content Include="Resources\PokemonGO-Assets\eggs\egg_10.png" />
+    <Content Include="Resources\PokemonGO-Assets\eggs\egg_10_incubator.png" />
+    <Content Include="Resources\PokemonGO-Assets\eggs\egg_10_incubator_unlimited.png" />
+    <Content Include="Resources\PokemonGO-Assets\eggs\egg_2.png" />
+    <Content Include="Resources\PokemonGO-Assets\eggs\egg_2_incubator.png" />
+    <Content Include="Resources\PokemonGO-Assets\eggs\egg_2_incubator_unlimited.png" />
+    <Content Include="Resources\PokemonGO-Assets\eggs\egg_5.png" />
+    <Content Include="Resources\PokemonGO-Assets\eggs\egg_5_incubator.png" />
+    <Content Include="Resources\PokemonGO-Assets\eggs\egg_5_incubator_unlimited.png" />
+    <Content Include="Resources\PokemonGO-Assets\eggs\egg_incubator.png" />
+    <Content Include="Resources\PokemonGO-Assets\eggs\egg_incubator_unlimited.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\0.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\1.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\1001.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\1002.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\101.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\102.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\103.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\104.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\1101.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\1102.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\1103.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\1104.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\1105.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\2.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\201.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\202.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\3.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\301.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\4.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\401.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\402.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\403.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\404.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\501.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\701.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\702.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\703.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\704.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\705.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\706.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\707.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\801.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\901.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\902.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\PokeCoin.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\Stardust.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\11_1.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\11_2.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\11_3.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\13_1.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\13_2.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\13_3.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\14_1.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\14_2.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\14_3.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\18.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\19.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\1_1.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\1_2.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\1_3.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\20.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\21.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\22.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\23.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\24.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\25.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\26.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\27.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\28.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\29.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\2_1.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\2_2.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\2_3.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\30.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\31.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\32.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\33.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\34.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\35.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\36_1.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\36_2.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\36_3.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\37_1.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\37_2.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\37_3.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\38_1.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\38_2.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\38_3.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\39_1.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\39_2.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\39_3.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\3_1.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\3_2.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\3_3.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\5_1.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\5_2.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\5_3.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\6_1.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\6_2.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\6_3.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\8_1.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\8_2.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\8_3.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\ring_1.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\ring_2.png" />
+    <Content Include="Resources\PokemonGO-Assets\medals\ring_3.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\0.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\1.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\10.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\100.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\101.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\102.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\103.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\104.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\105.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\106.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\107.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\108.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\109.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\11.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\110.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\111.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\112.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\113.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\114.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\115.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\116.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\117.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\118.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\119.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\12.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\120.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\121.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\122.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\123.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\124.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\125.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\126.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\127.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\128.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\129-shiny.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\129.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\13.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\130-shiny.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\130.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\131.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\132.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\133.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\134.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\135.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\136.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\137.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\138.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\139.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\14.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\140.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\141.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\142.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\143.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\144.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\145.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\146.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\147.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\148.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\149.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\15.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\150.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\151.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\152.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\153.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\154.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\155.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\156.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\157.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\158.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\159.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\16.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\160.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\161.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\162.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\163.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\164.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\165.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\166.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\167.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\168.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\169.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\17.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\170.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\171.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\172.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\173.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\174.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\175.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\176.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\177.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\178.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\179.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\18.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\180.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\181.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\182.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\183.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\184.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\185.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\186.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\187.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\188.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\189.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\19.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\190.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\191.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\192.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\193.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\194.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\195.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\196.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\197.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\198.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\199.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\2.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\20.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\200.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-A.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-B.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-C.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-D.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-E.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-ExclamationPoint.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-F.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-G.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-H.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-I.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-J.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-K.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-L.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-M.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-N.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-O.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-P.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-Q.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-QuestionMark.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-R.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-S.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-T.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-U.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-V.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-W.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-X.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-Y.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201-Z.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\201.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\202.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\203.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\204.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\205.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\206.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\207.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\208.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\209.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\21.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\210.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\211.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\212.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\213.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\214.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\215.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\216.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\217.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\218.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\219.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\22.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\220.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\221.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\222.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\223.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\224.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\225.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\226.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\227.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\228.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\229.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\23.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\230.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\231.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\232.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\233.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\234.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\235.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\236.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\237.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\238.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\239.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\24.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\240.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\241.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\242.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\243.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\244.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\245.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\246.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\247.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\248.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\249.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\25-Anniversary.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\25-Holiday2016.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\25.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\250.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\251.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\26-Anniversary.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\26-Holiday2016.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\26.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\27.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\28.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\29.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\3.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\30.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\31.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\32.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\33.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\34.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\35.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\36.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\37.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\38.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\39.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\4.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\40.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\41.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\42.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\43.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\44.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\45.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\46.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\47.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\48.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\49.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\5.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\50.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\51.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\52.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\53.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\54.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\55.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\56.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\57.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\58.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\59.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\6.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\60.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\61.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\62.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\63.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\64.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\65.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\66.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\67.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\68.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\69.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\7.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\70.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\71.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\72.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\73.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\74.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\75.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\76.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\77.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\78.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\79.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\8.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\80.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\81.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\82.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\83.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\84.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\85.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\86.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\87.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\88.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\89.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\9.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\90.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\91.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\92.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\93.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\94.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\95.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\96.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\97.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\98.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\99.png" />
+    <None Include="FodyWeavers.xml" />
+    <None Include="cert.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\log4net.config" />
+    <None Include="Config\log4net.unix.config" />
+    <None Include="Config\Translations\translation.ca.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.cs.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.da.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.de.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.el.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.es.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.et.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.fr.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.hu.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.id.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.it.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.ja-JP.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.kh.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.lt.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.nl-NL.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.nn-NO.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.pl.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.pt-br.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.pt-pt.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.ro.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.ru-RU.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.sv.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.th.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.tr.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.uk-UA.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.vi.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.zh-CN.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.zh-CN_pp.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.zh-HK.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Translations\translation.zh-TW.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\PokemonGO-Assets\README.md" />
+    <None Include="RunWithExcelConfig.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Miscs\Logo.png" />
+    <None Include="Resources\msvc.cer" />
+    <None Include="Images\Markers\gym-unoccupied.png" />
+    <None Include="Images\Markers\Visited.png" />
+    <None Include="Images\Markers\gym-instinct.png" />
+    <None Include="Images\Markers\gym-mystic.png" />
+    <None Include="Images\Markers\gym-valor.png" />
+    <None Include="Images\Markers\Normal.png" />
+    <None Include="Images\Markers\location.png" />
+    <Content Include="Images\Markers\location2.png" />
+    <Content Include="Resources\Ico.ico" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Resources\device info.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\Miscs\question.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\AuthAPIForm.resx">
+      <DependentUpon>AuthAPIForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EggsForm.resx">
+      <DependentUpon>EggsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EvoleToPokemon.resx">
+      <DependentUpon>EvoleToPokemon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InfoForm.resx">
+      <DependentUpon>InfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ItemBox.resx">
+      <DependentUpon>ItemBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ItemForm.resx">
+      <DependentUpon>ItemForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NicknamePokemonForm.resx">
+      <DependentUpon>NicknamePokemonForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PokeDexForm.resx">
+      <DependentUpon>PokeDexForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PokemonPropertiesForm.resx">
+      <DependentUpon>PokemonPropertiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SettingForm.resx">
+      <DependentUpon>SettingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ItemSetting.resx">
+      <DependentUpon>ItemSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\StarterConfigForm.resx">
+      <DependentUpon>StarterConfigForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\EggDB.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EggDB.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ItemIdDB.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ItemIdDB.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PokemonDB.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PokemonDB.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 et x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(SolutionDir)\POGOProtos\POGOProtos.csproj">
+      <Project>{a03a7bb2-4f0b-467b-84b2-9a76e6aae6fb}</Project>
+      <Name>POGOProtos</Name>
+    </ProjectReference>
+    <ProjectReference Include="$(SolutionDir)\FeroxRev\PokemonGo.RocketAPI.csproj">
+      <Project>{05d2da44-1b8e-4cf7-94ed-4d52451cd095}</Project>
+      <Name>PokemonGo.RocketAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="$(SolutionDir)\PoGo.NecroBot.Logic\PoGo.NecroBot.Logic.csproj">
+      <Project>{0739e40d-c589-4aeb-93e5-ee8cd6773c60}</Project>
+      <Name>PoGo.NecroBot.Logic</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <UsingTask TaskName="CosturaCleanup" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" TaskFactory="CodeTaskFactory">
+    <ParameterGroup>
+      <Config Output="false" Required="true" ParameterType="Microsoft.Build.Framework.ITaskItem" />
+      <Files Output="false" Required="true" ParameterType="Microsoft.Build.Framework.ITaskItem[]" />
+    </ParameterGroup>
+    <Task Evaluate="true">
+      <Reference xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Include="System.Xml" />
+      <Reference xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Include="System.Xml.Linq" />
+      <Using xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Namespace="System" />
+      <Using xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Namespace="System.IO" />
+      <Using xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Namespace="System.Xml.Linq" />
+      <Code xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Type="Fragment" Language="cs"><![CDATA[
+var config = XElement.Load(Config.ItemSpec).Elements("Costura").FirstOrDefault();
+
+if (config == null) return true;
+
+var excludedAssemblies = new List<string>();
+var attribute = config.Attribute("ExcludeAssemblies");
+if (attribute != null)
+    foreach (var item in attribute.Value.Split('|').Select(x => x.Trim()).Where(x => x != string.Empty))
+        excludedAssemblies.Add(item);
+var element = config.Element("ExcludeAssemblies");
+if (element != null)
+    foreach (var item in element.Value.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).Where(x => x != string.Empty))
+        excludedAssemblies.Add(item);
+
+var filesToCleanup = Files.Select(f => f.ItemSpec).Where(f => !excludedAssemblies.Contains(Path.GetFileNameWithoutExtension(f), StringComparer.InvariantCultureIgnoreCase));
+
+foreach (var item in filesToCleanup)
+  File.Delete(item);
+]]></Code>
+    </Task>
+  </UsingTask>
+  <Target Name="CleanReferenceCopyLocalPaths" AfterTargets="AfterBuild;NonWinFodyTarget">
+    <CosturaCleanup Config="FodyWeavers.xml" Files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
+  </Target>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.29.0\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.29.0\build\Selenium.WebDriver.ChromeDriver.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)\packages\Fody.2.0.10\build\netstandard1.4\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\Fody.2.0.10\build\netstandard1.4\Fody.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)\packages\Costura.Fody.1.5.1\build\dotnet\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\Costura.Fody.1.5.1\build\dotnet\Costura.Fody.targets'))" />
+  </Target>
+  <PropertyGroup>
+    <PostBuildEvent>cd "$(TargetDir)"
+del *.config
+del /s /q x86
+rmdir /s /q x86
+del /s /q x64
+rmdir /s /q x64</PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.29.0\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.29.0\build\Selenium.WebDriver.ChromeDriver.targets')" />
+  <Import Project="$(SolutionDir)\packages\Fody.2.0.10\build\netstandard1.4\Fody.targets" Condition="Exists('$(SolutionDir)\packages\Fody.2.0.10\build\netstandard1.4\Fody.targets')" />
+  <Import Project="$(SolutionDir)\packages\Costura.Fody.1.5.1\build\dotnet\Costura.Fody.targets" Condition="Exists('$(SolutionDir)\packages\Costura.Fody.1.5.1\build\dotnet\Costura.Fody.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
