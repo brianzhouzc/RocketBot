@@ -46,14 +46,15 @@ namespace RocketBot2.Forms
             pb.Image = egg.Icon;
             lblTime.Parent = pb;
             lblTime.Visible = true;
-            lblTime.Text = String.Format(CultureInfo.InvariantCulture, "{0:0.0}Km", egg.TotalKM);
             lbl.Text = String.Format(CultureInfo.InvariantCulture, "{0:0.0}Km", egg.KM);
             if (!egg.Hatchable)
             {
+                lblTime.Text = String.Format(CultureInfo.InvariantCulture, "Remaining", egg.TotalKM);
                 Enabled = false;
                 return;
             }
- 
+            lblTime.Text = String.Format(CultureInfo.InvariantCulture, "{0:0.0}Km", egg.TotalKM);
+
             foreach (Control control in Controls)
             {
                 control.MouseEnter += ChildMouseEnter;

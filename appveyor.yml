@@ -16,6 +16,7 @@ skip_commits:
   files:
   - '**\AssemblyInfo.*'
   - 'CHANGELOG.md'
+  - 'README.md'
 
 # 
 pull_requests:

@@ -1,5 +1,20 @@
 # Change Log
 
+## [v2.10.3.0](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.10.3.0) (2017-05-28)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.5...v2.10.3.0)
+
+**Closed issues:**
+
+- teste [\#94](https://github.com/TheUnnamedOrganisation/RocketBot/issues/94)
+
+**Merged pull requests:**
+
+- teste repo [\#93](https://github.com/TheUnnamedOrganisation/RocketBot/pull/93) ([Furtif](https://github.com/Furtif))
+- Rebase rb [\#92](https://github.com/TheUnnamedOrganisation/RocketBot/pull/92) ([Furtif](https://github.com/Furtif))
+- Rebase rb [\#91](https://github.com/TheUnnamedOrganisation/RocketBot/pull/91) ([Furtif](https://github.com/Furtif))
+- Rebase [\#87](https://github.com/TheUnnamedOrganisation/RocketBot/pull/87) ([Furtif](https://github.com/Furtif))
+- Rebase [\#86](https://github.com/TheUnnamedOrganisation/RocketBot/pull/86) ([Furtif](https://github.com/Furtif))
+
 ## [v2.10.1.5](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.10.1.5) (2017-05-23)
 [Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.4...v2.10.1.5)
 
