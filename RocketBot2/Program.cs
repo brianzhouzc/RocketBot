@@ -17,6 +17,7 @@ namespace RocketBot2
         {
             Application.EnableVisualStyles();
             ConsoleHelper.AllocConsole();
+            ConsoleHelper.HideConsoleWindow();
             Application.Run(new MainForm(args));
         }
     }

@@ -110,7 +110,7 @@ namespace RocketBot2.Forms
             InitializeMap();
             VersionHelper.CheckVersion();
             btnRefresh.Enabled = false;
-            ConsoleHelper.HideConsoleWindow();
+            //ConsoleHelper.HideConsoleWindow();
         }
 
         #endregion
