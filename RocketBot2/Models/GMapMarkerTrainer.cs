@@ -30,7 +30,7 @@ namespace RocketBot2.Models
         {
             MarkerImage = image;
             Size = MarkerImage.Size;
-            Offset = new Point(-Size.Width/2, -Size.Height/2);
+            Offset = new Point(-Size.Width / 2, -Size.Height / 2);
         }
 
         /// <summary>

@@ -95,6 +95,9 @@ namespace RocketBot2.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            this.splitContainer1.SplitterDistance = this.splitContainer1.Width / 100 * 45; // Splits left & right splitter panes @ 45%/55% of the window width
+            this.splitContainer2.SplitterDistance = this.splitContainer2.Height / 100 * 45;// Always keeps the logger window @ 45%/55% of the window height
+            this.Refresh(); // Force screen refresh before items are poppulated
             SetStatusText(Application.ProductName + " " + Application.ProductVersion);
             speedLable.Parent = GMapControl1;
             showMoreCheckBox.Parent = GMapControl1;
@@ -107,8 +110,6 @@ namespace RocketBot2.Forms
             InitializeMap();
             VersionHelper.CheckVersion();
             btnRefresh.Enabled = false;
-            //this.splitContainer1.SplitterDistance = this.splitContainer1.Width / 2;
-            //this.splitContainer2.SplitterDistance = this.splitContainer2.Height / 2;
             ConsoleHelper.HideConsoleWindow();
         }
 
@@ -1428,10 +1429,21 @@ namespace RocketBot2.Forms
             CatchIncensePokemonsTask.PokemonEncounterEvent += UpdateMap;
 
             CatchLurePokemonsTask.PokemonEncounterEvent +=
-                         mappokemons => _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
+                mappokemons => _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
             CatchLurePokemonsTask.PokemonEncounterEvent += UpdateMap;
 
             Resources.ProgressBar.Fill(100);
+
+            //TODO: temporary - From NecrBot2 if LegacyAPI is selected
+            if (settings.Auth.APIConfig.UseLegacyAPI)
+            {
+                Logger.Write($"The PoGoDev Community Has Updated The Hashing Service To Be Compatible With {Client.API_VERSION} So We Have Updated Our Code To Be Compliant. Unfortunately During This Update Niantic Has Also Attempted To Block The Legacy .45 Service Again So At The Moment Only Hashing Service Users Are Able To Login Successfully. Please Be Patient As Always We Will Attempt To Keep The Bot 100% Free But Please Realize We Have Already Done Quite A Few Workarounds To Keep .45 Alive For You Guys.  Even If We Are Able To Get Access Again To The .45 API Again It Is Over 3 Months Old So Is Going To Be More Detectable And Cause Captchas. Please Consider Upgrading To A Paid API Key To Avoid Captchas And You Will  Be Connecting Using Latest Version So Less Detectable So More Safe For You In The End.", LogLevel.Warning);
+                Logger.Write("The bot will now close", LogLevel.Error);
+                Console.ReadLine();
+                Environment.Exit(0);
+                return;
+            }
+            //
 
             if (settings.WebsocketsConfig.UseWebsocket)
             {
@@ -1456,30 +1468,21 @@ namespace RocketBot2.Forms
                         if (!Instance._botStarted)
                             _session.ReInitSessionWithNextBot(_bot);
                         accountManager.SwitchAccountTo(_bot);
-                        Logger.Write(
-                            $"(Start-Up Stats) User: {_bot.Username} | XP: {_bot.CurrentXp} | SD: {_bot.Stardust}",
-                            LogLevel.Info, ConsoleColor
-                            .Magenta
-                            );
+                        Logger.Write($"(Start-Up Stats) User: {bot.Username} | XP: {bot.CurrentXp} | SD: {bot.Stardust}",
+                            LogLevel.Info, ConsoleColor.Magenta);
                     };
                     accountsToolStripMenuItem.DropDownItems.Add(_item);
                 }
                 _session.ReInitSessionWithNextBot(bot);
-                Logger.Write(
-                    $"(Start-Up Stats) User: {bot.Username} | XP: {bot.CurrentXp} | SD: {bot.Stardust}",
-                    LogLevel.Info, ConsoleColor
-                    .Magenta
-                    );
+                Logger.Write($"(Start-Up Stats) User: {bot.Username} | XP: {bot.CurrentXp} | SD: {bot.Stardust}",
+                    LogLevel.Info, ConsoleColor.Magenta);
             }
             else
             {
                 _session.ReInitSessionWithNextBot(bot);
                 menuStrip1.Items.Remove(accountsToolStripMenuItem);
-                Logger.Write(
-                    $"(Start-Up Stats) User: {bot.Username} | XP: {bot.CurrentXp} | SD: {bot.Stardust}",
-                    LogLevel.Info, ConsoleColor
-                    .Magenta
-                    );
+                Logger.Write($"(Start-Up Stats) User: {bot.Username} | XP: {bot.CurrentXp} | SD: {bot.Stardust}",
+                    LogLevel.Info, ConsoleColor.Magenta);
             }
 
             _machine = machine;
