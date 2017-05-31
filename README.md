@@ -3,7 +3,6 @@
 [1.1]: http://i.imgur.com/M4fJ65n.png (ATTENTION)
 [1.2]: https://discordapp.com/api/guilds/208485545439920128/widget.png?style=banner2 (DISCORD)
 
-
 <!-- disclaimer -->
 [![Build status](https://ci.appveyor.com/api/projects/status/x6s90ltupbmagm2l/branch/master?svg=true)](https://ci.appveyor.com/project/RocketBot/rocketbot/branch/master) 
 [![Github All Releases](https://img.shields.io/github/downloads/TheUnnamedOrganisation/RocketBot/total.svg?maxAge=250)](https://github.com/TheUnnamedOrganisation/RocketBot/releases) 
