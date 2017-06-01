@@ -112,6 +112,7 @@ namespace RocketBot2.Forms
             btnRefresh.Enabled = false;
             //ConsoleHelper.HideConsoleWindow();
         }
+
         private void MainForm_Resize(object sender, EventArgs e)
         {
             this.TrayIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info; //Shows the info icon so the user doesn't thing there is an error.
