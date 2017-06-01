@@ -113,6 +113,31 @@ namespace RocketBot2.Forms
             //ConsoleHelper.HideConsoleWindow();
         }
 
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            this.TrayIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info; //Shows the info icon so the user doesn't thing there is an error.
+            this.TrayIcon.BalloonTipText = "RocketBot2 minimized doubleClick to restore";
+            this.TrayIcon.BalloonTipTitle = "RocketBot2 when Minimize";
+            this.TrayIcon.Text = "RocketBot2 minimized, doubleclick on this icon to restore";
+
+            if (FormWindowState.Minimized == this.WindowState)
+            {
+                TrayIcon.Visible = true;
+                TrayIcon.ShowBalloonTip(5000);
+                this.Hide();
+            }
+
+            else if (FormWindowState.Normal == this.WindowState)
+            {
+                TrayIcon.Visible = false;
+            }
+        }
+
+        private void TrayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
+        }
         #endregion
 
         #region INTERFACE

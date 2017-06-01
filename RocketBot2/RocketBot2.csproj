@@ -115,6 +115,10 @@
     <Reference Include="AeroWizard, Version=2.1.10.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\AeroWizard.2.1.10\lib\net452\AeroWizard.dll</HintPath>
     </Reference>
+    <Reference Include="Costura, Version=1.6.1.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\Costura.Fody.1.6.1\lib\dotnet\Costura.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="GeoCoordinate.NetStandard1, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\GeoCoordinate.NetStandard1.1.0.1\lib\netstandard1.1\GeoCoordinate.NetStandard1.dll</HintPath>
     </Reference>
@@ -1079,7 +1083,7 @@ foreach (var item in filesToCleanup)
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.29.0\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.29.0\build\Selenium.WebDriver.ChromeDriver.targets'))" />
     <Error Condition="!Exists('$(SolutionDir)\packages\Fody.2.0.10\build\netstandard1.4\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\Fody.2.0.10\build\netstandard1.4\Fody.targets'))" />
-    <Error Condition="!Exists('$(SolutionDir)\packages\Costura.Fody.1.5.1\build\dotnet\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\Costura.Fody.1.5.1\build\dotnet\Costura.Fody.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)\packages\Costura.Fody.1.6.1\build\dotnet\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\Costura.Fody.1.6.1\build\dotnet\Costura.Fody.targets'))" />
   </Target>
   <PropertyGroup>
     <PostBuildEvent>cd "$(TargetDir)"
@@ -1091,7 +1095,7 @@ rmdir /s /q x64</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.29.0\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('$(SolutionDir)\packages\Selenium.WebDriver.ChromeDriver.2.29.0\build\Selenium.WebDriver.ChromeDriver.targets')" />
   <Import Project="$(SolutionDir)\packages\Fody.2.0.10\build\netstandard1.4\Fody.targets" Condition="Exists('$(SolutionDir)\packages\Fody.2.0.10\build\netstandard1.4\Fody.targets')" />
-  <Import Project="$(SolutionDir)\packages\Costura.Fody.1.5.1\build\dotnet\Costura.Fody.targets" Condition="Exists('$(SolutionDir)\packages\Costura.Fody.1.5.1\build\dotnet\Costura.Fody.targets')" />
+  <Import Project="$(SolutionDir)\packages\Costura.Fody.1.6.1\build\dotnet\Costura.Fody.targets" Condition="Exists('$(SolutionDir)\packages\Costura.Fody.1.6.1\build\dotnet\Costura.Fody.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
