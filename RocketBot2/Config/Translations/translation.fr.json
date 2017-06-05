@@ -110,7 +110,7 @@
     },
     {
       "Key": "eventPokemonEvolvedSuccess",
-      "Value": "{0} +{1}XP"
+      "Value": "{0} à {1}. XP: {2} | Bombons: {3}"
     },
     {
       "Key": "eventPokemonEvolvedFailed",
