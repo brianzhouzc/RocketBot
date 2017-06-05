@@ -1467,12 +1467,15 @@ namespace RocketBot2.Forms
             ioc.Register<MultiAccountManager>(accountManager);
 
             var bot = accountManager.GetStartUpAccount();
+
             var TotXP = 0;
 
             for (int i = 0; i < bot.Level + 1; i++)
             {
                 TotXP = TotXP + Statistics.GetXpDiff(i);
             }
+
+            var user = !string.IsNullOrEmpty(bot.Nickname) ? bot.Nickname : bot.Username;
 
             if (accountManager.AccountsReadOnly.Count > 1)
             {
@@ -1484,16 +1487,18 @@ namespace RocketBot2.Forms
                         _TotXP = _TotXP + Statistics.GetXpDiff(i);
                     }
 
+                    var _user = !string.IsNullOrEmpty(_bot.Nickname) ? _bot.Nickname : _bot.Username;
+
                     var _item = new ToolStripMenuItem()
                     {
-                        Text = _bot.Username
+                        Text = _user
                     };
                     _item.Click += delegate
                     {
                         if (!Instance._botStarted)
                             _session.ReInitSessionWithNextBot(_bot);
                         accountManager.SwitchAccountTo(_bot);
-                        Logger.Write($"(Bot Stats) User: {_bot.Nickname} | XP: {_bot.CurrentXp - _TotXP} | SD: {_bot.Stardust}", LogLevel.Info, ConsoleColor.Magenta);
+                        Logger.Write($"(Bot Stats) User: {_user} | XP: {_bot.CurrentXp - _TotXP} | SD: {_bot.Stardust}", LogLevel.Info, ConsoleColor.Magenta);
                     };
                     accountsToolStripMenuItem.DropDownItems.Add(_item);
                 }
@@ -1509,7 +1514,7 @@ namespace RocketBot2.Forms
             _settings = settings;
             _excelConfigAllow = excelConfigAllow;
 
-            Logger.Write($"(Bot Stats) User: {bot.Nickname} | XP: {bot.CurrentXp - TotXP} | SD: {bot.Stardust}", LogLevel.Info, ConsoleColor.Magenta);
+            Logger.Write($"(Bot Stats) User: {user} | XP: {bot.CurrentXp - TotXP} | SD: {bot.Stardust}", LogLevel.Info, ConsoleColor.Magenta);
         }
 
         private Task StartBot()
