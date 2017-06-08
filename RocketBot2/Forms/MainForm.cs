@@ -1458,29 +1458,18 @@ namespace RocketBot2.Forms
             }
 
             ioc.Register<MultiAccountManager>(accountManager);
-            
-            var bot = accountManager.GetStartUpAccount();
-
-            var TotXP = 0;
-
-            for (int i = 0; i < bot.Level + 1; i++)
-            {
-                TotXP = TotXP + Statistics.GetXpDiff(i);
-            }
-
-            var user = !string.IsNullOrEmpty(bot.Nickname) ? bot.Nickname : bot.Username;
 
             if (accountManager.AccountsReadOnly.Count > 1)
             {
                 foreach (var _bot in accountManager.AccountsReadOnly)
                 {
                     var _TotXP = 0;
+                    var _user = !string.IsNullOrEmpty(_bot.Nickname) ? _bot.Nickname : _bot.Username;
+
                     for (int i = 0; i < _bot.Level + 1; i++)
                     {
                         _TotXP = _TotXP + Statistics.GetXpDiff(i);
                     }
-
-                    var _user = !string.IsNullOrEmpty(_bot.Nickname) ? _bot.Nickname : _bot.Username;
 
                     var _item = new ToolStripMenuItem()
                     {
@@ -1501,8 +1490,17 @@ namespace RocketBot2.Forms
                 menuStrip1.Items.Remove(accountsToolStripMenuItem);
             }
 
-            _session.ReInitSessionWithNextBot(bot);
 
+            var bot = accountManager.GetStartUpAccount();
+            var TotXP = 0;
+            var user = !string.IsNullOrEmpty(bot.Nickname) ? bot.Nickname : bot.Username;
+
+            for (int i = 0; i < bot.Level + 1; i++)
+            {
+                TotXP = TotXP + Statistics.GetXpDiff(i);
+            }
+
+            _session.ReInitSessionWithNextBot(bot);
             _machine = machine;
             _settings = settings;
             _excelConfigAllow = excelConfigAllow;
