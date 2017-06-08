@@ -78,11 +78,11 @@
     },
     {
       "Key": "eventUsedLuckyEgg",
-      "Value": "Utilisation d'un ouef Chance, {0} restant"
+      "Value": "Utilisation d'un oeuf Chance, {0} restant"
     },
     {
       "Key": "eventPokemonEvolvedSuccess",
-      "Value": "{0} à {1}. XP: {2} | Bombons: {3}"
+      "Value": "{0} à {1}. XP: {2} | Bonbons: {3}"
     },
     {
       "Key": "eventPokemonEvolvedFailed",
@@ -90,11 +90,11 @@
     },
     {
       "Key": "eventPokemonTransferred",
-      "Value": "{0}\t- CP: {1} IV: {2}% [Meilleur CP: {3} IV: {4}%] | Bombons: {5}"
+      "Value": "{0}\t- CP: {1} IV: {2}% [Meilleur CP: {3} IV: {4}%] | Bonbons: {5}"
     },
     {
       "Key": "eventPokemonUpgraded",
-      "Value": "{0}\t- Level: {1:0.0} | CP: {2}  IV: {3}%   [Meilleur CP: {4}  IV: {5}%] | SD: {6} | Bombons: {7}"
+      "Value": "{0}\t- Level: {1:0.0} | CP: {2}  IV: {3}%   [Meilleur CP: {4}  IV: {5}%] | SD: {6} | Bonbons: {7}"
     },
     {
       "Key": "eventItemRecycled",
@@ -118,7 +118,7 @@
     },
     {
       "Key": "useLuckyEggsMinPokemonAmountTooHigh",
-      "Value": "Les oeufs chanceux ne seront jamais utilisés avec UseLuckyEggsMinPokemonAmount configuré pour {0}, utilise <= {1} au lieu"
+      "Value": "Les oeufs chance ne seront jamais utilisés avec UseLuckyEggsMinPokemonAmount configuré pour {0}, utilise <= {1} au lieu"
     },
     {
       "Key": "catchMorePokemonToUseLuckyEgg",
@@ -158,7 +158,7 @@
     },
     {
       "Key": "candies",
-      "Value": "Bombons: {0}"
+      "Value": "Bonbons: {0}"
     },
     {
       "Key": "unhandledGpxData",
@@ -206,7 +206,7 @@
     },
     {
       "Key": "incubatorEggHatched",
-      "Value": "{0}km oeuf à éclos: {1} | Lvl: {2} | CP:({3}/{4}) | IV: {5}% | XP: {6} | SD: {7} | Bombons: {8}"
+      "Value": "{0}km oeuf à éclos: {1} | Lvl: {2} | CP:({3}/{4}) | IV: {5}% | XP: {6} | SD: {7} | Bonbons: {8}"
     },
     {
       "Key": "logEntryError",
@@ -322,7 +322,7 @@
     },
     {
       "Key": "couldntCopyToClipboard2",
-      "Value": "Goto: {0} & enter {1}"
+      "Value": "Aller à: {0} & entrer {1}"
     },
     {
       "Key": "realisticTravelDetected",
@@ -514,7 +514,7 @@
     },
     {
       "Key": "catchTypeIncense",
-      "Value": "Incense"
+      "Value": "Encens"
     },
     {
       "Key": "webSocketFailStart",
@@ -522,7 +522,7 @@
     },
     {
       "Key": "statsTemplateString",
-      "Value": "{0} - Temps connecté {1} - Lvl: {2} | EXP/H: {3:n0} | P/H: {4:n0} | Poussières: {5:n0} | Transféré: {6:n0} | Recycled: {7:n0}"
+      "Value": "{0} - Temps connecté {1} - Lvl: {2} | EXP/H: {3:n0} | P/H: {4:n0} | Poussières: {5:n0} | Transféré: {6:n0} | Recyclé: {7:n0}"
     },
     {
       "Key": "profileStatsTemplateString",
@@ -602,7 +602,7 @@
     },
     {
       "Key": "displayHighestCandy",
-      "Value": "Bombons"
+      "Value": "Bonbons"
     },
     {
       "Key": "ipBannedError",
@@ -734,167 +734,167 @@
     },
     {
       "Key": "firstStartSetupAutoCompleteTutNicknamePrompt",
-      "Value": "Please enter your desired Nickname"
+      "Value": "Entrez le nom d'utilisateur souhaité"
     },
     {
       "Key": "firstStartSetupAutoCompleteTutGenderPrompt",
-      "Value": "Please enter your desired Gender (ENGLISH WORD: Male or Female)"
+      "Value": "Choisissez entre homme et femme"
     },
     {
       "Key": "firstStartSetupAutoCompleteTutStarterPrompt",
-      "Value": "Please enter your desired Starter (ENGLISH NAME: Bulbasaur, Charmander, Squirtle)"
+      "Value": "Choisissez votre pokemon de départ"
     },
     {
       "Key": "firstStartSetupWebSocketPrompt",
-      "Value": "Would you like to enable the WebSocket Feature? {0}/{1}"
+      "Value": "Voulez vous activer la fonction websocket ? {0}/{1}"
     },
     {
       "Key": "firstStartSetupWebSocketPortPrompt",
-      "Value": "Please enter your WebSocket Port (default 14251)"
+      "Value": "Entrez le numéro de port du websocket (default 14251)"
     },
     {
       "Key": "firstStartSetupWebSocketPortConfirm",
-      "Value": "Accepted Port: {0}"
+      "Value": "Port accepté: {0}"
     },
     {
       "Key": "firstStartSetupWalkingSpeedPrompt",
-      "Value": "Would you like to edit the Walking Speed Settings? {0}/{1}"
+      "Value": "Voulez vous changer la vitesse de marche? {0}/{1}"
     },
     {
       "Key": "firstStartSetupWalkingSpeedKmHPrompt",
-      "Value": "Please enter your desired walking speed (km/h) Ex: 5.85 [MAX 20]"
+      "Value": "Veuillez entrer la vitesse de marche désirée (km/h) Ex: 5.85 [MAX 20]"
     },
     {
       "Key": "firstStartSetupWalkingSpeedKmHConfirm",
-      "Value": "Accepted Walking Speed: {0}"
+      "Value": "Marche réaliste acceptée: {0}"
     },
     {
       "Key": "firstStartSetupUseWalkingSpeedVariantPrompt",
-      "Value": "Would you like to enable the Walking Speed Variant Setting? {0}/{1}"
+      "Value": "Voulez vous activer la vitesse de marche aléatoire? {0}/{1}"
     },
     {
       "Key": "firstStartSetupWalkingSpeedVariantPrompt",
-      "Value": "Please enter the walking speed variant (km/h) Ex: 1.2"
+      "Value": "Entrez la variante de vitesse de marche (km/h) Ex: 1.2"
     },
     {
       "Key": "firstStartSetupWalkingSpeedVariantConfirm",
-      "Value": "Accepted Variant: {0}"
+      "Value": "Variant acceptée: {0}"
     },
     {
       "Key": "promptError",
-      "Value": "[INPUT ERROR] Error with input, please enter '{0}' or '{1}"
+      "Value": "[Erreur interne] Erreur, veuillez entrer '{0}' ou '{1}"
     },
     {
       "Key": "promptErrorDouble",
-      "Value": "[INPUT ERROR] Error with input, please enter a valid number"
+      "Value": "[Erreur interne] Erreur, veuillez entrer un nombre valide"
     },
     {
       "Key": "promptErrorInteger",
-      "Value": "[INPUT ERROR] Error with input, please enter a valid integer number"
+      "Value": "[Erreur interne] Erreur, veuillez entrer un nombre intégré valide"
     },
     {
       "Key": "promptErrorString",
-      "Value": "[INPUT ERROR] Error with input, please enter one of the following options: {0}"
+      "Value": "[Erreur interne] Erreur, veuillez choisir une des options proposées: {0}"
     },
     {
       "Key": "firstStartAutoGenSettings",
-      "Value": "Config/Auth file automatically generated and must be completed before continuing"
+      "Value": "Fichier config/auth généré automatiquement, ils doivent être completés avant de continuer"
     },
     {
       "Key": "firstStartSetupAccount",
-      "Value": "### Setting up new USER ACCOUNT ###"
+      "Value": "### Configuration ok, Nouveau compte utilisateur###"
     },
     {
       "Key": "firstStartSetupTypePrompt",
-      "Value": "Please choose an account type: {0}/{1}"
+      "Value": "Choisissez un type de compte: {0}/{1}"
     },
     {
       "Key": "firstStartSetupTypeConfirm",
-      "Value": "Chosen Account Type: {0}"
+      "Value": "Type de compte choisi: {0}"
     },
     {
       "Key": "firstStartSetupTypePromptError",
-      "Value": "[ERROR] submitted an incorrect account type, please choose '{0}' or '{1}'"
+      "Value": "[Erreur] Type de compte incorrect, choisissez '{0}' or '{1}'"
     },
     {
       "Key": "firstStartSetupUsernamePrompt",
-      "Value": "Please enter a Username"
+      "Value": "Entrez un nom d'utilisateur"
     },
     {
       "Key": "firstStartSetupUsernameConfirm",
-      "Value": "Accepted username: {0}"
+      "Value": "Nom d'utilisateur accepté: {0}"
     },
     {
       "Key": "firstStartSetupPasswordPrompt",
-      "Value": "Please enter a Password"
+      "Value": "Entrez un mot de passe"
     },
     {
       "Key": "firstStartSetupPasswordConfirm",
-      "Value": "Accepted password: {0}"
+      "Value": "Mot de passe accepté: {0}"
     },
     {
       "Key": "firstStartAccountCompleted",
-      "Value": "### User Account Completed ###"
+      "Value": "### compte utilisateur accepté ###"
     },
     {
       "Key": "firstStartDefaultLocationPrompt",
-      "Value": "Would you like to setup a new Default Location? {0}/{1}"
+      "Value": "Choisir une destination par défaut? {0}/{1}"
     },
     {
       "Key": "firstStartDefaultLocationSet",
-      "Value": "Default Location Applied"
+      "Value": "Destination par défaut enregistrée"
     },
     {
       "Key": "firstStartDefaultLocation",
-      "Value": "### Setting Default Position ###"
+      "Value": "### Destination par défaut ###"
     },
     {
       "Key": "firstStartSetupDefaultLocationError",
-      "Value": "[ERROR] Please input a correct LatLong for example: {0}"
+      "Value": "[Erreur] Entrez une Lat/long correcte, par exemple: {0}"
     },
     {
       "Key": "firstStartSetupDefaultLatLongPrompt",
-      "Value": "Please enter a Latitude and Longitude (Right click to paste) - Format: Value, Value"
+      "Value": "Entrez une Lat & long (clic droit pour coller) - Format: Valeur, Valeur"
     },
     {
       "Key": "firstStartSetupDefaultLatLongConfirm",
-      "Value": "Lattitude and Longitude accepted: {0}"
+      "Value": "Lattitude and Longitude acceptée: {0}"
     },
     {
       "Key": "softBanBypassed",
-      "Value": "Successfully bypassed!"
+      "Value": "Passé avec succès!"
     },
     {
       "Key": "firstStartSetupCompleted",
-      "Value": "### COMPLETED CONFIG SETUP ###"
+      "Value": "### Configuration completée ###"
     },
     {
       "Key": "pokedexCatchedTelegram",
-      "Value": "--- Pokedex catched --- \n"
+      "Value": "--- Pokedex attrapé --- \n"
     },
     {
       "Key": "pokedexPokemonCatchedTelegram",
-      "Value": "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"
+      "Value": "#{0} Nom: {1} | Attrapé: {2} | rencontré: {3} \n"
     },
     {
       "Key": "pokedexNeededTelegram",
-      "Value": "--- Pokedex needed --- \n"
+      "Value": "--- Pokedex nécessaire --- \n"
     },
     {
       "Key": "pokedexPokemonNeededTelegram",
-      "Value": "#{0}# Name: {1} \n"
+      "Value": "#{0}# Nom: {1} \n"
     },
     {
       "Key": "loggedInTelegram",
-      "Value": "You have been logged in sucessfully. Session is valid for 5 Minutes"
+      "Value": "Identification OK, Ouverture de la session pour 5 minutes"
     },
     {
       "Key": "loginFailedTelegram",
-      "Value": "Wrong Password or wrong Syntax! Use /login PASSWORD"
+      "Value": "Mot de passe ou syntaxe incorrecte! Utilisez /login PASSWORD"
     },
     {
       "Key": "notLoggedInTelegram",
-      "Value": "You are not logged in, use /login PASSWORD"
+      "Value": "Vous n'êtes pas connecté, Utilisez /login PASSWORD"
     },
     {
       "Key": "proxied",
@@ -906,15 +906,15 @@
     },
     {
       "Key": "fixProxySettings",
-      "Value": "Press any key to exit so you can fix your proxy settings..."
+      "Value": "Appuyez sur nimoporte quelle touche pour quitter, vous pourrez configurer votre proxy..."
     },
     {
       "Key": "usageHelp",
-      "Value": "Invalid command arguments! \n Correct usage: \n {0}"
+      "Value": "Arguments de commande invalides! \n Usage correct: \n {0}"
     },
     {
       "Key": "loginRemainingTime",
-      "Value": "You are already logged in! \n Session valid for: ({0}: {1} seconds)"
+      "Value": "Vous êtes déja connecté! \n Session OK pour: ({0}: {1} seconds)"
     },
     {
       "Key": "highestsPokemoHeader",
@@ -926,11 +926,11 @@
     },
     {
       "Key": "humanWalkingVariant",
-      "Value": "Walking Speed: Has been changed, {0:n2} Km/h to {1:n2} Km/h"
+      "Value": "La vitesse de marche: a été configuré, {0:n2} Km/h à {1:n2} Km/h"
     },
     {
       "Key": "accountBanned",
-      "Value": "Probably Permanent Ban!"
+      "Value": "Votre compte est probablement banni de manière permanente!"
     },
     {
       "Key": "googleAPIWarning",
@@ -942,7 +942,7 @@
     },
     {
       "Key": "autoSnipeDisabled",
-      "Value": "Your are out of PokeBalls because of sniping pretty fast, you can reduce sniping speed by updating MinIVForAutoSnipe or SnipePokemonFilters, Auto snipe will be disabled in {0} mins"
+      "Value": "Plus assez de pokeballs à cause d'un snipîng trop rapide, vous pouvez réduire la vitesse de sniping en configurant MinIVForAutoSnipe ou SnipePokemonFilters, le module Auto snipe sera désactivé pour {0} mins"
     },
     {
       "Key": "sniperCount",
@@ -962,23 +962,23 @@
     },
     {
       "Key": "catchLimitReached",
-      "Value": "You have reached your set maximum number of Pokemon catched per 24 Hours. Catching disabled until the limits expire."
+      "Value": "Vous avez atteint le quota maximum de pokemon attrapés en 24h. Désactivation de la capture de pokemon jusqu'à expiration de la limite."
     },
     {
       "Key": "catchTimerReached",
-      "Value": "You have reached your set maximum running time for Catching Pokemon per 24 Hours. Catching disabled until the limits expire."
+      "Value": "Vous avez atteint la limite de temps passé à attraper des pokemons en 24h. Désactivation de la capture de pokemon jusqu'à expiration de la limite."
     },
     {
       "Key": "pokestopLimitReached",
-      "Value": "You have reached your set maximum number of Pokestops per 24 Hours. Looting of Pokestops disabled until the limits expire."
+      "Value": "Vous avez atteint la limite des pokestop disponible en 24h. désactivation de la collecte des Pokestops jusqu'à expiration de la limite."
     },
     {
       "Key": "pokestopTimerReached",
-      "Value": "You have reached your set maximum running time to loot Pokestops per 24 Hours. Looting of Pokestops disabled until the limits expire."
+      "Value": "Vous avez atteint la limite de temps passé à collecter des Pokestops en 24h. Désactivation de la colecte des Pokestops jusqu'à expiration de la limite."
     },
     {
       "Key": "exitDueToLimitsReached",
-      "Value": "We have reached both the user defined max Pokestops/max duration and caught max Pokemons/max duration. Time to take a break. Exiting."
+      "Value": "Vous avez atteint les valeurs maximales de capture de Pokemons et pokestop. il est temps de faire une pause, fermeture."
     },
     {
       "Key": "humanWalkSnipe",
@@ -1010,39 +1010,39 @@
     },
     {
       "Key": "exitNowAfterEnterKey",
-      "Value": "The bot will now exit after hitting the enter key."
+      "Value": "Le Bot va maintenant se fermer apres avoir appuyé sur entrée."
     },
     {
       "Key": "captchaShown",
-      "Value": "Captcha is being shown and will need to be solved."
+      "Value": "Captcha est affiché et devra être résolu."
     },
     {
       "Key": "catchPokemonDisable",
-      "Value": "Too few Pokeballs. Temporarily disabling the catching of wild Pokemon for {0} min or until we have {1} balls again."
+      "Value": "Trop peu de Pokeballs, désactivation temporaire de la capture de pokemons sauvage pour {0} min ou attente d'avoir {1} balls à nouveau."
     },
     {
       "Key": "failedSendNotification",
-      "Value": "Notification sending failed."
+      "Value": "Erreur d'envoi de notification."
     },
     {
       "Key": "telegramBotStarted",
-      "Value": "Bot has been started"
+      "Value": "Le Bot a correctement démarrer"
     },
     {
       "Key": "telegramNeedChatId",
-      "Value": "To received notification from telgram, please initial a first message chat with bot."
+      "Value": "Pour recevoir une notification par télégramme, veuillez commencer un premier message avec le chat."
     },
     {
       "Key": "buddyPokemonUpdate",
-      "Value": "{0} now is your buddy!!!"
+      "Value": "{0} est maintenant votre compagnon"
     },
     {
       "Key": "telegramCommandAccountsDescription",
-      "Value": "Shows configured bot accounts"
+      "Value": "Affiche les comptes de bots configurés"
     },
     {
       "Key": "telegramCommandAllDescription",
-      "Value": "Shows your Pokemon"
+      "Value": "Montre votre Pokémon"
     },
     {
       "Key": "telegramCommandExitDescription",
@@ -1050,51 +1050,51 @@
     },
     {
       "Key": "telegramCommandHelpDescription",
-      "Value": "Shows this help"
+      "Value": "Montre cette aide"
     },
     {
       "Key": "telegramCommandItemsDescription",
-      "Value": "Shows your iventory items"
+      "Value": "Affiche les éléments de votre inventaire"
     },
     {
       "Key": "telegramCommandLogsDescription",
-      "Value": "Shows last 'n' log entries (defaults to {0})"
+      "Value": "Affiche les dernières entrées du journal 'n' (par défaut {0})"
     },
     {
       "Key": "telegramCommandPokedexDescription",
-      "Value": "Shows your Pokedex"
+      "Value": "Montre votre Pokedex"
     },
     {
       "Key": "telegramCommandProfileDescription",
-      "Value": "Shows your profile"
+      "Value": "Montre votre profil"
     },
     {
       "Key": "telegramCommandRecycleDescription",
-      "Value": "Recycle items now"
+      "Value": "Recyclez les articles maintenant"
     },
     {
       "Key": "telegramCommandRestartDescription",
-      "Value": "Restart Bot"
+      "Value": "Redémarrer le Bot"
     },
     {
       "Key": "telegramCommandSnipeDescription",
-      "Value": "Perform snipe"
+      "Value": "Effectuer snipe"
     },
     {
       "Key": "telegramCommandStatusDescription",
-      "Value": "Shows bot runtime stats"
+      "Value": "Affiche les statistiques d'exécution du robot"
     },
     {
       "Key": "telegramCommandTopDescription",
-      "Value": "Shows Top 'n' Pokemon (defaults to {0})"
+      "Value": "Affiche Top 'n' Pokemon (par défaut pour {0})"
     },
     {
       "Key": "telegramCommandLocDescription",
-      "Value": "Shows Bot location"
+      "Value": "Afficher l'emplacement de Bot"
     },
     {
       "Key": "telegramCommandAccountsMsgHead",
-      "Value": ""
+      "Value": "Comptes"
     },
     {
       "Key": "telegramCommandAllMsgHead",
@@ -1102,19 +1102,19 @@
     },
     {
       "Key": "telegramCommandExitMsgHead",
-      "Value": "Closing Bot... BYE BYE {0}!"
+      "Value": "Fermeture du Bot... BYE BYE {0}!"
     },
     {
       "Key": "telegramCommandHelpMsgHead",
-      "Value": "Help Command\nArguments in [] are optional\nArguments in <> are mandatory\n| means or"
+      "Value": "Commande d'aide\nArguments dans [] sont facultatifs\nArguments dans <> sont obligatoires\n| moyens ou"
     },
     {
       "Key": "telegramCommandItemsMsgHead",
-      "Value": "{0}'s Inventory:"
+      "Value": "{0}'s Inventaire:"
     },
     {
       "Key": "telegramCommandLogsMsgHead",
-      "Value": "{0}'s last {1} log entries:"
+      "Value": "{0}'s dernier {1} entreés dans le log:"
     },
     {
       "Key": "telegramCommandPokedexMsgHead",
@@ -1126,15 +1126,15 @@
     },
     {
       "Key": "telegramCommandRecycleMsgHead",
-      "Value": "Recycling {0}'s items"
+      "Value": "Recyclage {0}'s items"
     },
     {
       "Key": "telegramCommandRestartMsgHead",
-      "Value": "Restarting ... Current account is {0}"
+      "Value": "Redémarrer ... Le compte courant est {0}"
     },
     {
       "Key": "telegramCommandSnipeMsgHead",
-      "Value": "Snipe accepted for user {0}"
+      "Value": "Snipe accepté pour l'utilisateur {0}"
     },
     {
       "Key": "telegramCommandStatusMsgHead",
@@ -1146,15 +1146,15 @@
     },
     {
       "Key": "telegramCommandLocMsgHead",
-      "Value": "{0}'s location:"
+      "Value": "{0}'s position:"
     },
     {
       "Key": "telegramCommandProfileMsgBody",
-      "Value": "Account: {0}\nLevel: {1}\nPokecoins: {2}\nTotal XP: {3}\nXP until level up: {4}\nPokemon caught: {5}\nPokemon sent: {6}\nPokemon in bag: {7}\nPokemon evolved: {8}\nPokestops visited: {9}\nItems in bag: {10}\nStardust: {11}\nEggs hatched: {12}\nPokedex entries: {13}\nKM walked: {14:n0}"
+      "Value": "Compte: {0}\nNiveau: {1}\nPokecoins: {2}\nTotal XP: {3}\nXP jusqu'à ce que le niveau: {4}\nPokemon attrapés: {5}\nPokemon transferee: {6}\nPokemon in stockage: {7}\nPokemon evolués: {8}\nPokestops visités: {9}\nItems in stockage: {10}\nPoussiéres: {11}\nOeufs dans incubateur: {12}\nEntréés Pokedex: {13}\nKM parcourus: {14:n0}"
     },
     {
       "Key": "telegramCommandStatusMsgBody",
-      "Value": "Bot: Necrobot2 v{0}\nAccount: {1}\nRuntime: {2}\nLevel: {3}\nStardust: {15}\nPokecoins: {16}\nAdvance in: {4}h {5}m | {6} EP\nXP / h: {7:n0}\nPokemon / h: {8:n0}\nStardust / h: {9:n0}\nPokemon Sent: {10}\nPokemon Evolved: {11}\nRecycled: {12}\nPokestop limit: {13}\nCatch limit: {14}"
+      "Value": "Bot version  v{0}\nCompte: {1}\nRuntime: {2}\nNiveau: {3}\nPoussiéres: {15}\nPokecoins: {16}\nNiveau suivant dans: {4}h {5}m | {6} EP\nXP / h: {7:n0}\nPokemon / h: {8:n0}\nPoussiéres / h: {9:n0}\nPokemon transferee: {10}\nPokemon evolués: {11}\nRecyclé: {12}\nPokestop limit: {13}\nCapture limit: {14}"
     }
   ],
   "PokemonStrings": [
