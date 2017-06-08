@@ -1,48 +1,20 @@
-{
+﻿{
   "TranslationStrings": [
     {
-      "Key": "HumanWalkSnipeNotEnoughtBalls",
-      "Value": "(HUMAN WALK) Pas assez de Pokeballs pour activer le mode catch Em-All. ({0})/{1}"
+      "Key": "ptcLoginFail",
+      "Value": "Votre user PTC ou mot de passe incorrect, ou compte est verrouillé ou n'est pas actif"
     },
     {
-      "Key": "HumanWalkSnipe",
-      "Value": "(HUMAN WALK) Trouvé {0} spawning | lat: {1}, lng: {2}, dist {3:0.00}m , expire dans {4:00} min {5:00} sec | Temps de marche est : {6:00} min {7:00} sec | Spin: {8} | Capture : {9} | Vitesse : {10:0.00}km/h"
+      "Key": "multiAccountAutoSelect",
+      "Value": "VEUILLEZ SÉLECTIONNER UN COMPTE POUR COMMENCER. AUTO DÉMARRAGE APRÈS {0} SECONDS"
     },
     {
-      "Key": "HumanWalkSnipeUpdate",
-      "Value": "(HUMAN WALK) Trouvé {0} pokemon correspondant à vos filtres. Human walking sniper ne les attrapera pas tous, mais essaiera d'attraper autant que possible"
+      "Key": "webSocketStarted",
+      "Value": "Websocket écoutant à  wss://localhost: {0} ou ws://localhost: {1} "
     },
     {
-      "Key": "HumanWalkSnipeAddedPokestop",
-      "Value": "(HUMAN WALK) Tu es {0:0.00m} loin du pokestop le plus proche. Rédemarrez  à cet endroit avec {1} pokestops"
-    },
-    {
-      "Key": "HumanWalkSnipeDestinationReached",
-      "Value": "(HUMAN WALK) La destination à atteindre | lat: {0}, lng: {1} | patientez  {3:0.00} sec"
-    },
-    {
-      "Key": "SniperCount",
-      "Value": "Sniper count {0}"
-    },
-    {
-      "Key": "SnipeExceeds",
-      "Value": "Le sniper doit se reposer avant que votre compte ne soit banni"
-    },
-    {
-      "Key": "CatchExceeds",
-      "Value": "Vous capturez trop vite. Vous ne pouvez pas en capturer un autre jusqu'à {0} secondes"
-    },
-    {
-      "Key": "PokeStopExceeds",
-      "Value": "Vous visitez les pokestops trop vite. Vous ne pouvez pas visiter un autre jusqu'à {0} secondes"
-    },
-    {
-      "Key": "Only10kmEggs",
-      "Value": "Joueur inférieur au niveau 20, sauvant cet oeuf de 10 km pour plus tard"
-    },
-    {
-      "Key": "GoogleAPIWarning",
-      "Value": "Sans Google Api, vous disposerez de 2500 limites de quota gratuites, si vous atteignez le quota maximal, essayez de modifier votre adresse IP. Pour configurer \"GoogleAPIKey\", obtenir une API Key visitez ce lien: https://developers.google.com/maps/documentation/directions/get-api-key"
+      "Key": "targetLocationSet",
+      "Value": "Lieu cible [{0},{1}] a été accepté. Bot sera bientôt là."
     },
     {
       "Key": "pokeball",
@@ -78,23 +50,23 @@
     },
     {
       "Key": "eventFortUsed",
-      "Value": "{0} +{1}XP | {2} Gems | {3}"
+      "Value": "Nom: {0} XP: {1}, Gems: {2}, Items: {3}, Oeuf: {4}, Lat: {5}, Long: {6}, Alt: {7}"
     },
     {
       "Key": "eventFortFailed",
-      "Value": "Collecte/Capture impossible, tentative dans : {1}/{2}"
-    },
+      "Value": "Nom: {0} INFO: Collecte/Capture impossible, tentative dans: {1}/{2}"
+     },
     {
       "Key": "gym",
       "Value": "Arène"
     },
     {
       "Key": "pokestop",
-      "Value":  "Pokestop"
+      "Value": "Pokestop"
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "{0} {1} à {2}m | {3}s (route {4})"
+      "Value": "Se rendre à {0}: {1} ({2} m) ({3} seconds) (route {4})"
     },
     {
       "Key": "eventProfileLogin",
@@ -106,7 +78,7 @@
     },
     {
       "Key": "eventUsedLuckyEgg",
-      "Value": "Utilisation d'un Œuf Chance, {0} restant"
+      "Value": "Utilisation d'un ouef Chance, {0} restant"
     },
     {
       "Key": "eventPokemonEvolvedSuccess",
@@ -118,47 +90,67 @@
     },
     {
       "Key": "eventPokemonTransferred",
-      "Value": "{0}\t- {1} / {2}%   [Meilleur  {3} / {4}%] {5} Bonbons"
+      "Value": "{0}\t- CP: {1} IV: {2}% [Meilleur CP: {3} IV: {4}%] | Bombons: {5}"
+    },
+    {
+      "Key": "eventPokemonUpgraded",
+      "Value": "{0}\t- Level: {1:0.0} | CP: {2}  IV: {3}%   [Meilleur CP: {4}  IV: {5}%] | SD: {6} | Bombons: {7}"
     },
     {
       "Key": "eventItemRecycled",
-      "Value": "{1} x{0}"
+      "Value": "{0}x {1}"
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | dist {8}m | avec une {9} ({10} restante(s)). | XP: {11} | SD: {12} | {13} | lat: {14} long: {15} | Attaque1: {16} Attaque2: {17} | Rareté: {18} | Raison de capture: {19} | Shiny: {20} | Form: {21} | Costume: {22} | Sex: {23}"
+      "Value": "({0}) | ({1}) {2} Lvl: {3} CP:({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | avec une {9} ({10} restantes). | XP: {11} | SD: {12} | {13} | lat: {14} long: {15} | Attaque1: {16} Attaque2: {17} | Rareté: {18} | Raison de capture: {19} | Shiny: {20} | Form: {21} | Costume: {22} | Sex: {23}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | avec une {9} ({10}  restante(s)). | XP: {11} | lat: {12} long: {13} | Attaque1: {14} Attaque2: {15} | Rareté :{16}"
+      "Value": "({0}) | ({1}) {2} Lvl: {3} CP: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | avec une {9} ({10} restantes). | XP: {11} | lat: {12} long: {13} | Attaque1: {14} Attaque2: {15} | Rareté: {16}"
     },
     {
       "Key": "eventNoPokeballs",
-      "Value": "Plus de Pokeball - {0} PC{1} manqué"
+      "Value": "Pas de Pokeballs - Nous avons manqué un {0} avec CP {1}"
     },
     {
       "Key": "waitingForMorePokemonToEvolve",
-      "Value": "Encore {1} Pokémon à capturer pour en évoluer {0} d'un coup ! ({2}/{3} pour {4}% de votre inventaire)"
+      "Value": "En attente d'évoluer {0} Pokémon une fois {1} plus sont capturés! ({2}/{3} pour {4}% inventory)"
     },
     {
       "Key": "useLuckyEggsMinPokemonAmountTooHigh",
-      "Value": "Un Œuf Chance ne peut être utilisé qu'avec UseLuckyEggsMinPokemonAmount = {0}, utilisez plutôt une valeur <= à {1}"
+      "Value": "Les oeufs chanceux ne seront jamais utilisés avec UseLuckyEggsMinPokemonAmount configuré pour {0}, utilise <= {1} au lieu"
     },
     {
       "Key": "catchMorePokemonToUseLuckyEgg",
-      "Value": "Encore {0} Pokémon à capturer pour pouvoir utiliser un Œuf Chance!"
+      "Value": "Capture {0} Pokémon pour utiliser un oeuf de chance!"
     },
     {
       "Key": "eventUseBerry",
-      "Value": "{0} utilisé, {1} restante(s)"
+      "Value": "Utilisé {0} | {1} restant"
     },
     {
       "Key": "itemRazzBerry",
       "Value": "Baie Framby"
     },
     {
+      "Key": "itemPinapBerry",
+      "Value": "Baie Nanana"
+    },
+    {
+      "Key": "itemNanabBerry",
+      "Value": "Baie Nanab"
+    },
+    {
+      "Key": "itemBlukBerry",
+      "Value": "Baie Bluk"
+    },
+    {
+      "Key": "itemWeparBerry",
+      "Value": "Baie Wepar"
+    },
+    {
       "Key": "catchStatusAttempt",
-      "Value": "#{1} -{0}"
+      "Value": "{0} Tentative #{1}"
     },
     {
       "Key": "catchStatus",
@@ -166,23 +158,23 @@
     },
     {
       "Key": "candies",
-      "Value": "{0} Bonbons"
+      "Value": "Bombons: {0}"
     },
     {
       "Key": "unhandledGpxData",
-      "Value": "Données non gérées dans le fichier GPX, ignorées."
+      "Value": "Données non gérées dans le fichier GPX, tentative de ignorer."
     },
     {
       "Key": "displayHighestsHeader",
-      "Value": "Pokémon"
+      "Value": "Pokemons"
     },
     {
       "Key": "commonWordPerfect",
-      "Value": "IV"
+      "Value": "parfait"
     },
     {
       "Key": "commonWordName",
-      "Value": "Nom"
+      "Value": "nom"
     },
     {
       "Key": "commonWordUnknown",
@@ -190,7 +182,7 @@
     },
     {
       "Key": "displayHighestsCpHeader",
-      "Value": "Classement par PC"
+      "Value": "Classement par CP"
     },
     {
       "Key": "displayHighestsPerfectHeader",
@@ -198,23 +190,23 @@
     },
     {
       "Key": "displayHighestsLevelHeader",
-      "Value": "Classement par Niveau"
+      "Value": "Classement par niveau"
     },
     {
       "Key": "welcomeWarning",
-      "Value": "Destination : {0},{1}"
+      "Value": "Vérifiez que Lat & Lng est correct. Quittez le programme si vous n'êtes pas sûr! Lat: {0} Lng: {1}"
     },
     {
       "Key": "incubatorPuttingEgg",
-      "Value": "Incubation d'un oeuf, {0:0.00}km restant"
+      "Value": "Incubation d'un oeuf: {0:0.00}km restant"
     },
     {
       "Key": "incubatorStatusUpdate",
-      "Value": "Incubation en cours, {0:0.00}km restant"
+      "Value": "Statut de l'incubateur: {0:0.00}km restant de {1:0.00}km oeuf."
     },
     {
       "Key": "incubatorEggHatched",
-      "Value": "Eclosion d'un oeuf : {0} | Lvl: {1}  CP: ({2}/{3})  IV: {4}%"
+      "Value": "{0}km oeuf à éclos: {1} | Lvl: {2} | CP:({3}/{4}) | IV: {5}% | XP: {6} | SD: {7} | Bombons: {8}"
     },
     {
       "Key": "logEntryError",
@@ -234,7 +226,7 @@
     },
     {
       "Key": "logEntryFarming",
-      "Value": "COLLECTE"
+      "Value": "COLLECT"
     },
     {
       "Key": "logEntrySniper",
@@ -249,12 +241,16 @@
       "Value": "POKEMON"
     },
     {
+      "Key": "logEntryLevelUp",
+      "Value": "LEVELUP"
+    },
+    {
       "Key": "logEntryTransfered",
-      "Value": "TRANSFERT"
+      "Value": "TRANSFERÉ"
     },
     {
       "Key": "logEntryEvolved",
-      "Value": "EVOLUTION"
+      "Value": "ÉVOLUTION"
     },
     {
       "Key": "logEntryBerry",
@@ -262,7 +258,7 @@
     },
     {
       "Key": "logEntryEgg",
-      "Value": "ŒUF"
+      "Value": "OEUF"
     },
     {
       "Key": "logEntryDebug",
@@ -277,36 +273,48 @@
       "Value": "NOUVEAU"
     },
     {
+      "Key": "logEntryGym",
+      "Value": "ARÈNE"
+    },
+    {
+      "Key": "logEntryService",
+      "Value": "SERVICE"
+    },
+    {
+      "Key": "logEntrySoftBan",
+      "Value": "SOFTBAN"
+    },
+    {
       "Key": "loggingIn",
-      "Value": "Connexion via {0}"
+      "Value": "Utilisateur en cours {0} {1}"
     },
     {
       "Key": "ptcOffline",
-      "Value": "Les serveurs PTC semblent hors-ligne ou vos identifiants PTC sont incorrects. Merci d'essayer via Google."
+      "Value": "Les serveurs PTC sont probablement offline ou vos données sont erronées."
     },
     {
       "Key": "accessTokenExpired",
-      "Value": "Le token de la connexion PTC a expiré. Reconnexion..."
+      "Value": "Authentication PTC expirée. reconnexion..."
     },
     {
       "Key": "invalidResponse",
-      "Value": "Réponse invalide du serveur Niantic"
+      "Value": "Réponse invalide des serveurs Niantic"
     },
     {
       "Key": "tryingAgainIn",
-      "Value": "Nouvel essai dans {0} seconde(s)..."
+      "Value": "Nouvel essai dans {0} seconds..."
     },
     {
       "Key": "accountNotVerified",
-      "Value": "Votre compte n'est pas vérifié ! Arrêt en cours..."
+      "Value": "Compte non vérifié! Fermeture..."
     },
     {
       "Key": "openingGoogleDevicePage",
-      "Value": "Ouverture de la page de périphérique Google. Veuillez copier le code (CTRL+V)"
+      "Value": "Ouverture de la page Google des Appareils connectés. Collez le code à l'aide de CTRL+V"
     },
     {
       "Key": "couldntCopyToClipboard",
-      "Value": "Copie dans le presse-papier impossible, faîtes le manuellement"
+      "Value": "Copie dans le presse-papier impossible, faites le manuellement"
     },
     {
       "Key": "couldntCopyToClipboard2",
@@ -314,127 +322,163 @@
     },
     {
       "Key": "realisticTravelDetected",
-      "Value": "Marche réaliste détectée, utilisation des paramètres par défaut dans le fichier config.json"
+      "Value": "Marche réaliste détectée, Utilisation de la configuration par défaut du fichier config.json"
     },
     {
       "Key": "notRealisticTravel",
-      "Value": "Chemin irréaliste détecté à {0}, utilisation des coordonnées sauvegardées dans le fichier LastPos.ini"
+      "Value": "Pas de marche réaliste, aller à {0}, utilisation de la dernière position sauvegardé dans LastPos.ini"
     },
     {
       "Key": "coordinatesAreInvalid",
-      "Value": "Les coordonnées définies dans le fichier \"LastPos.ini\" sont invalides, utilisation des coordonnées par défaut."
+      "Value": "Les coordonnées \"LastPos.ini\" de la dernière position sont invalides, utilisation des coordonnées par défaut"
     },
     {
       "Key": "gotUpToDateVersion",
-      "Value": "NecroBot v{0} est à jour."
+      "Value": "Parfait! Vous bénéficiez de la dernière version! {0}"
+    },
+    {
+      "Key": "checkForUpdatesDisabled",
+      "Value": "Les mises à jour sont désactivées. version actuelle: {0}"
     },
     {
       "Key": "autoUpdaterDisabled",
-      "Value": "La mise à jour automatique est désactivée. Rendez-vous sur : {0}\n "
+      "Value": "Les mises à jour automatiques sont désactivées. Obtenez la dernière version ici: {0}\n "
     },
     {
       "Key": "downloadingUpdate",
-      "Value": "Téléchargement d'une nouvelle mise à jour en cours..."
+      "Value": "Téléchargement et installation de la mise à jour..."
     },
     {
       "Key": "finishedDownloadingRelease",
-      "Value": "Le téléchargement de la mise à jour est terminé..."
+      "Value": "Finalisation du téléchargement de la dernière version..."
     },
     {
       "Key": "finishedUnpackingFiles",
-      "Value": "La décompression de la mise à jour est terminée..."
+      "Value": "Finalisation de l'éxtraction des fichiers..."
     },
     {
       "Key": "finishedTransferringConfig",
-      "Value": "Le transfert de vos fichiers config a bien été effectué..."
+      "Value": "Finalisation de la conversion vers la nouvelle version..."
     },
     {
       "Key": "updateFinished",
-      "Value": "La mise à jour est terminée! Vous pouvez fermer la fenêtre."
+      "Value": "Mise à jour terminée, vous pouvez à présent fermer cette fenêtre."
     },
     {
       "Key": "lookingForIncensePokemon",
-      "Value": "Recherche d'encens..."
+      "Value": "À la recherche d'encens Pokémon..."
     },
     {
       "Key": "lookingForPokemon",
-      "Value": "Recherche de Pokémon..."
+      "Value": "A la recherche de Pokémon..."
     },
     {
       "Key": "lookingForLurePokemon",
-      "Value": "Recherche de leurre..."
+      "Value": "À la recherche leure Pokémon..."
     },
     {
       "Key": "pokemonSkipped",
-      "Value": "{0} est ignoré"
+      "Value": "Ignoré {0}"
     },
     {
       "Key": "zeroPokeballInv",
-      "Value": "Vous n'avez plus de pokéballs, la capture de Pokémon est impossible !"
+      "Value": "Plus de Pokeballs. {0} minute(s) avant de pouvoir attraper à nouveau un Pokemon."
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "Poké Balls: {0} | Super Balls: {1} | Hyper Balls: {2} | Master Balls: {3}"
+      "Value": "Pokeballs: {0} | Superballs: {1} | Hyperballs: {2} | Masterballs: {3}"
     },
     {
-      "Key": "CurrentPotionInv",
-      "Value": "Potions: {0} | Super Potions: {1} | Hyper Potions: {2} | Potions Max: {3}"
+      "Key": "currentPotionInv",
+      "Value": "Potions: {0} | SuperPotions: {1} | HyperPotions: {2} | MaxPotions: {3}"
     },
     {
-      "Key": "CurrentReviveInv",
-      "Value": "Rappels: {0} | Rappels Max: {1}"
+      "Key": "currentReviveInv",
+      "Value": "Rappel: {0} | RappelMax: {1}"
     },
     {
-      "Key": "CurrentMiscItemInv",
-      "Value": "Baies: {0} | Encens: {1} | Œuf chance: {2} | Leurres: {3}"
+      "Key": "currentMiscItemInv",
+      "Value": "Baies Framby: {0} | Encens: {1} | Oeuf Chance: {2} | Leures: {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Configuration Invalide] Vos objets consommables (Pokéballs+Potions+Rappels={0}) dépassent le seuil de votre inventaire ({1})"
+      "Value": "[Configuration non valide] Vos éléments maximum combinés (Balls+Potions+Rappels+Baies={0}) est au dessus de votre stockage maximum d'objets ({1})"
+    },
+    {
+      "Key": "totalRecyclePercentGreaterThan100",
+      "Value": "[Configuration non valide] Vos pourcentages de recyclage combinés (Balls+Potions+Rappels+Baies) est supérieur à 100. Il doit être inférieur ou égal à 100."
+    },
+    {
+      "Key": "usingRecyclePercentsInsteadOfTotals",
+      "Value": "[Configuration de recyclage] Utilisation des pourcentages de recyclage. Items max: {0}"
+    },
+    {
+      "Key": "percentPokeballsToKeep",
+      "Value": "[Configuration de recyclage] Pokeballs ({0}%): {1}"
+    },
+    {
+      "Key": "percentPotionsToKeep",
+      "Value": "[Configuration de recyclage] Potions   ({0}%): {1}"
+    },
+    {
+      "Key": "percentRevivesToKeep",
+      "Value": "[Configuration de recyclage] Rappels   ({0}%): {1}"
+    },
+    {
+      "Key": "percentBerriesToKeep",
+      "Value": "[Configuration de recyclage] Baies Framby   ({0}%): {1}"
     },
     {
       "Key": "recyclingQuietly",
-      "Value": "Recyclage rapide en cours..."
+      "Value": "Recycler tranquillement..."
     },
     {
       "Key": "invFullTransferring",
-      "Value": "L'inventaire de Pokémon est plein. Transfert en cours..."
+      "Value": "L'inventaire Pokemon est plein, transfert de Pokemons..."
+    },
+    {
+      "Key": "bulkTransferFailed",
+      "Value": "Transfert de masse {0} pokemons échec..."
     },
     {
       "Key": "invFullTransferManually",
-      "Value": "L'inventaire de Pokémon est plein. Merci de transférer manuellement ou de changer la valeur de \"TransferDuplicatePokemon\" en \"true\"..."
+      "Value": "L'inventaire pokemon est plein! Transferrez-en manuellement ou changez la valeur de TransferDuplicatePokemon en true dans les options..."
     },
     {
       "Key": "invFullPokestopLooting",
-      "Value": "L'inventaire des objets est plein. Aucun objet n'a pu être récolté!"
+      "Value": "Votre inventaire est plein, aucun objet collecté!"
     },
     {
       "Key": "encounterProblem",
-      "Value": "Un problème est survenu: {0}"
+      "Value": "Problème de rencontre: {0}"
     },
     {
       "Key": "encounterProblemLurePokemon",
-      "Value": "Un problème est survenu avec le leurre {0}"
+      "Value": "Problème de rencontre: Leure Pokemon {0}"
     },
     {
       "Key": "desiredDestTooFar",
-      "Value": "Votre destination désirée {0}, {1} est trop éloignée de votre position actuelle {2}, {3}."
+      "Value": "Votre destination souhaitée {0}, {1} est trop loin de votre position actuelle de {2}, {3}"
     },
     {
       "Key": "pokemonRename",
-      "Value": "{0} ({1}) a été renommé de {2} en {3}."
+      "Value": "Pokemon {0} ({1}) renommé de {2} à {3}."
     },
     {
       "Key": "pokemonFavorite",
-      "Value": "{0}%IV {1} (CP {2}) *Favoris*."
+      "Value": "{0}% parfait {1} (CP {2}) *Favoris*."
+    },
+    {
+      "Key": "pokemonUnFavorite",
+      "Value": "{0}% parfait {1} (CP {2}) *Retiré des favoris*."
     },
     {
       "Key": "pokemonIgnoreFilter",
-      "Value": "[Pokémon-Ignore-Filter] - {0} ignoré comme défini dans les options !"
+      "Value": "[Pokemon ignore filter] - Ignorer {0} tel que défini dans les paramètres"
     },
     {
       "Key": "catchStatusAttempt",
-      "Value": "Capture"
+      "Value": "Tentative"
     },
     {
       "Key": "catchStatusError",
@@ -442,7 +486,7 @@
     },
     {
       "Key": "catchStatusEscape",
-      "Value": "Échappé"
+      "Value": "Echappé"
     },
     {
       "Key": "catchStatusFlee",
@@ -462,267 +506,651 @@
     },
     {
       "Key": "catchTypeLure",
-      "Value": "Leurre"
+      "Value": "Leure"
     },
     {
       "Key": "catchTypeIncense",
-      "Value": "Encens"
+      "Value": "Incense"
     },
     {
       "Key": "webSocketFailStart",
-      "Value": "Impossible de démarrer le serveur WebSocket sur le port : {0}"
+      "Value": "Erreur de démarrage du WebSocketServer dans le port : {0}"
     },
     {
       "Key": "statsTemplateString",
-      "Value": "{0} - {1} - Lvl: {2} | EXP/H: {3:0} | P/H: {4:0} | Poussières: {5:0} | Transférés: {6:0} | Recyclés: {7:0}"
+      "Value": "{0} - Temps connecté {1} - Lvl: {2} | EXP/H: {3:n0} | P/H: {4:n0} | Poussières: {5:n0} | Transféré: {6:n0} | Recycled: {7:n0}"
+    },
+    {
+      "Key": "profileStatsTemplateString",
+      "Value": "----- LVL {0} | {1} ----- \n Experience: {2}/{3} \n Pokemons attrapés: {4} \n Pokemons dans arènes: {5} \n Pokestops visités: {6} \n Oeufs éclos: {7} \n Pokemons evolués: {8} \n Entrées du Pokedex: {9} \n KM marchés: {10}  \n Pokemons: {11}/{12}"
+    },
+    {
+      "Key": "showPokeTemplate",
+      "Value": "\n CP: {0} | IV: {1}% | Nom: {2}"
+    },
+    {
+      "Key": "showPokeSkillTemplate",
+      "Value": "\n CP: {0} | IV: {1}% | Attaques: {2} + {3} | Nom: {4}"
     },
     {
       "Key": "statsXpTemplateString",
-      "Value": "{0} (Niveau suivant dans {1}h {2}m | {3}/{4} XP)"
+      "Value": "{0} (Niveau suivant dans {1}h {2}m | {3:n0}/{4:n0} XP)"
     },
     {
       "Key": "requireInputText",
-      "Value": "Appuyez sur une touche pour continuer..."
+      "Value": "Appuyez sur pour continuer..."
     },
     {
       "Key": "googleTwoFactorAuth",
-      "Value": "La validation en deux étapes de votre compte Google est activée, vous devez insérer un mot de passe spécifique à l'application dans auth.json"
+      "Value": "Comme vous avez activé Google Two Factor Auth, vous devrez insérer un mot de passe spécifique à l'application dans auth.json"
     },
     {
       "Key": "googleTwoFactorAuthExplanation",
-      "Value": "Ouverture de la page Mots de passe d'application Google. Merci de générer un nouveau mot de passe spécifique à l'application. (utilisez 'Autre' comme périphérique)"
+      "Value": "Ouverture de App-Passwords Google. Créez un nouveau mot de passe de l'application (utilisez Autre comme périphérique)"
     },
     {
       "Key": "googleError",
-      "Value": "Veuillez vérifier vos identifiants GoogleUsername et GooglePassword dans auth.json!"
+      "Value": "Vérifiez que vous ayez entrer le bon Email & mot de passe."
     },
     {
       "Key": "googleOffline",
-      "Value": "Google servers are probably down, Please be patient and start the bot later."
+      "Value": "Les serveurs Google ne répondent plus, soyez patient et redémarrer le bot plus tard."
     },
     {
       "Key": "missingCredentials",
-      "Value": "Vous devez remplir les champs Username et Password dans auth.json!"
+      "Value": "Vous devez renseigner votre nom d'utilisateur et votre mot de passe dans le fichier auth.json!"
     },
     {
       "Key": "missingCredentialsGoogle",
-      "Value": "Vous devez remplir les champs GoogleUsername et GooglePassword dans auth.json!"
+      "Value": "Vous devez renseigner votre nom d'utilisateur Google et votre mot de passe dans le fichier auth.json!"
     },
     {
       "Key": "missingCredentialsPtc",
-      "Value": "Vous devez remplir les champs PtcUsername et PtcPassword dans auth.json!"
+      "Value": "Vous devez renseigner votre nom d'utilisateur Ptc et votre mot de passe dans le fichier auth.json!"
     },
     {
       "Key": "snipeScan",
-      "Value": "[Sniper] Scan en cours sur {0}..."
+      "Value": "Scan pour snipe un pokemon près de {0}..."
+    },
+    {
+      "Key": "snipePokemonNotInPokedex",
+      "Value": "Pokemon pas dans pokédex détecté: {0}. Il sera snipe en priorité!"
     },
     {
       "Key": "snipeScanEx",
-      "Value": "[Sniper] Scan d'un {0} avec {1}% IV à {2}..."
+      "Value": "Snipe d'un {0} avec {1} IV à {2}..."
     },
     {
       "Key": "noPokemonToSnipe",
-      "Value": "[Sniper] Echec du scan. Aucun Pokémon trouvé."
+      "Value": "Pokemon introuvable, il a probablement disparu?"
     },
     {
       "Key": "notEnoughPokeballsToSnipe",
-      "Value": "[Sniper] Pas assez de pokéballs ({0}/{1})"
+      "Value": "Plus assez de pokeballs pour démarrer le snipe! ({0}/{1})"
     },
     {
       "Key": "displayHighestMove1Header",
-      "Value": "Attaque 1"
+      "Value": "ATTAQUE1"
     },
     {
       "Key": "displayHighestMove2Header",
-      "Value": "Attaque 2"
+      "Value": "ATTAQUE2"
     },
     {
       "Key": "displayHighestCandy",
-      "Value": "Bonbons"
+      "Value": "Bombons"
     },
     {
       "Key": "ipBannedError",
-      "Value": "Connexion refusée. Votre adresse IP a sans doute été bloquée par Niantic. Arrêt en cours..."
+      "Value": "Connexion refusée, Votre IP à surement été bannie par Niantic. Fermeture.."
     },
     {
       "Key": "noEggsAvailable",
-      "Value": "Aucun oeuf de disponible"
+      "Value": "Pas d'oeufs disponible"
     },
     {
       "Key": "useLuckyEggActive",
-      "Value": "Œuf Chance déjà activé"
+      "Value": "Oeuf Chance activé. Temps restant: {0}m{1}s"
     },
     {
       "Key": "usedLuckyEgg",
-      "Value": "Œuf Chance utilisé"
+      "Value": "Oeuf Chance utilisé"
     },
     {
       "Key": "useLuckyEggAmount",
-      "Value": "[Inventaire] Œuf Chance : {0}"
+      "Value": "Oeufs Chance dans l'inventaire: {0}"
     },
     {
       "Key": "noIncenseAvailable",
-      "Value": "Aucun encens de disponible"
+      "Value": "Plus d'encens disponible"
     },
     {
       "Key": "useIncenseActive",
-      "Value": "Encens déjà activé"
+      "Value": "Un encens est déja en cours d'utilisation"
     },
     {
       "Key": "useIncenseAmount",
-      "Value": "[Inventaire] Encens : {0}"
+      "Value": "Encens dans l'inventaire: {0}"
     },
     {
       "Key": "usedIncense",
-      "Value": "Encens utilisé"
+      "Value": "Un encens a été utilisé"
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "Pokédex (231) : Rencontré {0} | Capturé {1}"
+      "Value": "Pokemons vus: {0}/238, Pokemons attrapés: {1}/238"
     },
     {
       "Key": "pkmPotentialEvolveCount",
-      "Value": "[Evolution] Disponible : {0}"
+      "Value": "Evolutions potentielles: {0}"
     },
     {
       "Key": "pkmNotEnoughRessources",
-      "Value": "Echec. Ressources insuffisantes pour évoluer ce Pokémon"
+      "Value": "Ressources insuffisantes pour recharger le pokemon"
     },
     {
       "Key": "snipeServerOffline",
-      "Value": "Le serveur de Snipe est hors-ligne. Ignoré..."
+      "Value": "Serveur de sniping inactif. Skipping..."
     },
     {
       "Key": "firstStartPrompt",
-      "Value": "Ceci est votre première fois, voulez-vous commencer par la configuration ? {0}/{1}"
+      "Value": "C'est votre première connexion, souhaitez vous ouvrir la configuration du logiciel? {0}/{1}"
     },
     {
       "Key": "firstStartLanguagePrompt",
-      "Value": "Voulez-vous changer la langue par défaut ? {0}/{1}"
+      "Value": "Voulez vous changer la langue par défaut? {0}/{1}"
     },
     {
       "Key": "firstStartLanguageCodePrompt",
-      "Value": "Veuillez entrer un nouveau code de langue"
+      "Value": "Entrez un nouveau code de langue"
     },
     {
       "Key": "firstStartLanguageConfirm",
-      "Value": "Langue appliquée : {0}"
+      "Value": "Code de langue appliqué: {0}"
+    },
+    {
+      "Key": "firstStartSetupTelegramPrompt",
+      "Value": "Souhaitez-vous activer la fonctionnalité Telegram? {0}/{1}"
+    },
+    {
+      "Key": "firstStartSetupTelegramCodePrompt",
+      "Value": "Entrez votre clé API Telegram (clic droit pour coller)"
+    },
+    {
+      "Key": "firstStartSetupTelegramCodeConfirm",
+      "Value": "Clé de l'API Telegram acceptée: {0}"
+    },
+    {
+      "Key": "firstStartSetupTelegramPasswordPrompt",
+      "Value": "Entrez votre mot de passe Telegram (DEFAULT: 12345)"
+    },
+    {
+      "Key": "firstStartSetupTelegramPasswordConfirm",
+      "Value": "Mot de passe Telegram Accepté: {0}"
+    },
+    {
+      "Key": "firstStartSetupProxyPrompt",
+      "Value": "Souhaitez-vous activer la fonction Proxy? {0}/{1}"
+    },
+    {
+      "Key": "firstStartSetupProxyHostPrompt",
+      "Value": "Entrez votre hôte Proxy"
+    },
+    {
+      "Key": "firstStartSetupProxyHostConfirm",
+      "Value": "Hôte Proxy accepté: {0}"
+    },
+    {
+      "Key": "firstStartSetupProxyPortPrompt",
+      "Value": "Entrez votre port proxy"
+    },
+    {
+      "Key": "firstStartSetupProxyPortConfirm",
+      "Value": "Port proxy approuvé: {0}"
+    },
+    {
+      "Key": "firstStartSetupProxyAuthPrompt",
+      "Value": "Voulez-vous activer l'authentification par proxy? {0}/{1}"
+    },
+    {
+      "Key": "firstStartSetupProxyUsernamePrompt",
+      "Value": "Entrez votre nom d'utilisateur proxy (clic droit pour coller)"
+    },
+    {
+      "Key": "firstStartSetupProxyUsernameConfirm",
+      "Value": "Nom d'utilisateur de la connexion acceptée: {0}"
+    },
+    {
+      "Key": "firstStartSetupProxyPasswordPrompt",
+      "Value": "Entrez votre mot de passe de proxy (clic droit pour coller)"
+    },
+    {
+      "Key": "firstStartSetupProxyPasswordConfirm",
+      "Value": "Mot de passe de mot de passe accepté: {0}"
+    },
+    {
+      "Key": "firstStartSetupAutoCompleteTutNicknamePrompt",
+      "Value": "Please enter your desired Nickname"
+    },
+    {
+      "Key": "firstStartSetupAutoCompleteTutGenderPrompt",
+      "Value": "Please enter your desired Gender (ENGLISH WORD: Male or Female)"
+    },
+    {
+      "Key": "firstStartSetupAutoCompleteTutStarterPrompt",
+      "Value": "Please enter your desired Starter (ENGLISH NAME: Bulbasaur, Charmander, Squirtle)"
+    },
+    {
+      "Key": "firstStartSetupWebSocketPrompt",
+      "Value": "Would you like to enable the WebSocket Feature? {0}/{1}"
+    },
+    {
+      "Key": "firstStartSetupWebSocketPortPrompt",
+      "Value": "Please enter your WebSocket Port (default 14251)"
+    },
+    {
+      "Key": "firstStartSetupWebSocketPortConfirm",
+      "Value": "Accepted Port: {0}"
+    },
+    {
+      "Key": "firstStartSetupWalkingSpeedPrompt",
+      "Value": "Would you like to edit the Walking Speed Settings? {0}/{1}"
+    },
+    {
+      "Key": "firstStartSetupWalkingSpeedKmHPrompt",
+      "Value": "Please enter your desired walking speed (km/h) Ex: 5.85 [MAX 20]"
+    },
+    {
+      "Key": "firstStartSetupWalkingSpeedKmHConfirm",
+      "Value": "Accepted Walking Speed: {0}"
+    },
+    {
+      "Key": "firstStartSetupUseWalkingSpeedVariantPrompt",
+      "Value": "Would you like to enable the Walking Speed Variant Setting? {0}/{1}"
+    },
+    {
+      "Key": "firstStartSetupWalkingSpeedVariantPrompt",
+      "Value": "Please enter the walking speed variant (km/h) Ex: 1.2"
+    },
+    {
+      "Key": "firstStartSetupWalkingSpeedVariantConfirm",
+      "Value": "Accepted Variant: {0}"
     },
     {
       "Key": "promptError",
-      "Value": "[ERREUR D'ENTRÉE] Entrée incorrecte, veuillez essayer '{0}' ou '{1}"
+      "Value": "[INPUT ERROR] Error with input, please enter '{0}' or '{1}"
+    },
+    {
+      "Key": "promptErrorDouble",
+      "Value": "[INPUT ERROR] Error with input, please enter a valid number"
+    },
+    {
+      "Key": "promptErrorInteger",
+      "Value": "[INPUT ERROR] Error with input, please enter a valid integer number"
+    },
+    {
+      "Key": "promptErrorString",
+      "Value": "[INPUT ERROR] Error with input, please enter one of the following options: {0}"
     },
     {
       "Key": "firstStartAutoGenSettings",
-      "Value": "Les fichiers de Config/Auth sont générés automatiquement et doivent être complétés avant de continuer"
+      "Value": "Config/Auth file automatically generated and must be completed before continuing"
     },
     {
       "Key": "firstStartSetupAccount",
-      "Value": "### Configuration du COMPTE UTILISATEUR ###"
+      "Value": "### Setting up new USER ACCOUNT ###"
     },
     {
       "Key": "firstStartSetupTypePrompt",
-      "Value": "Choisissez votre type de compte : {0}/{1}"
+      "Value": "Please choose an account type: {0}/{1}"
     },
     {
       "Key": "firstStartSetupTypeConfirm",
-      "Value": "Type de compte sélectionné : {0}"
+      "Value": "Chosen Account Type: {0}"
     },
     {
       "Key": "firstStartSetupTypePromptError",
-      "Value": "[ERREUR] Type de compte incorrect, essayez '{0}' ou '{1}'"
+      "Value": "[ERROR] submitted an incorrect account type, please choose '{0}' or '{1}'"
     },
     {
       "Key": "firstStartSetupUsernamePrompt",
-      "Value": "Veuillez entrer un nom d'utilisateur"
+      "Value": "Please enter a Username"
     },
     {
       "Key": "firstStartSetupUsernameConfirm",
-      "Value": "Nom d'utilisateur accepté : {0}"
+      "Value": "Accepted username: {0}"
     },
     {
       "Key": "firstStartSetupPasswordPrompt",
-      "Value": "Veuillez entrer un mot de passe"
+      "Value": "Please enter a Password"
     },
     {
       "Key": "firstStartSetupPasswordConfirm",
-      "Value": "Mot de passe accepté : {0}"
+      "Value": "Accepted password: {0}"
     },
     {
       "Key": "firstStartAccountCompleted",
-      "Value": "### Compte utilisateur complété ###"
+      "Value": "### User Account Completed ###"
     },
     {
       "Key": "firstStartDefaultLocationPrompt",
-      "Value": "Voulez-vous configurer l'emplacement par défaut ? {0}/{1}"
+      "Value": "Would you like to setup a new Default Location? {0}/{1}"
     },
     {
       "Key": "firstStartDefaultLocationSet",
-      "Value": "Emplacement par défaut appliqué"
+      "Value": "Default Location Applied"
     },
     {
       "Key": "firstStartDefaultLocation",
-      "Value": "## Configuration de la position par défaut ###"
+      "Value": "### Setting Default Position ###"
     },
     {
       "Key": "firstStartSetupDefaultLocationError",
-      "Value": "[ERREUR] Veuillez n'entrer qu'UNE SEULE valeur, par exemple : {0}"
+      "Value": "[ERROR] Please input a correct LatLong for example: {0}"
     },
     {
       "Key": "firstStartSetupDefaultLatLongPrompt",
-      "Value": "Entrez une Latitude et une Longitude (clic droit pour coller) - Format: Valeur, Valeur"
+      "Value": "Please enter a Latitude and Longitude (Right click to paste) - Format: Value, Value"
     },
     {
       "Key": "firstStartSetupDefaultLatLongConfirm",
-      "Value": "Latitude et Longitude acceptés: {0}"
+      "Value": "Lattitude and Longitude accepted: {0}"
+    },
+    {
+      "Key": "softBanBypassed",
+      "Value": "Successfully bypassed!"
     },
     {
       "Key": "firstStartSetupCompleted",
-      "Value": "### Configuration terminée ###"
+      "Value": "### COMPLETED CONFIG SETUP ###"
     },
     {
-      "Key": "PokedexCatchedTelegram",
-      "Value": "--- Pokédex capturé --- \n"
+      "Key": "pokedexCatchedTelegram",
+      "Value": "--- Pokedex catched --- \n"
     },
     {
-      "Key": "PokedexPokemonCatchedTelegram",
-      "Value": "#{0} Nom: {1} | capturé: {2} | Rencontré: {3} \n"
+      "Key": "pokedexPokemonCatchedTelegram",
+      "Value": "#{0} Name: {1} | Catched: {2} | Encountered: {3} \n"
     },
     {
-      "Key": "PokedexNeededTelegram",
-      "Value": "--- Pokédex nécessaire --- \n"
+      "Key": "pokedexNeededTelegram",
+      "Value": "--- Pokedex needed --- \n"
     },
     {
-      "Key": "PokedexPokemonNeededTelegram",
-      "Value": "#{0} Nom: {1} \n"
+      "Key": "pokedexPokemonNeededTelegram",
+      "Value": "#{0}# Name: {1} \n"
     },
     {
-      "Key": "Proxied",
-      "Value": "Votre IP est: {0} | Proxy IP est: {1}"
+      "Key": "loggedInTelegram",
+      "Value": "You have been logged in sucessfully. Session is valid for 5 Minutes"
     },
     {
-      "Key": "FixProxySettings",
-      "Value": "Appuyez sur n'importe quelle touche pour sortir afin que vous puissiez réparer vos paramètres proxy..."
+      "Key": "loginFailedTelegram",
+      "Value": "Wrong Password or wrong Syntax! Use /login PASSWORD"
     },
     {
-      "Key": "Unproxied",
-      "Value": " Votre IP est: {0}"
+      "Key": "notLoggedInTelegram",
+      "Value": "You are not logged in, use /login PASSWORD"
     },
     {
-      "Key": "HighestsPokemoHeader",
+      "Key": "proxied",
+      "Value": "Votre IP est {0} | Proxy IP est: {1}"
+    },
+    {
+      "Key": "unproxied",
+      "Value": "Votre IP est: {0}"
+    },
+    {
+      "Key": "fixProxySettings",
+      "Value": "Press any key to exit so you can fix your proxy settings..."
+    },
+    {
+      "Key": "usageHelp",
+      "Value": "Invalid command arguments! \n Correct usage: \n {0}"
+    },
+    {
+      "Key": "loginRemainingTime",
+      "Value": "You are already logged in! \n Session valid for: ({0}: {1} seconds)"
+    },
+    {
+      "Key": "highestsPokemoHeader",
       "Value": "====== {0} ======"
     },
     {
-      "Key": "HighestsPokemoCell",
+      "Key": "highestsPokemoCell",
       "Value": "# CP {0}/{1} | ({2}% {3})\t| Lvl {4}\t {5}: {6}\t {7}: {8} {9}: {10} {11}: {12}"
     },
     {
-      "Key": "HumanWalkingVariant",
-      "Value": "Vitesse de marche: a été changé, {0:n2} Km/h par {1:n2} Km/h"
+      "Key": "humanWalkingVariant",
+      "Value": "Walking Speed: Has been changed, {0:n2} Km/h to {1:n2} Km/h"
     },
     {
-      "Key": "AccountBanned",
-      "Value": "Probablement interdiction permanente!"
+      "Key": "accountBanned",
+      "Value": "Probably Permanent Ban!"
+    },
+    {
+      "Key": "googleAPIWarning",
+      "Value": "Sans Google Api, vous disposerez de 2500 limites de quota gratuites, si vous atteignez le quota maximal, essayez de modifier votre adresse IP. Pour configurer \"GoogleAPIKey\", obtenir une API Key visitez ce lien: https://developers.google.com/maps/documentation/directions/get-api-key"
+    },
+    {
+      "Key": "only10kmEggs",
+      "Value": "Joueur inférieur au niveau 20, sauvant cet oeuf de 10 km pour plus tard"
+    },
+    {
+      "Key": "autoSnipeDisabled",
+      "Value": "Your are out of PokeBalls because of sniping pretty fast, you can reduce sniping speed by updating MinIVForAutoSnipe or SnipePokemonFilters, Auto snipe will be disabled in {0} mins"
+    },
+    {
+      "Key": "sniperCount",
+      "Value": "Sniper count {0}"
+    },
+    {
+      "Key": "snipeExceeds",
+      "Value": "Le sniper doit se reposer avant que votre compte ne soit banni"
+    },
+    {
+      "Key": "catchExceeds",
+      "Value": "Vous capturez trop vite. Vous ne pouvez pas en capturer un autre jusqu'à {0} secondes"
+    },
+    {
+      "Key": "pokeStopExceeds",
+      "Value": "Vous visitez les pokestops trop vite. Vous ne pouvez pas visiter un autre jusqu'à {0} secondes"
+    },
+    {
+      "Key": "catchLimitReached",
+      "Value": "You have reached your set maximum number of Pokemon catched per 24 Hours. Catching disabled until the limits expire."
+    },
+    {
+      "Key": "catchTimerReached",
+      "Value": "You have reached your set maximum running time for Catching Pokemon per 24 Hours. Catching disabled until the limits expire."
+    },
+    {
+      "Key": "pokestopLimitReached",
+      "Value": "You have reached your set maximum number of Pokestops per 24 Hours. Looting of Pokestops disabled until the limits expire."
+    },
+    {
+      "Key": "pokestopTimerReached",
+      "Value": "You have reached your set maximum running time to loot Pokestops per 24 Hours. Looting of Pokestops disabled until the limits expire."
+    },
+    {
+      "Key": "exitDueToLimitsReached",
+      "Value": "We have reached both the user defined max Pokestops/max duration and caught max Pokemons/max duration. Time to take a break. Exiting."
+    },
+    {
+      "Key": "humanWalkSnipe",
+      "Value": "(HUMAN WALK) Trouvé {0} spawning | lat: {1}, lng: {2}, dist {3:0.00}m , expire dans {4:00} min {5:00} sec | Temps de marche est : {6:00} min {7:00} sec | Spin: {8} | Capture : {9} | Vitesse : {10:0.00}km/h"
+    },
+    {
+      "Key": "humanWalkSnipeUpdate",
+      "Value": "(HUMAN WALK) Trouvé {0} pokemon correspondant à vos filtres. Human walking sniper ne les attrapera pas tous, mais essaiera d'attraper autant que possible"
+    },
+    {
+      "Key": "humanWalkSnipeAddedPokestop",
+      "Value": "(HUMAN WALK) Tu es {0:0.00m} loin du pokestop le plus proche. Rédemarrez  à cet endroit avec {1} pokestops"
+    },
+    {
+      "Key": "humanWalkSnipeDestinationReached",
+      "Value": "(HUMAN WALK) La destination à atteindre | lat: {0}, lng: {1} | patientez  {2:0.00} sec"
+    },
+    {
+      "Key": "humanWalkSnipeNotEnoughtBalls",
+      "Value": "(HUMAN WALK) Pas assez de Pokeballs pour activer le mode catch Em-All. ({0})/{1}"
+    },
+    {
+      "Key": "humanWalkSnipePokemonEncountered",
+      "Value": "(HUMAN WALK) Encountered {0}  | lat : {1} , Lng : {2} | removed from snipping list"
+    },
+    {
+      "Key": "minimumClientVersionException",
+      "Value": "(KILLSWITCH) We have detected a Pokemon API change. The bot emulates API version {0}, which is no longer supported.  Minimum API version is now {1}."
+    },
+    {
+      "Key": "exitNowAfterEnterKey",
+      "Value": "The bot will now exit after hitting the enter key."
+    },
+    {
+      "Key": "captchaShown",
+      "Value": "Captcha is being shown and will need to be solved."
+    },
+    {
+      "Key": "catchPokemonDisable",
+      "Value": "Too few Pokeballs. Temporarily disabling the catching of wild Pokemon for {0} min or until we have {1} balls again."
+    },
+    {
+      "Key": "failedSendNotification",
+      "Value": "Notification sending failed."
+    },
+    {
+      "Key": "telegramBotStarted",
+      "Value": "Bot has been started"
+    },
+    {
+      "Key": "telegramNeedChatId",
+      "Value": "To received notification from telgram, please initial a first message chat with bot."
+    },
+    {
+      "Key": "buddyPokemonUpdate",
+      "Value": "{0} now is your buddy!!!"
+    },
+    {
+      "Key": "telegramCommandAccountsDescription",
+      "Value": "Shows configured bot accounts"
+    },
+    {
+      "Key": "telegramCommandAllDescription",
+      "Value": "Shows your Pokemon"
+    },
+    {
+      "Key": "telegramCommandExitDescription",
+      "Value": "Exit Bot"
+    },
+    {
+      "Key": "telegramCommandHelpDescription",
+      "Value": "Shows this help"
+    },
+    {
+      "Key": "telegramCommandItemsDescription",
+      "Value": "Shows your iventory items"
+    },
+    {
+      "Key": "telegramCommandLogsDescription",
+      "Value": "Shows last 'n' log entries (defaults to {0})"
+    },
+    {
+      "Key": "telegramCommandPokedexDescription",
+      "Value": "Shows your Pokedex"
+    },
+    {
+      "Key": "telegramCommandProfileDescription",
+      "Value": "Shows your profile"
+    },
+    {
+      "Key": "telegramCommandRecycleDescription",
+      "Value": "Recycle items now"
+    },
+    {
+      "Key": "telegramCommandRestartDescription",
+      "Value": "Restart Bot"
+    },
+    {
+      "Key": "telegramCommandSnipeDescription",
+      "Value": "Perform snipe"
+    },
+    {
+      "Key": "telegramCommandStatusDescription",
+      "Value": "Shows bot runtime stats"
+    },
+    {
+      "Key": "telegramCommandTopDescription",
+      "Value": "Shows Top 'n' Pokemon (defaults to {0})"
+    },
+    {
+      "Key": "telegramCommandLocDescription",
+      "Value": "Shows Bot location"
+    },
+    {
+      "Key": "telegramCommandAccountsMsgHead",
+      "Value": ""
+    },
+    {
+      "Key": "telegramCommandAllMsgHead",
+      "Value": "{0}'s Pokemon:"
+    },
+    {
+      "Key": "telegramCommandExitMsgHead",
+      "Value": "Closing Bot... BYE BYE {0}!"
+    },
+    {
+      "Key": "telegramCommandHelpMsgHead",
+      "Value": "Help Command\nArguments in [] are optional\nArguments in <> are mandatory\n| means or"
+    },
+    {
+      "Key": "telegramCommandItemsMsgHead",
+      "Value": "{0}'s Inventory:"
+    },
+    {
+      "Key": "telegramCommandLogsMsgHead",
+      "Value": "{0}'s last {1} log entries:"
+    },
+    {
+      "Key": "telegramCommandPokedexMsgHead",
+      "Value": "{0}'s Pokedex:"
+    },
+    {
+      "Key": "telegramCommandProfileMsgHead",
+      "Value": "{0}'s Profile:"
+    },
+    {
+      "Key": "telegramCommandRecycleMsgHead",
+      "Value": "Recycling {0}'s items"
+    },
+    {
+      "Key": "telegramCommandRestartMsgHead",
+      "Value": "Restarting ... Current account is {0}"
+    },
+    {
+      "Key": "telegramCommandSnipeMsgHead",
+      "Value": "Snipe accepted for user {0}"
+    },
+    {
+      "Key": "telegramCommandStatusMsgHead",
+      "Value": "{0}'s bot status:"
+    },
+    {
+      "Key": "telegramCommandTopMsgHead",
+      "Value": "{0}'s top Pokemon:"
+    },
+    {
+      "Key": "telegramCommandLocMsgHead",
+      "Value": "{0}'s location:"
+    },
+    {
+      "Key": "telegramCommandProfileMsgBody",
+      "Value": "Account: {0}\nLevel: {1}\nPokecoins: {2}\nTotal XP: {3}\nXP until level up: {4}\nPokemon caught: {5}\nPokemon sent: {6}\nPokemon in bag: {7}\nPokemon evolved: {8}\nPokestops visited: {9}\nItems in bag: {10}\nStardust: {11}\nEggs hatched: {12}\nPokedex entries: {13}\nKM walked: {14:n0}"
+    },
+    {
+      "Key": "telegramCommandStatusMsgBody",
+      "Value": "Bot: Necrobot2 v{0}\nAccount: {1}\nRuntime: {2}\nLevel: {3}\nStardust: {15}\nPokecoins: {16}\nAdvance in: {4}h {5}m | {6} EP\nXP / h: {7:n0}\nPokemon / h: {8:n0}\nStardust / h: {9:n0}\nPokemon Sent: {10}\nPokemon Evolved: {11}\nRecycled: {12}\nPokestop limit: {13}\nCatch limit: {14}"
     }
   ],
   "PokemonStrings": [
