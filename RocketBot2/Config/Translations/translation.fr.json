@@ -170,7 +170,7 @@
     },
     {
       "Key": "commonWordPerfect",
-      "Value": "parfait"
+      "Value": "IV"
     },
     {
       "Key": "commonWordName",
@@ -202,7 +202,7 @@
     },
     {
       "Key": "incubatorStatusUpdate",
-      "Value": "Statut de l'incubateur: {0:0.00}km restant de {1:0.00}km oeuf."
+      "Value": "Statut de l'incubateur: {0:0.00}km restant d'un oeuf de {1:0.00}km."
     },
     {
       "Key": "incubatorEggHatched",

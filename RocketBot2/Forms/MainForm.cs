@@ -1223,7 +1223,7 @@ namespace RocketBot2.Forms
             {
                 if (CheckMKillSwitch())
                 {
-                    return;
+                    _botStarted = CheckMKillSwitch();
                 }
                 _botStarted = CheckKillSwitch();
             }
@@ -1295,10 +1295,8 @@ namespace RocketBot2.Forms
                             "You have selected PogoDev API but you have not provided an API Key, please press any key to exit and correct you auth.json, \r\n The Pogodev API key can be purchased at - https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer",
                             LogLevel.Error
                         );
-
-                        Console.ReadKey();
-                        Environment.Exit(0);
-                    }
+                        _botStarted = true;
+                   }
                     try
                     {
                         HttpClient client = new HttpClient();
@@ -1315,8 +1313,7 @@ namespace RocketBot2.Forms
                     catch
                     {
                         Logger.Write("The HashKey is invalid or has expired, please press any key to exit and correct you auth.json, \r\nThe Pogodev API key can be purchased at - https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer", LogLevel.Error);
-                        Console.ReadKey();
-                        Environment.Exit(0);
+                        _botStarted = true;
                     }
                 }
                 else if (apiCfg.UseLegacyAPI)
@@ -1336,8 +1333,7 @@ namespace RocketBot2.Forms
                          "At least 1 authentication method must be selected, please correct your auth.json.",
                          LogLevel.Error
                      );
-                    Console.ReadKey();
-                    Environment.Exit(0);
+                    _botStarted = true;
                 }
             }
 
@@ -1373,10 +1369,10 @@ namespace RocketBot2.Forms
                 {
                     GlobalSettings.Load(_subPath, _enableJsonValidation);
 
-                    Logger.Write("Press a Key to continue...",
-                        LogLevel.Warning);
-                    Console.ReadKey();
-                    return;
+                    //Logger.Write("Press a Key to continue...",
+                    //    LogLevel.Warning);
+                    //Console.ReadKey();
+                    //return;
                 }
 
                 if (excelConfigAllow)
@@ -1512,6 +1508,8 @@ namespace RocketBot2.Forms
             _excelConfigAllow = excelConfigAllow;
 
             Logger.Write($"(Bot Stats) User: {user} | XP: {bot.CurrentXp - TotXP} | SD: {bot.Stardust}", LogLevel.Info, ConsoleColor.Magenta);
+
+            if (_botStarted) startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
         }
 
         private Task StartBot()
@@ -1634,15 +1632,12 @@ namespace RocketBot2.Forms
                     }
                     else
                         return false;
-
-
                 }
                 catch (Exception ex)
                 {
                     Logger.Write(ex.Message, LogLevel.Error);
                 }
             }
-
             return false;
         }
 
@@ -1679,8 +1674,8 @@ namespace RocketBot2.Forms
                             }
 
                             Logger.Write("The bot will now close, please press enter to continue", LogLevel.Error);
-                            Console.ReadLine();
-                            Environment.Exit(0);
+                            //Console.ReadLine();
+                            //Environment.Exit(0);
                             return true;
                         }
                     }
