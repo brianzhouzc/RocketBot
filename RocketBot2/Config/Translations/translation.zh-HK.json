@@ -422,7 +422,7 @@
     },
     {
       "Key": "pokemonRename",
-      "Value": "正在將小精靈 {0} ({1}) 從 {2} 重命名為 {3}."
+      "Value": "正在將小精靈 {0} 從 {1} 重命名為 {2}."
     },
     {
       "Key": "pokemonFavorite",
@@ -590,7 +590,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "見過的小精靈: {0}/231, 捕捉過的小精靈: {1}/231"
+      "Value": "見過的小精靈: {0}/251, 捕捉過的小精靈: {1}/251"
     },
     {
       "Key": "pkmPotentialEvolveCount",

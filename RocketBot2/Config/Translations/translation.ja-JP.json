@@ -426,7 +426,7 @@
     },
     {
       "Key": "pokemonRename",
-      "Value": "ポケモン {0} ({1}) を {2} から {3}へ名前変更"
+      "Value": "ポケモン {0} を {1} から {2}へ名前変更"
     },
     {
       "Key": "pokemonFavorite",
@@ -594,7 +594,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "見つけたポケモン: {0}/231　 捕まえたポケモン: {1}/231"
+      "Value": "見つけたポケモン: {0}/251　 捕まえたポケモン: {1}/251"
     },
     {
       "Key": "pkmPotentialEvolveCount",

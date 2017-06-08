@@ -426,7 +426,7 @@
     },
     {
       "Key": "pokemonRename",
-      "Value": "正在将神奇宝贝{0} ({1})由{2}重命名为{3}.\t\t"
+      "Value": "正在将神奇宝贝{0}由{1}重命名为{2}.\t\t"
     },
     {
       "Key": "pokemonFavorite",
@@ -594,7 +594,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "已遇见:{0}/231只神奇宝贝,已捕捉:{1}/231只\t\t\t"
+      "Value": "已遇见:{0}/251只神奇宝贝,已捕捉:{1}/251只\t\t\t"
     },
     {
       "Key": "pkmPotentialEvolveCount",

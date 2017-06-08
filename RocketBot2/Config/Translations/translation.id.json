@@ -430,7 +430,7 @@
     },
     {
       "Key": "pokemonRename",
-      "Value": "Pokemon {0} ({1}) berubah nama dari {2} ke {3}."
+      "Value": "Pokemon {0} berubah nama dari {1} ke {2}."
     },
     {
       "Key": "pokemonFavorite",
@@ -598,7 +598,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "Jumlah Pokemon terlihat: {0}/231, Tertangkap: {1}/231"
+      "Value": "Jumlah Pokemon terlihat: {0}/251, Tertangkap: {1}/251"
     },
     {
       "Key": "pkmPotentialEvolveCount",

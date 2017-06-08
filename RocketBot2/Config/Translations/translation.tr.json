@@ -426,7 +426,7 @@
     },
     {
       "Key": "pokemonRename",
-      "Value": "{0} ({1}) | Pokémon'un ismi değiştirildi. (\"{2}\" -> \"{3}\")"
+      "Value": "{0} | Pokémon'un ismi değiştirildi. (\"{1}\" -> \"{2}\")"
     },
     {
       "Key": "pokemonFavorite",
@@ -594,7 +594,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "Karşılaşılan Pokémon Sayısı: {0}/231, Yakalanan Pokémon Sayısı: {1}/231"
+      "Value": "Karşılaşılan Pokémon Sayısı: {0}/251, Yakalanan Pokémon Sayısı: {1}/251"
     },
     {
       "Key": "pkmPotentialEvolveCount",

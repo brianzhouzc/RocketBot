@@ -430,7 +430,7 @@
     },
     {
       "Key": "pokemonRename",
-      "Value": "神奇寶貝 {0} ({1}) 已從 {2} 改名為 {3}。\t\t"
+      "Value": "神奇寶貝 {0} 已從 {1} 改名為 {2}。\t\t"
     },
     {
       "Key": "pokemonFavorite",
@@ -598,7 +598,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "遇過的神奇寶貝：{0}/231，捕捉過的神奇寶貝：{1}/231\t\t\t\t"
+      "Value": "遇過的神奇寶貝：{0}/251，捕捉過的神奇寶貝：{1}/251\t\t\t\t"
     },
     {
       "Key": "pkmPotentialEvolveCount",

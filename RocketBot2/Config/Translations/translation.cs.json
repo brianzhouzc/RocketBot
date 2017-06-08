@@ -362,7 +362,7 @@
     },
     {
       "Key": "pokemonRename",
-      "Value": "Pokémon {0} ({1}) přejmenován {2} na {3}."
+      "Value": "Pokémon {0} přejmenován {1} na {2}."
     },
     {
       "Key": "PokemonFavorite",
@@ -518,7 +518,7 @@
     },
     {
       "Key": "AmountPkmSeenCaught",
-      "Value": "Počet spatřených pokemonů: {0}/231, Počet chycených pokemonů: {1}/231"
+      "Value": "Počet spatřených pokemonů: {0}/251, Počet chycených pokemonů: {1}/251"
     },
     {
       "Key": "PkmPotentialEvolveCount",

@@ -378,7 +378,7 @@
     },
     {
       "Key": "pokemonRename",
-      "Value": "Pokémon {0} ({1}) nimetati ümber {2}'st {3}'ks."
+      "Value": "Pokémon {0} nimetati ümber {1}'st {2}'ks."
     },
     {
       "Key": "pokemonIgnoreFilter",

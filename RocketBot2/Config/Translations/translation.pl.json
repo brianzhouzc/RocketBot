@@ -426,7 +426,7 @@
     },
     {
       "Key": "pokemonRename",
-      "Value": "Nazwa Pokemon'a {0} została zmieniona z {2} na {3}."
+      "Value": "Nazwa Pokemon'a {0} została zmieniona z {1} na {2}."
     },
     {
       "Key": "pokemonFavorite",
@@ -594,7 +594,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "Ilość widzianych Pokemonów: {0}/231 | Ilość złapanych Pokemonów: {1}/231"
+      "Value": "Ilość widzianych Pokemonów: {0}/251 | Ilość złapanych Pokemonów: {1}/251"
     },
     {
       "Key": "pkmPotentialEvolveCount",

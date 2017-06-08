@@ -410,7 +410,7 @@
     },
     {
       "Key": "pokemonRename",
-      "Value": "Pokémon {0} ({1}) renomeado de {2} para {3}."
+      "Value": "Pokémon {0} renomeado de {1} para {2}."
     },
     {
       "Key": "pokemonFavorite",
@@ -566,7 +566,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "Quantidade de Pokemons Vistos: {0}/231, Quantidade de Pokemons Capturados: {1}/231"
+      "Value": "Quantidade de Pokemons Vistos: {0}/251, Quantidade de Pokemons Capturados: {1}/251"
     },
     {
       "Key": "pkmPotentialEvolveCount",

@@ -422,7 +422,7 @@
     },
     {
       "Key": "pokemonRename",
-      "Value": "Pokemon {0} ({1}) đã đổi tên từ {2} thành {3}."
+      "Value": "Pokemon {0} đã đổi tên từ {1} thành {2}."
     },
     {
       "Key": "pokemonFavorite",
@@ -590,7 +590,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "Số loài Pokemon đã thấy: {0}/231, số loài Pokemon đã bắt: {1}/231"
+      "Value": "Số loài Pokemon đã thấy: {0}/251, số loài Pokemon đã bắt: {1}/251"
     },
     {
       "Key": "pkmPotentialEvolveCount",

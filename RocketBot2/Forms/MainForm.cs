@@ -1458,7 +1458,7 @@ namespace RocketBot2.Forms
             }
 
             ioc.Register<MultiAccountManager>(accountManager);
-
+            
             var bot = accountManager.GetStartUpAccount();
 
             var TotXP = 0;
@@ -1491,7 +1491,7 @@ namespace RocketBot2.Forms
                         if (!Instance._botStarted)
                             _session.ReInitSessionWithNextBot(_bot);
                         accountManager.SwitchAccountTo(_bot);
-                        Logger.Write($"(Bot Stats) User: {_user} | XP: {_bot.CurrentXp - _TotXP} | SD: {_bot.Stardust}", LogLevel.Info, ConsoleColor.Magenta);
+                        Logger.Write($"User: {_user} | XP: {_bot.CurrentXp - _TotXP} | SD: {_bot.Stardust}", LogLevel.BotStats);
                     };
                     accountsToolStripMenuItem.DropDownItems.Add(_item);
                 }
@@ -1507,7 +1507,7 @@ namespace RocketBot2.Forms
             _settings = settings;
             _excelConfigAllow = excelConfigAllow;
 
-            Logger.Write($"(Bot Stats) User: {user} | XP: {bot.CurrentXp - TotXP} | SD: {bot.Stardust}", LogLevel.Info, ConsoleColor.Magenta);
+            Logger.Write($"User: {user} | XP: {bot.CurrentXp - TotXP} | SD: {bot.Stardust}", LogLevel.BotStats);
 
             if (_botStarted) startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
         }

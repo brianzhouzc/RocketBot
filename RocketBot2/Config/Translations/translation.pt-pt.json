@@ -346,7 +346,7 @@
     },
     {
       "Key": "pokemonRename",
-      "Value": "Pokémon {0} ({1}) renomeado de {2} para {3}."
+      "Value": "Pokémon {0} renomeado de {1} para {2}."
     },
     {
       "Key": "pokemonIgnoreFilter",

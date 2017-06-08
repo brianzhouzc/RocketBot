@@ -362,7 +362,7 @@
     },
     {
       "Key": "pokemonRename",
-      "Value": "Pokemon {0} ({1}) wurde von {2} zu {3} umbenannt."
+      "Value": "Pokemon {0} wurde von {1} zu {2} umbenannt."
     },
     {
       "Key": "PokemonFavorite",
@@ -530,7 +530,7 @@
     },
     {
       "Key": "AmountPkmSeenCaught",
-      "Value": "Anzahl gesehener Pokemon: {0}/231, Anzahl gefangener Pokemon: {1}/231"
+      "Value": "Anzahl gesehener Pokemon: {0}/251, Anzahl gefangener Pokemon: {1}/251"
     },
     {
       "Key": "PkmPotentialEvolveCount",

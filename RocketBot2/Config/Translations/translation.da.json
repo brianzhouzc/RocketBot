@@ -398,7 +398,7 @@
     },
     {
       "Key": "pokemonRename",
-      "Value": "Pokémon {0} ({1}) er blevet omdøbt fra {2} til {3}."
+      "Value": "Pokémon {0} er blevet omdøbt fra {1} til {2}."
     },
     {
       "Key": "pokemonFavorite",

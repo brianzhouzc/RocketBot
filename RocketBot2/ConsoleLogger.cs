@@ -84,6 +84,7 @@ namespace RocketBot2
                 { LogLevel.New, Color.Green },
                 { LogLevel.SoftBan, Color.Red },
                 { LogLevel.LevelUp, Color.Magenta },
+                { LogLevel.BotStats, Color.Magenta },
                 { LogLevel.Gym, Color.Magenta },
                 { LogLevel.Service, Color.White }
             };

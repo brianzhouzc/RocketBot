@@ -426,7 +426,7 @@
     },
     {
       "Key": "pokemonRename",
-      "Value": "正在将宝可梦{0} ({1})从{2}重命名为{3}.\t\t"
+      "Value": "正在将宝可梦{0} 从{1}重命名为{2}.\t\t"
     },
     {
       "Key": "pokemonFavorite",
@@ -594,7 +594,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "遇见了:{0}/231种宝可梦,捕捉到了:{1}/231种宝可梦\t\t\t\t"
+      "Value": "遇见了:{0}/251种宝可梦,捕捉到了:{1}/251种宝可梦\t\t\t\t"
     },
     {
       "Key": "pkmPotentialEvolveCount",

@@ -255,6 +255,10 @@
       "Value": "Level Up"
     },
     {
+      "Key": "logEntryBotStats",
+      "Value": "LEVEL UP"
+    },
+    {
       "Key": "logEntryTransfered",
       "Value": "TRANSFERIT"
     },
@@ -408,7 +412,7 @@
     },
     {
       "Key": "pokemonRename",
-      "Value": "Pokemon {0} ({1}) reanomenat de {2} a {3}."
+      "Value": "Pokemon {0} reanomenat de {1} a {2}."
     },
     {
       "Key": "pokemonFavorite",
@@ -565,7 +569,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "Quantitat de Pokemon vists: {0}/231, Quantitat de Pokemon capturats: {1}/231"
+      "Value": "Quantitat de Pokemon vists: {0}/251, Quantitat de Pokemon capturats: {1}/251"
     },
     {
       "Key": "pkmPotentialEvolveCount",

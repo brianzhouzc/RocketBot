@@ -346,7 +346,7 @@
     },
     {
       "Key": "pokemonRename",
-      "Value": "Pokemon {0} ({1}) omdöpt från {2} till {3}."
+      "Value": "Pokemon {0} omdöpt från {1} till {2}."
     },
     {
       "Key": "pokemonIgnoreFilter",

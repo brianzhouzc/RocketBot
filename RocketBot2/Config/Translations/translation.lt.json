@@ -390,7 +390,7 @@
     },
     {
       "Key": "pokemonRename",
-      "Value": "Pokemonas {0} ({1}) pervadintas iš {2} į {3}."
+      "Value": "Pokemonas {0} pervadintas iš {1} į {2}."
     },
     {
       "Key": "pokemonFavorite",
@@ -530,7 +530,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "Pokemonų matyta: {0}/231, Pokemonų pagauta: {1}/231"
+      "Value": "Pokemonų matyta: {0}/251, Pokemonų pagauta: {1}/251"
     },
     {
       "Key": "pkmPotentialEvolveCount",
