@@ -1,12 +1,12 @@
 ﻿BotStatus=ENABLED;
 //============================================//
-               POKEMON GO 0.63.1
+               POKEMON GO 0.63.4
 //============================================//
 
-RocketBot2 is compatible with 0.63.1 API.
+RocketBot2 is compatible with 0.63.4 API.
 
 //============================================//
-               Updated: 5/20/2017
+               Updated: 6/11/2017
 
 For support/questions:
 OFFICIAL ROCKETBOT2 Discord: https://discord.gg/y6EU2qY
