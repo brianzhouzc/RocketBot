@@ -120,24 +120,4 @@
   <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="label8.Text" xml:space="preserve">
-    <value>So, how UUID look like?
-UUID is a unique string you can use your personal email, phone, whatever string you think it is unique and only you know.
-I recommend to generate 1 UUID from hereSo, how UUID look like?
-UUID is a unique string you can use your personal email, phone, whatever string you think it is unique and only you know.
-I recommend to generate 1 UUID from here:</value>
-  </data>
-  <data name="label9.Text" xml:space="preserve">
-    <value>"DataSharingConfig": {
-    "EnableSyncData": true,
-    "AutoSnipe": false,
-    "DataServiceIdentification": "ca32d7dc-4443-4602-a568-2aa5887c8ba8 - this is the id you generate step 1",
-    "DataRecieverURL": "ws://www.mypogosnipers.com/socket.io/?EIO=3&amp;transport=websocket"
-  },
-This manual snipe mode even works with autosnipe so that you can leave autosnipe TRUE or FALSE doesn’t matter. 
-But you need turn on data sync EnableSyncData (set it to TRUE)
-
-Step 3: Go to http://www.mypogosnipers.com, then go to setting change sniper mode to use build in sniper and 
-use the UUID you generate and set in the data service Identification, save setting and you are all good.</value>
-  </data>
 </root>
