@@ -426,7 +426,7 @@
     },
     {
       "Key": "pokemonRename",
-      "Value": "正在将宝可梦{0} 从{1}重命名为{2}.\t\t"
+      "Value": "正在将宝可梦{0}从{1}重命名为{2}.\t\t"
     },
     {
       "Key": "pokemonFavorite",

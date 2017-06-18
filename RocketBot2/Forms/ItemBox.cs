@@ -49,7 +49,7 @@ namespace RocketBot2.Forms
             lbl.Text = String.Format(CultureInfo.InvariantCulture, "{0:0.0}Km", egg.KM);
             if (!egg.Hatchable)
             {
-                lblTime.Text = String.Format(CultureInfo.InvariantCulture, "Remaining", egg.TotalKM);
+                lblTime.Text = String.Format(CultureInfo.InvariantCulture, "Walked", egg.TotalKM);
                 Enabled = false;
                 return;
             }

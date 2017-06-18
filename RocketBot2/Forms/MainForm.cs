@@ -1558,7 +1558,7 @@ namespace RocketBot2.Forms
 #pragma warning restore 4014
             _session.EventDispatcher.EventReceived += evt => AnalyticsService.Listen(evt, _session);
 
-            var trackFile = Path.GetTempPath() + "\\rocketbot2.io";
+            /*var trackFile = Path.GetTempPath() + "\\rocketbot2.io";
 
             if (!File.Exists(trackFile) || File.GetLastWriteTime(trackFile) < DateTime.Now.AddDays(-1))
             {
@@ -1572,7 +1572,7 @@ namespace RocketBot2.Forms
                 mThread.SetApartmentState(ApartmentState.STA);
 
                 mThread.Start();
-            }
+            }*/
 
             QuitEvent.WaitOne();
             return Task.CompletedTask;
@@ -1621,8 +1621,8 @@ namespace RocketBot2.Forms
                         {
                             Logger.Write(strReason1 + $"\n", LogLevel.Warning);
 
-                            Logger.Write(strExitMsg + $"\n" + "Please press enter to continue", LogLevel.Error);
-                            Console.ReadLine();
+                            /*Logger.Write(strExitMsg + $"\n" + "Please press enter to continue", LogLevel.Error);
+                            Console.ReadLine();*/
                             return true;
                         }
                         else
