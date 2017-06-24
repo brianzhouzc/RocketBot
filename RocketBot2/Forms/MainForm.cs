@@ -1296,7 +1296,7 @@ namespace RocketBot2.Forms
                             LogLevel.Error
                         );
                         _botStarted = true;
-                   }
+                    }
                     try
                     {
                         HttpClient client = new HttpClient();
@@ -1463,24 +1463,15 @@ namespace RocketBot2.Forms
             {
                 foreach (var _bot in accountManager.AccountsReadOnly)
                 {
-                    var _TotXP = 0;
-                    var _user = !string.IsNullOrEmpty(_bot.Nickname) ? _bot.Nickname : _bot.Username;
-
-                    for (int i = 0; i < _bot.Level + 1; i++)
-                    {
-                        _TotXP = _TotXP + Statistics.GetXpDiff(i);
-                    }
-
                     var _item = new ToolStripMenuItem()
                     {
-                        Text = _user
+                        Text = _bot.Username
                     };
                     _item.Click += delegate
                     {
                         if (!Instance._botStarted)
                             _session.ReInitSessionWithNextBot(_bot);
                         accountManager.SwitchAccountTo(_bot);
-                        Logger.Write($"User: {_user} | XP: {_bot.CurrentXp - _TotXP} | SD: {_bot.Stardust}", LogLevel.BotStats);
                     };
                     accountsToolStripMenuItem.DropDownItems.Add(_item);
                 }
@@ -1490,22 +1481,12 @@ namespace RocketBot2.Forms
                 menuStrip1.Items.Remove(accountsToolStripMenuItem);
             }
 
-
             var bot = accountManager.GetStartUpAccount();
-            var TotXP = 0;
-            var user = !string.IsNullOrEmpty(bot.Nickname) ? bot.Nickname : bot.Username;
-
-            for (int i = 0; i < bot.Level + 1; i++)
-            {
-                TotXP = TotXP + Statistics.GetXpDiff(i);
-            }
 
             _session.ReInitSessionWithNextBot(bot);
             _machine = machine;
             _settings = settings;
             _excelConfigAllow = excelConfigAllow;
-
-            Logger.Write($"User: {user} | XP: {bot.CurrentXp - TotXP} | SD: {bot.Stardust}", LogLevel.BotStats);
 
             if (_botStarted) startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
         }
@@ -1552,10 +1533,8 @@ namespace RocketBot2.Forms
                 //_session.EventDispatcher.EventReceived += evt => MSniperServiceTask.AddToList(evt);
             }
 
-            // jjskuld - Don't await the analytics service since it starts a worker thread that never returns.
-#pragma warning disable 4014
-            _session.AnalyticsService.StartAsync(_session, _session.CancellationTokenSource.Token);
-#pragma warning restore 4014
+            _session.AnalyticsService.StartAsync(_session, _session.CancellationTokenSource.Token).ConfigureAwait(false);
+
             _session.EventDispatcher.EventReceived += evt => AnalyticsService.Listen(evt, _session);
 
             /*var trackFile = Path.GetTempPath() + "\\rocketbot2.io";
