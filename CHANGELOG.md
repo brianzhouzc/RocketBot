@@ -1,8 +1,7 @@
 # Change Log
 
-## [Unreleased](https://github.com/TheUnnamedOrganisation/RocketBot/tree/HEAD)
-
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.11.0.4...HEAD)
+## [v2.11.0.5](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.11.0.5) (2017-06-25)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.11.0.4...v2.11.0.5)
 
 **Closed issues:**
 
