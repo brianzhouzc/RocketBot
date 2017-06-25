@@ -431,6 +431,9 @@
     <Compile Include="Win32\ConsoleHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\1201.png" />
+    <Content Include="Resources\1202.png" />
+    <Content Include="Resources\1301.png" />
     <Content Include="Resources\1401.png" />
     <EmbeddedResource Include="costura32\sqlite3.dll" />
     <EmbeddedResource Include="costura64\sqlite3.dll" />
