@@ -458,6 +458,11 @@
     <Content Include="Resources\PokemonGO-Assets\items\1103.png" />
     <Content Include="Resources\PokemonGO-Assets\items\1104.png" />
     <Content Include="Resources\PokemonGO-Assets\items\1105.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\1201.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\1202.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\1301.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\1401.png" />
+    <Content Include="Resources\PokemonGO-Assets\items\1402.png" />
     <Content Include="Resources\PokemonGO-Assets\items\2.png" />
     <Content Include="Resources\PokemonGO-Assets\items\201.png" />
     <Content Include="Resources\PokemonGO-Assets\items\202.png" />
