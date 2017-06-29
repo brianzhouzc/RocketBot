@@ -94,7 +94,7 @@
     },
     {
       "Key": "eventPokemonUpgraded",
-      "Value": "{0}\t- Level: {1:0.0} | CP: {2}  IV: {3}%   [Meilleur CP: {4}  IV: {5}%] | SD: {6} | Bonbons: {7}"
+      "Value": "{0}\t- Lvl: {1:0.0} | CP: {2}  IV: {3}%   [Meilleur CP: {4}  IV: {5}%] | SD: {6} | Bonbons: {7}"
     },
     {
       "Key": "eventItemRecycled",
