@@ -287,7 +287,8 @@ namespace RocketBot2.Forms
                 foreach (var pokeStop in pokeStops)
                 {
                     var pokeStopLoc = new PointLatLng(pokeStop.Latitude, pokeStop.Longitude);
-                    Image fort = null;
+                    bool isRaid = false; //TODO: pokeStop.RaidInfo.IsExclusive; //bug!
+                     Image fort = null;
                     switch (pokeStop.Type)
                     {
                         case FortType.Checkpoint:
@@ -297,16 +298,28 @@ namespace RocketBot2.Forms
                             switch (pokeStop.OwnedByTeam)
                             {
                                 case POGOProtos.Enums.TeamColor.Neutral:
-                                    fort = ResourceHelper.GetImage("GymVide", null, null, 32, 32);
+                                    if (isRaid)
+                                        fort = ResourceHelper.GetImage("GymVideRaid", null, null, 32, 32);
+                                    else
+                                        fort = ResourceHelper.GetImage("GymVide", null, null, 32, 32);
                                     break;
                                 case POGOProtos.Enums.TeamColor.Blue:
-                                    fort = ResourceHelper.GetImage("GymBlue", null, null, 32, 32);
+                                    if (isRaid)
+                                        fort = ResourceHelper.GetImage("GymBlueRaid", null, null, 32, 32);
+                                    else
+                                        fort = ResourceHelper.GetImage("GymBlue", null, null, 32, 32);
                                     break;
                                 case POGOProtos.Enums.TeamColor.Red:
-                                    fort = ResourceHelper.GetImage("GymRed", null, null, 32, 32);
+                                    if (isRaid)
+                                        fort = ResourceHelper.GetImage("GymRedRaid", null, null, 32, 32);
+                                    else
+                                        fort = ResourceHelper.GetImage("GymRed", null, null, 32, 32);
                                     break;
                                 case POGOProtos.Enums.TeamColor.Yellow:
-                                    fort = ResourceHelper.GetImage("GymYellow", null, null, 32, 32);
+                                    if (isRaid)
+                                        fort = ResourceHelper.GetImage("GymYellowRaid", null, null, 32, 32);
+                                    else
+                                        fort = ResourceHelper.GetImage("GymYellow", null, null, 32, 32);
                                     break;
                             }
                             break;

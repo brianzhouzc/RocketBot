@@ -82,9 +82,29 @@ namespace RocketBot2.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap GymBlueRaid {
+            get {
+                object obj = ResourceManager.GetObject("GymBlueRaid", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap GymRed {
             get {
                 object obj = ResourceManager.GetObject("GymRed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap GymRedRaid {
+            get {
+                object obj = ResourceManager.GetObject("GymRedRaid", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -102,9 +122,29 @@ namespace RocketBot2.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap GymVideRaid {
+            get {
+                object obj = ResourceManager.GetObject("GymVideRaid", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap GymYellow {
             get {
                 object obj = ResourceManager.GetObject("GymYellow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap GymYellowRaid {
+            get {
+                object obj = ResourceManager.GetObject("GymYellowRaid", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
