@@ -288,7 +288,7 @@ namespace RocketBot2.Forms
                 {
                     var pokeStopLoc = new PointLatLng(pokeStop.Latitude, pokeStop.Longitude);
                     bool isRaid = false; //TODO: pokeStop.RaidInfo.IsExclusive; //bug!
-                     Image fort = null;
+                    Image fort = null;
                     switch (pokeStop.Type)
                     {
                         case FortType.Checkpoint:
