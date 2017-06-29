@@ -81,6 +81,8 @@ namespace RocketBot2.Forms
         internal readonly GMapOverlay _pokestopsOverlay = new GMapOverlay("pokestops");
         internal readonly GMapOverlay _searchAreaOverlay = new GMapOverlay("areas");
 
+        private const int DefaultZoomLevel = 15;
+
         public static Session _session;
 
         public MainForm(string[] _args)
@@ -233,7 +235,6 @@ namespace RocketBot2.Forms
 
             GMapControl1.MinZoom = 2;
             GMapControl1.MaxZoom = 18;
-            GMapControl1.Zoom = 15;
             
             GMapControl1.Overlays.Add(_searchAreaOverlay);
             GMapControl1.Overlays.Add(_pokestopsOverlay);
@@ -246,6 +247,7 @@ namespace RocketBot2.Forms
             _playerMarker.Position = new PointLatLng(lat, lng);
             _searchAreaOverlay.Polygons.Clear();
             S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(lng, lat), _searchAreaOverlay);
+            trackBar.Value = DefaultZoomLevel;
         }
 
         private void GMAPSatellite_CheckedChanged(object sender, EventArgs e)
@@ -451,6 +453,11 @@ namespace RocketBot2.Forms
             if (!_botStarted) return;
             var pos = GMapControl1.FromLocalToLatLng(e.Location.X, e.Location.Y);
             await SetMoveToTargetTask.Execute(pos.Lat, pos.Lng);
+        }
+
+        private void trackBar_Scroll(object sender, EventArgs e)
+        {
+            GMapControl1.Zoom = trackBar.Value;
         }
 
         #endregion
@@ -1720,6 +1727,5 @@ namespace RocketBot2.Forms
         }
 
         #endregion
-
     }
 }
