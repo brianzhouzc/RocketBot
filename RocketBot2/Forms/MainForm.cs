@@ -17,6 +17,7 @@ using PoGo.NecroBot.Logic.State;
 using PoGo.NecroBot.Logic.Tasks;
 using PoGo.NecroBot.Logic.Utils;
 using POGOProtos.Data;
+using POGOProtos.Data.Raid;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Fort;
 using POGOProtos.Map.Pokemon;
@@ -289,7 +290,7 @@ namespace RocketBot2.Forms
                 foreach (var pokeStop in pokeStops)
                 {
                     var pokeStopLoc = new PointLatLng(pokeStop.Latitude, pokeStop.Longitude);
-                    bool isRaid = false; //TODO: pokeStop.RaidInfo.IsExclusive; //bug!
+
                     Image fort = null;
                     switch (pokeStop.Type)
                     {
@@ -297,8 +298,22 @@ namespace RocketBot2.Forms
                             fort = ResourceHelper.GetImage("Pokestop", null, null, 32, 32);
                             break;
                         case FortType.Gym:
-                            switch (pokeStop.OwnedByTeam)
+                            //TODO: review this
+                            bool isRaid = false;
+                            try
                             {
+                                if (string.IsNullOrEmpty(pokeStop.RaidInfo.RaidPokemon.PokemonId.ToString()))
+                                    isRaid = false;
+                                else
+                                    isRaid = true;
+                            }
+                            catch
+                            {
+                                isRaid = false;
+                            }
+
+                            switch (pokeStop.OwnedByTeam)
+                            { 
                                 case POGOProtos.Enums.TeamColor.Neutral:
                                     if (isRaid)
                                         fort = ResourceHelper.GetImage("GymVideRaid", null, null, 32, 32);
