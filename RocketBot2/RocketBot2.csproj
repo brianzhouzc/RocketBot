@@ -433,6 +433,7 @@
   <ItemGroup>
     <EmbeddedResource Include="costura32\sqlite3.dll" />
     <EmbeddedResource Include="costura64\sqlite3.dll" />
+    <Content Include="Images\Miscs\slashed.png" />
     <Content Include="Resources\PokemonGO-Assets\eggs\egg.png" />
     <Content Include="Resources\PokemonGO-Assets\eggs\egg_10.png" />
     <Content Include="Resources\PokemonGO-Assets\eggs\egg_10_incubator.png" />

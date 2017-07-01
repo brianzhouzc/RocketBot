@@ -202,7 +202,7 @@ namespace RocketBot2.Helpers
             get
             {
                 if (Slashed)
-                    return ResourceHelper.ConvertToBlackAndWhite(ResourceHelper.GetPokemonImage(PokemonData));
+                    return ResourceHelper.GetSlashedPokemonImage(ResourceHelper.GetPokemonImage(PokemonData));
                 else
                     return ResourceHelper.GetPokemonImage(PokemonData);
             }
