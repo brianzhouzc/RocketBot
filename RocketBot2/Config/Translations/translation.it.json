@@ -126,11 +126,11 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} PL: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | con una {9} ({10} rimanenti). | {11} PE guadagnati | {12} | lat: {13} long: {14} | Mossa1: {15} Mossa2: {16}"
+      "Value": "({0}) | ({1}) {2} | Lvl: {3} PL: {4}/{5} IV: {6}% | Chance: {7}% | {8}m dist | con una {9} ({10} rimanenti). | {11} PE guadagnati | {12} | lat: {13} long: {14} | Mossa1: {15} Mossa2: {16}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value": "({0}) | ({1}) {2} Lvl: {3} PL: ({4}/{5}) IV: {6}% | Chance: {7}% | {8}m dist | con una {9} ({10} rimanenti). | lat: {11} long: {12} | Mossa1: {13} Mossa2: {14}"
+      "Value": "({0}) | ({1}) {2} | Lvl: {3} PL: {4}/{5} IV: {6}% | Chance: {7}% | {8}m dist | con una {9} ({10} rimanenti). | lat: {11} long: {12} | Mossa1: {13} Mossa2: {14}"
     },
     {
       "Key": "eventNoPokeballs",
