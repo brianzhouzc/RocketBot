@@ -67,7 +67,7 @@ namespace RocketBot2.Helpers
             var pkmSettings = session.Inventory.GetPokemonSettings().Result;
             settings = pkmSettings.FirstOrDefault(x => x.PokemonId == pokemonData.PokemonId);
         }
- 
+
         public ulong Id
         {
             get { return PokemonData.Id; }
@@ -201,7 +201,10 @@ namespace RocketBot2.Helpers
         {
             get
             {
-                return ResourceHelper.GetPokemonImage(PokemonData);
+                if (Slashed)
+                    return ResourceHelper.ConvertToBlackAndWhite(ResourceHelper.GetPokemonImage(PokemonData));
+                else
+                    return ResourceHelper.GetPokemonImage(PokemonData);
             }
         }
 
@@ -209,6 +212,7 @@ namespace RocketBot2.Helpers
         public string Costume => PokemonData.PokemonDisplay.Costume.ToString().Replace("Unset", "Regular");
         public string Sex => PokemonData.PokemonDisplay.Gender.ToString().Replace("Less", "Genderless");
         public bool Shiny => PokemonData.PokemonDisplay.Shiny ? true : false;
+        public bool Slashed => PokemonData.IsBad ? true : false;
 
         public string Types
         {
