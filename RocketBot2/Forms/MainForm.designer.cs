@@ -480,7 +480,7 @@ namespace RocketBot2.Forms
             this.trackBar.TabIndex = 29;
             this.trackBar.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
             this.trackBar.Value = 15;
-            this.trackBar.Scroll += new System.EventHandler(this.trackBar_Scroll);
+            this.trackBar.Scroll += new System.EventHandler(this.TrackBar_Scroll);
             // 
             // GMAPSatellite
             // 

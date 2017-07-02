@@ -470,7 +470,7 @@ namespace RocketBot2.Forms
             await SetMoveToTargetTask.Execute(pos.Lat, pos.Lng);
         }
 
-        private void trackBar_Scroll(object sender, EventArgs e)
+        private void TrackBar_Scroll(object sender, EventArgs e)
         {
             GMapControl1.Zoom = trackBar.Value;
         }
