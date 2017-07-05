@@ -249,6 +249,7 @@ namespace RocketBot2.Forms
             _searchAreaOverlay.Polygons.Clear();
             S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(lng, lat), _searchAreaOverlay);
             trackBar.Value = DefaultZoomLevel;
+            GMapControl1.OnMapZoomChanged += delegate { trackBar.Value = (int)GMapControl1.Zoom; };
         }
 
         private void GMAPSatellite_CheckedChanged(object sender, EventArgs e)
