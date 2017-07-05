@@ -14,7 +14,7 @@
 
 ![alt text][1.1] <strong><em>`The contents of this repo are a proof of concept and are for educational use only`</em></strong>![alt text][1.1]<br/>
 
-<h1>RocketBot2 is now compatible with 0.67.1 API.</h1>
+<h1>RocketBot2 is now compatible with 0.67.2 API.</h1>
 
 <p>
 RocketBot itself is free but now you will need to purchase an API key to run the bot.
