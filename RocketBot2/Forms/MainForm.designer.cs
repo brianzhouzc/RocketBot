@@ -555,7 +555,7 @@ namespace RocketBot2.Forms
             this.showMoreCheckBox.Name = "showMoreCheckBox";
             this.showMoreCheckBox.Size = new System.Drawing.Size(196, 21);
             this.showMoreCheckBox.TabIndex = 25;
-            this.showMoreCheckBox.Text = "Show Advance Options";
+            this.showMoreCheckBox.Text = "Show Advanced Options";
             this.showMoreCheckBox.UseVisualStyleBackColor = false;
             this.showMoreCheckBox.CheckedChanged += new System.EventHandler(this.ShowMoreCheckBox_CheckedChanged);
             // 
@@ -596,7 +596,7 @@ namespace RocketBot2.Forms
             this.checkBoxAutoRefresh.Name = "checkBoxAutoRefresh";
             this.checkBoxAutoRefresh.Size = new System.Drawing.Size(133, 21);
             this.checkBoxAutoRefresh.TabIndex = 34;
-            this.checkBoxAutoRefresh.Text = "Auto Resfresh";
+            this.checkBoxAutoRefresh.Text = "Auto Refresh";
             this.checkBoxAutoRefresh.UseVisualStyleBackColor = true;
             this.checkBoxAutoRefresh.CheckedChanged += new System.EventHandler(this.CheckBoxAutoRefresh_CheckedChanged);
             // 
