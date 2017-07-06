@@ -300,7 +300,6 @@ namespace RocketBot2.Forms
                             break;
                         case FortType.Gym:
                             bool isRaid = false;
-                            /*/TODO: review this
                             try
                             {
                                 if (string.IsNullOrEmpty(pokeStop.RaidInfo.RaidPokemon.PokemonId.ToString()))
@@ -312,7 +311,7 @@ namespace RocketBot2.Forms
                             {
                                 isRaid = false;
                             }
-                            //*/
+
                             switch (pokeStop.OwnedByTeam)
                             { 
                                 case POGOProtos.Enums.TeamColor.Neutral:
