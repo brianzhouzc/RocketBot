@@ -643,10 +643,10 @@
     <Content Include="Resources\PokemonGO-Assets\NecroEase\gui\valor.png" />
     <Content Include="Resources\PokemonGO-Assets\NecroEase\gui\visited-pokestop.png" />
     <Content Include="Resources\PokemonGO-Assets\NecroEase\items.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\markers\gym-instinct-raid.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\markers\gym-mystic-raid.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\markers\gym-unoccupied-raid.png" />
-    <Content Include="Resources\PokemonGO-Assets\NecroEase\markers\gym-valor-raid.png" />
+    <Content Include="Resources\PokemonGO-Assets\NecroEase\markers\instinct-raid.png" />
+    <Content Include="Resources\PokemonGO-Assets\NecroEase\markers\mystic-raid.png" />
+    <Content Include="Resources\PokemonGO-Assets\NecroEase\markers\unoccupied-raid.png" />
+    <Content Include="Resources\PokemonGO-Assets\NecroEase\markers\valor-raid.png" />
     <Content Include="Resources\PokemonGO-Assets\NecroEase\markers\instinct.png" />
     <Content Include="Resources\PokemonGO-Assets\NecroEase\markers\location.png" />
     <Content Include="Resources\PokemonGO-Assets\NecroEase\markers\Lured.png" />
