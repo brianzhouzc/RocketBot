@@ -844,13 +844,13 @@ namespace RocketBot2.Forms
         private async void TransferPokemon(IEnumerable<PokemonData> pokemons)
         {
             var _pokemons = new List<ulong>();
-            string poketotransfert = null;
+            string poketotransfer = null;
             foreach (var pokemon in pokemons)
             {
                 _pokemons.Add(pokemon.Id);
-                poketotransfert = $"{poketotransfert} [{_session.Translation.GetPokemonTranslation(pokemon.PokemonId)}]";
+                poketotransfer = $"{poketotransfer} [{_session.Translation.GetPokemonTranslation(pokemon.PokemonId)}]";
             }
-            DialogResult result = MessageBox.Show($"Do you want to tranfert {pokemons.Count()} Pokémons?\n\r {poketotransfert}", $"Tranfert {pokemons.Count()} Pokémons", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show($"Do you want to tranfer {pokemons.Count()} Pokémons?\n\r {poketotransfer}", $"Tranfert {pokemons.Count()} Pokémons", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             switch (result)
             {
                 case DialogResult.Yes:
