@@ -302,9 +302,7 @@ namespace RocketBot2.Forms
                             bool isRaid = false;
                             try
                             {
-                                if (string.IsNullOrEmpty(pokeStop.RaidInfo.RaidPokemon.PokemonId.ToString()))
-                                    isRaid = false;
-                                else
+                                if (!string.IsNullOrEmpty(pokeStop.RaidInfo.RaidPokemon.PokemonId.ToString()))
                                     isRaid = true;
                             }
                             catch
