@@ -110,7 +110,7 @@
     },
     {
       "Key": "eventPokemonTransferred",
-      "Value": "{0}\t- WP: {1}  IV: {2}%   [Beste WP: {3}  IV: {4}%] (Bonbons: {5})"
+      "Value": "{0} | WP: {1}/{3} | IV: {2}%/{4}% | Bonbons: {5} | Lvl: {6} | Slashed: {7}"
     },
     {
       "Key": "eventItemRecycled",

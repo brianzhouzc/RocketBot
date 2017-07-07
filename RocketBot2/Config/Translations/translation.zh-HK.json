@@ -117,8 +117,8 @@
       "Value": "{0} 進化失敗，原因是 {1}，已取消進化 {2}"
     },
     {
-      "Key": "eventPokemonTransferred",
-      "Value": "{0}\t- CP值：{1}  完美度：{2}%   [已擁有 CP值：{3}  完美度：{4}%] (還有{5}顆該種類的糖果)"
+        "Key": "eventPokemonTransferred",
+        "Value": "{0} | CP值： {1}/{3} | 完美度： {2}%/{4}% | 還有{5}顆該種類的糖果 | Lvl: {6} | Slashed: {7}",
     },
     {
       "Key": "eventItemRecycled",
