@@ -48,7 +48,7 @@ To contribute to development, you will need to download and install the required
 
 - [Git](https://git-scm.com/downloads)
 - [Visual Studio 2017](https://www.visualstudio.com/vs/whatsnew/) - We are using C# 7.0 code so VS 2017 is required to compile.  VS 2015 or older will not be able to compile the code.
-- [.NET 4.7 SDK]https://www.microsoft.com/en-us/download/details.aspx?id=55170&desc=dotnet47)
+- [.NET 4.7 SDK](https://www.microsoft.com/en-us/download/details.aspx?id=55170&desc=dotnet47)
 
 ### `Cloning Source Code`
 
