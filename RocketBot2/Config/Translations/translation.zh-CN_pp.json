@@ -118,7 +118,7 @@
     },
     {
       "Key": "eventPokemonTransferred",
-      "Value": "{0},CP:{1}完美度:{2}% [已有CP:{3}完美度:{4}%] (糖果:{5})\t\t\t"
+      "Value": "{0} | CP: {1}/{3} |完美度: {2}%/{4}% | 糖果:{5} | Lvl: {6} | Slashed: {7}"
     },
     {
       "Key": "eventItemRecycled",
