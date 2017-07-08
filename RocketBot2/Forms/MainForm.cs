@@ -847,7 +847,7 @@ namespace RocketBot2.Forms
                 _pokemons.Add(pokemon.Id);
                 poketotransfer = $"{poketotransfer} [{_session.Translation.GetPokemonTranslation(pokemon.PokemonId)}]";
             }
-            DialogResult result = MessageBox.Show($"Do you want to tranfer {pokemons.Count()} Pokémons?\n\r {poketotransfer}", $"Tranfert {pokemons.Count()} Pokémons", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show($"Do you want to transfer {pokemons.Count()} Pokémon(s)?\n\r{poketotransfer}", $"Transfer {pokemons.Count()} Pokémon(s)", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             switch (result)
             {
                 case DialogResult.Yes:
