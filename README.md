@@ -29,7 +29,7 @@ Download the bot from the [release](https://github.com/TheUnnamedOrganisation/Ro
 If you want the latest Beta-Build, you have to download the build from the Beta-Build branch and compile them by yourself with VisualStudio 2017.
 
 ### `Dependencies`
- - Microsoft [.NET 4.6.2 SDK](https://www.microsoft.com/en-us/download/details.aspx?id=53321)
+ - Microsoft [.NET 4.7 SDK](https://www.microsoft.com/en-us/download/details.aspx?id=55170&desc=dotnet47)
  - Windows 
  - PogoDev ApiKey valid to get one here [Buy](https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer)
 
@@ -48,7 +48,7 @@ To contribute to development, you will need to download and install the required
 
 - [Git](https://git-scm.com/downloads)
 - [Visual Studio 2017](https://www.visualstudio.com/vs/whatsnew/) - We are using C# 7.0 code so VS 2017 is required to compile.  VS 2015 or older will not be able to compile the code.
-- [.NET 4.6.2 SDK](https://www.microsoft.com/en-us/download/details.aspx?id=53321)
+- [.NET 4.7 SDK](https://www.microsoft.com/en-us/download/details.aspx?id=55170&desc=dotnet47)
 
 ### `Cloning Source Code`
 
