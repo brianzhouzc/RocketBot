@@ -1527,8 +1527,6 @@ namespace RocketBot2.Forms
 
         private Task StartBot()
         {
-            _machine.AsyncStart(new Logic.State.VersionCheckState(), _session, _subPath, _excelConfigAllow);
-
             try
             {
                 Console.Clear();
@@ -1536,6 +1534,9 @@ namespace RocketBot2.Forms
             catch (IOException)
             {
             }
+
+            _settings.CheckProxy(_session.Translation);
+            _machine.AsyncStart(new Logic.State.VersionCheckState(), _session, _subPath, _excelConfigAllow);
 
             if (_settings.TelegramConfig.UseTelegramAPI)
                 _session.Telegram = new TelegramService(_settings.TelegramConfig.TelegramAPIKey, _session);
@@ -1556,7 +1557,7 @@ namespace RocketBot2.Forms
                 BotDataSocketClient.StartAsync(_session, Properties.Resources.EncryptKey);
                 _session.EventDispatcher.EventReceived += evt => BotDataSocketClient.Listen(evt, _session);
             }
-            _settings.CheckProxy(_session.Translation);
+            //_settings.CheckProxy(_session.Translation); //deplaced 
 
             if (_session.LogicSettings.ActivateMSniper)
             {
