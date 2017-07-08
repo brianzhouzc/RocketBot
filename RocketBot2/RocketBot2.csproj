@@ -864,11 +864,13 @@
     <Content Include="Resources\PokemonGO-Assets\pokemon\249.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\25-Anniversary.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\25-Holiday2016.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\25-OneYearAnniversary.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\25.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\250.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\251.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\26-Anniversary.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\26-Holiday2016.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\26-OneYearAnniversary.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\26.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\27.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\28.png" />
