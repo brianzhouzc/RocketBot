@@ -274,7 +274,7 @@
             this.label48 = new System.Windows.Forms.Label();
             this.tbDataServiceIdentification = new System.Windows.Forms.TextBox();
             this.cbEnableSyncData = new System.Windows.Forms.CheckBox();
-            this.cBoxTeaamColor = new System.Windows.Forms.ComboBox();
+            this.cBoxTeamColor = new System.Windows.Forms.ComboBox();
             this.tabControl.SuspendLayout();
             this.tabAuth.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -2943,25 +2943,26 @@
             this.cbEnableSyncData.Text = "EnableSyncData";
             this.cbEnableSyncData.UseVisualStyleBackColor = true;
             // 
-            // cBoxTeaamColor
+            // cBoxTeamColor
             // 
-            this.cBoxTeaamColor.FormattingEnabled = true;
-            this.cBoxTeaamColor.Items.AddRange(new object[] {
+            this.cBoxTeamColor.FormattingEnabled = true;
+            this.cBoxTeamColor.Items.AddRange(new object[] {
+            "Neutral",
             "Yellow",
             "Blue",
             "Red"});
-            this.cBoxTeaamColor.Location = new System.Drawing.Point(136, 541);
-            this.cBoxTeaamColor.Name = "cBoxTeaamColor";
-            this.cBoxTeaamColor.Size = new System.Drawing.Size(121, 28);
-            this.cBoxTeaamColor.TabIndex = 38;
-            this.cBoxTeaamColor.Text = "Yellow";
+            this.cBoxTeamColor.Location = new System.Drawing.Point(136, 541);
+            this.cBoxTeamColor.Name = "cBoxTeamColor";
+            this.cBoxTeamColor.Size = new System.Drawing.Size(121, 33);
+            this.cBoxTeamColor.TabIndex = 38;
+            this.cBoxTeamColor.Text = "Neutral";
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(981, 581);
-            this.Controls.Add(this.cBoxTeaamColor);
+            this.Controls.Add(this.cBoxTeamColor);
             this.Controls.Add(this.cbEnableSyncData);
             this.Controls.Add(this.tbDataServiceIdentification);
             this.Controls.Add(this.label48);
@@ -3300,7 +3301,7 @@
         private System.Windows.Forms.TreeView Auth;
         private System.Windows.Forms.CheckBox cbAutoFavoriteShinyOnCatch;
         private System.Windows.Forms.CheckBox cbUseLimitedEggIncubators;
-        private System.Windows.Forms.ComboBox cBoxTeaamColor;
+        private System.Windows.Forms.ComboBox cBoxTeamColor;
         private System.Windows.Forms.TabPage tabSnipePokemonFilter;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.CheckedListBox clbSnipePokemonFilter;
