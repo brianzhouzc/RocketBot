@@ -2947,6 +2947,7 @@
             // 
             this.cBoxTeaamColor.FormattingEnabled = true;
             this.cBoxTeaamColor.Items.AddRange(new object[] {
+            "Neutral",
             "Yellow",
             "Blue",
             "Red"});
