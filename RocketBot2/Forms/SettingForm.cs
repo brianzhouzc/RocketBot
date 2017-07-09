@@ -295,7 +295,7 @@ namespace RocketBot2.Forms
             tbDataServiceIdentification.Text = _settings.DataSharingConfig.DataServiceIdentification;
             cbEnableSyncData.Checked = _settings.DataSharingConfig.EnableSyncData;
             cbEnableGyms.Checked = _settings.GymConfig.Enable;
-            cBoxTeaamColor.Text = _settings.GymConfig.DefaultTeam;
+            cBoxTeamColor.Text = _settings.GymConfig.DefaultTeam;
             cbUseHumanlikeDelays.Checked = _settings.HumanlikeDelays.UseHumanlikeDelays;
         }
             #endregion
@@ -647,7 +647,7 @@ namespace RocketBot2.Forms
                 _settings.CustomCatchConfig.ForceGreatThrowOverCp = Convert.ToInt32(tbForceGreatThrowOverCp.Text);
                 _settings.CustomCatchConfig.ForceExcellentThrowOverCp = Convert.ToInt32(tbForceExcellentThrowOverCp.Text);
                 _settings.GymConfig.Enable = cbEnableGyms.Checked;
-                _settings.GymConfig.DefaultTeam = cBoxTeaamColor.Text;
+                _settings.GymConfig.DefaultTeam = cBoxTeamColor.Text;
                 _settings.DataSharingConfig.AutoSnipe = cbAutoSniper.Checked;
                 _settings.DataSharingConfig.DataServiceIdentification = tbDataServiceIdentification.Text;
                 _settings.DataSharingConfig.EnableSyncData = cbEnableSyncData.Checked;
