@@ -295,42 +295,8 @@ namespace RocketBot2.Forms
 
                     Image fort = null;
 
-
                     bool isRaid = false;
                     bool asBoss = false;
-
-                    try
-                    {
-                        if (pokeStop.RaidInfo.RaidBattleMs > 0)
-                            isRaid = true;
-                    }
-                    catch
-                    {
-                        isRaid = false;
-                    }
-
-                    try
-                    {
-                        if (!string.IsNullOrEmpty(pokeStop.RaidInfo.RaidPokemon.PokemonId.ToString()))
-                            asBoss = true;
-                    }
-                    catch
-                    {
-                        asBoss = false;
-                    }
-
-                    int hg = 32;
-                    int wg = 32;
-                    Image ImgGymBoss = null;
-
-                    if (asBoss)
-                    {
-                        hg = 48;
-                        wg = 48;
-                        ImgGymBoss = ResourceHelper.GetImage(null, pokeStop.RaidInfo.RaidPokemon, null, 32, 32);
-                    }
-
-                    string raid = isRaid ? "Raid" : null;
 
                     switch (pokeStop.Type)
                     {
@@ -338,8 +304,42 @@ namespace RocketBot2.Forms
                             fort = ResourceHelper.GetImage("Pokestop", null, null, 32, 32);
                             break;
                         case FortType.Gym:
+                            try
+                            {
+                                if (pokeStop.RaidInfo.RaidBattleMs > 0)
+                                    isRaid = true;
+                            }
+                            catch
+                            {
+                                isRaid = false;
+                            }
+
+                            try
+                            {
+                                if (!string.IsNullOrEmpty(pokeStop.RaidInfo.RaidPokemon.PokemonId.ToString()))
+                                    asBoss = true;
+                            }
+                            catch
+                            {
+                                asBoss = false;
+                            }
+
+                            int hg = 32;
+                            int wg = 32;
+                            Image ImgGymBoss = null;
+
+                            if (asBoss)
+                            {
+                                hg = 48;
+                                wg = 48;
+                                ImgGymBoss = ResourceHelper.GetImage(null, pokeStop.RaidInfo.RaidPokemon, null, 32, 32);
+                            }
+
+                            string raid = isRaid ? "Raid" : null;
+
+
                             switch (pokeStop.OwnedByTeam)
-                            { 
+                            {
                                 case POGOProtos.Enums.TeamColor.Neutral:
                                     if (asBoss)
                                         fort = ResourceHelper.CombineImages(ResourceHelper.GetImage("GymVide", null, null, hg, wg), ImgGymBoss);
@@ -382,11 +382,12 @@ namespace RocketBot2.Forms
                             var time = tm - DateTime.UtcNow;
                             pokestopMarker.ToolTipText = $"Raid start in: {time.Hours}h {time.Minutes}m"; //{Math.Abs(time.Seconds)}s";
                         }
-                        else
+                        if (asBoss)
                         {
                             var tm = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidEndMs);
                             var time = tm - DateTime.UtcNow;
-                            pokestopMarker.ToolTipText = $"Raid end in: {time.Hours}h {time.Minutes}m"; // {Math.Abs(time.Seconds)}s";
+                            var boss = $"Boss: {_session.Translation.GetPokemonTranslation(pokeStop.RaidInfo.RaidPokemon.PokemonId)} CP: {pokeStop.RaidInfo.RaidPokemon.Cp}";
+                            pokestopMarker.ToolTipText = $"Raid end in: {time.Hours}h {time.Minutes}m\n\r{boss}"; // {Math.Abs(time.Seconds)}s";
                         }
                     }
                     _pokestopsOverlay.Markers.Add(pokestopMarker);
