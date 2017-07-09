@@ -5,6 +5,7 @@ using GeoCoordinatePortable;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
+using GMap.NET.WindowsForms.ToolTips;
 using PoGo.NecroBot.Logic;
 using PoGo.NecroBot.Logic.Common;
 using PoGo.NecroBot.Logic.Event;
@@ -293,49 +294,50 @@ namespace RocketBot2.Forms
                     var pokeStopLoc = new PointLatLng(pokeStop.Latitude, pokeStop.Longitude);
 
                     Image fort = null;
+
+
+                    bool isRaid = false;
+                    bool asBoss = false;
+
+                    try
+                    {
+                        if (pokeStop.RaidInfo.RaidBattleMs > 0)
+                            isRaid = true;
+                    }
+                    catch
+                    {
+                        isRaid = false;
+                    }
+
+                    try
+                    {
+                        if (!string.IsNullOrEmpty(pokeStop.RaidInfo.RaidPokemon.PokemonId.ToString()))
+                            asBoss = true;
+                    }
+                    catch
+                    {
+                        asBoss = false;
+                    }
+
+                    int hg = 32;
+                    int wg = 32;
+                    Image ImgGymBoss = null;
+
+                    if (asBoss)
+                    {
+                        hg = 48;
+                        wg = 48;
+                        ImgGymBoss = ResourceHelper.GetImage(null, pokeStop.RaidInfo.RaidPokemon, null, 32, 32);
+                    }
+
+                    string raid = isRaid ? "Raid" : null;
+
                     switch (pokeStop.Type)
                     {
                         case FortType.Checkpoint:
                             fort = ResourceHelper.GetImage("Pokestop", null, null, 32, 32);
                             break;
                         case FortType.Gym:
-
-                            bool isRaid = false;
-                            bool asBoss = false;
-
-                            try
-                            {
-                                if (pokeStop.RaidInfo.RaidBattleMs > 0)
-                                    isRaid = true;
-                            }
-                            catch
-                            {
-                                isRaid = false;
-                            }
-
-                            try
-                            {
-                                if (!string.IsNullOrEmpty(pokeStop.RaidInfo.RaidPokemon.PokemonId.ToString()))
-                                    asBoss = true;
-                            }
-                            catch
-                            {
-                                asBoss = false;
-                            }
-
-                            int hg = 32;
-                            int wg = 32;
-                            Image ImgGymBoss = null;
-
-                            if (asBoss)
-                            {
-                                hg = 48;
-                                wg = 48;
-                                ImgGymBoss = ResourceHelper.GetImage(null, pokeStop.RaidInfo.RaidPokemon, null, 32, 32);
-                            }
-
-                            string raid = isRaid ? "Raid" : null;
-
                             switch (pokeStop.OwnedByTeam)
                             { 
                                 case POGOProtos.Enums.TeamColor.Neutral:
@@ -368,7 +370,25 @@ namespace RocketBot2.Forms
                             fort = ResourceHelper.GetImage("Pokestop", null, null, 32, 32);
                             break;
                     }
+
                     var pokestopMarker = new GMapMarkerPokestops(pokeStopLoc, fort);
+                    if (isRaid || asBoss)
+                    {
+                        pokestopMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+                        pokestopMarker.ToolTip = new GMapBaloonToolTip(pokestopMarker);
+                        if (isRaid)
+                        {
+                            var tm = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidBattleMs);
+                            var time = tm - DateTime.UtcNow;
+                            pokestopMarker.ToolTipText = $"Raid start in: {time.Hours}h {time.Minutes}m"; //{Math.Abs(time.Seconds)}s";
+                        }
+                        else
+                        {
+                            var tm = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidEndMs);
+                            var time = tm - DateTime.UtcNow;
+                            pokestopMarker.ToolTipText = $"Raid end in: {time.Hours}h {time.Minutes}m"; // {Math.Abs(time.Seconds)}s";
+                        }
+                    }
                     _pokestopsOverlay.Markers.Add(pokestopMarker);
                 }
                 Navigation_UpdatePositionEvent();
