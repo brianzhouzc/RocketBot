@@ -304,7 +304,7 @@ namespace RocketBot2.Forms
                     switch (pokeStop.Type)
                     {
                         case FortType.Checkpoint:
-                            fort = ResourceHelper.GetImage("Pokestop", null, null, 32, 32);
+                            fort = ResourceHelper.GetImage("Pokestop", null, null, hg, wg);
                             break;
                         case FortType.Gym:
                             try
@@ -331,7 +331,7 @@ namespace RocketBot2.Forms
                             {
                                 hg = 48;
                                 wg = 48;
-                                ImgGymBoss = ResourceHelper.GetImage(null, pokeStop.RaidInfo.RaidPokemon, null, 32, 32);
+                                ImgGymBoss = ResourceHelper.GetImage(null, pokeStop.RaidInfo.RaidPokemon, null, 38, 38);
                             }
 
                             string raid = isRaid ? "Raid" : null;
