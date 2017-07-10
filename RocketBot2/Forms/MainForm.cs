@@ -297,6 +297,9 @@ namespace RocketBot2.Forms
 
                     bool isRaid = false;
                     bool asBoss = false;
+                    int hg = 32;
+                    int wg = 32;
+                    Image ImgGymBoss = null;
 
                     switch (pokeStop.Type)
                     {
@@ -324,10 +327,6 @@ namespace RocketBot2.Forms
                                 asBoss = false;
                             }
 
-                            int hg = 32;
-                            int wg = 32;
-                            Image ImgGymBoss = null;
-
                             if (asBoss)
                             {
                                 hg = 48;
@@ -336,7 +335,6 @@ namespace RocketBot2.Forms
                             }
 
                             string raid = isRaid ? "Raid" : null;
-
 
                             switch (pokeStop.OwnedByTeam)
                             {
@@ -367,15 +365,18 @@ namespace RocketBot2.Forms
                             }
                             break;
                         default:
-                            fort = ResourceHelper.GetImage("Pokestop", null, null, 32, 32);
+                            fort = ResourceHelper.GetImage("Pokestop", null, null, hg, wg);
                             break;
                     }
 
-                    var pokestopMarker = new GMapMarkerPokestops(pokeStopLoc, fort);
+                    var pokestopMarker = new GMapMarkerPokestops(pokeStopLoc, fort)
+                    {
+                        ToolTipMode = MarkerTooltipMode.OnMouseOver
+                    };
+                    pokestopMarker.ToolTip = new GMapBaloonToolTip(pokestopMarker);
+
                     if (isRaid || asBoss)
                     {
-                        pokestopMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
-                        pokestopMarker.ToolTip = new GMapBaloonToolTip(pokestopMarker);
                         if (isRaid)
                         {
                             var tm = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidBattleMs);
