@@ -748,6 +748,8 @@
     <Content Include="Resources\PokemonGO-Assets\pokemon\17.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\170.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\171.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\172-Holiday2016.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\172-OneYearAnniversary.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\172.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\173.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\174.png" />
