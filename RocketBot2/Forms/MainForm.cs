@@ -297,14 +297,20 @@ namespace RocketBot2.Forms
 
                     bool isRaid = false;
                     bool asBoss = false;
+                    bool isLured = false;
                     int hg = 32;
                     int wg = 32;
                     Image ImgGymBoss = null;
 
+                    if (pokeStop.LureInfo != null)
+                        isLured = true;
+
+                    string lured = isLured ? "Lured" : null;
+
                     switch (pokeStop.Type)
                     {
                         case FortType.Checkpoint:
-                            fort = ResourceHelper.GetImage("Pokestop", null, null, hg, wg);
+                            fort = ResourceHelper.GetImage($"Pokestop{lured}", null, null, hg, wg);
                             break;
                         case FortType.Gym:
                             try
@@ -319,7 +325,7 @@ namespace RocketBot2.Forms
 
                             try
                             {
-                                if (!string.IsNullOrEmpty(pokeStop.RaidInfo.RaidPokemon.PokemonId.ToString()))
+                                if (pokeStop.RaidInfo.RaidEndMs > 0)
                                     asBoss = true;
                             }
                             catch
@@ -365,7 +371,7 @@ namespace RocketBot2.Forms
                             }
                             break;
                         default:
-                            fort = ResourceHelper.GetImage("Pokestop", null, null, hg, wg);
+                            fort = ResourceHelper.GetImage($"Pokestop{lured}", null, null, hg, wg);
                             break;
                     }
 
@@ -453,8 +459,12 @@ namespace RocketBot2.Forms
                         if (marker.Position == pokeStopLoc)
                         {
                             _pokestopsOverlay.Markers.Remove(marker);
+                            bool isLured = false;
+                            if (pokestop.LureInfo != null)
+                                isLured = true;
+                            string lured = isLured ? "VisitedLure" : null;
                             var pokestopMarker = new GMapMarkerPokestops(pokeStopLoc,
-                               ResourceHelper.GetImage("Pokestop_looted", null, null, 32, 32));
+                               ResourceHelper.GetImage($"Pokestop_looted{lured}", null, null, 32, 32));
                             //pokestopMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
                             //pokestopMarker.ToolTip = new GMapBaloonToolTip(pokestopMarker);
                             _pokestopsOverlay.Markers.Add(pokestopMarker);
