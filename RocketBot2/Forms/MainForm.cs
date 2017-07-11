@@ -385,21 +385,23 @@ namespace RocketBot2.Forms
                     {
                         if (isRaid)
                         {
-                            var tm = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidBattleMs);
-                            var time = tm - DateTime.UtcNow;
-                            pokestopMarker.ToolTipText = $"Next RAID starts at: {tm.ToLocalTime().ToString("hh:mm:ss")}"; //{Math.Abs(time.Seconds)}s";
+                            DateTime tm = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidBattleMs);
+                            TimeSpan time = tm - DateTime.UtcNow;
+                            string timerText = $"Next RAID starts at: {time.Hours}h {time.Minutes}m"; // {Math.Abs(time.Seconds)}s";
+                            pokestopMarker.ToolTipText = timerText;
                         }
                         if (asBoss)
                         {
-                            var tm = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidEndMs);
-                            var time = tm - DateTime.UtcNow;
-                            var boss = $"Boss: {_session.Translation.GetPokemonTranslation(pokeStop.RaidInfo.RaidPokemon.PokemonId)} CP: {pokeStop.RaidInfo.RaidPokemon.Cp}";
-                            pokestopMarker.ToolTipText = $"Local RAID ends at: {tm.ToLocalTime().ToString("hh:mm:ss")}\n\r{boss}"; // {Math.Abs(time.Seconds)}s";
+                            DateTime tm = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidEndMs);
+                            TimeSpan time = tm - DateTime.UtcNow;
+                            string boss = $"Boss: {_session.Translation.GetPokemonTranslation(pokeStop.RaidInfo.RaidPokemon.PokemonId)} CP: {pokeStop.RaidInfo.RaidPokemon.Cp}";
+                            string timerText = $"Local RAID ends at:  {time.Hours}h {time.Minutes}m\n\r{boss}"; // {Math.Abs(time.Seconds)}s";
+                            pokestopMarker.ToolTipText = timerText;
                         }
                     }
                     else
                     {
-                        pokestopMarker.ToolTipText = "";
+                        pokestopMarker.ToolTipText = null;
                     }
                     _pokestopsOverlay.Markers.Add(pokestopMarker);
                 }
