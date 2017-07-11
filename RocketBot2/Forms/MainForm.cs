@@ -325,8 +325,8 @@ namespace RocketBot2.Forms
 
                             try
                             {
-                                if (pokeStop.RaidInfo.RaidEndMs > 0)
-                                    asBoss = true;
+                                if (!string.IsNullOrEmpty(pokeStop.RaidInfo.RaidPokemon.PokemonId.ToString()))
+                                asBoss = true;
                             }
                             catch
                             {
