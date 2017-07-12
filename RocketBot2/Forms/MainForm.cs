@@ -263,15 +263,17 @@ namespace RocketBot2.Forms
 
         private Task InitializePokestopsAndRoute()
         {
+            List<FortData> sessionForts = new List<FortData>();
+            sessionForts = _session.Forts;
+
             //get optimized route
-            var pokeStops = RouteOptimizeUtil.Optimize(_session.Forts.ToArray(), _session.Client.CurrentLatitude,
+            var pokeStops = RouteOptimizeUtil.Optimize(sessionForts.ToArray(), _session.Client.CurrentLatitude,
                     _session.Client.CurrentLongitude);
 
             SynchronizationContext.Post(o =>
             {
                 _playerOverlay.Markers.Clear();
                 _pokemonsOverlay.Markers.Clear();
-                _pokestopsOverlay.Markers.Clear();
                 _pokestopsOverlay.Routes.Clear();
                 _playerLocations.Clear();
 
@@ -289,11 +291,11 @@ namespace RocketBot2.Forms
                     _pokestopsOverlay.Routes.Add(route);
                 }
 
-                foreach (var pokeStop in pokeStops)
+                foreach (var pokeStop in sessionForts)
                 {
                     var pokeStopLoc = new PointLatLng(pokeStop.Latitude, pokeStop.Longitude);
 
-                    Image fort = null;
+                    Image fort = new Bitmap(ResourceHelper.GetImage($"GymVide", null, null, 32, 32));
 
                     bool isRaid = false;
                     bool asBoss = false;
@@ -305,7 +307,7 @@ namespace RocketBot2.Forms
                     if (pokeStop.LureInfo != null)
                         isLured = true;
 
-                    string lured = isLured ? "Lured" : null;
+                    string lured = isLured ? "_Lured" : null;
 
                     switch (pokeStop.Type)
                     {
@@ -313,24 +315,18 @@ namespace RocketBot2.Forms
                             fort = ResourceHelper.GetImage($"Pokestop{lured}", null, null, hg, wg);
                             break;
                         case FortType.Gym:
+
                             try
                             {
                                 if (pokeStop.RaidInfo.RaidBattleMs > 0)
                                     isRaid = true;
-                            }
-                            catch
-                            {
-                                isRaid = false;
-                            }
-
-                            try
-                            {
                                 if (!string.IsNullOrEmpty(pokeStop.RaidInfo.RaidPokemon.PokemonId.ToString()))
-                                asBoss = true;
+                                    asBoss = true;
                             }
                             catch
                             {
-                                asBoss = false;
+                                if (asBoss) isRaid = false;
+                                if (isRaid) asBoss = false;
                             }
 
                             if (asBoss)
@@ -368,40 +364,49 @@ namespace RocketBot2.Forms
                                     else
                                         fort = ResourceHelper.GetImage($"GymYellow{raid}", null, null, hg, wg);
                                     break;
+                                default:
+                                    fort = ResourceHelper.GetImage($"GymVide", null, null, hg, wg);
+                                    break;
                             }
                             break;
                         default:
-                            fort = ResourceHelper.GetImage($"Pokestop{lured}", null, null, hg, wg);
+                            fort = ResourceHelper.GetImage($"Pokestop", null, null, hg, wg);
                             break;
                     }
 
-                    var pokestopMarker = new GMapMarkerPokestops(pokeStopLoc, fort)
-                    {
-                        ToolTipMode = MarkerTooltipMode.OnMouseOver
-                    };
-                    pokestopMarker.ToolTip = new GMapBaloonToolTip(pokestopMarker);
+                    GMapMarkerPokestops pokestopMarker = new GMapMarkerPokestops(pokeStopLoc, new Bitmap(fort));
+                    GMapBaloonToolTip toolTip = new GMapBaloonToolTip(pokestopMarker);
 
-                    if (isRaid || asBoss)
+                    if (isRaid)
                     {
-                        if (isRaid)
-                        {
-                            DateTime tm = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidBattleMs);
-                            TimeSpan time = tm - DateTime.UtcNow;
-                            string timerText = $"Next RAID starts at: {time.Hours}h {time.Minutes}m"; // {Math.Abs(time.Seconds)}s";
-                            pokestopMarker.ToolTipText = timerText;
-                        }
-                        if (asBoss)
-                        {
-                            DateTime tm = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidEndMs);
-                            TimeSpan time = tm - DateTime.UtcNow;
-                            string boss = $"Boss: {_session.Translation.GetPokemonTranslation(pokeStop.RaidInfo.RaidPokemon.PokemonId)} CP: {pokeStop.RaidInfo.RaidPokemon.Cp}";
-                            string timerText = $"Local RAID ends at:  {time.Hours}h {time.Minutes}m\n\r{boss}"; // {Math.Abs(time.Seconds)}s";
-                            pokestopMarker.ToolTipText = timerText;
-                        }
+                        pokestopMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+                        DateTime tm = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidBattleMs);
+                        TimeSpan time = tm - DateTime.UtcNow;
+                        string timerText = $"Next RAID starts in: {time.Hours}h {time.Minutes}m"; // {Math.Abs(time.Seconds)}s";
+                        toolTip.Marker.ToolTipText = timerText;
                     }
-                    else
+
+                    if (asBoss)
                     {
-                        pokestopMarker.ToolTipText = null;
+                        pokestopMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+                        DateTime tm = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidEndMs);
+                        TimeSpan time = tm - DateTime.UtcNow;
+                        string boss = $"Boss: {_session.Translation.GetPokemonTranslation(pokeStop.RaidInfo.RaidPokemon.PokemonId)} CP: {pokeStop.RaidInfo.RaidPokemon.Cp}";
+                        string timerText = $"Local RAID ends in: {time.Hours}h {time.Minutes}m\n\r{boss}"; // {Math.Abs(time.Seconds)}s";
+                        toolTip.Marker.ToolTipText = timerText;
+                    }
+
+                    lock (_pokestopsOverlay.Markers)
+                    {
+                        for (var i = 0; i < _pokestopsOverlay.Markers.Count; i++)
+                        {
+                            var marker = _pokestopsOverlay.Markers[i];
+                            if (marker.Position == pokeStopLoc)
+                            {
+                                _pokestopsOverlay.Markers.Remove(marker);
+                                marker.Dispose();
+                            }
+                        }
                     }
                     _pokestopsOverlay.Markers.Add(pokestopMarker);
                 }
@@ -468,7 +473,7 @@ namespace RocketBot2.Forms
                             bool isLured = false;
                             if (pokestop.LureInfo != null)
                                 isLured = true;
-                            string lured = isLured ? "VisitedLure" : null;
+                            string lured = isLured ? "_VisitedLure" : null;
                             var pokestopMarker = new GMapMarkerPokestops(pokeStopLoc,
                                ResourceHelper.GetImage($"Pokestop_looted{lured}", null, null, 32, 32));
                             //pokestopMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;

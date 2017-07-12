@@ -212,9 +212,9 @@ namespace RocketBot2.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Pokestop_lootedVisitedLure {
+        public static System.Drawing.Bitmap Pokestop_looted_VisitedLure {
             get {
-                object obj = ResourceManager.GetObject("Pokestop_lootedVisitedLure", resourceCulture);
+                object obj = ResourceManager.GetObject("Pokestop_looted_VisitedLure", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -222,9 +222,9 @@ namespace RocketBot2.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap PokestopLured {
+        public static System.Drawing.Bitmap Pokestop_Lured {
             get {
-                object obj = ResourceManager.GetObject("PokestopLured", resourceCulture);
+                object obj = ResourceManager.GetObject("Pokestop_Lured", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
