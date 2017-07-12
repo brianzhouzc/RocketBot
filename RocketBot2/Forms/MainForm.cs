@@ -404,7 +404,6 @@ namespace RocketBot2.Forms
                             if (marker.Position == pokeStopLoc)
                             {
                                 _pokestopsOverlay.Markers.Remove(marker);
-                                marker.Dispose();
                             }
                         }
                     }
