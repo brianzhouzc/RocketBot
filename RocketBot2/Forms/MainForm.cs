@@ -328,7 +328,7 @@ namespace RocketBot2.Forms
                             }
                             catch
                             {
-                                if (asBoss) isRaid = false;
+                                isRaid = false;
                             }
 
                             try
