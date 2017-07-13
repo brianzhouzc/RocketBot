@@ -297,8 +297,10 @@ namespace RocketBot2.Forms
 
                     bool isRaid = false;
                     bool asBoss = false;
+                    bool isSpawn = false;
                     long asBossTime = 0;
                     long isRaidTime = 0;
+                    long isRaidSpawnTime = 0;
                     int hg = 32;
                     int wg = 32;
                     Image fort = ResourceHelper.GetImage($"Pokestop", null, null, hg, wg);
@@ -334,11 +336,13 @@ namespace RocketBot2.Forms
                             try
                             {
                                 isRaidTime = pokeStop.RaidInfo.RaidBattleMs;
+
                                 if (pokeStop.RaidInfo != null)
                                 {
                                     asBossTime = pokeStop.RaidInfo.RaidEndMs;
+                                    isRaidSpawnTime = pokeStop.RaidInfo.RaidSpawnMs - asBossTime;
 
-                                    if (pokeStop.RaidInfo.RaidPokemon.PokemonId > 0 && asBossTime > 0)
+                                    if (pokeStop.RaidInfo.RaidPokemon.PokemonId > 0 && asBossTime > 0 || isRaidSpawnTime > 0)
                                     {
                                         asBoss = true;
                                         hg = 48;
@@ -354,6 +358,9 @@ namespace RocketBot2.Forms
 
                             if (isRaidTime > 0)
                                 isRaid = true;
+
+                            if (isRaidSpawnTime > 0)
+                                isSpawn = true;
 
                             string raid = isRaid ? "Raid" : null;
 
@@ -409,10 +416,28 @@ namespace RocketBot2.Forms
                     {
                         GMapBaloonToolTip toolTip = new GMapBaloonToolTip(pokestopMarker);
                         pokestopMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
-                        DateTime tm = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(asBossTime);
-                        TimeSpan time = tm - DateTime.UtcNow;
-                        string boss = $"Boss: {_session.Translation.GetPokemonTranslation(pokeStop.RaidInfo.RaidPokemon.PokemonId)} CP: {pokeStop.RaidInfo.RaidPokemon.Cp}";
-                        string timerText = $"Local RAID ends in: {time.Hours}h {time.Minutes}m\n\r{boss}"; // {Math.Abs(time.Seconds)}s";
+                        TimeSpan time = new TimeSpan();
+                        string boss = null;
+                        string raidDesc = null;
+
+                        if (isSpawn)
+                        {
+                            time = new TimeSpan(isRaidSpawnTime);
+                            DateTime tm = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(isRaidSpawnTime);
+                            time =  tm - DateTime.UtcNow;
+                            raidDesc = "Local SPAWN ends in";
+                            boss = $"Raid Spawn: {_session.Translation.GetPokemonTranslation(pokeStop.RaidInfo.RaidPokemon.PokemonId)} CP: {pokeStop.RaidInfo.RaidPokemon.Cp}";
+                        }
+                        else
+                        {
+                            time = new TimeSpan(asBossTime);
+                            DateTime tm = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(asBossTime);
+                            time = tm - DateTime.UtcNow;
+                            raidDesc = "Local RAID ends in";
+                            boss = $"Boss: {_session.Translation.GetPokemonTranslation(pokeStop.RaidInfo.RaidPokemon.PokemonId)} CP: {pokeStop.RaidInfo.RaidPokemon.Cp}";
+                        }
+
+                        string timerText = $"{raidDesc}: {time.Hours}h {time.Minutes}m\n\r{boss}"; // {Math.Abs(time.Seconds)}s";
                         toolTip.Marker.ToolTipText = timerText;
                     }
 
@@ -427,6 +452,12 @@ namespace RocketBot2.Forms
                             }
                         }
                     }
+
+                    if (_pokestopsOverlay.Markers.Count > sessionForts.Count)
+                    {
+                        _pokestopsOverlay.Markers.Clear();
+                    }
+
                     _pokestopsOverlay.Markers.Add(pokestopMarker);
                 }
                 Navigation_UpdatePositionEvent();
@@ -728,8 +759,10 @@ namespace RocketBot2.Forms
 
         private void CheckBoxAutoRefresh_CheckedChanged(object sender, EventArgs e)
         {
-            if (Instance._botStarted)
-            Instance.btnRefresh.Enabled = !Instance.checkBoxAutoRefresh.Checked;
+            if (Instance._botStarted && Instance.flpItems.Controls.Count > 0)
+                Instance.btnRefresh.Enabled = !Instance.checkBoxAutoRefresh.Checked;
+            else
+                Instance.checkBoxAutoRefresh.CheckState = CheckState.Indeterminate;
         }
 
         #endregion EVENTS
@@ -1208,7 +1241,21 @@ namespace RocketBot2.Forms
 
             // Command line parsing
             var commandLine = new Arguments(args);
+            bool autoStart = false;
             // Look for specific arguments values
+            if (commandLine["autostart"] != null && commandLine["autostart"].Length > 0)
+            {
+                switch (commandLine["autostart"])
+                {
+                    case "true":
+                        autoStart = true;
+                        break;
+
+                    case "false":
+                        autoStart = false;
+                        break;
+                }
+            }
             if (commandLine["subpath"] != null && commandLine["subpath"].Length > 0)
             {
                 _subPath = commandLine["subpath"];
@@ -1614,6 +1661,9 @@ namespace RocketBot2.Forms
             _excelConfigAllow = excelConfigAllow;
 
             if (_botStarted) startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
+
+            if (autoStart)
+                StartStopBotToolStripMenuItem_Click(null, null);
         }
 
         private Task StartBot()
