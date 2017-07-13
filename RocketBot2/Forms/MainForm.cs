@@ -304,7 +304,6 @@ namespace RocketBot2.Forms
                     int hg = 32;
                     int wg = 32;
                     Image fort = ResourceHelper.GetImage($"Pokestop", null, null, hg, wg); 
-                    Image ImgGymBoss = null;
 
                     switch (pokeStop.Type)
                     {
@@ -332,6 +331,8 @@ namespace RocketBot2.Forms
                             }
                             break;
                         case FortType.Gym:
+                            Image ImgGymBoss = null;
+
                             try
                             {
                                 if (pokeStop.RaidInfo != raidInfo)
