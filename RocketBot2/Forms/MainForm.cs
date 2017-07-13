@@ -23,6 +23,7 @@ using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Fort;
 using POGOProtos.Map.Pokemon;
 using PokemonGo.RocketAPI;
+using PokemonGo.RocketAPI.Extensions;
 using PokemonGo.RocketAPI.Helpers;
 using RocketBot2.CommandLineUtility;
 using RocketBot2.Helpers;
@@ -297,97 +298,90 @@ namespace RocketBot2.Forms
 
                     bool isRaid = false;
                     bool asBoss = false;
-                    bool isLured = false;
                     int hg = 32;
                     int wg = 32;
-                    Image fort = ResourceHelper.GetImage($"Pokestop", null, null, hg, wg); ;
+                    Image fort = ResourceHelper.GetImage($"Pokestop", null, null, hg, wg); 
                     Image ImgGymBoss = null;
 
-                    try
-                    {
-                        if (pokeStop.LureInfo != null)
-                            isLured = true;
-                    }
-                    catch
-                    {
-                        isLured = false;
-                    }
-
-                    string lured = isLured ? "_Lured" : null;
                     switch (pokeStop.Type)
                     {
                         case FortType.Checkpoint:
-                            fort = ResourceHelper.GetImage($"Pokestop{lured}", null, null, hg, wg);
-                            break;
-                        case FortType.Gym:
-
                             try
                             {
-                                if (pokeStop.RaidInfo.RaidBattleMs > 0)
-                                    isRaid = true;
-                            }
-                            catch
-                            {
-                                isRaid = false;
-                            }
-
-                            try
-                            {
-                                if (!string.IsNullOrEmpty(pokeStop.RaidInfo.RaidPokemon.PokemonId.ToString()))
-                                    asBoss = true;
-                            }
-                            catch
-                            {
-                                asBoss = false;
-                            }
-
-                            if (asBoss)
-                            {
-                                hg = 48;
-                                wg = 48;
-                                ImgGymBoss = ResourceHelper.GetImage(null, pokeStop.RaidInfo.RaidPokemon, null, 38, 38);
-                            }
-
-                            string raid = isRaid ? "Raid" : null;
-
-                            try
-                            {
-                                switch (pokeStop.OwnedByTeam)
+                                if (pokeStop.LureInfo != null)
                                 {
-                                    case POGOProtos.Enums.TeamColor.Neutral:
-                                        if (asBoss)
-                                            fort = ResourceHelper.CombineImages(ResourceHelper.GetImage("GymVide", null, null, hg, wg), ImgGymBoss);
-                                        else
-                                            fort = ResourceHelper.GetImage($"GymVide{raid}", null, null, hg, wg);
-                                        break;
-                                    case POGOProtos.Enums.TeamColor.Blue:
-                                        if (asBoss)
-                                            fort = ResourceHelper.CombineImages(ResourceHelper.GetImage("GymBlue", null, null, hg, wg), ImgGymBoss);
-                                        else
-                                            fort = ResourceHelper.GetImage($"GymBlue{raid}", null, null, hg, wg);
-                                        break;
-                                    case POGOProtos.Enums.TeamColor.Red:
-                                        if (asBoss)
-                                            fort = ResourceHelper.CombineImages(ResourceHelper.GetImage("GymRed", null, null, hg, wg), ImgGymBoss);
-                                        else
-                                            fort = ResourceHelper.GetImage($"GymRed{raid}", null, null, hg, wg);
-                                        break;
-                                    case POGOProtos.Enums.TeamColor.Yellow:
-                                        if (asBoss)
-                                            fort = ResourceHelper.CombineImages(ResourceHelper.GetImage("GymYellow", null, null, hg, wg), ImgGymBoss);
-                                        else
-                                            fort = ResourceHelper.GetImage($"GymYellow{raid}", null, null, hg, wg);
-                                        break;
-                                    default:
-                                        fort = ResourceHelper.GetImage($"GymVide", null, null, hg, wg);
-                                        break;
+                                    if (pokeStop.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime())
+                                        fort = ResourceHelper.GetImage($"Pokestop_Lured", null, null, hg, wg);
+                                    else
+                                        fort = ResourceHelper.GetImage($"Pokestop_looted_VisitedLure", null, null, hg, wg);
+                                }
+                                else
+                                {
+                                    if (pokeStop.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime())
+                                        fort = ResourceHelper.GetImage($"Pokestop", null, null, hg, wg);
+                                    else
+                                        fort = ResourceHelper.GetImage($"Pokestop_looted", null, null, hg, wg);
                                 }
                             }
                             catch
                             {
-                                isRaid = false;
-                                asBoss = false;
+                                fort = ResourceHelper.GetImage($"Pokestop", null, null, hg, wg);
+                            }
+                            break;
+                        case FortType.Gym:
+                            try
+                            {
+                                if (pokeStop.RaidInfo != null)
+                                {
+                                    var boss = pokeStop.RaidInfo.RaidPokemon.PokemonId.ToString();
+                                    if (boss != null)
+                                    {
+                                        asBoss = true;
+                                        hg = 48;
+                                        wg = 48;
+                                        ImgGymBoss = ResourceHelper.GetImage(null, pokeStop.RaidInfo.RaidPokemon, null, 38, 38);
+                                    }
+
+                                    if (pokeStop.RaidInfo.RaidBattleMs > 0)
+                                        isRaid = true;
+                                }
+                            }
+                            catch
+                            {
                                 fort = ResourceHelper.GetImage($"GymVide", null, null, hg, wg);
+                            }
+
+                            string raid = isRaid ? "Raid" : null;
+
+                            switch (pokeStop.OwnedByTeam)
+                            {
+                                case POGOProtos.Enums.TeamColor.Neutral:
+                                    if (asBoss)
+                                        fort = ResourceHelper.CombineImages(ResourceHelper.GetImage("GymVide", null, null, hg, wg), ImgGymBoss);
+                                    else
+                                        fort = ResourceHelper.GetImage($"GymVide{raid}", null, null, hg, wg);
+                                    break;
+                                case POGOProtos.Enums.TeamColor.Blue:
+                                    if (asBoss)
+                                        fort = ResourceHelper.CombineImages(ResourceHelper.GetImage("GymBlue", null, null, hg, wg), ImgGymBoss);
+                                    else
+                                        fort = ResourceHelper.GetImage($"GymBlue{raid}", null, null, hg, wg);
+                                    break;
+                                case POGOProtos.Enums.TeamColor.Red:
+                                    if (asBoss)
+                                        fort = ResourceHelper.CombineImages(ResourceHelper.GetImage("GymRed", null, null, hg, wg), ImgGymBoss);
+                                    else
+                                        fort = ResourceHelper.GetImage($"GymRed{raid}", null, null, hg, wg);
+                                    break;
+                                case POGOProtos.Enums.TeamColor.Yellow:
+                                    if (asBoss)
+                                        fort = ResourceHelper.CombineImages(ResourceHelper.GetImage("GymYellow", null, null, hg, wg), ImgGymBoss);
+                                    else
+                                        fort = ResourceHelper.GetImage($"GymYellow{raid}", null, null, hg, wg);
+                                    break;
+                                default:
+                                    fort = ResourceHelper.GetImage($"GymVide", null, null, hg, wg);
+                                    break;
                             }
                             break;
                         default:
@@ -396,10 +390,10 @@ namespace RocketBot2.Forms
                     }
 
                     GMapMarkerPokestops pokestopMarker = new GMapMarkerPokestops(pokeStopLoc, new Bitmap(fort));
-                    GMapBaloonToolTip toolTip = new GMapBaloonToolTip(pokestopMarker);
 
                     if (isRaid)
                     {
+                        GMapBaloonToolTip toolTip = new GMapBaloonToolTip(pokestopMarker);
                         pokestopMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
                         DateTime tm = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidBattleMs);
                         TimeSpan time = tm - DateTime.UtcNow;
@@ -409,6 +403,7 @@ namespace RocketBot2.Forms
 
                     if (asBoss)
                     {
+                        GMapBaloonToolTip toolTip = new GMapBaloonToolTip(pokestopMarker);
                         pokestopMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
                         DateTime tm = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidEndMs);
                         TimeSpan time = tm - DateTime.UtcNow;
