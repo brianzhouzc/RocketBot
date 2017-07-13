@@ -23,6 +23,7 @@ using POGOProtos.Enums;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Fort;
 using POGOProtos.Map.Pokemon;
+using POGOProtos.Networking.Responses;
 using PokemonGo.RocketAPI;
 using PokemonGo.RocketAPI.Extensions;
 using PokemonGo.RocketAPI.Helpers;
@@ -1517,8 +1518,8 @@ namespace RocketBot2.Forms
             stats.DirtyEvent +=
                 () =>
                 {
-                    var x = _session.Client.Player.GetPlayer().Result;
-                    string warn = x.Warn ? " *(Flagged)*" : null;
+                    GetPlayerResponse x = _session.Client.Player.GetPlayer().Result;
+                    string warn = x.Warn ? "*(Flagged)*-" : null;
 
                         SetStatusText($"[RocketBot2 v{strVersion}] {warn}" +
                                     stats.GetTemplatedStats(
