@@ -403,7 +403,7 @@ namespace RocketBot2.Forms
                         pokestopMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
                         DateTime tm = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidBattleMs);
                         TimeSpan time = tm - DateTime.UtcNow;
-                        string timerText = $"Next RAID starts in: {time.Hours}h {time.Minutes}m"; // {Math.Abs(time.Seconds)}s";
+                        string timerText = $"Next RAID starts at: {tm.ToLocalTime().ToString("hh:mm:ss")}"; // {Math.Abs(time.Seconds)}s";
                         toolTip.Marker.ToolTipText = timerText;
                     }
 
@@ -413,7 +413,7 @@ namespace RocketBot2.Forms
                         DateTime tm = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidEndMs);
                         TimeSpan time = tm - DateTime.UtcNow;
                         string boss = $"Boss: {_session.Translation.GetPokemonTranslation(pokeStop.RaidInfo.RaidPokemon.PokemonId)} CP: {pokeStop.RaidInfo.RaidPokemon.Cp}";
-                        string timerText = $"Local RAID ends in: {time.Hours}h {time.Minutes}m\n\r{boss}"; // {Math.Abs(time.Seconds)}s";
+                        string timerText = $"Local RAID ends at: {tm.ToLocalTime().ToString("hh:mm:ss")}\n\r{boss}"; // {Math.Abs(time.Seconds)}s";
                         toolTip.Marker.ToolTipText = timerText;
                     }
 

@@ -224,7 +224,7 @@ namespace RocketBot2.Forms
             this.GMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.GMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.GMapControl1.ShowTileGridLines = false;
-            this.GMapControl1.Size = new System.Drawing.Size(689, 461);
+            this.GMapControl1.Size = new System.Drawing.Size(689, 460);
             this.GMapControl1.TabIndex = 23;
             this.GMapControl1.Zoom = 15D;
             this.GMapControl1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.GMapControl1_MouseDoubleClick);
@@ -276,7 +276,7 @@ namespace RocketBot2.Forms
             this.olvPokemonList.Name = "olvPokemonList";
             this.olvPokemonList.RowHeight = 32;
             this.olvPokemonList.ShowGroups = false;
-            this.olvPokemonList.Size = new System.Drawing.Size(865, 593);
+            this.olvPokemonList.Size = new System.Drawing.Size(864, 593);
             this.olvPokemonList.SmallImageList = this.smallPokemonImageList;
             this.olvPokemonList.TabIndex = 25;
             this.olvPokemonList.UseCompatibleStateImageBehavior = false;
@@ -289,30 +289,34 @@ namespace RocketBot2.Forms
             this.pkmnName.AspectName = "PokemonId";
             this.pkmnName.AspectToStringFormat = "";
             this.pkmnName.Text = "Name";
-            this.pkmnName.Width = 100;
+            this.pkmnName.Width = 150;
             // 
             // pkmnCP
             // 
             this.pkmnCP.AspectName = "Cp";
             this.pkmnCP.Text = "CP";
+            this.pkmnCP.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.pkmnCP.Width = 40;
             // 
             // pkmnAtkIV
             // 
             this.pkmnAtkIV.AspectName = "IndividualAttack";
             this.pkmnAtkIV.Text = "Atk IV";
+            this.pkmnAtkIV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.pkmnAtkIV.Width = 30;
             // 
             // pkmnDefIV
             // 
             this.pkmnDefIV.AspectName = "IndividualDefense";
             this.pkmnDefIV.Text = "Def IV";
+            this.pkmnDefIV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.pkmnDefIV.Width = 30;
             // 
             // pkmnStaIV
             // 
             this.pkmnStaIV.AspectName = "IndividualStamina";
             this.pkmnStaIV.Text = "Sta IV";
+            this.pkmnStaIV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.pkmnStaIV.Width = 30;
             // 
             // pkmnIV
@@ -320,42 +324,49 @@ namespace RocketBot2.Forms
             this.pkmnIV.AspectName = "GetIV";
             this.pkmnIV.AspectToStringFormat = "{0:P2}";
             this.pkmnIV.Text = "IV %";
+            this.pkmnIV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.pkmnIV.Width = 54;
             // 
             // pkmnLevel
             // 
             this.pkmnLevel.AspectName = "GetLv";
             this.pkmnLevel.Text = "Lv";
+            this.pkmnLevel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.pkmnLevel.Width = 40;
             // 
             // pkmnCandy
             // 
             this.pkmnCandy.AspectName = "Candy";
             this.pkmnCandy.Text = "Candy";
+            this.pkmnCandy.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.pkmnCandy.Width = 50;
             // 
             // pkmnCandyToEvolve
             // 
             this.pkmnCandyToEvolve.AspectName = "CandyToEvolve";
             this.pkmnCandyToEvolve.Text = "CtE";
+            this.pkmnCandyToEvolve.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.pkmnCandyToEvolve.Width = 35;
             // 
             // pkmnEvolveTimes
             // 
             this.pkmnEvolveTimes.AspectName = "EvolveTimes";
             this.pkmnEvolveTimes.Text = "Evolves";
+            this.pkmnEvolveTimes.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.pkmnEvolveTimes.Width = 30;
             // 
             // pkmnMove1
             // 
             this.pkmnMove1.AspectName = "Move1";
             this.pkmnMove1.Text = "Move1";
+            this.pkmnMove1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.pkmnMove1.Width = 70;
             // 
             // pkmnMove2
             // 
             this.pkmnMove2.AspectName = "Move2";
             this.pkmnMove2.Text = "Move2";
+            this.pkmnMove2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.pkmnMove2.Width = 70;
             // 
             // pkmnTransferButton
@@ -405,7 +416,7 @@ namespace RocketBot2.Forms
             // 
             this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnRefresh.Location = new System.Drawing.Point(662, 745);
+            this.btnRefresh.Location = new System.Drawing.Point(661, 745);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(90, 30);
@@ -470,7 +481,7 @@ namespace RocketBot2.Forms
             this.trackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBar.BackColor = System.Drawing.SystemColors.Info;
             this.trackBar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.trackBar.Location = new System.Drawing.Point(488, 434);
+            this.trackBar.Location = new System.Drawing.Point(488, 433);
             this.trackBar.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.trackBar.Maximum = 18;
             this.trackBar.Minimum = 2;
@@ -575,7 +586,7 @@ namespace RocketBot2.Forms
             this.btnPokeDex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPokeDex.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnPokeDex.Enabled = false;
-            this.btnPokeDex.Location = new System.Drawing.Point(762, 745);
+            this.btnPokeDex.Location = new System.Drawing.Point(761, 745);
             this.btnPokeDex.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnPokeDex.Name = "btnPokeDex";
             this.btnPokeDex.Size = new System.Drawing.Size(90, 30);
@@ -606,7 +617,7 @@ namespace RocketBot2.Forms
             this.lblInventory.Location = new System.Drawing.Point(2, 732);
             this.lblInventory.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.lblInventory.Name = "lblInventory";
-            this.lblInventory.Size = new System.Drawing.Size(865, 16);
+            this.lblInventory.Size = new System.Drawing.Size(864, 16);
             this.lblInventory.TabIndex = 33;
             this.lblInventory.Text = "0 / 0 ";
             this.lblInventory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -622,7 +633,7 @@ namespace RocketBot2.Forms
             this.flpItems.Location = new System.Drawing.Point(2, 615);
             this.flpItems.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.flpItems.Name = "flpItems";
-            this.flpItems.Size = new System.Drawing.Size(865, 114);
+            this.flpItems.Size = new System.Drawing.Size(864, 114);
             this.flpItems.TabIndex = 32;
             // 
             // lblPokemonList
@@ -632,7 +643,7 @@ namespace RocketBot2.Forms
             this.lblPokemonList.Location = new System.Drawing.Point(3, 595);
             this.lblPokemonList.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.lblPokemonList.Name = "lblPokemonList";
-            this.lblPokemonList.Size = new System.Drawing.Size(865, 16);
+            this.lblPokemonList.Size = new System.Drawing.Size(864, 16);
             this.lblPokemonList.TabIndex = 27;
             this.lblPokemonList.Text = "0 / 0";
             this.lblPokemonList.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
