@@ -19,6 +19,7 @@ using PoGo.NecroBot.Logic.Tasks;
 using PoGo.NecroBot.Logic.Utils;
 using POGOProtos.Data;
 using POGOProtos.Data.Raid;
+using POGOProtos.Enums;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Fort;
 using POGOProtos.Map.Pokemon;
@@ -294,7 +295,8 @@ namespace RocketBot2.Forms
 
                 foreach (var pokeStop in sessionForts)
                 {
-                    var pokeStopLoc = new PointLatLng(pokeStop.Latitude, pokeStop.Longitude);
+                    PointLatLng pokeStopLoc = new PointLatLng(pokeStop.Latitude, pokeStop.Longitude);
+                    RaidInfo raidInfo = null;
 
                     bool isRaid = false;
                     bool asBoss = false;
@@ -332,17 +334,21 @@ namespace RocketBot2.Forms
                             try
                             {
                                 if (pokeStop.RaidInfo != null)
+                                    raidInfo = new RaidInfo(pokeStop.RaidInfo);
+
+                                if (raidInfo != null)
                                 {
-                                    var boss = pokeStop.RaidInfo.RaidPokemon.PokemonId.ToString();
-                                    if (boss != null)
+                                    PokemonId boss = raidInfo.RaidPokemon.PokemonId;
+
+                                    if (boss > 0)
                                     {
                                         asBoss = true;
                                         hg = 48;
                                         wg = 48;
-                                        ImgGymBoss = ResourceHelper.GetImage(null, pokeStop.RaidInfo.RaidPokemon, null, 38, 38);
+                                        ImgGymBoss = ResourceHelper.GetImage(null, raidInfo.RaidPokemon, null, 38, 38);
                                     }
 
-                                    if (pokeStop.RaidInfo.RaidBattleMs > 0)
+                                    if (raidInfo.RaidBattleMs > 0)
                                         isRaid = true;
                                 }
                             }
@@ -395,7 +401,7 @@ namespace RocketBot2.Forms
                     {
                         GMapBaloonToolTip toolTip = new GMapBaloonToolTip(pokestopMarker);
                         pokestopMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
-                        DateTime tm = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidBattleMs);
+                        DateTime tm = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(raidInfo.RaidBattleMs);
                         TimeSpan time = tm - DateTime.UtcNow;
                         string timerText = $"Next RAID starts in: {time.Hours}h {time.Minutes}m"; // {Math.Abs(time.Seconds)}s";
                         toolTip.Marker.ToolTipText = timerText;
@@ -1511,7 +1517,10 @@ namespace RocketBot2.Forms
             stats.DirtyEvent +=
                 () =>
                 {
-                    SetStatusText($"[RocketBot2 v{strVersion}] " +
+                    var x = _session.Client.Player.GetPlayer().Result;
+                    string warn = x.Warn ? " *(Flagged)*" : null;
+
+                        SetStatusText($"[RocketBot2 v{strVersion}] {warn}" +
                                     stats.GetTemplatedStats(
                                         _session.Translation.GetTranslation(TranslationString.StatsTemplateString),
                                         _session.Translation.GetTranslation(TranslationString.StatsXpTemplateString)));
