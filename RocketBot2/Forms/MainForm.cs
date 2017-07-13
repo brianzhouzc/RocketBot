@@ -266,8 +266,7 @@ namespace RocketBot2.Forms
 
         private Task InitializePokestopsAndRoute()
         {
-            List<FortData> sessionForts = new List<FortData>();
-            sessionForts = _session.Forts;
+            List<FortData> sessionForts = new List<FortData>(_session.Forts);
 
             //get optimized route
             var pokeStops = RouteOptimizeUtil.Optimize(sessionForts.ToArray(), _session.Client.CurrentLatitude,
@@ -341,7 +340,7 @@ namespace RocketBot2.Forms
 
                                     PokemonId boss = raidInfo.RaidPokemon.PokemonId;
 
-                                    if (boss > 0)
+                                    if (boss > 0 && raidInfo.RaidEndMs > 0)
                                     {
                                         asBoss = true;
                                         hg = 48;
