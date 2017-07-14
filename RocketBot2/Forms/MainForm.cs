@@ -1239,21 +1239,7 @@ namespace RocketBot2.Forms
 
             // Command line parsing
             var commandLine = new Arguments(args);
-            bool autoStart = false;
             // Look for specific arguments values
-            if (commandLine["autostart"] != null && commandLine["autostart"].Length > 0)
-            {
-                switch (commandLine["autostart"])
-                {
-                    case "true":
-                        autoStart = true;
-                        break;
-
-                    case "false":
-                        autoStart = false;
-                        break;
-                }
-            }
             if (commandLine["subpath"] != null && commandLine["subpath"].Length > 0)
             {
                 _subPath = commandLine["subpath"];
@@ -1353,6 +1339,7 @@ namespace RocketBot2.Forms
                 }
             }
 
+            bool AutoStart = false;
             var options = new Options();
             if (CommandLine.Parser.Default.ParseArguments(args, options))
             {
@@ -1361,6 +1348,8 @@ namespace RocketBot2.Forms
                 {
                     settings.GenerateAccount(options.IsGoogle, options.Template, options.Start, options.End, options.Password);
                 }
+                if (options.AutoStart)
+                    AutoStart = true;
             }
 
             var lastPosFile = Path.Combine(profileConfigPath, "LastPos.ini");
@@ -1660,7 +1649,7 @@ namespace RocketBot2.Forms
 
             if (_botStarted) startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
 
-            if (autoStart)
+            if (AutoStart)
                 StartStopBotToolStripMenuItem_Click(null, null);
         }
 
