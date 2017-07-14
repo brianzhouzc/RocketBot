@@ -304,6 +304,8 @@ namespace RocketBot2.Forms
                     int hg = 32;
                     int wg = 32;
                     Image fort = ResourceHelper.GetImage($"Pokestop", null, null, hg, wg);
+                    DateTime expires = new DateTime(0);
+                    TimeSpan time = new TimeSpan(0);
 
                     switch (pokeStop.Type)
                     {
@@ -335,12 +337,12 @@ namespace RocketBot2.Forms
 
                             try
                             {
+                                isRaidSpawnTime = pokeStop.RaidInfo.RaidSpawnMs;
                                 isRaidTime = pokeStop.RaidInfo.RaidBattleMs;
 
                                 if (pokeStop.RaidInfo != null)
                                 {
                                     asBossTime = pokeStop.RaidInfo.RaidEndMs;
-                                    isRaidSpawnTime = pokeStop.RaidInfo.RaidSpawnMs - asBossTime;
 
                                     if (pokeStop.RaidInfo.RaidPokemon.PokemonId > 0 && asBossTime > 0)
                                     {
@@ -404,9 +406,6 @@ namespace RocketBot2.Forms
 
                     if (isRaid)
                     {
-                        DateTime expires = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(isRaidTime);
-                        TimeSpan time = expires - DateTime.UtcNow;
-
                         if (!(expires.Ticks == 0 || time.TotalSeconds < 0))
                         {
                             GMapBaloonToolTip toolTip = new GMapBaloonToolTip(pokestopMarker);
@@ -416,10 +415,8 @@ namespace RocketBot2.Forms
                         }
                     }
 
-                    if (asBoss)
+                    if (asBoss || isSpawn)
                     {
-                        TimeSpan time = new TimeSpan(0);
-                        DateTime expires = new DateTime(0);
                         string boss = null;
                         string raidDesc = null;
 
