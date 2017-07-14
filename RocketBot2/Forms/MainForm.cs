@@ -342,7 +342,7 @@ namespace RocketBot2.Forms
                                     asBossTime = pokeStop.RaidInfo.RaidEndMs;
                                     isRaidSpawnTime = pokeStop.RaidInfo.RaidSpawnMs - asBossTime;
 
-                                    if (pokeStop.RaidInfo.RaidPokemon.PokemonId > 0 && asBossTime > 0 || isRaidSpawnTime > 0)
+                                    if (pokeStop.RaidInfo.RaidPokemon.PokemonId > 0 && asBossTime > 0)
                                     {
                                         asBoss = true;
                                         hg = 48;
@@ -353,7 +353,7 @@ namespace RocketBot2.Forms
                             }
                             catch
                             {
-                                fort = ResourceHelper.GetImage($"GymVide", null, null, hg, wg);
+                                //
                             }
 
                             if (isRaidTime > 0)
