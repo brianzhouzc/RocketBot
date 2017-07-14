@@ -238,7 +238,7 @@ namespace RocketBot2.Forms
 
             GMapControl1.MinZoom = 2;
             GMapControl1.MaxZoom = 18;
-            
+
             GMapControl1.Overlays.Add(_searchAreaOverlay);
             GMapControl1.Overlays.Add(_pokestopsOverlay);
             GMapControl1.Overlays.Add(_pokemonsOverlay);
@@ -617,7 +617,7 @@ namespace RocketBot2.Forms
 
         private void BtnRefresh_Click(object sender, EventArgs e)
         {
-             ReloadPokemonList().ConfigureAwait(false);
+            ReloadPokemonList().ConfigureAwait(false);
         }
 
         private void StartStopBotToolStripMenuItem_Click(object sender, EventArgs e)
@@ -729,7 +729,7 @@ namespace RocketBot2.Forms
         private void CheckBoxAutoRefresh_CheckedChanged(object sender, EventArgs e)
         {
             if (Instance._botStarted)
-            Instance.btnRefresh.Enabled = !Instance.checkBoxAutoRefresh.Checked;
+                Instance.btnRefresh.Enabled = !Instance.checkBoxAutoRefresh.Checked;
         }
 
         #endregion EVENTS
@@ -872,7 +872,7 @@ namespace RocketBot2.Forms
                 _session,
                 _session.CancellationTokenSource.Token,
                 pokemonObject.Id);
-                await ReloadPokemonList().ConfigureAwait(false);
+            await ReloadPokemonList().ConfigureAwait(false);
         }
 
         private void PokemonProperties(PokemonObject pokemonObject)
@@ -923,7 +923,7 @@ namespace RocketBot2.Forms
             {
                 await Task.Run(async () => { await FavoritePokemonTask.Execute(_session, pokemon.Id, !fav); });
             }
-                await ReloadPokemonList().ConfigureAwait(false);
+            await ReloadPokemonList().ConfigureAwait(false);
         }
 
         private async void TransferPokemon(IEnumerable<PokemonData> pokemons)
@@ -946,7 +946,7 @@ namespace RocketBot2.Forms
                                 _session, _session.CancellationTokenSource.Token, _pokemons
                             );
                         });
-                            await ReloadPokemonList().ConfigureAwait(false);
+                        await ReloadPokemonList().ConfigureAwait(false);
                     }
                     break;
             }
@@ -961,11 +961,11 @@ namespace RocketBot2.Forms
                 {
                     case DialogResult.Yes:
                         await Task.Run(async () => { await UpgradeSinglePokemonTask.Execute(_session, pokemon.Id, true /* upgrade x times */); });
-                            await ReloadPokemonList().ConfigureAwait(false);
+                        await ReloadPokemonList().ConfigureAwait(false);
                         break;
                     case DialogResult.No:
                         await Task.Run(async () => { await UpgradeSinglePokemonTask.Execute(_session, pokemon.Id, false, 1 /* Only upgrade 1 time */); });
-                            await ReloadPokemonList().ConfigureAwait(false);
+                        await ReloadPokemonList().ConfigureAwait(false);
                         break;
                 }
             }
@@ -1018,7 +1018,7 @@ namespace RocketBot2.Forms
                     continue;
                 }
                 await Task.Run(async () => { await RenameSinglePokemonTask.Execute(_session, pokemon.Id, nickname, _session.CancellationTokenSource.Token); });
-                    await ReloadPokemonList().ConfigureAwait(false);
+                await ReloadPokemonList().ConfigureAwait(false);
             }
         }
 
@@ -1170,7 +1170,7 @@ namespace RocketBot2.Forms
                         }
                         break;
                 }
-                    await ReloadPokemonList().ConfigureAwait(false);
+                await ReloadPokemonList().ConfigureAwait(false);
             }
         }
 
@@ -1518,10 +1518,10 @@ namespace RocketBot2.Forms
                     GetPlayerResponse x = _session.Client.Player.GetPlayer().Result;
                     string warn = x.Warn ? "*(Flagged)*-" : null;
 
-                        SetStatusText($"[RocketBot2 v{strVersion}] {warn}" +
-                                    stats.GetTemplatedStats(
-                                        _session.Translation.GetTranslation(TranslationString.StatsTemplateString),
-                                        _session.Translation.GetTranslation(TranslationString.StatsXpTemplateString)));
+                    SetStatusText($"[RocketBot2 v{strVersion}] {warn}" +
+                                stats.GetTemplatedStats(
+                                    _session.Translation.GetTranslation(TranslationString.StatsTemplateString),
+                                    _session.Translation.GetTranslation(TranslationString.StatsXpTemplateString)));
                 };
 
             Resources.ProgressBar.Fill(40);
