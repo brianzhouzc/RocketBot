@@ -416,13 +416,12 @@ namespace RocketBot2.Forms
                     {
                         GMapBaloonToolTip toolTip = new GMapBaloonToolTip(pokestopMarker);
                         pokestopMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
-                        TimeSpan time = new TimeSpan();
+                        TimeSpan time = new TimeSpan(0);
                         string boss = null;
                         string raidDesc = null;
 
                         if (isSpawn)
                         {
-                            time = new TimeSpan(isRaidSpawnTime);
                             DateTime tm = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(isRaidSpawnTime);
                             time =  tm - DateTime.UtcNow;
                             raidDesc = "Local SPAWN ends in";
@@ -430,7 +429,6 @@ namespace RocketBot2.Forms
                         }
                         else
                         {
-                            time = new TimeSpan(asBossTime);
                             DateTime tm = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(asBossTime);
                             time = tm - DateTime.UtcNow;
                             raidDesc = "Local RAID ends in";
