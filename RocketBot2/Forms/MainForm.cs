@@ -304,8 +304,6 @@ namespace RocketBot2.Forms
                     int hg = 32;
                     int wg = 32;
                     Image fort = ResourceHelper.GetImage($"Pokestop", null, null, hg, wg);
-                    DateTime expires = new DateTime(0);
-                    TimeSpan time = new TimeSpan(0);
 
                     switch (pokeStop.Type)
                     {
@@ -337,7 +335,6 @@ namespace RocketBot2.Forms
 
                             try
                             {
-                                isRaidSpawnTime = pokeStop.RaidInfo.RaidSpawnMs;
                                 isRaidTime = pokeStop.RaidInfo.RaidBattleMs;
 
                                 if (pokeStop.RaidInfo != null)
@@ -351,6 +348,8 @@ namespace RocketBot2.Forms
                                         wg = 48;
                                         ImgGymBoss = ResourceHelper.GetImage(null, pokeStop.RaidInfo.RaidPokemon, null, 38, 38);
                                     }
+
+                                    isRaidSpawnTime = pokeStop.RaidInfo.RaidSpawnMs;
                                 }
                             }
                             catch
@@ -403,15 +402,20 @@ namespace RocketBot2.Forms
                     }
 
                     GMapMarkerPokestops pokestopMarker = new GMapMarkerPokestops(pokeStopLoc, new Bitmap(fort));
+                    GMapBaloonToolTip toolTip = new GMapBaloonToolTip(pokestopMarker);
+                    pokestopMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+                    DateTime expires = new DateTime(0);
+                    TimeSpan time = new TimeSpan(0);
+                    string timerText = null;
 
                     if (isRaid)
                     {
+                        expires = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(isRaidTime);
+                        time = expires - DateTime.UtcNow;
+
                         if (!(expires.Ticks == 0 || time.TotalSeconds < 0))
                         {
-                            GMapBaloonToolTip toolTip = new GMapBaloonToolTip(pokestopMarker);
-                            pokestopMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
-                            string timerText = $"Next RAID starts in: {time.Hours}h {time.Minutes}m"; // {Math.Abs(time.Seconds)}s";
-                            toolTip.Marker.ToolTipText = timerText;
+                            timerText = $"Next RAID starts in: {time.Hours}h {time.Minutes}m"; // {Math.Abs(time.Seconds)}s";
                         }
                     }
 
@@ -437,12 +441,12 @@ namespace RocketBot2.Forms
 
                         if (!(expires.Ticks == 0 || time.TotalSeconds < 0))
                         {
-                            GMapBaloonToolTip toolTip = new GMapBaloonToolTip(pokestopMarker);
-                            pokestopMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
-                            string timerText = $"{raidDesc}: {time.Hours}h {time.Minutes}m\n\r{boss}"; // {Math.Abs(time.Seconds)}s";
-                            toolTip.Marker.ToolTipText = timerText;
+                            timerText = $"{raidDesc}: {time.Hours}h {time.Minutes}m\n\r{boss}"; // {Math.Abs(time.Seconds)}s";
                         }
                     }
+
+                    if (!string.IsNullOrEmpty(timerText))
+                        toolTip.Marker.ToolTipText = timerText;
 
                     lock (_pokestopsOverlay.Markers)
                     {
