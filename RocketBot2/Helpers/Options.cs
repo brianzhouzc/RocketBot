@@ -10,14 +10,13 @@ namespace RocketBot2.Helpers
         [Option('a', "autostart", DefaultValue = false, Required = false, HelpText = "Auto start bot")]
         public bool AutoStart { get; set; }
 
-        [Option('i', "init", Required = false,
-          HelpText = "Init account")]
+        [Option('i', "init", Required = false, HelpText = "Init account")]
         public bool Init { get; set; }
 
-        [Option('t', "template", DefaultValue = "", Required = false, HelpText = "Prints all messages to standard output.")]
+        [Option('t', "template", DefaultValue = null, Required = false, HelpText = "Prints all messages to standard output.")]
         public string Template { get; set; }
 
-        [Option('p', "password", DefaultValue = "", Required = false, HelpText = "pasword")]
+        [Option('p', "password", DefaultValue = null, Required = false, HelpText = "pasword")]
         public string Password { get; set; }
 
         [Option('g', "google", DefaultValue = false, Required = false, HelpText = "is google account")]

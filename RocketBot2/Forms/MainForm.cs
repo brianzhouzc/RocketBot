@@ -73,7 +73,7 @@ namespace RocketBot2.Forms
         private StateMachine _machine;
         private PointLatLng _currentLatLng;
         private List<PointLatLng> _routePoints;
-        private string[] args;
+        private static string[] args;
 
         private static GMapMarker _playerMarker;
         private readonly List<PointLatLng> _playerLocations = new List<PointLatLng>();
@@ -115,7 +115,7 @@ namespace RocketBot2.Forms
             InitializeMap();
             VersionHelper.CheckVersion();
             btnRefresh.Enabled = false;
-            //ConsoleHelper.HideConsoleWindow();
+            ConsoleHelper.HideConsoleWindow();
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
