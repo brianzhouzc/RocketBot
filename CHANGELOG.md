@@ -1,5 +1,8 @@
 # Change Log
 
+## [v2.11.0.23](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.11.0.23) (2017-07-15)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.11.0.22...v2.11.0.23)
+
 ## [v2.11.0.22](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.11.0.22) (2017-07-15)
 [Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.11.0.21...v2.11.0.22)
 
@@ -137,17 +140,17 @@
 [Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.4...v2.10.1.5)
 
 ## [v2.10.1.4](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.10.1.4) (2017-05-22)
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.3...v2.10.1.4)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.2...v2.10.1.4)
 
 **Merged pull requests:**
 
 - Rebase thewizard [\#83](https://github.com/TheUnnamedOrganisation/RocketBot/pull/83) ([Furtif](https://github.com/Furtif))
 
-## [v2.10.1.3](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.10.1.3) (2017-05-20)
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.2...v2.10.1.3)
-
 ## [v2.10.1.2](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.10.1.2) (2017-05-20)
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.1...v2.10.1.2)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.3...v2.10.1.2)
+
+## [v2.10.1.3](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.10.1.3) (2017-05-20)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.1...v2.10.1.3)
 
 ## [v2.10.1.1](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.10.1.1) (2017-05-18)
 [Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.0...v2.10.1.1)
