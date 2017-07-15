@@ -242,10 +242,17 @@ namespace RocketBot2.Forms
 
         private Task InitializePokestopsAndRoute()
         {
-            List<FortData> sessionForts = new List<FortData>(_session.Forts);
-            //get optimized route
-            var pokeStops = RouteOptimizeUtil.Optimize(sessionForts.ToArray(), _session.Client.CurrentLatitude,
-                    _session.Client.CurrentLongitude);
+            // try for possibles bugs
+            List<FortData> pokeStops = new List<FortData>();
+            try
+            {
+                //get optimized route
+                pokeStops = RouteOptimizeUtil.Optimize(_session.Forts.ToArray(), _session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
+            }
+            catch
+            {
+                return null;
+            }
 
             SynchronizationContext.Post(o =>
             {
@@ -270,7 +277,7 @@ namespace RocketBot2.Forms
                      _pokestopsOverlay.Routes.Add(route);
                  }
 
-                 foreach (var pokeStop in sessionForts)
+                 foreach (var pokeStop in pokeStops)
                  {
                      PointLatLng pokeStopLoc = new PointLatLng(pokeStop.Latitude, pokeStop.Longitude);
 
