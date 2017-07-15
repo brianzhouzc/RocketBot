@@ -242,184 +242,177 @@ namespace RocketBot2.Forms
 
         private Task InitializePokestopsAndRoute()
         {
-            // try for possibles bugs
-            List<FortData> pokeStops = new List<FortData>();
-            try
-            {
-                //get optimized route
-                pokeStops = RouteOptimizeUtil.Optimize(_session.Forts.ToArray(), _session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
-            }
-            catch
-            {
-                return null;
-            }
+            List<FortData> sessionForts = new List<FortData>(_session.Forts);
+            //get optimized route
+            var pokeStops = RouteOptimizeUtil.Optimize(sessionForts.ToArray(), _session.Client.CurrentLatitude,
+                    _session.Client.CurrentLongitude);
 
             SynchronizationContext.Post(o =>
             {
-                 _playerOverlay.Markers.Clear();
-                 if (_pokemonsOverlay.Markers.Count > 8)
-                     _pokemonsOverlay.Markers.Clear();
-                 _pokestopsOverlay.Routes.Clear();
-                 _pokestopsOverlay.Markers.Clear();
-                 _playerLocations.Clear();
+                _playerOverlay.Markers.Clear();
+                if (_pokemonsOverlay.Markers.Count > 8)
+                    _pokemonsOverlay.Markers.Clear();
+                _pokestopsOverlay.Routes.Clear();
+                _pokestopsOverlay.Markers.Clear();
+                _playerLocations.Clear();
 
-                 _routePoints =
-                     (from pokeStop in pokeStops
-                      where pokeStop != null
-                      select new PointLatLng(pokeStop.Latitude, pokeStop.Longitude)).ToList();
+                _routePoints =
+                    (from pokeStop in pokeStops
+                     where pokeStop != null
+                     select new PointLatLng(pokeStop.Latitude, pokeStop.Longitude)).ToList();
 
-                 if (togglePrecalRoute.Checked)
-                 {
-                     var route = new GMapRoute(_routePoints, "Walking Path")
-                     {
-                         Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
-                     };
-                     _pokestopsOverlay.Routes.Add(route);
-                 }
+                if (togglePrecalRoute.Checked)
+                {
+                    var route = new GMapRoute(_routePoints, "Walking Path")
+                    {
+                        Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
+                    };
+                    _pokestopsOverlay.Routes.Add(route);
+                }
 
-                 foreach (var pokeStop in pokeStops)
-                 {
-                     PointLatLng pokeStopLoc = new PointLatLng(pokeStop.Latitude, pokeStop.Longitude);
+                foreach (var pokeStop in sessionForts)
+                {
+                    PointLatLng pokeStopLoc = new PointLatLng(pokeStop.Latitude, pokeStop.Longitude);
 
-                     bool isRaid = false;
-                     bool asBoss = false;
-                     bool isSpawn = false;
-                     int hg = 32;
-                     int wg = 32;
-                     Image fort = ResourceHelper.GetImage($"Pokestop", null, null, hg, wg);
-                     string finalText = null;
+                    bool isRaid = false;
+                    bool asBoss = false;
+                    bool isSpawn = false;
+                    int hg = 32;
+                    int wg = 32;
+                    Image fort = ResourceHelper.GetImage($"Pokestop", null, null, hg, wg);
+                    string finalText = null;
 
-                     switch (pokeStop.Type)
-                     {
-                         case FortType.Checkpoint:
-                             try
-                             {
-                                 if (pokeStop.LureInfo != null)
-                                 {
-                                     if (pokeStop.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime())
-                                         fort = ResourceHelper.GetImage($"Pokestop_Lured", null, null, hg, wg);
-                                     else
-                                         fort = ResourceHelper.GetImage($"Pokestop_looted_VisitedLure", null, null, hg, wg);
-                                 }
-                                 else
-                                 {
-                                     if (pokeStop.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime())
-                                         fort = ResourceHelper.GetImage($"Pokestop", null, null, hg, wg);
-                                     else
-                                         fort = ResourceHelper.GetImage($"Pokestop_looted", null, null, hg, wg);
-                                 }
-                             }
-                             catch
-                             {
-                                 fort = ResourceHelper.GetImage($"Pokestop", null, null, hg, wg);
-                             }
-                             break;
-                         case FortType.Gym:
-                             Image ImgGymBoss = null;
-                             DateTime expires = new DateTime(0);
-                             TimeSpan time = new TimeSpan(0);
-                             string boss = null;
+                    switch (pokeStop.Type)
+                    {
+                        case FortType.Checkpoint:
+                            try
+                            {
+                                if (pokeStop.LureInfo != null)
+                                {
+                                    if (pokeStop.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime())
+                                        fort = ResourceHelper.GetImage($"Pokestop_Lured", null, null, hg, wg);
+                                    else
+                                        fort = ResourceHelper.GetImage($"Pokestop_looted_VisitedLure", null, null, hg, wg);
+                                }
+                                else
+                                {
+                                    if (pokeStop.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime())
+                                        fort = ResourceHelper.GetImage($"Pokestop", null, null, hg, wg);
+                                    else
+                                        fort = ResourceHelper.GetImage($"Pokestop_looted", null, null, hg, wg);
+                                }
+                            }
+                            catch
+                            {
+                                fort = ResourceHelper.GetImage($"Pokestop", null, null, hg, wg);
+                            }
+                            break;
+                        case FortType.Gym:
+                            Image ImgGymBoss = null;
+                            DateTime expires = new DateTime(0);
+                            TimeSpan time = new TimeSpan(0);
+                            string boss = null;
 
-                             try
-                             {
-                                 if (pokeStop.RaidInfo != null)
-                                 {
-                                     if (pokeStop.RaidInfo.RaidBattleMs > 0)
-                                     {
-                                         expires = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidBattleMs);
-                                         time = expires - DateTime.UtcNow;
-                                         if (!(expires.Ticks == 0 || time.TotalSeconds < 0))
-                                         {
-                                             finalText = $"Next RAID starts in: {time.Hours}h {time.Minutes}m";
-                                             isRaid = true;
-                                         }
-                                     }
+                            try
+                            {
+                                if (pokeStop.RaidInfo != null)
+                                {
+                                    if (pokeStop.RaidInfo.RaidBattleMs > 0)
+                                    {
+                                        expires = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidBattleMs);
+                                        time = expires - DateTime.UtcNow;
+                                        if (!(expires.Ticks == 0 || time.TotalSeconds < 0))
+                                        {
+                                            finalText = $"Next RAID starts in: {time.Hours}h {time.Minutes}m";
+                                            isRaid = true;
+                                        }
+                                    }
 
-                                     if (pokeStop.RaidInfo.RaidPokemon.PokemonId > 0)
-                                     {
-                                         expires = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidEndMs);
-                                         time = expires - DateTime.UtcNow;
-                                         if (!(expires.Ticks == 0 || time.TotalSeconds < 0))
-                                         {
-                                             asBoss = true;
-                                             hg = 48;
-                                             wg = 48;
-                                             ImgGymBoss = ResourceHelper.GetImage(null, pokeStop.RaidInfo.RaidPokemon, null, 38, 38);
-                                             boss = $"Boss: {_session.Translation.GetPokemonTranslation(pokeStop.RaidInfo.RaidPokemon.PokemonId)} CP: {pokeStop.RaidInfo.RaidPokemon.Cp}";
-                                             finalText = $"Local RAID ends in: {time.Hours}h {time.Minutes}m\n\r{boss}";
-                                         }
-                                     }
+                                    if (pokeStop.RaidInfo.RaidPokemon.PokemonId > 0)
+                                    {
+                                        expires = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidEndMs);
+                                        time = expires - DateTime.UtcNow;
+                                        if (!(expires.Ticks == 0 || time.TotalSeconds < 0))
+                                        {
+                                            asBoss = true;
+                                            hg = 48;
+                                            wg = 48;
+                                            ImgGymBoss = ResourceHelper.GetImage(null, pokeStop.RaidInfo.RaidPokemon, null, 38, 38);
+                                            boss = $"Boss: {_session.Translation.GetPokemonTranslation(pokeStop.RaidInfo.RaidPokemon.PokemonId)} CP: {pokeStop.RaidInfo.RaidPokemon.Cp}";
+                                            finalText = $"Local RAID ends in: {time.Hours}h {time.Minutes}m\n\r{boss}";
+                                        }
+                                    }
 
-                                     if (pokeStop.RaidInfo.RaidSpawnMs > 0)
-                                     {
-                                         expires = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidSpawnMs);
-                                         time = expires - DateTime.UtcNow;
-                                         if (!(expires.Ticks == 0 || time.TotalSeconds < 0))
-                                         {
-                                             isSpawn = true;
-                                             finalText = !asBoss ? $"Local SPAWN ends in: {time.Hours}h {time.Minutes}m" : $"Local SPAWN ends in: {time.Hours}h {time.Minutes}m\n\r{boss}";
-                                         }
-                                     }
-                                 }
-                             }
-                             catch
-                             {
+                                    if (pokeStop.RaidInfo.RaidSpawnMs > 0)
+                                    {
+                                        expires = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidSpawnMs);
+                                        time = expires - DateTime.UtcNow;
+                                        if (!(expires.Ticks == 0 || time.TotalSeconds < 0))
+                                        {
+                                            isSpawn = true;
+                                            finalText = !asBoss ? $"Local SPAWN ends in: {time.Hours}h {time.Minutes}m" : $"Local SPAWN ends in: {time.Hours}h {time.Minutes}m\n\r{boss}";
+                                        }
+                                    }
+                                }
+                            }
+                            catch
+                            {
 
-                             }
+                            }
 
-                             if (isSpawn) { }
+                            if (isSpawn) { }
 
-                             string raid = isRaid ? "Raid" : null;
+                            string raid = isRaid ? "Raid" : null;
 
-                             switch (pokeStop.OwnedByTeam)
-                             {
-                                 case POGOProtos.Enums.TeamColor.Neutral:
-                                     if (asBoss)
-                                         fort = ResourceHelper.CombineImages(ResourceHelper.GetImage("GymVide", null, null, hg, wg), ImgGymBoss);
-                                     else
-                                         fort = ResourceHelper.GetImage($"GymVide{raid}", null, null, hg, wg);
-                                     break;
-                                 case POGOProtos.Enums.TeamColor.Blue:
-                                     if (asBoss)
-                                         fort = ResourceHelper.CombineImages(ResourceHelper.GetImage("GymBlue", null, null, hg, wg), ImgGymBoss);
-                                     else
-                                         fort = ResourceHelper.GetImage($"GymBlue{raid}", null, null, hg, wg);
-                                     break;
-                                 case POGOProtos.Enums.TeamColor.Red:
-                                     if (asBoss)
-                                         fort = ResourceHelper.CombineImages(ResourceHelper.GetImage("GymRed", null, null, hg, wg), ImgGymBoss);
-                                     else
-                                         fort = ResourceHelper.GetImage($"GymRed{raid}", null, null, hg, wg);
-                                     break;
-                                 case POGOProtos.Enums.TeamColor.Yellow:
-                                     if (asBoss)
-                                         fort = ResourceHelper.CombineImages(ResourceHelper.GetImage("GymYellow", null, null, hg, wg), ImgGymBoss);
-                                     else
-                                         fort = ResourceHelper.GetImage($"GymYellow{raid}", null, null, hg, wg);
-                                     break;
-                                 default:
-                                     fort = ResourceHelper.GetImage($"GymVide", null, null, hg, wg);
-                                     break;
-                             }
-                             break;
-                         default:
-                             fort = ResourceHelper.GetImage($"Pokestop", null, null, hg, wg);
-                             break;
-                     }
+                            switch (pokeStop.OwnedByTeam)
+                            {
+                                case POGOProtos.Enums.TeamColor.Neutral:
+                                    if (asBoss)
+                                        fort = ResourceHelper.CombineImages(ResourceHelper.GetImage("GymVide", null, null, hg, wg), ImgGymBoss);
+                                    else
+                                        fort = ResourceHelper.GetImage($"GymVide{raid}", null, null, hg, wg);
+                                    break;
+                                case POGOProtos.Enums.TeamColor.Blue:
+                                    if (asBoss)
+                                        fort = ResourceHelper.CombineImages(ResourceHelper.GetImage("GymBlue", null, null, hg, wg), ImgGymBoss);
+                                    else
+                                        fort = ResourceHelper.GetImage($"GymBlue{raid}", null, null, hg, wg);
+                                    break;
+                                case POGOProtos.Enums.TeamColor.Red:
+                                    if (asBoss)
+                                        fort = ResourceHelper.CombineImages(ResourceHelper.GetImage("GymRed", null, null, hg, wg), ImgGymBoss);
+                                    else
+                                        fort = ResourceHelper.GetImage($"GymRed{raid}", null, null, hg, wg);
+                                    break;
+                                case POGOProtos.Enums.TeamColor.Yellow:
+                                    if (asBoss)
+                                        fort = ResourceHelper.CombineImages(ResourceHelper.GetImage("GymYellow", null, null, hg, wg), ImgGymBoss);
+                                    else
+                                        fort = ResourceHelper.GetImage($"GymYellow{raid}", null, null, hg, wg);
+                                    break;
+                                default:
+                                    fort = ResourceHelper.GetImage($"GymVide", null, null, hg, wg);
+                                    break;
+                            }
+                            break;
+                        default:
+                            fort = ResourceHelper.GetImage($"Pokestop", null, null, hg, wg);
+                            break;
+                    }
 
-                     GMapMarkerPokestops pokestopMarker = new GMapMarkerPokestops(pokeStopLoc, new Bitmap(fort));
+                    GMapMarkerPokestops pokestopMarker = new GMapMarkerPokestops(pokeStopLoc, new Bitmap(fort));
 
-                     if (!string.IsNullOrEmpty(finalText))
-                     {
-                         GMapBaloonToolTip toolTip = new GMapBaloonToolTip(pokestopMarker);
-                         pokestopMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
-                         toolTip.Marker.ToolTipText = finalText;
-                     }
+                    if (!string.IsNullOrEmpty(finalText))
+                    {
+                        GMapBaloonToolTip toolTip = new GMapBaloonToolTip(pokestopMarker);
+                        pokestopMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+                        toolTip.Marker.ToolTipText = finalText;
+                    }
 
-                     _pokestopsOverlay.Markers.Add(pokestopMarker);
-                 }
-                 Navigation_UpdatePositionEvent();
-             }, null);
+                    _pokestopsOverlay.Markers.Add(pokestopMarker);
+                }
+                Navigation_UpdatePositionEvent();
+            }, null);
             return Task.CompletedTask;
         }
 
