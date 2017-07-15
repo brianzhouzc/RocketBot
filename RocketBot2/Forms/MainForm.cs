@@ -162,30 +162,6 @@ namespace RocketBot2.Forms
                 LastClearLog = DateTime.Now;
             }
 
-            if (text.Contains("Error with API request type: DownloadRemoteConfigVersion"))
-            {
-                Instance.logTextBox.SelectionColor = Color.Yellow;
-                Instance.logTextBox.AppendText($"Warning: with API request type: DownloadRemoteConfigVersion. Please wait...\r\n");
-                Instance.logTextBox.ScrollToCaret();
-                return;
-            }
-
-            if (text.Contains("PokemonGo.RocketAPI.Exceptions.CaptchaException:"))
-            {
-                Instance.logTextBox.SelectionColor = Color.Yellow;
-                Instance.logTextBox.AppendText($"Warning: with CaptchaException not login conected\r\nPlease refresh Inventory list.\r\n");
-                Instance.logTextBox.ScrollToCaret();
-                return;
-            }
-
-            if (text.Contains("PoGo.NecroBot.Logic.Strategies.Walk.BaseWalkStrategy.<DoWalk>"))
-            {
-                Instance.logTextBox.SelectionColor = Color.Red;
-                Instance.logTextBox.AppendText($"Error: with BaseWalkStrategy quota depassed\r\nPlease close RocketBot and wait.\r\n");
-                Instance.logTextBox.ScrollToCaret();
-                return;
-            }
-
             Instance.logTextBox.SelectionColor = color;
             Instance.logTextBox.AppendText(text + $"\r\n");
             Instance.logTextBox.ScrollToCaret();
@@ -272,7 +248,7 @@ namespace RocketBot2.Forms
                     _session.Client.CurrentLongitude);
 
             SynchronizationContext.Post(o =>
-             {
+            {
                  _playerOverlay.Markers.Clear();
                  if (_pokemonsOverlay.Markers.Count > 8)
                      _pokemonsOverlay.Markers.Clear();
@@ -339,19 +315,19 @@ namespace RocketBot2.Forms
 
                              try
                              {
-                                 if (pokeStop.RaidInfo.RaidBattleMs > 0)
-                                 {
-                                     expires = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidBattleMs);
-                                     time = expires - DateTime.UtcNow;
-                                     if (!(expires.Ticks == 0 || time.TotalSeconds < 0))
-                                     {
-                                         finalText = $"Next RAID starts in: {time.Hours}h {time.Minutes}m";
-                                         isRaid = true;
-                                     }
-                                 }
-
                                  if (pokeStop.RaidInfo != null)
                                  {
+                                     if (pokeStop.RaidInfo.RaidBattleMs > 0)
+                                     {
+                                         expires = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidBattleMs);
+                                         time = expires - DateTime.UtcNow;
+                                         if (!(expires.Ticks == 0 || time.TotalSeconds < 0))
+                                         {
+                                             finalText = $"Next RAID starts in: {time.Hours}h {time.Minutes}m";
+                                             isRaid = true;
+                                         }
+                                     }
+
                                      if (pokeStop.RaidInfo.RaidPokemon.PokemonId > 0)
                                      {
                                          expires = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidEndMs);
@@ -374,7 +350,7 @@ namespace RocketBot2.Forms
                                          if (!(expires.Ticks == 0 || time.TotalSeconds < 0))
                                          {
                                              isSpawn = true;
-                                             finalText = $"Local SPAWN ends in: {time.Hours}h {time.Minutes}m";
+                                             finalText = !asBoss ? $"Local SPAWN ends in: {time.Hours}h {time.Minutes}m" : $"Local SPAWN ends in: {time.Hours}h {time.Minutes}m\n\r{boss}";
                                          }
                                      }
                                  }
@@ -449,7 +425,7 @@ namespace RocketBot2.Forms
             {
                 _playerOverlay.Markers.Remove(_playerMarker);
                 if (!_currentLatLng.IsEmpty)
-                    _playerMarker = _currentLatLng.Lng < latlng.Lng
+                    _playerMarker = _currentLatLng.Lng != latlng.Lng
                         ? new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("PlayerLocation2", null, null, 32, 32))
                         : new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("PlayerLocation", null, null, 32, 32));
                 _playerOverlay.Markers.Add(_playerMarker);
@@ -984,7 +960,7 @@ namespace RocketBot2.Forms
 
         private async Task ReloadPokemonList()
         {
-            Instance.SetState(false);
+            SetState(false);
             try
             {
                 if (_session.Client.Download.ItemTemplates == null)
@@ -1054,7 +1030,11 @@ namespace RocketBot2.Forms
             {
                 Logger.Write(ex.ToString(), LogLevel.Error);
             }
-            Instance.SetState(true);
+
+            SetState(true);
+
+            if (checkBoxAutoRefresh.CheckState == CheckState.Indeterminate && flpItems.Controls.Count > 0)
+                checkBoxAutoRefresh.CheckState = CheckState.Unchecked;
         }
 
         private static Task FlpItemsClean(IOrderedEnumerable<ItemData> items, Dictionary<ItemId, DateTime> appliedItems)
