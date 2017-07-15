@@ -552,6 +552,7 @@ namespace RocketBot2.Forms
         private void BtnRefresh_Click(object sender, EventArgs e)
         {
             ReloadPokemonList().ConfigureAwait(false);
+            Task.Run(InitializePokestopsAndRoute).ConfigureAwait(false);
         }
 
         private void StartStopBotToolStripMenuItem_Click(object sender, EventArgs e)
