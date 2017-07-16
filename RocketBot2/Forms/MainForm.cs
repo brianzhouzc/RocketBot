@@ -246,9 +246,24 @@ namespace RocketBot2.Forms
             List<FortData> pokeStops = new List<FortData>();
             try
             {
-                //get optimized route
                 List<FortData> forts = new List<FortData>(UseNearbyPokestopsTask.UpdateFortsData(_session).Result);
-                pokeStops = RouteOptimizeUtil.Optimize(forts.ToArray(), _session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
+                List<FortData> sessionForts = new List<FortData>(_session.Forts);
+
+                foreach (var fort in forts)
+                {
+                    lock (sessionForts)
+                    {
+                        for (var i = 0; i < sessionForts.Count; i++)
+                        {
+                            var marker = sessionForts[i];
+                            if (marker.Id == fort.Id && fort.Type == FortType.Gym)
+                                marker = fort;
+                        }
+                    }
+                }
+
+                //get optimized route
+                pokeStops = RouteOptimizeUtil.Optimize(sessionForts.ToArray(), _session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
             }
             catch
             {
