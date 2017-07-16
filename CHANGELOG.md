@@ -1,5 +1,8 @@
 # Change Log
 
+## [v2.11.0.25](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.11.0.25) (2017-07-16)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.11.0.24...v2.11.0.25)
+
 ## [v2.11.0.24](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.11.0.24) (2017-07-15)
 [Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.11.0.23...v2.11.0.24)
 
