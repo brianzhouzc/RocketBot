@@ -256,7 +256,7 @@ namespace RocketBot2.Forms
                         for (var i = 0; i < sessionForts.Count; i++)
                         {
                             var marker = sessionForts[i];
-                            if (marker.Id == fort.Id && fort.Type == FortType.Gym || fort.LureInfo != null)
+                            if (marker.Id == fort.Id && fort.Type == FortType.Gym || marker.Id == fort.Id && fort.LureInfo != null)
                                 marker = fort;
                         }
                     }
