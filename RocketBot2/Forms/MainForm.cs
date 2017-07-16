@@ -256,7 +256,7 @@ namespace RocketBot2.Forms
                         for (var i = 0; i < sessionForts.Count; i++)
                         {
                             var UpdtFort = sessionForts[i];
-                            if (UpdtFort.Id == fort.Id && fort.Type == FortType.Gym || UpdtFort.Id == fort.Id && UpdtFort.LureInfo != fort.LureInfo)
+                            if (UpdtFort.Id == fort.Id && UpdtFort != fort)
                                 UpdtFort = new FortData(fort);
                         }
                     }
