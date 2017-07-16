@@ -144,6 +144,7 @@ namespace RocketBot2.Forms
         #region INTERFACE
 
         private static DateTime LastClearLog = DateTime.Now;
+        private static DateTime LastChangedStats = DateTime.Now;
 
         public static void ColoredConsoleWrite(Color color, string text)
         {
@@ -197,7 +198,11 @@ namespace RocketBot2.Forms
             if (checkBoxAutoRefresh.Checked)
                 await ReloadPokemonList().ConfigureAwait(false);
 
-            await InitializePokestopsAndRoute().ConfigureAwait(false);
+            if (LastChangedStats.AddSeconds(10) < DateTime.Now)
+            {
+                await InitializePokestopsAndRoute().ConfigureAwait(false);
+                LastChangedStats = DateTime.Now;
+            }
         }
 
         #endregion INTERFACE
@@ -242,12 +247,14 @@ namespace RocketBot2.Forms
 
         private async Task InitializePokestopsAndRoute()
         {
-            await Task.Delay(10000);
             List<FortData> pokeStops = new List<FortData>();
             try
             {
                 List<FortData> forts = new List<FortData>(await UseNearbyPokestopsTask.UpdateFortsData(_session).ConfigureAwait(false));
                 List<FortData> sessionForts = new List<FortData>(_session.Forts);
+
+                if (forts == sessionForts)
+                    return;
 
                 foreach (var fort in forts)
                 {
@@ -256,14 +263,12 @@ namespace RocketBot2.Forms
                         for (var i = 0; i < sessionForts.Count; i++)
                         {
                             var UpdtFort = sessionForts[i];
+
                             if (UpdtFort.Id == fort.Id && UpdtFort != fort)
                                 UpdtFort = new FortData(fort);
                         }
                     }
                 }
-
-                if (forts == sessionForts)
-                    return;
 
                 //get optimized route
                 pokeStops = new List<FortData>(RouteOptimizeUtil.Optimize(sessionForts.ToArray(), _session.Client.CurrentLatitude, _session.Client.CurrentLongitude));
@@ -431,8 +436,9 @@ namespace RocketBot2.Forms
                     if (!string.IsNullOrEmpty(finalText))
                     {
                         GMapBaloonToolTip toolTip = new GMapBaloonToolTip(pokestopMarker);
-                        pokestopMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+                        toolTip.Marker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
                         toolTip.Marker.ToolTipText = finalText;
+                        pokestopMarker.ToolTip = toolTip;
                     }
 
                     _pokestopsOverlay.Markers.Add(pokestopMarker);
@@ -577,7 +583,12 @@ namespace RocketBot2.Forms
         private async void BtnRefresh_Click(object sender, EventArgs e)
         {
             await ReloadPokemonList().ConfigureAwait(false);
-            await InitializePokestopsAndRoute().ConfigureAwait(false);
+
+            if (LastChangedStats.AddSeconds(10) < DateTime.Now)
+            {
+                await InitializePokestopsAndRoute().ConfigureAwait(false);
+                LastChangedStats = DateTime.Now;
+            }
         }
 
         private void StartStopBotToolStripMenuItem_Click(object sender, EventArgs e)
