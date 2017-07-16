@@ -197,7 +197,7 @@ namespace RocketBot2.Forms
             if (checkBoxAutoRefresh.Checked)
                 ReloadPokemonList().ConfigureAwait(false);
 
-            Task.Run(InitializePokestopsAndRoute).ConfigureAwait(false);
+            Task.Run(async () => await InitializePokestopsAndRoute().ConfigureAwait(false));
         }
 
         #endregion INTERFACE
@@ -240,13 +240,13 @@ namespace RocketBot2.Forms
                 GMapControl1.MapProvider = GoogleMapProvider.Instance;
         }
 
-        private Task InitializePokestopsAndRoute()
+        private async Task InitializePokestopsAndRoute()
         {
-            // try for possibles bugs
+            await Task.Delay(10000);
             List<FortData> pokeStops = new List<FortData>();
             try
             {
-                List<FortData> forts = new List<FortData>(UseNearbyPokestopsTask.UpdateFortsData(_session).Result);
+                List<FortData> forts = new List<FortData>(await UseNearbyPokestopsTask.UpdateFortsData(_session).ConfigureAwait(false));
                 List<FortData> sessionForts = new List<FortData>(_session.Forts);
 
                 foreach (var fort in forts)
@@ -262,12 +262,15 @@ namespace RocketBot2.Forms
                     }
                 }
 
+                if (forts == sessionForts)
+                    return;
+
                 //get optimized route
                 pokeStops = RouteOptimizeUtil.Optimize(sessionForts.ToArray(), _session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
             }
             catch
             {
-                return null;
+                return;
             }
 
             SynchronizationContext.Post(o =>
@@ -436,7 +439,6 @@ namespace RocketBot2.Forms
                 }
                 Navigation_UpdatePositionEvent();
             }, null);
-            return Task.CompletedTask;
         }
 
         private void Navigation_UpdatePositionEvent()
@@ -575,7 +577,7 @@ namespace RocketBot2.Forms
         private void BtnRefresh_Click(object sender, EventArgs e)
         {
             ReloadPokemonList().ConfigureAwait(false);
-            Task.Run(InitializePokestopsAndRoute).ConfigureAwait(false);
+            Task.Run(async () => await InitializePokestopsAndRoute().ConfigureAwait(false));
         }
 
         private void StartStopBotToolStripMenuItem_Click(object sender, EventArgs e)
