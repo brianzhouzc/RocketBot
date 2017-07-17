@@ -717,6 +717,10 @@ namespace RocketBot2.Forms
                 Instance.checkBoxAutoRefresh.CheckState = CheckState.Indeterminate;
         }
 
+        private void CbEnablePushBulletNotification_CheckedChanged(object sender, EventArgs e)
+        {
+            _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
+        }
         #endregion EVENTS
 
         #region POKEMON LIST
@@ -1822,10 +1826,5 @@ namespace RocketBot2.Forms
         }
 
         #endregion
-
-        private void cbEnablePushBulletNotification_CheckedChanged(object sender, EventArgs e)
-        {
-            _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
-        }
     }
 }

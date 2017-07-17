@@ -829,16 +829,11 @@ namespace RocketBot2.Forms
         {
             gMapCtrl.Dispose();
         }
-        #endregion
 
-        private void cbDiplayHashServerLog_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cbEnablePushBulletNotification_CheckedChanged(object sender, EventArgs e)
+        private void CbEnablePushBulletNotification_CheckedChanged(object sender, EventArgs e)
         {
             _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
         }
-    }       
+        #endregion
+    }
 }
