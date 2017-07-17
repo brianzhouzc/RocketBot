@@ -233,6 +233,9 @@ namespace RocketBot2.Forms
             _playerMarker.Position = new PointLatLng(lat, lng);
             _searchAreaOverlay.Polygons.Clear();
             S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(lng, lat), _searchAreaOverlay);
+            GMapControl1.Zoom = DefaultZoomLevel;
+            trackBar.Maximum = 18;
+            trackBar.Minimum = 2;
             trackBar.Value = DefaultZoomLevel;
             GMapControl1.OnMapZoomChanged += delegate { trackBar.Value = (int)GMapControl1.Zoom; };
         }
@@ -388,10 +391,8 @@ namespace RocketBot2.Forms
                             }
                             catch
                             {
-
+                                //return;
                             }
-
-                            if (isSpawn) { }
 
                             string raid = isRaid ? "Raid" : null;
 
@@ -431,7 +432,9 @@ namespace RocketBot2.Forms
                             break;
                     }
 
-                    GMapMarkerPokestops pokestopMarker = new GMapMarkerPokestops(pokeStopLoc, new Bitmap(fort));
+                    Image finalFortIcon = isSpawn ? ResourceHelper.GetGymSpawnImage(fort) : fort;
+
+                    GMapMarkerPokestops pokestopMarker = new GMapMarkerPokestops(pokeStopLoc, new Bitmap(finalFortIcon));
 
                     if (!string.IsNullOrEmpty(finalText))
                     {
