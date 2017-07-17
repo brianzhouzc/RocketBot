@@ -91,6 +91,9 @@ namespace RocketBot2.Forms
             cbUseLegacyAPI.Checked = _settings.Auth.APIConfig.UseLegacyAPI;
             cbDiplayHashServerLog.Checked = _settings.Auth.APIConfig.DiplayHashServerLog;
 
+            cbEnablePushBulletNotification.Checked = _settings.NotificationConfig.EnablePushBulletNotification;
+            tbPushBulletAPIKey.Text = _settings.NotificationConfig.PushBulletApiKey;
+
             #endregion
 
             #region Map Info
@@ -514,7 +517,11 @@ namespace RocketBot2.Forms
                 _settings.Auth.APIConfig.UseLegacyAPI = cbUseLegacyAPI.Checked;
                 _settings.Auth.APIConfig.DiplayHashServerLog = cbDiplayHashServerLog.Checked;
                 _settings.Auth.Save(AuthFilePath);
-                
+
+                //Settings added by TheWizard
+                _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
+                _settings.NotificationConfig.PushBulletApiKey = tbPushBulletAPIKey.Text;
+
                 #endregion
 
                 #region RocketBot2.Form Settings
@@ -823,5 +830,15 @@ namespace RocketBot2.Forms
             gMapCtrl.Dispose();
         }
         #endregion
+
+        private void cbDiplayHashServerLog_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbEnablePushBulletNotification_CheckedChanged(object sender, EventArgs e)
+        {
+            _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
+        }
     }       
 }

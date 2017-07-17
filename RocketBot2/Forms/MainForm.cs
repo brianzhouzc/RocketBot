@@ -109,6 +109,7 @@ namespace RocketBot2.Forms
             followTrainerCheckBox.Parent = GMapControl1;
             togglePrecalRoute.Parent = GMapControl1;
             GMAPSatellite.Parent = GMapControl1;
+            cbEnablePushBulletNotification.Parent = GMapControl1;
             InitializeBot(null);
             if (!_settings.WebsocketsConfig.UseWebsocket) menuStrip1.Items.Remove(pokeEaseToolStripMenuItem);
             InitializePokemonForm();
@@ -609,6 +610,7 @@ namespace RocketBot2.Forms
 
         private void TodoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            showMoreCheckBox.Checked = false;
             System.Windows.Forms.Form settingsForm = new SettingsForm(ref _settings);
             settingsForm.ShowDialog();
             var newLocation = new PointLatLng(_settings.LocationConfig.DefaultLatitude, _settings.LocationConfig.DefaultLongitude);
@@ -660,12 +662,19 @@ namespace RocketBot2.Forms
                 followTrainerCheckBox.Visible = true;
                 togglePrecalRoute.Visible = true;
                 GMAPSatellite.Visible = true;
+                cbEnablePushBulletNotification.Visible = true;
+                if (_settings.NotificationConfig.PushBulletApiKey != "")
+                {
+                    cbEnablePushBulletNotification.Enabled = true;
+                    cbEnablePushBulletNotification.Checked = _settings.NotificationConfig.EnablePushBulletNotification;
+                }
             }
             else
             {
                 followTrainerCheckBox.Visible = false;
                 togglePrecalRoute.Visible = false;
                 GMAPSatellite.Visible = false;
+                cbEnablePushBulletNotification.Visible = false;
             }
         }
 
@@ -1813,5 +1822,10 @@ namespace RocketBot2.Forms
         }
 
         #endregion
+
+        private void cbEnablePushBulletNotification_CheckedChanged(object sender, EventArgs e)
+        {
+            _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
+        }
     }
 }
