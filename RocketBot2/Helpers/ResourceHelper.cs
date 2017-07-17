@@ -293,6 +293,17 @@ namespace RocketBot2.Helpers
             return target;
         }
 
+        public static Image GetGymSpawnImage(Image image)
+        {
+            Image source = GetImage("spawn", null, null, image.Size.Height, image.Size.Width);
+            var target = new Bitmap(image.Width, image.Height, PixelFormat.Format32bppArgb);
+            var graphics = Graphics.FromImage(target);
+            graphics.CompositingMode = CompositingMode.SourceOver; // this is the default, but just to be clear
+            graphics.DrawImage(image, 0, 0);
+            graphics.DrawImage(source, 0, 0);
+            return target;
+        }
+
         public static Image CombineImages(Image image, Image image2)
         {
             var target = new Bitmap(image.Width, image.Height, PixelFormat.Format32bppArgb);

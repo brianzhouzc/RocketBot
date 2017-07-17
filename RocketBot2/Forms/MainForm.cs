@@ -144,6 +144,7 @@ namespace RocketBot2.Forms
         #region INTERFACE
 
         private static DateTime LastClearLog = DateTime.Now;
+        private static DateTime LastChangedStats = DateTime.Now;
 
         public static void ColoredConsoleWrite(Color color, string text)
         {
@@ -181,7 +182,7 @@ namespace RocketBot2.Forms
             Instance.followTrainerCheckBox.Enabled = Instance._botStarted;
         }
 
-        public void SetStatusText(string text)
+        public async void SetStatusText(string text)
         {
             if (Instance.InvokeRequired)
             {
@@ -195,9 +196,13 @@ namespace RocketBot2.Forms
             SetState(true);
 
             if (checkBoxAutoRefresh.Checked)
-                ReloadPokemonList().ConfigureAwait(false);
+                await ReloadPokemonList().ConfigureAwait(false);
 
-            Task.Run(InitializePokestopsAndRoute).ConfigureAwait(false);
+            if (LastChangedStats.AddSeconds(10) < DateTime.Now)
+            {
+                await InitializePokestopsAndRoute().ConfigureAwait(false);
+                LastChangedStats = DateTime.Now;
+            }
         }
 
         #endregion INTERFACE
@@ -228,6 +233,9 @@ namespace RocketBot2.Forms
             _playerMarker.Position = new PointLatLng(lat, lng);
             _searchAreaOverlay.Polygons.Clear();
             S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(lng, lat), _searchAreaOverlay);
+            GMapControl1.Zoom = DefaultZoomLevel;
+            trackBar.Maximum = 18;
+            trackBar.Minimum = 2;
             trackBar.Value = DefaultZoomLevel;
             GMapControl1.OnMapZoomChanged += delegate { trackBar.Value = (int)GMapControl1.Zoom; };
         }
@@ -240,14 +248,16 @@ namespace RocketBot2.Forms
                 GMapControl1.MapProvider = GoogleMapProvider.Instance;
         }
 
-        private Task InitializePokestopsAndRoute()
+        private async Task InitializePokestopsAndRoute()
         {
-            // try for possibles bugs
             List<FortData> pokeStops = new List<FortData>();
             try
             {
-                List<FortData> forts = new List<FortData>(UseNearbyPokestopsTask.UpdateFortsData(_session).Result);
+                List<FortData> forts = new List<FortData>(await UseNearbyPokestopsTask.UpdateFortsData(_session).ConfigureAwait(false));
                 List<FortData> sessionForts = new List<FortData>(_session.Forts);
+
+                if (forts == sessionForts)
+                    return;
 
                 foreach (var fort in forts)
                 {
@@ -255,19 +265,20 @@ namespace RocketBot2.Forms
                     {
                         for (var i = 0; i < sessionForts.Count; i++)
                         {
-                            var marker = sessionForts[i];
-                            if (marker.Id == fort.Id && fort.Type == FortType.Gym || fort.LureInfo != null)
-                                marker = fort;
+                            var UpdtFort = sessionForts[i];
+
+                            if (UpdtFort.Id == fort.Id && UpdtFort != fort)
+                                UpdtFort = new FortData(fort);
                         }
                     }
                 }
 
                 //get optimized route
-                pokeStops = RouteOptimizeUtil.Optimize(sessionForts.ToArray(), _session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
+                pokeStops = new List<FortData>(RouteOptimizeUtil.Optimize(sessionForts.ToArray(), _session.Client.CurrentLatitude, _session.Client.CurrentLongitude));
             }
             catch
             {
-                return null;
+                return;
             }
 
             SynchronizationContext.Post(o =>
@@ -380,10 +391,8 @@ namespace RocketBot2.Forms
                             }
                             catch
                             {
-
+                                //return;
                             }
-
-                            if (isSpawn) { }
 
                             string raid = isRaid ? "Raid" : null;
 
@@ -423,20 +432,22 @@ namespace RocketBot2.Forms
                             break;
                     }
 
-                    GMapMarkerPokestops pokestopMarker = new GMapMarkerPokestops(pokeStopLoc, new Bitmap(fort));
+                    Image finalFortIcon = isSpawn ? ResourceHelper.GetGymSpawnImage(fort) : fort;
+
+                    GMapMarkerPokestops pokestopMarker = new GMapMarkerPokestops(pokeStopLoc, new Bitmap(finalFortIcon));
 
                     if (!string.IsNullOrEmpty(finalText))
                     {
                         GMapBaloonToolTip toolTip = new GMapBaloonToolTip(pokestopMarker);
-                        pokestopMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+                        toolTip.Marker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
                         toolTip.Marker.ToolTipText = finalText;
+                        pokestopMarker.ToolTip = toolTip;
                     }
 
                     _pokestopsOverlay.Markers.Add(pokestopMarker);
                 }
                 Navigation_UpdatePositionEvent();
             }, null);
-            return Task.CompletedTask;
         }
 
         private void Navigation_UpdatePositionEvent()
@@ -572,10 +583,15 @@ namespace RocketBot2.Forms
             PokeDexForm.ShowDialog();
         }
 
-        private void BtnRefresh_Click(object sender, EventArgs e)
+        private async void BtnRefresh_Click(object sender, EventArgs e)
         {
-            ReloadPokemonList().ConfigureAwait(false);
-            Task.Run(InitializePokestopsAndRoute).ConfigureAwait(false);
+            await ReloadPokemonList().ConfigureAwait(false);
+
+            if (LastChangedStats.AddSeconds(10) < DateTime.Now)
+            {
+                await InitializePokestopsAndRoute().ConfigureAwait(false);
+                LastChangedStats = DateTime.Now;
+            }
         }
 
         private void StartStopBotToolStripMenuItem_Click(object sender, EventArgs e)
