@@ -169,10 +169,10 @@ namespace RocketBot2.Forms
                 return;
             }
 
-            if (LastClearLog.AddMinutes(20) < DateTime.UtcNow)
+            if (LastClearLog.AddMinutes(20) < DateTime.Now)
             {
                 Instance.logTextBox.Text = string.Empty;
-                LastClearLog = DateTime.UtcNow;
+                LastClearLog = DateTime.Now;
             }
 
             Instance.logTextBox.SelectionColor = color;
@@ -210,10 +210,10 @@ namespace RocketBot2.Forms
             if (checkBoxAutoRefresh.Checked)
                 await ReloadPokemonList().ConfigureAwait(false);
 
-            if (LastChangedStats.AddSeconds(10) < DateTime.UtcNow)
+            if (LastChangedStats.AddSeconds(10) < DateTime.Now)
             {
                 await InitializePokestopsAndRoute().ConfigureAwait(false);
-                LastChangedStats = DateTime.UtcNow;
+                LastChangedStats = DateTime.Now;
             }
         }
 
@@ -369,7 +369,7 @@ namespace RocketBot2.Forms
                                         time = expires - DateTime.UtcNow;
                                         if (!(expires.Ticks == 0 || time.TotalSeconds < 0))
                                         {
-                                            finalText = $"Next RAID starts in: {time.Hours,2:00}h {time.Minutes,2:00}m {time.Seconds,2:00}s\nat: {DateTime.Now + time:HH:mm:ss} Local time";
+                                            finalText = $"Next RAID starts in: {time.Hours}h {time.Minutes}m";
                                             isRaid = true;
                                         }
                                     }
@@ -380,12 +380,12 @@ namespace RocketBot2.Forms
                                         time = expires - DateTime.UtcNow;
                                         if (!(expires.Ticks == 0 || time.TotalSeconds < 0))
                                         {
+                                            asBoss = true;
                                             hg = 48;
                                             wg = 48;
                                             ImgGymBoss = ResourceHelper.GetImage(null, pokeStop.RaidInfo.RaidPokemon, null, 38, 38);
                                             boss = $"Boss: {_session.Translation.GetPokemonTranslation(pokeStop.RaidInfo.RaidPokemon.PokemonId)} CP: {pokeStop.RaidInfo.RaidPokemon.Cp}";
-                                            finalText = $"Local RAID ends in: {time.Hours,2:00}h {time.Minutes,2:00}m {time.Seconds,2:00}s\nat: {DateTime.Now + time:HH:mm:ss} Local time\n\r{boss}";
-                                            asBoss = true;
+                                            finalText = $"Local RAID ends in: {time.Hours}h {time.Minutes}m\n\r{boss}";
                                         }
                                     }
 
@@ -395,8 +395,8 @@ namespace RocketBot2.Forms
                                         time = expires - DateTime.UtcNow;
                                         if (!(expires.Ticks == 0 || time.TotalSeconds < 0))
                                         {
-                                            finalText = !asBoss ? $"Local SPAWN ends in: {time.Hours,2:00}h {time.Minutes,2:00}m {time.Seconds,2:00}s\nat: {DateTime.Now + time:HH:mm:ss} Local time" : $"Local SPAWN ends in: {time:HH:mm}\nLocal time: {expires:HH:mm}\n\r{boss}";
                                             isSpawn = true;
+                                            finalText = !asBoss ? $"Local SPAWN ends in: {time.Hours}h {time.Minutes}m" : $"Local SPAWN ends in: {time.Hours}h {time.Minutes}m\n\r{boss}";
                                         }
                                     }
                                 }
@@ -599,10 +599,10 @@ namespace RocketBot2.Forms
         {
             await ReloadPokemonList().ConfigureAwait(false);
 
-            if (LastChangedStats.AddSeconds(10) < DateTime.UtcNow)
+            if (LastChangedStats.AddSeconds(10) < DateTime.Now)
             {
                 await InitializePokestopsAndRoute().ConfigureAwait(false);
-                LastChangedStats = DateTime.UtcNow;
+                LastChangedStats = DateTime.Now;
             }
         }
 
@@ -1250,7 +1250,7 @@ namespace RocketBot2.Forms
                 excelConfigAllow = true;
             }
 
-            var _fileName = $"RocketBot2-{DateTime.Today.ToString("dd-MM-yyyy")}-{DateTime.UtcNow.ToString("HH-mm-ss")}.txt";
+            var _fileName = $"RocketBot2-{DateTime.Today.ToString("dd-MM-yyyy")}-{DateTime.Now.ToString("HH-mm-ss")}.txt";
 
             Logger.AddLogger(new ConsoleLogger(LogLevel.Service), _subPath);
             Logger.AddLogger(new FileLogger(LogLevel.Service, _fileName), _subPath);
@@ -1434,8 +1434,8 @@ namespace RocketBot2.Forms
                         HttpResponseMessage response = client.PostAsync("https://pokehash.buddyauth.com/api/v133_1/hash", null).Result;
                         string AuthKey = response.Headers.GetValues("X-AuthToken").FirstOrDefault();
                         string MaxRequestCount = response.Headers.GetValues("X-MaxRequestCount").FirstOrDefault();
-                        DateTime AuthTokenExpiration = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(Convert.ToDouble(response.Headers.GetValues("X-AuthTokenExpiration").FirstOrDefault())).ToLocalTime();
-                        TimeSpan Expiration = AuthTokenExpiration - DateTime.UtcNow;
+                        DateTime AuthTokenExpiration = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Local).AddSeconds(Convert.ToDouble(response.Headers.GetValues("X-AuthTokenExpiration").FirstOrDefault())).ToLocalTime();
+                        TimeSpan Expiration = AuthTokenExpiration - DateTime.Now;
                         string Result = string.Format("Key: {0} RPM: {1} Expiration Date: {2}/{3}/{4}", maskedKey, MaxRequestCount, AuthTokenExpiration.Day, AuthTokenExpiration.Month, AuthTokenExpiration.Year);
                         Logger.Write(Result, LogLevel.Info, ConsoleColor.Green);
                     }
@@ -1670,7 +1670,7 @@ namespace RocketBot2.Forms
 
             /*var trackFile = Path.GetTempPath() + "\\rocketbot2.io";
 
-            if (!File.Exists(trackFile) || File.GetLastWriteTime(trackFile) < DateTime.UtcNow.AddDays(-1))
+            if (!File.Exists(trackFile) || File.GetLastWriteTime(trackFile) < DateTime.Now.AddDays(-1))
             {
                 Thread.Sleep(10000);
                 Thread mThread = new Thread(delegate ()
@@ -1678,7 +1678,7 @@ namespace RocketBot2.Forms
                     var infoForm = new InfoForm();
                     infoForm.ShowDialog();
                 });
-                File.WriteAllText(trackFile, DateTime.UtcNow.Ticks.ToString());
+                File.WriteAllText(trackFile, DateTime.Now.Ticks.ToString());
                 mThread.SetApartmentState(ApartmentState.STA);
 
                 mThread.Start();
