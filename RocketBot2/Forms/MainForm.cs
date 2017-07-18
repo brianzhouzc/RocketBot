@@ -100,7 +100,18 @@ namespace RocketBot2.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            this.splitContainer1.SplitterDistance = this.splitContainer1.Width / 100 * 45; // Splits left & right splitter panes @ 45%/55% of the window width
+            // Splits left & right splitter panes @ 45%/55% of the window width for smaller screens...
+            // Otherwise gives more realistate to left side while makingsure all olvPokemonList columns are visible.
+            var Spliter1Width = 0;
+            for (int i = 0; i < olvPokemonList.Columns.Count; i++)
+            {
+                Spliter1Width += olvPokemonList.GetColumn(i).Width;
+            }
+            if (Spliter1Width > this.Width / 2)
+                this.splitContainer1.SplitterDistance = this.splitContainer1.Width / 100 * 45;
+            else
+                this.splitContainer1.SplitterDistance = this.Width - Spliter1Width - 50;
+
             this.splitContainer2.SplitterDistance = this.splitContainer2.Height / 100 * 45;// Always keeps the logger window @ 45%/55% of the window height
             this.Refresh(); // Force screen refresh before items are poppulated
             SetStatusText(Application.ProductName + " " + Application.ProductVersion);
