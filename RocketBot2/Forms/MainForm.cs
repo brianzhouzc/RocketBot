@@ -365,7 +365,7 @@ namespace RocketBot2.Forms
                                         time = expires - DateTime.UtcNow;
                                         if (!(expires.Ticks == 0 || time.TotalSeconds < 0))
                                         {
-                                            finalText = $"Next RAID starts in: {time.Hours}h {time.Minutes}m {Math.Abs(time.Seconds)}s";
+                                            finalText = $"Next RAID starts in: {time.Hours:00}h {time.Minutes:00}m {Math.Abs(time.Seconds):00}s";
                                             isRaid = true;
                                         }
                                     }
@@ -381,7 +381,7 @@ namespace RocketBot2.Forms
                                             wg = 48;
                                             ImgGymBoss = ResourceHelper.GetImage(null, pokeStop.RaidInfo.RaidPokemon, null, 38, 38);
                                             boss = $"Boss: {_session.Translation.GetPokemonTranslation(pokeStop.RaidInfo.RaidPokemon.PokemonId)} CP: {pokeStop.RaidInfo.RaidPokemon.Cp}";
-                                            finalText = $"Local RAID ends in: {time.Hours}h {time.Minutes}m {Math.Abs(time.Seconds)}s\r\n{boss}";
+                                            finalText = $"Local RAID ends in: {time.Hours:00}h {time.Minutes:00}m {Math.Abs(time.Seconds):00}s\r\n{boss}";
                                         }
                                     }
 
@@ -393,7 +393,7 @@ namespace RocketBot2.Forms
                                         {
                                             isSpawn = true;
                                             finalText = !asBoss ? $"Local SPAWN ends in: {time.Hours}h {time.Minutes}m {Math.Abs(time.Seconds)}s"
-                                            : $"Local SPAWN ends in: {time.Hours}h {time.Minutes}m {Math.Abs(time.Seconds)}s\n\r{finalText}";
+                                            : $"Local SPAWN ends in: {time.Hours:00}h {time.Minutes:00}m {Math.Abs(time.Seconds):00}s\n\r{finalText}";
                                         }
                                     }
                                 }
