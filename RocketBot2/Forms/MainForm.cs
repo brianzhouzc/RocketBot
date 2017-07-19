@@ -443,6 +443,9 @@ namespace RocketBot2.Forms
 
                     Image finalFortIcon = isSpawn ? ResourceHelper.GetGymSpawnImage(fort) : fort;
 
+                    if (pokeStop.CooldownCompleteTimestampMs > DateTime.UtcNow.ToUnixTime() && pokeStop.Type == FortType.Gym)
+                        finalFortIcon = ResourceHelper.GetGymVisitedImage(fort);
+
                     GMapMarkerPokestops pokestopMarker = new GMapMarkerPokestops(pokeStopLoc, new Bitmap(finalFortIcon));
 
                     if (!string.IsNullOrEmpty(finalText))
