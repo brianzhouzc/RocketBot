@@ -359,7 +359,7 @@ namespace RocketBot2.Forms
                             {
                                 if (pokeStop.RaidInfo != null)
                                 {
-                                    if (pokeStop.RaidInfo.RaidBattleMs > 0)
+                                    if (pokeStop.RaidInfo.RaidBattleMs > DateTime.UtcNow.ToUnixTime())
                                     {
                                         expires = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidBattleMs);
                                         time = expires - DateTime.UtcNow;
@@ -385,7 +385,7 @@ namespace RocketBot2.Forms
                                         }
                                     }
 
-                                    if (pokeStop.RaidInfo.RaidSpawnMs > 0)
+                                    if (pokeStop.RaidInfo.RaidSpawnMs > DateTime.UtcNow.ToUnixTime())
                                     {
                                         expires = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidSpawnMs);
                                         time = expires - DateTime.UtcNow;
