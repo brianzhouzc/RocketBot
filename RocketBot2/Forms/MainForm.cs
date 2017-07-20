@@ -127,7 +127,8 @@ namespace RocketBot2.Forms
             InitializeMap();
             VersionHelper.CheckVersion();
             btnRefresh.Enabled = false;
-            ConsoleHelper.HideConsoleWindow();
+            if (args.Length > 0)
+                ConsoleHelper.HideConsoleWindow();
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
