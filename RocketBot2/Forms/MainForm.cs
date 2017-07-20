@@ -556,7 +556,7 @@ namespace RocketBot2.Forms
                 _playerLocations.Clear();
                 Navigation_UpdatePositionEvent();
 
-                _settings.Save(Path.Combine(Path.Combine(Directory.GetCurrentDirectory(), "Config"), "config.json"));
+                _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
 
                 Logger.Write($"New starting location has been set to: Lat: {pos.Lat:0.00000000} Long: {pos.Lng:0.00000000} Dist: {Dist:0.00}m Altitude: {Alt:0.00}m",LogLevel.Info);
                 return;
