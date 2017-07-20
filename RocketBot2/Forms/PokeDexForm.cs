@@ -34,6 +34,7 @@ namespace RocketBot2.Forms
                 var Pok = new ItemBox(session, item, e, img);
                 flpPokeDex.Controls.Add(Pok);
             }
+            PokeDexForm.ActiveForm.Refresh();
         }
 
         private async Task DefaultValuesAsync()
@@ -62,6 +63,7 @@ namespace RocketBot2.Forms
                 var Pok = new ItemBox(vu, cap, img);
                 flpPokeDex.Controls.Add(Pok);
             }
+            PokeDexForm.ActiveForm.Refresh();
         }
     }
 }

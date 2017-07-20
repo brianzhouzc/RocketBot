@@ -1196,7 +1196,7 @@ namespace RocketBot2.Forms
             if (item.ItemId == ItemId.ItemTroyDisk)
             {
                 //await InitializePokestopsAndRoute(true);
-                return;
+                //return;
             }
 
             if (item.ItemId == ItemId.ItemRareCandy)
