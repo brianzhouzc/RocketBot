@@ -551,9 +551,6 @@ namespace RocketBot2.Forms
 
                 _session.Client.Player.SetCoordinates(pos.Lat, pos.Lng, _session.ElevationService.GetElevation(pos.Lat, pos.Lng).Result);
 
-                _settings.LocationConfig.DefaultLatitude = pos.Lat;
-                _settings.LocationConfig.DefaultLongitude = pos.Lng;
-
                 var newLocation = new PointLatLng(pos.Lat, pos.Lng);
                 GMapControl1.Position = newLocation;
                 _playerMarker.Position = newLocation;
