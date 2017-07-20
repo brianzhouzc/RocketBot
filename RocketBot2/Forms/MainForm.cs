@@ -85,6 +85,8 @@ namespace RocketBot2.Forms
         internal readonly GMapOverlay _searchAreaOverlay = new GMapOverlay("areas");
 
         private const int DefaultZoomLevel = 15;
+        private ulong EncounterId;
+        private string SpawnPointId;
 
         public static Session _session;
 
@@ -256,7 +258,7 @@ namespace RocketBot2.Forms
                 GMapControl1.MapProvider = GoogleMapProvider.Instance;
         }
 
-        private async Task InitializePokestopsAndRoute()
+        private async Task InitializePokestopsAndRoute(bool SelectPokeStop = false)
         {
             List<FortData> pokeStops = new List<FortData>();
             try
@@ -448,6 +450,22 @@ namespace RocketBot2.Forms
                         finalFortIcon = ResourceHelper.GetGymVisitedImage(finalFortIcon);
 
                     GMapMarkerPokestops pokestopMarker = new GMapMarkerPokestops(pokeStopLoc, new Bitmap(finalFortIcon));
+                    if (SelectPokeStop)
+                    {
+                        pokestopMarker.Overlay.Control.MouseClick += delegate
+                        {
+                            DialogResult result = MessageBox.Show($"Use TroyDisk Item on this PokeStop?", $"{Application.ProductName} - UseTroyDisk", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                            switch (result)
+                            {
+                                case DialogResult.Yes:
+                                    Task.Run(async () => { await UseItemCaptureTask.Execute(_session, ItemId.ItemTroyDisk, 0, pokeStop); });
+                                    break;
+                                case DialogResult.Cancel:
+                                    BtnRefresh_Click(null, null);
+                                    break;
+                            }
+                        };
+                    }
 
                     if (!string.IsNullOrEmpty(finalText))
                     {
@@ -1171,6 +1189,19 @@ namespace RocketBot2.Forms
                || item.ItemId == ItemId.ItemIncubatorBasicUnlimited)
             {
                 System.Windows.Forms.Form form = new EggsForm(_session);
+                form.ShowDialog();
+                return;
+            }
+
+            if (item.ItemId == ItemId.ItemTroyDisk)
+            {
+                //await InitializePokestopsAndRoute(true);
+                return;
+            }
+
+            if (item.ItemId == ItemId.ItemRareCandy)
+            {
+                System.Windows.Forms.Form form = new PokeDexForm(_session, item);
                 form.ShowDialog();
                 return;
             }

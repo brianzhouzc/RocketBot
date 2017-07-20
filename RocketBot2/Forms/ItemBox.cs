@@ -10,6 +10,8 @@ using POGOProtos.Inventory;
 using System.Threading.Tasks;
 using PoGo.NecroBot.Logic.Event;
 using System.Linq;
+using POGOProtos.Data;
+using POGOProtos.Enums;
 
 namespace RocketBot2.Forms
 {
@@ -23,6 +25,43 @@ namespace RocketBot2.Forms
         public Control Box;
 
         public ItemBox() { }
+
+        public ItemBox(ISession session, ItemData item, PokemonId pokemonid, Image picture)
+        {
+            InitializeComponent();
+            Session = session;
+            DisableTimer = true;
+            lbl.Font = new System.Drawing.Font("Segoe UI", 7.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lblTime.Font = new System.Drawing.Font("Segoe UI", 7.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            pb.Image = picture;
+            lblTime.Text = $"{Session.Translation.GetPokemonTranslation(pokemonid)}";
+            lblTime.Visible = true;
+            var PokemonSettings = Session.Inventory.GetPokemonSettings().Result.FirstOrDefault(x => x.PokemonId == pokemonid);
+            lbl.Text = $"{PokemonSettings.FamilyId}";
+            lblTime.Parent = pb;
+
+            foreach (Control control in Controls)
+            {
+                control.MouseEnter += ChildMouseEnter;
+                control.MouseLeave += ChildMouseLeave;
+                control.MouseClick += delegate { UseItemRareCandy(item.ItemId, (ulong)(int)pokemonid); };
+                Box = control;
+            }
+        }
+
+        private void UseItemRareCandy(ItemId itemid, ulong pokemonid)
+        {
+            PokeDexForm.ActiveForm.Close();
+            /*
+            DialogResult result = MessageBox.Show($"Use RareCandy Item on this Pokemon Family?", $"{Application.ProductName} - Use RareCandy", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            switch (result)
+            {
+                case DialogResult.Yes:
+                    await UseItemCaptureTask.Execute(Session, itemid, pokemonid, null);
+                    break;
+            }
+            */
+        }
 
         public ItemBox(int see, int cath, Image pic)
         {
@@ -124,7 +163,7 @@ namespace RocketBot2.Forms
         public ItemBox(ItemData item)
         {
             InitializeComponent();
-
+ 
             pb.Image = ResourceHelper.SetImageSize(ResourceHelper.ItemPicture(item), pb.Size.Height, pb.Size.Width);
             lbl.Text = item.Count.ToString();
             lblTime.Parent = pb;
