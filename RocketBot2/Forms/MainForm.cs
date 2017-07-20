@@ -537,14 +537,22 @@ namespace RocketBot2.Forms
                 // Sets current location 
                 double Dist = LocationUtils.CalculateDistanceInMeters(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude, pos.Lat, pos.Lng);
 
+                var lastPosFile = Path.Combine(_settings.ProfileConfigPath, "LastPos.ini");
+                if (File.Exists(lastPosFile))
+                {
+                    File.Delete(lastPosFile);
+                }
+
                 _session.Client.Settings.DefaultLatitude = pos.Lat;
                 _session.Client.Settings.DefaultLongitude = pos.Lng;
 
                 _settings.LocationConfig.DefaultLatitude = pos.Lat;
                 _settings.LocationConfig.DefaultLongitude = pos.Lng;
 
-                _session.Client.CurrentLatitude = pos.Lat;
-                _session.Client.CurrentLongitude = pos.Lng;
+                _session.Client.Player.SetCoordinates(pos.Lat, pos.Lng, _session.ElevationService.GetElevation(pos.Lat, pos.Lng).Result);
+
+                _settings.LocationConfig.DefaultLatitude = pos.Lat;
+                _settings.LocationConfig.DefaultLongitude = pos.Lng;
 
                 var newLocation = new PointLatLng(pos.Lat, pos.Lng);
                 GMapControl1.Position = newLocation;
