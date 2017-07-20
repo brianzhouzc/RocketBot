@@ -132,6 +132,16 @@ namespace RocketBot2.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap GymVisited {
+            get {
+                object obj = ResourceManager.GetObject("GymVisited", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap GymYellow {
             get {
                 object obj = ResourceManager.GetObject("GymYellow", resourceCulture);
