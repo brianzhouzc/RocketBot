@@ -537,7 +537,7 @@ namespace RocketBot2.Forms
             {
                 // Sets current location 
                 double Dist = LocationUtils.CalculateDistanceInMeters(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude, pos.Lat, pos.Lng);
-                double Alt = _session.ElevationService.GetElevation(pos.Lat, pos.Lng).Result;
+                double Alt = await _session.ElevationService.GetElevation(pos.Lat, pos.Lng).ConfigureAwait(false);
 
                 var lastPosFile = Path.Combine(_settings.ProfileConfigPath, "LastPos.ini");
                 if (File.Exists(lastPosFile))
@@ -553,12 +553,8 @@ namespace RocketBot2.Forms
 
                 _session.Client.Player.SetCoordinates(pos.Lat, pos.Lng, Alt);
 
-                var newLocation = new PointLatLng(pos.Lat, pos.Lng);
-                GMapControl1.Position = newLocation;
-                _playerMarker.Position = newLocation;
                 _playerLocations.Clear();
-                _playerLocations.Add(newLocation);
-                UpdateMap();
+                Navigation_UpdatePositionEvent();
 
                 _settings.Save(Path.Combine(Path.Combine(Directory.GetCurrentDirectory(), "Config"), "config.json"));
 
