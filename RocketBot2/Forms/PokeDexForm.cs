@@ -1,4 +1,5 @@
-﻿using PoGo.NecroBot.Logic.State;
+﻿using PoGo.NecroBot.Logic.PoGoUtils;
+using PoGo.NecroBot.Logic.State;
 using POGOProtos.Data;
 using POGOProtos.Enums;
 using POGOProtos.Inventory.Item;
@@ -6,6 +7,7 @@ using RocketBot2.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -27,12 +29,26 @@ namespace RocketBot2.Forms
 
         private void LoadPokemons(ItemData item)
         {
-            foreach (PokemonId e in Enum.GetValues(typeof(PokemonId)))
+            var pokemons =
+                  session.Inventory.GetPokemons().Result
+                  .Where(p => p != null && p.PokemonId > 0)
+                  .OrderByDescending(PokemonInfo.CalculatePokemonPerfection)
+                  .ThenByDescending(key => key.Cp)
+                  .OrderBy(key => key.PokemonId);
+
+            List<PokemonData> list = new List<PokemonData>();
+ 
+            foreach (var pokemon in pokemons)
             {
-                if (e == PokemonId.Missingno || (int)e > 251) continue;
-                Image img = ResourceHelper.SetImageSize(ResourceHelper.GetPokemonImageById((int)e), 48, 48);
-                var Pok = new ItemBox(session, item, e, img);
-                flpPokeDex.Controls.Add(Pok);
+                if (!list.Contains(pokemon))
+                {
+                    list.Add(pokemon);
+                    if (pokemon.PokemonId == PokemonId.Missingno || (int)pokemon.PokemonId > 251) continue;
+                    PokemonObject _pokemon = new PokemonObject(session, pokemon);
+                    Image img = ResourceHelper.SetImageSize(_pokemon.Icon, 48, 48);
+                    var Pok = new ItemBox(session, item, pokemon, img);
+                    flpPokeDex.Controls.Add(Pok);
+                }
             }
             PokeDexForm.ActiveForm.Refresh();
         }

@@ -12,21 +12,23 @@ using PoGo.NecroBot.Logic.Event;
 using System.Linq;
 using POGOProtos.Data;
 using POGOProtos.Enums;
+using PoGo.NecroBot.Logic.PoGoUtils;
+using System.Collections.Generic;
 
 namespace RocketBot2.Forms
 {
     public partial class ItemBox : UserControl
     {
         public DateTime expires = new DateTime(0);
-        public ItemData Item_ { get; }
-        public bool DisableTimer = false;
-        public static ISession Session;
-        public static Incubators _incubator;
-        public Control Box;
-
+        private ItemData Item_ { get; }
+        private bool DisableTimer = false;
+        private static ISession Session;
+        private static Incubators _incubator;
+        private Control Box;
+ 
         public ItemBox() { }
 
-        public ItemBox(ISession session, ItemData item, PokemonId pokemonid, Image picture)
+        public ItemBox(ISession session, ItemData item, PokemonData pokemonData, Image picture)
         {
             InitializeComponent();
             Session = session;
@@ -34,9 +36,9 @@ namespace RocketBot2.Forms
             lbl.Font = new System.Drawing.Font("Segoe UI", 7.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lblTime.Font = new System.Drawing.Font("Segoe UI", 7.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             pb.Image = picture;
-            lblTime.Text = $"{Session.Translation.GetPokemonTranslation(pokemonid)}";
+            lblTime.Text = $"{Session.Translation.GetPokemonTranslation(pokemonData.PokemonId)}";
             lblTime.Visible = true;
-            var PokemonSettings = Session.Inventory.GetPokemonSettings().Result.FirstOrDefault(x => x.PokemonId == pokemonid);
+            var PokemonSettings = Session.Inventory.GetPokemonSettings().Result.FirstOrDefault(x => x.PokemonId == pokemonData.PokemonId);
             lbl.Text = $"{PokemonSettings.FamilyId}";
             lblTime.Parent = pb;
 
@@ -44,7 +46,7 @@ namespace RocketBot2.Forms
             {
                 control.MouseEnter += ChildMouseEnter;
                 control.MouseLeave += ChildMouseLeave;
-                control.MouseClick += delegate { UseItemRareCandy(item.ItemId, (ulong)(int)pokemonid); };
+                control.MouseClick += delegate { UseItemRareCandy(item.ItemId, pokemonData.Id); };
                 Box = control;
             }
         }
