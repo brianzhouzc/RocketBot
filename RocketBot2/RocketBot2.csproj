@@ -962,6 +962,9 @@
     </None>
     <None Include="Config\log4net.config" />
     <None Include="Config\log4net.unix.config" />
+    <None Include="Config\Translations\TEMPLATE-translation.en.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Config\Translations\translation.ca.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
