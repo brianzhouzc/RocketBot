@@ -74,7 +74,7 @@
     },
     {
       "Key": "eventFortUsed",
-      "Value": "XP: {0}, Πετράδια: {1}, Αντικείμενα: {2}"
+      "Value": "Name: {0} | XP: {1} | Gems: {2} | Items: {3} | Badges: {4} | Eggs: {5} | Lat: {6} Long: {7} | Alt: {8}"
     },
     {
       "Key": "eventFortFailed",

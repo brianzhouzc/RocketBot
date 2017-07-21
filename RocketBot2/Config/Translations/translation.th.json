@@ -78,7 +78,7 @@
     },
     {
       "Key": "eventFortUsed",
-      "Value": "{0} ค่าประสบการณ์ : {1}, อัญมณี : {2}, ไอเทม : {3}, ละติจูด : {4} ลองติจูด : {5}"
+      "Value": "Name: {0} | XP: {1} | Gems: {2} | Items: {3} | Badges: {4} | Eggs: {5} | Lat: {6} Long: {7} | Alt: {8}"
     },
     {
       "Key": "eventFortFailed",

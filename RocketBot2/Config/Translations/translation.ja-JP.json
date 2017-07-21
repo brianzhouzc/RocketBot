@@ -78,7 +78,7 @@
     },
     {
       "Key": "eventFortUsed",
-      "Value": "名称: {0} 経験値: {1}, ジェム: {2}, アイテム: {3}, 経度: {4}, 緯度: {5}"
+      "Value": "Name: {0} | XP: {1} | Gems: {2} | Items: {3} | Badges: {4} | Eggs: {5} | Lat: {6} Long: {7} | Alt: {8}"
     },
     {
       "Key": "eventFortFailed",

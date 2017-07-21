@@ -78,7 +78,7 @@
     },
     {
       "Key": "eventFortUsed",
-      "Value": "Nev: {0} Tapasztalat: {1}, Dragakovek: {2}, targyak: {3}"
+      "Value": "Name: {0} | XP: {1} | Gems: {2} | Items: {3} | Badges: {4} | Eggs: {5} | Lat: {6} Long: {7} | Alt: {8}"
     },
     {
       "Key": "eventFortFailed",

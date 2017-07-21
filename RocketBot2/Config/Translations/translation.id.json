@@ -82,7 +82,7 @@
     },
     {
       "Key": "eventFortUsed",
-      "Value": "Sampai di: {0} | Mendapatkan: {1} EXP, Gem: {2} | Barang: {3} | Koordinat: {4}, {5} | Ketinggian elevasi: {6}"
+      "Value": "Name: {0} | XP: {1} | Gems: {2} | Items: {3} | Badges: {4} | Eggs: {5} | Lat: {6} Long: {7} | Alt: {8}"
     },
     {
       "Key": "eventFortFailed",

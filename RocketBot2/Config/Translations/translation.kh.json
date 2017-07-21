@@ -82,7 +82,7 @@
     },
     {
       "Key": "eventFortUsed",
-      "Value": "ឈ្មោះ: {0} XP: {1}, ត្បូង: {2}, អីវ៉ាន់: {3}, រយះទទឺង: {4}, រយះបណ្ដោយ: {5}"
+      "Value": "Name: {0} | XP: {1} | Gems: {2} | Items: {3} | Badges: {4} | Eggs: {5} | Lat: {6} Long: {7} | Alt: {8}"
 
     },
     {

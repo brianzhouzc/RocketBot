@@ -78,7 +78,7 @@
     },
     {
       "Key": "eventFortUsed",
-      "Value": "Nazwa: {0}  [XP: {1}, Gemy: {2}, Itemy: {3}, Szer.: {4}, Dł.: {5}]"
+      "Value": "Name: {0} | XP: {1} | Gems: {2} | Items: {3} | Badges: {4} | Eggs: {5} | Lat: {6} Long: {7} | Alt: {8}"
     },
     {
       "Key": "eventFortFailed",

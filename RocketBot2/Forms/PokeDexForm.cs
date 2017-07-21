@@ -42,9 +42,9 @@ namespace RocketBot2.Forms
             {
                 if (!list.Contains(pokemon))
                 {
-                    list.Add(pokemon);
-                    if (pokemon.PokemonId == PokemonId.Missingno || (int)pokemon.PokemonId > 251) continue;
                     PokemonObject _pokemon = new PokemonObject(session, pokemon);
+                    if (_pokemon.Slashed) continue;
+                    list.Add(pokemon);
                     Image img = ResourceHelper.SetImageSize(_pokemon.Icon, 48, 48);
                     var Pok = new ItemBox(session, item, pokemon, img);
                     flpPokeDex.Controls.Add(Pok);
