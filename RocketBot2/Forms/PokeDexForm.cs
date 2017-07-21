@@ -1,5 +1,7 @@
 ﻿using PoGo.NecroBot.Logic.State;
+using POGOProtos.Data;
 using POGOProtos.Enums;
+using POGOProtos.Inventory.Item;
 using RocketBot2.Helpers;
 using System;
 using System.Collections.Generic;
@@ -13,11 +15,26 @@ namespace RocketBot2.Forms
     {
         private ISession session;
 
-        public PokeDexForm(Session session)
+        public PokeDexForm(Session session, ItemData item = null)
         {
             InitializeComponent();
             this.session = session;
-            DefaultValuesAsync().ConfigureAwait(false);
+            if (item != null)
+                LoadPokemons(item);
+            else
+                DefaultValuesAsync().ConfigureAwait(false);
+        }
+
+        private void LoadPokemons(ItemData item)
+        {
+            foreach (PokemonId e in Enum.GetValues(typeof(PokemonId)))
+            {
+                if (e == PokemonId.Missingno || (int)e > 251) continue;
+                Image img = ResourceHelper.SetImageSize(ResourceHelper.GetPokemonImageById((int)e), 48, 48);
+                var Pok = new ItemBox(session, item, e, img);
+                flpPokeDex.Controls.Add(Pok);
+            }
+            PokeDexForm.ActiveForm.Refresh();
         }
 
         private async Task DefaultValuesAsync()
@@ -46,6 +63,7 @@ namespace RocketBot2.Forms
                 var Pok = new ItemBox(vu, cap, img);
                 flpPokeDex.Controls.Add(Pok);
             }
+            PokeDexForm.ActiveForm.Refresh();
         }
     }
 }
