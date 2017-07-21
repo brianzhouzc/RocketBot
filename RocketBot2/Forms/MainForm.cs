@@ -456,7 +456,7 @@ namespace RocketBot2.Forms
                             switch (result)
                             {
                                 case DialogResult.Yes:
-                                    Task.Run(async () => { await UseItemCaptureTask.Execute(_session, ItemId.ItemTroyDisk, 0, pokeStop); });
+                                    Task.Run(async () => { await UseItemCaptureTask.Execute(_session, ItemId.ItemTroyDisk, 0, pokeStop.Id); });
                                     break;
                                 case DialogResult.Cancel:
                                     BtnRefresh_Click(null, null);
