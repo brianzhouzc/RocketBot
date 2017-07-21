@@ -36,15 +36,15 @@ namespace RocketBot2.Forms
                   .ThenByDescending(key => key.Cp)
                   .OrderBy(key => key.PokemonId);
 
-            List<PokemonData> list = new List<PokemonData>();
+            List<PokemonId> list = new List<PokemonId>();
  
             foreach (var pokemon in pokemons)
             {
-                if (!list.Contains(pokemon))
+                if (!list.Contains(pokemon.PokemonId))
                 {
                     PokemonObject _pokemon = new PokemonObject(session, pokemon);
                     if (_pokemon.Slashed) continue;
-                    list.Add(pokemon);
+                    list.Add(pokemon.PokemonId);
                     Image img = ResourceHelper.SetImageSize(_pokemon.Icon, 48, 48);
                     var Pok = new ItemBox(session, item, pokemon, img);
                     flpPokeDex.Controls.Add(Pok);
