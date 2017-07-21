@@ -85,8 +85,6 @@ namespace RocketBot2.Forms
         internal readonly GMapOverlay _searchAreaOverlay = new GMapOverlay("areas");
 
         private const int DefaultZoomLevel = 15;
-        private ulong EncounterId;
-        private string SpawnPointId;
 
         public static Session _session;
 
