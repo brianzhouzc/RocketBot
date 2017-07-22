@@ -1,5 +1,12 @@
 # Change Log
 
+## [v2.12.0.1](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.12.0.1) (2017-07-22)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.12.0.0...v2.12.0.1)
+
+**Merged pull requests:**
+
+- 	Added Badges, BonusLoot, RaidTickets, TeamBonusLoot, PokemonDataEgg [\#101](https://github.com/TheUnnamedOrganisation/RocketBot/pull/101) ([Furtif](https://github.com/Furtif))
+
 ## [v2.12.0.0](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.12.0.0) (2017-07-21)
 [Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.11.0.32...v2.12.0.0)
 
@@ -211,13 +218,13 @@
 - merge master [\#82](https://github.com/TheUnnamedOrganisation/RocketBot/pull/82) ([Furtif](https://github.com/Furtif))
 
 ## [v2.9.2.0](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.9.2.0) (2017-05-07)
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.9.1.24...v2.9.2.0)
-
-## [v2.9.1.24](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.9.1.24) (2017-05-03)
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.9.1.23...v2.9.1.24)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.9.1.23...v2.9.2.0)
 
 ## [v2.9.1.23](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.9.1.23) (2017-05-03)
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.9.1.22...v2.9.1.23)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.9.1.24...v2.9.1.23)
+
+## [v2.9.1.24](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.9.1.24) (2017-05-03)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.9.1.22...v2.9.1.24)
 
 ## [v2.9.1.22](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.9.1.22) (2017-05-02)
 [Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.9.1.21...v2.9.1.22)
