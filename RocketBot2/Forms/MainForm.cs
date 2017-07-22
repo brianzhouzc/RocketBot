@@ -1577,7 +1577,7 @@ namespace RocketBot2.Forms
                     GetPlayerResponse x = _session.Client.Player.GetPlayer().Result;
                     string warn = x.Warn ? "*(Flagged)*-" : null;
 
-                    SetStatusText($"[RocketBot2 v{strVersion}] {warn} Team: {x.PlayerData.Team} -" +
+                    SetStatusText($"[RocketBot2 v{strVersion}] Team: {x.PlayerData.Team} -  {warn}" +
                                 stats.GetTemplatedStats(
                                     _session.Translation.GetTranslation(TranslationString.StatsTemplateString),
                                     _session.Translation.GetTranslation(TranslationString.StatsXpTemplateString)));
