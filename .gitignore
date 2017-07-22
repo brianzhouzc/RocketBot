@@ -254,3 +254,7 @@ paket-files/
 
 # CodeRush
 .cr/
+[Pp]oGo.NecroBot.GUI.Electron/plugins
+[Pp]oGo.NecroBot.GUI.Electron/platforms
+!packages/Google.Api*
+*.xml

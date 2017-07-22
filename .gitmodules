@@ -1,6 +1,16 @@
 [submodule "POGOProtos"]
 	path = POGOProtos
-	url = https://github.com/TheUnnameOrganization/POGOProtos.git
-[submodule "PokemonGo.RocketAPI"]
-	path = PokemonGo.RocketAPI
-	url = https://github.com/TheUnnameOrganization/PokemonGo.RocketAPI.git
+	url = https://github.com/TheUnnamedOrganisation/POGOProtos.git
+	branch = master
+[submodule "FeroxRev"]
+	path = FeroxRev
+	url = https://github.com/TheUnnamedOrganisation/FeroxRev.git
+	branch = master
+[submodule "PoGo.NecroBot.Logic"]
+	path = PoGo.NecroBot.Logic
+	url = https://github.com/TheUnnamedOrganisation/PoGo.NecroBot.Logic.git
+	branch = master
+[submodule "PokemonGO-Assets"]
+	path = RocketBot2/Resources/PokemonGO-Assets
+	url = https://github.com/Necrobot-Private/PokemonGO-Assets.git
+	branch = master
