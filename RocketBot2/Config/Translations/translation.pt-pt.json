@@ -74,7 +74,7 @@
     },
     {
       "Key": "eventFortUsed",
-      "Value":"Name: {0} | XP: {1} | Gems: {2} | Items: {3} | Badges: {4} | BonusLoot: {5} | RaidTickets: {6} | TeamBonusLoot: {7} | PokemonEgg: {8} | Eggs: {9} | Lat: {10} Long: {11} | Alt: {12}"
+      "Value":"Name: {0} | XP: {1} | Gems: {2} | Items: {3} | Badges: {4} | BonusLoot: {5} | RaidTickets: {6} | TeamBonusLoot: {7} | PokemonEgg: {8} (Eggs: {9}) | Lat: {10} Long: {11} | Alt: {12}"
     },
     {
       "Key": "eventFortFailed",
