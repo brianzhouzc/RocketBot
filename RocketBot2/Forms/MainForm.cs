@@ -301,6 +301,7 @@ namespace RocketBot2.Forms
                 {
                     if (Points != _session.Navigation.WalkStrategy.Points)
                     {
+                        Points = _session.Navigation.WalkStrategy.Points;
                         _playerLocations.Clear();
                         _playerRouteOverlay.Routes.Clear();
                         List<PointLatLng> routePointLatLngs = new List<PointLatLng>();
@@ -314,7 +315,6 @@ namespace RocketBot2.Forms
                         };
                         _playerRouteOverlay.Routes.Add(routes);
 
-                        Points = _session.Navigation.WalkStrategy.Points;
                         InitializePokestopsAndRoute(SelectPokeStop).ConfigureAwait(false);
                         return;
                     }
