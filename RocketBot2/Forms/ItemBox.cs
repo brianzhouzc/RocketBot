@@ -14,6 +14,7 @@ using POGOProtos.Data;
 using POGOProtos.Enums;
 using PoGo.NecroBot.Logic.PoGoUtils;
 using System.Collections.Generic;
+using PoGo.NecroBot.Logic.Logging;
 
 namespace RocketBot2.Forms
 {
@@ -39,30 +40,49 @@ namespace RocketBot2.Forms
             lblTime.Text = $"{Session.Translation.GetPokemonTranslation(pokemonData.PokemonId)}";
             lblTime.Visible = true;
             var PokemonSettings = Session.Inventory.GetPokemonSettings().Result.FirstOrDefault(x => x.PokemonId == pokemonData.PokemonId);
-            lbl.Text = $"{PokemonSettings.FamilyId}";
+            
+            switch(item.ItemId)
+            {
+                case ItemId.ItemRareCandy:
+                    lbl.Text = $"{PokemonSettings.FamilyId}";
+                    break;
+                case ItemId.ItemMoveRerollFastAttack:
+                    break;
+                case ItemId.ItemMoveRerollSpecialAttack:
+                    break;
+                default:
+                    break;
+            }
+
             lblTime.Parent = pb;
 
             foreach (Control control in Controls)
             {
                 control.MouseEnter += ChildMouseEnter;
                 control.MouseLeave += ChildMouseLeave;
-                control.MouseClick += delegate { UseItemRareCandy(item.ItemId, pokemonData.Id); };
+                control.MouseClick += delegate { UseItem(item, pokemonData); };
                 Box = control;
             }
         }
 
-        private void UseItemRareCandy(ItemId itemid, ulong pokemonid)
+        private void UseItem(ItemData item, PokemonData pokemon)
         {
-            PokeDexForm.ActiveForm.Close();
-            /*
-            DialogResult result = MessageBox.Show($"Use RareCandy Item on this Pokemon Family?", $"{Application.ProductName} - Use RareCandy", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            switch (result)
+            switch (item.ItemId)
             {
-                case DialogResult.Yes:
-                    await UseItemCaptureTask.Execute(Session, itemid, pokemonid, null);
+                case ItemId.ItemRareCandy:
+                    Logger.Write($"{item.ItemId} Can not be used for the moment, the bot still does not completely generate this process.", LogLevel.Warning);
+                    break;
+                case ItemId.ItemMoveRerollFastAttack:
+                    Logger.Write($"{item.ItemId} Can not be used for the moment, the bot still does not completely generate this process.", LogLevel.Warning);
+                    break;
+                case ItemId.ItemMoveRerollSpecialAttack:
+                    Logger.Write($"{item.ItemId} Can not be used for the moment, the bot still does not completely generate this process.", LogLevel.Warning);
+                    break;
+                default:
+                    Logger.Write($"{item.ItemId} Can not be used for the moment, the bot still does not completely generate this process.", LogLevel.Warning);
                     break;
             }
-            */
+            PokeDexForm.ActiveForm.Close();
         }
 
         public ItemBox(int see, int cath, Image pic)

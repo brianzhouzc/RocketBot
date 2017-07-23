@@ -1203,11 +1203,11 @@ namespace RocketBot2.Forms
 
             if (item.ItemId == ItemId.ItemTroyDisk)
             {
-                //await InitializePokestopsAndRoute(true);
+                //await InitializePokestopsAndRoute(true).ConfigureAwait(false);
                 //return;
             }
 
-            if (item.ItemId == ItemId.ItemRareCandy)
+            if (item.ItemId == ItemId.ItemRareCandy || item.ItemId == ItemId.ItemMoveRerollFastAttack || item.ItemId == ItemId.ItemMoveRerollSpecialAttack)
             {
                 System.Windows.Forms.Form form = new PokeDexForm(_session, item);
                 form.ShowDialog();
