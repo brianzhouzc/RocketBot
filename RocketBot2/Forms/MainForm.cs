@@ -297,9 +297,8 @@ namespace RocketBot2.Forms
                 if (_pokemonsOverlay.Markers.Count > 8)
                     _pokemonsOverlay.Markers.Clear();
 
-                if (_session.Navigation.WalkStrategy.Points.Count > 0 && Points != _session.Navigation.WalkStrategy.Points)
-                {
-                    Points = _session.Navigation.WalkStrategy.Points;
+                if (_session.Navigation.WalkStrategy.Points.Count > 0)
+                {                    
                     _playerLocations.Clear();
                     _playerRouteOverlay.Routes.Clear();
                     List<PointLatLng> routePointLatLngs = new List<PointLatLng>();
@@ -312,8 +311,13 @@ namespace RocketBot2.Forms
                         Stroke = new Pen(Color.FromArgb(255, 51, 51), 3) { DashStyle = DashStyle.Dash }
                     };
                     _playerRouteOverlay.Routes.Add(routes);
-                    InitializePokestopsAndRoute(SelectPokeStop).ConfigureAwait(false);
-                    return;
+
+                    if (Points != _session.Navigation.WalkStrategy.Points)
+                    {
+                        Points = _session.Navigation.WalkStrategy.Points;
+                        InitializePokestopsAndRoute(SelectPokeStop).ConfigureAwait(false);
+                        return;
+                    }
                 }
 
                 _pokestopsOverlay.Routes.Clear();
