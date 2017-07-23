@@ -266,7 +266,7 @@ namespace RocketBot2.Forms
                 List<FortData> forts = new List<FortData>(mapObjects.MapCells.SelectMany(p => p.Forts).ToList());
                 List<FortData> sessionForts = new List<FortData>(_session.Forts);
 
-                if (forts == sessionForts)
+                if (forts == sessionForts || sessionForts.Count < 0)
                     return;
 
                 foreach (var fort in forts)
@@ -293,13 +293,12 @@ namespace RocketBot2.Forms
 
             SynchronizationContext.Post(o =>
             {
-                _playerOverlay.Markers.Clear();
                 if (_pokemonsOverlay.Markers.Count > 8)
                     _pokemonsOverlay.Markers.Clear();
 
-                if (_session.Navigation.WalkStrategy.Points.Count > 0)
+                try
                 {
-                    if (Points != _session.Navigation.WalkStrategy.Points)
+                    if (_session.Navigation.WalkStrategy.Points.Count > 0 && Points != _session.Navigation.WalkStrategy.Points)
                     {
                         Points = _session.Navigation.WalkStrategy.Points;
                         _playerLocations.Clear();
@@ -318,6 +317,10 @@ namespace RocketBot2.Forms
                         InitializePokestopsAndRoute(SelectPokeStop).ConfigureAwait(false);
                         return;
                     }
+                }
+                catch
+                {
+                    //return;
                 }
 
                 _pokestopsOverlay.Routes.Clear();
@@ -505,27 +508,23 @@ namespace RocketBot2.Forms
         private void Navigation_UpdatePositionEvent()
         {
             var latlng = new PointLatLng(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
-            _playerLocations.Add(latlng);
-
+ 
             SynchronizationContext.Post(o =>
             {
-                _playerOverlay.Markers.Remove(_playerMarker);
+                _playerOverlay.Markers.Clear();
+                _playerLocations.Add(latlng);
+
                 if (!_currentLatLng.IsEmpty)
-                    _playerMarker = _currentLatLng.Lng != latlng.Lng
+                    _playerMarker = _currentLatLng != latlng
                         ? new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("PlayerLocation2", null, null, 32, 32))
                         : new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("PlayerLocation", null, null, 32, 32));
                 _playerOverlay.Markers.Add(_playerMarker);
+
                 if (followTrainerCheckBox.Checked)
                     GMapControl1.Position = latlng;
-            }, null);
-            _currentLatLng = latlng;
-            UpdateMap();
-        }
 
-        private void UpdateMap()
-        {
-            SynchronizationContext.Post(o =>
-            {
+                _currentLatLng = latlng;
+
                 _playerOverlay.Routes.Clear();
                 var route = new GMapRoute(_playerLocations, "step")
                 {
@@ -572,6 +571,8 @@ namespace RocketBot2.Forms
                 _settings.LocationConfig.DefaultLongitude = pos.Lng;
 
                 _session.Client.Player.SetCoordinates(pos.Lat, pos.Lng, Alt);
+
+                _currentLatLng = pos;
 
                 _playerLocations.Clear();
                 Navigation_UpdatePositionEvent();
@@ -662,17 +663,22 @@ namespace RocketBot2.Forms
             Task.Run(StartBot).ConfigureAwait(false);
         }
 
-        private void TodoToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void TodoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            showMoreCheckBox.Checked = false;
-            System.Windows.Forms.Form settingsForm = new SettingsForm(ref _settings);
+            System.Windows.Forms.Form settingsForm = new SettingsForm(ref _settings, _session);
             settingsForm.ShowDialog();
-            var newLocation = new PointLatLng(_settings.LocationConfig.DefaultLatitude, _settings.LocationConfig.DefaultLongitude);
-            GMapControl1.Position = newLocation;
-            _playerMarker.Position = newLocation;
-            _playerLocations.Clear();
-            _playerLocations.Add(newLocation);
-            UpdateMap();
+            if (!_botStarted)
+            {
+                var newLocation = new PointLatLng(_settings.LocationConfig.DefaultLatitude, _settings.LocationConfig.DefaultLongitude);
+                double Alt = await _session.ElevationService.GetElevation(newLocation.Lat, newLocation.Lng).ConfigureAwait(false);
+                _session.Client.Settings.DefaultLatitude = newLocation.Lat;
+                _session.Client.Settings.DefaultLongitude = newLocation.Lng;
+                _session.Client.Player.SetCoordinates(newLocation.Lat, newLocation.Lng, Alt);
+                _currentLatLng = newLocation;
+                _playerLocations.Clear();
+                Navigation_UpdatePositionEvent();
+                Logger.Write($"New starting location has been set to: Lat: {newLocation.Lat:0.00000000} Long: {newLocation.Lng:0.00000000} Altitude: {Alt:0.00}m", LogLevel.Info);
+            }
         }
 
         private void ShowConsoleToolStripMenuItem_Click(object sender, EventArgs e)
