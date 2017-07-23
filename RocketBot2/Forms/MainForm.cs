@@ -298,22 +298,22 @@ namespace RocketBot2.Forms
                     _pokemonsOverlay.Markers.Clear();
 
                 if (_session.Navigation.WalkStrategy.Points.Count > 0)
-                {                    
-                    _playerLocations.Clear();
-                    _playerRouteOverlay.Routes.Clear();
-                    List<PointLatLng> routePointLatLngs = new List<PointLatLng>();
-                    foreach (var item in Points)
-                    {
-                        routePointLatLngs.Add(new PointLatLng(item.Latitude, item.Longitude));
-                    }
-                    GMapRoute routes = new GMapRoute(routePointLatLngs, routePointLatLngs.ToString())
-                    {
-                        Stroke = new Pen(Color.FromArgb(255, 51, 51), 3) { DashStyle = DashStyle.Dash }
-                    };
-                    _playerRouteOverlay.Routes.Add(routes);
-
+                {
                     if (Points != _session.Navigation.WalkStrategy.Points)
                     {
+                        _playerLocations.Clear();
+                        _playerRouteOverlay.Routes.Clear();
+                        List<PointLatLng> routePointLatLngs = new List<PointLatLng>();
+                        foreach (var item in Points)
+                        {
+                            routePointLatLngs.Add(new PointLatLng(item.Latitude, item.Longitude));
+                        }
+                        GMapRoute routes = new GMapRoute(routePointLatLngs, routePointLatLngs.ToString())
+                        {
+                            Stroke = new Pen(Color.FromArgb(255, 51, 51), 3) { DashStyle = DashStyle.Dash }
+                        };
+                        _playerRouteOverlay.Routes.Add(routes);
+
                         Points = _session.Navigation.WalkStrategy.Points;
                         InitializePokestopsAndRoute(SelectPokeStop).ConfigureAwait(false);
                         return;
