@@ -511,7 +511,7 @@ namespace RocketBot2.Forms
                 _settings.Auth.DeviceConfig.HardwareModel = HardwareModelTb.Text == "" ? null : HardwareModelTb.Text;
                 _settings.Auth.DeviceConfig.FirmwareBrand = FirmwareBrandTb.Text == "" ? null : FirmwareBrandTb.Text;
                 _settings.Auth.DeviceConfig.FirmwareTags = FirmwareTagsTb.Text == "" ? null : FirmwareTagsTb.Text;
-                _settings.Auth.DeviceConfig.FirmwareType = FirmwareTypeTb.Text == "" ? null: FirmwareTypeTb.Text;
+                _settings.Auth.DeviceConfig.FirmwareType = FirmwareTypeTb.Text == "" ? null : FirmwareTypeTb.Text;
                 _settings.Auth.DeviceConfig.FirmwareFingerprint = FirmwareFingerprintTb.Text == "" ? null : FirmwareFingerprintTb.Text;
                 _settings.ConsoleConfig.TranslationLanguageCode = cbLanguage.Text;
                 _settings.Auth.APIConfig.UsePogoDevAPI = cbUsePogoDevAPI.Checked;
