@@ -73,6 +73,7 @@ namespace RocketBot2.Forms
         private StateMachine _machine;
         private PointLatLng _currentLatLng;
         private List<PointLatLng> _routePoints;
+        private List<GeoCoordinate> Points;
         private static string[] args;
 
         private static GMapMarker _playerMarker;
@@ -295,10 +296,31 @@ namespace RocketBot2.Forms
                 _playerOverlay.Markers.Clear();
                 if (_pokemonsOverlay.Markers.Count > 8)
                     _pokemonsOverlay.Markers.Clear();
-                _pokestopsOverlay.Routes.Clear();
-                _pokestopsOverlay.Markers.Clear();
-                _playerLocations.Clear();
 
+                if (_session.Navigation.WalkStrategy.Points.Count > 0)
+                {
+                    if (Points != _session.Navigation.WalkStrategy.Points)
+                    {
+                        Points = _session.Navigation.WalkStrategy.Points;
+                        _playerLocations.Clear();
+                        _playerRouteOverlay.Routes.Clear();
+                        List<PointLatLng> routePointLatLngs = new List<PointLatLng>();
+                        foreach (var item in Points)
+                        {
+                            routePointLatLngs.Add(new PointLatLng(item.Latitude, item.Longitude));
+                        }
+                        GMapRoute routes = new GMapRoute(routePointLatLngs, routePointLatLngs.ToString())
+                        {
+                            Stroke = new Pen(Color.FromArgb(255, 51, 51), 3) { DashStyle = DashStyle.Dash }
+                        };
+                        _playerRouteOverlay.Routes.Add(routes);
+
+                        InitializePokestopsAndRoute(SelectPokeStop).ConfigureAwait(false);
+                        return;
+                    }
+                }
+
+                _pokestopsOverlay.Routes.Clear();
                 _routePoints =
                     (from pokeStop in pokeStops
                      where pokeStop != null
@@ -308,10 +330,12 @@ namespace RocketBot2.Forms
                 {
                     var route = new GMapRoute(_routePoints, "Walking Path")
                     {
-                        Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
+                        Stroke = new Pen(Color.FromArgb(102, 178, 255), 3)
                     };
                     _pokestopsOverlay.Routes.Add(route);
                 }
+
+                _pokestopsOverlay.Markers.Clear();
 
                 foreach (var pokeStop in pokeStops)
                 {
@@ -456,7 +480,6 @@ namespace RocketBot2.Forms
                             switch (result)
                             {
                                 case DialogResult.Yes:
-                                    Task.Run(async () => { await UseItemCaptureTask.Execute(_session, ItemId.ItemTroyDisk, 0, pokeStop.Id); });
                                     break;
                                 case DialogResult.Cancel:
                                     BtnRefresh_Click(null, null);
@@ -506,28 +529,9 @@ namespace RocketBot2.Forms
                 _playerOverlay.Routes.Clear();
                 var route = new GMapRoute(_playerLocations, "step")
                 {
-                    Stroke = new Pen(Color.FromArgb(0, 174, 0), 3) { DashStyle = DashStyle.Solid }
+                    Stroke = new Pen(Color.FromArgb(0, 204, 0), 3) { DashStyle = DashStyle.Solid }
                 };
                 _playerOverlay.Routes.Add(route);
-            }, null);
-        }
-
-        private void UpdateMap(List<GeoCoordinate> points)
-        {
-            SynchronizationContext.Post(o =>
-            {
-                _playerRouteOverlay.Routes.Clear();
-                var routePointLatLngs = new List<PointLatLng>();
-                foreach (var item in points)
-                {
-                    routePointLatLngs.Add(new PointLatLng(item.Latitude, item.Longitude));
-                }
-                var routes = new GMapRoute(routePointLatLngs, routePointLatLngs.ToString())
-                {
-                    Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4) { DashStyle = DashStyle.Dash }
-                };
-                _playerRouteOverlay.Routes.Add(routes);
-                Navigation_UpdatePositionEvent();
             }, null);
         }
 
@@ -1612,10 +1616,6 @@ namespace RocketBot2.Forms
             _session.Navigation.WalkStrategy.UpdatePositionEvent +=
                 (session, lat, lng, speed) => _session.EventDispatcher.Send(new UpdatePositionEvent { Latitude = lat, Longitude = lng, Speed = speed });
             _session.Navigation.WalkStrategy.UpdatePositionEvent += LoadSaveState.SaveLocationToDisk;
-
-            _session.Navigation.WalkStrategy.GetRouteEvent +=
-                (points) => _session.EventDispatcher.Send(new GetRouteEvent { Points = points });
-            _session.Navigation.WalkStrategy.GetRouteEvent += UpdateMap;
 
             CatchNearbyPokemonsTask.PokemonEncounterEvent +=
                 mappokemons => _session.EventDispatcher.Send(new PokemonsEncounterEvent { EncounterPokemons = mappokemons });
