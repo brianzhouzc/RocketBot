@@ -40,17 +40,20 @@ namespace RocketBot2.Forms
             lblTime.Text = $"{Session.Translation.GetPokemonTranslation(pokemonData.PokemonId)}";
             lblTime.Visible = true;
             var PokemonSettings = Session.Inventory.GetPokemonSettings().Result.FirstOrDefault(x => x.PokemonId == pokemonData.PokemonId);
-            
-            switch(item.ItemId)
+ 
+            switch (item.ItemId)
             {
                 case ItemId.ItemRareCandy:
                     lbl.Text = $"{PokemonSettings.FamilyId}";
                     break;
                 case ItemId.ItemMoveRerollFastAttack:
+                    lbl.Text = null;
                     break;
                 case ItemId.ItemMoveRerollSpecialAttack:
+                    lbl.Text = null;
                     break;
                 default:
+                    lbl.Text = null;
                     break;
             }
 
