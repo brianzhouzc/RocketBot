@@ -309,9 +309,11 @@ namespace RocketBot2.Forms
                     }
                     GMapRoute routes = new GMapRoute(routePointLatLngs, routePointLatLngs.ToString())
                     {
-                        Stroke = new Pen(Color.FromArgb(255, 102, 102), 3) { DashStyle = DashStyle.Dash }
+                        Stroke = new Pen(Color.FromArgb(255, 51, 51), 3) { DashStyle = DashStyle.Dash }
                     };
                     _playerRouteOverlay.Routes.Add(routes);
+                    InitializePokestopsAndRoute(SelectPokeStop).ConfigureAwait(false);
+                    return;
                 }
 
                 _pokestopsOverlay.Routes.Clear();
@@ -324,7 +326,7 @@ namespace RocketBot2.Forms
                 {
                     var route = new GMapRoute(_routePoints, "Walking Path")
                     {
-                        Stroke = new Pen(Color.FromArgb(0, 255, 128), 3)
+                        Stroke = new Pen(Color.FromArgb(102, 178, 255), 3)
                     };
                     _pokestopsOverlay.Routes.Add(route);
                 }
@@ -524,7 +526,7 @@ namespace RocketBot2.Forms
                 _playerOverlay.Routes.Clear();
                 var route = new GMapRoute(_playerLocations, "step")
                 {
-                    Stroke = new Pen(Color.FromArgb(102, 178, 255), 3) { DashStyle = DashStyle.Solid }
+                    Stroke = new Pen(Color.FromArgb(0, 204, 0), 3) { DashStyle = DashStyle.Solid }
                 };
                 _playerOverlay.Routes.Add(route);
             }, null);
