@@ -1,6 +1,7 @@
 ﻿using GMap.NET;
 using GMap.NET.MapProviders;
 using PoGo.NecroBot.Logic.Model.Settings;
+using PoGo.NecroBot.Logic.State;
 using POGOProtos.Enums;
 using PokemonGo.RocketAPI.Enums;
 using RocketBot2.Forms.advSettings;
@@ -28,11 +29,13 @@ namespace RocketBot2.Forms
         private readonly DeviceHelper _deviceHelper;
         private readonly List<DeviceInfo> _deviceInfos;
         private readonly GlobalSettings _settings;
+        private readonly ISession _session;
 
-        public SettingsForm(ref GlobalSettings settings)
+        public SettingsForm(ref GlobalSettings settings, ISession session)
         {
             InitializeComponent();
             _settings = settings;
+            _session = session;
 
             _deviceHelper = new DeviceHelper();
             _deviceInfos = _deviceHelper.DeviceBucket;
@@ -67,11 +70,10 @@ namespace RocketBot2.Forms
             var  languageIndex = languageList.IndexOf(_settings.ConsoleConfig.TranslationLanguageCode);
             cbLanguage.DataSource = languageList;
             cbLanguage.SelectedIndex = languageIndex == -1 ? 0 : languageIndex;
-            
+
             #endregion
 
             #region Login Type and info
-
             authTypeCb.Text = _settings.Auth.CurrentAuthConfig.AuthType.ToString();
             UserLoginBox.Text = _settings.Auth.CurrentAuthConfig.Username; 
             UserPasswordBox.Text = _settings.Auth.CurrentAuthConfig.Password;
@@ -105,7 +107,7 @@ namespace RocketBot2.Forms
             //not use proxy
             GMapProvider.WebProxy = null;
             //center map on moscow
-            gMapCtrl.Position = new PointLatLng(_settings.LocationConfig.DefaultLatitude, _settings.LocationConfig.DefaultLongitude);
+            gMapCtrl.Position = new PointLatLng(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
             //zoom min/max; default both = 2
             gMapCtrl.DragButton = MouseButtons.Left;
             gMapCtrl.CenterPen = new Pen(Color.Red, 2);
@@ -517,11 +519,6 @@ namespace RocketBot2.Forms
                 _settings.Auth.APIConfig.UseLegacyAPI = cbUseLegacyAPI.Checked;
                 _settings.Auth.APIConfig.DiplayHashServerLog = cbDiplayHashServerLog.Checked;
                 _settings.Auth.Save(AuthFilePath);
-
-                //Settings added by TheWizard
-                _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
-                _settings.NotificationConfig.PushBulletApiKey = tbPushBulletAPIKey.Text;
-
                 #endregion
 
                 #region RocketBot2.Form Settings
@@ -659,6 +656,10 @@ namespace RocketBot2.Forms
                 _settings.DataSharingConfig.DataServiceIdentification = tbDataServiceIdentification.Text;
                 _settings.DataSharingConfig.EnableSyncData = cbEnableSyncData.Checked;
                 _settings.HumanlikeDelays.UseHumanlikeDelays = cbUseHumanlikeDelays.Checked;
+
+                //Settings added by TheWizard
+                _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
+                _settings.NotificationConfig.PushBulletApiKey = tbPushBulletAPIKey.Text;
 
                 #endregion
 
