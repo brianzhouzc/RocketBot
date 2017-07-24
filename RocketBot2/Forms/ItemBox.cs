@@ -97,7 +97,7 @@ namespace RocketBot2.Forms
             pb.Image = pic;
             lblTime.Text = $"{name}";
             lblTime.Visible = true;
-            lbl.Text = $"Catch: {cath}\n\rSeen: {see}";
+            lbl.Text = $"Seen: {see}\n\rCatch: {cath}";
             lblTime.Parent = pb;
         }
 
