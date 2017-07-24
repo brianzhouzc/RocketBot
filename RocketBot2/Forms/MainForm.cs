@@ -534,7 +534,7 @@ namespace RocketBot2.Forms
         private void Navigation_UpdatePositionEvent()
         {
             var latlng = new PointLatLng(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
- 
+
             SynchronizationContext.Post(o =>
             {
                 _playerOverlay.Markers.Clear();
@@ -1175,9 +1175,6 @@ namespace RocketBot2.Forms
             }
 
             SetState(true);
-
-            if (checkBoxAutoRefresh.CheckState == CheckState.Indeterminate && flpItems.Controls.Count > 0)
-                checkBoxAutoRefresh.CheckState = CheckState.Unchecked;
         }
 
         private static Task FlpItemsClean(IOrderedEnumerable<ItemData> items, Dictionary<ItemId, DateTime> appliedItems)
