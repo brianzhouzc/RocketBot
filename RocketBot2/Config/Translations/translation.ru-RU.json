@@ -125,11 +125,11 @@
     },
     {
       "Key": "eventPokemonCaptureSuccess",
-      "Value": "=>({0})({1}) {2} {3}-УР (CР:{4}/{5}|IV:{6}%) c {7}% шансом на {8}м исп. {9} ({10} осталось). | {11} EXP получено | {12} | широта: {13} долгота: {14} | Move1: {15} Move2: {16}"
+      "Value": "({0}) | ({1}) {2} | Lvl: {3} | CP: {4}/{5} | IV: {6}% | Chance: {7}% | {8}m dist | with a {9} ({10} left) | XP: {11} | SD: {12} | {13} | lat: {14} long: {15} | Move1: {16} Move2: {17} | Rarity: {18} | Capture Reason: {19} | Shiny: {20} | Form: {21} | Costume: {22} | Sex: {23}"
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value": "=>({0})({1}) {2} {3}-УР (CР:{4}/{5}|IV:{6}%) c {7}% шансом на {8}м исп. {9} ({10} осталось). | широта: {11} долгота: {12} | Move1: {13} Move2: {14}"
+      "Value": "({0}) | ({1}) {2} | Lvl: {3} | CP: {4}/{5} | IV: {6}% | Chance: {7}% | {8}m dist | with a {9} ({10} left) | XP: {11} | lat: {12} long: {13} | Move1: {14} Move2: {15} | Rarity :{16}"
     },
     {
       "Key": "eventNoPokeballs",
