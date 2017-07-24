@@ -640,8 +640,11 @@ namespace RocketBot2.Forms
 
         private void BtnPokeDex_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.Form PokeDexForm = new PokeDexForm(_session);
-            PokeDexForm.ShowDialog();
+            System.Windows.Forms.Form pokedexform = new PokeDexForm(_session)
+            {
+                Text = $"{Application.ProductName} - Pokédex entries"
+            };
+            pokedexform.ShowDialog();
         }
 
         private async void BtnRefresh_Click(object sender, EventArgs e)
@@ -723,7 +726,7 @@ namespace RocketBot2.Forms
                 togglePrecalRoute.Visible = true;
                 GMAPSatellite.Visible = true;
                 cbEnablePushBulletNotification.Visible = true;
-                if (_settings.NotificationConfig.PushBulletApiKey != "")
+                if (_settings.NotificationConfig.PushBulletApiKey != null)
                 {
                     cbEnablePushBulletNotification.Enabled = true;
                     cbEnablePushBulletNotification.Checked = _settings.NotificationConfig.EnablePushBulletNotification;
@@ -1209,7 +1212,10 @@ namespace RocketBot2.Forms
 
             if (item.ItemId == ItemId.ItemRareCandy || item.ItemId == ItemId.ItemMoveRerollFastAttack || item.ItemId == ItemId.ItemMoveRerollSpecialAttack)
             {
-                System.Windows.Forms.Form form = new PokeDexForm(_session, item);
+                System.Windows.Forms.Form form = new PokeDexForm(_session, item)
+                {
+                    Text = $"{Application.ProductName} - Use {item.ItemId}"
+                };
                 form.ShowDialog();
                 return;
             }
