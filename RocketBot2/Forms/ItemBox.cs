@@ -88,16 +88,16 @@ namespace RocketBot2.Forms
             PokeDexForm.ActiveForm.Close();
         }
 
-        public ItemBox(int see, int cath, Image pic)
+        public ItemBox(int see, int cath, Image pic, string name)
         {
             InitializeComponent();
             DisableTimer = true;
             lbl.Font = new System.Drawing.Font("Segoe UI", 7.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lblTime.Font = new System.Drawing.Font("Segoe UI", 7.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             pb.Image = pic;
-            lblTime.Text = $"Seen: {see}";
+            lblTime.Text = $"{name}";
             lblTime.Visible = true;
-            lbl.Text = $"Catch: {cath}";
+            lbl.Text = $"Catch: {cath}\n\rSeen: {see}";
             lblTime.Parent = pb;
         }
 

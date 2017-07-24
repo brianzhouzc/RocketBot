@@ -72,11 +72,12 @@ namespace RocketBot2.Forms
                 Image img = ResourceHelper.SetImageSize(ResourceHelper.GetPokemonImageById((int)e), 48, 48);
                 int vu = 0;
                 int cap = 0;
+                string name = session.Translation.GetPokemonTranslation(e);
                 if (seen.ContainsKey(e)) vu = seen[e];
                 if (cath.ContainsKey(e)) cap = cath[e];
                 if (vu == 0 && cap == 0) img = ResourceHelper.ConvertToBlack(img);
                 if (vu > 0 && cap == 0) img = ResourceHelper.ConvertToBlackAndWhite(img);
-                var Pok = new ItemBox(vu, cap, img);
+                var Pok = new ItemBox(vu, cap, img, name);
                 flpPokeDex.Controls.Add(Pok);
             }
             PokeDexForm.ActiveForm.Refresh();
