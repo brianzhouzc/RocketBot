@@ -63,17 +63,18 @@ namespace RocketBot2.Forms
             {
                 control.MouseEnter += ChildMouseEnter;
                 control.MouseLeave += ChildMouseLeave;
-                control.MouseClick += delegate { UseItem(item, pokemonData); };
+                control.MouseClick += delegate { UseItem(session, item, pokemonData); };
                 Box = control;
             }
         }
 
-        private void UseItem(ItemData item, PokemonData pokemon)
+        private async void UseItem(ISession session, ItemData item, PokemonData pokemon)
         {
             switch (item.ItemId)
             {
                 case ItemId.ItemRareCandy:
-                    Logger.Write($"{item.ItemId} Can not be used for the moment, the bot still does not completely generate this process.", LogLevel.Warning);
+                    await Task.Run(async () => { await UseRareCandyTask.Execute(session, pokemon).ConfigureAwait(false); });
+                    //Logger.Write($"{item.ItemId} Can not be used for the moment, the bot still does not completely generate this process.", LogLevel.Warning);
                     break;
                 case ItemId.ItemMoveRerollFastAttack:
                     Logger.Write($"{item.ItemId} Can not be used for the moment, the bot still does not completely generate this process.", LogLevel.Warning);

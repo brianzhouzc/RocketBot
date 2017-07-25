@@ -507,7 +507,7 @@ namespace RocketBot2.Forms
                         switch (result)
                         {
                             case DialogResult.OK:
-                                await Task.Run(async () => { await UseFortItemsTask.Execute(_session, pokeStop, Itemdata); });
+                                await Task.Run(async () => { await UseFortItemsTask.Execute(_session, pokeStop, Itemdata).ConfigureAwait(false); });
                                 break;
                         }
                     }
