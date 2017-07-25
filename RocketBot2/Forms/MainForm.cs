@@ -75,6 +75,8 @@ namespace RocketBot2.Forms
         private List<PointLatLng> _routePoints;
         private List<GeoCoordinate> Points;
         private static string[] args;
+        private bool SelectPokeStop = false;
+        private ItemData Itemdata = null;
 
         private static GMapMarker _playerMarker;
         private readonly List<PointLatLng> _playerLocations = new List<PointLatLng>();
@@ -257,7 +259,7 @@ namespace RocketBot2.Forms
                 GMapControl1.MapProvider = GoogleMapProvider.Instance;
         }
 
-        private async Task InitializePokestopsAndRoute(bool SelectPokeStop = false)
+        private async Task InitializePokestopsAndRoute()
         {
             List<FortData> pokeStops = new List<FortData>();
             try
@@ -314,7 +316,7 @@ namespace RocketBot2.Forms
                         };
                         _playerRouteOverlay.Routes.Add(routes);
 
-                        InitializePokestopsAndRoute(SelectPokeStop).ConfigureAwait(false);
+                        InitializePokestopsAndRoute().ConfigureAwait(false);
                         return;
                     }
                 }
@@ -475,21 +477,6 @@ namespace RocketBot2.Forms
                         finalFortIcon = ResourceHelper.GetGymVisitedImage(finalFortIcon);
 
                     GMapMarkerPokestops pokestopMarker = new GMapMarkerPokestops(pokeStopLoc, new Bitmap(finalFortIcon));
-                    if (SelectPokeStop)
-                    {
-                        pokestopMarker.Overlay.Control.MouseClick += delegate
-                        {
-                            DialogResult result = MessageBox.Show($"Use TroyDisk Item on this PokeStop?", $"{Application.ProductName} - UseTroyDisk", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                            switch (result)
-                            {
-                                case DialogResult.Yes:
-                                    break;
-                                case DialogResult.Cancel:
-                                    BtnRefresh_Click(null, null);
-                                    break;
-                            }
-                        };
-                    }
 
                     if (!string.IsNullOrEmpty(finalText))
                     {
@@ -505,10 +492,42 @@ namespace RocketBot2.Forms
             }, null);
         }
 
+        private async void GMapControl1_OnMarkerClick(GMapMarker item, MouseEventArgs e)
+        {
+            if (!SelectPokeStop || Itemdata == null)
+                return;
+
+            try
+            {
+                foreach (var pokeStop in _session.Forts)
+                {
+                    if (pokeStop.Latitude == item.Position.Lat && pokeStop.Longitude == item.Position.Lng && pokeStop.Type == FortType.Checkpoint)
+                    {
+                        DialogResult result = MessageBox.Show($"Use {Itemdata.ItemId} on this pokestop?.", $"Use {Itemdata.ItemId}", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                        switch (result)
+                        {
+                            case DialogResult.OK:
+                                await Task.Run(async () => { await UseFortItemsTask.Execute(_session, pokeStop, Itemdata); });
+                                break;
+                        }
+                    }
+                }
+                SelectPokeStop = false;
+                Itemdata = null;
+                BtnRefresh_Click(null, null);
+            }
+            catch
+            {
+                SelectPokeStop = false;
+                Itemdata = null;
+                BtnRefresh_Click(null, null);
+            }
+        }
+
         private void Navigation_UpdatePositionEvent()
         {
             var latlng = new PointLatLng(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
-
+ 
             SynchronizationContext.Post(o =>
             {
                 _playerOverlay.Markers.Clear();
@@ -518,6 +537,7 @@ namespace RocketBot2.Forms
                     _playerMarker = _currentLatLng != latlng
                         ? new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("PlayerLocation2", null, null, 32, 32))
                         : new GMapMarkerTrainer(latlng, ResourceHelper.GetImage("PlayerLocation", null, null, 32, 32));
+
                 _playerOverlay.Markers.Add(_playerMarker);
 
                 if (followTrainerCheckBox.Checked)
@@ -582,7 +602,7 @@ namespace RocketBot2.Forms
                 Logger.Write($"New starting location has been set to: Lat: {pos.Lat:0.00000000} Long: {pos.Lng:0.00000000} Dist: {Dist:0.00}m Altitude: {Alt:0.00}m",LogLevel.Info);
                 return;
             }
-            await SetMoveToTargetTask.Execute(pos.Lat, pos.Lng);
+            await SetMoveToTargetTask.Execute(pos.Lat, pos.Lng).ConfigureAwait(false);
         }
 
         private void TrackBar_Scroll(object sender, EventArgs e)
@@ -1148,6 +1168,9 @@ namespace RocketBot2.Forms
             }
 
             SetState(true);
+
+            if (checkBoxAutoRefresh.CheckState == CheckState.Indeterminate && flpItems.Controls.Count > 0)
+                checkBoxAutoRefresh.CheckState = CheckState.Unchecked;
         }
 
         private static Task FlpItemsClean(IOrderedEnumerable<ItemData> items, Dictionary<ItemId, DateTime> appliedItems)
@@ -1203,8 +1226,10 @@ namespace RocketBot2.Forms
 
             if (item.ItemId == ItemId.ItemTroyDisk)
             {
-                //await InitializePokestopsAndRoute(true).ConfigureAwait(false);
-                //return;
+                MessageBox.Show($"Select an pokestop into map to use {item.ItemId}.", $"Use {item.ItemId}", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                SelectPokeStop = true;
+                Itemdata = item;
+                return;
             }
 
             if (item.ItemId == ItemId.ItemRareCandy || item.ItemId == ItemId.ItemMoveRerollFastAttack || item.ItemId == ItemId.ItemMoveRerollSpecialAttack)
