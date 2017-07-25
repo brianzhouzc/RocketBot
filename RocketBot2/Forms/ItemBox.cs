@@ -68,13 +68,14 @@ namespace RocketBot2.Forms
             }
         }
 
-        private async void UseItem(ISession session, ItemData item, PokemonData pokemon)
+        private void UseItem(ISession session, ItemData item, PokemonData pokemon)
         {
             switch (item.ItemId)
             {
                 case ItemId.ItemRareCandy:
-                    await Task.Run(async () => { await UseRareCandyTask.Execute(session, pokemon).ConfigureAwait(false); });
-                    //Logger.Write($"{item.ItemId} Can not be used for the moment, the bot still does not completely generate this process.", LogLevel.Warning);
+                    //TODO:
+                    //await Task.Run(async () => { await UseRareCandyTask.Execute(session, pokemon).ConfigureAwait(false); });
+                    Logger.Write($"{item.ItemId} Can not be used for the moment, the bot still does not completely generate this process.", LogLevel.Warning);
                     break;
                 case ItemId.ItemMoveRerollFastAttack:
                     Logger.Write($"{item.ItemId} Can not be used for the moment, the bot still does not completely generate this process.", LogLevel.Warning);
