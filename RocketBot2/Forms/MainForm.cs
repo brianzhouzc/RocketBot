@@ -497,26 +497,30 @@ namespace RocketBot2.Forms
             if (!SelectPokeStop || Itemdata == null)
                 return;
 
-            foreach (var pokeStop in _session.Forts)
+            try
             {
-                if (pokeStop.Latitude == item.Position.Lat && pokeStop.Longitude == item.Position.Lng && pokeStop.Type == FortType.Checkpoint)
+                foreach (var pokeStop in _session.Forts)
                 {
-                    DialogResult result = MessageBox.Show($"Use {Itemdata.ItemId} on this pokestop?.", $"Use {Itemdata.ItemId}", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                    switch (result)
+                    if (pokeStop.Latitude == item.Position.Lat && pokeStop.Longitude == item.Position.Lng && pokeStop.Type == FortType.Checkpoint)
                     {
-                        case DialogResult.OK:
-                            await Task.Run(async () => { await UseFortItemsTask.Execute(_session, pokeStop, Itemdata); });
-                            SelectPokeStop = false;
-                            Itemdata = null;
-                            BtnRefresh_Click(null, null);
-                            break;
-                        case DialogResult.Cancel:
-                            SelectPokeStop = false;
-                            Itemdata = null;
-                            BtnRefresh_Click(null, null);
-                            break;
+                        DialogResult result = MessageBox.Show($"Use {Itemdata.ItemId} on this pokestop?.", $"Use {Itemdata.ItemId}", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                        switch (result)
+                        {
+                            case DialogResult.OK:
+                                await Task.Run(async () => { await UseFortItemsTask.Execute(_session, pokeStop, Itemdata); });
+                                break;
+                        }
                     }
                 }
+                SelectPokeStop = false;
+                Itemdata = null;
+                BtnRefresh_Click(null, null);
+            }
+            catch
+            {
+                SelectPokeStop = false;
+                Itemdata = null;
+                BtnRefresh_Click(null, null);
             }
         }
 
