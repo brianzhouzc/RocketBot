@@ -75,6 +75,8 @@ namespace RocketBot2.Forms
         private List<PointLatLng> _routePoints;
         private List<GeoCoordinate> Points;
         private static string[] args;
+        private bool SelectPokeStop = false;
+        private ItemData Itemdata = null;
 
         private static GMapMarker _playerMarker;
         private readonly List<PointLatLng> _playerLocations = new List<PointLatLng>();
@@ -257,7 +259,7 @@ namespace RocketBot2.Forms
                 GMapControl1.MapProvider = GoogleMapProvider.Instance;
         }
 
-        private async Task InitializePokestopsAndRoute(bool SelectPokeStop = false, ItemData itemData = null)
+        private async Task InitializePokestopsAndRoute()
         {
             List<FortData> pokeStops = new List<FortData>();
             try
@@ -314,7 +316,7 @@ namespace RocketBot2.Forms
                         };
                         _playerRouteOverlay.Routes.Add(routes);
 
-                        InitializePokestopsAndRoute(SelectPokeStop, itemData).ConfigureAwait(false);
+                        InitializePokestopsAndRoute().ConfigureAwait(false);
                         return;
                     }
                 }
@@ -484,51 +486,33 @@ namespace RocketBot2.Forms
                         pokestopMarker.ToolTip = toolTip;
                     }
 
-                    if (SelectPokeStop && itemData != null)
-                    {
-                        pokestopMarker.Overlay.Control.MouseClick += delegate
-                        {
-                            DialogResult result = MessageBox.Show($"Use {itemData.ItemId} on this PokeStop {pokeStop.Id}?", $"{Application.ProductName} - {itemData.ItemId}", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                            switch (result)
-                            {
-                                case DialogResult.Yes:
-                                    SetMoveToTargetTask.Execute(pokeStop.Latitude, pokeStop.Longitude).ConfigureAwait(false);
-                                    var response = _session.Client.Fort.AddFortModifier(pokeStop.Id, itemData.ItemId).Result;
-                                    switch (response.Result)
-                                    {
-                                        case AddFortModifierResponse.Types.Result.Success:
-                                            Logger.Write($"{itemData.ItemId} is valid until: {DateTime.Now.AddMinutes(30)}");
-                                            break;
-                                        case AddFortModifierResponse.Types.Result.FortAlreadyHasModifier:
-                                            Logger.Write($"An {itemData.ItemId} is already active!", LogLevel.Warning);
-                                            break;
-                                        case AddFortModifierResponse.Types.Result.NoItemInInventory:
-                                            Logger.Write($"{itemData.ItemId} no found!", LogLevel.Error);
-                                            break;
-                                        case AddFortModifierResponse.Types.Result.NoResultSet:
-                                            Logger.Write($"{itemData.ItemId} no result set!", LogLevel.Error);
-                                            break;
-                                        case AddFortModifierResponse.Types.Result.PoiInaccessible:
-                                            Logger.Write($"{itemData.ItemId} poi inaccessible!", LogLevel.Error);
-                                            break;
-                                        case AddFortModifierResponse.Types.Result.TooFarAway:
-                                            Logger.Write($"{itemData.ItemId} too far away!", LogLevel.Error);
-                                            break;
-                                        default:
-                                            Logger.Write($"Failed to use an {itemData.ItemId}!", LogLevel.Error);
-                                            break;
-                                    }
-                                    break;
-                                case DialogResult.Cancel:
-                                    break;
-                            }
-                            BtnRefresh_Click(null, null);
-                        };
-                    }
                     _pokestopsOverlay.Markers.Add(pokestopMarker);
                 }
                 Navigation_UpdatePositionEvent();
             }, null);
+        }
+
+        private async void GMapControl1_OnMarkerClick(GMapMarker item, MouseEventArgs e)
+        {
+            if (!SelectPokeStop || Itemdata == null)
+                return;
+
+            foreach (var pokeStop in _session.Forts)
+            {
+                if (pokeStop.Latitude == item.Position.Lat && pokeStop.Longitude == item.Position.Lng && pokeStop.Type == FortType.Checkpoint)
+                {
+                    DialogResult result = MessageBox.Show($"Use {Itemdata.ItemId} on this pokestop?.", $"Use {Itemdata.ItemId}", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                    switch (result)
+                    {
+                        case DialogResult.OK:
+                            await Task.Run(async () => { await UseFortItemsTask.Execute(_session, pokeStop, Itemdata); });
+                            break;
+                    }
+                }
+            }
+            SelectPokeStop = false;
+            Itemdata = null;
+            BtnRefresh_Click(null, null);
         }
 
         private void Navigation_UpdatePositionEvent()
@@ -1234,7 +1218,8 @@ namespace RocketBot2.Forms
             if (item.ItemId == ItemId.ItemTroyDisk)
             {
                 MessageBox.Show($"Select an pokestop into map to use {item.ItemId}.", $"Use {item.ItemId}", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //await InitializePokestopsAndRoute(true, item).ConfigureAwait(false);
+                SelectPokeStop = true;
+                Itemdata = item;
                 return;
             }
 
