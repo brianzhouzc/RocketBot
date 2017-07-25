@@ -506,13 +506,18 @@ namespace RocketBot2.Forms
                     {
                         case DialogResult.OK:
                             await Task.Run(async () => { await UseFortItemsTask.Execute(_session, pokeStop, Itemdata); });
+                            SelectPokeStop = false;
+                            Itemdata = null;
+                            BtnRefresh_Click(null, null);
+                            break;
+                        case DialogResult.Cancel:
+                            SelectPokeStop = false;
+                            Itemdata = null;
+                            BtnRefresh_Click(null, null);
                             break;
                     }
                 }
             }
-            SelectPokeStop = false;
-            Itemdata = null;
-            BtnRefresh_Click(null, null);
         }
 
         private void Navigation_UpdatePositionEvent()
