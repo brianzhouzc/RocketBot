@@ -34,7 +34,7 @@ namespace RocketBot2.Forms
             InitializeComponent();
             Session = session;
             DisableTimer = true;
-            lbl.Font = new System.Drawing.Font("Segoe UI", 7.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lbl.Font = new System.Drawing.Font("Segoe UI", 6.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lblTime.Font = new System.Drawing.Font("Segoe UI", 7.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             pb.Image = picture;
             lblTime.Text = $"{Session.Translation.GetPokemonTranslation(pokemonData.PokemonId)}";
@@ -44,13 +44,13 @@ namespace RocketBot2.Forms
             switch (item.ItemId)
             {
                 case ItemId.ItemRareCandy:
-                    lbl.Text = $"{PokemonSettings.FamilyId}";
+                    lbl.Text = $"{PokemonSettings.FamilyId.ToString().Replace("Family", null).Replace("Male","(M)").Replace("Female","(F)")}\n\rCandy: {Session.Inventory.GetCandyCount(pokemonData.PokemonId).Result}";
                     break;
                 case ItemId.ItemMoveRerollFastAttack:
-                    lbl.Text = null;
+                    lbl.Text = $"{Session.Translation.GetPokemonMovesetTranslation(pokemonData.Move1)}\n\r{Session.Translation.GetPokemonMovesetTranslation(pokemonData.Move2)}";
                     break;
                 case ItemId.ItemMoveRerollSpecialAttack:
-                    lbl.Text = null;
+                    lbl.Text = $"{Session.Translation.GetPokemonMovesetTranslation(pokemonData.Move1)}\n\r{Session.Translation.GetPokemonMovesetTranslation(pokemonData.Move2)}";
                     break;
                 default:
                     lbl.Text = null;
@@ -63,16 +63,18 @@ namespace RocketBot2.Forms
             {
                 control.MouseEnter += ChildMouseEnter;
                 control.MouseLeave += ChildMouseLeave;
-                control.MouseClick += delegate { UseItem(item, pokemonData); };
+                control.MouseClick += delegate { UseItem(session, item, pokemonData); };
                 Box = control;
             }
         }
 
-        private void UseItem(ItemData item, PokemonData pokemon)
+        private void UseItem(ISession session, ItemData item, PokemonData pokemon)
         {
             switch (item.ItemId)
             {
                 case ItemId.ItemRareCandy:
+                    //TODO:
+                    //await Task.Run(async () => { await UseRareCandyTask.Execute(session, pokemon).ConfigureAwait(false); });
                     Logger.Write($"{item.ItemId} Can not be used for the moment, the bot still does not completely generate this process.", LogLevel.Warning);
                     break;
                 case ItemId.ItemMoveRerollFastAttack:
