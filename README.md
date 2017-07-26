@@ -68,7 +68,7 @@ git submodule update --init --recursive
 ### `Join discord channel and help answer questions`
  We have more and more users everyday, so we have a lot of questions from new users who haven't fully understand how the bot works yet. If you want to help them out, join our official discord channel :)
 
-### `Answer questions in` [issues](https://github.com/TheUnnamedOrganisation/RocketBot/issues)
+### `Answer questions`
  Same as above, you can help by answering questions in the [issues](https://github.com/TheUnnamedOrganisation/RocketBot/issues) tab!
 
 ### `Report bugs`
