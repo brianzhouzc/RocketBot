@@ -265,23 +265,7 @@ namespace RocketBot2.Forms
             List<FortData> pokeStops = new List<FortData>();
             try
             {
-                GetMapObjectsResponse mapObjects = await _session.Client.Map.GetMapObjects().ConfigureAwait(false);
-                List<FortData> forts = new List<FortData>(mapObjects.MapCells.SelectMany(p => p.Forts).ToList());
-
-                if (forts == _session.Forts || _session.Forts.Count < 0)
-                    return;
-
-                foreach (var fort in forts)
-                {
-                    lock (_session.Forts)
-                    {
-                        for (var i = 0; i < _session.Forts.Count; i++)
-                        {
-                             if (_session.Forts[i].Id == fort.Id && _session.Forts[i] != fort)
-                                _session.Forts[i] = new FortData(fort);
-                        }
-                    }
-                }
+                await UseNearbyPokestopsTask.UpdateFortsData(_session);
 
                 //get optimized route
                 pokeStops = new List<FortData>(RouteOptimizeUtil.Optimize(_session.Forts.ToArray(), _session.Client.CurrentLatitude, _session.Client.CurrentLongitude));
