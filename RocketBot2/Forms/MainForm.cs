@@ -265,10 +265,10 @@ namespace RocketBot2.Forms
             List<FortData> pokeStops = new List<FortData>();
             try
             {
-                await UseNearbyPokestopsTask.UpdateFortsData(_session);
+                List<FortData> reloaded = new List<FortData>(await UseNearbyPokestopsTask.UpdateFortsData(_session).ConfigureAwait(false));
 
                 //get optimized route
-                pokeStops = new List<FortData>(RouteOptimizeUtil.Optimize(_session.Forts.ToArray(), _session.Client.CurrentLatitude, _session.Client.CurrentLongitude));
+                pokeStops = new List<FortData>(RouteOptimizeUtil.Optimize(reloaded.ToArray(), _session.Client.CurrentLatitude, _session.Client.CurrentLongitude));
             }
             catch
             {
