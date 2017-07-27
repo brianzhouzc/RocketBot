@@ -18,6 +18,7 @@ using PoGo.NecroBot.Logic.State;
 using PoGo.NecroBot.Logic.Tasks;
 using PoGo.NecroBot.Logic.Utils;
 using POGOProtos.Data;
+using POGOProtos.Enums;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Fort;
 using POGOProtos.Map.Pokemon;
@@ -266,27 +267,24 @@ namespace RocketBot2.Forms
             {
                 GetMapObjectsResponse mapObjects = await _session.Client.Map.GetMapObjects().ConfigureAwait(false);
                 List<FortData> forts = new List<FortData>(mapObjects.MapCells.SelectMany(p => p.Forts).ToList());
-                List<FortData> sessionForts = new List<FortData>(_session.Forts);
 
-                if (forts == sessionForts || sessionForts.Count < 0)
+                if (forts == _session.Forts || _session.Forts.Count < 0)
                     return;
 
                 foreach (var fort in forts)
                 {
-                    lock (sessionForts)
+                    lock (_session.Forts)
                     {
-                        for (var i = 0; i < sessionForts.Count; i++)
+                        for (var i = 0; i < _session.Forts.Count; i++)
                         {
-                            var UpdtFort = sessionForts[i];
-
-                            if (UpdtFort.Id == fort.Id && UpdtFort != fort)
-                                UpdtFort = new FortData(fort);
+                             if (_session.Forts[i].Id == fort.Id && _session.Forts[i] != fort)
+                                _session.Forts[i] = new FortData(fort);
                         }
                     }
                 }
 
                 //get optimized route
-                pokeStops = new List<FortData>(RouteOptimizeUtil.Optimize(sessionForts.ToArray(), _session.Client.CurrentLatitude, _session.Client.CurrentLongitude));
+                pokeStops = new List<FortData>(RouteOptimizeUtil.Optimize(_session.Forts.ToArray(), _session.Client.CurrentLatitude, _session.Client.CurrentLongitude));
             }
             catch
             {
@@ -298,41 +296,15 @@ namespace RocketBot2.Forms
                 if (_pokemonsOverlay.Markers.Count > 8)
                     _pokemonsOverlay.Markers.Clear();
 
-                try
-                {
-                    if (_session.Navigation.WalkStrategy.Points.Count > 0 && Points != _session.Navigation.WalkStrategy.Points)
-                    {
-                        Points = _session.Navigation.WalkStrategy.Points;
-                        _playerLocations.Clear();
-                        _playerRouteOverlay.Routes.Clear();
-                        List<PointLatLng> routePointLatLngs = new List<PointLatLng>();
-                        foreach (var item in Points)
-                        {
-                            routePointLatLngs.Add(new PointLatLng(item.Latitude, item.Longitude));
-                        }
-                        GMapRoute routes = new GMapRoute(routePointLatLngs, routePointLatLngs.ToString())
-                        {
-                            Stroke = new Pen(Color.FromArgb(255, 51, 51), 3) { DashStyle = DashStyle.Dash }
-                        };
-                        _playerRouteOverlay.Routes.Add(routes);
-
-                        InitializePokestopsAndRoute().ConfigureAwait(false);
-                        return;
-                    }
-                }
-                catch
-                {
-                    //return;
-                }
-
                 _pokestopsOverlay.Routes.Clear();
-                _routePoints =
-                    (from pokeStop in pokeStops
-                     where pokeStop != null
-                     select new PointLatLng(pokeStop.Latitude, pokeStop.Longitude)).ToList();
 
                 if (togglePrecalRoute.Checked)
                 {
+                    _routePoints =
+                        (from pokeStop in pokeStops
+                         where pokeStop != null
+                         select new PointLatLng(pokeStop.Latitude, pokeStop.Longitude)).ToList();
+
                     var route = new GMapRoute(_routePoints, "Walking Path")
                     {
                         Stroke = new Pen(Color.FromArgb(102, 178, 255), 3)
@@ -400,7 +372,7 @@ namespace RocketBot2.Forms
                                         }
                                     }
 
-                                    if (pokeStop.RaidInfo.RaidPokemon.PokemonId > 0)
+                                    if (pokeStop.RaidInfo.RaidPokemon.PokemonId != PokemonId.Missingno)
                                     {
                                         expires = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.RaidInfo.RaidEndMs);
                                         time = expires - DateTime.UtcNow;
@@ -488,6 +460,31 @@ namespace RocketBot2.Forms
 
                     _pokestopsOverlay.Markers.Add(pokestopMarker);
                 }
+
+                try
+                {
+                    if (_session.Navigation.WalkStrategy.Points.Count > 0 && Points != _session.Navigation.WalkStrategy.Points)
+                    {
+                        Points = _session.Navigation.WalkStrategy.Points;
+                        _playerLocations.Clear();
+                        _playerRouteOverlay.Routes.Clear();
+                        List<PointLatLng> routePointLatLngs = new List<PointLatLng>();
+                        foreach (var item in Points)
+                        {
+                            routePointLatLngs.Add(new PointLatLng(item.Latitude, item.Longitude));
+                        }
+                        GMapRoute routes = new GMapRoute(routePointLatLngs, routePointLatLngs.ToString())
+                        {
+                            Stroke = new Pen(Color.FromArgb(255, 51, 51), 3) { DashStyle = DashStyle.Dash }
+                        };
+                        _playerRouteOverlay.Routes.Add(routes);
+                    }
+                }
+                catch
+                {
+                    //return;
+                }
+
                 Navigation_UpdatePositionEvent();
             }, null);
         }
