@@ -260,19 +260,17 @@ namespace RocketBot2.Forms
                 GMapControl1.MapProvider = GoogleMapProvider.Instance;
         }
 
-        private async Task InitializePokestopsAndRoute()
+        private Task InitializePokestopsAndRoute()
         {
             List<FortData> pokeStops = new List<FortData>();
             try
             {
-                await UseNearbyPokestopsTask.UpdateFortsData(_session).ConfigureAwait(false);
-
                 //get optimized route
                 pokeStops = new List<FortData>(RouteOptimizeUtil.Optimize(_session.Forts.ToArray(), _session.Client.CurrentLatitude, _session.Client.CurrentLongitude));
             }
             catch
             {
-                return;
+                return Task.CompletedTask;
             }
 
             SynchronizationContext.Post(o =>
@@ -471,6 +469,7 @@ namespace RocketBot2.Forms
 
                 Navigation_UpdatePositionEvent();
             }, null);
+            return Task.CompletedTask;
         }
 
         private async void GMapControl1_OnMarkerClick(GMapMarker item, MouseEventArgs e)
