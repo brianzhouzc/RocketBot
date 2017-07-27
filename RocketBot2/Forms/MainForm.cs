@@ -569,12 +569,13 @@ namespace RocketBot2.Forms
         private async void GMapControl1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             var pos = GMapControl1.FromLocalToLatLng(e.Location.X, e.Location.Y);
+            double Dist = LocationUtils.CalculateDistanceInMeters(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude, pos.Lat, pos.Lng);
+            double Alt = await _session.ElevationService.GetElevation(pos.Lat, pos.Lng).ConfigureAwait(false);
+            double Speed = _session.Client.CurrentSpeed; // _session.LogicSettings.WalkingSpeedInKilometerPerHour;
+
             if (!_botStarted)
             {
                 // Sets current location 
-                double Dist = LocationUtils.CalculateDistanceInMeters(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude, pos.Lat, pos.Lng);
-                double Alt = await _session.ElevationService.GetElevation(pos.Lat, pos.Lng).ConfigureAwait(false);
-
                 var lastPosFile = Path.Combine(_settings.ProfileConfigPath, "LastPos.ini");
                 if (File.Exists(lastPosFile))
                 {
