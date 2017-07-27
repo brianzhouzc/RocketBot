@@ -26,17 +26,14 @@ See https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer for pricing 
 
 ### `Download`
 Download the bot from the [release](https://github.com/TheUnnamedOrganisation/RocketBot/releases) tab.  
-If you want the latest Beta-Build, you have to download the build from the Beta-Build branch and compile them by yourself with VisualStudio 2017.
 
 ### `Dependencies`
  - Microsoft [.NET 4.7 SDK](https://www.microsoft.com/en-us/download/details.aspx?id=55170&desc=dotnet47)
- - Windows 
+ - Windows 7/8/8.1/10 (x86 or x64)
  - PogoDev ApiKey valid to get one here [Buy](https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer)
 
 ### `Translations`
 If you wanted to participate in translations I invite you to click [here](https://github.com/TheUnnamedOrganisation/RocketBot/tree/master/RocketBot2/Config/Translations) edit the file then proposed your translation it will be tested before publishing.
-
-**Waning: Beta are unstable and might cause damage to your account, use at your own risk**
 
 <img src="https://cdn.discordapp.com/attachments/208485545439920128/298918598234341386/MainForm.png" alt="RocketBot2">
 
@@ -47,7 +44,7 @@ If you wanted to participate in translations I invite you to click [here](https:
 To contribute to development, you will need to download and install the required software first.
 
 - [Git](https://git-scm.com/downloads)
-- [Visual Studio 2017](https://www.visualstudio.com/vs/whatsnew/) - We are using C# 7.0 code so VS 2017 is required to compile.  VS 2015 or older will not be able to compile the code.
+- [Visual Studio 2017](https://www.visualstudio.com/vs/whatsnew/) - We are using C# 7.0 code so Visual Studio 2017 is required to compile. Visual Studio 2015 or older will not be able to compile the code.
 - [.NET 4.7 SDK](https://www.microsoft.com/en-us/download/details.aspx?id=55170&desc=dotnet47)
 
 ### `Cloning Source Code`
@@ -71,7 +68,7 @@ git submodule update --init --recursive
 ### `Join discord channel and help answer questions`
  We have more and more users everyday, so we have a lot of questions from new users who haven't fully understand how the bot works yet. If you want to help them out, join our official discord channel :)
 
-### `Answer questions in` [issues](https://github.com/TheUnnamedOrganisation/RocketBot/issues)
+### `Answer questions`
  Same as above, you can help by answering questions in the [issues](https://github.com/TheUnnamedOrganisation/RocketBot/issues) tab!
 
 ### `Report bugs`
