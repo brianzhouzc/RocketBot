@@ -396,7 +396,7 @@ namespace RocketBot2.Forms
                                         {
                                             isSpawn = true;
                                             finalText = !asBoss ? $"Local SPAWN ends in: {time.Hours:00}h:{time.Minutes:00}m\nat: {(DateTime.Now + time).Hour:00}:{(DateTime.Now + time).Minute:00} Local time"
-                                            : $"Local SPAWN ends in: {time.Hours:00}h:{time.Minutes:00}m\nLocal time: {expires:HH:mm}\n\r{boss}";
+                                            : $"Local SPAWN ends in: {time.Hours:00}h:{time.Minutes:00}m\nLocal time: {expires:HH:mm}\n\r{finalText}";
                                         }
                                     }
                                 }
