@@ -265,10 +265,27 @@ namespace RocketBot2.Forms
             List<FortData> pokeStops = new List<FortData>();
             try
             {
-                List<FortData> reloaded = new List<FortData>(await UseNearbyPokestopsTask.UpdateFortsData(_session).ConfigureAwait(false));
+                GetMapObjectsResponse mapObjects = await _session.Client.Map.GetMapObjects().ConfigureAwait(false);
+                List<FortData> forts = new List<FortData>(mapObjects.MapCells.SelectMany(p => p.Forts).ToList());
+                List<FortData> sessionForts = new List<FortData>(_session.Forts);
+
+                if (forts == sessionForts || sessionForts.Count < 0)
+                    return;
+
+                foreach (var fort in forts)
+                {
+                    lock (sessionForts)
+                    {
+                        for (var i = 0; i < sessionForts.Count; i++)
+                        {
+                            if (sessionForts[i].Id == fort.Id && sessionForts[i] != fort)
+                                sessionForts[i] = fort;
+                        }
+                    }
+                }
 
                 //get optimized route
-                pokeStops = new List<FortData>(RouteOptimizeUtil.Optimize(reloaded.ToArray(), _session.Client.CurrentLatitude, _session.Client.CurrentLongitude));
+                pokeStops = new List<FortData>(RouteOptimizeUtil.Optimize(sessionForts.ToArray(), _session.Client.CurrentLatitude, _session.Client.CurrentLongitude));
             }
             catch
             {
@@ -379,7 +396,7 @@ namespace RocketBot2.Forms
                                         {
                                             isSpawn = true;
                                             finalText = !asBoss ? $"Local SPAWN ends in: {time.Hours:00}h:{time.Minutes:00}m\nat: {(DateTime.Now + time).Hour:00}:{(DateTime.Now + time).Minute:00} Local time"
-                                            : $"Local SPAWN ends in: {time.Hours:00}h:{time.Minutes:00}m\nLocal time: {expires:HH:mm}\n\r{boss}";
+                                            : $"Local SPAWN ends in: {time.Hours:00}h:{time.Minutes:00}m\nLocal time: {expires:HH:mm}\n\r{finalText}";
                                         }
                                     }
                                 }
