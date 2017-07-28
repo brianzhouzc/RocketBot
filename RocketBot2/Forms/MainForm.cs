@@ -260,17 +260,36 @@ namespace RocketBot2.Forms
                 GMapControl1.MapProvider = GoogleMapProvider.Instance;
         }
 
-        private Task InitializePokestopsAndRoute()
+        private async Task InitializePokestopsAndRoute()
         {
             List<FortData> pokeStops = new List<FortData>();
             try
             {
+                GetMapObjectsResponse mapObjects = await _session.Client.Map.GetMapObjects().ConfigureAwait(false);
+                List<FortData> forts = new List<FortData>(mapObjects.MapCells.SelectMany(p => p.Forts).ToList());
+                List<FortData> sessionForts = new List<FortData>(_session.Forts);
+
+                if (forts == sessionForts || sessionForts.Count < 0)
+                    return;
+
+                foreach (var fort in forts)
+                {
+                    lock (sessionForts)
+                    {
+                        for (var i = 0; i < sessionForts.Count; i++)
+                        {
+                            if (sessionForts[i].Id == fort.Id && sessionForts[i] != fort)
+                                sessionForts[i] = fort;
+                        }
+                    }
+                }
+
                 //get optimized route
-                pokeStops = new List<FortData>(RouteOptimizeUtil.Optimize(_session.Forts.ToArray(), _session.Client.CurrentLatitude, _session.Client.CurrentLongitude));
+                pokeStops = new List<FortData>(RouteOptimizeUtil.Optimize(sessionForts.ToArray(), _session.Client.CurrentLatitude, _session.Client.CurrentLongitude));
             }
             catch
             {
-                return Task.CompletedTask;
+                return;
             }
 
             SynchronizationContext.Post(o =>
@@ -469,7 +488,6 @@ namespace RocketBot2.Forms
 
                 Navigation_UpdatePositionEvent();
             }, null);
-            return Task.CompletedTask;
         }
 
         private async void GMapControl1_OnMarkerClick(GMapMarker item, MouseEventArgs e)
