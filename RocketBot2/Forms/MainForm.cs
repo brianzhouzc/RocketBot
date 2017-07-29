@@ -1236,6 +1236,7 @@ namespace RocketBot2.Forms
                     Text = $"{Application.ProductName} - Use {item.ItemId}"
                 };
                 form.ShowDialog();
+                await ReloadPokemonList().ConfigureAwait(false);
                 return;
             }
 
@@ -1490,6 +1491,8 @@ namespace RocketBot2.Forms
             }
             IElevationService elevationService = new ElevationService(settings);
 
+            _session = new Session(settings, new ClientSettings(settings, elevationService), logicSettings, elevationService, translation);
+
             //validation auth.config
             if (boolNeedsSetup)
             {
@@ -1518,7 +1521,7 @@ namespace RocketBot2.Forms
                         HttpClient client = new HttpClient();
                         client.DefaultRequestHeaders.Add("X-AuthToken", apiCfg.AuthAPIKey);
                         var maskedKey = apiCfg.AuthAPIKey.Substring(0, 4) + "".PadLeft(apiCfg.AuthAPIKey.Length - 8, 'X') + apiCfg.AuthAPIKey.Substring(apiCfg.AuthAPIKey.Length - 4, 4);
-                        HttpResponseMessage response = client.PostAsync("https://pokehash.buddyauth.com/api/v133_1/hash", null).Result;
+                        HttpResponseMessage response = client.PostAsync($"https://pokehash.buddyauth.com/{_session.Client.ApiEndPoint}", null).Result;
                         string AuthKey = response.Headers.GetValues("X-AuthToken").FirstOrDefault();
                         string MaxRequestCount = response.Headers.GetValues("X-MaxRequestCount").FirstOrDefault();
                         DateTime AuthTokenExpiration = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Local).AddSeconds(Convert.ToDouble(response.Headers.GetValues("X-AuthTokenExpiration").FirstOrDefault())).ToLocalTime();
@@ -1552,9 +1555,6 @@ namespace RocketBot2.Forms
                     _botStarted = true;
                 }
             }
-
-            _session = new Session(settings,
-                new ClientSettings(settings, elevationService), logicSettings, elevationService, translation);
 
             ioc.Register<ISession>(_session);
 
