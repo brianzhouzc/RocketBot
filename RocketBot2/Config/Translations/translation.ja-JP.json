@@ -94,7 +94,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "次の{0}へ移動中です: {1} ({2}m) ({3} 秒) (route {4})"
+      "Value":  "Traveling {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
@@ -378,23 +378,23 @@
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "手持ちのボール:  モンスターボール: {0} | スーパーボール: {1} | ハイパーボール: {2} | マスターボール: {3}"
+      "Value": "モンスターボール: {0} | スーパーボール:  {1} | ハイパーボール:  {2} | マスターボール:   {3}"
     },
     {
       "Key": "currentPotionInv",
-      "Value": "キズぐすり: {0} | いいキズぐすり: {1} | すごいキズぐすり: {2} | まんたんのくすり: {3}"
+      "Value": "キズぐすり:       {0} | いいキズぐすり: {1} | すごいキズぐすり: {2} | まんたんのくすり: {3}"
     },
     {
       "Key": "currentReviveInv",
-      "Value": "げんきのかけら: {0} | げんきのかたまり: {1}"
+      "Value": "Revives:         {0} | MaxRevives:    {1} | Evolve Items:    {2} | Raid Tickets:   {3}"
     },
     {
       "Key": "currentMiscItemInv",
-      "Value": "ズリのみ: {0} | おこう: {1} | しあわせタマゴ: {2} | ルアー: {3}"
+      "Value": "ズリのみ:         {0} | おこう:        {1} | しあわせタマゴ:    {2} | ルアー:         {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[無効な設定] もちもの (ボール+キズぐすり+げんきのかけら等={0}) が所持数限界を超えています ({1})"
+      "Value": "[無効な設定] もちもの (ボール+キズぐすり+げんきのかけら等+Evolution={0}) が所持数限界を超えています ({1})"
     },
     {
       "Key": "recyclingQuietly",

@@ -94,7 +94,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "Dotarcie do {0}: {1} za ({2}m) ({3}s) (route {4})"
+      "Value": "Dotarcie do {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
@@ -378,23 +378,23 @@
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "Pokeballe: {0} | Greatballe: {1} | Ultraballe: {2} | Masterballe: {3}"
+      "Value": "Pokeballe: {0} | Greatballe:   {1} | Ultraballe:   {2} | Masterballe:  {3}"
     },
     {
       "Key": "currentPotionInv",
-      "Value": "Potiony: {0} | SuperPotiony: {1} | HyperPotiony: {2} | MaxPotiony: {3}"
+      "Value": "Potiony:   {0} | SuperPotiony: {1} | HyperPotiony: {2} | MaxPotiony:   {3}"
     },
     {
       "Key": "currentReviveInv",
-      "Value": "Revive'y: {0} | MaxRevive'y: {1}"
+      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Tickets: {3}"
     },
     {
       "Key": "currentMiscItemInv",
-      "Value": "RazzBerry: {0} | Incense'y: {1} | LuckyEggi: {2} | Lure'y: {3}"
+      "Value": "RazzBerry: {0} | Incense'y:    {1} | LuckyEggi:    {2} | Lure'y:       {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "Ustawiona przez Ciebie dopuszczalna ilość przedmiotów w ekwipunku (PokeBalle+Potiony+Revive'y={0}) przekracza maksymalną jego pojemność, która wynosi: ({1})"
+      "Value": "Ustawiona przez Ciebie dopuszczalna ilość przedmiotów w ekwipunku (PokeBalle+Potiony+Revive'y+Evolution={0}) przekracza maksymalną jego pojemność, która wynosi: ({1})"
     },
     {
       "Key": "recyclingQuietly",

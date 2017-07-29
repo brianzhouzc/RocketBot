@@ -94,7 +94,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "Erkezes {0}: {1} ({2}m) ({3} seconds) (route {4})"
+      "Value": "Erkezes {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
@@ -382,19 +382,19 @@
     },
     {
       "Key": "currentPotionInv",
-      "Value": "Fozetek: {0} | Szuper fozetek: {1} | Hiper fozetek: {2} | Maximum fozeteks: {3}"
+      "Value": "Fozetek:    {0} | Szuper fozetek:    {1} | Hiper fozetek:    {2} | Maximum fozeteks:  {3}"
     },
     {
       "Key": "currentReviveInv",
-      "Value": "Ujraeleszto: {0} | Maximum ujraeleszto: {1}"
+      "Value": "Revives:    {0} | MaxRevives:        {1} | Evolve Items:     {2} | Raid Tickets:      {3}"
     },
     {
       "Key": "currentMiscItemInv",
-      "Value": "Malnak: {0} | Vonzok: {1} | Szerencsetojasok: {2} | Csalik: {3}"
+      "Value": "Malnak:     {0} | Vonzok:            {1} | Szerencsetojasok: {2} | Csalik:            {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Hibas beallitas] Az altalad beallitott maximum targyak (labdak+fozetek+ujraelesztok={0}) tobb, mint a maximum kapacitasa a hatizsakodnak({1})"
+      "Value": "[Hibas beallitas] Az altalad beallitott maximum targyak (labdak+fozetek+ujraelesztok+Evolution={0}) tobb, mint a maximum kapacitasa a hatizsakodnak({1})"
     },
     {
       "Key": "recyclingQuietly",

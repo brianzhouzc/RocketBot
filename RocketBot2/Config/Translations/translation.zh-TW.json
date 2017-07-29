@@ -94,7 +94,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "{0} 前往補給站：{1} (距離{2}公尺，需要{3}秒) (route {4})\t\t\t\t"
+      "Value": "Traveling {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
@@ -382,23 +382,23 @@
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "寶貝球：{0} | 超級球：{1} | 高級球：{2} | 大師球：{3}\t\t\t\t"
+      "Value": "寶貝球： {0} | 超級球：     {1} | 高級球：       {2} | 大師球：      {3}"
     },
     {
       "Key": "CurrentPotionInv",
-      "Value": "藥水：{0} | 強效藥水：{1} | 超級藥水：{2} | 完全恢復藥水：{3}\t\t\t"
+      "Value": "藥水：   {0} | 強效藥水：   {1} | 超級藥水：     {2} | 完全恢復藥水： {3}"
     },
     {
       "Key": "CurrentReviveInv",
-      "Value": "復甦劑：{0} | 完全復甦劑：{1}\t\t"
+      "Value": "Revives: {0} | MaxRevives: {1} | Evolve Items: {2} | Raid Tickets: {3}"
     },
     {
       "Key": "CurrentMiscItemInv",
-      "Value": "野果：{0} | 薰香：{1} | 幸運蛋：{2} | 誘餌：{3}\t\t\t"
+      "Value": "野果：    {0} | 薰香：      {1} | 幸運蛋：       {2} | 誘餌：        {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[錯誤] 您設定的物品數量 (寶貝球+藥水+復甦劑={0}) 已超過您背包的最大空間 ({1})\t\t\t\t"
+      "Value": "[錯誤] 您設定的物品數量 (寶貝球+藥水+復甦劑+Evolution={0}) 已超過您背包的最大空間 ({1})\t\t\t\t"
     },
     {
       "Key": "recyclingQuietly",

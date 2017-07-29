@@ -94,7 +94,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "Călătoresc la {0} \"{1}\" ({2}m) ({3} secunde) (route {4})"
+      "Value": "Călătoresc la {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
@@ -378,23 +378,23 @@
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "Pokeballuri: {0} | Greatballuri: {1} | Ultraballuri: {2} | Masterballuri: {3}"
+      "Value": "Pokeballuri: {0} | Greatballuri: {1} | Ultraballuri:  {2} | Masterballuri:           {3}"
     },
     {
       "Key": "CurrentPotionInv",
-      "Value": "Poțiuni: {0} | Superpoțiuni: {1} | Hiperpoțiuni: {2} | Poțiuni de viață maximă: {3}"
+      "Value": "Poțiuni:     {0} | Superpoțiuni: {1} | Hiperpoțiuni:  {2} | Poțiuni de viață maximă: {3}"
     },
     {
       "Key": "CurrentReviveInv",
-      "Value": "Reînvieri: {0} | Reînvieri de viață maximă: {1}"
+      "Value": "Revives:     {0} | MaxRevives:   {1} | Evolve Items:  {2} | Raid Tickets:            {3}"
     },
     {
       "Key": "CurrentMiscItemInv",
-      "Value": "Zmeure: {0} | Incense-uri: {1} | Ouă norocoase: {2} | Lure-uri: {3}"
+      "Value": "Zmeure:      {0} | Incense-uri:  {1} | Ouă norocoase: {2} | Lure-uri:                {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Configurație invalidă] Numărul maxim de obiecte combinate (bile+poțiuni+reînvieri={0}) este peste limita maximă de stocare a obiectelor ({1})"
+      "Value": "[Configurație invalidă] Numărul maxim de obiecte combinate (bile+poțiuni+reînvieri+Evolution={0}) este peste limita maximă de stocare a obiectelor ({1})"
     },
     {
       "Key": "recyclingQuietly",

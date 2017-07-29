@@ -90,7 +90,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "Atvykstama į {0}: {1} už ({2}m) ({3} seconds) (route {4})"
+      "Value": "Atvykstama į {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
@@ -346,19 +346,19 @@
     },
     {
       "Key": "CurrentPotionInv",
-      "Value": "Potions: {0} | SuperPotions: {1} | HyperPotions: {2} | MaxPotions: {3}"
+      "Value": "Potions:      {0} | SuperPotions:    {1} | HyperPotions:  {2} | MaxPotions:     {3}"
     },
     {
       "Key": "CurrentReviveInv",
-      "Value": "Revives: {0} | MaxRevives: {1}"
+      "Value": "Revives:      {0} | MaxRevives:      {1} | Evolve Items:  {2} | Raid Tickets:   {3}"
     },
     {
       "Key": "CurrentMiscItemInv",
-      "Value": "Berrys: {0} | Incense: {1} | LuckyEggs: {2} | Lures: {3}"
+      "Value": "Berrys:       {0} | Incense:         {1} | LuckyEggs:     {2} | Lures:          {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Konfigūracija neteisinga] Jūsų maksimalūs daiktai (rutuliai+gėrimai+prikėlimai={0}) viršija jūsų saugyklą ({1})"
+      "Value": "[Konfigūracija neteisinga] Jūsų maksimalūs daiktai (rutuliai+gėrimai+prikėlimai+Evolution={0}) viršija jūsų saugyklą ({1})"
     },
     {
       "Key": "recyclingQuietly",

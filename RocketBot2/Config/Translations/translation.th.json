@@ -94,7 +94,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "กำลังเดินทางไปสู่ {0} : {1} ( {2} เมตร ) ( {3} วินาที ) (เส้นทางคือ : {4})"
+      "Value":  "Traveling {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
@@ -378,23 +378,23 @@
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "โปเกบอล : {0} | เกรสบอล : {1} | อัลตร้าบอล : {2} | มาสเตอร์บอล : {3}"
+      "Value": "โปเกบอล :  {0} | เกรสบอล :      {1} | อัลตร้าบอล :     {2} | มาสเตอร์บอล :          {3}"
     },
     {
       "Key": "currentPotionInv",
-      "Value": "น้ำยา : {0} | ซูเปอร์น้ำยา : {1} | ไฮเปอร์น้ำยา : {2} | แม็กซ์น้ำยา : {3}"
+      "Value": "น้ำยา :     {0} | ซูเปอร์น้ำยา :    {1} | ไฮเปอร์น้ำยา :    {2} | แม็กซ์น้ำยา :           {3}"
     },
     {
       "Key": "currentReviveInv",
-      "Value": "ฟื้นฟู : {0} | ฟื้นฟูสูงสุด : {1}"
+      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Tickets:        {3}"
     },
     {
       "Key": "currentMiscItemInv",
-      "Value": "ผลเบอรี่ : {0} | ตัวล่อโปเกมอน : {1} | Lucky Eggs: {2} | ตัวล่อเสา Poke Stops : {3}"
+      "Value": "ผลเบอรี่ :    {0} | ตัวล่อโปเกมอน : {1} | Lucky Eggs:    {2} | ตัวล่อเสา Poke Stops : {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[การตั้งค่าผิดพลาด] รวมไอเทมสูงสุดของคุณ (balls+potions+revives={0}) หรือเกินจำนวนสูงสุดในคลังของคุณ ({1})"
+      "Value": "[การตั้งค่าผิดพลาด] รวมไอเทมสูงสุดของคุณ (balls+potions+revives+Evolution={0}) หรือเกินจำนวนสูงสุดในคลังของคุณ ({1})"
     },
     {
       "Key": "recyclingQuietly",

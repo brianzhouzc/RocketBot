@@ -94,7 +94,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "Đi đến {0}: {1} (xa {2}m) (trong {3} giây) (route {4})"
+      "Value":  "Traveling {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
@@ -374,23 +374,23 @@
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "Pokeballs: {0} | Greatballs: {1} | Ultraballs: {2} | Masterballs: {3}"
+      "Value": "Pokeballs: {0} | Greatballs:  {1} | Ultraballs:    {2} | Masterballs:  {3}"
     },
     {
       "Key": "currentPotionInv",
-      "Value": "Potions: {0} | SuperPotions: {1} | HyperPotions: {2} | MaxPotions: {3}"
+      "Value": "Potions:   {0} | SuperPotions: {1} | HyperPotions: {2} | MaxPotions:   {3}"
     },
     {
       "Key": "currentReviveInv",
-      "Value": "Revives: {0} | MaxRevives: {1}"
+      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Tickets: {3}"
     },
     {
       "Key": "currentMiscItemInv",
-      "Value": "Berry: {0} | LồngẤp: {1} | LuckyEggs: {2} | Lure: {3}"
+      "Value": "Berry:     {0} | LồngẤp:       {1} | LuckyEggs:    {2} | Lure:         {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Cấu Hình Không Hợp Lệ] Tổng số vật phẩm tối đa của bạn (balls+potions+revives={0}) đã vượt qua số lượng vật phẩm tốt đa trong túi ({1})"
+      "Value": "[Cấu Hình Không Hợp Lệ] Tổng số vật phẩm tối đa của bạn (balls+potions+revives+Evolution={0}) đã vượt qua số lượng vật phẩm tốt đa trong túi ({1})"
     },
     {
       "Key": "recyclingQuietly",

@@ -66,7 +66,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "Traveling to {0}: {1} ({2} m) ({3} seconds) (route {4})"
+      "Value":  "Traveling {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
@@ -390,27 +390,27 @@
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "Pokeballs: {0,3:##0} | Greatballs:   {1,3:##0} | Ultraballs:   {2,3:##0} | Masterballs: {3,3:##0}"
+      "Value": "Pokeballs: {0} | Greatballs:   {1} | Ultraballs:   {2} | Masterballs:  {3}"
     },
     {
       "Key": "currentPotionInv",
-      "Value": "Potions:   {0,3:##0} | SuperPotions: {1,3:##0} | HyperPotions: {2,3:##0} | MaxPotions:  {3,3:##0}"
+      "Value": "Potions:   {0} | SuperPotions: {1} | HyperPotions: {2} | MaxPotions:   {3}"
     },
     {
       "Key": "currentReviveInv",
-      "Value": "Revives:   {0,3:##0} | MaxRevives:   {1,3:##0} |"
+      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Tickets: {3}"
     },
     {
       "Key": "currentMiscItemInv",
-      "Value": "Berries:   {0,3:##0} | Incense:      {1,3:##0} | LuckyEggs:    {2,3:##0} | Lures:       {3,3:##0}"
+      "Value": "Berries:   {0} | Incense:      {1} | LuckyEggs:    {2} | Lures:        {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Configuration Invalid] Your maximum items combined (Balls+Potions+Revives+Berries={0}) is over your max item storage ({1})"
+      "Value": "[Configuration Invalid] Your maximum items combined (Balls+Potions+Revives+Berries+Evolution={0}) is over your max item storage ({1})"
     },
     {
       "Key": "totalRecyclePercentGreaterThan100",
-      "Value": "[Configuration Invalid] Your total recycle percents combined (Balls+Potions+Revives+Berries) is greater than 100. It must be less than or equal to 100."
+      "Value": "[Configuration Invalid] Your total recycle percents combined (Balls+Potions+Revives+Berries+Evolution) is greater than 100. It must be less than or equal to 100."
     },
     {
       "Key": "usingRecyclePercentsInsteadOfTotals",
@@ -431,6 +431,10 @@
     {
       "Key": "percentBerriesToKeep",
       "Value": "[Recycle Configuration] Berries   ({0,2:##}%): {1,3:###}"
+    },
+    {
+      "Key": "percentEvolutionToKeep",
+      "Value": "[Recycle Configuration] Evolution ({0,2:##}%): {1,3:###}"
     },
     {
       "Key": "recyclingQuietly",

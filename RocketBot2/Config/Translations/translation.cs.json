@@ -90,7 +90,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "Chůze k {0}: {1} ({2}m) ({3} sekund) (route {4})"
+      "Value": "Chůze k {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
@@ -322,19 +322,19 @@
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "Pokebally: {0} | Superbally: {1} | Ultrabally: {2} | Masterbally: {3}"
+      "Value": "Pokebally: {0} | Superbally:    {1} | Ultrabally:    {2} | Masterbally:  {3}"
     },
     {
       "Key": "CurrentPotionInv",
-      "Value": "Lektvar: {0} | Super-Lektvar: {1} | Hyper-Lektvar: {2} | Max-Lektvar: {3}"
+      "Value": "Lektvar:   {0} | Super-Lektvar: {1} | Hyper-Lektvar: {2} | Max-Lektvar:  {3}"
     },
     {
       "Key": "CurrentReviveInv",
-      "Value": "Oživení: {0} | Plné Oživení: {1}"
+      "Value": "Revives:   {0} | MaxRevives:    {1} | Evolve Items:  {2} | Raid Tickets: {3}"
     },
     {
       "Key": "CurrentMiscItemInv",
-      "Value": "Maliny: {0} | Kadidlo: {1} | Šťastné vejce: {2} | Návnada: {3}"
+      "Value": "Maliny:    {0} | Kadidlo:       {1} | Šťastné vejce: {2} | Návnada:      {3}"
     },
     {
       "Key": "invFullTransferring",

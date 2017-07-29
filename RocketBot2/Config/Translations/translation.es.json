@@ -94,7 +94,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "Llegando a {0}: {1} en ({2}m) ({3} segundos) (Ruta {4})"
+      "Value": "Llegando a {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
@@ -374,23 +374,23 @@
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "Poké Balls: {0} | Super Balls: {1} | Ultra Balls: {2} | Master Balls: {3}"
+      "Value": "Poké Balls: {0} | Super Balls:  {1} | Ultra Balls:  {2} | Master Balls: {3}"
     },
     {
       "Key": "CurrentPotionInv",
-      "Value": "Poción: {0} | SuperPoción: {1} | Hyperpoción: {2} | Pociónmáxima: {3}"
+      "Value": "Poción:     {0} | SuperPoción:  {1} | Hyperpoción:  {2} | Pociónmáxima: {3}"
     },
     {
       "Key": "CurrentReviveInv",
-      "Value": "Revives: {0} | MaxRevives: {1}"
+      "Value": "Revives:    {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Tickets: {3}"
     },
     {
       "Key": "CurrentMiscItemInv",
-      "Value": "Baya: {0} | Incienso: {1} | Huevo Suerte: {2} | Cebo: {3}"
+      "Value": "Baya:       {0} | Incienso:     {1} | Huevo Suerte: {2} | Cebo:         {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Configuración Inválida] El Máximo de items combinados (bolas+pociones+revivir={0}) está por encima del almacenamiento máximo ({1})"
+      "Value": "[Configuración Inválida] El Máximo de items combinados (bolas+pociones+revivir+Evolution={0}) está por encima del almacenamiento máximo ({1})"
     },
     {
       "Key": "recyclingQuietly",

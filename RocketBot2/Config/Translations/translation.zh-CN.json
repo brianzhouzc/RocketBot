@@ -94,7 +94,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "{0} 正在前往补给站:{1} 距离{2}米,需要{3}秒 (route {4})\t\t\t"
+      "Value":  "Traveling {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
@@ -378,23 +378,23 @@
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "普通球:{0}|高级球:{1}|超级球:{2}|大师球:{3}\t\t\t"
+      "Value": "普通球:    {0} | 高级球:        {1} | 超级球:        {2} | 大师球:       {3}"
     },
     {
       "Key": "CurrentPotionInv",
-      "Value": "药水: {0} | 高级药水: {1} | 超级药水: {2} | 顶级药水: {3}\t\t\t"
+      "Value": "药水:      {0} | 高级药水:      {1} | 超级药水:      {2} | 顶级药水:      {3}"
     },
     {
       "Key": "CurrentReviveInv",
-      "Value": "复活石: {0} | 顶级复活石: {1}\t\t"
+      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Tickets: {3}"
     },
     {
       "Key": "CurrentMiscItemInv",
-      "Value": "浆果: {0} | 熏香: {1} | 幸运蛋: {2} | 诱饵: {3}\t\t"
+      "Value": "浆果:      {0} | 熏香:          {1} | 幸运蛋:       {2} | 诱饵:          {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[设置无效]您设置的物品数量组合(精灵球+药水+复活石={0})超出了您的背包容量({1})\t\t\t\t"
+      "Value": "[设置无效]您设置的物品数量组合(精灵球+药水+复活石+Evolution={0})超出了您的背包容量({1})\t\t\t\t"
     },
     {
       "Key": "recyclingQuietly",

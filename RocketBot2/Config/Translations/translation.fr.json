@@ -66,7 +66,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "Se rendre à {0}: {1} ({2} m) ({3} seconds) (route {4})"
+      "Value": "Se rendre à {0}m({1} sec) via {2} suivant {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
@@ -390,27 +390,27 @@
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "Pokeballs: {0} | Superballs: {1} | Hyperballs: {2} | Masterballs: {3}"
+      "Value": "Pokeballs:    {0} | Superballs:  {1} | Hyperballs:       {2} | Masterballs: {3}"
     },
     {
       "Key": "currentPotionInv",
-      "Value": "Potions: {0} | SuperPotions: {1} | HyperPotions: {2} | MaxPotions: {3}"
+      "Value": "Potions:      {0} | SuperPotions: {1} | HyperPotions:    {2} | MaxPotions:  {3}"
     },
     {
       "Key": "currentReviveInv",
-      "Value": "Rappel: {0} | RappelMax: {1}"
+      "Value": "Rappels:      {0} | MaxRappels:   {1} | Evolution Items: {2} | Raid Badges: {3}"
     },
     {
       "Key": "currentMiscItemInv",
-      "Value": "Baies Framby: {0} | Encens: {1} | Oeuf Chance: {2} | Leures: {3}"
+      "Value": "Baies Framby: {0} | Encens:       {1} | Oeuf Chance:     {2} | Leures:      {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Configuration non valide] Vos éléments maximum combinés (Balls+Potions+Rappels+Baies={0}) est au dessus de votre stockage maximum d'objets ({1})"
+      "Value": "[Configuration non valide] Vos éléments maximum combinés (Balls+Potions+Rappels+Baies+Evolution={0}) est au dessus de votre stockage maximum d'objets ({1})"
     },
     {
       "Key": "totalRecyclePercentGreaterThan100",
-      "Value": "[Configuration non valide] Vos pourcentages de recyclage combinés (Balls+Potions+Rappels+Baies) est supérieur à 100. Il doit être inférieur ou égal à 100."
+      "Value": "[Configuration non valide] Vos pourcentages de recyclage combinés (Balls+Potions+Rappels+Baies+Evolution) est supérieur à 100. Il doit être inférieur ou égal à 100."
     },
     {
       "Key": "usingRecyclePercentsInsteadOfTotals",
@@ -418,19 +418,23 @@
     },
     {
       "Key": "percentPokeballsToKeep",
-      "Value": "[Configuration de recyclage] Pokeballs ({0}%): {1}"
+      "Value": "[Configuration de recyclage] Pokeballs    ({0}%): {1}"
     },
     {
       "Key": "percentPotionsToKeep",
-      "Value": "[Configuration de recyclage] Potions   ({0}%): {1}"
+      "Value": "[Configuration de recyclage] Potions      ({0}%): {1}"
     },
     {
       "Key": "percentRevivesToKeep",
-      "Value": "[Configuration de recyclage] Rappels   ({0}%): {1}"
+      "Value": "[Configuration de recyclage] Rappels      ({0}%): {1}"
     },
     {
       "Key": "percentBerriesToKeep",
-      "Value": "[Configuration de recyclage] Baies Framby   ({0}%): {1}"
+      "Value": "[Configuration de recyclage] Baies Framby ({0}%): {1}"
+    },
+    {
+      "Key": "percentEvolutionToKeep",
+      "Value": "[Configuration de recyclage] Evolution    ({0}%): {1}"
     },
     {
       "Key": "recyclingQuietly",
