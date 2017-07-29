@@ -1236,6 +1236,7 @@ namespace RocketBot2.Forms
                     Text = $"{Application.ProductName} - Use {item.ItemId}"
                 };
                 form.ShowDialog();
+                await ReloadPokemonList().ConfigureAwait(false);
                 return;
             }
 
