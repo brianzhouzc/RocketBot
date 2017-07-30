@@ -390,7 +390,7 @@
     },
     {
       "Key": "currentMiscItemInv",
-      "Value": "RazzBerry: {0} | Incense'y: {1} | LuckyEggi: {2} | Lure'y: {3}"
+      "Value": "RazzBerry: {0} | Incense'y: {1} | LuckyEggi: {2} | Lure'y: {3} | Evolution: {4}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",

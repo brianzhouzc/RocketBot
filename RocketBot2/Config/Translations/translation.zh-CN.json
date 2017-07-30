@@ -390,7 +390,7 @@
     },
     {
       "Key": "CurrentMiscItemInv",
-      "Value": "浆果: {0} | 熏香: {1} | 幸运蛋: {2} | 诱饵: {3}\t\t"
+      "Value": "浆果: {0} | 熏香: {1} | 幸运蛋: {2} | 诱饵: {3}\t\t | Evolution: {4}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",

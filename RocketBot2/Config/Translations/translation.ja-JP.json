@@ -390,7 +390,7 @@
     },
     {
       "Key": "currentMiscItemInv",
-      "Value": "ズリのみ: {0} | おこう: {1} | しあわせタマゴ: {2} | ルアー: {3}"
+      "Value": "ズリのみ: {0} | おこう: {1} | しあわせタマゴ: {2} | ルアー: {3} | Evolution: {4}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",

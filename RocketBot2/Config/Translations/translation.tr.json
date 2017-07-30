@@ -390,7 +390,7 @@
     },
     {
       "Key": "currentMiscItemInv",
-      "Value": "Razz Berry: {0} | Incense: {1} | Lucky Egg: {2} | Lure Module: {3}"
+      "Value": "Razz Berry: {0} | Incense: {1} | Lucky Egg: {2} | Lure Module: {3} | Evolution: {4}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",

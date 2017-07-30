@@ -394,7 +394,7 @@
     },
     {
       "Key": "CurrentMiscItemInv",
-      "Value": "野果：{0} | 薰香：{1} | 幸運蛋：{2} | 誘餌：{3}\t\t\t"
+      "Value": "野果：{0} | 薰香：{1} | 幸運蛋：{2} | 誘餌：{3}\t\t\t | Evolution: {4}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
