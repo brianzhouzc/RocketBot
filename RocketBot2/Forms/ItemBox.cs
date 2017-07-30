@@ -68,20 +68,32 @@ namespace RocketBot2.Forms
             }
         }
 
-        private void UseItem(ISession session, ItemData item, PokemonData pokemon)
+        private async void UseItem(ISession session, ItemData item, PokemonData pokemon)
         {
             switch (item.ItemId)
             {
                 case ItemId.ItemRareCandy:
-                    //TODO:
-                    //await Task.Run(async () => { await UseRareCandyTask.Execute(session, pokemon).ConfigureAwait(false); });
-                    Logger.Write($"{item.ItemId} Can not be used for the moment, the bot still does not completely generate this process.", LogLevel.Warning);
+                    await Task.Run(async () => { await UseRareCandyTask.Execute(session, item, pokemon).ConfigureAwait(false); });
                     break;
                 case ItemId.ItemMoveRerollFastAttack:
-                    Logger.Write($"{item.ItemId} Can not be used for the moment, the bot still does not completely generate this process.", LogLevel.Warning);
+                    string text = $"{session.Translation.GetPokemonTranslation(pokemon.PokemonId)} will forget move1: {session.Translation.GetPokemonMovesetTranslation(pokemon.Move1)}\n\rDo you want to continue?";
+                    DialogResult result = MessageBox.Show(text, $"Use {item.ItemId}", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    switch (result)
+                    {
+                        case DialogResult.Yes:
+                            await Task.Run(async () => { await UseItemMoveRerollTask.Execute(session, item, pokemon).ConfigureAwait(false); });
+                            break;
+                    }
                     break;
                 case ItemId.ItemMoveRerollSpecialAttack:
-                    Logger.Write($"{item.ItemId} Can not be used for the moment, the bot still does not completely generate this process.", LogLevel.Warning);
+                    string text2 = $"{session.Translation.GetPokemonTranslation(pokemon.PokemonId)} will forget move2: {session.Translation.GetPokemonMovesetTranslation(pokemon.Move2)}\n\rDo you want to continue?";
+                    DialogResult result2 = MessageBox.Show(text2, $"Use {item.ItemId}", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    switch (result2)
+                    {
+                        case DialogResult.Yes:
+                            await Task.Run(async () => { await UseItemMoveRerollTask.Execute(session, item, pokemon).ConfigureAwait(false); });
+                            break;
+                    }
                     break;
                 default:
                     Logger.Write($"{item.ItemId} Can not be used for the moment, the bot still does not completely generate this process.", LogLevel.Warning);
