@@ -573,7 +573,7 @@ namespace RocketBot2.Forms
             this.followTrainerCheckBox.ThreeState = true;
             this.followTrainerCheckBox.UseVisualStyleBackColor = false;
             this.followTrainerCheckBox.Visible = false;
-            this.followTrainerCheckBox.CheckedChanged += new System.EventHandler(this.FollowTrainerCheckBox_CheckedChanged);
+            this.followTrainerCheckBox.CheckStateChanged += new System.EventHandler(this.FollowTrainerCheckBox_CheckStateChanged);
             // 
             // showMoreCheckBox
             // 

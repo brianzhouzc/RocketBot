@@ -761,9 +761,9 @@ namespace RocketBot2.Forms
             }
         }
 
-        private void FollowTrainerCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void FollowTrainerCheckBox_CheckStateChanged(object sender, EventArgs e)
         {
-            if (followTrainerCheckBox.Checked)
+            if (followTrainerCheckBox.CheckState == CheckState.Checked)
             {
                 GMapControl1.CanDragMap = false;
                 GMapControl1.Position = _currentLatLng;
