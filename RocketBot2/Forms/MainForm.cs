@@ -157,8 +157,8 @@ namespace RocketBot2.Forms
                 var sw = Screen.PrimaryScreen.Bounds.Width;
                 if (sh >= 780) { this.Height = sh / 2; }
                 if (sw >= 1080) { this.Width = sw / 2; }
-                Refresh();
                 Show();
+                Refresh();
             }
         }
 
