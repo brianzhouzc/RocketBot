@@ -390,7 +390,7 @@
     },
     {
       "Key": "currentMiscItemInv",
-      "Value": "ผลเบอรี่ : {0} | ตัวล่อโปเกมอน : {1} | Lucky Eggs: {2} | ตัวล่อเสา Poke Stops : {3}"
+      "Value": "ผลเบอรี่ : {0} | ตัวล่อโปเกมอน : {1} | Lucky Eggs: {2} | ตัวล่อเสา Poke Stops : {3} | Evolution: {4}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",

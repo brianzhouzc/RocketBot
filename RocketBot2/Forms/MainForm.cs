@@ -152,10 +152,13 @@ namespace RocketBot2.Forms
             //Enable display normal 2° button system
             if (FormWindowState.Normal == this.WindowState)
             {
+                Hide();
                 var sh = Screen.PrimaryScreen.Bounds.Height;
                 var sw = Screen.PrimaryScreen.Bounds.Width;
                 if (sh >= 780) { this.Height = sh / 2; }
                 if (sw >= 1080) { this.Width = sw / 2; }
+                Show();
+                Refresh();
             }
         }
 

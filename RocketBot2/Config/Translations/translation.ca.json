@@ -384,7 +384,7 @@
     },
     {
       "Key": "CurrentMiscItemInv",
-      "Value": "Baies: {0} | Encens: {1} | Ous de la sort: {2} | Esquers: {3}"
+      "Value": "Baies: {0} | Encens: {1} | Ous de la sort: {2} | Esquers: {3} | Evolution: {4}"
     },
     {
       "Key": "invFullTransferring",

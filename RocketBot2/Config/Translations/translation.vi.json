@@ -386,7 +386,7 @@
     },
     {
       "Key": "currentMiscItemInv",
-      "Value": "Berry: {0} | LồngẤp: {1} | LuckyEggs: {2} | Lure: {3}"
+      "Value": "Berry: {0} | LồngẤp: {1} | LuckyEggs: {2} | Lure: {3} | Evolution: {4}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",

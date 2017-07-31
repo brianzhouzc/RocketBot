@@ -390,7 +390,7 @@
     },
     {
       "Key": "CurrentMiscItemInv",
-      "Value": "Zmeure: {0} | Incense-uri: {1} | Ouă norocoase: {2} | Lure-uri: {3}"
+      "Value": "Zmeure: {0} | Incense-uri: {1} | Ouă norocoase: {2} | Lure-uri: {3} | Evolution: {4}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
