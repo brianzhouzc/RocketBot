@@ -374,7 +374,7 @@
     },
     {
       "Key": "CurrentMiscItemInv",
-      "Value": "Bacche: {0} | Aromi: {1} | Fortunuovi: {2} | Esche: {3}"
+      "Value": "Bacche: {0} | Aromi: {1} | Fortunuovi: {2} | Esche: {3} | Evolution: {4}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",

@@ -334,7 +334,7 @@
     },
     {
       "Key": "CurrentMiscItemInv",
-      "Value": "Beeren: {0} | Rauch: {1} | Gluecks-Eier: {2} | Lockmodule: {3}"
+      "Value": "Beeren: {0} | Rauch: {1} | Gluecks-Eier: {2} | Lockmodule: {3} | Evolution: {4}"
     },
     {
       "Key": "invFullTransferring",
