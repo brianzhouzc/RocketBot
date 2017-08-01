@@ -386,11 +386,11 @@
     },
     {
       "Key": "currentReviveInv",
-      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Badges: {3}"
+      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Tickets: {3}"
     },
     {
       "Key": "currentMiscItemInv",
-      "Value": "ผลเบอรี่ : {0} | ตัวล่อโปเกมอน : {1} | Lucky Eggs: {2} | ตัวล่อเสา Poke Stops : {3} | Evolution: {4}"
+      "Value": "ผลเบอรี่ : {0} | ตัวล่อโปเกมอน : {1} | Lucky Eggs: {2} | ตัวล่อเสา Poke Stops : {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",

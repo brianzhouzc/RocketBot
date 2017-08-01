@@ -386,11 +386,11 @@
     },
     {
       "Key": "CurrentReviveInv",
-      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Badges: {3}"
+      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Tickets: {3}"
     },
     {
       "Key": "CurrentMiscItemInv",
-      "Value": "Zmeure: {0} | Incense-uri: {1} | Ouă norocoase: {2} | Lure-uri: {3} | Evolution: {4}"
+      "Value": "Zmeure: {0} | Incense-uri: {1} | Ouă norocoase: {2} | Lure-uri: {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",

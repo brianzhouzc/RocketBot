@@ -330,11 +330,11 @@
     },
     {
       "Key": "CurrentReviveInv",
-      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Badges: {3}"
+      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Tickets: {3}"
     },
     {
       "Key": "CurrentMiscItemInv",
-      "Value": "Beeren: {0} | Rauch: {1} | Gluecks-Eier: {2} | Lockmodule: {3} | Evolution: {4}"
+      "Value": "Beeren: {0} | Rauch: {1} | Gluecks-Eier: {2} | Lockmodule: {3}"
     },
     {
       "Key": "invFullTransferring",

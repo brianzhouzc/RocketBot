@@ -386,11 +386,11 @@
     },
     {
       "Key": "currentReviveInv",
-      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Badges: {3}"
+      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Tickets: {3}"
     },
     {
       "Key": "currentMiscItemInv",
-      "Value": "RazzBerry: {0} | Incense'y: {1} | LuckyEggi: {2} | Lure'y: {3} | Evolution: {4}"
+      "Value": "RazzBerry: {0} | Incense'y: {1} | LuckyEggi: {2} | Lure'y: {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",

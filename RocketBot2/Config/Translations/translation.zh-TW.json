@@ -390,11 +390,11 @@
     },
     {
       "Key": "CurrentReviveInv",
-      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Badges: {3}""
+      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Tickets: {3}""
     },
     {
       "Key": "CurrentMiscItemInv",
-      "Value": "野果：{0} | 薰香：{1} | 幸運蛋：{2} | 誘餌：{3}\t\t\t | Evolution: {4}"
+      "Value": "野果：{0} | 薰香：{1} | 幸運蛋：{2} | 誘餌：{3}\t\t\t"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",

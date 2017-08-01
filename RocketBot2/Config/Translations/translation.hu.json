@@ -386,11 +386,11 @@
     },
     {
       "Key": "currentReviveInv",
-      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Badges: {3}"
+      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Tickets: {3}"
     },
     {
       "Key": "currentMiscItemInv",
-      "Value": "Malnak: {0} | Vonzok: {1} | Szerencsetojasok: {2} | Csalik: {3} | Evolution: {4}"
+      "Value": "Malnak: {0} | Vonzok: {1} | Szerencsetojasok: {2} | Csalik: {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
