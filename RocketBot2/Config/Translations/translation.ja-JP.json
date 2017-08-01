@@ -378,19 +378,19 @@
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "手持ちのボール:  モンスターボール: {0} | スーパーボール: {1} | ハイパーボール: {2} | マスターボール: {3}"
+      "Value": "モンスターボール: {0} | スーパーボール:  {1} | ハイパーボール:  {2} | マスターボール:   {3}"
     },
     {
       "Key": "currentPotionInv",
-      "Value": "キズぐすり: {0} | いいキズぐすり: {1} | すごいキズぐすり: {2} | まんたんのくすり: {3}"
+      "Value": "キズぐすり:       {0} | いいキズぐすり: {1} | すごいキズぐすり: {2} | まんたんのくすり: {3}"
     },
     {
       "Key": "currentReviveInv",
-      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Tickets: {3}"
+      "Value": "Revives:         {0} | MaxRevives:    {1} | Evolve Items:    {2} | Raid Tickets:   {3}"
     },
     {
       "Key": "currentMiscItemInv",
-      "Value": "ズリのみ: {0} | おこう: {1} | しあわせタマゴ: {2} | ルアー: {3}"
+      "Value": "ズリのみ:         {0} | おこう:        {1} | しあわせタマゴ:    {2} | ルアー:         {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",

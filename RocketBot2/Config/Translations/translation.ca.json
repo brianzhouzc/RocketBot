@@ -372,19 +372,19 @@
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "Actualment tens: | Pokeballs: {0} | Greatballs: {1} | Ultraballs: {2} | Masterballs: {3}"
+      "Value": "Actualment tens: | Pokeballs: {0} | Greatballs:   {1} | Ultraballs:     {2} | Masterballs:  {3}"
     },
     {
       "Key": "CurrentPotionInv",
-      "Value": "Pocions: {0} | SuperPocions: {1} | HiperPocions: {2} | MaxPocions: {3}"
+      "Value": "Pocions:   {0} | SuperPocions: {1} | HiperPocions:   {2} | MaxPocions:   {3}"
     },
     {
       "Key": "CurrentReviveInv",
-      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Tickets: {3}"
+      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items:   {2} | Raid Tickets: {3}"
     },
     {
       "Key": "CurrentMiscItemInv",
-      "Value": "Baies: {0} | Encens: {1} | Ous de la sort: {2} | Esquers: {3}"
+      "Value": "Baies:     {0} | Encens:       {1} | Ous de la sort: {2} | Esquers:      {3}"
     },
     {
       "Key": "invFullTransferring",
