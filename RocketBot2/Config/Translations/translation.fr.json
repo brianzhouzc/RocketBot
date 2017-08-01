@@ -433,7 +433,7 @@
       "Value": "[Configuration de recyclage] Baies Framby   ({0}%): {1}"
     },
      {
-      "Key": "PercentEvolutionToKeep",
+      "Key": "percentEvolutionToKeep",
       "Value": "[Recycle Configuration] Evolution   ({0,2:##}%): {1,3:###}"
     },
     {
