@@ -402,7 +402,7 @@
     },
     {
       "Key": "currentMiscItemInv",
-      "Value": "Baies Framby: {0} | Encens: {1} | Oeuf Chance: {2} | Leures: {3} | Evolution: {4}"
+      "Value": "Baies Framby: {0} | Encens: {1} | Oeuf Chance: {2} | Leures: {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",

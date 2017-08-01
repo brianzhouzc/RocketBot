@@ -370,11 +370,11 @@
     },
     {
       "Key": "CurrentReviveInv",
-      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Badges: {3}"
+      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Tickets: {3}"
     },
     {
       "Key": "CurrentMiscItemInv",
-      "Value": "Bacche: {0} | Aromi: {1} | Fortunuovi: {2} | Esche: {3} | Evolution: {4}"
+      "Value": "Bacche: {0} | Aromi: {1} | Fortunuovi: {2} | Esche: {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
