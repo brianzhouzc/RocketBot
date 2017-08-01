@@ -432,6 +432,10 @@
       "Key": "percentBerriesToKeep",
       "Value": "[Configuration de recyclage] Baies Framby   ({0}%): {1}"
     },
+     {
+      "Key": "PercentEvolutionToKeep",
+      "Value": "[Recycle Configuration] Evolution   ({0,2:##}%): {1,3:###}"
+    },
     {
       "Key": "recyclingQuietly",
       "Value": "Recycler tranquillement..."
