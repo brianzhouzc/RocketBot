@@ -398,7 +398,7 @@
     },
     {
       "Key": "currentReviveInv",
-      "Value": "Revives:   {0,3:##0} | MaxRevives:   {1,3:##0} |"
+      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Badges: {3}"
     },
     {
       "Key": "currentMiscItemInv",

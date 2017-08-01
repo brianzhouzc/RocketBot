@@ -390,7 +390,7 @@
     },
     {
       "Key": "CurrentReviveInv",
-      "Value": "復甦劑：{0} | 完全復甦劑：{1}\t\t"
+      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Badges: {3}""
     },
     {
       "Key": "CurrentMiscItemInv",
