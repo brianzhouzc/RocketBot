@@ -374,19 +374,19 @@
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "精靈球: {0} | 高級球: {1} | 超級球: {2} | 掌門球: {3}"
+      "Value": "精靈球:    {0} | 高級球:      {1} | 超級球:        {2} | 掌門球:       {3}"
     },
     {
       "Key": "CurrentPotionInv",
-      "Value": "藥水: {0} | 超級藥水: {1} | 超高級藥水: {2} | 全滿藥水: {3}"
+      "Value": "藥水:      {0} | 超級藥水:    {1} | 超高級藥水:    {2} | 全滿藥水:      {3}"
     },
     {
       "Key": "CurrentReviveInv",
-      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Tickets: {3}"
+      "Value": "Revives:   {0} | MaxRevives: {1} | Evolve Items: {2} | Raid Tickets: {3}"
     },
     {
       "Key": "CurrentMiscItemInv",
-      "Value": "樹果: {0} | 薰香: {1} | 幸運蛋: {2} | 誘餌: {3}"
+      "Value": "樹果:      {0} | 薰香:        {1} | 幸運蛋:       {2} | 誘餌:          {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",

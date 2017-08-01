@@ -382,15 +382,15 @@
     },
     {
       "Key": "currentPotionInv",
-      "Value": "Fozetek: {0} | Szuper fozetek: {1} | Hiper fozetek: {2} | Maximum fozeteks: {3}"
+      "Value": "Fozetek:    {0} | Szuper fozetek:    {1} | Hiper fozetek:    {2} | Maximum fozeteks:  {3}"
     },
     {
       "Key": "currentReviveInv",
-      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Tickets: {3}"
+      "Value": "Revives:    {0} | MaxRevives:        {1} | Evolve Items:     {2} | Raid Tickets:      {3}"
     },
     {
       "Key": "currentMiscItemInv",
-      "Value": "Malnak: {0} | Vonzok: {1} | Szerencsetojasok: {2} | Csalik: {3}"
+      "Value": "Malnak:     {0} | Vonzok:            {1} | Szerencsetojasok: {2} | Csalik:            {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",

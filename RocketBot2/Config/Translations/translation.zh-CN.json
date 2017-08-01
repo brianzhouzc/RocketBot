@@ -378,11 +378,11 @@
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "普通球:{0}|高级球:{1}|超级球:{2}|大师球:{3}\t\t\t"
+      "Value": "普通球:    {0} | 高级球:        {1} | 超级球:        {2} | 大师球:       {3}"
     },
     {
       "Key": "CurrentPotionInv",
-      "Value": "药水: {0} | 高级药水: {1} | 超级药水: {2} | 顶级药水: {3}\t\t\t"
+      "Value": "药水:      {0} | 高级药水:      {1} | 超级药水:      {2} | 顶级药水:      {3}"
     },
     {
       "Key": "CurrentReviveInv",
@@ -390,7 +390,7 @@
     },
     {
       "Key": "CurrentMiscItemInv",
-      "Value": "浆果: {0} | 熏香: {1} | 幸运蛋: {2} | 诱饵: {3}\t\t"
+      "Value": "浆果:      {0} | 熏香:          {1} | 幸运蛋:       {2} | 诱饵:          {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
