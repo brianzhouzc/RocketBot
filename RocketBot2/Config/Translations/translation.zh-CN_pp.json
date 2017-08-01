@@ -386,7 +386,7 @@
     },
     {
       "Key": "CurrentReviveInv",
-      "Value": "复活晶石: {0} | 满血复活石: {1}\t\t"
+      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Badges: {3}"
     },
     {
       "Key": "CurrentMiscItemInv",

@@ -386,7 +386,7 @@
     },
     {
       "Key": "currentReviveInv",
-      "Value": "げんきのかけら: {0} | げんきのかたまり: {1}"
+      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Badges: {3}"
     },
     {
       "Key": "currentMiscItemInv",
