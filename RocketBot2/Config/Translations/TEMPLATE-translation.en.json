@@ -433,7 +433,7 @@
       "Value": "[Recycle Configuration] Berries   ({0,2:##}%): {1,3:###}"
     },
     {
-      "Key": "PercentEvolutionToKeep",
+      "Key": "percentEvolutionToKeep",
       "Value": "[Recycle Configuration] Evolution   ({0,2:##}%): {1,3:###}"
     },
     {
