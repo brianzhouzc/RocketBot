@@ -378,19 +378,19 @@
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "Poké Ball: {0} | Great Ball: {1} | Ultra Ball: {2} | Master Ball: {3}"
+      "Value": "Poké Ball:  {0} | Great Ball:   {1} | Ultra Ball:   {2} | Master Ball:  {3}"
     },
     {
       "Key": "currentPotionInv",
-      "Value": "Potion: {0} | Super Potion: {1} | Hyper Potion: {2} | Max Potion: {3}"
+      "Value": "Potion:     {0} | Super Potion: {1} | Hyper Potion: {2} | Max Potion:   {3}"
     },
     {
       "Key": "currentReviveInv",
-      "Value": "Revive: {0} | Max Revive: {1}"
+      "Value": "Revives:    {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Tickets: {3}"
     },
     {
       "Key": "currentMiscItemInv",
-      "Value": "Razz Berry: {0} | Incense: {1} | Lucky Egg: {2} | Lure Module: {3} | Evolution: {4}"
+      "Value": "Razz Berry: {0} | Incense:      {1} | Lucky Egg:    {2} | Lure Module:  {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",

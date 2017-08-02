@@ -378,19 +378,19 @@
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "Pokeballuri: {0} | Greatballuri: {1} | Ultraballuri: {2} | Masterballuri: {3}"
+      "Value": "Pokeballuri: {0} | Greatballuri: {1} | Ultraballuri:  {2} | Masterballuri:           {3}"
     },
     {
       "Key": "CurrentPotionInv",
-      "Value": "Poțiuni: {0} | Superpoțiuni: {1} | Hiperpoțiuni: {2} | Poțiuni de viață maximă: {3}"
+      "Value": "Poțiuni:     {0} | Superpoțiuni: {1} | Hiperpoțiuni:  {2} | Poțiuni de viață maximă: {3}"
     },
     {
       "Key": "CurrentReviveInv",
-      "Value": "Reînvieri: {0} | Reînvieri de viață maximă: {1}"
+      "Value": "Revives:     {0} | MaxRevives:   {1} | Evolve Items:  {2} | Raid Tickets:            {3}"
     },
     {
       "Key": "CurrentMiscItemInv",
-      "Value": "Zmeure: {0} | Incense-uri: {1} | Ouă norocoase: {2} | Lure-uri: {3} | Evolution: {4}"
+      "Value": "Zmeure:      {0} | Incense-uri:  {1} | Ouă norocoase: {2} | Lure-uri:                {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
