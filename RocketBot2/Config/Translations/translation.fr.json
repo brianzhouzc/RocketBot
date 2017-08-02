@@ -418,23 +418,23 @@
     },
     {
       "Key": "percentPokeballsToKeep",
-      "Value": "[Configuration de recyclage] Pokeballs ({0}%): {1}"
+      "Value": "[Configuration de recyclage] Pokeballs    ({0}%): {1}"
     },
     {
       "Key": "percentPotionsToKeep",
-      "Value": "[Configuration de recyclage] Potions   ({0}%): {1}"
+      "Value": "[Configuration de recyclage] Potions      ({0}%): {1}"
     },
     {
       "Key": "percentRevivesToKeep",
-      "Value": "[Configuration de recyclage] Rappels   ({0}%): {1}"
+      "Value": "[Configuration de recyclage] Rappels      ({0}%): {1}"
     },
     {
       "Key": "percentBerriesToKeep",
-      "Value": "[Configuration de recyclage] Baies Framby   ({0}%): {1}"
+      "Value": "[Configuration de recyclage] Baies Framby ({0}%): {1}"
     },
-     {
+    {
       "Key": "percentEvolutionToKeep",
-      "Value": "[Recycle Configuration] Evolution   ({0}%): {1}"
+      "Value": "[Configuration de recyclage] Evolution    ({0}%): {1}"
     },
     {
       "Key": "recyclingQuietly",
