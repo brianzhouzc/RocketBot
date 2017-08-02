@@ -321,6 +321,26 @@
       "Value": "{0} Ignorado"
     },
     {
+      "Key": "zeroPokeballInv",
+      "Value": "No tens pokeballs en el teu inventari, no es poden capturar més Pokemon."
+    },
+    {
+      "Key": "currentPokeballInv",
+      "Value": "Pokeballs: {0} | Greatballs:   {1} | Ultraballs:     {2} | Masterballs:  {3}"
+    },
+    {
+      "Key": "CurrentPotionInv",
+      "Value": "Pocions:   {0} | SuperPocions: {1} | HiperPocions:   {2} | MaxPocions:   {3}"
+    },
+    {
+      "Key": "CurrentReviveInv",
+      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items:   {2} | Raid Tickets: {3}"
+    },
+    {
+      "Key": "CurrentMiscItemInv",
+      "Value": "Baies:     {0} | Encens:       {1} | Ous de la sort: {2} | Esquers:      {3}"
+    },
+    {
       "Key": "invFullTransferring",
       "Value": "Inventário de Pokémons cheio, a transferir pokémons..."
     },

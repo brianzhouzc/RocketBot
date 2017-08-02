@@ -148,6 +148,18 @@ namespace RocketBot2.Forms
                 TrayIcon.ShowBalloonTip(5000);
                 Hide();
             }
+
+            //Enable display normal 2° button system
+            if (FormWindowState.Normal == this.WindowState)
+            {
+                Hide();
+                var sh = Screen.PrimaryScreen.Bounds.Height;
+                var sw = Screen.PrimaryScreen.Bounds.Width;
+                if (sh >= 780) { this.Height = sh / 2; }
+                if (sw >= 1080) { this.Width = sw / 2; }
+                Show();
+                Refresh();
+            }
         }
 
         private void TrayIcon_MouseClick(object sender, MouseEventArgs e)
@@ -761,9 +773,9 @@ namespace RocketBot2.Forms
             }
         }
 
-        private void FollowTrainerCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void FollowTrainerCheckBox_CheckStateChanged(object sender, EventArgs e)
         {
-            if (followTrainerCheckBox.Checked)
+            if (followTrainerCheckBox.CheckState == CheckState.Checked)
             {
                 GMapControl1.CanDragMap = false;
                 GMapControl1.Position = _currentLatLng;

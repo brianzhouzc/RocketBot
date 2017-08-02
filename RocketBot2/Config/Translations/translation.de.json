@@ -322,19 +322,19 @@
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "Pokeball: {0} | Superball: {1} | Hyperball: {2} | Meisterball: {3}"
+      "Value": "Pokeball:  {0} | Superball:    {1} | Hyperball:    {2} | Meisterball:  {3}"
     },
     {
       "Key": "CurrentPotionInv",
-      "Value": "Traenke: {0} | Supertraenke: {1} | Hypertraenke: {2} | Top-Traenke: {3}"
+      "Value": "Traenke:   {0} | Supertraenke: {1} | Hypertraenke: {2} | Top-Traenke:  {3}"
     },
     {
       "Key": "CurrentReviveInv",
-      "Value": "Beleber: {0} | Top-Beleber: {1}"
+      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Tickets: {3}"
     },
     {
       "Key": "CurrentMiscItemInv",
-      "Value": "Beeren: {0} | Rauch: {1} | Gluecks-Eier: {2} | Lockmodule: {3}"
+      "Value": "Beeren:    {0} | Rauch:        {1} | Gluecks-Eier: {2} | Lockmodule:   {3}"
     },
     {
       "Key": "invFullTransferring",

@@ -390,19 +390,19 @@
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "Pokeballs: {0} | Superballs: {1} | Hyperballs: {2} | Masterballs: {3}"
+      "Value": "Pokeballs:    {0} | Superballs:  {1} | Hyperballs:       {2} | Masterballs: {3}"
     },
     {
       "Key": "currentPotionInv",
-      "Value": "Potions: {0} | SuperPotions: {1} | HyperPotions: {2} | MaxPotions: {3}"
+      "Value": "Potions:      {0} | SuperPotions: {1} | HyperPotions:    {2} | MaxPotions:  {3}"
     },
     {
       "Key": "currentReviveInv",
-      "Value": "Rappel: {0} | RappelMax: {1}"
+      "Value": "Rappels:      {0} | MaxRappels:   {1} | Evolution Items: {2} | Raid Badges: {3}"
     },
     {
       "Key": "currentMiscItemInv",
-      "Value": "Baies Framby: {0} | Encens: {1} | Oeuf Chance: {2} | Leures: {3}"
+      "Value": "Baies Framby: {0} | Encens:       {1} | Oeuf Chance:     {2} | Leures:      {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
@@ -431,6 +431,10 @@
     {
       "Key": "percentBerriesToKeep",
       "Value": "[Configuration de recyclage] Baies Framby   ({0}%): {1}"
+    },
+     {
+      "Key": "percentEvolutionToKeep",
+      "Value": "[Recycle Configuration] Evolution   ({0}%): {1}"
     },
     {
       "Key": "recyclingQuietly",

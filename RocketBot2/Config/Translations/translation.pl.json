@@ -378,19 +378,19 @@
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "Pokeballe: {0} | Greatballe: {1} | Ultraballe: {2} | Masterballe: {3}"
+      "Value": "Pokeballe: {0} | Greatballe:   {1} | Ultraballe:   {2} | Masterballe:  {3}"
     },
     {
       "Key": "currentPotionInv",
-      "Value": "Potiony: {0} | SuperPotiony: {1} | HyperPotiony: {2} | MaxPotiony: {3}"
+      "Value": "Potiony:   {0} | SuperPotiony: {1} | HyperPotiony: {2} | MaxPotiony:   {3}"
     },
     {
       "Key": "currentReviveInv",
-      "Value": "Revive'y: {0} | MaxRevive'y: {1}"
+      "Value": "Revives:   {0} | MaxRevives:   {1} | Evolve Items: {2} | Raid Tickets: {3}"
     },
     {
       "Key": "currentMiscItemInv",
-      "Value": "RazzBerry: {0} | Incense'y: {1} | LuckyEggi: {2} | Lure'y: {3}"
+      "Value": "RazzBerry: {0} | Incense'y:    {1} | LuckyEggi:    {2} | Lure'y:       {3}"
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
