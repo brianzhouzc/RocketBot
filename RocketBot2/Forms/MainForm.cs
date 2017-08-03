@@ -70,7 +70,8 @@ namespace RocketBot2.Forms
         private static readonly Uri StrMasterKillSwitchUri =
             new Uri("https://raw.githubusercontent.com/TheUnnamedOrganisation/PoGo.NecroBot.Logic/master/MKS.txt");
 
-        private GlobalSettings _settings;
+        public static Session _session;
+        public static GlobalSettings _settings;
         private StateMachine _machine;
         private PointLatLng _currentLatLng;
         private List<PointLatLng> _routePoints;
@@ -89,8 +90,6 @@ namespace RocketBot2.Forms
         internal readonly GMapOverlay _searchAreaOverlay = new GMapOverlay("areas");
 
         private const int DefaultZoomLevel = 15;
-
-        public static Session _session;
 
         public MainForm(string[] _args)
         {
@@ -558,7 +557,7 @@ namespace RocketBot2.Forms
                 _playerOverlay.Routes.Clear();
                 var route = new GMapRoute(_playerLocations, "step")
                 {
-                    Stroke = new Pen(Color.FromArgb(0, 204, 0), 3) { DashStyle = DashStyle.Solid }
+                    Stroke = new Pen(Color.FromArgb(0, 204, 0), 2) { DashStyle = DashStyle.Solid }
                 };
                 _playerOverlay.Routes.Add(route);
             }, null);
