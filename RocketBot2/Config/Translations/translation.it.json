@@ -378,7 +378,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Configurazione Non Valida] La somma degli oggetti (Pokeball+Pozioni+Revitalizzanti={0}) è maggiore della capacità massima dell'inventario ({1})"
+      "Value": "[Configurazione Non Valida] La somma degli oggetti (Pokeball+Pozioni+Revitalizzanti+Evolution={0}) è maggiore della capacità massima dell'inventario ({1})"
     },
     {
       "Key": "recyclingQuietly",

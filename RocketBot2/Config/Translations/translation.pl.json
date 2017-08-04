@@ -394,7 +394,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "Ustawiona przez Ciebie dopuszczalna ilość przedmiotów w ekwipunku (PokeBalle+Potiony+Revive'y={0}) przekracza maksymalną jego pojemność, która wynosi: ({1})"
+      "Value": "Ustawiona przez Ciebie dopuszczalna ilość przedmiotów w ekwipunku (PokeBalle+Potiony+Revive'y+Evolution={0}) przekracza maksymalną jego pojemność, która wynosi: ({1})"
     },
     {
       "Key": "recyclingQuietly",

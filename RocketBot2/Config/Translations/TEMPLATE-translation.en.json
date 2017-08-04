@@ -406,11 +406,11 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Configuration Invalid] Your maximum items combined (Balls+Potions+Revives+Berries={0}) is over your max item storage ({1})"
+      "Value": "[Configuration Invalid] Your maximum items combined (Balls+Potions+Revives+Berries+Evolution={0}) is over your max item storage ({1})"
     },
     {
       "Key": "totalRecyclePercentGreaterThan100",
-      "Value": "[Configuration Invalid] Your total recycle percents combined (Balls+Potions+Revives+Berries) is greater than 100. It must be less than or equal to 100."
+      "Value": "[Configuration Invalid] Your total recycle percents combined (Balls+Potions+Revives+Berries+Evolution) is greater than 100. It must be less than or equal to 100."
     },
     {
       "Key": "usingRecyclePercentsInsteadOfTotals",

@@ -394,7 +394,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[设置无效]您设置的物品数量组合(精灵球+药水+复活石={0})超出了您的背包容量({1})\t\t\t\t"
+      "Value": "[设置无效]您设置的物品数量组合(精灵球+药水+复活石+Evolution={0})超出了您的背包容量({1})\t\t\t\t"
     },
     {
       "Key": "recyclingQuietly",

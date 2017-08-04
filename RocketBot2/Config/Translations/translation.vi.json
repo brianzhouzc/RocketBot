@@ -390,7 +390,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Cấu Hình Không Hợp Lệ] Tổng số vật phẩm tối đa của bạn (balls+potions+revives={0}) đã vượt qua số lượng vật phẩm tốt đa trong túi ({1})"
+      "Value": "[Cấu Hình Không Hợp Lệ] Tổng số vật phẩm tối đa của bạn (balls+potions+revives+Evolution={0}) đã vượt qua số lượng vật phẩm tốt đa trong túi ({1})"
     },
     {
       "Key": "recyclingQuietly",

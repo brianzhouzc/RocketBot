@@ -394,7 +394,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[無効な設定] もちもの (ボール+キズぐすり+げんきのかけら等={0}) が所持数限界を超えています ({1})"
+      "Value": "[無効な設定] もちもの (ボール+キズぐすり+げんきのかけら等+Evolution={0}) が所持数限界を超えています ({1})"
     },
     {
       "Key": "recyclingQuietly",

@@ -394,7 +394,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[การตั้งค่าผิดพลาด] รวมไอเทมสูงสุดของคุณ (balls+potions+revives={0}) หรือเกินจำนวนสูงสุดในคลังของคุณ ({1})"
+      "Value": "[การตั้งค่าผิดพลาด] รวมไอเทมสูงสุดของคุณ (balls+potions+revives+Evolution={0}) หรือเกินจำนวนสูงสุดในคลังของคุณ ({1})"
     },
     {
       "Key": "recyclingQuietly",

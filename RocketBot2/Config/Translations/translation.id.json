@@ -398,7 +398,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Konfigurasi Salah] Total barang (ball+potion+revive={0}) melebihi kapasitas tasmu ({1})"
+      "Value": "[Konfigurasi Salah] Total barang (ball+potion+revive+Evolution={0}) melebihi kapasitas tasmu ({1})"
     },
     {
       "Key": "recyclingQuietly",

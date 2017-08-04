@@ -394,7 +394,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Geçersiz Ayar] Tüm eşyaların toplamı (Pokétopları+Potionlar+Revivelar={0}) taşınabilecek eşya limitinden ({1}) daha fazla olamaz."
+      "Value": "[Geçersiz Ayar] Tüm eşyaların toplamı (Pokétopları+Potionlar+Revivelar+Evolution={0}) taşınabilecek eşya limitinden ({1}) daha fazla olamaz."
     },
     {
       "Key": "recyclingQuietly",
