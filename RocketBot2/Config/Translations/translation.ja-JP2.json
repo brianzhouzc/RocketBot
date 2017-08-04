@@ -342,7 +342,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Configuration Invalid] Your maximum items combined (balls+potions+revives={0}) is over your max item storage ({1})"
+      "Value": "[Configuration Invalid] Your maximum items combined (balls+potions+revives+Evolution={0}) is over your max item storage ({1})"
     },
     {
       "Key": "recyclingQuietly",

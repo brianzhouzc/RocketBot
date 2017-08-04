@@ -406,11 +406,11 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Configuration non valide] Vos éléments maximum combinés (Balls+Potions+Rappels+Baies={0}) est au dessus de votre stockage maximum d'objets ({1})"
+      "Value": "[Configuration non valide] Vos éléments maximum combinés (Balls+Potions+Rappels+Baies+Evolution={0}) est au dessus de votre stockage maximum d'objets ({1})"
     },
     {
       "Key": "totalRecyclePercentGreaterThan100",
-      "Value": "[Configuration non valide] Vos pourcentages de recyclage combinés (Balls+Potions+Rappels+Baies) est supérieur à 100. Il doit être inférieur ou égal à 100."
+      "Value": "[Configuration non valide] Vos pourcentages de recyclage combinés (Balls+Potions+Rappels+Baies+Evolution) est supérieur à 100. Il doit être inférieur ou égal à 100."
     },
     {
       "Key": "usingRecyclePercentsInsteadOfTotals",

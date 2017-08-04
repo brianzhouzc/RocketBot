@@ -358,7 +358,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Konfigūracija neteisinga] Jūsų maksimalūs daiktai (rutuliai+gėrimai+prikėlimai={0}) viršija jūsų saugyklą ({1})"
+      "Value": "[Konfigūracija neteisinga] Jūsų maksimalūs daiktai (rutuliai+gėrimai+prikėlimai+Evolution={0}) viršija jūsų saugyklą ({1})"
     },
     {
       "Key": "recyclingQuietly",

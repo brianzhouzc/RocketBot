@@ -394,7 +394,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Configurație invalidă] Numărul maxim de obiecte combinate (bile+poțiuni+reînvieri={0}) este peste limita maximă de stocare a obiectelor ({1})"
+      "Value": "[Configurație invalidă] Numărul maxim de obiecte combinate (bile+poțiuni+reînvieri+Evolution={0}) este peste limita maximă de stocare a obiectelor ({1})"
     },
     {
       "Key": "recyclingQuietly",

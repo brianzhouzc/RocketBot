@@ -378,7 +378,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Configuração Inválida] Seu limite de itens combinados (pokebolas+poções+revives={0}) está acima da capacidade máxima de seu inventário ({1})"
+      "Value": "[Configuração Inválida] Seu limite de itens combinados (pokebolas+poções+revives+Evolution={0}) está acima da capacidade máxima de seu inventário ({1})"
     },
     {
       "Key": "recyclingQuietly",

@@ -394,7 +394,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Hibas beallitas] Az altalad beallitott maximum targyak (labdak+fozetek+ujraelesztok={0}) tobb, mint a maximum kapacitasa a hatizsakodnak({1})"
+      "Value": "[Hibas beallitas] Az altalad beallitott maximum targyak (labdak+fozetek+ujraelesztok+Evolution={0}) tobb, mint a maximum kapacitasa a hatizsakodnak({1})"
     },
     {
       "Key": "recyclingQuietly",

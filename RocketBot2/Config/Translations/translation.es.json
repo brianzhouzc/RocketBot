@@ -390,7 +390,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Configuración Inválida] El Máximo de items combinados (bolas+pociones+revivir={0}) está por encima del almacenamiento máximo ({1})"
+      "Value": "[Configuración Inválida] El Máximo de items combinados (bolas+pociones+revivir+Evolution={0}) está por encima del almacenamiento máximo ({1})"
     },
     {
       "Key": "recyclingQuietly",
