@@ -98,7 +98,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "Jalan ke {0}: {1} | Jarak: {2} meter | Waktu tempuh: {3} detik | Menggunakan: Rute {4}"
+      "Value": "Jalan ke {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",

@@ -90,7 +90,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "{0} Прямуємо до <{1}>, дистанція ({2} м) ({3} seconds) (route {4})"
+      "Value":  "Traveling {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",

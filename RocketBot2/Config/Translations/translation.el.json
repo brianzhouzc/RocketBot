@@ -90,7 +90,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "{0} {1} σε απόσταση {2} μέτρων ({3} seconds) (route {4})"
+      "Value":  "Traveling {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
