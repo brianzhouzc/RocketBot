@@ -557,7 +557,7 @@ namespace RocketBot2.Forms
                 _playerOverlay.Routes.Clear();
                 var route = new GMapRoute(_playerLocations, "step")
                 {
-                    Stroke = new Pen(Color.FromArgb(0, 204, 0), 3) { DashStyle = DashStyle.Solid }
+                    Stroke = new Pen(Color.FromArgb(0, 204, 0), 2) { DashStyle = DashStyle.Solid }
                 };
                 _playerOverlay.Routes.Add(route);
             }, null);
@@ -583,7 +583,7 @@ namespace RocketBot2.Forms
             var pos = GMapControl1.FromLocalToLatLng(e.Location.X, e.Location.Y);
             double Dist = LocationUtils.CalculateDistanceInMeters(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude, pos.Lat, pos.Lng);
             double Alt = await _session.ElevationService.GetElevation(pos.Lat, pos.Lng).ConfigureAwait(false);
-            double Speed = _session.Client.CurrentSpeed; // _session.LogicSettings.WalkingSpeedInKilometerPerHour;
+            double Speed = _session.Client.CurrentSpeed;
 
             if (!_botStarted)
             {
