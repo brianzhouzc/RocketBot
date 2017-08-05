@@ -100,7 +100,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "ធ្វើដំណើរទៅ {0}: {1} ({2}វិនារទី) ({3} seconds) (route {4})"
+      "Value":  "Traveling {0}m({1} sec) via {2} to next {3}: {4}"
 
     },
     {
