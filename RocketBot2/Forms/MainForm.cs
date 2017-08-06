@@ -851,7 +851,6 @@ namespace RocketBot2.Forms
                 var text = string.IsNullOrEmpty(pok.Nickname) ? _session.Translation.GetPokemonTranslation(pok.PokemonId) : pok.Nickname;
                 e.Item.Text = pok.Favorited ? $"★ {text}" : text;
 
-
                 foreach (OLVListSubItem sub in e.Item.SubItems)
                 {
                     // ReSharper disable once PossibleNullReferenceException
