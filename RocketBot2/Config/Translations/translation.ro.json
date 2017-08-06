@@ -94,7 +94,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "Călătoresc la {0} \"{1}\" ({2}m) ({3} secunde) (route {4})"
+      "Value": "Călătoresc la {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
@@ -394,7 +394,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Configurație invalidă] Numărul maxim de obiecte combinate (bile+poțiuni+reînvieri={0}) este peste limita maximă de stocare a obiectelor ({1})"
+      "Value": "[Configurație invalidă] Numărul maxim de obiecte combinate (bile+poțiuni+reînvieri+Evolution={0}) este peste limita maximă de stocare a obiectelor ({1})"
     },
     {
       "Key": "recyclingQuietly",

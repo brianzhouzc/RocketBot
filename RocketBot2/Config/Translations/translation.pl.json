@@ -94,7 +94,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "Dotarcie do {0}: {1} za ({2}m) ({3}s) (route {4})"
+      "Value": "Dotarcie do {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
@@ -394,7 +394,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "Ustawiona przez Ciebie dopuszczalna ilość przedmiotów w ekwipunku (PokeBalle+Potiony+Revive'y={0}) przekracza maksymalną jego pojemność, która wynosi: ({1})"
+      "Value": "Ustawiona przez Ciebie dopuszczalna ilość przedmiotów w ekwipunku (PokeBalle+Potiony+Revive'y+Evolution={0}) przekracza maksymalną jego pojemność, która wynosi: ({1})"
     },
     {
       "Key": "recyclingQuietly",

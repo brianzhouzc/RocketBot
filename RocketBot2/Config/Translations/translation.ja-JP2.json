@@ -42,7 +42,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "Traveling to Pokestop: {0} ({1}m) ({2} seconds)"
+      "Value":  "Traveling {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
@@ -342,7 +342,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Configuration Invalid] Your maximum items combined (balls+potions+revives={0}) is over your max item storage ({1})"
+      "Value": "[Configuration Invalid] Your maximum items combined (balls+potions+revives+Evolution={0}) is over your max item storage ({1})"
     },
     {
       "Key": "recyclingQuietly",

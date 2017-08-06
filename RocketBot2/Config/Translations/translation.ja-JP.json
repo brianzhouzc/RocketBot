@@ -94,7 +94,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "次の{0}へ移動中です: {1} ({2}m) ({3} 秒) (route {4})"
+      "Value":  "Traveling {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
@@ -394,7 +394,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[無効な設定] もちもの (ボール+キズぐすり+げんきのかけら等={0}) が所持数限界を超えています ({1})"
+      "Value": "[無効な設定] もちもの (ボール+キズぐすり+げんきのかけら等+Evolution={0}) が所持数限界を超えています ({1})"
     },
     {
       "Key": "recyclingQuietly",

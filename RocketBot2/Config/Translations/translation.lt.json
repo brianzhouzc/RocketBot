@@ -90,7 +90,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "Atvykstama į {0}: {1} už ({2}m) ({3} seconds) (route {4})"
+      "Value": "Atvykstama į {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
@@ -358,7 +358,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Konfigūracija neteisinga] Jūsų maksimalūs daiktai (rutuliai+gėrimai+prikėlimai={0}) viršija jūsų saugyklą ({1})"
+      "Value": "[Konfigūracija neteisinga] Jūsų maksimalūs daiktai (rutuliai+gėrimai+prikėlimai+Evolution={0}) viršija jūsų saugyklą ({1})"
     },
     {
       "Key": "recyclingQuietly",

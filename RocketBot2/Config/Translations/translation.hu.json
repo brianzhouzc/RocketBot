@@ -94,7 +94,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "Erkezes {0}: {1} ({2}m) ({3} seconds) (route {4})"
+      "Value": "Erkezes {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
@@ -394,7 +394,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[Hibas beallitas] Az altalad beallitott maximum targyak (labdak+fozetek+ujraelesztok={0}) tobb, mint a maximum kapacitasa a hatizsakodnak({1})"
+      "Value": "[Hibas beallitas] Az altalad beallitott maximum targyak (labdak+fozetek+ujraelesztok+Evolution={0}) tobb, mint a maximum kapacitasa a hatizsakodnak({1})"
     },
     {
       "Key": "recyclingQuietly",

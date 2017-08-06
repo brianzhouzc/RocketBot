@@ -94,7 +94,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "กำลังเดินทางไปสู่ {0} : {1} ( {2} เมตร ) ( {3} วินาที ) (เส้นทางคือ : {4})"
+      "Value":  "Traveling {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
@@ -394,7 +394,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[การตั้งค่าผิดพลาด] รวมไอเทมสูงสุดของคุณ (balls+potions+revives={0}) หรือเกินจำนวนสูงสุดในคลังของคุณ ({1})"
+      "Value": "[การตั้งค่าผิดพลาด] รวมไอเทมสูงสุดของคุณ (balls+potions+revives+Evolution={0}) หรือเกินจำนวนสูงสุดในคลังของคุณ ({1})"
     },
     {
       "Key": "recyclingQuietly",

@@ -94,7 +94,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "{0} 正在前往补给站:{1} 距离{2}米,需要{3}秒 (route {4})\t\t\t"
+      "Value": "Traveling {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
@@ -394,7 +394,7 @@
     },
     {
       "Key": "maxItemsCombinedOverMaxItemStorage",
-      "Value": "[设置无效]您设置的物品数量总和(宝贝球+药水+晶石={0})超出了您的背包容量({1})\t\t"
+      "Value": "[设置无效]您设置的物品数量总和(宝贝球+药水+晶石+Evolution={0})超出了您的背包容量({1})\t\t"
     },
     {
       "Key": "recyclingQuietly",
