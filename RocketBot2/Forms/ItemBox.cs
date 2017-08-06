@@ -6,14 +6,9 @@ using RocketBot2.Helpers;
 using PoGo.NecroBot.Logic.Tasks;
 using PoGo.NecroBot.Logic.State;
 using System.Globalization;
-using POGOProtos.Inventory;
 using System.Threading.Tasks;
-using PoGo.NecroBot.Logic.Event;
 using System.Linq;
 using POGOProtos.Data;
-using POGOProtos.Enums;
-using PoGo.NecroBot.Logic.PoGoUtils;
-using System.Collections.Generic;
 using PoGo.NecroBot.Logic.Logging;
 
 namespace RocketBot2.Forms
@@ -195,7 +190,7 @@ namespace RocketBot2.Forms
                 MessageBox.Show("Please select an incubator to hatch eggs", "Hatch Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            await UseIncubatorsTask.Execute(Session, Session.CancellationTokenSource.Token, egg.Id, _incubator.Id);
+            await UseIncubatorsTask.Execute(Session, Session.CancellationTokenSource.Token, egg.Id, _incubator.Id).ConfigureAwait(false);
             EggsForm.ActiveForm.Close();
         }
 
