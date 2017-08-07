@@ -113,7 +113,7 @@ namespace RocketBot2.Forms
             if (Spliter1Width > this.Width / 2)
                 this.splitContainer1.SplitterDistance = this.splitContainer1.Width / 100 * 45;
             else
-                this.splitContainer1.SplitterDistance = this.Width - Spliter1Width - 50;
+                this.splitContainer1.SplitterDistance = this.Width - Spliter1Width - 55;
 
             this.splitContainer2.SplitterDistance = this.splitContainer2.Height / 100 * 45;// Always keeps the logger window @ 45%/55% of the window height
             this.Refresh(); // Force screen refresh before items are poppulated
@@ -850,7 +850,6 @@ namespace RocketBot2.Forms
 
                 var text = string.IsNullOrEmpty(pok.Nickname) ? _session.Translation.GetPokemonTranslation(pok.PokemonId) : pok.Nickname;
                 e.Item.Text = pok.Favorited ? $"★ {text}" : text;
-
 
                 foreach (OLVListSubItem sub in e.Item.SubItems)
                 {
