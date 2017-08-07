@@ -116,6 +116,7 @@ namespace RocketBot2.Forms
                 this.splitContainer1.SplitterDistance = this.Width - Spliter1Width - 55;
 
             this.splitContainer2.SplitterDistance = this.splitContainer2.Height / 100 * 45;// Always keeps the logger window @ 45%/55% of the window height
+            tbRefresh.Value = LoadPokeStopsTimer.Interval / 1000;
             this.Refresh(); // Force screen refresh before items are poppulated
             SetStatusText(Application.ProductName + " " + Application.ProductVersion);
             speedLable.Parent = GMapControl1;
@@ -171,6 +172,18 @@ namespace RocketBot2.Forms
 
         #region INTERFACE
 
+        private void tbRefresh_MouseUp(object sender, EventArgs e)
+        {
+            LoadPokeStopsTimer.Interval = tbRefresh.Value * 1000;
+            Logger.Write($"Pokestop refresh rate changed to {LoadPokeStopsTimer.Interval / 1000} sec");
+        }
+
+        private async void LoadPokeStopsTimer_Tick(object sender, EventArgs e)
+        {
+            await InitializePokestopsAndRoute().ConfigureAwait(false);
+            //Logger.Write($"Pokestop refresh time {DateTime.Now} sec");
+        }
+
         private static DateTime LastClearLog = DateTime.Now;
 
         public static void ColoredConsoleWrite(Color color, string text)
@@ -224,8 +237,6 @@ namespace RocketBot2.Forms
 
             if (checkBoxAutoRefresh.Checked)
                 await ReloadPokemonList().ConfigureAwait(false);
-
-            await InitializePokestopsAndRoute().ConfigureAwait(false);
         }
 
         #endregion INTERFACE
@@ -691,9 +702,11 @@ namespace RocketBot2.Forms
                 Environment.Exit(0);
                 return;
             }
+
             startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
             _botStarted = true;
             btnPokeDex.Enabled = _botStarted;
+            LoadPokeStopsTimer.Enabled = _botStarted;
             Task.Run(StartBot).ConfigureAwait(false);
         }
 
