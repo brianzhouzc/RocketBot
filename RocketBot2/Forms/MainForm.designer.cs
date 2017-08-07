@@ -642,7 +642,7 @@ namespace RocketBot2.Forms
             this.lblInventory.Name = "lblInventory";
             this.lblInventory.Size = new System.Drawing.Size(867, 16);
             this.lblInventory.TabIndex = 33;
-            this.lblInventory.Text = "0 / 0 ";
+            this.lblInventory.Text = $"Types: 0 | Total: 0 | Storage: 250";
             this.lblInventory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // flpItems
