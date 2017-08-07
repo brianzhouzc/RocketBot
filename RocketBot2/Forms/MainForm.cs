@@ -1149,8 +1149,11 @@ namespace RocketBot2.Forms
                 var _totalCaptures = _totalUniqueEncounters.Count(i => i.Captures > 0);
                 var _totalData = PokeDex.Count();
 
+                var deployed = await _session.Inventory.GetDeployedPokemons().ConfigureAwait(false);
+                var count = deployed.Count();
+
                 Instance.lblPokemonList.Text = _session.Translation.GetTranslation(TranslationString.AmountPkmSeenCaught, _totalData, _totalCaptures) +
-                    $" | Storage: {_session.Client.Player.PlayerData.MaxPokemonStorage} ({pokemons.Count()} Pokémons, {_session.Inventory.GetEggs().Result.Count()} Eggs)";
+                    $" | Storage: {_session.Client.Player.PlayerData.MaxPokemonStorage} ({pokemons.Count()} Pokémons, {_session.Inventory.GetEggs().Result.Count()} Eggs) [Depolyments: {count}]";
 
                 var items =
                     _session.Inventory.GetItems().Result
