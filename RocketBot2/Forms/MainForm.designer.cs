@@ -683,7 +683,7 @@ namespace RocketBot2.Forms
             // LoadPokeStopsTimer
             // 
             this.LoadPokeStopsTimer.Enabled = true;
-            this.LoadPokeStopsTimer.Interval = 20000;
+            this.LoadPokeStopsTimer.Interval = 30000;
             this.LoadPokeStopsTimer.Tick += new System.EventHandler(this.LoadPokeStopsTimer_Tick);
             // 
             // MainForm
