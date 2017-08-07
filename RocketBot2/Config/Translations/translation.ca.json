@@ -1,4 +1,4 @@
-﻿{
+{
   "TranslationStrings": [
     {
       "Key": "HumanWalkSnipeNotEnoughtBalls",
@@ -156,8 +156,6 @@
       "Key": "itemRazzBerry",
       "Value": "Baia"
     },
-
-
     {
       "Key": "catchStatusAttempt",
       "Value": "{0} Intent #{1}"
@@ -256,7 +254,7 @@
     },
     {
       "Key": "logEntryBotStats",
-      "Value": "Bot Stats"
+      "Value": "BOT STATS"
     },
     {
       "Key": "logEntryTransfered",
