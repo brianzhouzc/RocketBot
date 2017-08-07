@@ -171,6 +171,11 @@ namespace RocketBot2.Forms
 
         #region INTERFACE
 
+        private async void LoadPokeStopsTimer_Tick(object sender, EventArgs e)
+        {
+            await InitializePokestopsAndRoute().ConfigureAwait(false);
+        }
+
         private static DateTime LastClearLog = DateTime.Now;
 
         public static void ColoredConsoleWrite(Color color, string text)
@@ -224,8 +229,6 @@ namespace RocketBot2.Forms
 
             if (checkBoxAutoRefresh.Checked)
                 await ReloadPokemonList().ConfigureAwait(false);
-
-            await InitializePokestopsAndRoute().ConfigureAwait(false);
         }
 
         #endregion INTERFACE
