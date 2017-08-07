@@ -642,7 +642,7 @@ namespace RocketBot2.Forms
             this.lblInventory.Name = "lblInventory";
             this.lblInventory.Size = new System.Drawing.Size(867, 16);
             this.lblInventory.TabIndex = 33;
-            this.lblInventory.Text = "0 / 0 ";
+            this.lblInventory.Text = $"Types: 0 | Total: 0 | Storage: 250";
             this.lblInventory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // flpItems
@@ -668,7 +668,7 @@ namespace RocketBot2.Forms
             this.lblPokemonList.Name = "lblPokemonList";
             this.lblPokemonList.Size = new System.Drawing.Size(866, 16);
             this.lblPokemonList.TabIndex = 27;
-            this.lblPokemonList.Text = "0 / 0";
+            this.lblPokemonList.Text = "Pokemon Seen: 0/251, Pokemon Caught: 0/251 | Storage: 250 (0 Pokémons, 0 Eggs) [Deployments: 0]";
             this.lblPokemonList.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // TrayIcon
