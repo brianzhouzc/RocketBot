@@ -94,7 +94,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "{0} Направляемся к <{1}>, дистанция ({2}м) ({3} сек.) (route {4})"
+      "Value":  "Traveling {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",

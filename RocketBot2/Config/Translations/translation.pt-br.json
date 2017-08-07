@@ -94,7 +94,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "Chegando ao {0}: {1} ({2}m) ({3} segundos) (rota {4})"
+      "Value": "Chegando {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",

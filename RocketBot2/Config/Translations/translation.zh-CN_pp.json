@@ -94,7 +94,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "{0} 正在前往补给站:{1} 距离{2}米,需要{3}秒 (route {4})\t\t\t"
+      "Value": "Traveling {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",

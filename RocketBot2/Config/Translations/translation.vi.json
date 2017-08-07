@@ -94,7 +94,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "Đi đến {0}: {1} (xa {2}m) (trong {3} giây) (route {4})"
+      "Value":  "Traveling {0}m({1} sec) via {2} to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
