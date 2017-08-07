@@ -1,6 +1,5 @@
 ﻿using PoGo.NecroBot.Logic.PoGoUtils;
 using PoGo.NecroBot.Logic.State;
-using POGOProtos.Data;
 using POGOProtos.Enums;
 using POGOProtos.Inventory.Item;
 using RocketBot2.Helpers;
@@ -9,7 +8,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace RocketBot2.Forms
 {

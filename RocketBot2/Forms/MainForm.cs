@@ -1004,7 +1004,7 @@ namespace RocketBot2.Forms
         {
             foreach (var pokemon in pokemons)
             {
-                await Task.Run(async () => { await FavoritePokemonTask.Execute(_session, pokemon.Id, !fav); });
+                await Task.Run(async () => { await FavoritePokemonTask.Execute(_session, pokemon.Id, !fav).ConfigureAwait(false); });
             }
             await ReloadPokemonList().ConfigureAwait(false);
         }
@@ -1027,7 +1027,7 @@ namespace RocketBot2.Forms
                         {
                             await TransferPokemonTask.Execute(
                                 _session, _session.CancellationTokenSource.Token, _pokemons
-                            );
+                            ).ConfigureAwait(false);
                         });
                         await ReloadPokemonList().ConfigureAwait(false);
                     }
@@ -1043,11 +1043,11 @@ namespace RocketBot2.Forms
                 switch (result)
                 {
                     case DialogResult.Yes:
-                        await Task.Run(async () => { await UpgradeSinglePokemonTask.Execute(_session, pokemon.Id, true /* upgrade x times */); });
+                        await Task.Run(async () => { await UpgradeSinglePokemonTask.Execute(_session, pokemon.Id, true /* upgrade x times */).ConfigureAwait(false); });
                         await ReloadPokemonList().ConfigureAwait(false);
                         break;
                     case DialogResult.No:
-                        await Task.Run(async () => { await UpgradeSinglePokemonTask.Execute(_session, pokemon.Id, false, 1 /* Only upgrade 1 time */); });
+                        await Task.Run(async () => { await UpgradeSinglePokemonTask.Execute(_session, pokemon.Id, false, 1 /* Only upgrade 1 time */).ConfigureAwait(false); });
                         await ReloadPokemonList().ConfigureAwait(false);
                         break;
                 }
@@ -1065,7 +1065,7 @@ namespace RocketBot2.Forms
                     item.Image = ResourceHelper.SetImageSize(ResourceHelper.GetPokemonImage((int)to.Pokemon, pokemon), item.Size.Height, item.Size.Width);
                     item.Click += async delegate
                     {
-                        await Task.Run(async () => { await EvolveSpecificPokemonTask.Execute(_session, to.OriginPokemonId, to.Pokemon); });
+                        await Task.Run(async () => { await EvolveSpecificPokemonTask.Execute(_session, to.OriginPokemonId, to.Pokemon).ConfigureAwait(false); });
                         await ReloadPokemonList().ConfigureAwait(false);
                         form.Close();
                     };
@@ -1100,7 +1100,7 @@ namespace RocketBot2.Forms
                     }
                     continue;
                 }
-                await Task.Run(async () => { await RenameSinglePokemonTask.Execute(_session, pokemon.Id, nickname, _session.CancellationTokenSource.Token); });
+                await Task.Run(async () => { await RenameSinglePokemonTask.Execute(_session, pokemon.Id, nickname, _session.CancellationTokenSource.Token).ConfigureAwait(false); });
                 await ReloadPokemonList().ConfigureAwait(false);
             }
         }
@@ -1259,17 +1259,17 @@ namespace RocketBot2.Forms
                 {
                     case ItemId.ItemLuckyEgg:
                         {
-                            await Task.Run(async () => { await UseLuckyEggTask.Execute(_session); });
+                            await Task.Run(async () => { await UseLuckyEggTask.Execute(_session).ConfigureAwait(false); });
                         }
                         break;
                     case ItemId.ItemIncenseOrdinary:
                         {
-                            await Task.Run(async () => { await UseIncenseTask.Execute(_session); });
+                            await Task.Run(async () => { await UseIncenseTask.Execute(_session).ConfigureAwait(false); });
                         }
                         break;
                     default:
                         {
-                            await Task.Run(async () => { await RecycleItemsTask.DropItem(_session, item.ItemId, decimal.ToInt32(form.numCount.Value)); });
+                            await Task.Run(async () => { await RecycleItemsTask.DropItem(_session, item.ItemId, decimal.ToInt32(form.numCount.Value)).ConfigureAwait(false); });
                         }
                         break;
                 }
@@ -1739,7 +1739,7 @@ namespace RocketBot2.Forms
 
             if (_session.LogicSettings.UseSnipeLocationServer ||
               _session.LogicSettings.HumanWalkingSnipeUsePogoLocationFeeder)
-                SnipePokemonTask.AsyncStart(_session);
+                SnipePokemonTask.AsyncStart(_session).ConfigureAwait(false);
 
 
             if (_session.LogicSettings.DataSharingConfig.EnableSyncData)
