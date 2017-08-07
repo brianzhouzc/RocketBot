@@ -1,5 +1,17 @@
 # Change Log
 
+## [v2.13.0.1](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.13.0.1) (2017-08-06)
+
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.13.0.0...v2.13.0.1)
+
+**Closed issues:**
+
+- V2.13.0.0 inventory bug [\#10](https://github.com/TheUnnamedOrganisation/RocketBot/issues/10)
+
+**Merged pull requests:**
+
+- fix missed console logs and change feroxrev methodes [\#11](https://github.com/TheUnnamedOrganisation/RocketBot/pull/11) ([Furtif](https://github.com/Furtif))
+
 ## [v2.13.0.0](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.13.0.0) (2017-08-02)
 
 [Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.12.0.9...v2.13.0.0)
