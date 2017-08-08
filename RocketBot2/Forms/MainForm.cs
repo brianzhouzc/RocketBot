@@ -116,6 +116,7 @@ namespace RocketBot2.Forms
                 this.splitContainer1.SplitterDistance = this.Width - Spliter1Width - 55;
 
             this.splitContainer2.SplitterDistance = this.splitContainer2.Height / 100 * 45;// Always keeps the logger window @ 45%/55% of the window height
+            tbRefresh.Value = LoadPokeStopsTimer.Interval / 1000;
             this.Refresh(); // Force screen refresh before items are poppulated
             SetStatusText(Application.ProductName + " " + Application.ProductVersion);
             speedLable.Parent = GMapControl1;
@@ -171,9 +172,29 @@ namespace RocketBot2.Forms
 
         #region INTERFACE
 
+        private void tbRefresh_MouseEnter(object sender, EventArgs e)
+        {
+            ToolTip tbRefreshTips = new ToolTip();
+            tbRefreshTips.AutoPopDelay = 5000;
+            tbRefreshTips.InitialDelay = 1000;
+            tbRefreshTips.ReshowDelay = 500;
+            // Force the ToolTip text to be displayed whether or not the form is active.
+            tbRefreshTips.ShowAlways = true;
+
+            // Set up the ToolTip text for the Button and Checkbox.
+            tbRefreshTips.SetToolTip(this.tbRefresh, $"Changes the refresh interval\nof Pokestops on the map.\n(Range: 10 - 60 sec)\n(Default: 30 sec)");
+        }
+
+        private void tbRefresh_MouseUp(object sender, EventArgs e)
+        {
+            LoadPokeStopsTimer.Interval = tbRefresh.Value * 1000;
+            Logger.Write($"Pokestop refresh rate changed to {LoadPokeStopsTimer.Interval / 1000} sec");
+        }
+
         private async void LoadPokeStopsTimer_Tick(object sender, EventArgs e)
         {
             await InitializePokestopsAndRoute().ConfigureAwait(false);
+            //Logger.Write($"Pokestop refresh time {DateTime.Now} sec");
         }
 
         private static DateTime LastClearLog = DateTime.Now;
@@ -694,9 +715,11 @@ namespace RocketBot2.Forms
                 Environment.Exit(0);
                 return;
             }
+
             startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
             _botStarted = true;
             btnPokeDex.Enabled = _botStarted;
+            LoadPokeStopsTimer.Enabled = _botStarted;
             Task.Run(StartBot).ConfigureAwait(false);
         }
 
@@ -1155,7 +1178,7 @@ namespace RocketBot2.Forms
                 var count = deployed.Count();
 
                 Instance.lblPokemonList.Text = _session.Translation.GetTranslation(TranslationString.AmountPkmSeenCaught, _totalData, _totalCaptures) +
-                    $" | Storage: {_session.Client.Player.PlayerData.MaxPokemonStorage} ({pokemons.Count()} Pokémons, {_session.Inventory.GetEggs().Result.Count()} Eggs) [Depolyments: {count}]";
+                    $" | Storage: {_session.Client.Player.PlayerData.MaxPokemonStorage} (Pokémons: {pokemons.Count()}, Eggs: {_session.Inventory.GetEggs().Result.Count()}) [Depolyments: {count}]";
 
                 var items =
                     _session.Inventory.GetItems().Result
@@ -1505,21 +1528,41 @@ namespace RocketBot2.Forms
                     settings.LocationConfig.ResumeTrackPt = nearestPt.PtIndex;
                 }
             }
+
             IElevationService elevationService = new ElevationService(settings);
 
-            _session = new Session(settings, new ClientSettings(settings, elevationService), logicSettings, elevationService, translation);
-
-            //validation auth.config
             if (boolNeedsSetup)
             {
+                //validation auth.config
                 AuthAPIForm form = new AuthAPIForm(true);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     settings.Auth.APIConfig = form.Config;
                 }
+
+                _session = new Session(settings, new ClientSettings(settings, elevationService), logicSettings, elevationService, translation);
+
+                StarterConfigForm configForm = new StarterConfigForm(_session, settings, elevationService, configFile);
+                if (configForm.ShowDialog() == DialogResult.OK)
+                {
+                    var fileName = Assembly.GetEntryAssembly().Location;
+                    Process.Start(fileName);
+                    Environment.Exit(0);
+                }
+
+                //if (GlobalSettings.PromptForSetup(_session.Translation))
+                //{
+                //    _session = GlobalSettings.SetupSettings(_session, settings, elevationService, configFile);
+
+                //    var fileName = Assembly.GetExecutingAssembly().Location;
+                //    Process.Start(fileName);
+                //    Environment.Exit(0);
+                //}
             }
             else
             {
+                _session = new Session(settings, new ClientSettings(settings, elevationService), logicSettings, elevationService, translation);
+
                 var apiCfg = settings.Auth.APIConfig;
 
                 if (apiCfg.UsePogoDevAPI)
@@ -1555,8 +1598,7 @@ namespace RocketBot2.Forms
                 {
                     Logger.Write(
                    "You bot will start after 15 seconds, You are running bot with Legacy API (0.45), but it will increase your risk of being banned and triggering captchas. Config Captchas in config.json to auto-resolve them",
-                   LogLevel.Warning
-               );
+                   LogLevel.Warning);
 
 #if RELEASE
                     Thread.Sleep(15000);
@@ -1570,6 +1612,18 @@ namespace RocketBot2.Forms
                      );
                     _botStarted = true;
                 }
+
+                //GlobalSettings.Load(_subPath, _enableJsonValidation);
+
+                //Logger.Write("Press a Key to continue...",
+                //    LogLevel.Warning);
+                //Console.ReadKey();
+                //return;
+
+                if (excelConfigAllow)
+                {
+                    ExcelConfigHelper.MigrateFromObject(settings, excelConfigFile);
+                }
             }
 
             ioc.Register<ISession>(_session);
@@ -1578,40 +1632,6 @@ namespace RocketBot2.Forms
 
             MultiAccountManager accountManager = new MultiAccountManager(settings, logicSettings.Bots);
             ioc.Register(accountManager);
-
-            if (boolNeedsSetup)
-            {
-                StarterConfigForm configForm = new StarterConfigForm(_session, settings, elevationService, configFile);
-                if (configForm.ShowDialog() == DialogResult.OK)
-                {
-                    var fileName = Assembly.GetEntryAssembly().Location;
-                    Process.Start(fileName);
-                    Environment.Exit(0);
-                }
-
-                //if (GlobalSettings.PromptForSetup(_session.Translation))
-                //{
-                //    _session = GlobalSettings.SetupSettings(_session, settings, elevationService, configFile);
-
-                //    var fileName = Assembly.GetExecutingAssembly().Location;
-                //    Process.Start(fileName);
-                //    Environment.Exit(0);
-                //}
-                else
-                {
-                    GlobalSettings.Load(_subPath, _enableJsonValidation);
-
-                    //Logger.Write("Press a Key to continue...",
-                    //    LogLevel.Warning);
-                    //Console.ReadKey();
-                    //return;
-                }
-
-                if (excelConfigAllow)
-                {
-                    ExcelConfigHelper.MigrateFromObject(settings, excelConfigFile);
-                }
-            }
 
             Resources.ProgressBar.Start("RocketBot2 is starting up", 10);
 
