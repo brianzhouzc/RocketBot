@@ -1528,6 +1528,7 @@ namespace RocketBot2.Forms
                     settings.LocationConfig.ResumeTrackPt = nearestPt.PtIndex;
                 }
             }
+
             IElevationService elevationService = new ElevationService(settings);
 
             if (boolNeedsSetup)
@@ -1612,13 +1613,12 @@ namespace RocketBot2.Forms
                     _botStarted = true;
                 }
 
-                GlobalSettings.Load(_subPath, _enableJsonValidation);
+                //GlobalSettings.Load(_subPath, _enableJsonValidation);
 
                 //Logger.Write("Press a Key to continue...",
                 //    LogLevel.Warning);
                 //Console.ReadKey();
                 //return;
-
 
                 if (excelConfigAllow)
                 {
