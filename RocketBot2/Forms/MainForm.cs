@@ -1178,7 +1178,7 @@ namespace RocketBot2.Forms
                 var count = deployed.Count();
 
                 Instance.lblPokemonList.Text = _session.Translation.GetTranslation(TranslationString.AmountPkmSeenCaught, _totalData, _totalCaptures) +
-                    $" | Storage: {_session.Client.Player.PlayerData.MaxPokemonStorage} ({pokemons.Count()} Pokémons, {_session.Inventory.GetEggs().Result.Count()} Eggs) [Depolyments: {count}]";
+                    $" | Storage: {_session.Client.Player.PlayerData.MaxPokemonStorage} (Pokémons: {pokemons.Count()}, Eggs: {_session.Inventory.GetEggs().Result.Count()}) [Depolyments: {count}]";
 
                 var items =
                     _session.Inventory.GetItems().Result
