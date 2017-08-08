@@ -172,6 +172,19 @@ namespace RocketBot2.Forms
 
         #region INTERFACE
 
+        private void tbRefresh_MouseEnter(object sender, EventArgs e)
+        {
+            ToolTip tbRefreshTips = new ToolTip();
+            tbRefreshTips.AutoPopDelay = 5000;
+            tbRefreshTips.InitialDelay = 1000;
+            tbRefreshTips.ReshowDelay = 500;
+            // Force the ToolTip text to be displayed whether or not the form is active.
+            tbRefreshTips.ShowAlways = true;
+
+            // Set up the ToolTip text for the Button and Checkbox.
+            tbRefreshTips.SetToolTip(this.tbRefresh, $"Changes the refresh interval\nof Pokestops on the map.\n(Range: 10 - 60 sec)\n(Default: 30 sec)");
+        }
+
         private void tbRefresh_MouseUp(object sender, EventArgs e)
         {
             LoadPokeStopsTimer.Interval = tbRefresh.Value * 1000;
