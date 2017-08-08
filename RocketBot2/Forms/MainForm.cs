@@ -1530,19 +1530,38 @@ namespace RocketBot2.Forms
             }
             IElevationService elevationService = new ElevationService(settings);
 
-            _session = new Session(settings, new ClientSettings(settings, elevationService), logicSettings, elevationService, translation);
-
-            //validation auth.config
             if (boolNeedsSetup)
             {
+                //validation auth.config
                 AuthAPIForm form = new AuthAPIForm(true);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     settings.Auth.APIConfig = form.Config;
                 }
+
+                _session = new Session(settings, new ClientSettings(settings, elevationService), logicSettings, elevationService, translation);
+
+                StarterConfigForm configForm = new StarterConfigForm(_session, settings, elevationService, configFile);
+                if (configForm.ShowDialog() == DialogResult.OK)
+                {
+                    var fileName = Assembly.GetEntryAssembly().Location;
+                    Process.Start(fileName);
+                    Environment.Exit(0);
+                }
+
+                //if (GlobalSettings.PromptForSetup(_session.Translation))
+                //{
+                //    _session = GlobalSettings.SetupSettings(_session, settings, elevationService, configFile);
+
+                //    var fileName = Assembly.GetExecutingAssembly().Location;
+                //    Process.Start(fileName);
+                //    Environment.Exit(0);
+                //}
             }
             else
             {
+                _session = new Session(settings, new ClientSettings(settings, elevationService), logicSettings, elevationService, translation);
+
                 var apiCfg = settings.Auth.APIConfig;
 
                 if (apiCfg.UsePogoDevAPI)
@@ -1578,8 +1597,7 @@ namespace RocketBot2.Forms
                 {
                     Logger.Write(
                    "You bot will start after 15 seconds, You are running bot with Legacy API (0.45), but it will increase your risk of being banned and triggering captchas. Config Captchas in config.json to auto-resolve them",
-                   LogLevel.Warning
-               );
+                   LogLevel.Warning);
 
 #if RELEASE
                     Thread.Sleep(15000);
@@ -1593,6 +1611,19 @@ namespace RocketBot2.Forms
                      );
                     _botStarted = true;
                 }
+
+                GlobalSettings.Load(_subPath, _enableJsonValidation);
+
+                //Logger.Write("Press a Key to continue...",
+                //    LogLevel.Warning);
+                //Console.ReadKey();
+                //return;
+
+
+                if (excelConfigAllow)
+                {
+                    ExcelConfigHelper.MigrateFromObject(settings, excelConfigFile);
+                }
             }
 
             ioc.Register<ISession>(_session);
@@ -1601,40 +1632,6 @@ namespace RocketBot2.Forms
 
             MultiAccountManager accountManager = new MultiAccountManager(settings, logicSettings.Bots);
             ioc.Register(accountManager);
-
-            if (boolNeedsSetup)
-            {
-                StarterConfigForm configForm = new StarterConfigForm(_session, settings, elevationService, configFile);
-                if (configForm.ShowDialog() == DialogResult.OK)
-                {
-                    var fileName = Assembly.GetEntryAssembly().Location;
-                    Process.Start(fileName);
-                    Environment.Exit(0);
-                }
-
-                //if (GlobalSettings.PromptForSetup(_session.Translation))
-                //{
-                //    _session = GlobalSettings.SetupSettings(_session, settings, elevationService, configFile);
-
-                //    var fileName = Assembly.GetExecutingAssembly().Location;
-                //    Process.Start(fileName);
-                //    Environment.Exit(0);
-                //}
-                else
-                {
-                    GlobalSettings.Load(_subPath, _enableJsonValidation);
-
-                    //Logger.Write("Press a Key to continue...",
-                    //    LogLevel.Warning);
-                    //Console.ReadKey();
-                    //return;
-                }
-
-                if (excelConfigAllow)
-                {
-                    ExcelConfigHelper.MigrateFromObject(settings, excelConfigFile);
-                }
-            }
 
             Resources.ProgressBar.Start("RocketBot2 is starting up", 10);
 
