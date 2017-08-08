@@ -172,7 +172,7 @@ namespace RocketBot2.Forms
 
         #region INTERFACE
 
-        private void tbRefresh_MouseUp(object sender, EventArgs e)
+        private void TbRefresh_MouseUp(object sender, EventArgs e)
         {
             LoadPokeStopsTimer.Interval = tbRefresh.Value * 1000;
             Logger.Write($"Pokestop refresh rate changed to {LoadPokeStopsTimer.Interval / 1000} sec");
