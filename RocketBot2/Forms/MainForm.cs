@@ -117,6 +117,7 @@ namespace RocketBot2.Forms
 
             this.splitContainer2.SplitterDistance = this.splitContainer2.Height / 100 * 45;// Always keeps the logger window @ 45%/55% of the window height
             tbRefresh.Value = LoadPokeStopsTimer.Interval / 1000;
+            LoadPokeStopsTimer.Interval = 90000; // Sets timer to 2 min to allow for player login to complete before starting
             this.Refresh(); // Force screen refresh before items are poppulated
             SetStatusText(Application.ProductName + " " + Application.ProductVersion);
             speedLable.Parent = GMapControl1;
@@ -193,6 +194,7 @@ namespace RocketBot2.Forms
 
         private async void LoadPokeStopsTimer_Tick(object sender, EventArgs e)
         {
+            if (LoadPokeStopsTimer.Interval > 60000) { LoadPokeStopsTimer.Interval = 30000; }
             await InitializePokestopsAndRoute().ConfigureAwait(false);
             //Logger.Write($"Pokestop refresh time {DateTime.Now} sec");
         }
@@ -1130,6 +1132,7 @@ namespace RocketBot2.Forms
             }
         }
 
+        internal int OldCount = 0;
         private async Task ReloadPokemonList()
         {
             SetState(false);
@@ -1175,10 +1178,16 @@ namespace RocketBot2.Forms
                 var _totalData = PokeDex.Count();
 
                 var deployed = await _session.Inventory.GetDeployedPokemons().ConfigureAwait(false);
-                var count = deployed.Count();
+                int NewCount = deployed.Count();
+
+                if (OldCount > NewCount)
+                {
+                    Logger.Write($"{OldCount - NewCount} Pokemon has returned to your PokeDex.", LogLevel.Info, ConsoleColor.Red);
+                    OldCount = NewCount;
+                }
 
                 Instance.lblPokemonList.Text = _session.Translation.GetTranslation(TranslationString.AmountPkmSeenCaught, _totalData, _totalCaptures) +
-                    $" | Storage: {_session.Client.Player.PlayerData.MaxPokemonStorage} (Pokémons: {pokemons.Count()}, Eggs: {_session.Inventory.GetEggs().Result.Count()}) [Depolyments: {count}]";
+                    $" | Storage: {_session.Client.Player.PlayerData.MaxPokemonStorage} (Pokémons: {pokemons.Count()}, Eggs: {_session.Inventory.GetEggs().Result.Count()}) [Depolyments: {NewCount}]";
 
                 var items =
                     _session.Inventory.GetItems().Result
