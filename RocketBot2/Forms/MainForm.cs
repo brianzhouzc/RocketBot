@@ -216,11 +216,18 @@ namespace RocketBot2.Forms
                 LastClearLog = DateTime.Now;
             }
 
-            if (text.Contains($"Hash API server (https://pokehash.buddyauth.com/{_session.Client.ApiEndPoint}) might down!"))
-                Instance.LoadPokeStopsTimer.Enabled = false;
+            try
+            {
+                if (text.Contains($"Hash API server (https://pokehash.buddyauth.com/{_session.Client.ApiEndPoint}) might down!"))
+                    Instance.LoadPokeStopsTimer.Enabled = false;
 
-            if (text.Contains(_session.Translation.GetTranslation(TranslationString.EventProfileLogin)))
-                Instance.LoadPokeStopsTimer.Enabled = true;
+                if (text.Contains(_session.Translation.GetTranslation(TranslationString.EventProfileLogin)))
+                    Instance.LoadPokeStopsTimer.Enabled = true;
+            }
+            catch
+            {
+                //Not implemented
+            }
 
             Instance.logTextBox.SelectionColor = color;
             Instance.logTextBox.AppendText(text + $"\r\n");
