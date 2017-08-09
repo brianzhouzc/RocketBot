@@ -603,6 +603,16 @@ namespace RocketBot2.Resources {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _144_shiny {
+            get {
+                object obj = ResourceManager.GetObject("_144_shiny", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _145 {
             get {
                 object obj = ResourceManager.GetObject("_145", resourceCulture);
@@ -613,9 +623,29 @@ namespace RocketBot2.Resources {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _145_shiny {
+            get {
+                object obj = ResourceManager.GetObject("_145_shiny", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _146 {
             get {
                 object obj = ResourceManager.GetObject("_146", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _146_shiny {
+            get {
+                object obj = ResourceManager.GetObject("_146_shiny", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -923,9 +953,29 @@ namespace RocketBot2.Resources {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _172_Holiday2016_shiny {
+            get {
+                object obj = ResourceManager.GetObject("_172_Holiday2016_shiny", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _172_OneYearAnniversary {
             get {
                 object obj = ResourceManager.GetObject("_172_OneYearAnniversary", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _172_OneYearAnniversary_shiny {
+            get {
+                object obj = ResourceManager.GetObject("_172_OneYearAnniversary_shiny", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2063,6 +2113,16 @@ namespace RocketBot2.Resources {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _249_shiny {
+            get {
+                object obj = ResourceManager.GetObject("_249_shiny", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _25 {
             get {
                 object obj = ResourceManager.GetObject("_25", resourceCulture);
@@ -2083,6 +2143,16 @@ namespace RocketBot2.Resources {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _25_Anniversary_shiny {
+            get {
+                object obj = ResourceManager.GetObject("_25_Anniversary_shiny", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _25_Holiday2016 {
             get {
                 object obj = ResourceManager.GetObject("_25_Holiday2016", resourceCulture);
@@ -2093,9 +2163,49 @@ namespace RocketBot2.Resources {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _25_Holiday2016_shiny {
+            get {
+                object obj = ResourceManager.GetObject("_25_Holiday2016_shiny", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _25_OneYearAnniversar_shiny {
+            get {
+                object obj = ResourceManager.GetObject("_25_OneYearAnniversar_shiny", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _25_OneYearAnniversary {
             get {
                 object obj = ResourceManager.GetObject("_25_OneYearAnniversary", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _25_OneYearAnniversary1 {
+            get {
+                object obj = ResourceManager.GetObject("_25_OneYearAnniversary1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _25_shiny {
+            get {
+                object obj = ResourceManager.GetObject("_25_shiny", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2143,6 +2253,16 @@ namespace RocketBot2.Resources {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _26_Anniversary_shiny {
+            get {
+                object obj = ResourceManager.GetObject("_26_Anniversary_shiny", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _26_Holiday2016 {
             get {
                 object obj = ResourceManager.GetObject("_26_Holiday2016", resourceCulture);
@@ -2153,9 +2273,39 @@ namespace RocketBot2.Resources {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _26_Holiday2016_shiny {
+            get {
+                object obj = ResourceManager.GetObject("_26_Holiday2016_shiny", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _26_OneYearAnniversary {
             get {
                 object obj = ResourceManager.GetObject("_26_OneYearAnniversary", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _26_OneYearAnniversary_shiny {
+            get {
+                object obj = ResourceManager.GetObject("_26_OneYearAnniversary_shiny", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _26_shiny {
+            get {
+                object obj = ResourceManager.GetObject("_26_shiny", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

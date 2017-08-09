@@ -2,47 +2,47 @@
   "TranslationStrings": [
     {
       "Key": "HumanWalkSnipeNotEnoughtBalls",
-      "Value": "(HUMAN WALK) Not enough Pokeballs to activate catch Em-All mode. ({0})/{1}"
+      "Value": "(模拟人类行走) 精灵球数量太少，模拟狙击不会激活。 ({0})/{1}"
     },
     {
       "Key": "HumanWalkSnipe",
-      "Value": "(HUMAN WALK) Found {0} spawning | lat: {1}, lng: {2}, dist {3:0.00}m , expired in {4:00} min {5:00} sec | Walk time est : {6:00} min {7:00} sec | Spin: {8} | Catch : {9} | Speed : {10:0.00}km/h"
+      "Value": "(模拟人类行走) 发现{0}只 | 经度: {1}, 纬度: {2}, 距离 {3:0.00}米 , 在 {4:00} 分 {5:00} 秒内消失 | 行程需要: {6:00} 分 {7:00} 秒 | 旋转: {8} | 抓捕: {9} | 速度: {10:0.00}千米/小时"
     },
     {
       "Key": "HumanWalkSnipeUpdate",
-      "Value": "(HUMAN WALK) Found {0} pokemon matched with you filters. Human walking sniper won't catch em all, but will try to catch as many as possible"
+      "Value": "(模拟人类行走) 根据设置找到 {0} 只精灵。 模拟狙击会尽量的将所有精灵抓捕"
     },
     {
       "Key": "HumanWalkSnipeAddedPokestop",
-      "Value": "(HUMAN WALK) You are {0:0.00m} away from nearest pokestop. Restart farming at this place with {1} pokestops"
+      "Value": "(模拟人类行走) 您离最近的补给站还有{0:0.00m}。 系统将会在 {1} 补给点重启"
     },
     {
       "Key": "HumanWalkSnipeDestinationReached",
-      "Value": "(HUMAN WALK) destination reached | lat: {0}, lng: {1} | wait  {3:0.00} sec"
+      "Value": "(模拟人类行走) 达到地点 | 经度: {0}, 纬度: {1} | 等待{3:0.00}秒"
     },
     {
       "Key": "SniperCount",
-      "Value": "Sniper count {0}"
+      "Value": "狙击数量 {0}"
     },
     {
       "Key": "SnipeExceeds",
-      "Value": "Sniper needs to take a rest before your account is banned"
+      "Value": "为了保护您的账号，狙击程序必须休息"
     },
     {
       "Key": "CatchExceeds",
-      "Value": "You are catching too fast. Your cannot catch another one until {0} seconds later"
+      "Value": "您抓捕的速度太快。必须等待 {0} 秒。"
     },
     {
       "Key": "PokeStopExceeds",
-      "Value": "You are visiting pokestops too fast. Your cannot visit another one until {0} seconds later"
+      "Value": "您访问补给点的频率太高， 必须等待 {0} 秒。"
     },
     {
       "Key": "Only10kmEggs",
-      "Value": "Player below level 20, saving this 10 km Egg for later"
+      "Value": "玩家低于20级, 系统会保留10千米的蛋。"
     },
     {
       "Key": "GoogleAPIWarning",
-      "Value": "Without a Google Api, you will have 2500 free quota limit, if you reach the maximum quota, try to change your IP. To configure \"GoogleAPIKey\", get API Key in link: https://developers.google.com/maps/documentation/directions/get-api-key"
+      "Value": "没有谷歌地图API, 您有2500次请求数量, 如果请求过多, 请更换IP。 谷歌地图API可以从这里获取： https://developers.google.com/maps/documentation/directions/get-api-key"
     },
     {
       "Key": "pokeball",
@@ -86,11 +86,11 @@
     },
     {
       "Key": "gym",
-      "Value": "Gym"
+      "Value": "道馆"
     },
     {
       "Key": "pokestop",
-      "Value": "Pokestop"
+      "Value": "补给站"
     },
     {
       "Key": "eventFortTargeted",
@@ -686,11 +686,11 @@
     },
     {
       "Key": "firstStartSetupDefaultLatLongPrompt",
-      "Value": "Please enter a Latitude and Longitude (Right click to paste) - Format: Value, Value"
+      "Value": "请输入纬度和经度 (右键点击粘贴) - 格式: “纬度, 经度"
     },
     {
       "Key": "firstStartSetupDefaultLatLongConfirm",
-      "Value": "Lattitude and Longitude accepted: {0}"
+      "Value": "已接受纬度和经度: {0}"
     },
     {
       "Key": "softBanBypassed",
@@ -1364,403 +1364,403 @@
     },
 		{
 	  "Key": "chikorita",
-	  "Value": "Chikorita"
+	  "Value": "菊草叶"
 	},
 	{
 	  "Key": "bayleef",
-	  "Value": "Bayleef"
+	  "Value": "月桂叶"
 	},
 	{
 	  "Key": "meganium",
-	  "Value": "Meganium"
+	  "Value": "大菊花"
 	},
 	{
 	  "Key": "cyndaquil",
-	  "Value": "Cyndaquil"
+	  "Value": "火球鼠"
 	},
 	{
 	  "Key": "quilava",
-	  "Value": "Quilava"
+	  "Value": "火岩鼠"
 	},
 	{
 	  "Key": "typhlosion",
-	  "Value": "Typhlosion"
+	  "Value": "火暴兽"
 	},
 	{
 	  "Key": "totodile",
-	  "Value": "Totodile"
+	  "Value": "小锯鳄"
 	},
 	{
 	  "Key": "croconaw",
-	  "Value": "Croconaw"
+	  "Value": "蓝鳄"
 	},
 	{
 	  "Key": "feraligatr",
-	  "Value": "Feraligatr"
+	  "Value": "大力鳄"
 	},
 	{
    	  "Key": "sentret",
-	  "Value": "Sentret"
+	  "Value": "尾立"
 	},
 	{
       "Key": "furret",
-	  "Value": "Furret"
+	  "Value": "大尾立"
 	},
 	{
       "Key": "hoothoot",
-	  "Value": "Hoothoot"
+	  "Value": "咕咕"
 	},
 	{
       "Key": "noctowl",
-	  "Value": "Noctowl"
+	  "Value": "猫头夜鹰"
 	},
 	{
       "Key": "ledyba",
-	  "Value": "Ledyba"
+	  "Value": "芭瓢虫"
 	},
 	{
       "Key": "ledian",
-	  "Value": "Ledian"
+	  "Value": "安瓢虫"
 	},
 	{
       "Key": "spinarak",
-	  "Value": "Spinarak"
+	  "Value": "线球"
 	},
 	{
       "Key": "ariados",
-	  "Value": "Ariados"
+	  "Value": "阿利多斯"
 	},
 	{
       "Key": "crobat",
-	  "Value": "Crobat"
+	  "Value": "叉字蝠"
 	},
 	{
       "Key": "chinchou",
-	  "Value": "Chinchou"
+	  "Value": "灯笼鱼"
 	},
 	{
       "Key": "lanturn",
-	  "Value": "Lanturn"
+	  "Value": "电灯怪"
 	},
 	{
       "Key": "pichu",
-	  "Value": "Pichu"
+	  "Value": "皮丘"
 	},
 	{
       "Key": "cleffa",
-	  "Value": "Cleffa"
+	  "Value": "皮宝宝"
 	},
 	{
       "Key": "igglybuff",
-	  "Value": "Igglybuff"
+	  "Value": "宝宝丁"
 	},
 	{
       "Key": "togepi",
-	  "Value": "Togepi"
+	  "Value": "宝宝丁"
 	},
 	{
       "Key": "togetic",
-	  "Value": "Togetic"
+	  "Value": "波克基古"
 	},
 	{
       "Key": "natu",
-	  "Value": "Natu"
+	  "Value": "天然雀"
 	},
 	{
       "Key": "xatu",
-	  "Value": "Xatu"
+	  "Value": "天然鸟"
 	},
 	{
       "Key": "mareep",
-	  "Value": "Mareep"
+	  "Value": "咩利羊"
 	},
 	{
       "Key": "flaaffy",
-	  "Value": "Flaaffy"
+	  "Value": "绵绵"
 	},
 	{
       "Key": "ampharos",
-	  "Value": "Ampharos"
+	  "Value": "电龙"
 	},
 	{
       "Key": "bellossom",
-	  "Value": "Bellossom"
+	  "Value": "美丽花"
 	},
 	{
       "Key": "marill",
-	  "Value": "Marill"
+	  "Value": "玛力露"
 	},
 	{
       "Key": "azumarill",
-	  "Value": "Azumarill"
+	  "Value": "玛力露丽"
 	},
 	{
       "Key": "sudowoodo",
-	  "Value": "Sudowoodo"
+	  "Value": "胡说树"
 	},
 	{
       "Key": "politoed",
-	  "Value": "Politoed"
+	  "Value": "牛蛙君"
 	},
 	{
       "Key": "hoppip",
-	  "Value": "Hoppip"
+	  "Value": "毽子草"
 	},
 	{
       "Key": "skiploom",
-	  "Value": "Skiploom"
+	  "Value": "毽子花"
 	},
 	{
       "Key": "jumpluff",
-	  "Value": "Jumpluff"
+	  "Value": "毽子绵"
 	},
 	{
       "Key": "aipom",
-	  "Value": "Aipom"
+	  "Value": "长尾怪手"
 	},
 	{
       "Key": "sunkern",
-	  "Value": "Sunkern"
+	  "Value": "向日种子"
 	},
 	{
       "Key": "sunflora",
-	  "Value": "Sunflora"
+	  "Value": "向日花怪"
 	},
 	{
       "Key": "yanma",
-	  "Value": "Yanma"
+	  "Value": "阳阳玛"
 	},
 	{
       "Key": "wooper",
-	  "Value": "Wooper"
+	  "Value": "乌波"
 	},
 	{
       "Key": "quagsire",
-	  "Value": "Quagsire"
+	  "Value": "沼王"
 	},
 	{
       "Key": "espeon",
-	  "Value": "Espeon"
+	  "Value": "太阳精灵"
 	},
 	{
       "Key": "umbreon",
-	  "Value": "Umbreon"
+	  "Value": "月精灵"
 	},
 	{
       "Key": "murkrow",
-	  "Value": "Murkrow"
+	  "Value": "黑暗鸦"
 	},
 	{
       "Key": "slowking",
-	  "Value": "Slowking"
+	  "Value": "河马王"
 	},
 	{
       "Key": "misdreavus",
-	  "Value": "Misdreavus"
+	  "Value": "梦妖"
 	},
 	{
       "Key": "unown",
-	  "Value": "Unown"
+	  "Value": "未知图腾"
 	},
 	{
       "Key": "wobbuffet",
-	  "Value": "Wobbuffet"
+	  "Value": "果然翁"
 	},
 	{
       "Key": "girafarig",
-	  "Value": "Girafarig"
+	  "Value": "麒麟奇"
 	},
 	{
       "Key": "pineco",
-	  "Value": "Pineco"
+	  "Value": "榛果球"
 	},
 	{
       "Key": "forretress",
-	  "Value": "Forretress"
+	  "Value": "佛烈托斯"
 	},
 	{
       "Key": "dunsparce",
-	  "Value": "Dunsparce"
+	  "Value": "土龙弟弟"
 	},
 	{
       "Key": "gligar",
-	  "Value": "Gligar"
+	  "Value": "天蝎"
 	},
 	{
       "Key": "steelix",
-	  "Value": "Steelix"
+	  "Value": "大钢蛇"
 	},
 	{
       "Key": "snubbull",
-	  "Value": "Snubbull"
+	  "Value": "布卢"
 	},
 	{
       "Key": "granbull",
-	  "Value": "Granbull"
+	  "Value": "布卢皇"
 	},
 	{
       "Key": "qwilfish",
-	  "Value": "Qwilfish"
+	  "Value": "千针鱼"
 	},
 	{
       "Key": "scizor",
-	  "Value": "Scizor"
+	  "Value": "巨钳螳螂"
 	},
 	{
       "Key": "shuckle",
-	  "Value": "Shuckle"
+	  "Value": "壶壶"
 	},
 	{
       "Key": "heracross",
-	  "Value": "Heracross"
+	  "Value": "赫拉克罗斯"
 	},
 	{
       "Key": "sneasel",
-	  "Value": "Sneasel"
+	  "Value": "狃拉"
 	},
 	{
       "Key": "teddiursa",
-	  "Value": "Teddiursa"
+	  "Value": "熊宝宝"
 	},
 	{
       "Key": "ursaring",
-	  "Value": "Ursaring"
+	  "Value": "圈圈熊"
 	},
 	{
       "Key": "slugma",
-	  "Value": "Slugma"
+	  "Value": "熔岩虫"
 	},
 	{
       "Key": "magcargo",
-	  "Value": "Magcargo"
+	  "Value": "熔岩蜗牛"
 	},
 	{
       "Key": "swinub",
-	  "Value": "Swinub"
+	  "Value": "小山猪"
 	},
 	{
       "Key": "piloswine",
-	  "Value": "Piloswine"
+	  "Value": "长毛猪"
 	},
 	{
       "Key": "corsola",
-	  "Value": "Corsola"
+	  "Value": "太阳珊瑚"
 	},
 	{
       "Key": "remoraid",
-	  "Value": "Remoraid"
+	  "Value": "铁炮鱼"
 	},
 	{
       "Key": "octillery",
-	  "Value": "Octillery"
+	  "Value": "章鱼桶"
 	},
 	{
       "Key": "delibird",
-	  "Value": "Delibird"
+	  "Value": "信使鸟"
 	},
 	{
       "Key": "mantine",
-	  "Value": "Mantine"
+	  "Value": "巨翅飞鱼"
 	},
 	{
       "Key": "skarmory",
-	  "Value": "Skarmory"
+	  "Value": "盔甲鸟"
 	},
 	{
       "Key": "houndour",
-	  "Value": "Houndour"
+	  "Value": "戴鲁比"
 	},
 	{
       "Key": "houndoom",
-	  "Value": "Houndoom"
+	  "Value": "黑鲁加"
 	},
 	{
       "Key": "kingdra",
-	  "Value": "Kingdra"
+	  "Value": "刺龙王"
 	},
 	{
       "Key": "phanpy",
-	  "Value": "Phanpy"
+	  "Value": "小小象"
 	},
 	{
       "Key": "donphan",
-	  "Value": "Donphan"
+	  "Value": "顿甲"
 	},
 	{
       "Key": "porygon2",
-	  "Value": "Porygon2"
+	  "Value": "3D龙II"
 	},
 	{
       "Key": "stantler",
-	  "Value": "Stantler"
+	  "Value": "惊角鹿"
 	},
 	{
       "Key": "smeargle",
-	  "Value": "Smeargle"
+	  "Value": "图图犬"
 	},
 	{
       "Key": "tyrogue",
-	  "Value": "Tyrogue"
+	  "Value": "巴尔郎"
 	},
 	{
       "Key": "hitmontop",
-	  "Value": "Hitmontop"
+	  "Value": "柯波朗"
 	},
 	{
       "Key": "smoochum",
-	  "Value": "Smoochum"
+	  "Value": "迷唇娃"
 	},
 	{
       "Key": "elekid",
-	  "Value": "Elekid"
+	  "Value": "电击怪"
 	},
 	{
       "Key": "magby",
-	  "Value": "Magby"
+	  "Value": "小鸭嘴龙"
 	},
 	{
       "Key": "miltank",
-	  "Value": "Miltank"
+	  "Value": "大奶罐"
 	},
 	{
       "Key": "blissey",
-	  "Value": "Blissey"
+	  "Value": "幸福蛋"
 	},
 	{
       "Key": "raikou",
-	  "Value": "Raikou"
+	  "Value": "雷公"
 	},
 	{
       "Key": "entei",
-	  "Value": "Entei"
+	  "Value": "炎帝"
 	},
 	{
       "Key": "suicune",
-	  "Value": "Suicune"
+	  "Value": "水君"
 	},
 	{
       "Key": "larvitar",
-	  "Value": "Larvitar"
+	  "Value": "由基拉"
 	},
 	{
       "Key": "pupitar",
-	  "Value": "Pupitar"
+	  "Value": "沙基拉"
 	},
 	{
       "Key": "tyranitar",
-	  "Value": "Tyranitar"
+	  "Value": "班吉拉"
 	},
 	{
       "Key": "lugia",
-	  "Value": "Lugia"
+	  "Value": "洛奇亚"
 	},
 	{
       "Key": "hoOh",
-	  "Value": "HoOh"
+	  "Value": "凤王"
 	},
 	{
       "Key": "celebi",
-	  "Value": "Celebi"
+	  "Value": "雪拉比"
 	}
   ],
   "PokemonMovesetStrings": [
@@ -2486,7 +2486,7 @@
     },
 		{
       "Key": "TransformFast",
-	  "Value": "Transform"
+	  "Value": "变形"
     },
     {
       "Key": "CounterFast",
