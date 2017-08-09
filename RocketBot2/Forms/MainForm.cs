@@ -220,9 +220,6 @@ namespace RocketBot2.Forms
             {
                 if (text.Contains($"Hash API server (https://pokehash.buddyauth.com/{_session.Client.ApiEndPoint}) might down!"))
                     Instance.LoadPokeStopsTimer.Enabled = false;
-
-                if (text.Contains(_session.Translation.GetTranslation(TranslationString.EventProfileLogin)))
-                    Instance.LoadPokeStopsTimer.Enabled = true;
             }
             catch
             {
@@ -263,6 +260,9 @@ namespace RocketBot2.Forms
 
             if (checkBoxAutoRefresh.Checked)
                 await ReloadPokemonList().ConfigureAwait(false);
+
+            if (!LoadPokeStopsTimer.Enabled)
+                LoadPokeStopsTimer.Enabled = true;
         }
 
         #endregion INTERFACE
