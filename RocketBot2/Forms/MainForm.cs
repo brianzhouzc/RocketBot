@@ -172,7 +172,7 @@ namespace RocketBot2.Forms
 
         #region INTERFACE
 
-        private void tbRefresh_MouseEnter(object sender, EventArgs e)
+        private void TbRefresh_MouseEnter(object sender, EventArgs e)
         {
             ToolTip tbRefreshTips = new ToolTip();
             tbRefreshTips.AutoPopDelay = 5000;
@@ -185,7 +185,7 @@ namespace RocketBot2.Forms
             tbRefreshTips.SetToolTip(this.tbRefresh, $"Changes the refresh interval\nof Pokestops on the map.\n(Range: 10 - 60 sec)\n(Default: 30 sec)");
         }
 
-        private void tbRefresh_MouseUp(object sender, EventArgs e)
+        private void TbRefresh_MouseUp(object sender, EventArgs e)
         {
             LoadPokeStopsTimer.Interval = tbRefresh.Value * 1000;
             Logger.Write($"Pokestop refresh rate changed to {LoadPokeStopsTimer.Interval / 1000} sec");
@@ -215,6 +215,12 @@ namespace RocketBot2.Forms
                 Instance.logTextBox.Text = string.Empty;
                 LastClearLog = DateTime.Now;
             }
+
+            if (text.Contains($"Hash API server (https://pokehash.buddyauth.com/{_session.Client.ApiEndPoint}) might down!"))
+                Instance.LoadPokeStopsTimer.Enabled = false;
+
+            if (text.Contains(_session.Translation.GetTranslation(TranslationString.EventProfileLogin)))
+                Instance.LoadPokeStopsTimer.Enabled = true;
 
             Instance.logTextBox.SelectionColor = color;
             Instance.logTextBox.AppendText(text + $"\r\n");

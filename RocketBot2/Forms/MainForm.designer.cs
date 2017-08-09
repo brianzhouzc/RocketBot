@@ -689,8 +689,8 @@ namespace RocketBot2.Forms
             this.tbRefresh.TickFrequency = 5;
             this.tbRefresh.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
             this.tbRefresh.Value = 30;
-            this.tbRefresh.MouseEnter += new System.EventHandler(this.tbRefresh_MouseEnter);
-            this.tbRefresh.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tbRefresh_MouseUp);
+            this.tbRefresh.MouseEnter += new System.EventHandler(this.TbRefresh_MouseEnter);
+            this.tbRefresh.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TbRefresh_MouseUp);
             // 
             // TrayIcon
             // 
