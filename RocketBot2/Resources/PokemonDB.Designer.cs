@@ -983,6 +983,16 @@ namespace RocketBot2.Resources {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _172_shiny {
+            get {
+                object obj = ResourceManager.GetObject("_172_shiny", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _173 {
             get {
                 object obj = ResourceManager.GetObject("_173", resourceCulture);
@@ -2186,16 +2196,6 @@ namespace RocketBot2.Resources {
         internal static System.Drawing.Bitmap _25_OneYearAnniversary {
             get {
                 object obj = ResourceManager.GetObject("_25_OneYearAnniversary", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _25_OneYearAnniversary1 {
-            get {
-                object obj = ResourceManager.GetObject("_25_OneYearAnniversary1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
