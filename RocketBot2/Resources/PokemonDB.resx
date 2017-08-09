@@ -280,11 +280,20 @@
   <data name="_144" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>pokemongo-assets\pokemon\144.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="_144_shiny" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>pokemongo-assets\pokemon\144-shiny.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="_145" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>pokemongo-assets\pokemon\145.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="_145_shiny" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>pokemongo-assets\pokemon\145-shiny.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="_146" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>pokemongo-assets\pokemon\146.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_146_shiny" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>pokemongo-assets\pokemon\146-shiny.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="_147" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>pokemongo-assets\pokemon\147.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -376,8 +385,14 @@
   <data name="_172_Holiday2016" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>pokemongo-assets\pokemon\172-holiday2016.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="_172_Holiday2016_shiny" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>pokemongo-assets\pokemon\172-holiday2016-shiny.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="_172_OneYearAnniversary" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>pokemongo-assets\pokemon\172-oneyearanniversary.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_172_OneYearAnniversary_shiny" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>pokemongo-assets\pokemon\172-oneyearanniversary-shiny.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="_173" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>pokemongo-assets\pokemon\173.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -718,6 +733,9 @@
   <data name="_249" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>pokemongo-assets\pokemon\249.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="_249_shiny" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>pokemongo-assets\pokemon\249-shiny.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="_25" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>pokemongo-assets\pokemon\25.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -730,11 +748,23 @@
   <data name="_25_Anniversary" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>pokemongo-assets\pokemon\25-anniversary.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="_25_Anniversary_shiny" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>pokemongo-assets\pokemon\25-anniversary-shiny.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="_25_Holiday2016" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>pokemongo-assets\pokemon\25-holiday2016.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="_25_Holiday2016_shiny" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>pokemongo-assets\pokemon\25-holiday2016-shiny.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="_25_OneYearAnniversary" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>pokemongo-assets\pokemon\25-oneyearanniversary.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_25_OneYearAnniversar_shiny" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>pokemongo-assets\pokemon\25-oneyearanniversar-shiny.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_25_shiny" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>pokemongo-assets\pokemon\25-shiny.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="_26" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>pokemongo-assets\pokemon\26.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -742,11 +772,23 @@
   <data name="_26_Anniversary" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>pokemongo-assets\pokemon\26-anniversary.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="_26_Anniversary_shiny" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>pokemongo-assets\pokemon\26-anniversary-shiny.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="_26_Holiday2016" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>pokemongo-assets\pokemon\26-holiday2016.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="_26_Holiday2016_shiny" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>pokemongo-assets\pokemon\26-holiday2016-shiny.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="_26_OneYearAnniversary" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>pokemongo-assets\pokemon\26-oneyearanniversary.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_26_OneYearAnniversary_shiny" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>pokemongo-assets\pokemon\26-oneyearanniversary-shiny.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_26_shiny" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>pokemongo-assets\pokemon\26-shiny.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="_27" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>pokemongo-assets\pokemon\27.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -987,5 +1029,8 @@
   </data>
   <data name="_99" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>pokemongo-assets\pokemon\99.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_172_shiny" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>pokemongo-assets\pokemon\172-shiny.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

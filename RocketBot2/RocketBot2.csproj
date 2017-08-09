@@ -431,6 +431,7 @@
     <Compile Include="Win32\ConsoleHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\PokemonGO-Assets\pokemon\slashed.png" />
     <EmbeddedResource Include="costura32\sqlite3.dll" />
     <EmbeddedResource Include="costura64\sqlite3.dll" />
     <Content Include="Images\Miscs\GymVisited.png" />
@@ -719,8 +720,11 @@
     <Content Include="Resources\PokemonGO-Assets\pokemon\141.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\142.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\143.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\144-shiny.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\144.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\145-shiny.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\145.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\146-shiny.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\146.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\147.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\148.png" />
@@ -750,8 +754,11 @@
     <Content Include="Resources\PokemonGO-Assets\pokemon\17.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\170.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\171.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\172-Holiday2016-shiny.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\172-Holiday2016.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\172-OneYearAnniversary-shiny.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\172-OneYearAnniversary.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\172-shiny.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\172.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\173.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\174.png" />
@@ -865,16 +872,25 @@
     <Content Include="Resources\PokemonGO-Assets\pokemon\246.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\247.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\248.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\249-shiny.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\249.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\25-Anniversary-shiny.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\25-Anniversary.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\25-Holiday2016-shiny.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\25-Holiday2016.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\25-OneYearAnniversar-shiny.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\25-OneYearAnniversary.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\25-shiny.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\25.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\250.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\251.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\26-Anniversary-shiny.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\26-Anniversary.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\26-Holiday2016-shiny.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\26-Holiday2016.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\26-OneYearAnniversary-shiny.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\26-OneYearAnniversary.png" />
+    <Content Include="Resources\PokemonGO-Assets\pokemon\26-shiny.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\26.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\27.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\28.png" />
