@@ -55,7 +55,6 @@ namespace RocketBot2.Forms
     public partial class MainForm : System.Windows.Forms.Form
     {
         #region INITIALIZE
-
         public static MainForm Instance;
         public static SynchronizationContext SynchronizationContext;
         private static readonly ManualResetEvent QuitEvent = new ManualResetEvent(false);
@@ -79,7 +78,6 @@ namespace RocketBot2.Forms
         private static string[] args;
         private bool SelectPokeStop = false;
         private ItemData Itemdata = null;
-        public Navigation NavAutoWalkAI { get; set; }
 
         private static GMapMarker _playerMarker;
         private readonly List<PointLatLng> _playerLocations = new List<PointLatLng>();
@@ -118,8 +116,6 @@ namespace RocketBot2.Forms
 
             this.splitContainer2.SplitterDistance = this.splitContainer2.Height / 100 * 45;// Always keeps the logger window @ 45%/55% of the window height
 
-            tbRefresh.Value = LoadPokeStopsTimer.Interval / 1000;
-            LoadPokeStopsTimer.Interval = 90000; // Sets timer to 2 min to allow for player login to complete before starting
             this.Refresh(); // Force screen refresh before items are poppulated
             SetStatusText(Application.ProductName + " " + Application.ProductVersion);
             speedLable.Parent = GMapControl1;
@@ -128,12 +124,22 @@ namespace RocketBot2.Forms
             togglePrecalRoute.Parent = GMapControl1;
             GMAPSatellite.Parent = GMapControl1;
             cbEnablePushBulletNotification.Parent = GMapControl1;
+            cbAutoWalkAI.Parent = GMapControl1;
             InitializeBot(null);
             if (!_settings.WebsocketsConfig.UseWebsocket) menuStrip1.Items.Remove(pokeEaseToolStripMenuItem);
+
+            //Sets initial checkboxe AutoWalkAI & PokestopTimer
+            LoadPokeStopsTimer.Interval = _settings.PlayerConfig.PokeStopsTimer * 1000;
+            tbRefresh.Value = _settings.PlayerConfig.PokeStopsTimer;
+            LoadPokeStopsTimer.Interval = 90000; // Sets timer to 2 min to allow for player login to complete before starting
+
+            cbAutoWalkAI.Checked = _session.LogicSettings.AutoWalkAI; ;// _settings.PlayerConfig.AutoWalkAI;
+
             InitializePokemonForm();
             InitializeMap();
             VersionHelper.CheckVersion();
             btnRefresh.Enabled = false;
+
             if (args.Length > 0)
                 ConsoleHelper.HideConsoleWindow();
         }
@@ -190,8 +196,10 @@ namespace RocketBot2.Forms
 
         private void TbRefresh_MouseUp(object sender, EventArgs e)
         {
-            LoadPokeStopsTimer.Interval = tbRefresh.Value * 1000;
-            Logger.Write($"Pokestop refresh rate changed to {LoadPokeStopsTimer.Interval / 1000} sec");
+            _settings.PlayerConfig.PokeStopsTimer = tbRefresh.Value;
+            LoadPokeStopsTimer.Interval = _settings.PlayerConfig.PokeStopsTimer * 1000;
+            Logger.Write($"Pokestop refresh rate changed to {tbRefresh.Value} sec");
+            _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
         }
 
         private async void LoadPokeStopsTimer_Tick(object sender, EventArgs e)
@@ -247,6 +255,8 @@ namespace RocketBot2.Forms
 
             Instance.togglePrecalRoute.Enabled = Instance._botStarted;
             Instance.followTrainerCheckBox.Enabled = Instance._botStarted;
+            Instance.cbAutoWalkAI.Enabled = Instance._botStarted;
+            Instance.tbRefresh.Enabled = Instance._botStarted;
         }
 
         public async void SetStatusText(string text)
@@ -407,7 +417,7 @@ namespace RocketBot2.Forms
                                     time = expires - DateTime.UtcNow;
                                     if (!(expires.Ticks == 0 || time.TotalSeconds < 0))
                                     {
-                                        finalText = $"Pokestop in cooldown: {time.Hours:00}h:{time.Minutes:00}m\nReady at: {(DateTime.Now + time).Hour:00}:{(DateTime.Now + time).Minute:00} Local time";
+                                        finalText = $"Pokestop in cooldown: {time.Minutes:00}m:{time.Seconds:00}s\nReady at: {(DateTime.Now + time).Hour:00}:{(DateTime.Now + time).Minute:00} Local time";
                                     }
                                 }
                             }
@@ -746,8 +756,8 @@ namespace RocketBot2.Forms
             startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
             _botStarted = true;
             btnPokeDex.Enabled = _botStarted;
-            LoadPokeStopsTimer.Enabled = _botStarted;
             Task.Run(StartBot).ConfigureAwait(false);
+            LoadPokeStopsTimer.Enabled = _botStarted;
         }
 
         private async void TodoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -817,6 +827,8 @@ namespace RocketBot2.Forms
                     cbEnablePushBulletNotification.Enabled = true;
                     cbEnablePushBulletNotification.Checked = _settings.NotificationConfig.EnablePushBulletNotification;
                 }
+                if (_settings.PlayerConfig.AutoWalkAI)
+                    cbAutoWalkAI.Checked = _settings.PlayerConfig.AutoWalkAI;
             }
             else
             {
@@ -870,11 +882,13 @@ namespace RocketBot2.Forms
         private void CbEnablePushBulletNotification_CheckedChanged(object sender, EventArgs e)
         {
             _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
+            _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
         }
 
         private void cbAutoWalkAI_CheckedChanged(object sender, EventArgs e)
         {
-            NavAutoWalkAI.AutoWalkAI = cbAutoWalkAI.Checked;
+            _settings.PlayerConfig.AutoWalkAI = cbAutoWalkAI.Checked;
+            _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
         }
         #endregion EVENTS
 
@@ -1667,8 +1681,6 @@ namespace RocketBot2.Forms
                     ExcelConfigHelper.MigrateFromObject(settings, excelConfigFile);
                 }
             }
-
-            NavAutoWalkAI.AutoWalkAI = cbAutoWalkAI.Checked;
 
             ioc.Register<ISession>(_session);
 
