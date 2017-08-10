@@ -79,6 +79,7 @@ namespace RocketBot2.Forms
         private static string[] args;
         private bool SelectPokeStop = false;
         private ItemData Itemdata = null;
+        public Navigation NavAutoWalkAI { get; set; }
 
         private static GMapMarker _playerMarker;
         private readonly List<PointLatLng> _playerLocations = new List<PointLatLng>();
@@ -116,6 +117,7 @@ namespace RocketBot2.Forms
                 this.splitContainer1.SplitterDistance = this.Width - Spliter1Width - 55;
 
             this.splitContainer2.SplitterDistance = this.splitContainer2.Height / 100 * 45;// Always keeps the logger window @ 45%/55% of the window height
+
             tbRefresh.Value = LoadPokeStopsTimer.Interval / 1000;
             LoadPokeStopsTimer.Interval = 90000; // Sets timer to 2 min to allow for player login to complete before starting
             this.Refresh(); // Force screen refresh before items are poppulated
@@ -263,7 +265,7 @@ namespace RocketBot2.Forms
             if (checkBoxAutoRefresh.Checked)
                 await ReloadPokemonList().ConfigureAwait(false);
 
-            if (!LoadPokeStopsTimer.Enabled)
+            if (!LoadPokeStopsTimer.Enabled && _botStarted)
                 LoadPokeStopsTimer.Enabled = true;
         }
 
@@ -376,6 +378,8 @@ namespace RocketBot2.Forms
                     int wg = 32;
                     Image fort = ResourceHelper.GetImage($"Pokestop", null, null, hg, wg);
                     string finalText = null;
+                    DateTime expires = new DateTime(0);
+                    TimeSpan time = new TimeSpan(0);
 
                     switch (pokeStop.Type)
                     {
@@ -396,6 +400,16 @@ namespace RocketBot2.Forms
                                     else
                                         fort = ResourceHelper.GetImage($"Pokestop_looted", null, null, hg, wg);
                                 }
+
+                                if (pokeStop.CooldownCompleteTimestampMs > DateTime.UtcNow.ToUnixTime())
+                                {
+                                    expires = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.CooldownCompleteTimestampMs);
+                                    time = expires - DateTime.UtcNow;
+                                    if (!(expires.Ticks == 0 || time.TotalSeconds < 0))
+                                    {
+                                        finalText = $"Pokestop in cooldown: {time.Hours:00}h:{time.Minutes:00}m\nReady at: {(DateTime.Now + time).Hour:00}:{(DateTime.Now + time).Minute:00} Local time";
+                                    }
+                                }
                             }
                             catch
                             {
@@ -404,8 +418,6 @@ namespace RocketBot2.Forms
                             break;
                         case FortType.Gym:
                             Image ImgGymBoss = null;
-                            DateTime expires = new DateTime(0);
-                            TimeSpan time = new TimeSpan(0);
                             string boss = null;
 
                             try
@@ -593,7 +605,7 @@ namespace RocketBot2.Forms
 
                 _currentLatLng = latlng;
 
-                _playerOverlay.Routes.Clear();
+                //_playerOverlay.Routes.Clear();
                 var route = new GMapRoute(_playerLocations, "step")
                 {
                     Stroke = new Pen(Color.FromArgb(0, 204, 0), 2) { DashStyle = DashStyle.Solid }
@@ -794,10 +806,12 @@ namespace RocketBot2.Forms
         {
             if (showMoreCheckBox.Checked)
             {
-                followTrainerCheckBox.Visible = true;
-                togglePrecalRoute.Visible = true;
-                GMAPSatellite.Visible = true;
-                cbEnablePushBulletNotification.Visible = true;
+                followTrainerCheckBox.Visible = showMoreCheckBox.Checked;
+                togglePrecalRoute.Visible = showMoreCheckBox.Checked;
+                GMAPSatellite.Visible = showMoreCheckBox.Checked;
+                cbEnablePushBulletNotification.Visible = showMoreCheckBox.Checked;
+                cbAutoWalkAI.Visible = showMoreCheckBox.Checked;
+
                 if (_settings.NotificationConfig.PushBulletApiKey != null)
                 {
                     cbEnablePushBulletNotification.Enabled = true;
@@ -806,10 +820,11 @@ namespace RocketBot2.Forms
             }
             else
             {
-                followTrainerCheckBox.Visible = false;
-                togglePrecalRoute.Visible = false;
-                GMAPSatellite.Visible = false;
-                cbEnablePushBulletNotification.Visible = false;
+                followTrainerCheckBox.Visible = showMoreCheckBox.Checked;
+                togglePrecalRoute.Visible = showMoreCheckBox.Checked;
+                GMAPSatellite.Visible = showMoreCheckBox.Checked;
+                cbEnablePushBulletNotification.Visible = showMoreCheckBox.Checked;
+                cbAutoWalkAI.Visible = showMoreCheckBox.Checked;
             }
         }
 
@@ -855,6 +870,11 @@ namespace RocketBot2.Forms
         private void CbEnablePushBulletNotification_CheckedChanged(object sender, EventArgs e)
         {
             _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
+        }
+
+        private void cbAutoWalkAI_CheckedChanged(object sender, EventArgs e)
+        {
+            NavAutoWalkAI.AutoWalkAI = cbAutoWalkAI.Checked;
         }
         #endregion EVENTS
 
@@ -1647,6 +1667,8 @@ namespace RocketBot2.Forms
                     ExcelConfigHelper.MigrateFromObject(settings, excelConfigFile);
                 }
             }
+
+            NavAutoWalkAI.AutoWalkAI = cbAutoWalkAI.Checked;
 
             ioc.Register<ISession>(_session);
 
