@@ -182,20 +182,22 @@ namespace RocketBot2.Forms
 
         #region INTERFACE
 
-        private void tbRefresh_MouseEnter(object sender, EventArgs e)
+        private void TbRefresh_MouseEnter(object sender, EventArgs e)
         {
-            ToolTip tbRefreshTips = new ToolTip();
-            tbRefreshTips.AutoPopDelay = 5000;
-            tbRefreshTips.InitialDelay = 1000;
-            tbRefreshTips.ReshowDelay = 500;
-            // Force the ToolTip text to be displayed whether or not the form is active.
-            tbRefreshTips.ShowAlways = true;
+            ToolTip tbRefreshTips = new ToolTip()
+            {
+                AutoPopDelay = 5000,
+                InitialDelay = 1000,
+                ReshowDelay = 500,
+                // Force the ToolTip text to be displayed whether or not the form is active.
+                ShowAlways = true
+            };
 
             // Set up the ToolTip text for the Button and Checkbox.
             tbRefreshTips.SetToolTip(this.LoadPokeStopsRefresh, $"Changes the refresh interval\nof Pokestops on the map.\n(Range: 10 - 60 sec)\n(Default: 30 sec)");
         }
 
-        private void tbRefresh_MouseUp(object sender, EventArgs e)
+        private void TbRefresh_MouseUp(object sender, EventArgs e)
         {
             _settings.PlayerConfig.PokeStopsTimer = LoadPokeStopsRefresh.Value;
             LoadPokeStopsTimer.Interval = _settings.PlayerConfig.PokeStopsTimer * 1000;
@@ -723,7 +725,7 @@ namespace RocketBot2.Forms
             }
             catch
             {
-                //not implanted
+                //not implemanted
             }
             //*/
         }
@@ -888,7 +890,7 @@ namespace RocketBot2.Forms
             _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
         }
 
-        private void cbAutoWalkAI_CheckedChanged(object sender, EventArgs e)
+        private void CbAutoWalkAI_CheckedChanged(object sender, EventArgs e)
         {
             _settings.PlayerConfig.AutoWalkAI = cbAutoWalkAI.Checked;
             _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
