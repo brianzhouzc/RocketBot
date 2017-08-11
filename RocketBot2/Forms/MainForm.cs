@@ -55,7 +55,6 @@ namespace RocketBot2.Forms
     public partial class MainForm : System.Windows.Forms.Form
     {
         #region INITIALIZE
-
         public static MainForm Instance;
         public static SynchronizationContext SynchronizationContext;
         private static readonly ManualResetEvent QuitEvent = new ManualResetEvent(false);
@@ -116,8 +115,7 @@ namespace RocketBot2.Forms
                 this.splitContainer1.SplitterDistance = this.Width - Spliter1Width - 55;
 
             this.splitContainer2.SplitterDistance = this.splitContainer2.Height / 100 * 45;// Always keeps the logger window @ 45%/55% of the window height
-            tbRefresh.Value = LoadPokeStopsTimer.Interval / 1000;
-            LoadPokeStopsTimer.Interval = 90000; // Sets timer to 2 min to allow for player login to complete before starting
+
             this.Refresh(); // Force screen refresh before items are poppulated
             SetStatusText(Application.ProductName + " " + Application.ProductVersion);
             speedLable.Parent = GMapControl1;
@@ -126,12 +124,22 @@ namespace RocketBot2.Forms
             togglePrecalRoute.Parent = GMapControl1;
             GMAPSatellite.Parent = GMapControl1;
             cbEnablePushBulletNotification.Parent = GMapControl1;
+            cbAutoWalkAI.Parent = GMapControl1;
             InitializeBot(null);
             if (!_settings.WebsocketsConfig.UseWebsocket) menuStrip1.Items.Remove(pokeEaseToolStripMenuItem);
+
+            //Sets initial checkboxe AutoWalkAI & PokestopTimer
+            LoadPokeStopsTimer.Interval = _settings.PlayerConfig.PokeStopsTimer * 1000;
+            tbRefresh.Value = _settings.PlayerConfig.PokeStopsTimer;
+            LoadPokeStopsTimer.Interval = 90000; // Sets timer to 2 min to allow for player login to complete before starting
+
+            cbAutoWalkAI.Checked = _session.LogicSettings.AutoWalkAI; ;// _settings.PlayerConfig.AutoWalkAI;
+
             InitializePokemonForm();
             InitializeMap();
             VersionHelper.CheckVersion();
             btnRefresh.Enabled = false;
+
             if (args.Length > 0)
                 ConsoleHelper.HideConsoleWindow();
         }
@@ -188,8 +196,10 @@ namespace RocketBot2.Forms
 
         private void TbRefresh_MouseUp(object sender, EventArgs e)
         {
-            LoadPokeStopsTimer.Interval = tbRefresh.Value * 1000;
-            Logger.Write($"Pokestop refresh rate changed to {LoadPokeStopsTimer.Interval / 1000} sec");
+            _settings.PlayerConfig.PokeStopsTimer = tbRefresh.Value;
+            LoadPokeStopsTimer.Interval = _settings.PlayerConfig.PokeStopsTimer * 1000;
+            Logger.Write($"Pokestop refresh rate changed to {tbRefresh.Value} sec");
+            _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
         }
 
         private async void LoadPokeStopsTimer_Tick(object sender, EventArgs e)
@@ -245,6 +255,8 @@ namespace RocketBot2.Forms
 
             Instance.togglePrecalRoute.Enabled = Instance._botStarted;
             Instance.followTrainerCheckBox.Enabled = Instance._botStarted;
+            Instance.cbAutoWalkAI.Enabled = Instance._botStarted;
+            Instance.tbRefresh.Enabled = Instance._botStarted;
         }
 
         public async void SetStatusText(string text)
@@ -263,7 +275,7 @@ namespace RocketBot2.Forms
             if (checkBoxAutoRefresh.Checked)
                 await ReloadPokemonList().ConfigureAwait(false);
 
-            if (!LoadPokeStopsTimer.Enabled)
+            if (!LoadPokeStopsTimer.Enabled && _botStarted)
                 LoadPokeStopsTimer.Enabled = true;
         }
 
@@ -376,6 +388,8 @@ namespace RocketBot2.Forms
                     int wg = 32;
                     Image fort = ResourceHelper.GetImage($"Pokestop", null, null, hg, wg);
                     string finalText = null;
+                    DateTime expires = new DateTime(0);
+                    TimeSpan time = new TimeSpan(0);
 
                     switch (pokeStop.Type)
                     {
@@ -396,6 +410,16 @@ namespace RocketBot2.Forms
                                     else
                                         fort = ResourceHelper.GetImage($"Pokestop_looted", null, null, hg, wg);
                                 }
+
+                                if (pokeStop.CooldownCompleteTimestampMs > DateTime.UtcNow.ToUnixTime())
+                                {
+                                    expires = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(pokeStop.CooldownCompleteTimestampMs);
+                                    time = expires - DateTime.UtcNow;
+                                    if (!(expires.Ticks == 0 || time.TotalSeconds < 0))
+                                    {
+                                        finalText = $"Pokestop in cooldown: {time.Minutes:00}m:{time.Seconds:00}s\nReady at: {(DateTime.Now + time).Hour:00}:{(DateTime.Now + time).Minute:00} Local time";
+                                    }
+                                }
                             }
                             catch
                             {
@@ -404,8 +428,6 @@ namespace RocketBot2.Forms
                             break;
                         case FortType.Gym:
                             Image ImgGymBoss = null;
-                            DateTime expires = new DateTime(0);
-                            TimeSpan time = new TimeSpan(0);
                             string boss = null;
 
                             try
@@ -593,7 +615,7 @@ namespace RocketBot2.Forms
 
                 _currentLatLng = latlng;
 
-                _playerOverlay.Routes.Clear();
+                //_playerOverlay.Routes.Clear();
                 var route = new GMapRoute(_playerLocations, "step")
                 {
                     Stroke = new Pen(Color.FromArgb(0, 204, 0), 2) { DashStyle = DashStyle.Solid }
@@ -734,8 +756,8 @@ namespace RocketBot2.Forms
             startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
             _botStarted = true;
             btnPokeDex.Enabled = _botStarted;
-            LoadPokeStopsTimer.Enabled = _botStarted;
             Task.Run(StartBot).ConfigureAwait(false);
+            LoadPokeStopsTimer.Enabled = _botStarted;
         }
 
         private async void TodoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -794,22 +816,27 @@ namespace RocketBot2.Forms
         {
             if (showMoreCheckBox.Checked)
             {
-                followTrainerCheckBox.Visible = true;
-                togglePrecalRoute.Visible = true;
-                GMAPSatellite.Visible = true;
-                cbEnablePushBulletNotification.Visible = true;
+                followTrainerCheckBox.Visible = showMoreCheckBox.Checked;
+                togglePrecalRoute.Visible = showMoreCheckBox.Checked;
+                GMAPSatellite.Visible = showMoreCheckBox.Checked;
+                cbEnablePushBulletNotification.Visible = showMoreCheckBox.Checked;
+                cbAutoWalkAI.Visible = showMoreCheckBox.Checked;
+
                 if (_settings.NotificationConfig.PushBulletApiKey != null)
                 {
                     cbEnablePushBulletNotification.Enabled = true;
                     cbEnablePushBulletNotification.Checked = _settings.NotificationConfig.EnablePushBulletNotification;
                 }
+                if (_settings.PlayerConfig.AutoWalkAI)
+                    cbAutoWalkAI.Checked = _settings.PlayerConfig.AutoWalkAI;
             }
             else
             {
-                followTrainerCheckBox.Visible = false;
-                togglePrecalRoute.Visible = false;
-                GMAPSatellite.Visible = false;
-                cbEnablePushBulletNotification.Visible = false;
+                followTrainerCheckBox.Visible = showMoreCheckBox.Checked;
+                togglePrecalRoute.Visible = showMoreCheckBox.Checked;
+                GMAPSatellite.Visible = showMoreCheckBox.Checked;
+                cbEnablePushBulletNotification.Visible = showMoreCheckBox.Checked;
+                cbAutoWalkAI.Visible = showMoreCheckBox.Checked;
             }
         }
 
@@ -855,6 +882,13 @@ namespace RocketBot2.Forms
         private void CbEnablePushBulletNotification_CheckedChanged(object sender, EventArgs e)
         {
             _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
+            _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
+        }
+
+        private void cbAutoWalkAI_CheckedChanged(object sender, EventArgs e)
+        {
+            _settings.PlayerConfig.AutoWalkAI = cbAutoWalkAI.Checked;
+            _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
         }
         #endregion EVENTS
 
