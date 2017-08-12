@@ -201,7 +201,6 @@ namespace RocketBot2.Forms
             _settings.PlayerConfig.PokeStopsTimer = LoadPokeStopsRefresh.Value;
             LoadPokeStopsTimer.Interval = _settings.PlayerConfig.PokeStopsTimer * 1000;
             Logger.Write($"Pokestop refresh rate changed to {LoadPokeStopsRefresh.Value} sec");
-            _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
         }
 
         private async void LoadPokeStopsTimer_Tick(object sender, EventArgs e)
