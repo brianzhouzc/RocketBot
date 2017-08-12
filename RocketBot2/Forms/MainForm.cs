@@ -183,12 +183,14 @@ namespace RocketBot2.Forms
 
         private void LoadPokeStopsRefresh_MouseEnter(object sender, EventArgs e)
         {
-            ToolTip LoadPokeStopsRefreshTips = new ToolTip();
-            LoadPokeStopsRefreshTips.AutoPopDelay = 5000;
-            LoadPokeStopsRefreshTips.InitialDelay = 1000;
-            LoadPokeStopsRefreshTips.ReshowDelay = 500;
-            // Force the ToolTip text to be displayed whether or not the form is active.
-            LoadPokeStopsRefreshTips.ShowAlways = true;
+            ToolTip LoadPokeStopsRefreshTips = new ToolTip()
+            {
+                AutoPopDelay = 5000,
+                InitialDelay = 1000,
+                ReshowDelay = 500,
+                // Force the ToolTip text to be displayed whether or not the form is active.
+                ShowAlways = true
+            };
 
             // Set up the ToolTip text for the Button and Checkbox.
             LoadPokeStopsRefreshTips.SetToolTip(this.LoadPokeStopsRefresh, $"Changes the refresh interval\nof Pokestops on the map.\n(Range: 10 - 60 sec)\n(Default: 30 sec)");
@@ -541,6 +543,7 @@ namespace RocketBot2.Forms
                         Points = _session.Navigation.WalkStrategy.Points;
                         _playerLocations.Clear();
                         _playerRouteOverlay.Routes.Clear();
+                        _playerOverlay.Routes.Clear();
                         List<PointLatLng> routePointLatLngs = new List<PointLatLng>();
                         foreach (var item in Points)
                         {
@@ -615,7 +618,6 @@ namespace RocketBot2.Forms
 
                 _currentLatLng = latlng;
 
-                //_playerOverlay.Routes.Clear();
                 var route = new GMapRoute(_playerLocations, "step")
                 {
                     Stroke = new Pen(Color.FromArgb(0, 204, 0), 2) { DashStyle = DashStyle.Solid }
