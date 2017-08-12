@@ -55,7 +55,6 @@ namespace RocketBot2.Forms
     public partial class MainForm : System.Windows.Forms.Form
     {
         #region INITIALIZE
-
         public static MainForm Instance;
         public static SynchronizationContext SynchronizationContext;
         private static readonly ManualResetEvent QuitEvent = new ManualResetEvent(false);
@@ -134,7 +133,7 @@ namespace RocketBot2.Forms
             LoadPokeStopsRefresh.Value = _settings.PlayerConfig.PokeStopsTimer;
             LoadPokeStopsTimer.Interval = 90000; // Sets timer to 2 min to allow for player login to complete before starting
 
-            cbAutoWalkAI.Checked = _session.LogicSettings.AutoWalkAI; ;// _settings.PlayerConfig.AutoWalkAI;
+            cbAutoWalkAI.Checked = _session.LogicSettings .AutoWalkAI; ;// _settings.PlayerConfig.AutoWalkAI;
 
             InitializePokemonForm();
             InitializeMap();
@@ -182,20 +181,20 @@ namespace RocketBot2.Forms
 
         #region INTERFACE
 
-        private void tbRefresh_MouseEnter(object sender, EventArgs e)
+        private void LoadPokeStopsRefresh_MouseEnter(object sender, EventArgs e)
         {
-            ToolTip tbRefreshTips = new ToolTip();
-            tbRefreshTips.AutoPopDelay = 5000;
-            tbRefreshTips.InitialDelay = 1000;
-            tbRefreshTips.ReshowDelay = 500;
+            ToolTip LoadPokeStopsRefreshTips = new ToolTip();
+            LoadPokeStopsRefreshTips.AutoPopDelay = 5000;
+            LoadPokeStopsRefreshTips.InitialDelay = 1000;
+            LoadPokeStopsRefreshTips.ReshowDelay = 500;
             // Force the ToolTip text to be displayed whether or not the form is active.
-            tbRefreshTips.ShowAlways = true;
+            LoadPokeStopsRefreshTips.ShowAlways = true;
 
             // Set up the ToolTip text for the Button and Checkbox.
-            tbRefreshTips.SetToolTip(this.LoadPokeStopsRefresh, $"Changes the refresh interval\nof Pokestops on the map.\n(Range: 10 - 60 sec)\n(Default: 30 sec)");
+            LoadPokeStopsRefreshTips.SetToolTip(this.LoadPokeStopsRefresh, $"Changes the refresh interval\nof Pokestops on the map.\n(Range: 10 - 60 sec)\n(Default: 30 sec)");
         }
 
-        private void tbRefresh_MouseUp(object sender, EventArgs e)
+        private void LoadPokeStopsRefresh_MouseUp(object sender, EventArgs e)
         {
             _settings.PlayerConfig.PokeStopsTimer = LoadPokeStopsRefresh.Value;
             LoadPokeStopsTimer.Interval = _settings.PlayerConfig.PokeStopsTimer * 1000;
@@ -315,12 +314,10 @@ namespace RocketBot2.Forms
             GMapControl1.OnMapZoomChanged += delegate { trackBar.Value = (int)GMapControl1.Zoom; };
         }
 
-        private void GMAPSatellite_CheckStateChanged(object sender, EventArgs e)
+        private void GMAPSatellite_CheckedChanged(object sender, EventArgs e)
         {
-            if (GMAPSatellite.CheckState == CheckState.Checked)
+            if (GMAPSatellite.Checked)
                 GMapControl1.MapProvider = GoogleSatelliteMapProvider.Instance;
-            else if (GMAPSatellite.CheckState == CheckState.Indeterminate)
-                GMapControl1.MapProvider = GoogleHybridMapProvider.Instance;
             else
                 GMapControl1.MapProvider = GoogleMapProvider.Instance;
         }
@@ -763,7 +760,7 @@ namespace RocketBot2.Forms
             LoadPokeStopsTimer.Enabled = _botStarted;
         }
 
-        private async void TodoToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void settingsStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Windows.Forms.Form settingsForm = new SettingsForm(ref _settings, _session);
             settingsForm.ShowDialog();
@@ -2013,6 +2010,7 @@ namespace RocketBot2.Forms
             }
             return false;
         }
+
         #endregion
     }
 }
