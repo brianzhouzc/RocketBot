@@ -56,6 +56,9 @@ namespace RocketBot2
             if (level > _maxLogLevel)
                 return;
 
+            if (message.Contains("NecroBot"))
+                message = message;
+
             var finalMessage = Logger.GetFinalMessage(message.Replace("NecroBot", "RocketBot"), level, color);
             Console.WriteLine(finalMessage);
 
