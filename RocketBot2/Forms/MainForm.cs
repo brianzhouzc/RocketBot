@@ -133,7 +133,7 @@ namespace RocketBot2.Forms
             LoadPokeStopsRefresh.Value = _settings.PlayerConfig.PokeStopsTimer;
             LoadPokeStopsTimer.Interval = 90000; // Sets timer to 2 min to allow for player login to complete before starting
 
-            cbAutoWalkAI.Checked = _session.LogicSettings .AutoWalkAI; ;// _settings.PlayerConfig.AutoWalkAI;
+            cbAutoWalkAI.Checked = _session.LogicSettings.AutoWalkAI; // _settings.PlayerConfig.AutoWalkAI;
 
             InitializePokemonForm();
             InitializeMap();
@@ -314,10 +314,12 @@ namespace RocketBot2.Forms
             GMapControl1.OnMapZoomChanged += delegate { trackBar.Value = (int)GMapControl1.Zoom; };
         }
 
-        private void GMAPSatellite_CheckedChanged(object sender, EventArgs e)
+        private void GMAPSatellite_CheckStateChanged(object sender, EventArgs e)
         {
-            if (GMAPSatellite.Checked)
+            if (GMAPSatellite.CheckState == CheckState.Checked)
                 GMapControl1.MapProvider = GoogleSatelliteMapProvider.Instance;
+            else if (GMAPSatellite.CheckState == CheckState.Indeterminate)
+                GMapControl1.MapProvider = GoogleHybridMapProvider.Instance;
             else
                 GMapControl1.MapProvider = GoogleMapProvider.Instance;
         }
@@ -2010,7 +2012,6 @@ namespace RocketBot2.Forms
             }
             return false;
         }
-
         #endregion
     }
 }
