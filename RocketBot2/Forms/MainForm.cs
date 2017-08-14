@@ -299,8 +299,8 @@ namespace RocketBot2.Forms
 
             //Bottom most layer
             GMapControl1.Overlays.Add(_searchAreaOverlay);
-            GMapControl1.Overlays.Add(_playerRouteOverlay);
             GMapControl1.Overlays.Add(_pokestopsOverlay);
+            GMapControl1.Overlays.Add(_playerRouteOverlay);
             GMapControl1.Overlays.Add(_pokemonsOverlay);
             GMapControl1.Overlays.Add(_playerOverlay);
             //Top most layer
@@ -544,9 +544,8 @@ namespace RocketBot2.Forms
                     if (_session.Navigation.WalkStrategy.Points.Count > 0 && Points != _session.Navigation.WalkStrategy.Points)
                     {
                         Points = _session.Navigation.WalkStrategy.Points;
-                        //_playerLocations.Clear();
+                        _playerLocations.Clear();
                         _playerRouteOverlay.Routes.Clear();
-                        _playerOverlay.Routes.Clear();
                         List<PointLatLng> routePointLatLngs = new List<PointLatLng>();
                         foreach (var item in Points)
                         {
@@ -621,6 +620,7 @@ namespace RocketBot2.Forms
 
                 _currentLatLng = latlng;
 
+                //_playerOverlay.Routes.Clear();
                 var route = new GMapRoute(_playerLocations, "step")
                 {
                     Stroke = new Pen(Color.FromArgb(0, 204, 0), 2) { DashStyle = DashStyle.Solid }
@@ -898,7 +898,7 @@ namespace RocketBot2.Forms
             _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
         }
 
-        private void CbAutoWalkAI_CheckedChanged(object sender, EventArgs e)
+        private void cbAutoWalkAI_CheckedChanged(object sender, EventArgs e)
         {
             _settings.PlayerConfig.AutoWalkAI = cbAutoWalkAI.Checked;
         }
