@@ -133,7 +133,7 @@ namespace RocketBot2.Forms
             LoadPokeStopsRefresh.Value = _settings.PlayerConfig.PokeStopsTimer;
             LoadPokeStopsTimer.Interval = 90000; // Sets timer to 2 min to allow for player login to complete before starting
 
-            cbAutoWalkAI.Checked = _session.LogicSettings .AutoWalkAI; ;// _settings.PlayerConfig.AutoWalkAI;
+            cbAutoWalkAI.Checked = _session.LogicSettings.AutoWalkAI; // _settings.PlayerConfig.AutoWalkAI;
 
             InitializePokemonForm();
             InitializeMap();
@@ -297,11 +297,13 @@ namespace RocketBot2.Forms
             GMapControl1.MinZoom = 2;
             GMapControl1.MaxZoom = 18;
 
+            //Bottom most layer
             GMapControl1.Overlays.Add(_searchAreaOverlay);
             GMapControl1.Overlays.Add(_pokestopsOverlay);
+            GMapControl1.Overlays.Add(_playerRouteOverlay);
             GMapControl1.Overlays.Add(_pokemonsOverlay);
             GMapControl1.Overlays.Add(_playerOverlay);
-            GMapControl1.Overlays.Add(_playerRouteOverlay);
+            //Top most layer
 
             _playerMarker = new GMapMarkerTrainer(new PointLatLng(lat, lng), ResourceHelper.GetImage("PlayerLocation", null, null, 32, 32));
             _playerOverlay.Markers.Add(_playerMarker);
@@ -315,10 +317,12 @@ namespace RocketBot2.Forms
             GMapControl1.OnMapZoomChanged += delegate { trackBar.Value = (int)GMapControl1.Zoom; };
         }
 
-        private void GMAPSatellite_CheckedChanged(object sender, EventArgs e)
+        private void GMAPSatellite_CheckStateChanged(object sender, EventArgs e)
         {
-            if (GMAPSatellite.Checked)
+            if (GMAPSatellite.CheckState == CheckState.Checked)
                 GMapControl1.MapProvider = GoogleSatelliteMapProvider.Instance;
+            else if (GMAPSatellite.CheckState == CheckState.Indeterminate)
+                GMapControl1.MapProvider = GoogleHybridMapProvider.Instance;
             else
                 GMapControl1.MapProvider = GoogleMapProvider.Instance;
         }
@@ -362,7 +366,7 @@ namespace RocketBot2.Forms
 
                 _pokestopsOverlay.Routes.Clear();
 
-                if (togglePrecalRoute.Checked)
+                if (togglePrecalRoute.CheckState == CheckState.Checked || togglePrecalRoute.CheckState == CheckState.Indeterminate)
                 {
                     _routePoints =
                         (from pokeStop in pokeStops
@@ -617,11 +621,14 @@ namespace RocketBot2.Forms
 
                 _currentLatLng = latlng;
 
-                var route = new GMapRoute(_playerLocations, "step")
+                if (togglePrecalRoute.CheckState == CheckState.Checked)
                 {
-                    Stroke = new Pen(Color.FromArgb(0, 204, 0), 2) { DashStyle = DashStyle.Solid }
-                };
-                _playerOverlay.Routes.Add(route);
+                    var step = new GMapRoute(_playerLocations, "step")
+                    {
+                        Stroke = new Pen(Color.FromArgb(0, 204, 0), 3) { DashStyle = DashStyle.Dash }
+                    };
+                    _playerOverlay.Routes.Add(step);
+                }
             }, null);
         }
 
@@ -644,8 +651,15 @@ namespace RocketBot2.Forms
         {
             var pos = GMapControl1.FromLocalToLatLng(e.Location.X, e.Location.Y);
             double Dist = LocationUtils.CalculateDistanceInMeters(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude, pos.Lat, pos.Lng);
+            String DistUnits = "m";
             double Alt = await _session.ElevationService.GetElevation(pos.Lat, pos.Lng).ConfigureAwait(false);
             double Speed = _session.Client.CurrentSpeed;
+
+            if (Dist > 1000)
+            {
+                Dist = Dist / 1000;
+                DistUnits = "Km";
+            }
 
             if (!_botStarted)
             {
@@ -671,10 +685,10 @@ namespace RocketBot2.Forms
 
                 _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
 
-                Logger.Write($"New starting location has been set to: Lat: {pos.Lat:0.00000000} Long: {pos.Lng:0.00000000} Alt: {Alt:0.00}m | Dist: {Dist:0.00}m", LogLevel.Info);
+                Logger.Write($"New starting location has been set to: Lat: {pos.Lat:0.00000000} Long: {pos.Lng:0.00000000} Alt: {Alt:0.00}m | Dist: {Dist:0.00} {DistUnits}", LogLevel.Info);
                 return;
             }
-            Logger.Write($"Trainer now traveling to: Lat: {pos.Lat:0.00000000} Long: {pos.Lng:0.00000000} Dist: {Dist:0.00}m Travel Time: {Dist * 60 / Speed / 1000:0.00}min", LogLevel.Info);
+            Logger.Write($"Trainer now traveling to: Lat: {pos.Lat:0.00000000} Long: {pos.Lng:0.00000000} Dist: {Dist:0.00} {DistUnits} Travel Time: {Dist * 60 / Speed / 1000:0.00}min", LogLevel.Info);
             await SetMoveToTargetTask.Execute(pos.Lat, pos.Lng).ConfigureAwait(false);
         }
 
@@ -763,7 +777,7 @@ namespace RocketBot2.Forms
             LoadPokeStopsTimer.Enabled = _botStarted;
         }
 
-        private async void settingsStripMenuItem_Click(object sender, EventArgs e)
+        private async void SettingsStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Windows.Forms.Form settingsForm = new SettingsForm(ref _settings, _session);
             settingsForm.ShowDialog();
@@ -817,30 +831,18 @@ namespace RocketBot2.Forms
 
         private void ShowMoreCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (showMoreCheckBox.Checked)
-            {
-                followTrainerCheckBox.Visible = showMoreCheckBox.Checked;
-                togglePrecalRoute.Visible = showMoreCheckBox.Checked;
-                GMAPSatellite.Visible = showMoreCheckBox.Checked;
-                cbEnablePushBulletNotification.Visible = showMoreCheckBox.Checked;
-                cbAutoWalkAI.Visible = showMoreCheckBox.Checked;
+            followTrainerCheckBox.Visible = showMoreCheckBox.Checked;
+            togglePrecalRoute.Visible = showMoreCheckBox.Checked;
+            GMAPSatellite.Visible = showMoreCheckBox.Checked;
+            cbEnablePushBulletNotification.Visible = showMoreCheckBox.Checked;
+            cbAutoWalkAI.Visible = showMoreCheckBox.Checked;
 
-                if (_settings.NotificationConfig.PushBulletApiKey != null)
-                {
-                    cbEnablePushBulletNotification.Enabled = true;
-                    cbEnablePushBulletNotification.Checked = _settings.NotificationConfig.EnablePushBulletNotification;
-                }
-                if (_settings.PlayerConfig.AutoWalkAI)
-                    cbAutoWalkAI.Checked = _settings.PlayerConfig.AutoWalkAI;
-            }
-            else
+            if (_settings.NotificationConfig.PushBulletApiKey != null)
             {
-                followTrainerCheckBox.Visible = showMoreCheckBox.Checked;
-                togglePrecalRoute.Visible = showMoreCheckBox.Checked;
-                GMAPSatellite.Visible = showMoreCheckBox.Checked;
-                cbEnablePushBulletNotification.Visible = showMoreCheckBox.Checked;
-                cbAutoWalkAI.Visible = showMoreCheckBox.Checked;
+                cbEnablePushBulletNotification.Enabled = true;
+                cbEnablePushBulletNotification.Checked = _settings.NotificationConfig.EnablePushBulletNotification;
             }
+            cbAutoWalkAI.Checked = _settings.PlayerConfig.AutoWalkAI;
         }
 
         private void FollowTrainerCheckBox_CheckStateChanged(object sender, EventArgs e)
@@ -860,17 +862,29 @@ namespace RocketBot2.Forms
         {
             SynchronizationContext.Post(o =>
             {
-                if (togglePrecalRoute.Checked)
-                {
-                    _pokestopsOverlay.Routes.Clear();
-                    var route = new GMapRoute(_routePoints, "Walking Path")
-                    {
-                        Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
-                    };
-                    _pokestopsOverlay.Routes.Add(route);
-                    return;
-                }
                 _pokestopsOverlay.Routes.Clear();
+                _playerOverlay.Routes.Clear();
+
+                var route = new GMapRoute(_routePoints, "Walking Path")
+                {
+                    Stroke = new Pen(Color.FromArgb(102, 178, 255), 3)
+                };
+ 
+                var step = new GMapRoute(_playerLocations, "step")
+                {
+                    Stroke = new Pen(Color.FromArgb(0, 204, 0), 3) { DashStyle = DashStyle.Dash }
+                };
+
+                if (togglePrecalRoute.CheckState == CheckState.Checked)
+                {
+                    _pokestopsOverlay.Routes.Add(route);
+                    _playerOverlay.Routes.Add(step);
+                }
+
+                if (togglePrecalRoute.CheckState == CheckState.Indeterminate)
+                {
+                    _pokestopsOverlay.Routes.Add(route);
+                }
             }, null);
         }
 
@@ -2011,7 +2025,6 @@ namespace RocketBot2.Forms
             }
             return false;
         }
-
         #endregion
     }
 }
