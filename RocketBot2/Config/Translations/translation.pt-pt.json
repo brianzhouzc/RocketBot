@@ -90,7 +90,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "A chegar {0}m({1} sec) via {2} to next {3}: {4}"
+      "Value": "A chegar {0}m({1} sec) via'{2}' to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",

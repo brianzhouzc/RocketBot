@@ -90,7 +90,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "Chůze k {0}m({1} sec) via {2} to next {3}: {4}"
+      "Value": "Chůze k {0}m({1} sec) via'{2}' to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
