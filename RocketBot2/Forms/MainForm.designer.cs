@@ -556,7 +556,7 @@ namespace RocketBot2.Forms
             this.GMAPSatellite.Text = "Satellite/Hybrid";
             this.GMAPSatellite.UseVisualStyleBackColor = false;
             this.GMAPSatellite.Visible = false;
-            this.GMAPSatellite.CheckStateChanged += new System.EventHandler(this.GMAPSatellite_CheckedChanged);
+            this.GMAPSatellite.CheckStateChanged += new System.EventHandler(this.GMAPSatellite_CheckStateChanged);
             // 
             // togglePrecalRoute
             // 
