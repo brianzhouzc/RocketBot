@@ -299,8 +299,8 @@ namespace RocketBot2.Forms
 
             //Bottom most layer
             GMapControl1.Overlays.Add(_searchAreaOverlay);
-            GMapControl1.Overlays.Add(_playerRouteOverlay);
             GMapControl1.Overlays.Add(_pokestopsOverlay);
+            GMapControl1.Overlays.Add(_playerRouteOverlay);
             GMapControl1.Overlays.Add(_pokemonsOverlay);
             GMapControl1.Overlays.Add(_playerOverlay);
             //Top most layer
@@ -544,9 +544,8 @@ namespace RocketBot2.Forms
                     if (_session.Navigation.WalkStrategy.Points.Count > 0 && Points != _session.Navigation.WalkStrategy.Points)
                     {
                         Points = _session.Navigation.WalkStrategy.Points;
-                        //_playerLocations.Clear();
+                        _playerLocations.Clear();
                         _playerRouteOverlay.Routes.Clear();
-                        _playerOverlay.Routes.Clear();
                         List<PointLatLng> routePointLatLngs = new List<PointLatLng>();
                         foreach (var item in Points)
                         {
@@ -621,6 +620,7 @@ namespace RocketBot2.Forms
 
                 _currentLatLng = latlng;
 
+                //_playerOverlay.Routes.Clear();
                 var route = new GMapRoute(_playerLocations, "step")
                 {
                     Stroke = new Pen(Color.FromArgb(0, 204, 0), 2) { DashStyle = DashStyle.Solid }
@@ -774,7 +774,7 @@ namespace RocketBot2.Forms
             LoadPokeStopsTimer.Enabled = _botStarted;
         }
 
-        private async void settingsStripMenuItem_Click(object sender, EventArgs e)
+        private async void SettingsStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Windows.Forms.Form settingsForm = new SettingsForm(ref _settings, _session);
             settingsForm.ShowDialog();
@@ -828,30 +828,18 @@ namespace RocketBot2.Forms
 
         private void ShowMoreCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (showMoreCheckBox.Checked)
-            {
-                followTrainerCheckBox.Visible = showMoreCheckBox.Checked;
-                togglePrecalRoute.Visible = showMoreCheckBox.Checked;
-                GMAPSatellite.Visible = showMoreCheckBox.Checked;
-                cbEnablePushBulletNotification.Visible = showMoreCheckBox.Checked;
-                cbAutoWalkAI.Visible = showMoreCheckBox.Checked;
+            followTrainerCheckBox.Visible = showMoreCheckBox.Checked;
+            togglePrecalRoute.Visible = showMoreCheckBox.Checked;
+            GMAPSatellite.Visible = showMoreCheckBox.Checked;
+            cbEnablePushBulletNotification.Visible = showMoreCheckBox.Checked;
+            cbAutoWalkAI.Visible = showMoreCheckBox.Checked;
 
-                if (_settings.NotificationConfig.PushBulletApiKey != null)
-                {
-                    cbEnablePushBulletNotification.Enabled = true;
-                    cbEnablePushBulletNotification.Checked = _settings.NotificationConfig.EnablePushBulletNotification;
-                }
-                if (_settings.PlayerConfig.AutoWalkAI)
-                    cbAutoWalkAI.Checked = _settings.PlayerConfig.AutoWalkAI;
-            }
-            else
+            if (_settings.NotificationConfig.PushBulletApiKey != null)
             {
-                followTrainerCheckBox.Visible = showMoreCheckBox.Checked;
-                togglePrecalRoute.Visible = showMoreCheckBox.Checked;
-                GMAPSatellite.Visible = showMoreCheckBox.Checked;
-                cbEnablePushBulletNotification.Visible = showMoreCheckBox.Checked;
-                cbAutoWalkAI.Visible = showMoreCheckBox.Checked;
+                cbEnablePushBulletNotification.Enabled = true;
+                cbEnablePushBulletNotification.Checked = _settings.NotificationConfig.EnablePushBulletNotification;
             }
+            cbAutoWalkAI.Checked = _settings.PlayerConfig.AutoWalkAI;
         }
 
         private void FollowTrainerCheckBox_CheckStateChanged(object sender, EventArgs e)
@@ -898,7 +886,7 @@ namespace RocketBot2.Forms
             _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
         }
 
-        private void CbAutoWalkAI_CheckedChanged(object sender, EventArgs e)
+        private void cbAutoWalkAI_CheckedChanged(object sender, EventArgs e)
         {
             _settings.PlayerConfig.AutoWalkAI = cbAutoWalkAI.Checked;
         }
