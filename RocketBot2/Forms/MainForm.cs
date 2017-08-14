@@ -553,7 +553,7 @@ namespace RocketBot2.Forms
                         }
                         GMapRoute routes = new GMapRoute(routePointLatLngs, routePointLatLngs.ToString())
                         {
-                            Stroke = new Pen(Color.FromArgb(255, 51, 51), 2) { DashStyle = DashStyle.DashDotDot }
+                            Stroke = new Pen(Color.FromArgb(255, 51, 51), 2) { DashStyle = DashStyle.Dash }
                         };
                         _playerRouteOverlay.Routes.Add(routes);
                     }
@@ -884,11 +884,15 @@ namespace RocketBot2.Forms
         private void CbEnablePushBulletNotification_CheckedChanged(object sender, EventArgs e)
         {
             _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
+            //Need this otherwise changing during runtime will not change the values will stay as last loaded value at load time or when settings form was last save
+            _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
         }
 
         private void cbAutoWalkAI_CheckedChanged(object sender, EventArgs e)
         {
             _settings.PlayerConfig.AutoWalkAI = cbAutoWalkAI.Checked;
+            //Need this otherwise changing during runtime will not change the values will stay as last loaded value at load time or when settings form was last save
+            _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
         }
         #endregion EVENTS
 
