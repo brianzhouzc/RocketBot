@@ -296,11 +296,13 @@ namespace RocketBot2.Forms
             GMapControl1.MinZoom = 2;
             GMapControl1.MaxZoom = 18;
 
+            //Bottom most layer
             GMapControl1.Overlays.Add(_searchAreaOverlay);
+            GMapControl1.Overlays.Add(_playerRouteOverlay);
             GMapControl1.Overlays.Add(_pokestopsOverlay);
             GMapControl1.Overlays.Add(_pokemonsOverlay);
             GMapControl1.Overlays.Add(_playerOverlay);
-            GMapControl1.Overlays.Add(_playerRouteOverlay);
+            //Top most layer
 
             _playerMarker = new GMapMarkerTrainer(new PointLatLng(lat, lng), ResourceHelper.GetImage("PlayerLocation", null, null, 32, 32));
             _playerOverlay.Markers.Add(_playerMarker);
@@ -372,7 +374,7 @@ namespace RocketBot2.Forms
 
                     var route = new GMapRoute(_routePoints, "Walking Path")
                     {
-                        Stroke = new Pen(Color.FromArgb(102, 178, 255), 3)
+                        Stroke = new Pen(Color.FromArgb(102, 178, 255), 1)
                     };
                     _pokestopsOverlay.Routes.Add(route);
                 }
@@ -541,7 +543,7 @@ namespace RocketBot2.Forms
                     if (_session.Navigation.WalkStrategy.Points.Count > 0 && Points != _session.Navigation.WalkStrategy.Points)
                     {
                         Points = _session.Navigation.WalkStrategy.Points;
-                        _playerLocations.Clear();
+                        //_playerLocations.Clear();
                         _playerRouteOverlay.Routes.Clear();
                         List<PointLatLng> routePointLatLngs = new List<PointLatLng>();
                         foreach (var item in Points)
@@ -550,7 +552,7 @@ namespace RocketBot2.Forms
                         }
                         GMapRoute routes = new GMapRoute(routePointLatLngs, routePointLatLngs.ToString())
                         {
-                            Stroke = new Pen(Color.FromArgb(255, 51, 51), 3) { DashStyle = DashStyle.Dash }
+                            Stroke = new Pen(Color.FromArgb(255, 51, 51), 2) { DashStyle = DashStyle.DashDotDot }
                         };
                         _playerRouteOverlay.Routes.Add(routes);
                     }
@@ -645,8 +647,15 @@ namespace RocketBot2.Forms
         {
             var pos = GMapControl1.FromLocalToLatLng(e.Location.X, e.Location.Y);
             double Dist = LocationUtils.CalculateDistanceInMeters(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude, pos.Lat, pos.Lng);
+            String DistUnits = "m";
             double Alt = await _session.ElevationService.GetElevation(pos.Lat, pos.Lng).ConfigureAwait(false);
             double Speed = _session.Client.CurrentSpeed;
+
+            if (Dist > 1000)
+            {
+                Dist = Dist / 1000;
+                DistUnits = "Km";
+            }
 
             if (!_botStarted)
             {
@@ -672,10 +681,10 @@ namespace RocketBot2.Forms
 
                 _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
 
-                Logger.Write($"New starting location has been set to: Lat: {pos.Lat:0.00000000} Long: {pos.Lng:0.00000000} Alt: {Alt:0.00}m | Dist: {Dist:0.00}m", LogLevel.Info);
+                Logger.Write($"New starting location has been set to: Lat: {pos.Lat:0.00000000} Long: {pos.Lng:0.00000000} Alt: {Alt:0.00}m | Dist: {Dist:0.00} {DistUnits}", LogLevel.Info);
                 return;
             }
-            Logger.Write($"Trainer now traveling to: Lat: {pos.Lat:0.00000000} Long: {pos.Lng:0.00000000} Dist: {Dist:0.00}m Travel Time: {Dist * 60 / Speed / 1000:0.00}min", LogLevel.Info);
+            Logger.Write($"Trainer now traveling to: Lat: {pos.Lat:0.00000000} Long: {pos.Lng:0.00000000} Dist: {Dist:0.00} {DistUnits} Travel Time: {Dist * 60 / Speed / 1000:0.00}min", LogLevel.Info);
             await SetMoveToTargetTask.Execute(pos.Lat, pos.Lng).ConfigureAwait(false);
         }
 
