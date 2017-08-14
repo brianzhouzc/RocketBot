@@ -707,7 +707,7 @@ namespace RocketBot2.Forms
             //TODO: Kills the application
             try
             {
-                //save current config
+                //save current config this risk for bug maybe comment it
                 _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
                 List<Control> listControls = new List<Control>();
                 foreach (Control control in Instance.Controls)
