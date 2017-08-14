@@ -174,7 +174,7 @@ namespace RocketBot2.Forms
             this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
             this.settingToolStripMenuItem.Size = new System.Drawing.Size(74, 24);
             this.settingToolStripMenuItem.Text = "Settings";
-            this.settingToolStripMenuItem.Click += new System.EventHandler(this.settingsStripMenuItem_Click);
+            this.settingToolStripMenuItem.Click += new System.EventHandler(this.SettingsStripMenuItem_Click);
             // 
             // accountsToolStripMenuItem
             // 

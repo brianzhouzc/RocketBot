@@ -774,7 +774,7 @@ namespace RocketBot2.Forms
             LoadPokeStopsTimer.Enabled = _botStarted;
         }
 
-        private async void settingsStripMenuItem_Click(object sender, EventArgs e)
+        private async void SettingsStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Windows.Forms.Form settingsForm = new SettingsForm(ref _settings, _session);
             settingsForm.ShowDialog();
@@ -828,30 +828,18 @@ namespace RocketBot2.Forms
 
         private void ShowMoreCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (showMoreCheckBox.Checked)
-            {
-                followTrainerCheckBox.Visible = showMoreCheckBox.Checked;
-                togglePrecalRoute.Visible = showMoreCheckBox.Checked;
-                GMAPSatellite.Visible = showMoreCheckBox.Checked;
-                cbEnablePushBulletNotification.Visible = showMoreCheckBox.Checked;
-                cbAutoWalkAI.Visible = showMoreCheckBox.Checked;
+            followTrainerCheckBox.Visible = showMoreCheckBox.Checked;
+            togglePrecalRoute.Visible = showMoreCheckBox.Checked;
+            GMAPSatellite.Visible = showMoreCheckBox.Checked;
+            cbEnablePushBulletNotification.Visible = showMoreCheckBox.Checked;
+            cbAutoWalkAI.Visible = showMoreCheckBox.Checked;
 
-                if (_settings.NotificationConfig.PushBulletApiKey != null)
-                {
-                    cbEnablePushBulletNotification.Enabled = true;
-                    cbEnablePushBulletNotification.Checked = _settings.NotificationConfig.EnablePushBulletNotification;
-                }
-                if (_settings.PlayerConfig.AutoWalkAI)
-                    cbAutoWalkAI.Checked = _settings.PlayerConfig.AutoWalkAI;
-            }
-            else
+            if (_settings.NotificationConfig.PushBulletApiKey != null)
             {
-                followTrainerCheckBox.Visible = showMoreCheckBox.Checked;
-                togglePrecalRoute.Visible = showMoreCheckBox.Checked;
-                GMAPSatellite.Visible = showMoreCheckBox.Checked;
-                cbEnablePushBulletNotification.Visible = showMoreCheckBox.Checked;
-                cbAutoWalkAI.Visible = showMoreCheckBox.Checked;
+                cbEnablePushBulletNotification.Enabled = true;
+                cbEnablePushBulletNotification.Checked = _settings.NotificationConfig.EnablePushBulletNotification;
             }
+            cbAutoWalkAI.Checked = _settings.PlayerConfig.AutoWalkAI;
         }
 
         private void FollowTrainerCheckBox_CheckStateChanged(object sender, EventArgs e)
