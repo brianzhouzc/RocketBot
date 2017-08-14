@@ -366,7 +366,7 @@ namespace RocketBot2.Forms
 
                 _pokestopsOverlay.Routes.Clear();
 
-                if (togglePrecalRoute.Checked)
+                if (togglePrecalRoute.CheckState == CheckState.Checked)
                 {
                     _routePoints =
                         (from pokeStop in pokeStops
@@ -375,7 +375,7 @@ namespace RocketBot2.Forms
 
                     var route = new GMapRoute(_routePoints, "Walking Path")
                     {
-                        Stroke = new Pen(Color.FromArgb(102, 178, 255), 1)
+                        Stroke = new Pen(Color.FromArgb(102, 178, 255), 3)
                     };
                     _pokestopsOverlay.Routes.Add(route);
                 }
@@ -554,7 +554,7 @@ namespace RocketBot2.Forms
                         }
                         GMapRoute routes = new GMapRoute(routePointLatLngs, routePointLatLngs.ToString())
                         {
-                            Stroke = new Pen(Color.FromArgb(255, 51, 51), 2) { DashStyle = DashStyle.DashDotDot }
+                            Stroke = new Pen(Color.FromArgb(255, 51, 51), 3) { DashStyle = DashStyle.Dash }
                         };
                         _playerRouteOverlay.Routes.Add(routes);
                     }
@@ -621,11 +621,14 @@ namespace RocketBot2.Forms
 
                 _currentLatLng = latlng;
 
-                var route = new GMapRoute(_playerLocations, "step")
+                if (togglePrecalRoute.CheckState == CheckState.Checked)
                 {
-                    Stroke = new Pen(Color.FromArgb(0, 204, 0), 2) { DashStyle = DashStyle.Solid }
-                };
-                _playerOverlay.Routes.Add(route);
+                    var step = new GMapRoute(_playerLocations, "step")
+                    {
+                        Stroke = new Pen(Color.FromArgb(0, 204, 0), 3) { DashStyle = DashStyle.Dash }
+                    };
+                    _playerOverlay.Routes.Add(step);
+                }
             }, null);
         }
 
@@ -859,17 +862,29 @@ namespace RocketBot2.Forms
         {
             SynchronizationContext.Post(o =>
             {
-                if (togglePrecalRoute.Checked)
-                {
-                    _pokestopsOverlay.Routes.Clear();
-                    var route = new GMapRoute(_routePoints, "Walking Path")
-                    {
-                        Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
-                    };
-                    _pokestopsOverlay.Routes.Add(route);
-                    return;
-                }
                 _pokestopsOverlay.Routes.Clear();
+                _playerOverlay.Routes.Clear();
+
+                var route = new GMapRoute(_routePoints, "Walking Path")
+                {
+                    Stroke = new Pen(Color.FromArgb(102, 178, 255), 3)
+                };
+ 
+                var step = new GMapRoute(_playerLocations, "step")
+                {
+                    Stroke = new Pen(Color.FromArgb(0, 204, 0), 3) { DashStyle = DashStyle.Dash }
+                };
+
+                if (togglePrecalRoute.CheckState == CheckState.Checked)
+                {
+                    _pokestopsOverlay.Routes.Add(route);
+                    _playerOverlay.Routes.Add(step);
+                }
+
+                if (togglePrecalRoute.CheckState == CheckState.Indeterminate)
+                {
+                    _pokestopsOverlay.Routes.Add(route);
+                }
             }, null);
         }
 
