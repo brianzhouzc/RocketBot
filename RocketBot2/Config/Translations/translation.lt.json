@@ -90,7 +90,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "Atvykstama į {0}m({1} sec) via '{2}' {2} to next {3}: {4}"
+      "Value": "Atvykstama į {0}m({1} sec) via'{2}' to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
