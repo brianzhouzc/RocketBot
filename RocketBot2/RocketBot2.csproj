@@ -431,6 +431,7 @@
     <Compile Include="Win32\ConsoleHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\PokemonGO-Assets\pokemon\150-shiny.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\slashed.png" />
     <EmbeddedResource Include="costura32\sqlite3.dll" />
     <EmbeddedResource Include="costura64\sqlite3.dll" />

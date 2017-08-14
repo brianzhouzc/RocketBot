@@ -366,7 +366,7 @@ namespace RocketBot2.Forms
 
                 _pokestopsOverlay.Routes.Clear();
 
-                if (togglePrecalRoute.Checked)
+                if (togglePrecalRoute.CheckState == CheckState.Checked)
                 {
                     _routePoints =
                         (from pokeStop in pokeStops
@@ -375,7 +375,7 @@ namespace RocketBot2.Forms
 
                     var route = new GMapRoute(_routePoints, "Walking Path")
                     {
-                        Stroke = new Pen(Color.FromArgb(102, 178, 255), 1)
+                        Stroke = new Pen(Color.FromArgb(102, 178, 255), 3)
                     };
                     _pokestopsOverlay.Routes.Add(route);
                 }
@@ -546,6 +546,7 @@ namespace RocketBot2.Forms
                         Points = _session.Navigation.WalkStrategy.Points;
                         _playerLocations.Clear();
                         _playerRouteOverlay.Routes.Clear();
+                        _playerOverlay.Routes.Clear();
                         List<PointLatLng> routePointLatLngs = new List<PointLatLng>();
                         foreach (var item in Points)
                         {
@@ -553,7 +554,7 @@ namespace RocketBot2.Forms
                         }
                         GMapRoute routes = new GMapRoute(routePointLatLngs, routePointLatLngs.ToString())
                         {
-                            Stroke = new Pen(Color.FromArgb(255, 51, 51), 2) { DashStyle = DashStyle.Dash }
+                            Stroke = new Pen(Color.FromArgb(255, 51, 51), 3) { DashStyle = DashStyle.Dash }
                         };
                         _playerRouteOverlay.Routes.Add(routes);
                     }
@@ -620,12 +621,14 @@ namespace RocketBot2.Forms
 
                 _currentLatLng = latlng;
 
-                //_playerOverlay.Routes.Clear();
-                var route = new GMapRoute(_playerLocations, "step")
+                if (togglePrecalRoute.CheckState == CheckState.Checked)
                 {
-                    Stroke = new Pen(Color.FromArgb(0, 204, 0), 2) { DashStyle = DashStyle.Solid }
-                };
-                _playerOverlay.Routes.Add(route);
+                    var step = new GMapRoute(_playerLocations, "step")
+                    {
+                        Stroke = new Pen(Color.FromArgb(0, 204, 0), 3) { DashStyle = DashStyle.Dash }
+                    };
+                    _playerOverlay.Routes.Add(step);
+                }
             }, null);
         }
 
@@ -859,17 +862,29 @@ namespace RocketBot2.Forms
         {
             SynchronizationContext.Post(o =>
             {
-                if (togglePrecalRoute.Checked)
-                {
-                    _pokestopsOverlay.Routes.Clear();
-                    var route = new GMapRoute(_routePoints, "Walking Path")
-                    {
-                        Stroke = new Pen(Color.FromArgb(128, 0, 179, 253), 4)
-                    };
-                    _pokestopsOverlay.Routes.Add(route);
-                    return;
-                }
                 _pokestopsOverlay.Routes.Clear();
+                _playerOverlay.Routes.Clear();
+
+                var route = new GMapRoute(_routePoints, "Walking Path")
+                {
+                    Stroke = new Pen(Color.FromArgb(102, 178, 255), 3)
+                };
+ 
+                var step = new GMapRoute(_playerLocations, "step")
+                {
+                    Stroke = new Pen(Color.FromArgb(0, 204, 0), 3) { DashStyle = DashStyle.Dash }
+                };
+
+                if (togglePrecalRoute.CheckState == CheckState.Checked)
+                {
+                    _pokestopsOverlay.Routes.Add(route);
+                    _playerOverlay.Routes.Add(step);
+                }
+
+                if (togglePrecalRoute.CheckState == CheckState.Indeterminate)
+                {
+                    _pokestopsOverlay.Routes.Add(route);
+                }
             }, null);
         }
 
@@ -884,15 +899,11 @@ namespace RocketBot2.Forms
         private void CbEnablePushBulletNotification_CheckedChanged(object sender, EventArgs e)
         {
             _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
-            //Need this otherwise changing during runtime will not change the values will stay as last loaded value at load time or when settings form was last save
-            _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
         }
 
-        private void cbAutoWalkAI_CheckedChanged(object sender, EventArgs e)
+        private void CbAutoWalkAI_CheckedChanged(object sender, EventArgs e)
         {
             _settings.PlayerConfig.AutoWalkAI = cbAutoWalkAI.Checked;
-            //Need this otherwise changing during runtime will not change the values will stay as last loaded value at load time or when settings form was last save
-            _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
         }
         #endregion EVENTS
 
