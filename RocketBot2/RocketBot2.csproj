@@ -59,7 +59,7 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>FABFDFD920EF90E9348A803A9225ADFB5B8BF8AB</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>587A80B6D2F6D8419EE0BAD1902D51E1EA6C6E6C</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>RocketBot2_TemporaryKey.pfx</ManifestKeyFile>
