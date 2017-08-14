@@ -366,7 +366,7 @@ namespace RocketBot2.Forms
 
                 _pokestopsOverlay.Routes.Clear();
 
-                if (togglePrecalRoute.CheckState == CheckState.Checked)
+                if (togglePrecalRoute.CheckState == CheckState.Checked || togglePrecalRoute.CheckState == CheckState.Indeterminate)
                 {
                     _routePoints =
                         (from pokeStop in pokeStops
