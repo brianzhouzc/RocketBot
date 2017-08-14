@@ -554,6 +554,7 @@ namespace RocketBot2.Forms
             this.GMAPSatellite.Size = new System.Drawing.Size(141, 21);
             this.GMAPSatellite.TabIndex = 28;
             this.GMAPSatellite.Text = "Satellite/Hybrid";
+            this.GMAPSatellite.ThreeState = true;
             this.GMAPSatellite.UseVisualStyleBackColor = false;
             this.GMAPSatellite.Visible = false;
             this.GMAPSatellite.CheckStateChanged += new System.EventHandler(this.GMAPSatellite_CheckStateChanged);

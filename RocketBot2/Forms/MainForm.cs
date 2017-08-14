@@ -299,8 +299,8 @@ namespace RocketBot2.Forms
 
             //Bottom most layer
             GMapControl1.Overlays.Add(_searchAreaOverlay);
-            GMapControl1.Overlays.Add(_playerRouteOverlay);
             GMapControl1.Overlays.Add(_pokestopsOverlay);
+            GMapControl1.Overlays.Add(_playerRouteOverlay);
             GMapControl1.Overlays.Add(_pokemonsOverlay);
             GMapControl1.Overlays.Add(_playerOverlay);
             //Top most layer
