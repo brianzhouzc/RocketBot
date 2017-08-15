@@ -280,6 +280,10 @@
       "Key": "logEntryGym",
       "Value": "ARÈNE"
     },
+	{
+      "Key": "logEntryGymDisk",
+      "Value": "POKESTOP ARÈNE"
+    },
     {
       "Key": "logEntryService",
       "Value": "SERVICE"
