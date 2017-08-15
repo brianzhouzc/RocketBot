@@ -120,20 +120,23 @@ namespace RocketBot2
 
         private class LogWriteEventArgs
         {
+            private string message;
             public string Message
             {
-                get { return Message; }
-                set { Message = value; }
+                get { return message; }
+                set { message = value; }
             }
+            private LogLevel level;
             public LogLevel Level
             {
-                get { return Level; }
-                set { Level = value; }
+                get { return level; }
+                set { level = value; }
             }
+            private ConsoleColor color;
             public ConsoleColor Color
             {
-                get { return Color; }
-                set { Color = value; }
+                get { return color; }
+                set { color = value; }
             }
         }
         private event LogWriteHandler OnLogWrite;
