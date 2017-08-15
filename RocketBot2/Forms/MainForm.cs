@@ -707,7 +707,7 @@ namespace RocketBot2.Forms
             //TODO: Kills the application
             try
             {
-                //save current config
+                //save current config this risk for bug maybe comment it
                 _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
                 List<Control> listControls = new List<Control>();
                 foreach (Control control in Instance.Controls)
@@ -899,15 +899,11 @@ namespace RocketBot2.Forms
         private void CbEnablePushBulletNotification_CheckedChanged(object sender, EventArgs e)
         {
             _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
-            //Need this otherwise changing during runtime will not change the values will stay as last loaded value at load time or when settings form was last save
-            _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
         }
 
         private void CbAutoWalkAI_CheckedChanged(object sender, EventArgs e)
         {
             _settings.PlayerConfig.AutoWalkAI = cbAutoWalkAI.Checked;
-            //Need this otherwise changing during runtime will not change the values will stay as last loaded value at load time or when settings form was last save
-            _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
         }
         #endregion EVENTS
 
