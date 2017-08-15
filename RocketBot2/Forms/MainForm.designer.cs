@@ -579,7 +579,7 @@ namespace RocketBot2.Forms
             this.togglePrecalRoute.ThreeState = true;
             this.togglePrecalRoute.UseVisualStyleBackColor = false;
             this.togglePrecalRoute.Visible = false;
-            this.togglePrecalRoute.CheckedChanged += new System.EventHandler(this.TogglePrecalRoute_CheckedChanged);
+            this.togglePrecalRoute.CheckStateChanged += new System.EventHandler(this.TogglePrecalRoute_CheckStateChanged);
             // 
             // followTrainerCheckBox
             // 
