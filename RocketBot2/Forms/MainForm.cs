@@ -1656,7 +1656,7 @@ namespace RocketBot2.Forms
                         string MaxRequestCount = response.Headers.GetValues("X-MaxRequestCount").FirstOrDefault();
                         DateTime AuthTokenExpiration = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Local).AddSeconds(Convert.ToDouble(response.Headers.GetValues("X-AuthTokenExpiration").FirstOrDefault())).ToLocalTime();
                         TimeSpan Expiration = AuthTokenExpiration - DateTime.Now;
-                        string Result = string.Format("Key: {0} RPM: {1} Expiration Date: {2}/{3}/{4}", maskedKey, MaxRequestCount, AuthTokenExpiration.Day, AuthTokenExpiration.Month, AuthTokenExpiration.Year);
+                        string Result = string.Format("Key: {0} RPM: {1} Expiration Date: {2} - {3}", maskedKey, MaxRequestCount, AuthTokenExpiration.Date.ToString("MM/dd/yy"), AuthTokenExpiration.TimeOfDay);
                         Logger.Write(Result, LogLevel.Info, ConsoleColor.Green);
                     }
                     catch
