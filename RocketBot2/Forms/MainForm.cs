@@ -229,15 +229,8 @@ namespace RocketBot2.Forms
                 LastClearLog = DateTime.Now;
             }
 
-            try
-            {
-                if (text.Contains($"Hash API server (https://pokehash.buddyauth.com/{_session.Client.ApiEndPoint}) might down!"))
-                    Instance.LoadPokeStopsTimer.Enabled = false;
-            }
-            catch
-            {
-                //Not implemented
-            }
+            if (text.Contains($"Hash API server (https://pokehash.buddyauth.com/{Constants.ApiEndPoint}) might down!"))
+                Instance.LoadPokeStopsTimer.Enabled = false;
 
             Instance.logTextBox.SelectionColor = color;
             Instance.logTextBox.AppendText(text + $"\r\n");
@@ -1651,7 +1644,7 @@ namespace RocketBot2.Forms
                         HttpClient client = new HttpClient();
                         client.DefaultRequestHeaders.Add("X-AuthToken", apiCfg.AuthAPIKey);
                         var maskedKey = apiCfg.AuthAPIKey.Substring(0, 4) + "".PadLeft(apiCfg.AuthAPIKey.Length - 8, 'X') + apiCfg.AuthAPIKey.Substring(apiCfg.AuthAPIKey.Length - 4, 4);
-                        HttpResponseMessage response = client.PostAsync($"https://pokehash.buddyauth.com/{_session.Client.ApiEndPoint}", null).Result;
+                        HttpResponseMessage response = client.PostAsync($"https://pokehash.buddyauth.com/{Constants.ApiEndPoint}", null).Result;
                         string AuthKey = response.Headers.GetValues("X-AuthToken").FirstOrDefault();
                         string MaxRequestCount = response.Headers.GetValues("X-MaxRequestCount").FirstOrDefault();
                         DateTime AuthTokenExpiration = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Unspecified).AddSeconds(Convert.ToDouble(response.Headers.GetValues("X-AuthTokenExpiration").FirstOrDefault())).ToLocalTime();
