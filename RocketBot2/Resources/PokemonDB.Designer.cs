@@ -703,6 +703,16 @@ namespace RocketBot2.Resources {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _150_shiny {
+            get {
+                object obj = ResourceManager.GetObject("_150_shiny", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _151 {
             get {
                 object obj = ResourceManager.GetObject("_151", resourceCulture);

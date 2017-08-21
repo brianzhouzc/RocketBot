@@ -98,7 +98,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "Jalan ke {0}m({1} sec) via {2} to next {3}: {4}"
+      "Value": "Jalan ke {0}m({1} sec) via'{2}' to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
@@ -287,6 +287,10 @@
     {
       "Key": "logEntryGym",
       "Value": "GYM"
+    },
+	{
+      "Key": "logEntryGymDisk",
+      "Value": "GYM DISK"
     },
     {
       "Key": "logEntrySoftBan",

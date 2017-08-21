@@ -91,7 +91,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value":  "Traveling {0}m({1} sec) via {2} to next {3}: {4}"
+      "Value":  "Traveling {0}m({1} sec) via'{2}' to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",

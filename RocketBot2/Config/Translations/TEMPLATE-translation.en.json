@@ -66,7 +66,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value":  "Traveling {0}m({1} sec) via {2} to next {3}: {4}"
+      "Value": "Traveling {0}m({1} sec) via '{2}' to next {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
@@ -106,7 +106,7 @@
     },
     {
       "Key": "eventPokemonCaptureFailed",
-      "Value": "({0}) | ({1}) {2} | Lvl: {3} | CP: {4}/{5} | IV: {6}% | Chance: {7}% | {8}m dist | with a {9} ({10} left) | XP: {11} | lat: {12} long: {13} | Move1: {14} Move2: {15} | Rarity :{16}"
+      "Value": "({0}) | ({1}) {2} | Lvl: {3} | CP: {4}/{5} | IV: {6}% | Chance: {7}% | {8}m dist | with a {9} ({10} left) | XP: {11} | lat: {12} long: {13} | Move1: {14} Move2: {15} | Rarity: {16}"
     },
     {
       "Key": "eventNoPokeballs",
@@ -281,6 +281,10 @@
       "Value": "GYM"
     },
     {
+      "Key": "logEntryGymDisk",
+      "Value": "GYM DISK"
+    },
+    {
       "Key": "logEntryService",
       "Value": "SERVICE"
     },
@@ -326,11 +330,11 @@
     },
     {
       "Key": "realisticTravelDetected",
-      "Value": "Detected realistic Traveling , using Default Settings inside config.json"
+      "Value": "Detected realistic Traveling, using Default Settings inside config.json"
     },
     {
       "Key": "notRealisticTravel",
-      "Value": "Not realistic Traveling at {0}, using last saved LastPos.ini"
+      "Value": "Non realistic traveling detected at {0}Km/h, using last saved LastPos.ini"
     },
     {
       "Key": "coordinatesAreInvalid",
@@ -646,7 +650,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "Pokémon Seen: {0}/251, Pokémon Caught: {1}/251"
+      "Value": "Pokemon Seen: {0}/251, Pokemon Caught: {1}/251"
     },
     {
       "Key": "pkmPotentialEvolveCount",
