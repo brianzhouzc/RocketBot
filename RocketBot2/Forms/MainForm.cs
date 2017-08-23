@@ -229,15 +229,8 @@ namespace RocketBot2.Forms
                 LastClearLog = DateTime.Now;
             }
 
-            try
-            {
-                if (text.Contains($"Hash API server (https://pokehash.buddyauth.com/{_session.Client.ApiEndPoint}) might down!"))
-                    Instance.LoadPokeStopsTimer.Enabled = false;
-            }
-            catch
-            {
-                //Not implemented
-            }
+            if (text.Contains($"Hash API server (https://pokehash.buddyauth.com/{Constants.ApiEndPoint}) might down!"))
+                Instance.LoadPokeStopsTimer.Enabled = false;
 
             Instance.logTextBox.SelectionColor = color;
             Instance.logTextBox.AppendText(text + $"\r\n");
@@ -366,7 +359,7 @@ namespace RocketBot2.Forms
 
                 _pokestopsOverlay.Routes.Clear();
 
-                if (togglePrecalRoute.CheckState == CheckState.Checked || togglePrecalRoute.CheckState == CheckState.Indeterminate)
+                if (togglePrecalRoute.CheckState == CheckState.Checked)
                 {
                     _routePoints =
                         (from pokeStop in pokeStops
@@ -375,7 +368,7 @@ namespace RocketBot2.Forms
 
                     var route = new GMapRoute(_routePoints, "Walking Path")
                     {
-                        Stroke = new Pen(Color.FromArgb(102, 178, 255), 3)
+                        Stroke = new Pen(Color.FromArgb(102, 178, 255), 2)
                     };
                     _pokestopsOverlay.Routes.Add(route);
                 }
@@ -554,7 +547,7 @@ namespace RocketBot2.Forms
                         }
                         GMapRoute routes = new GMapRoute(routePointLatLngs, routePointLatLngs.ToString())
                         {
-                            Stroke = new Pen(Color.FromArgb(255, 51, 51), 3) { DashStyle = DashStyle.Dash }
+                            Stroke = new Pen(Color.FromArgb(255, 51, 51), 2) { DashStyle = DashStyle.Dash }
                         };
                         _playerRouteOverlay.Routes.Add(routes);
                     }
@@ -621,11 +614,11 @@ namespace RocketBot2.Forms
 
                 _currentLatLng = latlng;
 
-                if (togglePrecalRoute.CheckState == CheckState.Checked)
+                if (togglePrecalRoute.CheckState == CheckState.Checked || togglePrecalRoute.CheckState == CheckState.Indeterminate)
                 {
                     var step = new GMapRoute(_playerLocations, "step")
                     {
-                        Stroke = new Pen(Color.FromArgb(0, 204, 0), 3) { DashStyle = DashStyle.Dash }
+                        Stroke = new Pen(Color.FromArgb(0, 204, 0), 2) { DashStyle = DashStyle.Dash }
                     };
                     _playerOverlay.Routes.Add(step);
                 }
@@ -858,7 +851,7 @@ namespace RocketBot2.Forms
             }
         }
 
-        private void TogglePrecalRoute_CheckedChanged(object sender, EventArgs e)
+        private void TogglePrecalRoute_CheckStateChanged(object sender, EventArgs e)
         {
             SynchronizationContext.Post(o =>
             {
@@ -867,12 +860,12 @@ namespace RocketBot2.Forms
 
                 var route = new GMapRoute(_routePoints, "Walking Path")
                 {
-                    Stroke = new Pen(Color.FromArgb(102, 178, 255), 3)
+                    Stroke = new Pen(Color.FromArgb(102, 178, 255), 2)
                 };
  
                 var step = new GMapRoute(_playerLocations, "step")
                 {
-                    Stroke = new Pen(Color.FromArgb(0, 204, 0), 3) { DashStyle = DashStyle.Dash }
+                    Stroke = new Pen(Color.FromArgb(0, 204, 0), 2) { DashStyle = DashStyle.Dash }
                 };
 
                 if (togglePrecalRoute.CheckState == CheckState.Checked)
@@ -883,7 +876,7 @@ namespace RocketBot2.Forms
 
                 if (togglePrecalRoute.CheckState == CheckState.Indeterminate)
                 {
-                    _pokestopsOverlay.Routes.Add(route);
+                    _playerOverlay.Routes.Add(step);
                 }
             }, null);
         }
@@ -1651,12 +1644,12 @@ namespace RocketBot2.Forms
                         HttpClient client = new HttpClient();
                         client.DefaultRequestHeaders.Add("X-AuthToken", apiCfg.AuthAPIKey);
                         var maskedKey = apiCfg.AuthAPIKey.Substring(0, 4) + "".PadLeft(apiCfg.AuthAPIKey.Length - 8, 'X') + apiCfg.AuthAPIKey.Substring(apiCfg.AuthAPIKey.Length - 4, 4);
-                        HttpResponseMessage response = client.PostAsync($"https://pokehash.buddyauth.com/{_session.Client.ApiEndPoint}", null).Result;
+                        HttpResponseMessage response = client.PostAsync($"https://pokehash.buddyauth.com/{Constants.ApiEndPoint}", null).Result;
                         string AuthKey = response.Headers.GetValues("X-AuthToken").FirstOrDefault();
                         string MaxRequestCount = response.Headers.GetValues("X-MaxRequestCount").FirstOrDefault();
-                        DateTime AuthTokenExpiration = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Local).AddSeconds(Convert.ToDouble(response.Headers.GetValues("X-AuthTokenExpiration").FirstOrDefault())).ToLocalTime();
+                        DateTime AuthTokenExpiration = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Unspecified).AddSeconds(Convert.ToDouble(response.Headers.GetValues("X-AuthTokenExpiration").FirstOrDefault())).ToLocalTime();
                         TimeSpan Expiration = AuthTokenExpiration - DateTime.Now;
-                        string Result = string.Format("Key: {0} RPM: {1} Expiration Date: {2}/{3}/{4}", maskedKey, MaxRequestCount, AuthTokenExpiration.Day, AuthTokenExpiration.Month, AuthTokenExpiration.Year);
+                        string Result = string.Format("Key: {0} RPM: {1} Expires in: {2} days ({3})", maskedKey, MaxRequestCount, Expiration.Days - 1, AuthTokenExpiration);
                         Logger.Write(Result, LogLevel.Info, ConsoleColor.Green);
                     }
                     catch
