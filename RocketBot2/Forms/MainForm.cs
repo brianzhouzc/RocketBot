@@ -774,9 +774,13 @@ namespace RocketBot2.Forms
         {
             System.Windows.Forms.Form settingsForm = new SettingsForm(ref _settings, _session);
             settingsForm.ShowDialog();
-            if (!_botStarted)
+
+            var newLocation = new PointLatLng(_settings.LocationConfig.DefaultLatitude, _settings.LocationConfig.DefaultLongitude);
+            var currLocation = new PointLatLng(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
+            double Dist = LocationUtils.CalculateDistanceInMeters(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude, newLocation.Lat, newLocation.Lng);
+
+            if (!_botStarted && Dist > 0)
             {
-                var newLocation = new PointLatLng(_settings.LocationConfig.DefaultLatitude, _settings.LocationConfig.DefaultLongitude);
                 double Alt = await _session.ElevationService.GetElevation(newLocation.Lat, newLocation.Lng).ConfigureAwait(false);
                 _session.Client.Settings.DefaultLatitude = newLocation.Lat;
                 _session.Client.Settings.DefaultLongitude = newLocation.Lng;
@@ -784,7 +788,15 @@ namespace RocketBot2.Forms
                 _currentLatLng = newLocation;
                 _playerLocations.Clear();
                 Navigation_UpdatePositionEvent();
-                Logger.Write($"New starting location has been set to: Lat: {newLocation.Lat:0.00000000} Long: {newLocation.Lng:0.00000000} Altitude: {Alt:0.00}m", LogLevel.Info);
+
+                String DistUnits = "m";
+
+                if (Dist > 1000)
+                {
+                    Dist = Dist / 1000;
+                    DistUnits = "Km";
+                }
+                Logger.Write($"New starting location has been set to: Lat: {newLocation.Lat:0.00000000} Long: {newLocation.Lng:0.00000000} Alt: {Alt:0.00}m | Dist: {Dist:0.00} {DistUnits}", LogLevel.Info);
             }
         }
 
