@@ -205,7 +205,17 @@ namespace RocketBot2.Forms
 
         private async void LoadPokeStopsTimer_Tick(object sender, EventArgs e)
         {
-            if (LoadPokeStopsTimer.Interval > 60000) { LoadPokeStopsTimer.Interval = 30000; }
+            if (LoadPokeStopsTimer.Interval > 60000)
+            {
+                LoadPokeStopsTimer.Interval = 30000;
+
+                btnPokeDex.Enabled = _botStarted;
+                LoadPokeStopsTimer.Enabled = _botStarted;
+                togglePrecalRoute.Enabled = _botStarted;
+                followTrainerCheckBox.Enabled = _botStarted;
+                cbAutoWalkAI.Enabled = Instance._botStarted;
+                LoadPokeStopsRefresh.Enabled = _botStarted;
+            }
             await InitializePokestopsAndRoute().ConfigureAwait(false);
             //Logger.Write($"Pokestop refresh time {DateTime.Now} sec");
         }
@@ -246,11 +256,6 @@ namespace RocketBot2.Forms
             }
             Instance.speedLable.Text = text;
             Instance.Navigation_UpdatePositionEvent();
-
-            Instance.togglePrecalRoute.Enabled = Instance._botStarted;
-            Instance.followTrainerCheckBox.Enabled = Instance._botStarted;
-            Instance.cbAutoWalkAI.Enabled = Instance._botStarted;
-            Instance.LoadPokeStopsRefresh.Enabled = Instance._botStarted;
         }
 
         public async void SetStatusText(string text)
@@ -538,7 +543,7 @@ namespace RocketBot2.Forms
                     {
                         Points = _session.Navigation.WalkStrategy.Points;
                         _playerLocations.Clear();
-                        _playerRouteOverlay.Routes.Clear();
+                        //_playerRouteOverlay.Routes.Clear();
                         _playerOverlay.Routes.Clear();
                         List<PointLatLng> routePointLatLngs = new List<PointLatLng>();
                         foreach (var item in Points)
@@ -765,9 +770,7 @@ namespace RocketBot2.Forms
 
             startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
             _botStarted = true;
-            btnPokeDex.Enabled = _botStarted;
             Task.Run(StartBot).ConfigureAwait(false);
-            LoadPokeStopsTimer.Enabled = _botStarted;
         }
 
         private async void SettingsStripMenuItem_Click(object sender, EventArgs e)
@@ -909,6 +912,7 @@ namespace RocketBot2.Forms
         private void CbAutoWalkAI_CheckedChanged(object sender, EventArgs e)
         {
             _settings.PlayerConfig.AutoWalkAI = cbAutoWalkAI.Checked;
+            //_settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
         }
         #endregion EVENTS
 
@@ -1107,6 +1111,7 @@ namespace RocketBot2.Forms
         {
             var _pokemons = new List<ulong>();
             string poketotransfer = null;
+
             foreach (var pokemon in pokemons)
             {
                 _pokemons.Add(pokemon.Id);
