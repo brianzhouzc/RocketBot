@@ -1,8 +1,10 @@
 using GMap.NET;
 using GMap.NET.MapProviders;
+using PoGo.NecroBot.Logic.Interfaces.Configuration;
 using PoGo.NecroBot.Logic.Model.Settings;
 using PoGo.NecroBot.Logic.State;
 using POGOProtos.Enums;
+using PokemonGo.RocketAPI;
 using PokemonGo.RocketAPI.Enums;
 using RocketBot2.Forms.advSettings;
 using RocketBot2.Helpers;
@@ -30,6 +32,12 @@ namespace RocketBot2.Forms
         private readonly List<DeviceInfo> _deviceInfos;
         private readonly GlobalSettings _settings;
         private readonly ISession _session;
+        private List<AuthConfig> accounts;
+
+        public List<AuthConfig> Accounts
+        {
+            get { return accounts; }
+        }
 
         public SettingsForm(ref GlobalSettings settings, ISession session)
         {
@@ -49,6 +57,24 @@ namespace RocketBot2.Forms
                 clbPowerUp.Items.Add(pokemon);
                 clbEvolve.Items.Add(pokemon);
                 clbSnipePokemonFilter.Items.Add(pokemon);
+            }
+
+            var logicSettings = new LogicSettings(settings);
+
+            accounts = new List<AuthConfig>();
+            accounts.AddRange(logicSettings.Bots);
+
+            if (accounts.Count > 1)
+            {
+                lvAccounts.Visible = true;
+                foreach (var acc in accounts)
+                {
+                    lvAccounts.Items.Add($"{acc.AuthType}").SubItems.Add($"{acc.Username}");
+                }
+            }
+            else
+            {
+                lvAccounts.Visible = false;
             }
 
             StreamReader auth = new StreamReader(AuthFilePath);
@@ -152,7 +178,6 @@ namespace RocketBot2.Forms
             cbUseEggIncubators.Checked = _settings.PokemonConfig.UseEggIncubators;
             cbUseLimitedEggIncubators.Checked = _settings.PokemonConfig.UseLimitedEggIncubators;
             cbAutoFavoriteShinyOnCatch.Checked = _settings.PokemonConfig.AutoFavoriteShinyOnCatch;
-
 
             tbMaxPokeballsPerPokemon.Text = _settings.PokemonConfig.MaxPokeballsPerPokemon.ToString();
             cbAutoFavoritePokemon.Checked = _settings.PokemonConfig.AutoFavoritePokemon;
@@ -303,9 +328,19 @@ namespace RocketBot2.Forms
             cBoxTeamColor.Text = _settings.GymConfig.DefaultTeam;
             cbUseHumanlikeDelays.Checked = _settings.HumanlikeDelays.UseHumanlikeDelays;
         }
-            #endregion
+        #endregion
 
         #region Help button for API key
+
+        private void cbUseEggIncubators_CheckedChanged(object sender, EventArgs e)
+        {
+            cbUseLimitedEggIncubators.Enabled = cbUseEggIncubators.Checked;
+        }
+
+        private void cbCatchPoke_CheckedChanged(object sender, EventArgs e)
+        {
+            gbCatchPokemon.Enabled = cbCatchPoke.Checked;
+        }
 
         protected override void OnLoad(EventArgs e)
         {

@@ -135,6 +135,13 @@ namespace RocketBot2.Forms
 
             cbAutoWalkAI.Checked = _session.LogicSettings.AutoWalkAI; // _settings.PlayerConfig.AutoWalkAI;
 
+            //Deletes all Dump faile at bot startup
+            if (_session.LogicSettings.DumpPokemonStats)
+            {
+                var path = Path.Combine(_session.LogicSettings.ProfilePath, "Dumps");
+                Array.ForEach(Directory.GetFiles(path), File.Delete);
+            }
+
             InitializePokemonForm();
             InitializeMap();
             VersionHelper.CheckVersion();
@@ -205,7 +212,17 @@ namespace RocketBot2.Forms
 
         private async void LoadPokeStopsTimer_Tick(object sender, EventArgs e)
         {
-            if (LoadPokeStopsTimer.Interval > 60000) { LoadPokeStopsTimer.Interval = 30000; }
+            if (LoadPokeStopsTimer.Interval > 60000)
+            {
+                LoadPokeStopsTimer.Interval = 30000;
+
+                btnPokeDex.Enabled = _botStarted;
+                LoadPokeStopsTimer.Enabled = _botStarted;
+                togglePrecalRoute.Enabled = _botStarted;
+                followTrainerCheckBox.Enabled = _botStarted;
+                cbAutoWalkAI.Enabled = Instance._botStarted;
+                LoadPokeStopsRefresh.Enabled = _botStarted;
+            }
             await InitializePokestopsAndRoute().ConfigureAwait(false);
             //Logger.Write($"Pokestop refresh time {DateTime.Now} sec");
         }
@@ -246,11 +263,6 @@ namespace RocketBot2.Forms
             }
             Instance.speedLable.Text = text;
             Instance.Navigation_UpdatePositionEvent();
-
-            Instance.togglePrecalRoute.Enabled = Instance._botStarted;
-            Instance.followTrainerCheckBox.Enabled = Instance._botStarted;
-            Instance.cbAutoWalkAI.Enabled = Instance._botStarted;
-            Instance.LoadPokeStopsRefresh.Enabled = Instance._botStarted;
         }
 
         public async void SetStatusText(string text)
@@ -538,7 +550,7 @@ namespace RocketBot2.Forms
                     {
                         Points = _session.Navigation.WalkStrategy.Points;
                         _playerLocations.Clear();
-                        _playerRouteOverlay.Routes.Clear();
+                        //_playerRouteOverlay.Routes.Clear();
                         _playerOverlay.Routes.Clear();
                         List<PointLatLng> routePointLatLngs = new List<PointLatLng>();
                         foreach (var item in Points)
@@ -765,18 +777,20 @@ namespace RocketBot2.Forms
 
             startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
             _botStarted = true;
-            btnPokeDex.Enabled = _botStarted;
             Task.Run(StartBot).ConfigureAwait(false);
-            LoadPokeStopsTimer.Enabled = _botStarted;
         }
 
         private async void SettingsStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Windows.Forms.Form settingsForm = new SettingsForm(ref _settings, _session);
             settingsForm.ShowDialog();
-            if (!_botStarted)
+
+            var newLocation = new PointLatLng(_settings.LocationConfig.DefaultLatitude, _settings.LocationConfig.DefaultLongitude);
+            var currLocation = new PointLatLng(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
+            double Dist = LocationUtils.CalculateDistanceInMeters(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude, newLocation.Lat, newLocation.Lng);
+
+            if (!_botStarted && Dist > 0)
             {
-                var newLocation = new PointLatLng(_settings.LocationConfig.DefaultLatitude, _settings.LocationConfig.DefaultLongitude);
                 double Alt = await _session.ElevationService.GetElevation(newLocation.Lat, newLocation.Lng).ConfigureAwait(false);
                 _session.Client.Settings.DefaultLatitude = newLocation.Lat;
                 _session.Client.Settings.DefaultLongitude = newLocation.Lng;
@@ -784,7 +798,15 @@ namespace RocketBot2.Forms
                 _currentLatLng = newLocation;
                 _playerLocations.Clear();
                 Navigation_UpdatePositionEvent();
-                Logger.Write($"New starting location has been set to: Lat: {newLocation.Lat:0.00000000} Long: {newLocation.Lng:0.00000000} Altitude: {Alt:0.00}m", LogLevel.Info);
+
+                String DistUnits = "m";
+
+                if (Dist > 1000)
+                {
+                    Dist = Dist / 1000;
+                    DistUnits = "Km";
+                }
+                Logger.Write($"New starting location has been set to: Lat: {newLocation.Lat:0.00000000} Long: {newLocation.Lng:0.00000000} Alt: {Alt:0.00}m | Dist: {Dist:0.00} {DistUnits}", LogLevel.Info);
             }
         }
 
@@ -892,6 +914,7 @@ namespace RocketBot2.Forms
         private void CbEnablePushBulletNotification_CheckedChanged(object sender, EventArgs e)
         {
             _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
+            _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
         }
 
         private void CbAutoWalkAI_CheckedChanged(object sender, EventArgs e)
@@ -1095,6 +1118,7 @@ namespace RocketBot2.Forms
         {
             var _pokemons = new List<ulong>();
             string poketotransfer = null;
+
             foreach (var pokemon in pokemons)
             {
                 _pokemons.Add(pokemon.Id);
