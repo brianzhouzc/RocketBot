@@ -1,16 +1,18 @@
-﻿BotStatus=DISABLED;
+﻿BotStatus=ENABLED;
 //============================================//
-               POKEMON GO 0.69.1
+               POKEMON GO 0.73.1
 //============================================//
 
-RocketBot2 is compatible with 0.69.1 API.
+RocketBot2 is compatible with 0.73.1 API.
 
- New forced API 0.69.1 isn't safe and may cause 
+ New forced API 0.73.1 isn't safe and may cause 
 your account to get banned few hours later. 
 Be aware, you've been warned.
 
+Activec for develop only.
+
 //============================================//
-               Updated: 8/2/2017
+               Updated: 9/6/2017
 
 For support/questions:
 OFFICIAL ROCKETBOT2 Discord: https://discord.gg/y6EU2qY
