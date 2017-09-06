@@ -9,7 +9,7 @@ RocketBot2 is compatible with 0.73.1 API.
 your account to get banned few hours later. 
 Be aware, you've been warned.
 
-Activec for develop only.
+Actived for develop only.
 
 //============================================//
                Updated: 9/6/2017
