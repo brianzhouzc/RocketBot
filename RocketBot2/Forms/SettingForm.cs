@@ -178,7 +178,7 @@ namespace RocketBot2.Forms
             cbUseEggIncubators.Checked = _settings.PokemonConfig.UseEggIncubators;
             cbUseLimitedEggIncubators.Checked = _settings.PokemonConfig.UseLimitedEggIncubators;
             cbAutoFavoriteShinyOnCatch.Checked = _settings.PokemonConfig.AutoFavoriteShinyOnCatch;
-            
+
             tbMaxPokeballsPerPokemon.Text = _settings.PokemonConfig.MaxPokeballsPerPokemon.ToString();
             cbAutoFavoritePokemon.Checked = _settings.PokemonConfig.AutoFavoritePokemon;
             tbFavoriteMinIvPercentage.Text = _settings.PokemonConfig.FavoriteMinIvPercentage.ToString(CultureInfo.InvariantCulture);
