@@ -135,6 +135,13 @@ namespace RocketBot2.Forms
 
             cbAutoWalkAI.Checked = _session.LogicSettings.AutoWalkAI; // _settings.PlayerConfig.AutoWalkAI;
 
+            //Deletes all Dump faile at bot startup
+            if (_session.LogicSettings.DumpPokemonStats)
+            {
+                var path = Path.Combine(_session.LogicSettings.ProfilePath, "Dumps");
+                Array.ForEach(Directory.GetFiles(path), File.Delete);
+            }
+
             InitializePokemonForm();
             InitializeMap();
             VersionHelper.CheckVersion();
@@ -907,12 +914,12 @@ namespace RocketBot2.Forms
         private void CbEnablePushBulletNotification_CheckedChanged(object sender, EventArgs e)
         {
             _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
+            _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
         }
 
         private void CbAutoWalkAI_CheckedChanged(object sender, EventArgs e)
         {
             _settings.PlayerConfig.AutoWalkAI = cbAutoWalkAI.Checked;
-            //_settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
         }
         #endregion EVENTS
 
