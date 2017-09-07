@@ -212,6 +212,8 @@
             this.clbEvolve = new System.Windows.Forms.CheckedListBox();
             this.cbEvolveAll = new System.Windows.Forms.CheckBox();
             this.tabSnipePokemonFilter = new System.Windows.Forms.TabPage();
+            this.groupBox21 = new System.Windows.Forms.GroupBox();
+            this.clbSnipePokemonFilter = new System.Windows.Forms.CheckedListBox();
             this.cbSnipePokemonFilterAll = new System.Windows.Forms.CheckBox();
             this.tabItems = new System.Windows.Forms.TabPage();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
@@ -284,8 +286,6 @@
             this.tbDataServiceIdentification = new System.Windows.Forms.TextBox();
             this.cbEnableSyncData = new System.Windows.Forms.CheckBox();
             this.cBoxTeamColor = new System.Windows.Forms.ComboBox();
-            this.groupBox21 = new System.Windows.Forms.GroupBox();
-            this.clbSnipePokemonFilter = new System.Windows.Forms.CheckedListBox();
             this.tabControl.SuspendLayout();
             this.tabAuth.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -314,6 +314,7 @@
             this.groupBox5.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabSnipePokemonFilter.SuspendLayout();
+            this.groupBox21.SuspendLayout();
             this.tabItems.SuspendLayout();
             this.groupBox14.SuspendLayout();
             this.groupBox12.SuspendLayout();
@@ -335,7 +336,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
             this.splitContainer5.Panel1.SuspendLayout();
             this.splitContainer5.SuspendLayout();
-            this.groupBox21.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelBtn
@@ -550,7 +550,7 @@
             this.tabDevice.Location = new System.Drawing.Point(4, 24);
             this.tabDevice.Name = "tabDevice";
             this.tabDevice.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDevice.Size = new System.Drawing.Size(482, 344);
+            this.tabDevice.Size = new System.Drawing.Size(482, 348);
             this.tabDevice.TabIndex = 1;
             this.tabDevice.Text = "Device";
             // 
@@ -932,7 +932,7 @@
             this.tabAPIConfig.Location = new System.Drawing.Point(4, 24);
             this.tabAPIConfig.Name = "tabAPIConfig";
             this.tabAPIConfig.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAPIConfig.Size = new System.Drawing.Size(482, 344);
+            this.tabAPIConfig.Size = new System.Drawing.Size(482, 348);
             this.tabAPIConfig.TabIndex = 2;
             this.tabAPIConfig.Text = "APIConfig";
             // 
@@ -940,7 +940,7 @@
             // 
             this.tbPushBulletAPIKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbPushBulletAPIKey.Location = new System.Drawing.Point(85, 139);
+            this.tbPushBulletAPIKey.Location = new System.Drawing.Point(85, 145);
             this.tbPushBulletAPIKey.Name = "tbPushBulletAPIKey";
             this.tbPushBulletAPIKey.Size = new System.Drawing.Size(150, 23);
             this.tbPushBulletAPIKey.TabIndex = 42;
@@ -950,7 +950,7 @@
             this.label68.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(6, 143);
+            this.label68.Location = new System.Drawing.Point(6, 149);
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(67, 15);
             this.label68.TabIndex = 41;
@@ -992,7 +992,7 @@
             // 
             this.tbAuthAPIKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbAuthAPIKey.Location = new System.Drawing.Point(85, 39);
+            this.tbAuthAPIKey.Location = new System.Drawing.Point(85, 45);
             this.tbAuthAPIKey.Name = "tbAuthAPIKey";
             this.tbAuthAPIKey.Size = new System.Drawing.Size(150, 23);
             this.tbAuthAPIKey.TabIndex = 37;
@@ -1002,7 +1002,7 @@
             this.label67.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(6, 43);
+            this.label67.Location = new System.Drawing.Point(6, 49);
             this.label67.Name = "label67";
             this.label67.Size = new System.Drawing.Size(79, 15);
             this.label67.TabIndex = 36;
@@ -1026,7 +1026,7 @@
             this.tabAccounts.Location = new System.Drawing.Point(4, 24);
             this.tabAccounts.Name = "tabAccounts";
             this.tabAccounts.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAccounts.Size = new System.Drawing.Size(482, 344);
+            this.tabAccounts.Size = new System.Drawing.Size(482, 348);
             this.tabAccounts.TabIndex = 3;
             this.tabAccounts.Text = "Accounts";
             // 
@@ -1041,7 +1041,7 @@
             this.lvAccounts.FullRowSelect = true;
             this.lvAccounts.Location = new System.Drawing.Point(3, 3);
             this.lvAccounts.Name = "lvAccounts";
-            this.lvAccounts.Size = new System.Drawing.Size(476, 338);
+            this.lvAccounts.Size = new System.Drawing.Size(476, 342);
             this.lvAccounts.TabIndex = 3;
             this.lvAccounts.UseCompatibleStateImageBehavior = false;
             this.lvAccounts.View = System.Windows.Forms.View.Details;
@@ -1922,7 +1922,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(270, 352);
+            this.groupBox1.Size = new System.Drawing.Size(270, 354);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Exclude Transfer";
@@ -1936,7 +1936,7 @@
             this.clbTransfer.Location = new System.Drawing.Point(3, 20);
             this.clbTransfer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbTransfer.Name = "clbTransfer";
-            this.clbTransfer.Size = new System.Drawing.Size(264, 328);
+            this.clbTransfer.Size = new System.Drawing.Size(264, 330);
             this.clbTransfer.TabIndex = 0;
             // 
             // cbNotTransferAll
@@ -2151,7 +2151,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox4.Size = new System.Drawing.Size(270, 352);
+            this.groupBox4.Size = new System.Drawing.Size(270, 354);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Power Up";
@@ -2165,7 +2165,7 @@
             this.clbPowerUp.Location = new System.Drawing.Point(3, 20);
             this.clbPowerUp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbPowerUp.Name = "clbPowerUp";
-            this.clbPowerUp.Size = new System.Drawing.Size(264, 328);
+            this.clbPowerUp.Size = new System.Drawing.Size(264, 330);
             this.clbPowerUp.TabIndex = 0;
             // 
             // cbPowerUpAll
@@ -2340,7 +2340,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox3.Size = new System.Drawing.Size(270, 352);
+            this.groupBox3.Size = new System.Drawing.Size(270, 354);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Evolve";
@@ -2378,6 +2378,32 @@
             this.tabSnipePokemonFilter.Size = new System.Drawing.Size(754, 352);
             this.tabSnipePokemonFilter.TabIndex = 5;
             this.tabSnipePokemonFilter.Text = "SnipePokemonFilter";
+            // 
+            // groupBox21
+            // 
+            this.groupBox21.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox21.Controls.Add(this.clbSnipePokemonFilter);
+            this.groupBox21.Controls.Add(this.cbSnipePokemonFilterAll);
+            this.groupBox21.Location = new System.Drawing.Point(290, 0);
+            this.groupBox21.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox21.Name = "groupBox21";
+            this.groupBox21.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox21.Size = new System.Drawing.Size(270, 354);
+            this.groupBox21.TabIndex = 17;
+            this.groupBox21.TabStop = false;
+            this.groupBox21.Text = "Snipe List";
+            // 
+            // clbSnipePokemonFilter
+            // 
+            this.clbSnipePokemonFilter.CheckOnClick = true;
+            this.clbSnipePokemonFilter.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clbSnipePokemonFilter.FormattingEnabled = true;
+            this.clbSnipePokemonFilter.Location = new System.Drawing.Point(3, 19);
+            this.clbSnipePokemonFilter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.clbSnipePokemonFilter.Name = "clbSnipePokemonFilter";
+            this.clbSnipePokemonFilter.Size = new System.Drawing.Size(264, 328);
+            this.clbSnipePokemonFilter.TabIndex = 0;
             // 
             // cbSnipePokemonFilterAll
             // 
@@ -3132,32 +3158,6 @@
             this.cBoxTeamColor.TabIndex = 38;
             this.cBoxTeamColor.Text = "Neutral";
             // 
-            // groupBox21
-            // 
-            this.groupBox21.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox21.Controls.Add(this.clbSnipePokemonFilter);
-            this.groupBox21.Controls.Add(this.cbSnipePokemonFilterAll);
-            this.groupBox21.Location = new System.Drawing.Point(290, 0);
-            this.groupBox21.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox21.Name = "groupBox21";
-            this.groupBox21.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox21.Size = new System.Drawing.Size(270, 352);
-            this.groupBox21.TabIndex = 17;
-            this.groupBox21.TabStop = false;
-            this.groupBox21.Text = "Snipe List";
-            // 
-            // clbSnipePokemonFilter
-            // 
-            this.clbSnipePokemonFilter.CheckOnClick = true;
-            this.clbSnipePokemonFilter.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clbSnipePokemonFilter.FormattingEnabled = true;
-            this.clbSnipePokemonFilter.Location = new System.Drawing.Point(3, 19);
-            this.clbSnipePokemonFilter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.clbSnipePokemonFilter.Name = "clbSnipePokemonFilter";
-            this.clbSnipePokemonFilter.Size = new System.Drawing.Size(264, 328);
-            this.clbSnipePokemonFilter.TabIndex = 0;
-            // 
             // SettingsForm
             // 
             this.AcceptButton = this.saveBtn;
@@ -3234,6 +3234,8 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.tabSnipePokemonFilter.ResumeLayout(false);
+            this.groupBox21.ResumeLayout(false);
+            this.groupBox21.PerformLayout();
             this.tabItems.ResumeLayout(false);
             this.groupBox14.ResumeLayout(false);
             this.groupBox14.PerformLayout();
@@ -3263,8 +3265,6 @@
             this.splitContainer5.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).EndInit();
             this.splitContainer5.ResumeLayout(false);
-            this.groupBox21.ResumeLayout(false);
-            this.groupBox21.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
