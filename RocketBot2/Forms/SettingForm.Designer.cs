@@ -40,6 +40,11 @@
             this.ResetLocationBtn = new System.Windows.Forms.Button();
             this.gMapCtrl = new GMap.NET.WindowsForms.GMapControl();
             this.tabDevice = new System.Windows.Forms.TabPage();
+            this.groupBox20 = new System.Windows.Forms.GroupBox();
+            this.FirmwareTypeTb = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.FirmwareFingerprintTb = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.deviceTypeCb = new System.Windows.Forms.ComboBox();
@@ -52,16 +57,12 @@
             this.BoardName = new System.Windows.Forms.Label();
             this.AndroidBoardNameTb = new System.Windows.Forms.TextBox();
             this.FirmwareBrandTb = new System.Windows.Forms.TextBox();
-            this.FirmwareFingerprintTb = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.HardwareManufacturerTb = new System.Windows.Forms.TextBox();
             this.HardwareModelTb = new System.Windows.Forms.TextBox();
-            this.FirmwareTypeTb = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.DeviceModelBootTb = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.DeviceModelIdentifierTb = new System.Windows.Forms.TextBox();
@@ -211,8 +212,6 @@
             this.clbEvolve = new System.Windows.Forms.CheckedListBox();
             this.cbEvolveAll = new System.Windows.Forms.CheckBox();
             this.tabSnipePokemonFilter = new System.Windows.Forms.TabPage();
-            this.groupBox19 = new System.Windows.Forms.GroupBox();
-            this.clbSnipePokemonFilter = new System.Windows.Forms.CheckedListBox();
             this.cbSnipePokemonFilterAll = new System.Windows.Forms.CheckBox();
             this.tabItems = new System.Windows.Forms.TabPage();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
@@ -285,13 +284,15 @@
             this.tbDataServiceIdentification = new System.Windows.Forms.TextBox();
             this.cbEnableSyncData = new System.Windows.Forms.CheckBox();
             this.cBoxTeamColor = new System.Windows.Forms.ComboBox();
-            this.groupBox20 = new System.Windows.Forms.GroupBox();
+            this.groupBox21 = new System.Windows.Forms.GroupBox();
+            this.clbSnipePokemonFilter = new System.Windows.Forms.CheckedListBox();
             this.tabControl.SuspendLayout();
             this.tabAuth.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPosition.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.tabDevice.SuspendLayout();
+            this.groupBox20.SuspendLayout();
             this.tabAPIConfig.SuspendLayout();
             this.tabAccounts.SuspendLayout();
             this.proxyGb.SuspendLayout();
@@ -313,7 +314,6 @@
             this.groupBox5.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabSnipePokemonFilter.SuspendLayout();
-            this.groupBox19.SuspendLayout();
             this.tabItems.SuspendLayout();
             this.groupBox14.SuspendLayout();
             this.groupBox12.SuspendLayout();
@@ -335,14 +335,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
             this.splitContainer5.Panel1.SuspendLayout();
             this.splitContainer5.SuspendLayout();
-            this.groupBox20.SuspendLayout();
+            this.groupBox21.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelBtn
             // 
             this.cancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelBtn.Location = new System.Drawing.Point(659, 407);
+            this.cancelBtn.Location = new System.Drawing.Point(659, 411);
             this.cancelBtn.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(100, 50);
@@ -365,7 +365,7 @@
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(770, 404);
+            this.tabControl.Size = new System.Drawing.Size(770, 408);
             this.tabControl.TabIndex = 30;
             // 
             // tabAuth
@@ -393,7 +393,7 @@
             this.tabAuth.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabAuth.Name = "tabAuth";
             this.tabAuth.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabAuth.Size = new System.Drawing.Size(762, 376);
+            this.tabAuth.Size = new System.Drawing.Size(762, 380);
             this.tabAuth.TabIndex = 0;
             this.tabAuth.Text = "Auth";
             // 
@@ -409,7 +409,7 @@
             this.tabControl1.Location = new System.Drawing.Point(270, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(490, 372);
+            this.tabControl1.Size = new System.Drawing.Size(490, 376);
             this.tabControl1.TabIndex = 34;
             // 
             // tabPosition
@@ -423,7 +423,7 @@
             this.tabPosition.Location = new System.Drawing.Point(4, 24);
             this.tabPosition.Name = "tabPosition";
             this.tabPosition.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPosition.Size = new System.Drawing.Size(482, 344);
+            this.tabPosition.Size = new System.Drawing.Size(482, 348);
             this.tabPosition.TabIndex = 0;
             this.tabPosition.Text = "Position";
             // 
@@ -432,7 +432,7 @@
             this.AdressBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.AdressBox.ForeColor = System.Drawing.Color.Gray;
-            this.AdressBox.Location = new System.Drawing.Point(5, 314);
+            this.AdressBox.Location = new System.Drawing.Point(5, 318);
             this.AdressBox.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.AdressBox.Name = "AdressBox";
             this.AdressBox.Size = new System.Drawing.Size(265, 23);
@@ -461,7 +461,7 @@
             // FindAdressBtn
             // 
             this.FindAdressBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.FindAdressBtn.Location = new System.Drawing.Point(275, 310);
+            this.FindAdressBtn.Location = new System.Drawing.Point(275, 314);
             this.FindAdressBtn.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.FindAdressBtn.Name = "FindAdressBtn";
             this.FindAdressBtn.Size = new System.Drawing.Size(100, 30);
@@ -473,7 +473,7 @@
             // ResetLocationBtn
             // 
             this.ResetLocationBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ResetLocationBtn.Location = new System.Drawing.Point(381, 310);
+            this.ResetLocationBtn.Location = new System.Drawing.Point(381, 314);
             this.ResetLocationBtn.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.ResetLocationBtn.Name = "ResetLocationBtn";
             this.ResetLocationBtn.Size = new System.Drawing.Size(100, 30);
@@ -507,7 +507,7 @@
             this.gMapCtrl.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapCtrl.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapCtrl.ShowTileGridLines = false;
-            this.gMapCtrl.Size = new System.Drawing.Size(476, 338);
+            this.gMapCtrl.Size = new System.Drawing.Size(476, 342);
             this.gMapCtrl.TabIndex = 22;
             this.gMapCtrl.Zoom = 0D;
             this.gMapCtrl.OnMapZoomChanged += new GMap.NET.MapZoomChanged(this.GMapCtrl_OnMapZoomChanged);
@@ -553,6 +553,63 @@
             this.tabDevice.Size = new System.Drawing.Size(482, 344);
             this.tabDevice.TabIndex = 1;
             this.tabDevice.Text = "Device";
+            // 
+            // groupBox20
+            // 
+            this.groupBox20.Controls.Add(this.FirmwareTypeTb);
+            this.groupBox20.Controls.Add(this.label13);
+            this.groupBox20.Controls.Add(this.label14);
+            this.groupBox20.Controls.Add(this.FirmwareFingerprintTb);
+            this.groupBox20.Location = new System.Drawing.Point(243, 187);
+            this.groupBox20.Name = "groupBox20";
+            this.groupBox20.Size = new System.Drawing.Size(227, 76);
+            this.groupBox20.TabIndex = 70;
+            this.groupBox20.TabStop = false;
+            this.groupBox20.Text = "Firmware";
+            // 
+            // FirmwareTypeTb
+            // 
+            this.FirmwareTypeTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FirmwareTypeTb.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.FirmwareTypeTb.Location = new System.Drawing.Point(43, 20);
+            this.FirmwareTypeTb.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.FirmwareTypeTb.Name = "FirmwareTypeTb";
+            this.FirmwareTypeTb.Size = new System.Drawing.Size(172, 23);
+            this.FirmwareTypeTb.TabIndex = 58;
+            // 
+            // label13
+            // 
+            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label13.Location = new System.Drawing.Point(6, 24);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(32, 15);
+            this.label13.TabIndex = 51;
+            this.label13.Text = "Type";
+            // 
+            // label14
+            // 
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label14.Location = new System.Drawing.Point(6, 49);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(65, 15);
+            this.label14.TabIndex = 49;
+            this.label14.Text = "Fingerprint";
+            // 
+            // FirmwareFingerprintTb
+            // 
+            this.FirmwareFingerprintTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FirmwareFingerprintTb.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.FirmwareFingerprintTb.Location = new System.Drawing.Point(73, 45);
+            this.FirmwareFingerprintTb.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.FirmwareFingerprintTb.Name = "FirmwareFingerprintTb";
+            this.FirmwareFingerprintTb.Size = new System.Drawing.Size(142, 23);
+            this.FirmwareFingerprintTb.TabIndex = 62;
             // 
             // label22
             // 
@@ -686,28 +743,6 @@
             this.FirmwareBrandTb.Size = new System.Drawing.Size(240, 23);
             this.FirmwareBrandTb.TabIndex = 52;
             // 
-            // FirmwareFingerprintTb
-            // 
-            this.FirmwareFingerprintTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.FirmwareFingerprintTb.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.FirmwareFingerprintTb.Location = new System.Drawing.Point(73, 45);
-            this.FirmwareFingerprintTb.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.FirmwareFingerprintTb.Name = "FirmwareFingerprintTb";
-            this.FirmwareFingerprintTb.Size = new System.Drawing.Size(142, 23);
-            this.FirmwareFingerprintTb.TabIndex = 62;
-            // 
-            // label14
-            // 
-            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label14.Location = new System.Drawing.Point(6, 49);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(65, 15);
-            this.label14.TabIndex = 49;
-            this.label14.Text = "Fingerprint";
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -750,17 +785,6 @@
             this.HardwareModelTb.Size = new System.Drawing.Size(87, 23);
             this.HardwareModelTb.TabIndex = 56;
             // 
-            // FirmwareTypeTb
-            // 
-            this.FirmwareTypeTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.FirmwareTypeTb.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.FirmwareTypeTb.Location = new System.Drawing.Point(43, 20);
-            this.FirmwareTypeTb.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.FirmwareTypeTb.Name = "FirmwareTypeTb";
-            this.FirmwareTypeTb.Size = new System.Drawing.Size(172, 23);
-            this.FirmwareTypeTb.TabIndex = 58;
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -781,17 +805,6 @@
             this.DeviceModelBootTb.Name = "DeviceModelBootTb";
             this.DeviceModelBootTb.Size = new System.Drawing.Size(87, 23);
             this.DeviceModelBootTb.TabIndex = 63;
-            // 
-            // label13
-            // 
-            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label13.Location = new System.Drawing.Point(6, 24);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(32, 15);
-            this.label13.TabIndex = 51;
-            this.label13.Text = "Type";
             // 
             // label8
             // 
@@ -927,7 +940,7 @@
             // 
             this.tbPushBulletAPIKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbPushBulletAPIKey.Location = new System.Drawing.Point(85, 137);
+            this.tbPushBulletAPIKey.Location = new System.Drawing.Point(85, 139);
             this.tbPushBulletAPIKey.Name = "tbPushBulletAPIKey";
             this.tbPushBulletAPIKey.Size = new System.Drawing.Size(150, 23);
             this.tbPushBulletAPIKey.TabIndex = 42;
@@ -937,7 +950,7 @@
             this.label68.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(6, 141);
+            this.label68.Location = new System.Drawing.Point(6, 143);
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(67, 15);
             this.label68.TabIndex = 41;
@@ -979,7 +992,7 @@
             // 
             this.tbAuthAPIKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbAuthAPIKey.Location = new System.Drawing.Point(85, 37);
+            this.tbAuthAPIKey.Location = new System.Drawing.Point(85, 39);
             this.tbAuthAPIKey.Name = "tbAuthAPIKey";
             this.tbAuthAPIKey.Size = new System.Drawing.Size(150, 23);
             this.tbAuthAPIKey.TabIndex = 37;
@@ -989,7 +1002,7 @@
             this.label67.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(6, 41);
+            this.label67.Location = new System.Drawing.Point(6, 43);
             this.label67.Name = "label67";
             this.label67.Size = new System.Drawing.Size(79, 15);
             this.label67.TabIndex = 36;
@@ -1106,6 +1119,8 @@
             // 
             // proxyGb
             // 
+            this.proxyGb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.proxyGb.Controls.Add(this.proxyPortTb);
             this.proxyGb.Controls.Add(this.proxyUserTb);
             this.proxyGb.Controls.Add(this.proxyPwTb);
@@ -1116,7 +1131,7 @@
             this.proxyGb.Controls.Add(this.label19);
             this.proxyGb.Controls.Add(this.useProxyCb);
             this.proxyGb.Controls.Add(this.label23);
-            this.proxyGb.Location = new System.Drawing.Point(4, 210);
+            this.proxyGb.Location = new System.Drawing.Point(4, 214);
             this.proxyGb.Name = "proxyGb";
             this.proxyGb.Size = new System.Drawing.Size(265, 162);
             this.proxyGb.TabIndex = 27;
@@ -1321,7 +1336,7 @@
             this.tabPokemon.Controls.Add(this.tcPokemonDetail);
             this.tabPokemon.Location = new System.Drawing.Point(4, 24);
             this.tabPokemon.Name = "tabPokemon";
-            this.tabPokemon.Size = new System.Drawing.Size(762, 376);
+            this.tabPokemon.Size = new System.Drawing.Size(762, 380);
             this.tabPokemon.TabIndex = 3;
             this.tabPokemon.Text = "Pokemon";
             // 
@@ -1336,7 +1351,7 @@
             this.tcPokemonDetail.Location = new System.Drawing.Point(0, 0);
             this.tcPokemonDetail.Name = "tcPokemonDetail";
             this.tcPokemonDetail.SelectedIndex = 0;
-            this.tcPokemonDetail.Size = new System.Drawing.Size(762, 376);
+            this.tcPokemonDetail.Size = new System.Drawing.Size(762, 380);
             this.tcPokemonDetail.TabIndex = 5;
             // 
             // tabCatch
@@ -1352,7 +1367,7 @@
             this.tabCatch.Location = new System.Drawing.Point(4, 24);
             this.tabCatch.Name = "tabCatch";
             this.tabCatch.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCatch.Size = new System.Drawing.Size(754, 348);
+            this.tabCatch.Size = new System.Drawing.Size(754, 352);
             this.tabCatch.TabIndex = 0;
             this.tabCatch.Text = "Catch";
             // 
@@ -1360,7 +1375,7 @@
             // 
             this.cbUseLimitedEggIncubators.AutoSize = true;
             this.cbUseLimitedEggIncubators.Enabled = false;
-            this.cbUseLimitedEggIncubators.Location = new System.Drawing.Point(132, 10);
+            this.cbUseLimitedEggIncubators.Location = new System.Drawing.Point(132, 7);
             this.cbUseLimitedEggIncubators.Name = "cbUseLimitedEggIncubators";
             this.cbUseLimitedEggIncubators.Size = new System.Drawing.Size(124, 19);
             this.cbUseLimitedEggIncubators.TabIndex = 20;
@@ -1369,6 +1384,8 @@
             // 
             // groupBox10
             // 
+            this.groupBox10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox10.Controls.Add(this.cbUseBerriesOperator);
             this.groupBox10.Controls.Add(this.label52);
             this.groupBox10.Controls.Add(this.tbUseBerriesMinCp);
@@ -1376,9 +1393,9 @@
             this.groupBox10.Controls.Add(this.tbUseBerriesMinIv);
             this.groupBox10.Controls.Add(this.label56);
             this.groupBox10.Controls.Add(this.tbUseBerriesBelowCatchProbability);
-            this.groupBox10.Location = new System.Drawing.Point(290, 3);
+            this.groupBox10.Location = new System.Drawing.Point(290, 0);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(270, 120);
+            this.groupBox10.Size = new System.Drawing.Size(270, 125);
             this.groupBox10.TabIndex = 7;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Berry\'s";
@@ -1449,6 +1466,7 @@
             // 
             // groupBox9
             // 
+            this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox9.Controls.Add(this.label2);
             this.groupBox9.Controls.Add(this.tbUseMasterBallBelowCatchProbability);
             this.groupBox9.Controls.Add(this.tbUseGreatBallAboveCp);
@@ -1465,9 +1483,9 @@
             this.groupBox9.Controls.Add(this.tbUseUltraBallAboveIv);
             this.groupBox9.Controls.Add(this.tbUseGreatBallAboveIv);
             this.groupBox9.Controls.Add(this.label36);
-            this.groupBox9.Location = new System.Drawing.Point(290, 124);
+            this.groupBox9.Location = new System.Drawing.Point(290, 126);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(270, 220);
+            this.groupBox9.Size = new System.Drawing.Size(270, 225);
             this.groupBox9.TabIndex = 6;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "PokeBall\'s";
@@ -1610,13 +1628,15 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox2.Controls.Add(this.clbIgnore);
             this.groupBox2.Controls.Add(this.cbIgnoreAll);
-            this.groupBox2.Location = new System.Drawing.Point(10, 180);
+            this.groupBox2.Location = new System.Drawing.Point(10, 177);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox2.Size = new System.Drawing.Size(270, 164);
+            this.groupBox2.Size = new System.Drawing.Size(270, 174);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Ignore";
@@ -1630,7 +1650,7 @@
             this.clbIgnore.Location = new System.Drawing.Point(3, 20);
             this.clbIgnore.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbIgnore.Name = "clbIgnore";
-            this.clbIgnore.Size = new System.Drawing.Size(264, 140);
+            this.clbIgnore.Size = new System.Drawing.Size(264, 150);
             this.clbIgnore.TabIndex = 0;
             // 
             // cbIgnoreAll
@@ -1648,7 +1668,7 @@
             // cbUseEggIncubators
             // 
             this.cbUseEggIncubators.AutoSize = true;
-            this.cbUseEggIncubators.Location = new System.Drawing.Point(16, 10);
+            this.cbUseEggIncubators.Location = new System.Drawing.Point(16, 7);
             this.cbUseEggIncubators.Name = "cbUseEggIncubators";
             this.cbUseEggIncubators.Size = new System.Drawing.Size(104, 19);
             this.cbUseEggIncubators.TabIndex = 1;
@@ -1659,7 +1679,7 @@
             // cbCatchPoke
             // 
             this.cbCatchPoke.AutoSize = true;
-            this.cbCatchPoke.Location = new System.Drawing.Point(16, 34);
+            this.cbCatchPoke.Location = new System.Drawing.Point(16, 31);
             this.cbCatchPoke.Name = "cbCatchPoke";
             this.cbCatchPoke.Size = new System.Drawing.Size(111, 19);
             this.cbCatchPoke.TabIndex = 1;
@@ -1678,7 +1698,7 @@
             this.gbCatchPokemon.Controls.Add(this.tbMaxPokeballsPerPokemon);
             this.gbCatchPokemon.Controls.Add(this.tbFavoriteMinIvPercentage);
             this.gbCatchPokemon.Enabled = false;
-            this.gbCatchPokemon.Location = new System.Drawing.Point(10, 35);
+            this.gbCatchPokemon.Location = new System.Drawing.Point(10, 32);
             this.gbCatchPokemon.Name = "gbCatchPokemon";
             this.gbCatchPokemon.Size = new System.Drawing.Size(270, 145);
             this.gbCatchPokemon.TabIndex = 22;
@@ -1764,7 +1784,7 @@
             this.tabTransfer.Location = new System.Drawing.Point(4, 24);
             this.tabTransfer.Name = "tabTransfer";
             this.tabTransfer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTransfer.Size = new System.Drawing.Size(754, 348);
+            this.tabTransfer.Size = new System.Drawing.Size(754, 352);
             this.tabTransfer.TabIndex = 1;
             this.tabTransfer.Text = "Transfer";
             // 
@@ -1781,7 +1801,7 @@
             this.groupBox7.Controls.Add(this.tbKeepMinCp);
             this.groupBox7.Controls.Add(this.label38);
             this.groupBox7.Controls.Add(this.label39);
-            this.groupBox7.Location = new System.Drawing.Point(10, 3);
+            this.groupBox7.Location = new System.Drawing.Point(10, 0);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(270, 215);
             this.groupBox7.TabIndex = 18;
@@ -1894,13 +1914,15 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox1.Controls.Add(this.clbTransfer);
             this.groupBox1.Controls.Add(this.cbNotTransferAll);
-            this.groupBox1.Location = new System.Drawing.Point(290, 3);
+            this.groupBox1.Location = new System.Drawing.Point(290, 0);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(270, 342);
+            this.groupBox1.Size = new System.Drawing.Size(270, 352);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Exclude Transfer";
@@ -1914,7 +1936,7 @@
             this.clbTransfer.Location = new System.Drawing.Point(3, 20);
             this.clbTransfer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbTransfer.Name = "clbTransfer";
-            this.clbTransfer.Size = new System.Drawing.Size(264, 318);
+            this.clbTransfer.Size = new System.Drawing.Size(264, 328);
             this.clbTransfer.TabIndex = 0;
             // 
             // cbNotTransferAll
@@ -1934,7 +1956,7 @@
             this.groupBox8.Controls.Add(this.tbKeepMinLvl);
             this.groupBox8.Controls.Add(this.cbUseKeepMinLvl);
             this.groupBox8.Controls.Add(this.label37);
-            this.groupBox8.Location = new System.Drawing.Point(10, 224);
+            this.groupBox8.Location = new System.Drawing.Point(10, 221);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(270, 70);
             this.groupBox8.TabIndex = 19;
@@ -1979,14 +2001,14 @@
             this.tabPowerUp.Controls.Add(this.cbAutoPowerUp);
             this.tabPowerUp.Location = new System.Drawing.Point(4, 24);
             this.tabPowerUp.Name = "tabPowerUp";
-            this.tabPowerUp.Size = new System.Drawing.Size(754, 348);
+            this.tabPowerUp.Size = new System.Drawing.Size(754, 352);
             this.tabPowerUp.TabIndex = 4;
             this.tabPowerUp.Text = "PowerUp";
             // 
             // cbPowerUpFav
             // 
             this.cbPowerUpFav.AutoSize = true;
-            this.cbPowerUpFav.Location = new System.Drawing.Point(20, 34);
+            this.cbPowerUpFav.Location = new System.Drawing.Point(20, 31);
             this.cbPowerUpFav.Name = "cbPowerUpFav";
             this.cbPowerUpFav.Size = new System.Drawing.Size(152, 19);
             this.cbPowerUpFav.TabIndex = 11;
@@ -2002,7 +2024,7 @@
             this.groupBox6.Controls.Add(this.label30);
             this.groupBox6.Controls.Add(this.cbPowerUpMinStarDust);
             this.groupBox6.Controls.Add(this.label28);
-            this.groupBox6.Location = new System.Drawing.Point(10, 84);
+            this.groupBox6.Location = new System.Drawing.Point(10, 81);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(270, 130);
             this.groupBox6.TabIndex = 10;
@@ -2104,7 +2126,7 @@
             this.cbPowerUpType.Items.AddRange(new object[] {
             "IV",
             "CP"});
-            this.cbPowerUpType.Location = new System.Drawing.Point(210, 55);
+            this.cbPowerUpType.Location = new System.Drawing.Point(210, 53);
             this.cbPowerUpType.Name = "cbPowerUpType";
             this.cbPowerUpType.Size = new System.Drawing.Size(60, 23);
             this.cbPowerUpType.TabIndex = 9;
@@ -2113,7 +2135,7 @@
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(20, 59);
+            this.label29.Location = new System.Drawing.Point(20, 56);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(86, 15);
             this.label29.TabIndex = 8;
@@ -2121,13 +2143,15 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox4.Controls.Add(this.clbPowerUp);
             this.groupBox4.Controls.Add(this.cbPowerUpAll);
-            this.groupBox4.Location = new System.Drawing.Point(290, 3);
+            this.groupBox4.Location = new System.Drawing.Point(290, 0);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox4.Size = new System.Drawing.Size(270, 342);
+            this.groupBox4.Size = new System.Drawing.Size(270, 352);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Power Up";
@@ -2141,7 +2165,7 @@
             this.clbPowerUp.Location = new System.Drawing.Point(3, 20);
             this.clbPowerUp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbPowerUp.Name = "clbPowerUp";
-            this.clbPowerUp.Size = new System.Drawing.Size(264, 318);
+            this.clbPowerUp.Size = new System.Drawing.Size(264, 328);
             this.clbPowerUp.TabIndex = 0;
             // 
             // cbPowerUpAll
@@ -2159,7 +2183,7 @@
             // cbAutoPowerUp
             // 
             this.cbAutoPowerUp.AutoSize = true;
-            this.cbAutoPowerUp.Location = new System.Drawing.Point(20, 10);
+            this.cbAutoPowerUp.Location = new System.Drawing.Point(20, 7);
             this.cbAutoPowerUp.Name = "cbAutoPowerUp";
             this.cbAutoPowerUp.Size = new System.Drawing.Size(106, 19);
             this.cbAutoPowerUp.TabIndex = 4;
@@ -2179,13 +2203,13 @@
             this.tabEvo.Controls.Add(this.groupBox3);
             this.tabEvo.Location = new System.Drawing.Point(4, 24);
             this.tabEvo.Name = "tabEvo";
-            this.tabEvo.Size = new System.Drawing.Size(754, 348);
+            this.tabEvo.Size = new System.Drawing.Size(754, 352);
             this.tabEvo.TabIndex = 3;
             this.tabEvo.Text = "Evolve";
             // 
             // tbEvolveKeptPokemonsAtStorageUsagePercentage
             // 
-            this.tbEvolveKeptPokemonsAtStorageUsagePercentage.Location = new System.Drawing.Point(210, 140);
+            this.tbEvolveKeptPokemonsAtStorageUsagePercentage.Location = new System.Drawing.Point(210, 139);
             this.tbEvolveKeptPokemonsAtStorageUsagePercentage.Name = "tbEvolveKeptPokemonsAtStorageUsagePercentage";
             this.tbEvolveKeptPokemonsAtStorageUsagePercentage.Size = new System.Drawing.Size(60, 23);
             this.tbEvolveKeptPokemonsAtStorageUsagePercentage.TabIndex = 18;
@@ -2193,7 +2217,7 @@
             // label53
             // 
             this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(20, 194);
+            this.label53.Location = new System.Drawing.Point(20, 193);
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(129, 45);
             this.label53.TabIndex = 24;
@@ -2201,7 +2225,7 @@
             // 
             // tbUseLuckyEggsMinPokemonAmount
             // 
-            this.tbUseLuckyEggsMinPokemonAmount.Location = new System.Drawing.Point(210, 205);
+            this.tbUseLuckyEggsMinPokemonAmount.Location = new System.Drawing.Point(210, 204);
             this.tbUseLuckyEggsMinPokemonAmount.Name = "tbUseLuckyEggsMinPokemonAmount";
             this.tbUseLuckyEggsMinPokemonAmount.Size = new System.Drawing.Size(60, 23);
             this.tbUseLuckyEggsMinPokemonAmount.TabIndex = 23;
@@ -2209,7 +2233,7 @@
             // cbUseLuckyEggsWhileEvolving
             // 
             this.cbUseLuckyEggsWhileEvolving.AutoSize = true;
-            this.cbUseLuckyEggsWhileEvolving.Location = new System.Drawing.Point(20, 169);
+            this.cbUseLuckyEggsWhileEvolving.Location = new System.Drawing.Point(20, 168);
             this.cbUseLuckyEggsWhileEvolving.Name = "cbUseLuckyEggsWhileEvolving";
             this.cbUseLuckyEggsWhileEvolving.Size = new System.Drawing.Size(188, 19);
             this.cbUseLuckyEggsWhileEvolving.TabIndex = 22;
@@ -2224,7 +2248,7 @@
             this.groupBox5.Controls.Add(this.tbEvoAboveIV);
             this.groupBox5.Controls.Add(this.cbEvoAllAboveIV);
             this.groupBox5.Controls.Add(this.cbEvolveAllPokemonWithEnoughCandy);
-            this.groupBox5.Location = new System.Drawing.Point(10, 3);
+            this.groupBox5.Location = new System.Drawing.Point(10, 2);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(270, 110);
             this.groupBox5.TabIndex = 21;
@@ -2290,7 +2314,7 @@
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(20, 144);
+            this.label33.Location = new System.Drawing.Point(20, 143);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(98, 15);
             this.label33.TabIndex = 20;
@@ -2299,7 +2323,7 @@
             // cbKeepPokemonsThatCanEvolve
             // 
             this.cbKeepPokemonsThatCanEvolve.AutoSize = true;
-            this.cbKeepPokemonsThatCanEvolve.Location = new System.Drawing.Point(20, 119);
+            this.cbKeepPokemonsThatCanEvolve.Location = new System.Drawing.Point(20, 118);
             this.cbKeepPokemonsThatCanEvolve.Name = "cbKeepPokemonsThatCanEvolve";
             this.cbKeepPokemonsThatCanEvolve.Size = new System.Drawing.Size(237, 19);
             this.cbKeepPokemonsThatCanEvolve.TabIndex = 17;
@@ -2308,13 +2332,15 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox3.Controls.Add(this.clbEvolve);
             this.groupBox3.Controls.Add(this.cbEvolveAll);
-            this.groupBox3.Location = new System.Drawing.Point(290, 3);
+            this.groupBox3.Location = new System.Drawing.Point(290, 0);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox3.Size = new System.Drawing.Size(270, 342);
+            this.groupBox3.Size = new System.Drawing.Size(270, 352);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Evolve";
@@ -2322,13 +2348,12 @@
             // clbEvolve
             // 
             this.clbEvolve.CheckOnClick = true;
-            this.clbEvolve.Dock = System.Windows.Forms.DockStyle.Fill;
             this.clbEvolve.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clbEvolve.FormattingEnabled = true;
-            this.clbEvolve.Location = new System.Drawing.Point(3, 20);
+            this.clbEvolve.Location = new System.Drawing.Point(3, 19);
             this.clbEvolve.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbEvolve.Name = "clbEvolve";
-            this.clbEvolve.Size = new System.Drawing.Size(264, 318);
+            this.clbEvolve.Size = new System.Drawing.Size(264, 328);
             this.clbEvolve.TabIndex = 0;
             // 
             // cbEvolveAll
@@ -2346,45 +2371,22 @@
             // tabSnipePokemonFilter
             // 
             this.tabSnipePokemonFilter.BackColor = System.Drawing.SystemColors.Control;
-            this.tabSnipePokemonFilter.Controls.Add(this.groupBox19);
+            this.tabSnipePokemonFilter.Controls.Add(this.groupBox21);
             this.tabSnipePokemonFilter.Location = new System.Drawing.Point(4, 24);
             this.tabSnipePokemonFilter.Name = "tabSnipePokemonFilter";
             this.tabSnipePokemonFilter.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSnipePokemonFilter.Size = new System.Drawing.Size(754, 348);
+            this.tabSnipePokemonFilter.Size = new System.Drawing.Size(754, 352);
             this.tabSnipePokemonFilter.TabIndex = 5;
             this.tabSnipePokemonFilter.Text = "SnipePokemonFilter";
-            // 
-            // groupBox19
-            // 
-            this.groupBox19.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox19.Controls.Add(this.clbSnipePokemonFilter);
-            this.groupBox19.Controls.Add(this.cbSnipePokemonFilterAll);
-            this.groupBox19.Location = new System.Drawing.Point(290, 3);
-            this.groupBox19.Name = "groupBox19";
-            this.groupBox19.Size = new System.Drawing.Size(270, 342);
-            this.groupBox19.TabIndex = 1;
-            this.groupBox19.TabStop = false;
-            this.groupBox19.Text = "Snipe Pokemon List";
-            // 
-            // clbSnipePokemonFilter
-            // 
-            this.clbSnipePokemonFilter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.clbSnipePokemonFilter.FormattingEnabled = true;
-            this.clbSnipePokemonFilter.Location = new System.Drawing.Point(3, 19);
-            this.clbSnipePokemonFilter.Name = "clbSnipePokemonFilter";
-            this.clbSnipePokemonFilter.Size = new System.Drawing.Size(264, 320);
-            this.clbSnipePokemonFilter.TabIndex = 0;
             // 
             // cbSnipePokemonFilterAll
             // 
             this.cbSnipePokemonFilterAll.AutoSize = true;
             this.cbSnipePokemonFilterAll.Location = new System.Drawing.Point(130, 0);
             this.cbSnipePokemonFilterAll.Name = "cbSnipePokemonFilterAll";
-            this.cbSnipePokemonFilterAll.Size = new System.Drawing.Size(72, 19);
+            this.cbSnipePokemonFilterAll.Size = new System.Drawing.Size(74, 19);
             this.cbSnipePokemonFilterAll.TabIndex = 0;
-            this.cbSnipePokemonFilterAll.Text = "Select all";
+            this.cbSnipePokemonFilterAll.Text = "Select All";
             this.cbSnipePokemonFilterAll.UseVisualStyleBackColor = true;
             this.cbSnipePokemonFilterAll.CheckedChanged += new System.EventHandler(this.CbSelectAllSnipePokemonFilter_CheckedChanged);
             // 
@@ -2399,7 +2401,7 @@
             this.tabItems.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabItems.Name = "tabItems";
             this.tabItems.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabItems.Size = new System.Drawing.Size(762, 376);
+            this.tabItems.Size = new System.Drawing.Size(762, 380);
             this.tabItems.TabIndex = 2;
             this.tabItems.Text = "Items";
             // 
@@ -2581,7 +2583,7 @@
             this.tabAdvSetting.Controls.Add(this.groupBox15);
             this.tabAdvSetting.Location = new System.Drawing.Point(4, 24);
             this.tabAdvSetting.Name = "tabAdvSetting";
-            this.tabAdvSetting.Size = new System.Drawing.Size(762, 376);
+            this.tabAdvSetting.Size = new System.Drawing.Size(762, 380);
             this.tabAdvSetting.TabIndex = 4;
             this.tabAdvSetting.Text = "Advanced Settings";
             // 
@@ -2977,7 +2979,7 @@
             this.tabAuthJson.Location = new System.Drawing.Point(4, 24);
             this.tabAuthJson.Name = "tabAuthJson";
             this.tabAuthJson.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAuthJson.Size = new System.Drawing.Size(762, 376);
+            this.tabAuthJson.Size = new System.Drawing.Size(762, 380);
             this.tabAuthJson.TabIndex = 6;
             this.tabAuthJson.Text = "Auth & Config";
             this.tabAuthJson.UseVisualStyleBackColor = true;
@@ -2996,7 +2998,7 @@
             // 
             this.splitContainer2.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer5);
-            this.splitContainer2.Size = new System.Drawing.Size(756, 370);
+            this.splitContainer2.Size = new System.Drawing.Size(756, 374);
             this.splitContainer2.SplitterDistance = 378;
             this.splitContainer2.TabIndex = 3;
             // 
@@ -3013,7 +3015,7 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer4.Size = new System.Drawing.Size(378, 370);
+            this.splitContainer4.Size = new System.Drawing.Size(378, 374);
             this.splitContainer4.SplitterDistance = 208;
             this.splitContainer4.TabIndex = 3;
             // 
@@ -3025,7 +3027,7 @@
             this.Auth.Location = new System.Drawing.Point(0, 0);
             this.Auth.Margin = new System.Windows.Forms.Padding(4);
             this.Auth.Name = "Auth";
-            this.Auth.Size = new System.Drawing.Size(208, 370);
+            this.Auth.Size = new System.Drawing.Size(208, 374);
             this.Auth.TabIndex = 2;
             // 
             // splitContainer5
@@ -3037,7 +3039,7 @@
             // splitContainer5.Panel1
             // 
             this.splitContainer5.Panel1.Controls.Add(this.Config);
-            this.splitContainer5.Size = new System.Drawing.Size(374, 370);
+            this.splitContainer5.Size = new System.Drawing.Size(374, 374);
             this.splitContainer5.SplitterDistance = 207;
             this.splitContainer5.TabIndex = 3;
             // 
@@ -3049,13 +3051,13 @@
             this.Config.Location = new System.Drawing.Point(0, 0);
             this.Config.Margin = new System.Windows.Forms.Padding(4);
             this.Config.Name = "Config";
-            this.Config.Size = new System.Drawing.Size(207, 370);
+            this.Config.Size = new System.Drawing.Size(207, 374);
             this.Config.TabIndex = 2;
             // 
             // saveBtn
             // 
             this.saveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveBtn.Location = new System.Drawing.Point(553, 407);
+            this.saveBtn.Location = new System.Drawing.Point(553, 411);
             this.saveBtn.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(100, 50);
@@ -3068,7 +3070,7 @@
             // 
             this.cbAutoSniper.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbAutoSniper.AutoSize = true;
-            this.cbAutoSniper.Location = new System.Drawing.Point(14, 410);
+            this.cbAutoSniper.Location = new System.Drawing.Point(14, 414);
             this.cbAutoSniper.Name = "cbAutoSniper";
             this.cbAutoSniper.Size = new System.Drawing.Size(134, 19);
             this.cbAutoSniper.TabIndex = 33;
@@ -3079,7 +3081,7 @@
             // 
             this.cbEnableGyms.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbEnableGyms.AutoSize = true;
-            this.cbEnableGyms.Location = new System.Drawing.Point(14, 434);
+            this.cbEnableGyms.Location = new System.Drawing.Point(14, 438);
             this.cbEnableGyms.Name = "cbEnableGyms";
             this.cbEnableGyms.Size = new System.Drawing.Size(94, 19);
             this.cbEnableGyms.TabIndex = 34;
@@ -3090,7 +3092,7 @@
             // 
             this.label48.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(149, 412);
+            this.label48.Location = new System.Drawing.Point(149, 416);
             this.label48.Name = "label48";
             this.label48.Size = new System.Drawing.Size(138, 15);
             this.label48.TabIndex = 35;
@@ -3099,7 +3101,7 @@
             // tbDataServiceIdentification
             // 
             this.tbDataServiceIdentification.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.tbDataServiceIdentification.Location = new System.Drawing.Point(293, 408);
+            this.tbDataServiceIdentification.Location = new System.Drawing.Point(293, 412);
             this.tbDataServiceIdentification.Name = "tbDataServiceIdentification";
             this.tbDataServiceIdentification.Size = new System.Drawing.Size(177, 23);
             this.tbDataServiceIdentification.TabIndex = 36;
@@ -3108,7 +3110,7 @@
             // 
             this.cbEnableSyncData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbEnableSyncData.AutoSize = true;
-            this.cbEnableSyncData.Location = new System.Drawing.Point(293, 434);
+            this.cbEnableSyncData.Location = new System.Drawing.Point(293, 438);
             this.cbEnableSyncData.Name = "cbEnableSyncData";
             this.cbEnableSyncData.Size = new System.Drawing.Size(110, 19);
             this.cbEnableSyncData.TabIndex = 37;
@@ -3124,24 +3126,37 @@
             "Yellow",
             "Blue",
             "Red"});
-            this.cBoxTeamColor.Location = new System.Drawing.Point(108, 432);
+            this.cBoxTeamColor.Location = new System.Drawing.Point(108, 436);
             this.cBoxTeamColor.Name = "cBoxTeamColor";
             this.cBoxTeamColor.Size = new System.Drawing.Size(80, 23);
             this.cBoxTeamColor.TabIndex = 38;
             this.cBoxTeamColor.Text = "Neutral";
             // 
-            // groupBox20
+            // groupBox21
             // 
-            this.groupBox20.Controls.Add(this.FirmwareTypeTb);
-            this.groupBox20.Controls.Add(this.label13);
-            this.groupBox20.Controls.Add(this.label14);
-            this.groupBox20.Controls.Add(this.FirmwareFingerprintTb);
-            this.groupBox20.Location = new System.Drawing.Point(243, 187);
-            this.groupBox20.Name = "groupBox20";
-            this.groupBox20.Size = new System.Drawing.Size(227, 76);
-            this.groupBox20.TabIndex = 70;
-            this.groupBox20.TabStop = false;
-            this.groupBox20.Text = "Firmware";
+            this.groupBox21.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox21.Controls.Add(this.clbSnipePokemonFilter);
+            this.groupBox21.Controls.Add(this.cbSnipePokemonFilterAll);
+            this.groupBox21.Location = new System.Drawing.Point(290, 0);
+            this.groupBox21.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox21.Name = "groupBox21";
+            this.groupBox21.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox21.Size = new System.Drawing.Size(270, 352);
+            this.groupBox21.TabIndex = 17;
+            this.groupBox21.TabStop = false;
+            this.groupBox21.Text = "Snipe List";
+            // 
+            // clbSnipePokemonFilter
+            // 
+            this.clbSnipePokemonFilter.CheckOnClick = true;
+            this.clbSnipePokemonFilter.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clbSnipePokemonFilter.FormattingEnabled = true;
+            this.clbSnipePokemonFilter.Location = new System.Drawing.Point(3, 19);
+            this.clbSnipePokemonFilter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.clbSnipePokemonFilter.Name = "clbSnipePokemonFilter";
+            this.clbSnipePokemonFilter.Size = new System.Drawing.Size(264, 328);
+            this.clbSnipePokemonFilter.TabIndex = 0;
             // 
             // SettingsForm
             // 
@@ -3150,7 +3165,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.CancelButton = this.cancelBtn;
-            this.ClientSize = new System.Drawing.Size(774, 461);
+            this.ClientSize = new System.Drawing.Size(774, 465);
             this.Controls.Add(this.cBoxTeamColor);
             this.Controls.Add(this.cbEnableSyncData);
             this.Controls.Add(this.tbDataServiceIdentification);
@@ -3180,6 +3195,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).EndInit();
             this.tabDevice.ResumeLayout(false);
             this.tabDevice.PerformLayout();
+            this.groupBox20.ResumeLayout(false);
+            this.groupBox20.PerformLayout();
             this.tabAPIConfig.ResumeLayout(false);
             this.tabAPIConfig.PerformLayout();
             this.tabAccounts.ResumeLayout(false);
@@ -3217,8 +3234,6 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.tabSnipePokemonFilter.ResumeLayout(false);
-            this.groupBox19.ResumeLayout(false);
-            this.groupBox19.PerformLayout();
             this.tabItems.ResumeLayout(false);
             this.groupBox14.ResumeLayout(false);
             this.groupBox14.PerformLayout();
@@ -3248,8 +3263,8 @@
             this.splitContainer5.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).EndInit();
             this.splitContainer5.ResumeLayout(false);
-            this.groupBox20.ResumeLayout(false);
-            this.groupBox20.PerformLayout();
+            this.groupBox21.ResumeLayout(false);
+            this.groupBox21.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3493,7 +3508,6 @@
         private System.Windows.Forms.CheckBox cbUseLimitedEggIncubators;
         private System.Windows.Forms.ComboBox cBoxTeamColor;
         private System.Windows.Forms.TabPage tabSnipePokemonFilter;
-        private System.Windows.Forms.CheckedListBox clbSnipePokemonFilter;
         private System.Windows.Forms.CheckBox cbSnipePokemonFilterAll;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.CheckBox cbStartFromLastPosition;
@@ -3511,7 +3525,8 @@
         private System.Windows.Forms.GroupBox gbCatchPokemon;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.GroupBox groupBox19;
         private System.Windows.Forms.GroupBox groupBox20;
+        private System.Windows.Forms.GroupBox groupBox21;
+        private System.Windows.Forms.CheckedListBox clbSnipePokemonFilter;
     }
 }
