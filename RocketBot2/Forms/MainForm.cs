@@ -139,7 +139,8 @@ namespace RocketBot2.Forms
             if (_session.LogicSettings.DumpPokemonStats)
             {
                 var path = Path.Combine(_session.LogicSettings.ProfilePath, "Dumps");
-                Array.ForEach(Directory.GetFiles(path), File.Delete);
+                if (Directory.Exists(path))
+                    Array.ForEach(Directory.GetFiles(path), File.Delete);
             }
 
             InitializePokemonForm();
@@ -156,10 +157,17 @@ namespace RocketBot2.Forms
             TrayIcon.Visible = false;
             if (FormWindowState.Minimized == this.WindowState)
             {
+                GlobalSettings settings;
+                settings = new GlobalSettings();
+
+                var logicSettings = new LogicSettings(settings);
+                MultiAccountManager accountManager = new MultiAccountManager(settings, logicSettings.Bots);
+                var bot = string.IsNullOrEmpty(accountManager.GetCurrentAccount().Nickname) ? accountManager.GetCurrentAccount().Username : accountManager.GetCurrentAccount().Nickname;
+
                 TrayIcon.BalloonTipIcon = ToolTipIcon.Info; //Shows the info icon so the user doesn't thing there is an error.
-                TrayIcon.BalloonTipText = "RocketBot2 is minimized, click on this icon to restore";
-                TrayIcon.BalloonTipTitle = "RocketBot2 is minimized";
-                TrayIcon.Text = "RocketBot2 is minimized, click on this icon to restore";
+                TrayIcon.BalloonTipTitle = $"RocketBot2 [{bot}] is minimized";
+                TrayIcon.BalloonTipText = "Click on this icon to restore";
+                TrayIcon.Text = "RocketBot2 is minimized, Click on this icon to restore";
                 TrayIcon.Visible = true;
                 TrayIcon.ShowBalloonTip(5000);
                 Hide();
@@ -630,7 +638,7 @@ namespace RocketBot2.Forms
                 {
                     var step = new GMapRoute(_playerLocations, "step")
                     {
-                        Stroke = new Pen(Color.FromArgb(0, 204, 0), 2) { DashStyle = DashStyle.Dash }
+                        Stroke = new Pen(Color.FromArgb(0, 204, 0), 1) { DashStyle = DashStyle.Solid }
                     };
                     _playerOverlay.Routes.Add(step);
                 }
@@ -887,7 +895,7 @@ namespace RocketBot2.Forms
  
                 var step = new GMapRoute(_playerLocations, "step")
                 {
-                    Stroke = new Pen(Color.FromArgb(0, 204, 0), 2) { DashStyle = DashStyle.Dash }
+                    Stroke = new Pen(Color.FromArgb(0, 204, 0), 1) { DashStyle = DashStyle.Solid }
                 };
 
                 if (togglePrecalRoute.CheckState == CheckState.Checked)
