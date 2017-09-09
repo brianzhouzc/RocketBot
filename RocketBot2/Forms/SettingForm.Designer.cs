@@ -940,7 +940,7 @@
             // 
             this.tbPushBulletAPIKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbPushBulletAPIKey.Location = new System.Drawing.Point(85, 145);
+            this.tbPushBulletAPIKey.Location = new System.Drawing.Point(85, 136);
             this.tbPushBulletAPIKey.Name = "tbPushBulletAPIKey";
             this.tbPushBulletAPIKey.Size = new System.Drawing.Size(150, 23);
             this.tbPushBulletAPIKey.TabIndex = 42;
@@ -950,7 +950,7 @@
             this.label68.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(6, 149);
+            this.label68.Location = new System.Drawing.Point(6, 140);
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(67, 15);
             this.label68.TabIndex = 41;
@@ -992,7 +992,7 @@
             // 
             this.tbAuthAPIKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbAuthAPIKey.Location = new System.Drawing.Point(85, 45);
+            this.tbAuthAPIKey.Location = new System.Drawing.Point(85, 36);
             this.tbAuthAPIKey.Name = "tbAuthAPIKey";
             this.tbAuthAPIKey.Size = new System.Drawing.Size(150, 23);
             this.tbAuthAPIKey.TabIndex = 37;
@@ -1002,7 +1002,7 @@
             this.label67.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(6, 49);
+            this.label67.Location = new System.Drawing.Point(6, 40);
             this.label67.Name = "label67";
             this.label67.Size = new System.Drawing.Size(79, 15);
             this.label67.TabIndex = 36;
@@ -1922,7 +1922,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(270, 354);
+            this.groupBox1.Size = new System.Drawing.Size(270, 356);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Exclude Transfer";
@@ -1936,7 +1936,7 @@
             this.clbTransfer.Location = new System.Drawing.Point(3, 20);
             this.clbTransfer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbTransfer.Name = "clbTransfer";
-            this.clbTransfer.Size = new System.Drawing.Size(264, 330);
+            this.clbTransfer.Size = new System.Drawing.Size(264, 332);
             this.clbTransfer.TabIndex = 0;
             // 
             // cbNotTransferAll
@@ -2151,7 +2151,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox4.Size = new System.Drawing.Size(270, 354);
+            this.groupBox4.Size = new System.Drawing.Size(270, 356);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Power Up";
@@ -2165,7 +2165,7 @@
             this.clbPowerUp.Location = new System.Drawing.Point(3, 20);
             this.clbPowerUp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clbPowerUp.Name = "clbPowerUp";
-            this.clbPowerUp.Size = new System.Drawing.Size(264, 330);
+            this.clbPowerUp.Size = new System.Drawing.Size(264, 332);
             this.clbPowerUp.TabIndex = 0;
             // 
             // cbPowerUpAll
@@ -2340,7 +2340,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox3.Size = new System.Drawing.Size(270, 354);
+            this.groupBox3.Size = new System.Drawing.Size(270, 356);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Evolve";
@@ -2389,7 +2389,7 @@
             this.groupBox21.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox21.Name = "groupBox21";
             this.groupBox21.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox21.Size = new System.Drawing.Size(270, 354);
+            this.groupBox21.Size = new System.Drawing.Size(270, 356);
             this.groupBox21.TabIndex = 17;
             this.groupBox21.TabStop = false;
             this.groupBox21.Text = "Snipe List";
