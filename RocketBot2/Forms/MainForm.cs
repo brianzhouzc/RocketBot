@@ -138,7 +138,7 @@ namespace RocketBot2.Forms
             //Deletes all Dump faile at bot startup
             if (_session.LogicSettings.DumpPokemonStats)
             {
-                var path = Path.Combine(_session.LogicSettings.ProfilePath, "Dumps");
+                string path = Path.Combine(_session.LogicSettings.ProfilePath, "Dumps");
                 if (Directory.Exists(path))
                     Array.ForEach(Directory.GetFiles(path), File.Delete);
             }
@@ -377,7 +377,7 @@ namespace RocketBot2.Forms
                 if (_pokemonsOverlay.Markers.Count > 8)
                     _pokemonsOverlay.Markers.Clear();
 
-                _pokestopsOverlay.Routes.Clear();
+                //_pokestopsOverlay.Routes.Clear();
 
                 if (togglePrecalRoute.CheckState == CheckState.Checked)
                 {
@@ -558,7 +558,7 @@ namespace RocketBot2.Forms
                     {
                         Points = _session.Navigation.WalkStrategy.Points;
                         _playerLocations.Clear();
-                        //_playerRouteOverlay.Routes.Clear();
+                        _playerRouteOverlay.Routes.Clear();
                         _playerOverlay.Routes.Clear();
                         List<PointLatLng> routePointLatLngs = new List<PointLatLng>();
                         foreach (var item in Points)
