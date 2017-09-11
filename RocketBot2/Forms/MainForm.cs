@@ -377,7 +377,7 @@ namespace RocketBot2.Forms
                 if (_pokemonsOverlay.Markers.Count > 8)
                     _pokemonsOverlay.Markers.Clear();
 
-                //_pokestopsOverlay.Routes.Clear();
+                _pokestopsOverlay.Routes.Clear();
 
                 if (togglePrecalRoute.CheckState == CheckState.Checked)
                 {
