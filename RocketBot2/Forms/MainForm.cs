@@ -697,6 +697,7 @@ namespace RocketBot2.Forms
                 Navigation_UpdatePositionEvent();
 
                 _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
+                tmrSaveSettings.Start();
 
                 Logger.Write($"New starting location has been set to: Lat: {pos.Lat:0.00000000} Long: {pos.Lng:0.00000000} Alt: {Alt:0.00}m | Dist: {Dist:0.00} {DistUnits}", LogLevel.Info);
                 return;
