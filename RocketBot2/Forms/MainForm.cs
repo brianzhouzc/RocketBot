@@ -102,7 +102,7 @@ namespace RocketBot2.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            // Splits left & right splitter panes @ 45%/55% of the window width for smaller screens...
+            // Splits left & right splitter panes @ 47%/53% of the window width for smaller screens...
             // Otherwise gives more realistate to left side while makingsure all olvPokemonList columns are visible.
             var Spliter1Width = 0;
             for (int i = 0; i < olvPokemonList.Columns.Count; i++)
@@ -110,11 +110,11 @@ namespace RocketBot2.Forms
                 Spliter1Width += olvPokemonList.GetColumn(i).Width;
             }
             if (Spliter1Width > this.Width / 2)
-                this.splitContainer1.SplitterDistance = this.splitContainer1.Width / 100 * 45;
+                this.splitContainer1.SplitterDistance = this.splitContainer1.Width / 100 * 47;
             else
-                this.splitContainer1.SplitterDistance = this.Width - Spliter1Width - 55;
+                this.splitContainer1.SplitterDistance = this.Width - Spliter1Width - 53;
 
-            this.splitContainer2.SplitterDistance = this.splitContainer2.Height / 100 * 45;// Always keeps the logger window @ 45%/55% of the window height
+            this.splitContainer2.SplitterDistance = this.splitContainer2.Height / 100 * 47;// Always keeps the logger window @ 47%/53% of the window height
 
             this.Refresh(); // Force screen refresh before items are poppulated
             SetStatusText(Application.ProductName + " " + Application.ProductVersion);
@@ -138,8 +138,9 @@ namespace RocketBot2.Forms
             //Deletes all Dump faile at bot startup
             if (_session.LogicSettings.DumpPokemonStats)
             {
-                var path = Path.Combine(_session.LogicSettings.ProfilePath, "Dumps");
-                Array.ForEach(Directory.GetFiles(path), File.Delete);
+                string path = Path.Combine(_session.LogicSettings.ProfilePath, "Dumps");
+                if (Directory.Exists(path))
+                    Array.ForEach(Directory.GetFiles(path), File.Delete);
             }
 
             InitializePokemonForm();
@@ -156,10 +157,13 @@ namespace RocketBot2.Forms
             TrayIcon.Visible = false;
             if (FormWindowState.Minimized == this.WindowState)
             {
+                MultiAccountManager accountManager = new MultiAccountManager(_settings, _session.LogicSettings.Bots);
+                var bot = string.IsNullOrEmpty(accountManager.GetCurrentAccount().Nickname) ? accountManager.GetCurrentAccount().Username : accountManager.GetCurrentAccount().Nickname;
+
                 TrayIcon.BalloonTipIcon = ToolTipIcon.Info; //Shows the info icon so the user doesn't thing there is an error.
-                TrayIcon.BalloonTipText = "RocketBot2 is minimized, click on this icon to restore";
-                TrayIcon.BalloonTipTitle = "RocketBot2 is minimized";
-                TrayIcon.Text = "RocketBot2 is minimized, click on this icon to restore";
+                TrayIcon.BalloonTipTitle = $"RocketBot2 [{bot}] is minimized";
+                TrayIcon.BalloonTipText = "Click on this icon to restore";
+                TrayIcon.Text = $"[{bot}], Click here to restore";
                 TrayIcon.Visible = true;
                 TrayIcon.ShowBalloonTip(5000);
                 Hide();
@@ -220,7 +224,6 @@ namespace RocketBot2.Forms
                 LoadPokeStopsTimer.Enabled = _botStarted;
                 togglePrecalRoute.Enabled = _botStarted;
                 followTrainerCheckBox.Enabled = _botStarted;
-                cbAutoWalkAI.Enabled = Instance._botStarted;
                 LoadPokeStopsRefresh.Enabled = _botStarted;
             }
             await InitializePokestopsAndRoute().ConfigureAwait(false);
@@ -550,7 +553,7 @@ namespace RocketBot2.Forms
                     {
                         Points = _session.Navigation.WalkStrategy.Points;
                         _playerLocations.Clear();
-                        //_playerRouteOverlay.Routes.Clear();
+                        _playerRouteOverlay.Routes.Clear();
                         _playerOverlay.Routes.Clear();
                         List<PointLatLng> routePointLatLngs = new List<PointLatLng>();
                         foreach (var item in Points)
@@ -687,8 +690,6 @@ namespace RocketBot2.Forms
 
                 _playerLocations.Clear();
                 Navigation_UpdatePositionEvent();
-
-                _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
 
                 Logger.Write($"New starting location has been set to: Lat: {pos.Lat:0.00000000} Long: {pos.Lng:0.00000000} Alt: {Alt:0.00}m | Dist: {Dist:0.00} {DistUnits}", LogLevel.Info);
                 return;
@@ -880,25 +881,28 @@ namespace RocketBot2.Forms
                 _pokestopsOverlay.Routes.Clear();
                 _playerOverlay.Routes.Clear();
 
-                var route = new GMapRoute(_routePoints, "Walking Path")
+                if (_routePoints != null)
                 {
-                    Stroke = new Pen(Color.FromArgb(102, 178, 255), 2)
-                };
- 
-                var step = new GMapRoute(_playerLocations, "step")
-                {
-                    Stroke = new Pen(Color.FromArgb(0, 204, 0), 2) { DashStyle = DashStyle.Dash }
-                };
+                    var route = new GMapRoute(_routePoints, "Walking Path")
+                    {
+                        Stroke = new Pen(Color.FromArgb(102, 178, 255), 2)
+                    };
 
-                if (togglePrecalRoute.CheckState == CheckState.Checked)
-                {
-                    _pokestopsOverlay.Routes.Add(route);
-                    _playerOverlay.Routes.Add(step);
-                }
+                    var step = new GMapRoute(_playerLocations, "step")
+                    {
+                        Stroke = new Pen(Color.FromArgb(0, 204, 0), 2) { DashStyle = DashStyle.Dash }
+                    };
 
-                if (togglePrecalRoute.CheckState == CheckState.Indeterminate)
-                {
-                    _playerOverlay.Routes.Add(step);
+                    if (togglePrecalRoute.CheckState == CheckState.Checked)
+                    {
+                        _pokestopsOverlay.Routes.Add(route);
+                        _playerOverlay.Routes.Add(step);
+                    }
+
+                    if (togglePrecalRoute.CheckState == CheckState.Indeterminate)
+                    {
+                        _playerOverlay.Routes.Add(step);
+                    }
                 }
             }, null);
         }
@@ -914,7 +918,6 @@ namespace RocketBot2.Forms
         private void CbEnablePushBulletNotification_CheckedChanged(object sender, EventArgs e)
         {
             _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
-            _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
         }
 
         private void CbAutoWalkAI_CheckedChanged(object sender, EventArgs e)
