@@ -1,12 +1,16 @@
 # Change Log
 
-## [Unreleased](https://github.com/TheUnnamedOrganisation/RocketBot/tree/HEAD)
+## [v2.15.0.2](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.15.0.2) (2017-09-12)
 
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.15.0.1...HEAD)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.15.0.1...v2.15.0.2)
 
 **Closed issues:**
 
 - cant compile latest build [\#24](https://github.com/TheUnnamedOrganisation/RocketBot/issues/24)
+
+**Merged pull requests:**
+
+- fixes Hash API server down time :xx:xx:xx  Last Ping [\#25](https://github.com/TheUnnamedOrganisation/RocketBot/pull/25) ([Furtif](https://github.com/Furtif))
 
 ## [v2.15.0.1](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.15.0.1) (2017-09-12)
 
@@ -334,15 +338,15 @@
 
 ## [v2.10.1.4](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.10.1.4) (2017-05-22)
 
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.2...v2.10.1.4)
-
-## [v2.10.1.2](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.10.1.2) (2017-05-20)
-
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.3...v2.10.1.2)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.3...v2.10.1.4)
 
 ## [v2.10.1.3](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.10.1.3) (2017-05-20)
 
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.1...v2.10.1.3)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.2...v2.10.1.3)
+
+## [v2.10.1.2](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.10.1.2) (2017-05-20)
+
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.1...v2.10.1.2)
 
 ## [v2.10.1.1](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.10.1.1) (2017-05-18)
 
