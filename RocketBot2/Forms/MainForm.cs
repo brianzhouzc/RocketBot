@@ -926,11 +926,20 @@ namespace RocketBot2.Forms
         {
             _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
             _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
+            tmrSaveSettings.Enabled = true;
+            tmrSaveSettings.Start();
+            cbAutoWalkAI.Enabled = false;
+            cbEnablePushBulletNotification.Enabled = false;
         }
 
         private void CbAutoWalkAI_CheckedChanged(object sender, EventArgs e)
         {
             _settings.PlayerConfig.AutoWalkAI = cbAutoWalkAI.Checked;
+            _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
+            tmrSaveSettings.Enabled = true;
+            tmrSaveSettings.Start();
+            cbAutoWalkAI.Enabled = false;
+            cbEnablePushBulletNotification.Enabled = false;
         }
         #endregion EVENTS
 
@@ -2054,5 +2063,12 @@ namespace RocketBot2.Forms
             return false;
         }
         #endregion
+
+        private void tmrSaveSettings_Tick(object sender, EventArgs e)
+        {
+            cbEnablePushBulletNotification.Enabled = true;
+            cbAutoWalkAI.Enabled = true;
+            tmrSaveSettings.Stop();
+        }
     }
 }
