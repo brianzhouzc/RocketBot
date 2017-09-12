@@ -80,7 +80,7 @@ namespace RocketBot2.Forms
             this.radLegacy.Name = "radLegacy";
             this.radLegacy.Size = new System.Drawing.Size(241, 24);
             this.radLegacy.TabIndex = 3;
-            this.radLegacy.Text = "Legacy 0.45 API FREE - High risk";
+            this.radLegacy.Text = "Legacy 0.45 API FREE - High risk (Disabled)";
             this.radLegacy.UseVisualStyleBackColor = true;
             // 
             // lnkBuy
@@ -105,7 +105,7 @@ namespace RocketBot2.Forms
             this.radHashServer.Size = new System.Drawing.Size(319, 24);
             this.radHashServer.TabIndex = 5;
             this.radHashServer.TabStop = true;
-            this.radHashServer.Text = "PogoDev Hash Server API - Latest API 0.61.0";
+            this.radHashServer.Text = "PogoDev Hash Server API - " + Constants.API_VERSION;
             this.radHashServer.UseVisualStyleBackColor = true;
             // 
             // label2
