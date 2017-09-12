@@ -157,11 +157,7 @@ namespace RocketBot2.Forms
             TrayIcon.Visible = false;
             if (FormWindowState.Minimized == this.WindowState)
             {
-                GlobalSettings settings;
-                settings = new GlobalSettings();
-
-                var logicSettings = new LogicSettings(settings);
-                MultiAccountManager accountManager = new MultiAccountManager(settings, logicSettings.Bots);
+                MultiAccountManager accountManager = new MultiAccountManager(_settings, _session.LogicSettings.Bots);
                 var bot = string.IsNullOrEmpty(accountManager.GetCurrentAccount().Nickname) ? accountManager.GetCurrentAccount().Username : accountManager.GetCurrentAccount().Nickname;
 
                 TrayIcon.BalloonTipIcon = ToolTipIcon.Info; //Shows the info icon so the user doesn't thing there is an error.
