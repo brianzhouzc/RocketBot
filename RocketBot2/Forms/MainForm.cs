@@ -638,7 +638,7 @@ namespace RocketBot2.Forms
                 {
                     var step = new GMapRoute(_playerLocations, "step")
                     {
-                        Stroke = new Pen(Color.FromArgb(0, 204, 0), 1) { DashStyle = DashStyle.Solid }
+                        Stroke = new Pen(Color.FromArgb(0, 204, 0), 2) { DashStyle = DashStyle.Dash }
                     };
                     _playerOverlay.Routes.Add(step);
                 }
@@ -695,8 +695,6 @@ namespace RocketBot2.Forms
 
                 _playerLocations.Clear();
                 Navigation_UpdatePositionEvent();
-
-                _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
 
                 Logger.Write($"New starting location has been set to: Lat: {pos.Lat:0.00000000} Long: {pos.Lng:0.00000000} Alt: {Alt:0.00}m | Dist: {Dist:0.00} {DistUnits}", LogLevel.Info);
                 return;
@@ -897,7 +895,7 @@ namespace RocketBot2.Forms
 
                     var step = new GMapRoute(_playerLocations, "step")
                     {
-                        Stroke = new Pen(Color.FromArgb(0, 204, 0), 1) { DashStyle = DashStyle.Solid }
+                        Stroke = new Pen(Color.FromArgb(0, 204, 0), 2) { DashStyle = DashStyle.Dash }
                     };
 
                     if (togglePrecalRoute.CheckState == CheckState.Checked)
@@ -925,7 +923,6 @@ namespace RocketBot2.Forms
         private void CbEnablePushBulletNotification_CheckedChanged(object sender, EventArgs e)
         {
             _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
-            _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
         }
 
         private void CbAutoWalkAI_CheckedChanged(object sender, EventArgs e)

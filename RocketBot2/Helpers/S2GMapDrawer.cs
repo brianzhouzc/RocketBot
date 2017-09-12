@@ -23,7 +23,7 @@ namespace RocketBot2.Helpers
                 }
                 var polygon = new GMapPolygon(points, "mypolygon");
                 polygon.Fill = new SolidBrush(Color.FromArgb(50, Color.Red));
-                polygon.Stroke = new Pen(Color.Red, 2);
+                polygon.Stroke = new Pen(Color.Red, 1);
                 mapLayer.Polygons.Add(polygon);
             }
         }
