@@ -566,7 +566,7 @@ namespace RocketBot2.Forms
             this.togglePrecalRoute.BackColor = System.Drawing.Color.Transparent;
             this.togglePrecalRoute.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.togglePrecalRoute.Checked = true;
-            this.togglePrecalRoute.CheckState = System.Windows.Forms.CheckState.Indeterminate;
+            this.togglePrecalRoute.CheckState = System.Windows.Forms.CheckState.Checked;
             this.togglePrecalRoute.Enabled = false;
             this.togglePrecalRoute.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.togglePrecalRoute.ForeColor = System.Drawing.Color.Red;
