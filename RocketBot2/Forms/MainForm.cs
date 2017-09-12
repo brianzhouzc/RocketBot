@@ -167,7 +167,7 @@ namespace RocketBot2.Forms
                 TrayIcon.BalloonTipIcon = ToolTipIcon.Info; //Shows the info icon so the user doesn't thing there is an error.
                 TrayIcon.BalloonTipTitle = $"RocketBot2 [{bot}] is minimized";
                 TrayIcon.BalloonTipText = "Click on this icon to restore";
-                TrayIcon.Text = "RocketBot2 is minimized, Click on this icon to restore";
+                TrayIcon.Text = $"[{bot}], Click on this icon to restore";
                 TrayIcon.Visible = true;
                 TrayIcon.ShowBalloonTip(5000);
                 Hide();
