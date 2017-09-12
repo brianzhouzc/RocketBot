@@ -228,7 +228,6 @@ namespace RocketBot2.Forms
                 LoadPokeStopsTimer.Enabled = _botStarted;
                 togglePrecalRoute.Enabled = _botStarted;
                 followTrainerCheckBox.Enabled = _botStarted;
-                cbAutoWalkAI.Enabled = Instance._botStarted;
                 LoadPokeStopsRefresh.Enabled = _botStarted;
             }
             await InitializePokestopsAndRoute().ConfigureAwait(false);
