@@ -1,10 +1,8 @@
 using GMap.NET;
 using GMap.NET.MapProviders;
-using PoGo.NecroBot.Logic.Interfaces.Configuration;
 using PoGo.NecroBot.Logic.Model.Settings;
 using PoGo.NecroBot.Logic.State;
 using POGOProtos.Enums;
-using PokemonGo.RocketAPI;
 using PokemonGo.RocketAPI.Enums;
 using RocketBot2.Forms.advSettings;
 using RocketBot2.Helpers;
@@ -327,6 +325,8 @@ namespace RocketBot2.Forms
             cbEnableGyms.Checked = _settings.GymConfig.Enable;
             cBoxTeamColor.Text = _settings.GymConfig.DefaultTeam;
             cbUseHumanlikeDelays.Checked = _settings.HumanlikeDelays.UseHumanlikeDelays;
+            cbAutoWalkAI.Checked = _settings.PlayerConfig.AutoWalkAI;
+            tbAutoWalkKM.Text = _settings.PlayerConfig.AutoWalkDist.ToString();
         }
         #endregion
 
@@ -691,6 +691,8 @@ namespace RocketBot2.Forms
                 _settings.DataSharingConfig.DataServiceIdentification = tbDataServiceIdentification.Text;
                 _settings.DataSharingConfig.EnableSyncData = cbEnableSyncData.Checked;
                 _settings.HumanlikeDelays.UseHumanlikeDelays = cbUseHumanlikeDelays.Checked;
+                _settings.PlayerConfig.AutoWalkAI = cbAutoWalkAI.Checked;
+                _settings.PlayerConfig.AutoWalkDist = Convert.ToInt32(tbAutoWalkKM.Text);
 
                 //Settings added by TheWizard
                 _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;

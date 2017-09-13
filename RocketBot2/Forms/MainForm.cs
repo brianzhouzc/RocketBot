@@ -224,6 +224,7 @@ namespace RocketBot2.Forms
                 LoadPokeStopsTimer.Enabled = _botStarted;
                 togglePrecalRoute.Enabled = _botStarted;
                 followTrainerCheckBox.Enabled = _botStarted;
+                cbAutoWalkAI.Enabled = Instance._botStarted;
                 LoadPokeStopsRefresh.Enabled = _botStarted;
             }
             await InitializePokestopsAndRoute().ConfigureAwait(false);
@@ -554,7 +555,9 @@ namespace RocketBot2.Forms
                         Points = _session.Navigation.WalkStrategy.Points;
                         _playerLocations.Clear();
                         _playerRouteOverlay.Routes.Clear();
+                        Refresh();
                         _playerOverlay.Routes.Clear();
+                        Refresh();
                         List<PointLatLng> routePointLatLngs = new List<PointLatLng>();
                         foreach (var item in Points)
                         {
@@ -633,7 +636,7 @@ namespace RocketBot2.Forms
                 {
                     var step = new GMapRoute(_playerLocations, "step")
                     {
-                        Stroke = new Pen(Color.FromArgb(0, 204, 0), 1) { DashStyle = DashStyle.Dash }
+                        Stroke = new Pen(Color.FromArgb(0, 204, 0), 1) { DashStyle = DashStyle.Solid }
                     };
                     _playerOverlay.Routes.Add(step);
                 }
@@ -883,6 +886,7 @@ namespace RocketBot2.Forms
             {
                 _pokestopsOverlay.Routes.Clear();
                 _playerOverlay.Routes.Clear();
+                Refresh();
 
                 if (_routePoints != null)
                 {
@@ -920,6 +924,7 @@ namespace RocketBot2.Forms
 
         private void CbEnablePushBulletNotification_CheckedChanged(object sender, EventArgs e)
         {
+            if (LoadPokeStopsTimer.Interval == 90000) return;
             _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
             _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
             tmrSaveSettings.Enabled = true;
@@ -930,6 +935,7 @@ namespace RocketBot2.Forms
 
         private void CbAutoWalkAI_CheckedChanged(object sender, EventArgs e)
         {
+            if (LoadPokeStopsTimer.Interval == 90000) return;
             _settings.PlayerConfig.AutoWalkAI = cbAutoWalkAI.Checked;
             _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
             tmrSaveSettings.Enabled = true;
