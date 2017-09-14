@@ -2,11 +2,11 @@
   "TranslationStrings": [
     {
       "Key": "ptcLoginFail",
-      "Value": "Votre user PTC ou mot de passe incorrect, ou compte est verrouillé ou n'est pas actif"
+      "Value": "Votre utilisateur PTC ou mot de passe est incorrect, ou votre compte est verrouillé ou n'est pas actif"
     },
     {
       "Key": "multiAccountAutoSelect",
-      "Value": "VEUILLEZ SÉLECTIONNER UN COMPTE POUR COMMENCER. AUTO DÉMARRAGE APRÈS {0} SECONDS"
+      "Value": "VEUILLEZ SÉLECTIONNER UN COMPTE POUR COMMENCER. AUTO DÉMARRAGE APRÈS {0} SECONDES"
     },
     {
       "Key": "webSocketStarted",
@@ -34,7 +34,7 @@
     },
     {
       "Key": "wrongAuthType",
-      "Value": "Vérifiez le champs AuthType dans auth.json"
+      "Value": "Vérifiez le champ AuthType dans auth.json"
     },
     {
       "Key": "loginInvalid",
@@ -50,7 +50,7 @@
     },
     {
       "Key": "eventFortUsed",
-      "Value":  "Nom: {0} | XP: {1} | Gems: {2} | Items: {3} | Badges: {4} | BonusLoot: {5} | RaidTickets: {6} | TeamBonusLoot: {7} | PokemonEgg: {8} (Eggs: {9}) | Lat: {10} Long: {11} | Alt: {12}"
+      "Value":  "Nom: {0} | XP: {1} | Gems: {2} | Objets: {3} | Badges: {4} | BonusLoot: {5} | RaidTickets: {6} | TeamBonusLoot: {7} | PokemonEgg: {8} (Eggs: {9}) | Lat: {10} Long: {11} | Alt: {12}"
     },
     {
       "Key": "eventFortFailed",
@@ -66,7 +66,7 @@
     },
     {
       "Key": "eventFortTargeted",
-      "Value": "Se rendre à {0}m ({1} sec) via'{2}' suivant {3}: {4}"
+      "Value": "Se rendre à {0}m ({1} sec) via '{2}' suivant {3}: {4}"
     },
     {
       "Key": "eventProfileLogin",
@@ -110,7 +110,7 @@
     },
     {
       "Key": "eventNoPokeballs",
-      "Value": "Pas de Pokeballs - Nous avons manqué un {0} avec CP {1}"
+      "Value": "Pas de Pokeball - Nous avons manqué un {0} avec CP {1}"
     },
     {
       "Key": "waitingForMorePokemonToEvolve",
@@ -118,7 +118,7 @@
     },
     {
       "Key": "useLuckyEggsMinPokemonAmountTooHigh",
-      "Value": "Les oeufs chance ne seront jamais utilisés avec UseLuckyEggsMinPokemonAmount configuré pour {0}, utilise <= {1} au lieu"
+      "Value": "Les oeufs chance ne seront jamais utilisés avec UseLuckyEggsMinPokemonAmount configuré pour {0}, utilise <= {1} !"
     },
     {
       "Key": "catchMorePokemonToUseLuckyEgg",
@@ -162,7 +162,7 @@
     },
     {
       "Key": "unhandledGpxData",
-      "Value": "Données non gérées dans le fichier GPX, tentative de ignorer."
+      "Value": "Données non gérées dans le fichier GPX, tentative d'ignorer."
     },
     {
       "Key": "displayHighestsHeader",
@@ -298,15 +298,15 @@
     },
     {
       "Key": "ptcOffline",
-      "Value": "Les serveurs PTC sont probablement offline ou vos données sont erronées."
+      "Value": "Les serveurs PTC sont probablement hors ligne ou vos données sont erronées."
     },
     {
       "Key": "accessTokenExpired",
-      "Value": "Authentication PTC expirée. reconnexion..."
+      "Value": "Authentication PTC expirée. Reconnexion..."
     },
     {
       "Key": "invalidResponse",
-      "Value": "Réponse invalide des serveurs Niantic"
+      "Value": "Réponse invalide des serveurs de Niantic"
     },
     {
       "Key": "tryingAgainIn",
@@ -330,11 +330,11 @@
     },
     {
       "Key": "realisticTravelDetected",
-      "Value": "Marche réaliste détectée, Utilisation de la configuration par défaut du fichier config.json"
+      "Value": "Marche réaliste détectée, utilisation de la configuration par défaut du fichier config.json"
     },
     {
       "Key": "notRealisticTravel",
-      "Value": "Pas de marche réaliste, aller à {0}, utilisation de la dernière position sauvegardé dans LastPos.ini"
+      "Value": "Pas de marche réaliste, aller à {0}, utilisation de la dernière position sauvegardée dans LastPos.ini"
     },
     {
       "Key": "coordinatesAreInvalid",
@@ -346,7 +346,7 @@
     },
     {
       "Key": "checkForUpdatesDisabled",
-      "Value": "Les mises à jour sont désactivées. version actuelle: {0}"
+      "Value": "Les mises à jour sont désactivées. Version actuelle: {0}"
     },
     {
       "Key": "autoUpdaterDisabled",
@@ -458,7 +458,7 @@
     },
     {
       "Key": "invFullPokestopLooting",
-      "Value": "Votre inventaire est plein, aucun objet collecté!"
+      "Value": "Votre inventaire est plein, aucun objet collecté !"
     },
     {
       "Key": "encounterProblem",
