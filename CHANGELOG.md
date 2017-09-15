@@ -1,5 +1,14 @@
 # Change Log
 
+## [v2.15.0.3](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.15.0.3) (2017-09-14)
+
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.15.0.2...v2.15.0.3)
+
+**Merged pull requests:**
+
+- Develop pt2 [\#27](https://github.com/TheUnnamedOrganisation/RocketBot/pull/27) ([Furtif](https://github.com/Furtif))
+- Change gyms methodes [\#26](https://github.com/TheUnnamedOrganisation/RocketBot/pull/26) ([Furtif](https://github.com/Furtif))
+
 ## [v2.15.0.2](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.15.0.2) (2017-09-12)
 
 [Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.15.0.1...v2.15.0.2)
