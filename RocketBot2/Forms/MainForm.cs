@@ -789,7 +789,7 @@ namespace RocketBot2.Forms
 
         private async void SettingsStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.Form settingsForm = new SettingsForm(ref _settings, _session);
+            System.Windows.Forms.Form settingsForm = new SettingsForm(ref _settings, _session, args);
             settingsForm.ShowDialog();
 
             var newLocation = new PointLatLng(_settings.LocationConfig.DefaultLatitude, _settings.LocationConfig.DefaultLongitude);
@@ -924,7 +924,6 @@ namespace RocketBot2.Forms
 
         private void CbEnablePushBulletNotification_CheckedChanged(object sender, EventArgs e)
         {
-            if (LoadPokeStopsTimer.Interval == 90000) return;
             _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
             _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
             tmrSaveSettings.Enabled = true;
@@ -935,7 +934,6 @@ namespace RocketBot2.Forms
 
         private void CbAutoWalkAI_CheckedChanged(object sender, EventArgs e)
         {
-            if (LoadPokeStopsTimer.Interval == 90000) return;
             _settings.PlayerConfig.AutoWalkAI = cbAutoWalkAI.Checked;
             _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
             tmrSaveSettings.Enabled = true;
@@ -1695,7 +1693,7 @@ namespace RocketBot2.Forms
                         string MaxRequestCount = response.Headers.GetValues("X-MaxRequestCount").FirstOrDefault();
                         DateTime AuthTokenExpiration = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Unspecified).AddSeconds(Convert.ToDouble(response.Headers.GetValues("X-AuthTokenExpiration").FirstOrDefault())).ToLocalTime();
                         TimeSpan Expiration = AuthTokenExpiration - DateTime.Now;
-                        string Result = string.Format("Key: {0} RPM: {1} Expires in: {2} days ({3})", maskedKey, MaxRequestCount, Expiration.Days - 1, AuthTokenExpiration);
+                        string Result = string.Format($"Key: {maskedKey} RPM: {MaxRequestCount} Expires in: {(Convert.ToDecimal(Expiration.Days) + (Convert.ToDecimal(Expiration.Hours) / 24)):0.00} days ({AuthTokenExpiration})");
                         Logger.Write(Result, LogLevel.Info, ConsoleColor.Green);
                     }
                     catch
@@ -1818,7 +1816,7 @@ namespace RocketBot2.Forms
 
             if (accountManager.AccountsReadOnly.Count > 1)
             {
-                foreach (var _bot in accountManager.AccountsReadOnly)
+                foreach (var _bot in accountManager.AccountsReadOnly.OrderByDescending(p => p.Level).ThenByDescending(p => p.CurrentXp))
                 {
                     var _item = new ToolStripMenuItem()
                     {
@@ -2069,7 +2067,7 @@ namespace RocketBot2.Forms
         private void tmrSaveSettings_Tick(object sender, EventArgs e)
         {
             cbEnablePushBulletNotification.Enabled = true;
-            cbAutoWalkAI.Enabled = true;
+            if (_botStarted) cbAutoWalkAI.Enabled = true;
             tmrSaveSettings.Stop();
         }
     }
