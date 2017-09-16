@@ -1,5 +1,16 @@
 # Change Log
 
+## [v2.15.0.4](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.15.0.4) (2017-09-16)
+
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.15.0.3...v2.15.0.4)
+
+**Merged pull requests:**
+
+- update module logic [\#31](https://github.com/TheUnnamedOrganisation/RocketBot/pull/31) ([Furtif](https://github.com/Furtif))
+- New version config [\#30](https://github.com/TheUnnamedOrganisation/RocketBot/pull/30) ([Furtif](https://github.com/Furtif))
+- Thewizard [\#29](https://github.com/TheUnnamedOrganisation/RocketBot/pull/29) ([TheWizard1328](https://github.com/TheWizard1328))
+- Rebase all modules [\#28](https://github.com/TheUnnamedOrganisation/RocketBot/pull/28) ([Furtif](https://github.com/Furtif))
+
 ## [v2.15.0.3](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.15.0.3) (2017-09-14)
 
 [Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.15.0.2...v2.15.0.3)
@@ -939,19 +950,19 @@
 
 ## [v2.0.0.0-beta.5](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.0.0.0-beta.5) (2016-08-22)
 
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.0.0.0-beta.4...v2.0.0.0-beta.5)
-
-## [v2.0.0.0-beta.4](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.0.0.0-beta.4) (2016-08-21)
-
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.0.0.0-beta.3...v2.0.0.0-beta.4)
-
-## [v2.0.0.0-beta.3](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.0.0.0-beta.3) (2016-08-21)
-
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.0.0.0-beta.2...v2.0.0.0-beta.3)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.0.0.0-beta.2...v2.0.0.0-beta.5)
 
 ## [v2.0.0.0-beta.2](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.0.0.0-beta.2) (2016-08-21)
 
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.0.0.0-beta3...v2.0.0.0-beta.2)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.0.0.0-beta.3...v2.0.0.0-beta.2)
+
+## [v2.0.0.0-beta.3](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.0.0.0-beta.3) (2016-08-21)
+
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.0.0.0-beta.4...v2.0.0.0-beta.3)
+
+## [v2.0.0.0-beta.4](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.0.0.0-beta.4) (2016-08-21)
+
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.0.0.0-beta3...v2.0.0.0-beta.4)
 
 ## [v2.0.0.0-beta3](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.0.0.0-beta3) (2016-08-18)
 

@@ -903,7 +903,6 @@
     <Content Include="Resources\PokemonGO-Assets\pokemon\97.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\98.png" />
     <Content Include="Resources\PokemonGO-Assets\pokemon\99.png" />
-    <None Include="app.config" />
     <None Include="FodyWeavers.xml" />
     <None Include="cert.pfx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
