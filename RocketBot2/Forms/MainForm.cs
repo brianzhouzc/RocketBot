@@ -125,6 +125,7 @@ namespace RocketBot2.Forms
             GMAPSatellite.Parent = GMapControl1;
             cbEnablePushBulletNotification.Parent = GMapControl1;
             cbAutoWalkAI.Parent = GMapControl1;
+
             InitializeBot(null);
             if (!_settings.WebsocketsConfig.UseWebsocket) menuStrip1.Items.Remove(pokeEaseToolStripMenuItem);
 
@@ -133,7 +134,8 @@ namespace RocketBot2.Forms
             LoadPokeStopsRefresh.Value = _settings.PlayerConfig.PokeStopsTimer;
             LoadPokeStopsTimer.Interval = 90000; // Sets timer to 2 min to allow for player login to complete before starting
 
-            cbAutoWalkAI.Checked = _session.LogicSettings.AutoWalkAI; // _settings.PlayerConfig.AutoWalkAI;
+            cbAutoWalkAI.Checked = _session.LogicSettings.AutoWalkAI;
+            cbEnablePushBulletNotification.Checked = _settings.NotificationConfig.EnablePushBulletNotification;
 
             //Deletes all Dump faile at bot startup
             if (_session.LogicSettings.DumpPokemonStats)
