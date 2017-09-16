@@ -1702,6 +1702,7 @@ namespace RocketBot2.Forms
                             urlcheck = $"{settings.Auth.APIConfig.UrlHashServices}{settings.Auth.APIConfig.EndPoint}";
                         else
                             urlcheck = $"https://pokehash.buddyauth.com/{Constants.ApiEndPoint}";
+                        Logger.Write($"Check key from server: {urlcheck} end point.", LogLevel.Info, ConsoleColor.Blue);
                         HttpResponseMessage response = client.PostAsync(urlcheck, null).Result;
                         string AuthKey = response.Headers.GetValues("X-AuthToken").FirstOrDefault();
                         string MaxRequestCount = response.Headers.GetValues("X-MaxRequestCount").FirstOrDefault();
