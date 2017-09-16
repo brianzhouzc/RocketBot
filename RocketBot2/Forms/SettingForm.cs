@@ -1,10 +1,10 @@
 using GMap.NET;
 using GMap.NET.MapProviders;
-using PoGo.NecroBot.Logic.Interfaces.Configuration;
+using PoGo.NecroBot.Logic;
+using PoGo.NecroBot.Logic.Model;
 using PoGo.NecroBot.Logic.Model.Settings;
 using PoGo.NecroBot.Logic.State;
 using POGOProtos.Enums;
-using PokemonGo.RocketAPI;
 using PokemonGo.RocketAPI.Enums;
 using RocketBot2.Forms.advSettings;
 using RocketBot2.Helpers;
@@ -17,12 +17,15 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using TinyIoC;
 
 namespace RocketBot2.Forms
 {
     internal partial class SettingsForm : System.Windows.Forms.Form
     {
         private const int DefaultZoomLevel = 15;
+        private AccountConfigContext _context = new AccountConfigContext();
+        private static string[] args;
 
         private static readonly string ConfigFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Config");
         private static readonly string AuthFilePath = Path.Combine(ConfigFolderPath, "auth.json");
@@ -30,7 +33,7 @@ namespace RocketBot2.Forms
         private static readonly string LanguagePath = Path.Combine(ConfigFolderPath, "Translations");
         private readonly DeviceHelper _deviceHelper;
         private readonly List<DeviceInfo> _deviceInfos;
-        private readonly GlobalSettings _settings;
+        public static GlobalSettings _settings;
         private readonly ISession _session;
         private List<AuthConfig> accounts;
 
@@ -39,7 +42,7 @@ namespace RocketBot2.Forms
             get { return accounts; }
         }
 
-        public SettingsForm(ref GlobalSettings settings, ISession session)
+        public SettingsForm(ref GlobalSettings settings, ISession session, string[] _args)
         {
             InitializeComponent();
             _settings = settings;
@@ -47,6 +50,8 @@ namespace RocketBot2.Forms
 
             _deviceHelper = new DeviceHelper();
             _deviceInfos = _deviceHelper.DeviceBucket;
+
+            args = _args;
 
             foreach (
                 var pokemon in
@@ -60,17 +65,23 @@ namespace RocketBot2.Forms
             }
 
             var logicSettings = new LogicSettings(settings);
+            var ioc = TinyIoC.TinyIoCContainer.Current;
+            ioc.Register<ISession>(_session);
+            MultiAccountManager accountManager = new MultiAccountManager(settings, logicSettings.Bots);
+            ioc.Register(accountManager);
+            ioc.Register<MultiAccountManager>(accountManager);
 
-            accounts = new List<AuthConfig>();
-            accounts.AddRange(logicSettings.Bots);
-
-            if (accounts.Count > 1)
+            if (accountManager.AccountsReadOnly.Count > 1)
             {
+                var i = 0;
                 lvAccounts.Visible = true;
-                foreach (var acc in accounts)
+                foreach (var acc in accountManager.AccountsReadOnly.OrderByDescending(p => p.Level).ThenByDescending(p => p.CurrentXp))
                 {
                     lvAccounts.Items.Add($"{acc.AuthType}").SubItems.Add($"{acc.Username}");
+                    lvAccounts.Items[i].Checked = acc.AccountActive;
+                    i += 1;
                 }
+                lvAccounts.Items[0].Remove();
             }
             else
             {
@@ -327,6 +338,25 @@ namespace RocketBot2.Forms
             cbEnableGyms.Checked = _settings.GymConfig.Enable;
             cBoxTeamColor.Text = _settings.GymConfig.DefaultTeam;
             cbUseHumanlikeDelays.Checked = _settings.HumanlikeDelays.UseHumanlikeDelays;
+            cbAutoWalkAI.Checked = _settings.PlayerConfig.AutoWalkAI;
+            tbAutoWalkKM.Text = _settings.PlayerConfig.AutoWalkDist.ToString();
+
+            tbRuntimeSwitch.Text = _settings.MultipleBotConfig.RuntimeSwitch.ToString();
+            tbRuntimeSwitchRandomTime.Text = _settings.MultipleBotConfig.RuntimeSwitchRandomTime.ToString();
+            tbOnLimitPauseTimes.Text = _settings.MultipleBotConfig.OnLimitPauseTimes.ToString();
+            cbOnRarePokemon.Checked = _settings.MultipleBotConfig.OnRarePokemon;
+            tbMinIVToSwitch.Text = _settings.MultipleBotConfig.MinIVToSwitch.ToString();
+            tbEXPSwitch.Text = _settings.MultipleBotConfig.EXPSwitch.ToString();
+            tbPokestopSwitch.Text = _settings.MultipleBotConfig.PokestopSwitch.ToString();
+            tbPokemonSwitch.Text = _settings.MultipleBotConfig.PokemonSwitch.ToString();
+            tbPokemonPerHourSwitch.Text = _settings.MultipleBotConfig.PokemonPerHourSwitch.ToString();
+            cbStartFromDefaultLocation.Checked = _settings.MultipleBotConfig.StartFromDefaultLocation;
+            tbPokestopSoftbanCount.Text = _settings.MultipleBotConfig.PokestopSoftbanCount.ToString();
+            cbDisplayList.Checked = _settings.MultipleBotConfig.DisplayList;
+            cbSelectAccountOnStartUp.Checked = _settings.MultipleBotConfig.SelectAccountOnStartUp;
+            tbCatchFleeCount.Text = _settings.MultipleBotConfig.CatchFleeCount.ToString();
+            cbSwitchOnCatchLimit.Checked = _settings.MultipleBotConfig.SwitchOnCatchLimit;
+            cbSwitchOnPokestopLimit.Checked = _settings.MultipleBotConfig.SwitchOnPokestopLimit;
         }
         #endregion
 
@@ -506,6 +536,18 @@ namespace RocketBot2.Forms
 
         #region Events
 
+        public void ReInitializeSession(ISession session, GlobalSettings globalSettings, Account requestedAccount = null)
+        {
+            if (session.LogicSettings.MultipleBotConfig.StartFromDefaultLocation)
+            {
+                session.ReInitSessionWithNextBot(requestedAccount, globalSettings.LocationConfig.DefaultLatitude, globalSettings.LocationConfig.DefaultLongitude, session.Client.CurrentAltitude);
+            }
+            else
+            {
+                session.ReInitSessionWithNextBot(); //current location
+            }
+        }
+
         private void SaveBtn_Click(object sender, EventArgs e)
         {
             if (UserLoginBox.Text.Length == 0 || UserPasswordBox.Text.Length == 0)
@@ -553,7 +595,46 @@ namespace RocketBot2.Forms
                 _settings.Auth.APIConfig.AuthAPIKey = tbAuthAPIKey.Text;
                 _settings.Auth.APIConfig.UseLegacyAPI = cbUseLegacyAPI.Checked;
                 _settings.Auth.APIConfig.DiplayHashServerLog = cbDiplayHashServerLog.Checked;
+
+                bool Changed = false;
+                var logicSettings = new LogicSettings(_settings);
+                var ioc = TinyIoC.TinyIoCContainer.Current;
+                ioc.Register<ISession>(_session);
+                MultiAccountManager accountManager = new MultiAccountManager(_settings, logicSettings.Bots);
+                ioc.Register(accountManager);
+                ioc.Register<MultiAccountManager>(accountManager);
+
+                foreach (var acc in accountManager.AccountsReadOnly.OrderByDescending(p => p.Level).ThenByDescending(p => p.CurrentXp))
+                {
+                    acc.RuntimeTotal = 0;
+                    acc.ReleaseBlockTime = 0;
+                    acc.LastRuntimeUpdatedAt = 0;
+
+                    for (int i = 0; i < lvAccounts.Items.Count; i++)
+                    {
+                        if (acc.Username == lvAccounts.Items[i].SubItems[1].Text && acc.AccountActive != lvAccounts.Items[i].Checked)
+                        {
+                            Changed = true;
+                            acc.AccountActive = lvAccounts.Items[i].Checked;
+                        }
+                    }
+                    _context.SaveChanges();
+                }
+
                 _settings.Auth.Save(AuthFilePath);
+
+                if (Changed)
+                {
+                    GlobalSettings settings;
+                    settings = GlobalSettings.Load("", false);
+                    ioc.Register<ISession>(_session);
+
+                    ioc.Register(accountManager);
+                    ioc.Register<MultiAccountManager>(accountManager);
+                    var bot = accountManager.GetStartUpAccount();
+                    _session.ReInitSessionWithNextBot(bot);
+                }
+
                 #endregion
 
                 #region RocketBot2.Form Settings
@@ -691,10 +772,29 @@ namespace RocketBot2.Forms
                 _settings.DataSharingConfig.DataServiceIdentification = tbDataServiceIdentification.Text;
                 _settings.DataSharingConfig.EnableSyncData = cbEnableSyncData.Checked;
                 _settings.HumanlikeDelays.UseHumanlikeDelays = cbUseHumanlikeDelays.Checked;
+                _settings.PlayerConfig.AutoWalkAI = cbAutoWalkAI.Checked;
+                _settings.PlayerConfig.AutoWalkDist = Convert.ToInt32(tbAutoWalkKM.Text);
 
                 //Settings added by TheWizard
                 _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
                 _settings.NotificationConfig.PushBulletApiKey = tbPushBulletAPIKey.Text;
+
+                _settings.MultipleBotConfig.RuntimeSwitch = Convert.ToInt32(tbRuntimeSwitch.Text);
+                _settings.MultipleBotConfig.RuntimeSwitchRandomTime = Convert.ToInt32(tbRuntimeSwitchRandomTime.Text);
+                _settings.MultipleBotConfig.OnLimitPauseTimes = Convert.ToInt32(tbOnLimitPauseTimes.Text);
+                _settings.MultipleBotConfig.OnRarePokemon = cbOnRarePokemon.Checked;
+                _settings.MultipleBotConfig.MinIVToSwitch = Convert.ToInt32(tbMinIVToSwitch.Text);
+                _settings.MultipleBotConfig.EXPSwitch = Convert.ToInt32(tbEXPSwitch.Text);
+                _settings.MultipleBotConfig.PokestopSwitch = Convert.ToInt32(tbPokestopSwitch.Text);
+                _settings.MultipleBotConfig.PokemonSwitch = Convert.ToInt32(tbPokemonSwitch.Text);
+                _settings.MultipleBotConfig.PokemonPerHourSwitch = Convert.ToInt32(tbPokemonPerHourSwitch.Text);
+                _settings.MultipleBotConfig.StartFromDefaultLocation = cbStartFromDefaultLocation.Checked;
+                _settings.MultipleBotConfig.PokestopSoftbanCount = Convert.ToInt32(tbPokestopSoftbanCount.Text);
+                _settings.MultipleBotConfig.DisplayList = cbDisplayList.Checked;
+                _settings.MultipleBotConfig.SelectAccountOnStartUp = cbSelectAccountOnStartUp.Checked;
+                _settings.MultipleBotConfig.CatchFleeCount = Convert.ToInt32(tbCatchFleeCount.Text);
+                _settings.MultipleBotConfig.SwitchOnCatchLimit = cbSwitchOnCatchLimit.Checked;
+                _settings.MultipleBotConfig.SwitchOnPokestopLimit = cbSwitchOnPokestopLimit.Checked;
 
                 #endregion
 
@@ -869,6 +969,16 @@ namespace RocketBot2.Forms
         private void CbEnablePushBulletNotification_CheckedChanged(object sender, EventArgs e)
         {
             _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
+        }
+
+        private void cbSwitchOnCatchLimit_CheckedChanged(object sender, EventArgs e)
+        {
+            tbPokemonSwitch.Enabled = cbSwitchOnCatchLimit.Checked;
+        }
+
+        private void cbSwitchOnPokestopLimit_CheckedChanged(object sender, EventArgs e)
+        {
+            tbPokestopSwitch.Enabled = cbSwitchOnPokestopLimit.Checked;
         }
         #endregion
     }
