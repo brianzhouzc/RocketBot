@@ -95,6 +95,7 @@ namespace RocketBot2.Forms
             this.TrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.LoadPokeStopsTimer = new System.Windows.Forms.Timer(this.components);
             this.tmrMailMessages = new System.Windows.Forms.Timer(this.components);
+            this.tmrSaveSettings = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.olvPokemonList)).BeginInit();
@@ -283,7 +284,7 @@ namespace RocketBot2.Forms
             this.olvPokemonList.Name = "olvPokemonList";
             this.olvPokemonList.RowHeight = 32;
             this.olvPokemonList.ShowGroups = false;
-            this.olvPokemonList.Size = new System.Drawing.Size(843, 603);
+            this.olvPokemonList.Size = new System.Drawing.Size(840, 603);
             this.olvPokemonList.SmallImageList = this.smallPokemonImageList;
             this.olvPokemonList.TabIndex = 25;
             this.olvPokemonList.UseCompatibleStateImageBehavior = false;
@@ -423,7 +424,7 @@ namespace RocketBot2.Forms
             // 
             this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnRefresh.Location = new System.Drawing.Point(647, 755);
+            this.btnRefresh.Location = new System.Drawing.Point(644, 755);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(90, 30);
@@ -492,6 +493,7 @@ namespace RocketBot2.Forms
             this.cbAutoWalkAI.AutoSize = true;
             this.cbAutoWalkAI.BackColor = System.Drawing.Color.Transparent;
             this.cbAutoWalkAI.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cbAutoWalkAI.Enabled = false;
             this.cbAutoWalkAI.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.cbAutoWalkAI.ForeColor = System.Drawing.Color.Red;
             this.cbAutoWalkAI.Location = new System.Drawing.Point(552, 105);
@@ -528,7 +530,7 @@ namespace RocketBot2.Forms
             this.trackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBar.BackColor = System.Drawing.SystemColors.Control;
             this.trackBar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.trackBar.Location = new System.Drawing.Point(511, 409);
+            this.trackBar.Location = new System.Drawing.Point(511, 408);
             this.trackBar.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.trackBar.Maximum = 18;
             this.trackBar.Minimum = 2;
@@ -565,7 +567,7 @@ namespace RocketBot2.Forms
             this.togglePrecalRoute.BackColor = System.Drawing.Color.Transparent;
             this.togglePrecalRoute.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.togglePrecalRoute.Checked = true;
-            this.togglePrecalRoute.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.togglePrecalRoute.CheckState = System.Windows.Forms.CheckState.Indeterminate;
             this.togglePrecalRoute.Enabled = false;
             this.togglePrecalRoute.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.togglePrecalRoute.ForeColor = System.Drawing.Color.Red;
@@ -636,7 +638,7 @@ namespace RocketBot2.Forms
             this.btnPokeDex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPokeDex.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnPokeDex.Enabled = false;
-            this.btnPokeDex.Location = new System.Drawing.Point(740, 755);
+            this.btnPokeDex.Location = new System.Drawing.Point(737, 755);
             this.btnPokeDex.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnPokeDex.Name = "btnPokeDex";
             this.btnPokeDex.Size = new System.Drawing.Size(90, 30);
@@ -667,7 +669,7 @@ namespace RocketBot2.Forms
             this.lblInventory.Location = new System.Drawing.Point(2, 742);
             this.lblInventory.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.lblInventory.Name = "lblInventory";
-            this.lblInventory.Size = new System.Drawing.Size(838, 16);
+            this.lblInventory.Size = new System.Drawing.Size(835, 16);
             this.lblInventory.TabIndex = 33;
             this.lblInventory.Text = "Types: 0 | Total: 0 | Storage: 250";
             this.lblInventory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -683,7 +685,7 @@ namespace RocketBot2.Forms
             this.flpItems.Location = new System.Drawing.Point(2, 625);
             this.flpItems.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.flpItems.Name = "flpItems";
-            this.flpItems.Size = new System.Drawing.Size(843, 114);
+            this.flpItems.Size = new System.Drawing.Size(840, 114);
             this.flpItems.TabIndex = 32;
             // 
             // lblPokemonList
@@ -693,7 +695,7 @@ namespace RocketBot2.Forms
             this.lblPokemonList.Location = new System.Drawing.Point(3, 605);
             this.lblPokemonList.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.lblPokemonList.Name = "lblPokemonList";
-            this.lblPokemonList.Size = new System.Drawing.Size(837, 16);
+            this.lblPokemonList.Size = new System.Drawing.Size(834, 16);
             this.lblPokemonList.TabIndex = 27;
             this.lblPokemonList.Text = "Pokémon Seen: 0/251, Pokémon Caught: 0/251 | Storage: 250 (Pokémons: 0, Eggs: 0) " +
     "[Deployments: 0]";
@@ -728,6 +730,11 @@ namespace RocketBot2.Forms
             // 
             this.LoadPokeStopsTimer.Interval = 30000;
             this.LoadPokeStopsTimer.Tick += new System.EventHandler(this.LoadPokeStopsTimer_Tick);
+            // 
+            // tmrSaveSettings
+            // 
+            this.tmrSaveSettings.Interval = 5000;
+            this.tmrSaveSettings.Tick += new System.EventHandler(this.TmrSaveSettings_Tick);
             // 
             // MainForm
             // 
@@ -823,5 +830,6 @@ namespace RocketBot2.Forms
         private TrackBar LoadPokeStopsRefresh;
         private Timer tmrMailMessages;
         private CheckBox cbAutoWalkAI;
+        private Timer tmrSaveSettings;
     }
 }

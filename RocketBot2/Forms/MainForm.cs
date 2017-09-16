@@ -125,6 +125,7 @@ namespace RocketBot2.Forms
             GMAPSatellite.Parent = GMapControl1;
             cbEnablePushBulletNotification.Parent = GMapControl1;
             cbAutoWalkAI.Parent = GMapControl1;
+
             InitializeBot(null);
             if (!_settings.WebsocketsConfig.UseWebsocket) menuStrip1.Items.Remove(pokeEaseToolStripMenuItem);
 
@@ -133,7 +134,8 @@ namespace RocketBot2.Forms
             LoadPokeStopsRefresh.Value = _settings.PlayerConfig.PokeStopsTimer;
             LoadPokeStopsTimer.Interval = 90000; // Sets timer to 2 min to allow for player login to complete before starting
 
-            cbAutoWalkAI.Checked = _session.LogicSettings.AutoWalkAI; // _settings.PlayerConfig.AutoWalkAI;
+            cbAutoWalkAI.Checked = _session.LogicSettings.AutoWalkAI;
+            cbEnablePushBulletNotification.Checked = _settings.NotificationConfig.EnablePushBulletNotification;
 
             //Deletes all Dump faile at bot startup
             if (_session.LogicSettings.DumpPokemonStats)
@@ -224,6 +226,7 @@ namespace RocketBot2.Forms
                 LoadPokeStopsTimer.Enabled = _botStarted;
                 togglePrecalRoute.Enabled = _botStarted;
                 followTrainerCheckBox.Enabled = _botStarted;
+                cbAutoWalkAI.Enabled = Instance._botStarted;
                 LoadPokeStopsRefresh.Enabled = _botStarted;
             }
             await InitializePokestopsAndRoute().ConfigureAwait(false);
@@ -554,7 +557,9 @@ namespace RocketBot2.Forms
                         Points = _session.Navigation.WalkStrategy.Points;
                         _playerLocations.Clear();
                         _playerRouteOverlay.Routes.Clear();
+                        Refresh();
                         _playerOverlay.Routes.Clear();
+                        Refresh();
                         List<PointLatLng> routePointLatLngs = new List<PointLatLng>();
                         foreach (var item in Points)
                         {
@@ -633,7 +638,7 @@ namespace RocketBot2.Forms
                 {
                     var step = new GMapRoute(_playerLocations, "step")
                     {
-                        Stroke = new Pen(Color.FromArgb(0, 204, 0), 2) { DashStyle = DashStyle.Dash }
+                        Stroke = new Pen(Color.FromArgb(0, 204, 0), 1) { DashStyle = DashStyle.Solid }
                     };
                     _playerOverlay.Routes.Add(step);
                 }
@@ -690,6 +695,9 @@ namespace RocketBot2.Forms
 
                 _playerLocations.Clear();
                 Navigation_UpdatePositionEvent();
+
+                _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
+                tmrSaveSettings.Start();
 
                 Logger.Write($"New starting location has been set to: Lat: {pos.Lat:0.00000000} Long: {pos.Lng:0.00000000} Alt: {Alt:0.00}m | Dist: {Dist:0.00} {DistUnits}", LogLevel.Info);
                 return;
@@ -783,7 +791,7 @@ namespace RocketBot2.Forms
 
         private async void SettingsStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.Form settingsForm = new SettingsForm(ref _settings, _session);
+            System.Windows.Forms.Form settingsForm = new SettingsForm(ref _settings, _session, args);
             settingsForm.ShowDialog();
 
             var newLocation = new PointLatLng(_settings.LocationConfig.DefaultLatitude, _settings.LocationConfig.DefaultLongitude);
@@ -880,6 +888,7 @@ namespace RocketBot2.Forms
             {
                 _pokestopsOverlay.Routes.Clear();
                 _playerOverlay.Routes.Clear();
+                Refresh();
 
                 if (_routePoints != null)
                 {
@@ -890,7 +899,7 @@ namespace RocketBot2.Forms
 
                     var step = new GMapRoute(_playerLocations, "step")
                     {
-                        Stroke = new Pen(Color.FromArgb(0, 204, 0), 2) { DashStyle = DashStyle.Dash }
+                        Stroke = new Pen(Color.FromArgb(0, 204, 0), 1) { DashStyle = DashStyle.Dash }
                     };
 
                     if (togglePrecalRoute.CheckState == CheckState.Checked)
@@ -918,11 +927,28 @@ namespace RocketBot2.Forms
         private void CbEnablePushBulletNotification_CheckedChanged(object sender, EventArgs e)
         {
             _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
+            _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
+            tmrSaveSettings.Enabled = true;
+            tmrSaveSettings.Start();
+            cbAutoWalkAI.Enabled = false;
+            cbEnablePushBulletNotification.Enabled = false;
         }
 
         private void CbAutoWalkAI_CheckedChanged(object sender, EventArgs e)
         {
             _settings.PlayerConfig.AutoWalkAI = cbAutoWalkAI.Checked;
+            _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
+            tmrSaveSettings.Enabled = true;
+            tmrSaveSettings.Start();
+            cbAutoWalkAI.Enabled = false;
+            cbEnablePushBulletNotification.Enabled = false;
+        }
+
+        private void TmrSaveSettings_Tick(object sender, EventArgs e)
+        {
+            cbEnablePushBulletNotification.Enabled = true;
+            if (_botStarted) cbAutoWalkAI.Enabled = true;
+            tmrSaveSettings.Stop();
         }
         #endregion EVENTS
 
@@ -1669,14 +1695,20 @@ namespace RocketBot2.Forms
                     try
                     {
                         HttpClient client = new HttpClient();
+                        string urlcheck = null;
                         client.DefaultRequestHeaders.Add("X-AuthToken", apiCfg.AuthAPIKey);
                         var maskedKey = apiCfg.AuthAPIKey.Substring(0, 4) + "".PadLeft(apiCfg.AuthAPIKey.Length - 8, 'X') + apiCfg.AuthAPIKey.Substring(apiCfg.AuthAPIKey.Length - 4, 4);
-                        HttpResponseMessage response = client.PostAsync($"https://pokehash.buddyauth.com/{Constants.ApiEndPoint}", null).Result;
+                        if (!string.IsNullOrEmpty(settings.Auth.APIConfig.UrlHashServices))
+                            urlcheck = $"{settings.Auth.APIConfig.UrlHashServices}{settings.Auth.APIConfig.EndPoint}";
+                        else
+                            urlcheck = $"https://pokehash.buddyauth.com/{Constants.ApiEndPoint}";
+                        Logger.Write($"Check key from server: {urlcheck} end point.", LogLevel.Info, ConsoleColor.Blue);
+                        HttpResponseMessage response = client.PostAsync(urlcheck, null).Result;
                         string AuthKey = response.Headers.GetValues("X-AuthToken").FirstOrDefault();
                         string MaxRequestCount = response.Headers.GetValues("X-MaxRequestCount").FirstOrDefault();
                         DateTime AuthTokenExpiration = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Unspecified).AddSeconds(Convert.ToDouble(response.Headers.GetValues("X-AuthTokenExpiration").FirstOrDefault())).ToLocalTime();
                         TimeSpan Expiration = AuthTokenExpiration - DateTime.Now;
-                        string Result = string.Format("Key: {0} RPM: {1} Expires in: {2} days ({3})", maskedKey, MaxRequestCount, Expiration.Days - 1, AuthTokenExpiration);
+                        string Result = string.Format($"Key: {maskedKey} RPM: {MaxRequestCount} Expires in: {(Convert.ToDecimal(Expiration.Days) + (Convert.ToDecimal(Expiration.Hours) / 24)):0.00} days ({AuthTokenExpiration})");
                         Logger.Write(Result, LogLevel.Info, ConsoleColor.Green);
                     }
                     catch
@@ -1799,7 +1831,7 @@ namespace RocketBot2.Forms
 
             if (accountManager.AccountsReadOnly.Count > 1)
             {
-                foreach (var _bot in accountManager.AccountsReadOnly)
+                foreach (var _bot in accountManager.AccountsReadOnly.OrderByDescending(p => p.Level).ThenByDescending(p => p.CurrentXp))
                 {
                     var _item = new ToolStripMenuItem()
                     {
