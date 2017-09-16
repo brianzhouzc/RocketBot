@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- FIX BUG [\#33](https://github.com/TheUnnamedOrganisation/RocketBot/pull/33) ([Furtif](https://github.com/Furtif))
 - FIX BUG [\#32](https://github.com/TheUnnamedOrganisation/RocketBot/pull/32) ([Furtif](https://github.com/Furtif))
 - update module logic [\#31](https://github.com/TheUnnamedOrganisation/RocketBot/pull/31) ([Furtif](https://github.com/Furtif))
 - New version config [\#30](https://github.com/TheUnnamedOrganisation/RocketBot/pull/30) ([Furtif](https://github.com/Furtif))
