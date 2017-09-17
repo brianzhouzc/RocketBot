@@ -1,11 +1,13 @@
 # Change Log
 
-## [v2.15.0.4](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.15.0.4) (2017-09-16)
+## [v2.15.0.5](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.15.0.5) (2017-09-16)
 
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.15.0.3...v2.15.0.4)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.15.0.3...v2.15.0.5)
 
 **Merged pull requests:**
 
+- FIX BUG [\#33](https://github.com/TheUnnamedOrganisation/RocketBot/pull/33) ([Furtif](https://github.com/Furtif))
+- FIX BUG [\#32](https://github.com/TheUnnamedOrganisation/RocketBot/pull/32) ([Furtif](https://github.com/Furtif))
 - update module logic [\#31](https://github.com/TheUnnamedOrganisation/RocketBot/pull/31) ([Furtif](https://github.com/Furtif))
 - New version config [\#30](https://github.com/TheUnnamedOrganisation/RocketBot/pull/30) ([Furtif](https://github.com/Furtif))
 - Thewizard [\#29](https://github.com/TheUnnamedOrganisation/RocketBot/pull/29) ([TheWizard1328](https://github.com/TheWizard1328))
