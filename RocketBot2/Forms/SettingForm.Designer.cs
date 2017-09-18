@@ -79,7 +79,7 @@
             this.label68 = new System.Windows.Forms.Label();
             this.cbEnablePushBulletNotification = new System.Windows.Forms.CheckBox();
             this.cbDiplayHashServerLog = new System.Windows.Forms.CheckBox();
-            this.cbUseLegacyAPI = new System.Windows.Forms.CheckBox();
+            this.cbUseCustomAPI = new System.Windows.Forms.CheckBox();
             this.tbAuthAPIKey = new System.Windows.Forms.TextBox();
             this.label67 = new System.Windows.Forms.Label();
             this.cbUsePogoDevAPI = new System.Windows.Forms.CheckBox();
@@ -316,6 +316,8 @@
             this.tbDataServiceIdentification = new System.Windows.Forms.TextBox();
             this.cbEnableSyncData = new System.Windows.Forms.CheckBox();
             this.cBoxTeamColor = new System.Windows.Forms.ComboBox();
+            this.tbHashURL = new System.Windows.Forms.TextBox();
+            this.label74 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabAuth.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -455,7 +457,7 @@
             this.tabPosition.Controls.Add(this.gMapCtrl);
             this.tabPosition.Location = new System.Drawing.Point(4, 29);
             this.tabPosition.Name = "tabPosition";
-            this.tabPosition.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPosition.Padding = new System.Windows.Forms.Padding(3);
             this.tabPosition.Size = new System.Drawing.Size(604, 444);
             this.tabPosition.TabIndex = 0;
             this.tabPosition.Text = "Position";
@@ -582,7 +584,7 @@
             this.tabDevice.Controls.Add(this.label17);
             this.tabDevice.Location = new System.Drawing.Point(4, 29);
             this.tabDevice.Name = "tabDevice";
-            this.tabDevice.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabDevice.Padding = new System.Windows.Forms.Padding(3);
             this.tabDevice.Size = new System.Drawing.Size(604, 444);
             this.tabDevice.TabIndex = 1;
             this.tabDevice.Text = "Device";
@@ -954,17 +956,19 @@
             // tabAPIConfig
             // 
             this.tabAPIConfig.BackColor = System.Drawing.SystemColors.Control;
+            this.tabAPIConfig.Controls.Add(this.tbHashURL);
+            this.tabAPIConfig.Controls.Add(this.label74);
             this.tabAPIConfig.Controls.Add(this.tbPushBulletAPIKey);
             this.tabAPIConfig.Controls.Add(this.label68);
             this.tabAPIConfig.Controls.Add(this.cbEnablePushBulletNotification);
             this.tabAPIConfig.Controls.Add(this.cbDiplayHashServerLog);
-            this.tabAPIConfig.Controls.Add(this.cbUseLegacyAPI);
+            this.tabAPIConfig.Controls.Add(this.cbUseCustomAPI);
             this.tabAPIConfig.Controls.Add(this.tbAuthAPIKey);
             this.tabAPIConfig.Controls.Add(this.label67);
             this.tabAPIConfig.Controls.Add(this.cbUsePogoDevAPI);
             this.tabAPIConfig.Location = new System.Drawing.Point(4, 29);
             this.tabAPIConfig.Name = "tabAPIConfig";
-            this.tabAPIConfig.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabAPIConfig.Padding = new System.Windows.Forms.Padding(3);
             this.tabAPIConfig.Size = new System.Drawing.Size(604, 444);
             this.tabAPIConfig.TabIndex = 2;
             this.tabAPIConfig.Text = "APIConfig";
@@ -973,7 +977,7 @@
             // 
             this.tbPushBulletAPIKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbPushBulletAPIKey.Location = new System.Drawing.Point(109, 173);
+            this.tbPushBulletAPIKey.Location = new System.Drawing.Point(109, 177);
             this.tbPushBulletAPIKey.Name = "tbPushBulletAPIKey";
             this.tbPushBulletAPIKey.Size = new System.Drawing.Size(186, 27);
             this.tbPushBulletAPIKey.TabIndex = 42;
@@ -983,7 +987,7 @@
             this.label68.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(6, 180);
+            this.label68.Location = new System.Drawing.Point(6, 184);
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(83, 20);
             this.label68.TabIndex = 41;
@@ -1010,22 +1014,22 @@
             this.cbDiplayHashServerLog.Text = "Diplay Hash Server Log";
             this.cbDiplayHashServerLog.UseVisualStyleBackColor = true;
             // 
-            // cbUseLegacyAPI
+            // cbUseCustomAPI
             // 
-            this.cbUseLegacyAPI.AutoSize = true;
-            this.cbUseLegacyAPI.Location = new System.Drawing.Point(7, 81);
-            this.cbUseLegacyAPI.Name = "cbUseLegacyAPI";
-            this.cbUseLegacyAPI.Size = new System.Drawing.Size(131, 24);
-            this.cbUseLegacyAPI.TabIndex = 38;
-            this.cbUseLegacyAPI.Text = "Use Legacy API";
-            this.cbUseLegacyAPI.UseVisualStyleBackColor = true;
-            this.cbUseLegacyAPI.CheckedChanged += new System.EventHandler(this.CbUseLegacyAPI_CheckedChanged);
+            this.cbUseCustomAPI.AutoSize = true;
+            this.cbUseCustomAPI.Location = new System.Drawing.Point(7, 48);
+            this.cbUseCustomAPI.Name = "cbUseCustomAPI";
+            this.cbUseCustomAPI.Size = new System.Drawing.Size(135, 24);
+            this.cbUseCustomAPI.TabIndex = 38;
+            this.cbUseCustomAPI.Text = "Use Custom API";
+            this.cbUseCustomAPI.UseVisualStyleBackColor = true;
+            this.cbUseCustomAPI.CheckedChanged += new System.EventHandler(this.CbUseLegacyAPI_CheckedChanged);
             // 
             // tbAuthAPIKey
             // 
             this.tbAuthAPIKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbAuthAPIKey.Location = new System.Drawing.Point(109, 44);
+            this.tbAuthAPIKey.Location = new System.Drawing.Point(109, 214);
             this.tbAuthAPIKey.Name = "tbAuthAPIKey";
             this.tbAuthAPIKey.Size = new System.Drawing.Size(186, 27);
             this.tbAuthAPIKey.TabIndex = 37;
@@ -1035,7 +1039,7 @@
             this.label67.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(6, 51);
+            this.label67.Location = new System.Drawing.Point(6, 221);
             this.label67.Name = "label67";
             this.label67.Size = new System.Drawing.Size(97, 20);
             this.label67.TabIndex = 36;
@@ -1046,9 +1050,9 @@
             this.cbUsePogoDevAPI.AutoSize = true;
             this.cbUsePogoDevAPI.Location = new System.Drawing.Point(7, 18);
             this.cbUsePogoDevAPI.Name = "cbUsePogoDevAPI";
-            this.cbUsePogoDevAPI.Size = new System.Drawing.Size(149, 24);
+            this.cbUsePogoDevAPI.Size = new System.Drawing.Size(145, 24);
             this.cbUsePogoDevAPI.TabIndex = 34;
-            this.cbUsePogoDevAPI.Text = "Use Pogo Dev API";
+            this.cbUsePogoDevAPI.Text = "Use PogoDev API";
             this.cbUsePogoDevAPI.UseVisualStyleBackColor = true;
             this.cbUsePogoDevAPI.CheckedChanged += new System.EventHandler(this.CbUsePogoDevAPI_CheckedChanged);
             // 
@@ -1058,7 +1062,7 @@
             this.tabAccounts.Controls.Add(this.lvAccounts);
             this.tabAccounts.Location = new System.Drawing.Point(4, 29);
             this.tabAccounts.Name = "tabAccounts";
-            this.tabAccounts.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabAccounts.Padding = new System.Windows.Forms.Padding(3);
             this.tabAccounts.Size = new System.Drawing.Size(604, 444);
             this.tabAccounts.TabIndex = 3;
             this.tabAccounts.Text = "Accounts";
@@ -1397,7 +1401,7 @@
             this.tabCatch.Controls.Add(this.gbCatchPokemon);
             this.tabCatch.Location = new System.Drawing.Point(4, 29);
             this.tabCatch.Name = "tabCatch";
-            this.tabCatch.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabCatch.Padding = new System.Windows.Forms.Padding(3);
             this.tabCatch.Size = new System.Drawing.Size(946, 451);
             this.tabCatch.TabIndex = 0;
             this.tabCatch.Text = "Catch";
@@ -1851,7 +1855,7 @@
             this.tabTransfer.Controls.Add(this.groupBox8);
             this.tabTransfer.Location = new System.Drawing.Point(4, 29);
             this.tabTransfer.Name = "tabTransfer";
-            this.tabTransfer.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabTransfer.Padding = new System.Windows.Forms.Padding(3);
             this.tabTransfer.Size = new System.Drawing.Size(946, 451);
             this.tabTransfer.TabIndex = 1;
             this.tabTransfer.Text = "Transfer";
@@ -1990,7 +1994,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.groupBox1.Size = new System.Drawing.Size(337, 450);
+            this.groupBox1.Size = new System.Drawing.Size(337, 454);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Exclude Transfer";
@@ -2004,7 +2008,7 @@
             this.clbTransfer.Location = new System.Drawing.Point(3, 25);
             this.clbTransfer.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.clbTransfer.Name = "clbTransfer";
-            this.clbTransfer.Size = new System.Drawing.Size(331, 420);
+            this.clbTransfer.Size = new System.Drawing.Size(331, 424);
             this.clbTransfer.TabIndex = 0;
             // 
             // cbNotTransferAll
@@ -2219,7 +2223,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.groupBox4.Size = new System.Drawing.Size(337, 450);
+            this.groupBox4.Size = new System.Drawing.Size(337, 454);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Power Up";
@@ -2233,7 +2237,7 @@
             this.clbPowerUp.Location = new System.Drawing.Point(3, 25);
             this.clbPowerUp.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.clbPowerUp.Name = "clbPowerUp";
-            this.clbPowerUp.Size = new System.Drawing.Size(331, 420);
+            this.clbPowerUp.Size = new System.Drawing.Size(331, 424);
             this.clbPowerUp.TabIndex = 0;
             // 
             // cbPowerUpAll
@@ -2408,7 +2412,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.groupBox3.Size = new System.Drawing.Size(337, 450);
+            this.groupBox3.Size = new System.Drawing.Size(337, 454);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Evolve";
@@ -2422,7 +2426,7 @@
             this.clbEvolve.Location = new System.Drawing.Point(3, 25);
             this.clbEvolve.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.clbEvolve.Name = "clbEvolve";
-            this.clbEvolve.Size = new System.Drawing.Size(331, 420);
+            this.clbEvolve.Size = new System.Drawing.Size(331, 424);
             this.clbEvolve.TabIndex = 0;
             // 
             // cbEvolveAll
@@ -2443,7 +2447,7 @@
             this.tabSnipePokemonFilter.Controls.Add(this.groupBox21);
             this.tabSnipePokemonFilter.Location = new System.Drawing.Point(4, 29);
             this.tabSnipePokemonFilter.Name = "tabSnipePokemonFilter";
-            this.tabSnipePokemonFilter.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabSnipePokemonFilter.Padding = new System.Windows.Forms.Padding(3);
             this.tabSnipePokemonFilter.Size = new System.Drawing.Size(946, 451);
             this.tabSnipePokemonFilter.TabIndex = 5;
             this.tabSnipePokemonFilter.Text = "SnipePokemonFilter";
@@ -2458,7 +2462,7 @@
             this.groupBox21.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.groupBox21.Name = "groupBox21";
             this.groupBox21.Padding = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.groupBox21.Size = new System.Drawing.Size(337, 450);
+            this.groupBox21.Size = new System.Drawing.Size(337, 454);
             this.groupBox21.TabIndex = 17;
             this.groupBox21.TabStop = false;
             this.groupBox21.Text = "Snipe List";
@@ -2472,7 +2476,7 @@
             this.clbSnipePokemonFilter.Location = new System.Drawing.Point(3, 25);
             this.clbSnipePokemonFilter.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.clbSnipePokemonFilter.Name = "clbSnipePokemonFilter";
-            this.clbSnipePokemonFilter.Size = new System.Drawing.Size(331, 420);
+            this.clbSnipePokemonFilter.Size = new System.Drawing.Size(331, 424);
             this.clbSnipePokemonFilter.TabIndex = 0;
             // 
             // cbSnipePokemonFilterAll
@@ -2920,9 +2924,9 @@
             this.groupBox19.Controls.Add(this.tbAutoWalkKM);
             this.groupBox19.Controls.Add(this.cbAutoWalkAI);
             this.groupBox19.Location = new System.Drawing.Point(10, 360);
-            this.groupBox19.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox19.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox19.Name = "groupBox19";
-            this.groupBox19.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox19.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox19.Size = new System.Drawing.Size(312, 92);
             this.groupBox19.TabIndex = 21;
             this.groupBox19.TabStop = false;
@@ -3346,7 +3350,7 @@
             this.tabAuthJson.Controls.Add(this.splitContainer2);
             this.tabAuthJson.Location = new System.Drawing.Point(4, 29);
             this.tabAuthJson.Name = "tabAuthJson";
-            this.tabAuthJson.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabAuthJson.Padding = new System.Windows.Forms.Padding(3);
             this.tabAuthJson.Size = new System.Drawing.Size(954, 484);
             this.tabAuthJson.TabIndex = 6;
             this.tabAuthJson.Text = "Auth & Config";
@@ -3395,7 +3399,7 @@
             this.Auth.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Auth.LabelEdit = true;
             this.Auth.Location = new System.Drawing.Point(0, 0);
-            this.Auth.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Auth.Margin = new System.Windows.Forms.Padding(5);
             this.Auth.Name = "Auth";
             this.Auth.Size = new System.Drawing.Size(258, 478);
             this.Auth.TabIndex = 2;
@@ -3420,7 +3424,7 @@
             this.Config.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Config.LabelEdit = true;
             this.Config.Location = new System.Drawing.Point(0, 0);
-            this.Config.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Config.Margin = new System.Windows.Forms.Padding(5);
             this.Config.Name = "Config";
             this.Config.Size = new System.Drawing.Size(260, 478);
             this.Config.TabIndex = 2;
@@ -3502,6 +3506,26 @@
             this.cBoxTeamColor.Size = new System.Drawing.Size(99, 28);
             this.cBoxTeamColor.TabIndex = 38;
             this.cBoxTeamColor.Text = "Neutral";
+            // 
+            // tbHashURL
+            // 
+            this.tbHashURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbHashURL.Location = new System.Drawing.Point(109, 76);
+            this.tbHashURL.Name = "tbHashURL";
+            this.tbHashURL.Size = new System.Drawing.Size(186, 27);
+            this.tbHashURL.TabIndex = 44;
+            // 
+            // label74
+            // 
+            this.label74.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label74.AutoSize = true;
+            this.label74.Location = new System.Drawing.Point(6, 83);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(75, 20);
+            this.label74.TabIndex = 43;
+            this.label74.Text = "Hash URL:";
             // 
             // SettingsForm
             // 
@@ -3828,7 +3852,7 @@
         private System.Windows.Forms.TabPage tabDevice;
         private System.Windows.Forms.TabPage tabAPIConfig;
         private System.Windows.Forms.CheckBox cbDiplayHashServerLog;
-        private System.Windows.Forms.CheckBox cbUseLegacyAPI;
+        private System.Windows.Forms.CheckBox cbUseCustomAPI;
         private System.Windows.Forms.TextBox tbAuthAPIKey;
         private System.Windows.Forms.Label label67;
         private System.Windows.Forms.CheckBox cbUsePogoDevAPI;
@@ -3909,5 +3933,7 @@
         private System.Windows.Forms.TextBox tbOnLimitPauseTimes;
         private System.Windows.Forms.CheckBox cbSwitchOnCatchLimit;
         private System.Windows.Forms.CheckBox cbSwitchOnPokestopLimit;
+        private System.Windows.Forms.TextBox tbHashURL;
+        private System.Windows.Forms.Label label74;
     }
 }
