@@ -37,6 +37,7 @@ namespace RocketBot2.Forms
         private readonly ISession _session;
         private List<AuthConfig> accounts;
 
+
         public List<AuthConfig> Accounts
         {
             get { return accounts; }
@@ -65,11 +66,11 @@ namespace RocketBot2.Forms
             }
 
             var logicSettings = new LogicSettings(settings);
-            var ioc = TinyIoC.TinyIoCContainer.Current;
-            ioc.Register<ISession>(_session);
+            var ioc = TinyIoCContainer.Current;
+            ioc.Register(_session);
             MultiAccountManager accountManager = new MultiAccountManager(settings, logicSettings.Bots);
             ioc.Register(accountManager);
-            ioc.Register<MultiAccountManager>(accountManager);
+            ioc.Register(accountManager);
 
             if (accountManager.AccountsReadOnly.Count > 1)
             {
@@ -126,8 +127,9 @@ namespace RocketBot2.Forms
 
             //apiconfig
             cbUsePogoDevAPI.Checked = _settings.Auth.APIConfig.UsePogoDevAPI;
+            cbUseCustomAPI.Checked = _settings.Auth.APIConfig.UseCustomAPI;
+            tbHashURL.Text = _settings.Auth.APIConfig.UrlHashServices;
             tbAuthAPIKey.Text = _settings.Auth.APIConfig.AuthAPIKey;
-            cbUseLegacyAPI.Checked = _settings.Auth.APIConfig.UseLegacyAPI;
             cbDiplayHashServerLog.Checked = _settings.Auth.APIConfig.DiplayHashServerLog;
 
             cbEnablePushBulletNotification.Checked = _settings.NotificationConfig.EnablePushBulletNotification;
@@ -592,17 +594,18 @@ namespace RocketBot2.Forms
                 _settings.Auth.DeviceConfig.FirmwareFingerprint = FirmwareFingerprintTb.Text == "" ? null : FirmwareFingerprintTb.Text;
                 _settings.ConsoleConfig.TranslationLanguageCode = cbLanguage.Text;
                 _settings.Auth.APIConfig.UsePogoDevAPI = cbUsePogoDevAPI.Checked;
+                _settings.Auth.APIConfig.UseCustomAPI = cbUseCustomAPI.Checked;
                 _settings.Auth.APIConfig.AuthAPIKey = tbAuthAPIKey.Text;
-                _settings.Auth.APIConfig.UseLegacyAPI = cbUseLegacyAPI.Checked;
+                _settings.Auth.APIConfig.UrlHashServices = tbHashURL.Text;
                 _settings.Auth.APIConfig.DiplayHashServerLog = cbDiplayHashServerLog.Checked;
 
                 bool Changed = false;
                 var logicSettings = new LogicSettings(_settings);
-                var ioc = TinyIoC.TinyIoCContainer.Current;
-                ioc.Register<ISession>(_session);
+                var ioc = TinyIoCContainer.Current;
+                ioc.Register(_session);
                 MultiAccountManager accountManager = new MultiAccountManager(_settings, logicSettings.Bots);
                 ioc.Register(accountManager);
-                ioc.Register<MultiAccountManager>(accountManager);
+                ioc.Register(accountManager);
 
                 foreach (var acc in accountManager.AccountsReadOnly.OrderByDescending(p => p.Level).ThenByDescending(p => p.CurrentXp))
                 {
@@ -627,10 +630,10 @@ namespace RocketBot2.Forms
                 {
                     GlobalSettings settings;
                     settings = GlobalSettings.Load("", false);
-                    ioc.Register<ISession>(_session);
+                    ioc.Register(_session);
 
                     ioc.Register(accountManager);
-                    ioc.Register<MultiAccountManager>(accountManager);
+                    ioc.Register(accountManager);
                     var bot = accountManager.GetStartUpAccount();
                     _session.ReInitSessionWithNextBot(bot);
                 }
@@ -953,12 +956,12 @@ namespace RocketBot2.Forms
 
         private void CbUsePogoDevAPI_CheckedChanged(object sender, EventArgs e)
         {
-            cbUseLegacyAPI.Checked = !cbUsePogoDevAPI.Checked;
+            cbUseCustomAPI.Checked = !cbUsePogoDevAPI.Checked;
         }
 
         private void CbUseLegacyAPI_CheckedChanged(object sender, EventArgs e)
         {
-            cbUsePogoDevAPI.Checked = !cbUseLegacyAPI.Checked;
+            cbUsePogoDevAPI.Checked = !cbUseCustomAPI.Checked;
         }
 
         private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)

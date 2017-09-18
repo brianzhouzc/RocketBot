@@ -1682,7 +1682,7 @@ namespace RocketBot2.Forms
 
                 var apiCfg = settings.Auth.APIConfig;
 
-                if (apiCfg.UsePogoDevAPI)
+                if (apiCfg.UsePogoDevAPI || apiCfg.UseCustomAPI)
                 {
                     if (string.IsNullOrEmpty(apiCfg.AuthAPIKey))
                     {
@@ -1698,11 +1698,11 @@ namespace RocketBot2.Forms
                         string urlcheck = null;
                         client.DefaultRequestHeaders.Add("X-AuthToken", apiCfg.AuthAPIKey);
                         var maskedKey = apiCfg.AuthAPIKey.Substring(0, 4) + "".PadLeft(apiCfg.AuthAPIKey.Length - 8, 'X') + apiCfg.AuthAPIKey.Substring(apiCfg.AuthAPIKey.Length - 4, 4);
-                        if (!string.IsNullOrEmpty(settings.Auth.APIConfig.UrlHashServices))
+                        if (settings.Auth.APIConfig.UseCustomAPI)
                             urlcheck = $"{settings.Auth.APIConfig.UrlHashServices}{settings.Auth.APIConfig.EndPoint}";
                         else
                             urlcheck = $"https://pokehash.buddyauth.com/{Constants.ApiEndPoint}";
-                        Logger.Write($"Check key from server: {urlcheck} end point.", LogLevel.Info, ConsoleColor.Blue);
+                        Logger.Write($"Hash End-Point Set to '{urlcheck}'", LogLevel.Info, ConsoleColor.Blue);
                         HttpResponseMessage response = client.PostAsync(urlcheck, null).Result;
                         string AuthKey = response.Headers.GetValues("X-AuthToken").FirstOrDefault();
                         string MaxRequestCount = response.Headers.GetValues("X-MaxRequestCount").FirstOrDefault();
@@ -1716,24 +1716,6 @@ namespace RocketBot2.Forms
                         Logger.Write("The HashKey is invalid or has expired, please press any key to exit and correct you auth.json, \r\nThe Pogodev API key can be purchased at - https://talk.pogodev.org/d/51-api-hashing-service-by-pokefarmer", LogLevel.Error);
                         _botStarted = true;
                     }
-                }
-                else if (apiCfg.UseLegacyAPI)
-                {
-                    Logger.Write(
-                   "You bot will start after 15 seconds, You are running bot with Legacy API (0.45), but it will increase your risk of being banned and triggering captchas. Config Captchas in config.json to auto-resolve them",
-                   LogLevel.Warning);
-
-#if RELEASE
-                    Thread.Sleep(15000);
-#endif
-                }
-                else
-                {
-                    Logger.Write(
-                         "At least 1 authentication method must be selected, please correct your auth.json.",
-                         LogLevel.Error
-                     );
-                    _botStarted = true;
                 }
 
                 //GlobalSettings.Load(_subPath, _enableJsonValidation);
