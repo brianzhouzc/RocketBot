@@ -34,9 +34,9 @@ namespace RocketBot2.Forms
         private readonly DeviceHelper _deviceHelper;
         private readonly List<DeviceInfo> _deviceInfos;
         public static GlobalSettings _settings;
+        public static MultiAccountManager accountManager;
         private readonly ISession _session;
         private List<AuthConfig> accounts;
-
 
         public List<AuthConfig> Accounts
         {
@@ -66,23 +66,25 @@ namespace RocketBot2.Forms
             }
 
             var logicSettings = new LogicSettings(settings);
-            var ioc = TinyIoCContainer.Current;
-            ioc.Register(_session);
-            MultiAccountManager accountManager = new MultiAccountManager(settings, logicSettings.Bots);
-            ioc.Register(accountManager);
-            ioc.Register(accountManager);
+            //var ioc = TinyIoC.TinyIoCContainer.Current;
+            //ioc.Register<ISession>(_session);
+            accountManager = new MultiAccountManager(settings, logicSettings.Bots);
+            //ioc.Register(accountManager);
+            //ioc.Register<MultiAccountManager>(accountManager);
 
-            if (accountManager.AccountsReadOnly.Count > 1)
+            if (accountManager.Accounts.Count > 1)
             {
                 var i = 0;
                 lvAccounts.Visible = true;
-                foreach (var acc in accountManager.AccountsReadOnly.OrderByDescending(p => p.Level).ThenByDescending(p => p.CurrentXp))
+                foreach (var acc in accountManager.Accounts.OrderByDescending(p => p.Level).ThenByDescending(p => p.CurrentXp))
                 {
-                    lvAccounts.Items.Add($"{acc.AuthType}").SubItems.Add($"{acc.Username}");
-                    lvAccounts.Items[i].Checked = acc.AccountActive;
+                    lvAccounts.Items.Add($"{acc.AuthType}");
+                    lvAccounts.Items[i].SubItems.Add($"{acc.Username}");
+                    lvAccounts.Items[i].SubItems.Add($"{acc.Nickname}");
+                    lvAccounts.Items[i].Checked = _settings.Auth.Bots[(int)acc.Id - 1].AccountActive;
                     i += 1;
                 }
-                lvAccounts.Items[0].Remove();
+                //lvAccounts.Items[0].Remove();
             }
             else
             {
@@ -600,25 +602,18 @@ namespace RocketBot2.Forms
                 _settings.Auth.APIConfig.DiplayHashServerLog = cbDiplayHashServerLog.Checked;
 
                 bool Changed = false;
-                var logicSettings = new LogicSettings(_settings);
-                var ioc = TinyIoCContainer.Current;
-                ioc.Register(_session);
-                MultiAccountManager accountManager = new MultiAccountManager(_settings, logicSettings.Bots);
-                ioc.Register(accountManager);
-                ioc.Register(accountManager);
-
-                foreach (var acc in accountManager.AccountsReadOnly.OrderByDescending(p => p.Level).ThenByDescending(p => p.CurrentXp))
+                foreach (var acc in accountManager.Accounts.OrderByDescending(p => p.Level).ThenByDescending(p => p.CurrentXp))
                 {
-                    acc.RuntimeTotal = 0;
-                    acc.ReleaseBlockTime = 0;
-                    acc.LastRuntimeUpdatedAt = 0;
+                    acc.RuntimeTotal = 0; acc.ReleaseBlockTime = 0; acc.LastRuntimeUpdatedAt = null;
 
                     for (int i = 0; i < lvAccounts.Items.Count; i++)
                     {
-                        if (acc.Username == lvAccounts.Items[i].SubItems[1].Text && acc.AccountActive != lvAccounts.Items[i].Checked)
+                        if (acc.Username == lvAccounts.Items[i].SubItems[1].Text)
                         {
-                            Changed = true;
+                            if (acc.AccountActive != lvAccounts.Items[i].Checked) Changed = true;
                             acc.AccountActive = lvAccounts.Items[i].Checked;
+                            _settings.Auth.Bots[(int)acc.Id - 1].AccountActive = lvAccounts.Items[i].Checked;
+                            Changed = true;
                         }
                     }
                     _context.SaveChanges();
@@ -628,14 +623,13 @@ namespace RocketBot2.Forms
 
                 if (Changed)
                 {
-                    GlobalSettings settings;
-                    settings = GlobalSettings.Load("", false);
-                    ioc.Register(_session);
+                    //var manager = TinyIoCContainer.Current.Resolve<MultiAccountManager>();
+                    //var nextBot = manager.GetSwitchableAccount();
 
-                    ioc.Register(accountManager);
-                    ioc.Register(accountManager);
                     var bot = accountManager.GetStartUpAccount();
                     _session.ReInitSessionWithNextBot(bot);
+
+                    //accountManager.SwitchAccountTo(bot);
                 }
 
                 #endregion
