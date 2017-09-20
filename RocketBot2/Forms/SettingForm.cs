@@ -613,7 +613,6 @@ namespace RocketBot2.Forms
                             if (acc.AccountActive != lvAccounts.Items[i].Checked) Changed = true;
                             acc.AccountActive = lvAccounts.Items[i].Checked;
                             _settings.Auth.Bots[(int)acc.Id - 1].AccountActive = lvAccounts.Items[i].Checked;
-                            Changed = true;
                         }
                     }
                     _context.SaveChanges();
@@ -623,13 +622,8 @@ namespace RocketBot2.Forms
 
                 if (Changed)
                 {
-                    //var manager = TinyIoCContainer.Current.Resolve<MultiAccountManager>();
-                    //var nextBot = manager.GetSwitchableAccount();
-
                     var bot = accountManager.GetStartUpAccount();
                     _session.ReInitSessionWithNextBot(bot);
-
-                    //accountManager.SwitchAccountTo(bot);
                 }
 
                 #endregion
