@@ -556,10 +556,8 @@ namespace RocketBot2.Forms
                     {
                         Points = _session.Navigation.WalkStrategy.Points;
                         _playerLocations.Clear();
-                        _playerRouteOverlay.Routes.Clear();
-                        Refresh();
+                        //_playerRouteOverlay.Routes.Clear();
                         _playerOverlay.Routes.Clear();
-                        Refresh();
                         List<PointLatLng> routePointLatLngs = new List<PointLatLng>();
                         foreach (var item in Points)
                         {
