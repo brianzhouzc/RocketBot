@@ -35,13 +35,6 @@ namespace RocketBot2.Forms
         private readonly List<DeviceInfo> _deviceInfos;
         public static GlobalSettings _settings;
         private readonly ISession _session;
-        private List<AuthConfig> accounts;
-
-
-        public List<AuthConfig> Accounts
-        {
-            get { return accounts; }
-        }
 
         public SettingsForm(ref GlobalSettings settings, ISession session, string[] _args)
         {
