@@ -84,6 +84,7 @@ namespace RocketBot2.Forms
         // layers
         internal readonly GMapOverlay _playerOverlay = new GMapOverlay("players");
         internal readonly GMapOverlay _playerRouteOverlay = new GMapOverlay("playerroutes");
+        internal readonly GMapOverlay _playerRoutePointsOverlay = new GMapOverlay("playerroutepointss");
         internal readonly GMapOverlay _pokemonsOverlay = new GMapOverlay("pokemons");
         internal readonly GMapOverlay _pokestopsOverlay = new GMapOverlay("pokestops");
         internal readonly GMapOverlay _searchAreaOverlay = new GMapOverlay("areas");
@@ -310,9 +311,10 @@ namespace RocketBot2.Forms
 
             //Bottom most layer
             GMapControl1.Overlays.Add(_searchAreaOverlay);
-            GMapControl1.Overlays.Add(_pokestopsOverlay);
             GMapControl1.Overlays.Add(_playerRouteOverlay);
             GMapControl1.Overlays.Add(_pokemonsOverlay);
+            GMapControl1.Overlays.Add(_pokestopsOverlay);
+            GMapControl1.Overlays.Add(_playerRoutePointsOverlay);
             GMapControl1.Overlays.Add(_playerOverlay);
             //Top most layer
 
@@ -375,10 +377,10 @@ namespace RocketBot2.Forms
                 if (_pokemonsOverlay.Markers.Count > 8)
                     _pokemonsOverlay.Markers.Clear();
 
-                _pokestopsOverlay.Routes.Clear();
+                _playerRoutePointsOverlay.Routes.Clear();
 
-                if (togglePrecalRoute.CheckState == CheckState.Checked)
-                {
+                //if (togglePrecalRoute.CheckState == CheckState.Checked)
+                //{
                     _routePoints =
                         (from pokeStop in pokeStops
                          where pokeStop != null
@@ -388,8 +390,8 @@ namespace RocketBot2.Forms
                     {
                         Stroke = new Pen(Color.FromArgb(102, 178, 255), 2)
                     };
-                    _pokestopsOverlay.Routes.Add(route);
-                }
+                    _playerRoutePointsOverlay.Routes.Add(route);
+                //}
 
                 _pokestopsOverlay.Markers.Clear();
 
@@ -618,6 +620,7 @@ namespace RocketBot2.Forms
             SynchronizationContext.Post(o =>
             {
                 _playerOverlay.Markers.Clear();
+                _playerRoutePointsOverlay.Routes.Clear();
                 _playerLocations.Add(latlng);
 
                 if (!_currentLatLng.IsEmpty)
@@ -884,7 +887,7 @@ namespace RocketBot2.Forms
         {
             SynchronizationContext.Post(o =>
             {
-                _pokestopsOverlay.Routes.Clear();
+                _playerRoutePointsOverlay.Routes.Clear();
                 _playerOverlay.Routes.Clear();
 
                 if (_routePoints != null)
@@ -901,7 +904,7 @@ namespace RocketBot2.Forms
 
                     if (togglePrecalRoute.CheckState == CheckState.Checked)
                     {
-                        _pokestopsOverlay.Routes.Add(route);
+                        _playerRoutePointsOverlay.Routes.Add(route);
                         _playerOverlay.Routes.Add(step);
                     }
 
