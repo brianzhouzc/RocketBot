@@ -1241,6 +1241,7 @@ namespace RocketBot2.Forms
         }
 
         internal int OldCount = 0;
+        internal int OldItemsCount = 0;
         private async Task ReloadPokemonList()
         {
             SetState(false);
@@ -1298,20 +1299,24 @@ namespace RocketBot2.Forms
                     $" | Storage: {_session.Client.Player.PlayerData.MaxPokemonStorage} (Pokémons: {pokemons.Count()}, Eggs: {_session.Inventory.GetEggs().Result.Count()}) [Depolyments: {NewCount}]";
 
                 var items =
-                    _session.Inventory.GetItems().Result
-                    .Where(i => i != null)
-                    .OrderBy(i => i.ItemId);
+                _session.Inventory.GetItems().Result
+                .Where(i => i != null)
+                .OrderBy(i => i.ItemId);
 
-                var appliedItems =
+                if (items.Count() != OldItemsCount)
+                {
+                    var appliedItems =
                     _session.Inventory.GetAppliedItems().Result
                     .Where(aItems => aItems?.Item != null)
                     .SelectMany(aItems => aItems.Item)
                     .ToDictionary(item => item.ItemId, item => new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(item.ExpireMs));
 
-                await FlpItemsClean(items, appliedItems).ConfigureAwait(false);
+                    await FlpItemsClean(items, appliedItems).ConfigureAwait(false);
 
-                Instance.lblInventory.Text =
-                        $"Types: {items.Count()} | Total: {_session.Inventory.GetTotalItemCount().Result} | Storage: {_session.Client.Player.PlayerData.MaxItemStorage}";
+                    Instance.lblInventory.Text =
+                            $"Types: {items.Count()} | Total: {_session.Inventory.GetTotalItemCount().Result} | Storage: {_session.Client.Player.PlayerData.MaxItemStorage}";
+                }
+                OldItemsCount = items.Count();
             }
             catch (ArgumentNullException)
             {
