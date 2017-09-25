@@ -598,7 +598,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "遇過的神奇寶貝：{0}/251，捕捉過的神奇寶貝：{1}/251\t\t\t\t"
+      "Value": "遇過的神奇寶貝：{0}/{1}，捕捉過的神奇寶貝：{2}/{3}\t\t\t\t"
     },
     {
       "Key": "pkmPotentialEvolveCount",

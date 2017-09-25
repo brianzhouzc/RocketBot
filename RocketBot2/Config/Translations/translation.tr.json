@@ -594,7 +594,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "Karşılaşılan Pokémon Sayısı: {0}/251, Yakalanan Pokémon Sayısı: {1}/251"
+      "Value": "Karşılaşılan Pokémon Sayısı: {0}/{1}, Yakalanan Pokémon Sayısı: {2}/{3}"
     },
     {
       "Key": "pkmPotentialEvolveCount",
