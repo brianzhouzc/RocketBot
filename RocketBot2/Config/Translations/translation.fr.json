@@ -394,7 +394,7 @@
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "Pokeballs:    {0} | Superballs:   {1} | Hyperballs:       {2} | Masterballs: {3}"
+      "Value": "Pokeballs:    {0} | Superballs:   {1} | Hyperballs:      {2} | Masterballs: {3}"
     },
     {
       "Key": "currentPotionInv",
