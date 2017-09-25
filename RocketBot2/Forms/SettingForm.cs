@@ -364,7 +364,8 @@ namespace RocketBot2.Forms
 
         private void cbCatchPoke_CheckedChanged(object sender, EventArgs e)
         {
-            gbCatchPokemon.Enabled = cbCatchPoke.Checked;
+            //Error checkbox not enabled 
+            //gbCatchPokemon.Enabled = cbCatchPoke.Checked;
         }
 
         protected override void OnLoad(EventArgs e)
