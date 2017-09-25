@@ -53,29 +53,24 @@ namespace RocketBot2.Forms
             _deviceInfos = _deviceHelper.DeviceBucket;
 
             args = _args;
+            var Pokemons = Enum.GetValues(typeof(PokemonId)).Cast<PokemonId>().Where(id => id != PokemonId.Missingno);
 
-            foreach (
-                var pokemon in
-                    Enum.GetValues(typeof(PokemonId)).Cast<PokemonId>().Where(id => id != PokemonId.Missingno))
+            foreach (var pokemon in Pokemons)
             {
-                clbIgnore.Items.Add(pokemon);
-                clbTransfer.Items.Add(pokemon);
-                clbPowerUp.Items.Add(pokemon);
-                clbEvolve.Items.Add(pokemon);
-                clbSnipePokemonFilter.Items.Add(pokemon);
+                clbCatchIgnore.Items.Add(pokemon); 
+                clbTransfer.Items.Add(pokemon); 
+                clbPowerUp.Items.Add(pokemon); 
+                clbEvolve.Items.Add(pokemon); 
+                clbSnipePokemonFilter.Items.Add(pokemon); 
             }
 
             var logicSettings = new LogicSettings(settings);
-            //var ioc = TinyIoC.TinyIoCContainer.Current;
-            //ioc.Register<ISession>(_session);
             accountManager = new MultiAccountManager(settings, logicSettings.Bots);
-            //ioc.Register(accountManager);
-            //ioc.Register<MultiAccountManager>(accountManager);
 
             if (accountManager.Accounts.Count > 1)
             {
                 var i = 0;
-                lvAccounts.Visible = true;
+                lvAccounts.Enabled = true;
                 foreach (var acc in accountManager.Accounts.OrderByDescending(p => p.Level).ThenByDescending(p => p.CurrentXp))
                 {
                     lvAccounts.Items.Add($"{acc.AuthType}");
@@ -88,7 +83,7 @@ namespace RocketBot2.Forms
             }
             else
             {
-                lvAccounts.Visible = false;
+                lvAccounts.Enabled = false;
             }
 
             StreamReader auth = new StreamReader(AuthFilePath);
@@ -218,13 +213,15 @@ namespace RocketBot2.Forms
 
             foreach (var poke in _settings.PokemonsToIgnore)
             {
-                clbIgnore.SetItemChecked(clbIgnore.FindStringExact(poke.ToString()), true);
+                clbCatchIgnore.SetItemChecked(clbCatchIgnore.FindStringExact(poke.ToString()), true);
             }
 
             foreach (var poke in _settings.SnipePokemonFilter)
             {
                 clbSnipePokemonFilter.SetItemChecked(clbSnipePokemonFilter.FindStringExact(poke.Key.ToString()), true);
             }
+            gbCatchIgnore.Text = $"Ignore({clbCatchIgnore.CheckedItems.Count}/{clbCatchIgnore.Items.Count})";
+            gbSnipe.Text = $"Snipe({clbSnipePokemonFilter.CheckedItems.Count}/{clbSnipePokemonFilter.Items.Count})";
 
             #endregion
 
@@ -245,6 +242,7 @@ namespace RocketBot2.Forms
             {
                 clbTransfer.SetItemChecked(clbTransfer.FindStringExact(poke.ToString()), true);
             }
+            gbExcludeTrans.Text = $"Exclude({clbTransfer.CheckedItems.Count}/{clbTransfer.Items.Count})";
 
             #endregion
 
@@ -264,6 +262,7 @@ namespace RocketBot2.Forms
             {
                 clbPowerUp.SetItemChecked(clbPowerUp.FindStringExact(poke.ToString()), true);
             }
+            gbPUP.Text = $"Power Up({clbPowerUp.CheckedItems.Count}/{clbPowerUp.Items.Count})";
             if (_settings.PokemonConfig.LevelUpByCPorIv == "iv")
             {
                 label31.Visible = true;
@@ -296,6 +295,7 @@ namespace RocketBot2.Forms
             {
                 clbEvolve.SetItemChecked(clbEvolve.FindStringExact(poke.Key.ToString()), true);
             }
+            gbEvolve.Text = $"Evolve({clbEvolve.CheckedItems.Count}/{clbEvolve.Items.Count})";
 
             #endregion
 
@@ -647,7 +647,7 @@ namespace RocketBot2.Forms
                 _settings.PokemonConfig.CatchPokemon = cbCatchPoke.Checked;
                 _settings.PokemonConfig.UseEggIncubators = cbUseEggIncubators.Checked;
                 _settings.PokemonConfig.MaxPokeballsPerPokemon = Convert.ToInt32(tbMaxPokeballsPerPokemon.Text);
-                _settings.PokemonsToIgnore = ConvertClbToList(clbIgnore);
+                _settings.PokemonsToIgnore = ConvertClbToList(clbCatchIgnore);
                 _settings.PokemonConfig.AutoFavoritePokemon = cbAutoFavoritePokemon.Checked;
                 _settings.PokemonConfig.FavoriteMinIvPercentage = ConvertStringToFloat(tbFavoriteMinIvPercentage.Text);
 
@@ -934,7 +934,7 @@ namespace RocketBot2.Forms
 
         private void CbSelectAllCatch_CheckedChanged(object sender, EventArgs e)
         {
-            ListSelectAllHandler(clbIgnore, cbIgnoreAll.Checked);
+            ListSelectAllHandler(clbCatchIgnore, cbIgnoreAll.Checked);
         }
 
         private void CbSelectAllTransfer_CheckedChanged(object sender, EventArgs e)
