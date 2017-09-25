@@ -75,6 +75,8 @@
             this.AndroidBootloaderTb = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.tabAPIConfig = new System.Windows.Forms.TabPage();
+            this.tbHashURL = new System.Windows.Forms.TextBox();
+            this.label74 = new System.Windows.Forms.Label();
             this.tbPushBulletAPIKey = new System.Windows.Forms.TextBox();
             this.label68 = new System.Windows.Forms.Label();
             this.cbEnablePushBulletNotification = new System.Windows.Forms.CheckBox();
@@ -316,8 +318,6 @@
             this.tbDataServiceIdentification = new System.Windows.Forms.TextBox();
             this.cbEnableSyncData = new System.Windows.Forms.CheckBox();
             this.cBoxTeamColor = new System.Windows.Forms.ComboBox();
-            this.tbHashURL = new System.Windows.Forms.TextBox();
-            this.label74 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabAuth.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -973,11 +973,31 @@
             this.tabAPIConfig.TabIndex = 2;
             this.tabAPIConfig.Text = "APIConfig";
             // 
+            // tbHashURL
+            // 
+            this.tbHashURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbHashURL.Location = new System.Drawing.Point(109, 80);
+            this.tbHashURL.Name = "tbHashURL";
+            this.tbHashURL.Size = new System.Drawing.Size(186, 27);
+            this.tbHashURL.TabIndex = 44;
+            // 
+            // label74
+            // 
+            this.label74.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label74.AutoSize = true;
+            this.label74.Location = new System.Drawing.Point(6, 87);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(75, 20);
+            this.label74.TabIndex = 43;
+            this.label74.Text = "Hash URL:";
+            // 
             // tbPushBulletAPIKey
             // 
             this.tbPushBulletAPIKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbPushBulletAPIKey.Location = new System.Drawing.Point(109, 177);
+            this.tbPushBulletAPIKey.Location = new System.Drawing.Point(109, 181);
             this.tbPushBulletAPIKey.Name = "tbPushBulletAPIKey";
             this.tbPushBulletAPIKey.Size = new System.Drawing.Size(186, 27);
             this.tbPushBulletAPIKey.TabIndex = 42;
@@ -987,7 +1007,7 @@
             this.label68.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(6, 184);
+            this.label68.Location = new System.Drawing.Point(6, 188);
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(83, 20);
             this.label68.TabIndex = 41;
@@ -1029,7 +1049,7 @@
             // 
             this.tbAuthAPIKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbAuthAPIKey.Location = new System.Drawing.Point(109, 214);
+            this.tbAuthAPIKey.Location = new System.Drawing.Point(109, 218);
             this.tbAuthAPIKey.Name = "tbAuthAPIKey";
             this.tbAuthAPIKey.Size = new System.Drawing.Size(186, 27);
             this.tbAuthAPIKey.TabIndex = 37;
@@ -1039,7 +1059,7 @@
             this.label67.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(6, 221);
+            this.label67.Location = new System.Drawing.Point(6, 225);
             this.label67.Name = "label67";
             this.label67.Size = new System.Drawing.Size(97, 20);
             this.label67.TabIndex = 36;
@@ -1398,6 +1418,7 @@
             this.tabCatch.Controls.Add(this.groupBox9);
             this.tabCatch.Controls.Add(this.groupBox2);
             this.tabCatch.Controls.Add(this.cbUseEggIncubators);
+            this.tabCatch.Controls.Add(this.cbCatchPoke);
             this.tabCatch.Controls.Add(this.gbCatchPokemon);
             this.tabCatch.Location = new System.Drawing.Point(4, 29);
             this.tabCatch.Name = "tabCatch";
@@ -1428,7 +1449,7 @@
             this.groupBox10.Controls.Add(this.tbUseBerriesMinIv);
             this.groupBox10.Controls.Add(this.label56);
             this.groupBox10.Controls.Add(this.tbUseBerriesBelowCatchProbability);
-            this.groupBox10.Location = new System.Drawing.Point(12, 218);
+            this.groupBox10.Location = new System.Drawing.Point(12, 249);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(300, 147);
             this.groupBox10.TabIndex = 7;
@@ -1745,7 +1766,7 @@
             this.cbUseEggIncubators.TabIndex = 1;
             this.cbUseEggIncubators.Text = "Use Incubators";
             this.cbUseEggIncubators.UseVisualStyleBackColor = true;
-            this.cbUseEggIncubators.CheckedChanged += new System.EventHandler(this.cbUseEggIncubators_CheckedChanged);
+            this.cbUseEggIncubators.CheckedChanged += new System.EventHandler(this.CbUseEggIncubators_CheckedChanged);
             // 
             // gbCatchPokemon
             // 
@@ -1754,12 +1775,11 @@
             this.gbCatchPokemon.Controls.Add(this.tBMaxBerriesToUsePerPokemon);
             this.gbCatchPokemon.Controls.Add(this.label47);
             this.gbCatchPokemon.Controls.Add(this.label43);
-            this.gbCatchPokemon.Controls.Add(this.cbCatchPoke);
             this.gbCatchPokemon.Controls.Add(this.cbAutoFavoritePokemon);
             this.gbCatchPokemon.Controls.Add(this.tbMaxPokeballsPerPokemon);
             this.gbCatchPokemon.Controls.Add(this.tbFavoriteMinIvPercentage);
             this.gbCatchPokemon.Enabled = false;
-            this.gbCatchPokemon.Location = new System.Drawing.Point(12, 37);
+            this.gbCatchPokemon.Location = new System.Drawing.Point(12, 63);
             this.gbCatchPokemon.Name = "gbCatchPokemon";
             this.gbCatchPokemon.Size = new System.Drawing.Size(300, 182);
             this.gbCatchPokemon.TabIndex = 22;
@@ -1813,18 +1833,18 @@
             // cbCatchPoke
             // 
             this.cbCatchPoke.AutoSize = true;
-            this.cbCatchPoke.Location = new System.Drawing.Point(7, 0);
+            this.cbCatchPoke.Location = new System.Drawing.Point(18, 38);
             this.cbCatchPoke.Name = "cbCatchPoke";
             this.cbCatchPoke.Size = new System.Drawing.Size(133, 24);
             this.cbCatchPoke.TabIndex = 1;
             this.cbCatchPoke.Text = "Catch Pokemon";
             this.cbCatchPoke.UseVisualStyleBackColor = true;
-            this.cbCatchPoke.CheckedChanged += new System.EventHandler(this.cbCatchPoke_CheckedChanged);
+            this.cbCatchPoke.CheckedChanged += new System.EventHandler(this.CbCatchPoke_CheckedChanged);
             // 
             // cbAutoFavoritePokemon
             // 
             this.cbAutoFavoritePokemon.AutoSize = true;
-            this.cbAutoFavoritePokemon.Location = new System.Drawing.Point(7, 87);
+            this.cbAutoFavoritePokemon.Location = new System.Drawing.Point(7, 88);
             this.cbAutoFavoritePokemon.Name = "cbAutoFavoritePokemon";
             this.cbAutoFavoritePokemon.Size = new System.Drawing.Size(186, 24);
             this.cbAutoFavoritePokemon.TabIndex = 19;
@@ -1994,7 +2014,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.groupBox1.Size = new System.Drawing.Size(337, 454);
+            this.groupBox1.Size = new System.Drawing.Size(337, 458);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Exclude Transfer";
@@ -2008,7 +2028,7 @@
             this.clbTransfer.Location = new System.Drawing.Point(3, 25);
             this.clbTransfer.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.clbTransfer.Name = "clbTransfer";
-            this.clbTransfer.Size = new System.Drawing.Size(331, 424);
+            this.clbTransfer.Size = new System.Drawing.Size(331, 428);
             this.clbTransfer.TabIndex = 0;
             // 
             // cbNotTransferAll
@@ -2223,7 +2243,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.groupBox4.Size = new System.Drawing.Size(337, 454);
+            this.groupBox4.Size = new System.Drawing.Size(337, 458);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Power Up";
@@ -2237,7 +2257,7 @@
             this.clbPowerUp.Location = new System.Drawing.Point(3, 25);
             this.clbPowerUp.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.clbPowerUp.Name = "clbPowerUp";
-            this.clbPowerUp.Size = new System.Drawing.Size(331, 424);
+            this.clbPowerUp.Size = new System.Drawing.Size(331, 428);
             this.clbPowerUp.TabIndex = 0;
             // 
             // cbPowerUpAll
@@ -2412,7 +2432,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.groupBox3.Size = new System.Drawing.Size(337, 454);
+            this.groupBox3.Size = new System.Drawing.Size(337, 458);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Evolve";
@@ -2426,7 +2446,7 @@
             this.clbEvolve.Location = new System.Drawing.Point(3, 25);
             this.clbEvolve.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.clbEvolve.Name = "clbEvolve";
-            this.clbEvolve.Size = new System.Drawing.Size(331, 424);
+            this.clbEvolve.Size = new System.Drawing.Size(331, 428);
             this.clbEvolve.TabIndex = 0;
             // 
             // cbEvolveAll
@@ -2462,7 +2482,7 @@
             this.groupBox21.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.groupBox21.Name = "groupBox21";
             this.groupBox21.Padding = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.groupBox21.Size = new System.Drawing.Size(337, 454);
+            this.groupBox21.Size = new System.Drawing.Size(337, 458);
             this.groupBox21.TabIndex = 17;
             this.groupBox21.TabStop = false;
             this.groupBox21.Text = "Snipe List";
@@ -2476,7 +2496,7 @@
             this.clbSnipePokemonFilter.Location = new System.Drawing.Point(3, 25);
             this.clbSnipePokemonFilter.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.clbSnipePokemonFilter.Name = "clbSnipePokemonFilter";
-            this.clbSnipePokemonFilter.Size = new System.Drawing.Size(331, 424);
+            this.clbSnipePokemonFilter.Size = new System.Drawing.Size(331, 428);
             this.clbSnipePokemonFilter.TabIndex = 0;
             // 
             // cbSnipePokemonFilterAll
@@ -3506,26 +3526,6 @@
             this.cBoxTeamColor.Size = new System.Drawing.Size(99, 28);
             this.cBoxTeamColor.TabIndex = 38;
             this.cBoxTeamColor.Text = "Neutral";
-            // 
-            // tbHashURL
-            // 
-            this.tbHashURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbHashURL.Location = new System.Drawing.Point(109, 76);
-            this.tbHashURL.Name = "tbHashURL";
-            this.tbHashURL.Size = new System.Drawing.Size(186, 27);
-            this.tbHashURL.TabIndex = 44;
-            // 
-            // label74
-            // 
-            this.label74.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label74.AutoSize = true;
-            this.label74.Location = new System.Drawing.Point(6, 83);
-            this.label74.Name = "label74";
-            this.label74.Size = new System.Drawing.Size(75, 20);
-            this.label74.TabIndex = 43;
-            this.label74.Text = "Hash URL:";
             // 
             // SettingsForm
             // 
