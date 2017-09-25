@@ -70,7 +70,7 @@ namespace RocketBot2.Forms
             new Uri("https://raw.githubusercontent.com/TheUnnamedOrganisation/PoGo.NecroBot.Logic/master/MKS.txt");
 
         public static Session _session;
-        public static GlobalSettings _settings;
+        public static GlobalSettings settings;
         private StateMachine _machine;
         private PointLatLng _currentLatLng;
         private List<PointLatLng> _routePoints;
@@ -90,6 +90,11 @@ namespace RocketBot2.Forms
         internal readonly GMapOverlay _searchAreaOverlay = new GMapOverlay("areas");
 
         private const int DefaultZoomLevel = 15;
+
+        public static int[] BotRed;
+        public static int[] BotGreen;
+        public static int[] BotBlue;
+        public static int BotID;
 
         public MainForm(string[] _args)
         {
@@ -128,15 +133,15 @@ namespace RocketBot2.Forms
             cbAutoWalkAI.Parent = GMapControl1;
 
             InitializeBot(null);
-            if (!_settings.WebsocketsConfig.UseWebsocket) menuStrip1.Items.Remove(pokeEaseToolStripMenuItem);
+            if (!settings.WebsocketsConfig.UseWebsocket) menuStrip1.Items.Remove(pokeEaseToolStripMenuItem);
 
             //Sets initial checkboxe AutoWalkAI & PokestopTimer
-            LoadPokeStopsTimer.Interval = _settings.PlayerConfig.PokeStopsTimer * 1000;
-            LoadPokeStopsRefresh.Value = _settings.PlayerConfig.PokeStopsTimer;
+            LoadPokeStopsTimer.Interval = settings.PlayerConfig.PokeStopsTimer * 1000;
+            LoadPokeStopsRefresh.Value = settings.PlayerConfig.PokeStopsTimer;
             LoadPokeStopsTimer.Interval = 90000; // Sets timer to 2 min to allow for player login to complete before starting
 
             cbAutoWalkAI.Checked = _session.LogicSettings.AutoWalkAI;
-            cbEnablePushBulletNotification.Checked = _settings.NotificationConfig.EnablePushBulletNotification;
+            cbEnablePushBulletNotification.Checked = settings.NotificationConfig.EnablePushBulletNotification;
 
             //Deletes all Dump faile at bot startup
             if (_session.LogicSettings.DumpPokemonStats)
@@ -147,6 +152,13 @@ namespace RocketBot2.Forms
             }
 
             InitializePokemonForm();
+
+            if (_currentLatLng.IsEmpty) 
+            {
+                _currentLatLng.Lat = settings.Auth.CurrentAuthConfig.AccountLatitude;
+                _currentLatLng.Lng = settings.Auth.CurrentAuthConfig.AccountLongitude;
+            }
+
             InitializeMap();
             VersionHelper.CheckVersion();
             btnRefresh.Enabled = false;
@@ -160,7 +172,7 @@ namespace RocketBot2.Forms
             TrayIcon.Visible = false;
             if (FormWindowState.Minimized == this.WindowState)
             {
-                MultiAccountManager accountManager = new MultiAccountManager(_settings, _session.LogicSettings.Bots);
+                MultiAccountManager accountManager = new MultiAccountManager(settings, _session.LogicSettings.Bots);
                 var bot = string.IsNullOrEmpty(accountManager.GetCurrentAccount().Nickname) ? accountManager.GetCurrentAccount().Username : accountManager.GetCurrentAccount().Nickname;
 
                 TrayIcon.BalloonTipIcon = ToolTipIcon.Info; //Shows the info icon so the user doesn't thing there is an error.
@@ -212,8 +224,8 @@ namespace RocketBot2.Forms
 
         private void LoadPokeStopsRefresh_MouseUp(object sender, EventArgs e)
         {
-            _settings.PlayerConfig.PokeStopsTimer = LoadPokeStopsRefresh.Value;
-            LoadPokeStopsTimer.Interval = _settings.PlayerConfig.PokeStopsTimer * 1000;
+            settings.PlayerConfig.PokeStopsTimer = LoadPokeStopsRefresh.Value;
+            LoadPokeStopsTimer.Interval = settings.PlayerConfig.PokeStopsTimer * 1000;
             Logger.Write($"Pokestop refresh rate changed to {LoadPokeStopsRefresh.Value} sec");
         }
 
@@ -285,11 +297,14 @@ namespace RocketBot2.Forms
 
             SetState(true);
 
-            if (checkBoxAutoRefresh.Checked)
-                await ReloadPokemonList().ConfigureAwait(false);
+            if (_botStarted)
+            {
+                if (checkBoxAutoRefresh.Checked)
+                    await ReloadPokemonList().ConfigureAwait(false);
 
-            if (!LoadPokeStopsTimer.Enabled && _botStarted)
-                LoadPokeStopsTimer.Enabled = true;
+                if (!LoadPokeStopsTimer.Enabled)
+                    LoadPokeStopsTimer.Enabled = true;
+            }
         }
 
         #endregion INTERFACE
@@ -298,9 +313,18 @@ namespace RocketBot2.Forms
 
         private void InitializeMap()
         {
-            var lat = _session.Client.Settings.DefaultLatitude;
-            var lng = _session.Client.Settings.DefaultLongitude;
-            GMapControl1.MapProvider = GoogleMapProvider.Instance;
+            //var lat = _session.Client.Settings.DefaultLatitude;
+            //var lng = _session.Client.Settings.DefaultLongitude;
+            var lat = settings.Auth.CurrentAuthConfig.AccountLatitude;
+            var lng = settings.Auth.CurrentAuthConfig.AccountLongitude;
+
+            if (GMAPSatellite.CheckState == CheckState.Checked)
+                GMapControl1.MapProvider = GoogleSatelliteMapProvider.Instance;
+            else if (GMAPSatellite.CheckState == CheckState.Indeterminate)
+                GMapControl1.MapProvider = GoogleHybridMapProvider.Instance;
+            else
+                GMapControl1.MapProvider = GoogleMapProvider.Instance;
+
             GMapControl1.Manager.Mode = AccessMode.ServerOnly;
             GMapProvider.WebProxy = null;
             GMapControl1.Position = new PointLatLng(lat, lng);
@@ -308,13 +332,21 @@ namespace RocketBot2.Forms
 
             GMapControl1.MinZoom = 2;
             GMapControl1.MaxZoom = 18;
+            trackBar.Minimum = GMapControl1.MinZoom;
+            trackBar.Maximum = GMapControl1.MaxZoom;
+
+            if (trackBar.Value == DefaultZoomLevel)
+            {
+                trackBar.Value = DefaultZoomLevel;
+                GMapControl1.Zoom = trackBar.Value;
+            }
 
             //Bottom most layer
             GMapControl1.Overlays.Add(_searchAreaOverlay);
-            GMapControl1.Overlays.Add(_playerRouteOverlay);
             GMapControl1.Overlays.Add(_pokemonsOverlay);
             GMapControl1.Overlays.Add(_pokestopsOverlay);
             GMapControl1.Overlays.Add(_playerRoutePointsOverlay);
+            GMapControl1.Overlays.Add(_playerRouteOverlay);
             GMapControl1.Overlays.Add(_playerOverlay);
             //Top most layer
 
@@ -323,10 +355,6 @@ namespace RocketBot2.Forms
             _playerMarker.Position = new PointLatLng(lat, lng);
             _searchAreaOverlay.Polygons.Clear();
             S2GMapDrawer.DrawS2Cells(S2Helper.GetNearbyCellIds(lng, lat), _searchAreaOverlay);
-            GMapControl1.Zoom = DefaultZoomLevel;
-            trackBar.Maximum = 18;
-            trackBar.Minimum = 2;
-            trackBar.Value = DefaultZoomLevel;
             GMapControl1.OnMapZoomChanged += delegate { trackBar.Value = (int)GMapControl1.Zoom; };
         }
 
@@ -377,10 +405,10 @@ namespace RocketBot2.Forms
                 if (_pokemonsOverlay.Markers.Count > 8)
                     _pokemonsOverlay.Markers.Clear();
 
-                _playerRoutePointsOverlay.Routes.Clear();
+                _playerRouteOverlay.Routes.Clear();
 
-                //if (togglePrecalRoute.CheckState == CheckState.Checked)
-                //{
+                if (togglePrecalRoute.CheckState == CheckState.Checked)
+                {
                     _routePoints =
                         (from pokeStop in pokeStops
                          where pokeStop != null
@@ -390,8 +418,8 @@ namespace RocketBot2.Forms
                     {
                         Stroke = new Pen(Color.FromArgb(102, 178, 255), 2)
                     };
-                    _playerRoutePointsOverlay.Routes.Add(route);
-                //}
+                    _playerRouteOverlay.Routes.Add(route);
+                }
 
                 _pokestopsOverlay.Markers.Clear();
 
@@ -558,7 +586,7 @@ namespace RocketBot2.Forms
                     {
                         Points = _session.Navigation.WalkStrategy.Points;
                         _playerLocations.Clear();
-                        _playerRouteOverlay.Routes.Clear();
+                        _playerRoutePointsOverlay.Routes.Clear();
                         //_playerOverlay.Routes.Clear();
                         List<PointLatLng> routePointLatLngs = new List<PointLatLng>();
                         foreach (var item in Points)
@@ -569,7 +597,7 @@ namespace RocketBot2.Forms
                         {
                             Stroke = new Pen(Color.FromArgb(255, 51, 51), 2) { DashStyle = DashStyle.Dash }
                         };
-                        _playerRouteOverlay.Routes.Add(routes);
+                        _playerRoutePointsOverlay.Routes.Add(routes);
                     }
                 }
                 catch
@@ -620,7 +648,6 @@ namespace RocketBot2.Forms
             SynchronizationContext.Post(o =>
             {
                 _playerOverlay.Markers.Clear();
-                _playerRoutePointsOverlay.Routes.Clear();
                 _playerLocations.Add(latlng);
 
                 if (!_currentLatLng.IsEmpty)
@@ -635,11 +662,24 @@ namespace RocketBot2.Forms
 
                 _currentLatLng = latlng;
 
+                _session.Client.Settings.DefaultLatitude = _currentLatLng.Lat;
+                _session.Client.Settings.DefaultLongitude = _currentLatLng.Lng;
+
+                _session.Client.Settings.AccountLatitude = _currentLatLng.Lat;
+                _session.Client.Settings.AccountLongitude = _currentLatLng.Lng;
+
+                settings.LocationConfig.DefaultLatitude = _currentLatLng.Lat;
+                settings.LocationConfig.DefaultLongitude = _currentLatLng.Lng;
+
+                settings.Auth.CurrentAuthConfig.AccountLatitude = _currentLatLng.Lat;
+                settings.Auth.CurrentAuthConfig.AccountLongitude = _currentLatLng.Lng;
+
                 if (togglePrecalRoute.CheckState == CheckState.Checked || togglePrecalRoute.CheckState == CheckState.Indeterminate)
                 {
                     var step = new GMapRoute(_playerLocations, "step")
                     {
                         Stroke = new Pen(Color.FromArgb(0, 204, 0), 1) { DashStyle = DashStyle.Solid }
+                        //Stroke = new Pen(Color.FromArgb(BotRed[BotID], BotGreen[BotID], BotBlue[BotID]), 1) { DashStyle = DashStyle.Solid }
                     };
                     _playerOverlay.Routes.Add(step);
                 }
@@ -678,7 +718,7 @@ namespace RocketBot2.Forms
             if (!_botStarted)
             {
                 // Sets current location 
-                var lastPosFile = Path.Combine(_settings.ProfileConfigPath, "LastPos.ini");
+                var lastPosFile = Path.Combine(settings.ProfileConfigPath, "LastPos.ini");
                 if (File.Exists(lastPosFile))
                 {
                     File.Delete(lastPosFile);
@@ -687,8 +727,14 @@ namespace RocketBot2.Forms
                 _session.Client.Settings.DefaultLatitude = pos.Lat;
                 _session.Client.Settings.DefaultLongitude = pos.Lng;
 
-                _settings.LocationConfig.DefaultLatitude = pos.Lat;
-                _settings.LocationConfig.DefaultLongitude = pos.Lng;
+                _session.Client.Settings.AccountLatitude = pos.Lat;
+                _session.Client.Settings.AccountLongitude = pos.Lng;
+
+                settings.LocationConfig.DefaultLatitude = pos.Lat;
+                settings.LocationConfig.DefaultLongitude = pos.Lng;
+
+                settings.Auth.CurrentAuthConfig.AccountLatitude = pos.Lat;
+                settings.Auth.CurrentAuthConfig.AccountLongitude = pos.Lng;
 
                 _session.Client.Player.SetCoordinates(pos.Lat, pos.Lng, Alt);
 
@@ -697,10 +743,12 @@ namespace RocketBot2.Forms
                 _playerLocations.Clear();
                 Navigation_UpdatePositionEvent();
 
-                _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
+                Logger.Write($"New starting location has been set to: Lat: {pos.Lat:0.00000000} Long: {pos.Lng:0.00000000} Alt: {Alt:0.00}m | Dist: {Dist:0.00} {DistUnits}", LogLevel.Info);
+
+                settings.Save(Path.Combine(settings.ProfileConfigPath, "config.json"));
+                settings.Auth.Save(Path.Combine(settings.ProfileConfigPath, "auth.json"));
                 tmrSaveSettings.Start();
 
-                Logger.Write($"New starting location has been set to: Lat: {pos.Lat:0.00000000} Long: {pos.Lng:0.00000000} Alt: {Alt:0.00}m | Dist: {Dist:0.00} {DistUnits}", LogLevel.Info);
                 return;
             }
             Logger.Write($"Trainer now traveling to: Lat: {pos.Lat:0.00000000} Long: {pos.Lng:0.00000000} Dist: {Dist:0.00} {DistUnits} Travel Time: {Dist * 60 / Speed / 1000:0.00}min", LogLevel.Info);
@@ -723,7 +771,7 @@ namespace RocketBot2.Forms
             try
             {
                 //save current config this risk for bug maybe comment it
-                _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
+                settings.Save(Path.Combine(settings.ProfileConfigPath, "config.json"));
                 List<Control> listControls = new List<Control>();
                 foreach (Control control in Instance.Controls)
                 {
@@ -792,10 +840,10 @@ namespace RocketBot2.Forms
 
         private async void SettingsStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.Form settingsForm = new SettingsForm(ref _settings, _session, args);
+            System.Windows.Forms.Form settingsForm = new SettingsForm(ref settings, _session, args);
             settingsForm.ShowDialog();
 
-            var newLocation = new PointLatLng(_settings.LocationConfig.DefaultLatitude, _settings.LocationConfig.DefaultLongitude);
+            var newLocation = new PointLatLng(settings.LocationConfig.DefaultLatitude, settings.LocationConfig.DefaultLongitude);
             var currLocation = new PointLatLng(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude);
             double Dist = LocationUtils.CalculateDistanceInMeters(_session.Client.CurrentLatitude, _session.Client.CurrentLongitude, newLocation.Lat, newLocation.Lng);
 
@@ -804,6 +852,16 @@ namespace RocketBot2.Forms
                 double Alt = await _session.ElevationService.GetElevation(newLocation.Lat, newLocation.Lng).ConfigureAwait(false);
                 _session.Client.Settings.DefaultLatitude = newLocation.Lat;
                 _session.Client.Settings.DefaultLongitude = newLocation.Lng;
+
+                _session.Client.Settings.AccountLatitude = newLocation.Lat;
+                _session.Client.Settings.AccountLongitude = newLocation.Lng;
+
+                settings.LocationConfig.DefaultLatitude = newLocation.Lat;
+                settings.LocationConfig.DefaultLongitude = newLocation.Lng;
+
+                settings.Auth.CurrentAuthConfig.AccountLatitude = newLocation.Lat;
+                settings.Auth.CurrentAuthConfig.AccountLongitude = newLocation.Lng;
+
                 _session.Client.Player.SetCoordinates(newLocation.Lat, newLocation.Lng, Alt);
                 _currentLatLng = newLocation;
                 _playerLocations.Clear();
@@ -847,7 +905,7 @@ namespace RocketBot2.Forms
         {
             foreach (ToolStripMenuItem en in accountsToolStripMenuItem.DropDownItems)
             {
-                if (en.Text == _settings.Auth.CurrentAuthConfig.Username)
+                if (en.Text == settings.Auth.CurrentAuthConfig.Username)
                     en.Enabled = false;
                 else
                     en.Enabled = true;
@@ -862,12 +920,12 @@ namespace RocketBot2.Forms
             cbEnablePushBulletNotification.Visible = showMoreCheckBox.Checked;
             cbAutoWalkAI.Visible = showMoreCheckBox.Checked;
 
-            if (_settings.NotificationConfig.PushBulletApiKey != null)
+            if (settings.NotificationConfig.PushBulletApiKey != null)
             {
                 cbEnablePushBulletNotification.Enabled = true;
-                cbEnablePushBulletNotification.Checked = _settings.NotificationConfig.EnablePushBulletNotification;
+                cbEnablePushBulletNotification.Checked = settings.NotificationConfig.EnablePushBulletNotification;
             }
-            cbAutoWalkAI.Checked = _settings.PlayerConfig.AutoWalkAI;
+            cbAutoWalkAI.Checked = settings.PlayerConfig.AutoWalkAI;
         }
 
         private void FollowTrainerCheckBox_CheckStateChanged(object sender, EventArgs e)
@@ -887,7 +945,7 @@ namespace RocketBot2.Forms
         {
             SynchronizationContext.Post(o =>
             {
-                _playerRoutePointsOverlay.Routes.Clear();
+                _playerRouteOverlay.Routes.Clear();
                 _playerOverlay.Routes.Clear();
 
                 if (_routePoints != null)
@@ -904,7 +962,7 @@ namespace RocketBot2.Forms
 
                     if (togglePrecalRoute.CheckState == CheckState.Checked)
                     {
-                        _playerRoutePointsOverlay.Routes.Add(route);
+                        _playerRouteOverlay.Routes.Add(route);
                         _playerOverlay.Routes.Add(step);
                     }
 
@@ -926,8 +984,8 @@ namespace RocketBot2.Forms
 
         private void CbEnablePushBulletNotification_CheckedChanged(object sender, EventArgs e)
         {
-            _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
-            _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
+            settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
+            settings.Save(Path.Combine(settings.ProfileConfigPath, "config.json"));
             tmrSaveSettings.Enabled = true;
             tmrSaveSettings.Start();
             cbAutoWalkAI.Enabled = false;
@@ -936,8 +994,8 @@ namespace RocketBot2.Forms
 
         private void CbAutoWalkAI_CheckedChanged(object sender, EventArgs e)
         {
-            _settings.PlayerConfig.AutoWalkAI = cbAutoWalkAI.Checked;
-            _settings.Save(Path.Combine(_settings.ProfileConfigPath, "config.json"));
+            settings.PlayerConfig.AutoWalkAI = cbAutoWalkAI.Checked;
+            settings.Save(Path.Combine(settings.ProfileConfigPath, "config.json"));
             tmrSaveSettings.Enabled = true;
             tmrSaveSettings.Start();
             cbAutoWalkAI.Enabled = false;
@@ -1295,28 +1353,30 @@ namespace RocketBot2.Forms
                     OldCount = NewCount;
                 }
 
-                Instance.lblPokemonList.Text = _session.Translation.GetTranslation(TranslationString.AmountPkmSeenCaught, _totalData, _totalCaptures) +
+                Instance.lblPokemonList.Text = _session.Translation.GetTranslation(TranslationString.AmountPkmSeenCaught, _totalData, 252, _totalCaptures, 252) +
                     $" | Storage: {_session.Client.Player.PlayerData.MaxPokemonStorage} (Pokémons: {pokemons.Count()}, Eggs: {_session.Inventory.GetEggs().Result.Count()}) [Depolyments: {NewCount}]";
 
                 var items =
-                _session.Inventory.GetItems().Result
-                .Where(i => i != null)
-                .OrderBy(i => i.ItemId);
+                    _session.Inventory.GetItems().Result
+                    .Where(i => i != null)
+                    .OrderBy(i => i.ItemId);
 
-                if (items.Count() != OldItemsCount)
+                var itemscount = 0;
+                foreach(var i in items) { itemscount += i.Count; }
+                if (itemscount != OldItemsCount)
                 {
                     var appliedItems =
-                    _session.Inventory.GetAppliedItems().Result
-                    .Where(aItems => aItems?.Item != null)
-                    .SelectMany(aItems => aItems.Item)
-                    .ToDictionary(item => item.ItemId, item => new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(item.ExpireMs));
+                        _session.Inventory.GetAppliedItems().Result
+                        .Where(aItems => aItems?.Item != null)
+                        .SelectMany(aItems => aItems.Item)
+                        .ToDictionary(item => item.ItemId, item => new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(item.ExpireMs));
 
                     await FlpItemsClean(items, appliedItems).ConfigureAwait(false);
 
                     Instance.lblInventory.Text =
                             $"Types: {items.Count()} | Total: {_session.Inventory.GetTotalItemCount().Result} | Storage: {_session.Client.Player.PlayerData.MaxItemStorage}";
                 }
-                OldItemsCount = items.Count();
+                OldItemsCount = itemscount;
             }
             catch (ArgumentNullException)
             {
@@ -1552,8 +1612,17 @@ namespace RocketBot2.Forms
                 {
                     var lat = double.Parse(crds[0]);
                     var lng = double.Parse(crds[1]);
+                    _session.Client.Settings.DefaultLatitude = lat;
+                    _session.Client.Settings.DefaultLongitude = lng;
+
+                    _session.Client.Settings.AccountLatitude = lat;
+                    _session.Client.Settings.AccountLongitude = lng;
+
                     settings.LocationConfig.DefaultLatitude = lat;
                     settings.LocationConfig.DefaultLongitude = lng;
+
+                    settings.Auth.CurrentAuthConfig.AccountLatitude = lat;
+                    settings.Auth.CurrentAuthConfig.AccountLongitude = lng;
                 }
                 catch (Exception)
                 {
@@ -1827,10 +1896,35 @@ namespace RocketBot2.Forms
                     _item.Click += delegate
                     {
                         if (!Instance._botStarted)
+                        {
+                            //settings = GlobalSettings.Load(_subPath, false);
+                            //settings.Auth.Load(Path.Combine(_settings.ProfileConfigPath, "auth.json"), Path.Combine(_settings.ProfileConfigPath, "auth.schema.json"), _settings.UpdateConfig.SchemaVersion);
                             _session.ReInitSessionWithNextBot(_bot);
+
+                            _playerOverlay.Markers.Clear();
+                            _session.Client.Settings.DefaultLatitude = _bot.AccountLatitude;
+                            _session.Client.Settings.DefaultLongitude = _bot.AccountLongitude;
+
+                            settings.LocationConfig.DefaultLatitude = _bot.AccountLatitude;
+                            settings.LocationConfig.DefaultLongitude = _bot.AccountLongitude;
+
+                            settings.Auth.CurrentAuthConfig.AccountLatitude = _bot.AccountLatitude;
+                            settings.Auth.CurrentAuthConfig.AccountLongitude = _bot.AccountLongitude;
+
+                            _session.Client.Settings.AccountLatitude = _bot.AccountLatitude;
+                            _session.Client.Settings.AccountLongitude = _bot.AccountLongitude;
+
+                            _currentLatLng.Lat = _bot.AccountLatitude;
+                            _currentLatLng.Lng = _bot.AccountLongitude;
+                            InitializeMap();
+                        }
                         accountManager.SwitchAccountTo(_bot);
                     };
                     accountsToolStripMenuItem.DropDownItems.Add(_item);
+
+                    //BotRed[_bot.Id - 1] = new Random().Next(0, 256);
+                    //BotBlue[_bot.Id - 1] = new Random().Next(0, 256);
+                    //BotGreen[_bot.Id - 1] = new Random().Next(0, 256);
                 }
             }
             else
@@ -1842,10 +1936,15 @@ namespace RocketBot2.Forms
 
             _session.ReInitSessionWithNextBot(bot);
             _machine = machine;
-            _settings = settings;
+            MainForm.settings = settings;
             _excelConfigAllow = excelConfigAllow;
 
             if (_botStarted) startStopBotToolStripMenuItem.Text = @"■ Exit RocketBot2";
+
+            for (int i = 0; i < settings.Auth.Bots.Count(); i++)
+            {
+                if (settings.Auth.Bots[i].Username == settings.Auth.CurrentAuthConfig.Username) BotID = i;
+            }
 
             if (AutoStart)
                 StartStopBotToolStripMenuItem_Click(null, null);
@@ -1863,8 +1962,8 @@ namespace RocketBot2.Forms
             {
             }
 
-            if (_settings.TelegramConfig.UseTelegramAPI)
-                _session.Telegram = new TelegramService(_settings.TelegramConfig.TelegramAPIKey, _session);
+            if (settings.TelegramConfig.UseTelegramAPI)
+                _session.Telegram = new TelegramService(settings.TelegramConfig.TelegramAPIKey, _session);
             if (_session.LogicSettings.EnableHumanWalkingSnipe &&
                             _session.LogicSettings.HumanWalkingSnipeUseFastPokemap)
             {
@@ -1882,7 +1981,7 @@ namespace RocketBot2.Forms
                 BotDataSocketClient.StartAsync(_session, Properties.Resources.EncryptKey);
                 _session.EventDispatcher.EventReceived += evt => BotDataSocketClient.Listen(evt, _session);
             }
-            _settings.CheckProxy(_session.Translation);
+            settings.CheckProxy(_session.Translation);
 
             if (_session.LogicSettings.ActivateMSniper)
             {
