@@ -594,7 +594,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "已遇见:{0}/251只神奇宝贝,已捕捉:{1}/251只\t\t\t"
+      "Value": "已遇见:{0}/{1}只神奇宝贝,已捕捉:{2}/{3}只\t\t\t"
     },
     {
       "Key": "pkmPotentialEvolveCount",

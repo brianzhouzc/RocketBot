@@ -590,7 +590,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "見過的小精靈: {0}/251, 捕捉過的小精靈: {1}/251"
+      "Value": "見過的小精靈: {0}/{1}, 捕捉過的小精靈: {2}/{3}"
     },
     {
       "Key": "pkmPotentialEvolveCount",

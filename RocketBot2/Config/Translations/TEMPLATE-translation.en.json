@@ -650,7 +650,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "Pokemon Seen: {0}/251, Pokemon Caught: {1}/251"
+      "Value": "Pokemon Seen: {0}/{1}, Pokemon Caught: {2}/{3}"
     },
     {
       "Key": "pkmPotentialEvolveCount",

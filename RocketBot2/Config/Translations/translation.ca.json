@@ -567,7 +567,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "Quantitat de Pokemon vists: {0}/251, Quantitat de Pokemon capturats: {1}/251"
+      "Value": "Quantitat de Pokemon vists: {0}/{1}, Quantitat de Pokemon capturats: {2}/{3}"
     },
     {
       "Key": "pkmPotentialEvolveCount",
