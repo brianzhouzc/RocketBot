@@ -185,6 +185,7 @@ namespace RocketBot2.Forms
             #region Catch
 
             cbCatchPoke.Checked = _settings.PokemonConfig.CatchPokemon;
+            gbCatchPokemon.Enabled = cbCatchPoke.Checked;
             cbUseEggIncubators.Checked = _settings.PokemonConfig.UseEggIncubators;
             cbUseLimitedEggIncubators.Checked = _settings.PokemonConfig.UseLimitedEggIncubators;
             cbAutoFavoriteShinyOnCatch.Checked = _settings.PokemonConfig.AutoFavoriteShinyOnCatch;
@@ -373,8 +374,7 @@ namespace RocketBot2.Forms
 
         private void cbCatchPoke_CheckedChanged(object sender, EventArgs e)
         {
-            //Error checkbox not enabled 
-            //gbCatchPokemon.Enabled = cbCatchPoke.Checked;
+            gbCatchPokemon.Enabled = cbCatchPoke.Checked;
         }
 
         protected override void OnLoad(EventArgs e)

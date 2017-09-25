@@ -1001,7 +1001,7 @@
             // 
             this.tbHashURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbHashURL.Location = new System.Drawing.Point(131, 106);
+            this.tbHashURL.Location = new System.Drawing.Point(131, 116);
             this.tbHashURL.Margin = new System.Windows.Forms.Padding(4);
             this.tbHashURL.Name = "tbHashURL";
             this.tbHashURL.Size = new System.Drawing.Size(222, 31);
@@ -1012,7 +1012,7 @@
             this.label74.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label74.AutoSize = true;
-            this.label74.Location = new System.Drawing.Point(7, 115);
+            this.label74.Location = new System.Drawing.Point(7, 125);
             this.label74.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label74.Name = "label74";
             this.label74.Size = new System.Drawing.Size(92, 25);
@@ -1023,7 +1023,7 @@
             // 
             this.tbPushBulletAPIKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbPushBulletAPIKey.Location = new System.Drawing.Point(131, 227);
+            this.tbPushBulletAPIKey.Location = new System.Drawing.Point(131, 237);
             this.tbPushBulletAPIKey.Margin = new System.Windows.Forms.Padding(4);
             this.tbPushBulletAPIKey.Name = "tbPushBulletAPIKey";
             this.tbPushBulletAPIKey.Size = new System.Drawing.Size(222, 31);
@@ -1034,7 +1034,7 @@
             this.label68.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(7, 236);
+            this.label68.Location = new System.Drawing.Point(7, 246);
             this.label68.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(101, 25);
@@ -1080,7 +1080,7 @@
             // 
             this.tbAuthAPIKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbAuthAPIKey.Location = new System.Drawing.Point(131, 272);
+            this.tbAuthAPIKey.Location = new System.Drawing.Point(131, 282);
             this.tbAuthAPIKey.Margin = new System.Windows.Forms.Padding(4);
             this.tbAuthAPIKey.Name = "tbAuthAPIKey";
             this.tbAuthAPIKey.Size = new System.Drawing.Size(222, 31);
@@ -1091,7 +1091,7 @@
             this.label67.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(7, 280);
+            this.label67.Location = new System.Drawing.Point(7, 290);
             this.label67.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label67.Name = "label67";
             this.label67.Size = new System.Drawing.Size(119, 25);
@@ -1472,6 +1472,7 @@
             this.tabCatch.Controls.Add(this.groupBox9);
             this.tabCatch.Controls.Add(this.gbCatchIgnore);
             this.tabCatch.Controls.Add(this.cbUseEggIncubators);
+            this.tabCatch.Controls.Add(this.cbCatchPoke);
             this.tabCatch.Controls.Add(this.gbCatchPokemon);
             this.tabCatch.Location = new System.Drawing.Point(4, 34);
             this.tabCatch.Margin = new System.Windows.Forms.Padding(4);
@@ -1495,8 +1496,6 @@
             // 
             // groupBox10
             // 
-            this.groupBox10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox10.Controls.Add(this.cbUseBerriesOperator);
             this.groupBox10.Controls.Add(this.label52);
             this.groupBox10.Controls.Add(this.tbUseBerriesMinCp);
@@ -1508,7 +1507,7 @@
             this.groupBox10.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox10.Size = new System.Drawing.Size(360, 171);
+            this.groupBox10.Size = new System.Drawing.Size(360, 180);
             this.groupBox10.TabIndex = 7;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Use Berries:";
@@ -1530,7 +1529,7 @@
             // label52
             // 
             this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(8, 28);
+            this.label52.Location = new System.Drawing.Point(8, 25);
             this.label52.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label52.Name = "label52";
             this.label52.Size = new System.Drawing.Size(72, 25);
@@ -1549,7 +1548,7 @@
             // label54
             // 
             this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(8, 104);
+            this.label54.Location = new System.Drawing.Point(8, 101);
             this.label54.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label54.Name = "label54";
             this.label54.Size = new System.Drawing.Size(67, 25);
@@ -1568,7 +1567,7 @@
             // label56
             // 
             this.label56.AutoSize = true;
-            this.label56.Location = new System.Drawing.Point(8, 140);
+            this.label56.Location = new System.Drawing.Point(8, 137);
             this.label56.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label56.Name = "label56";
             this.label56.Size = new System.Drawing.Size(155, 25);
@@ -1586,11 +1585,10 @@
             // 
             // groupBox9
             // 
-            this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox9.Controls.Add(this.groupBox25);
             this.groupBox9.Controls.Add(this.groupBox23);
             this.groupBox9.Controls.Add(this.groupBox24);
-            this.groupBox9.Location = new System.Drawing.Point(384, -5);
+            this.groupBox9.Location = new System.Drawing.Point(384, 8);
             this.groupBox9.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Padding = new System.Windows.Forms.Padding(4);
@@ -1637,7 +1635,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 28);
+            this.label4.Location = new System.Drawing.Point(8, 25);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(94, 25);
@@ -1647,7 +1645,7 @@
             // label42
             // 
             this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(8, 66);
+            this.label42.Location = new System.Drawing.Point(8, 63);
             this.label42.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(155, 25);
@@ -1676,7 +1674,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 28);
+            this.label2.Location = new System.Drawing.Point(8, 25);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(94, 25);
@@ -1704,7 +1702,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 66);
+            this.label6.Location = new System.Drawing.Point(8, 63);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(89, 25);
@@ -1714,7 +1712,7 @@
             // label40
             // 
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(8, 104);
+            this.label40.Location = new System.Drawing.Point(8, 101);
             this.label40.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(155, 25);
@@ -1752,7 +1750,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 28);
+            this.label3.Location = new System.Drawing.Point(8, 25);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(94, 25);
@@ -1780,7 +1778,7 @@
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(8, 66);
+            this.label36.Location = new System.Drawing.Point(8, 63);
             this.label36.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(89, 25);
@@ -1790,7 +1788,7 @@
             // label41
             // 
             this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(8, 104);
+            this.label41.Location = new System.Drawing.Point(8, 101);
             this.label41.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(155, 25);
@@ -1864,7 +1862,6 @@
             this.gbCatchPokemon.Controls.Add(this.tBMaxBerriesToUsePerPokemon);
             this.gbCatchPokemon.Controls.Add(this.label47);
             this.gbCatchPokemon.Controls.Add(this.label43);
-            this.gbCatchPokemon.Controls.Add(this.cbCatchPoke);
             this.gbCatchPokemon.Controls.Add(this.cbAutoFavoritePokemon);
             this.gbCatchPokemon.Controls.Add(this.tbMaxPokeballsPerPokemon);
             this.gbCatchPokemon.Controls.Add(this.tbFavoriteMinIvPercentage);
@@ -1880,7 +1877,7 @@
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(8, 30);
+            this.label27.Location = new System.Drawing.Point(8, 27);
             this.label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(192, 25);
@@ -1890,7 +1887,7 @@
             // cbAutoFavoriteShinyOnCatch
             // 
             this.cbAutoFavoriteShinyOnCatch.AutoSize = true;
-            this.cbAutoFavoriteShinyOnCatch.Location = new System.Drawing.Point(8, 180);
+            this.cbAutoFavoriteShinyOnCatch.Location = new System.Drawing.Point(8, 178);
             this.cbAutoFavoriteShinyOnCatch.Margin = new System.Windows.Forms.Padding(4);
             this.cbAutoFavoriteShinyOnCatch.Name = "cbAutoFavoriteShinyOnCatch";
             this.cbAutoFavoriteShinyOnCatch.Size = new System.Drawing.Size(250, 29);
@@ -1910,7 +1907,7 @@
             // label47
             // 
             this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(8, 142);
+            this.label47.Location = new System.Drawing.Point(8, 139);
             this.label47.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(151, 25);
@@ -1920,7 +1917,7 @@
             // label43
             // 
             this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(8, 68);
+            this.label43.Location = new System.Drawing.Point(8, 65);
             this.label43.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label43.Name = "label43";
             this.label43.Size = new System.Drawing.Size(215, 25);
@@ -1930,7 +1927,7 @@
             // cbCatchPoke
             // 
             this.cbCatchPoke.AutoSize = true;
-            this.cbCatchPoke.Location = new System.Drawing.Point(8, 0);
+            this.cbCatchPoke.Location = new System.Drawing.Point(22, 41);
             this.cbCatchPoke.Margin = new System.Windows.Forms.Padding(4);
             this.cbCatchPoke.Name = "cbCatchPoke";
             this.cbCatchPoke.Size = new System.Drawing.Size(162, 29);
@@ -1942,7 +1939,7 @@
             // cbAutoFavoritePokemon
             // 
             this.cbAutoFavoritePokemon.AutoSize = true;
-            this.cbAutoFavoritePokemon.Location = new System.Drawing.Point(8, 104);
+            this.cbAutoFavoritePokemon.Location = new System.Drawing.Point(8, 102);
             this.cbAutoFavoritePokemon.Margin = new System.Windows.Forms.Padding(4);
             this.cbAutoFavoritePokemon.Name = "cbAutoFavoritePokemon";
             this.cbAutoFavoritePokemon.Size = new System.Drawing.Size(226, 29);
@@ -1995,7 +1992,7 @@
             this.groupBox7.Controls.Add(this.tbKeepMinCp);
             this.groupBox7.Controls.Add(this.label38);
             this.groupBox7.Controls.Add(this.label39);
-            this.groupBox7.Location = new System.Drawing.Point(14, 0);
+            this.groupBox7.Location = new System.Drawing.Point(14, 8);
             this.groupBox7.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Padding = new System.Windows.Forms.Padding(4);
@@ -2049,7 +2046,7 @@
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(14, 180);
+            this.label35.Location = new System.Drawing.Point(14, 177);
             this.label35.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(214, 25);
@@ -2112,7 +2109,7 @@
             // label39
             // 
             this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(14, 66);
+            this.label39.Location = new System.Drawing.Point(14, 65);
             this.label39.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(118, 25);
@@ -2129,7 +2126,7 @@
             this.gbExcludeTrans.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.gbExcludeTrans.Name = "gbExcludeTrans";
             this.gbExcludeTrans.Padding = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.gbExcludeTrans.Size = new System.Drawing.Size(404, 561);
+            this.gbExcludeTrans.Size = new System.Drawing.Size(404, 571);
             this.gbExcludeTrans.TabIndex = 20;
             this.gbExcludeTrans.TabStop = false;
             this.gbExcludeTrans.Text = "Exclude";
@@ -2143,7 +2140,7 @@
             this.clbTransfer.Location = new System.Drawing.Point(4, 30);
             this.clbTransfer.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.clbTransfer.Name = "clbTransfer";
-            this.clbTransfer.Size = new System.Drawing.Size(396, 525);
+            this.clbTransfer.Size = new System.Drawing.Size(396, 535);
             this.clbTransfer.TabIndex = 0;
             // 
             // cbNotTransferAll
@@ -2163,7 +2160,7 @@
             this.groupBox8.Controls.Add(this.tbKeepMinLvl);
             this.groupBox8.Controls.Add(this.cbUseKeepMinLvl);
             this.groupBox8.Controls.Add(this.label37);
-            this.groupBox8.Location = new System.Drawing.Point(14, 322);
+            this.groupBox8.Location = new System.Drawing.Point(14, 330);
             this.groupBox8.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Padding = new System.Windows.Forms.Padding(4);
@@ -2195,7 +2192,7 @@
             // label37
             // 
             this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(14, 66);
+            this.label37.Location = new System.Drawing.Point(14, 63);
             this.label37.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(136, 25);
@@ -2221,7 +2218,7 @@
             // cbPowerUpFav
             // 
             this.cbPowerUpFav.AutoSize = true;
-            this.cbPowerUpFav.Location = new System.Drawing.Point(34, 46);
+            this.cbPowerUpFav.Location = new System.Drawing.Point(22, 41);
             this.cbPowerUpFav.Margin = new System.Windows.Forms.Padding(4);
             this.cbPowerUpFav.Name = "cbPowerUpFav";
             this.cbPowerUpFav.Size = new System.Drawing.Size(226, 29);
@@ -2238,7 +2235,7 @@
             this.groupBox6.Controls.Add(this.label30);
             this.groupBox6.Controls.Add(this.cbPowerUpMinStarDust);
             this.groupBox6.Controls.Add(this.label28);
-            this.groupBox6.Location = new System.Drawing.Point(14, 122);
+            this.groupBox6.Location = new System.Drawing.Point(14, 117);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(4);
@@ -2273,7 +2270,7 @@
             // tbPowerUpMinCP
             // 
             this.tbPowerUpMinCP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbPowerUpMinCP.Location = new System.Drawing.Point(248, 104);
+            this.tbPowerUpMinCP.Location = new System.Drawing.Point(248, 106);
             this.tbPowerUpMinCP.Margin = new System.Windows.Forms.Padding(4);
             this.tbPowerUpMinCP.Name = "tbPowerUpMinCP";
             this.tbPowerUpMinCP.Size = new System.Drawing.Size(88, 31);
@@ -2282,7 +2279,7 @@
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(14, 148);
+            this.label31.Location = new System.Drawing.Point(8, 145);
             this.label31.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(84, 25);
@@ -2292,7 +2289,7 @@
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(14, 110);
+            this.label30.Location = new System.Drawing.Point(8, 109);
             this.label30.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(74, 25);
@@ -2335,7 +2332,7 @@
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(14, 38);
+            this.label28.Location = new System.Drawing.Point(8, 34);
             this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(227, 25);
@@ -2349,7 +2346,7 @@
             this.cbPowerUpType.Items.AddRange(new object[] {
             "IV",
             "CP"});
-            this.cbPowerUpType.Location = new System.Drawing.Point(262, 80);
+            this.cbPowerUpType.Location = new System.Drawing.Point(262, 75);
             this.cbPowerUpType.Margin = new System.Windows.Forms.Padding(4);
             this.cbPowerUpType.Name = "cbPowerUpType";
             this.cbPowerUpType.Size = new System.Drawing.Size(88, 33);
@@ -2359,7 +2356,7 @@
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(30, 84);
+            this.label29.Location = new System.Drawing.Point(22, 79);
             this.label29.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(129, 25);
@@ -2376,7 +2373,7 @@
             this.gbPUP.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.gbPUP.Name = "gbPUP";
             this.gbPUP.Padding = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.gbPUP.Size = new System.Drawing.Size(404, 561);
+            this.gbPUP.Size = new System.Drawing.Size(404, 571);
             this.gbPUP.TabIndex = 5;
             this.gbPUP.TabStop = false;
             this.gbPUP.Text = "Power Up";
@@ -2390,7 +2387,7 @@
             this.clbPowerUp.Location = new System.Drawing.Point(4, 30);
             this.clbPowerUp.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.clbPowerUp.Name = "clbPowerUp";
-            this.clbPowerUp.Size = new System.Drawing.Size(396, 525);
+            this.clbPowerUp.Size = new System.Drawing.Size(396, 535);
             this.clbPowerUp.TabIndex = 0;
             // 
             // cbPowerUpAll
@@ -2408,7 +2405,7 @@
             // cbAutoPowerUp
             // 
             this.cbAutoPowerUp.AutoSize = true;
-            this.cbAutoPowerUp.Location = new System.Drawing.Point(34, 10);
+            this.cbAutoPowerUp.Location = new System.Drawing.Point(22, 8);
             this.cbAutoPowerUp.Margin = new System.Windows.Forms.Padding(4);
             this.cbAutoPowerUp.Name = "cbAutoPowerUp";
             this.cbAutoPowerUp.Size = new System.Drawing.Size(158, 29);
@@ -2436,7 +2433,7 @@
             // 
             // tbEvolveKeptPokemonsAtStorageUsagePercentage
             // 
-            this.tbEvolveKeptPokemonsAtStorageUsagePercentage.Location = new System.Drawing.Point(314, 212);
+            this.tbEvolveKeptPokemonsAtStorageUsagePercentage.Location = new System.Drawing.Point(314, 218);
             this.tbEvolveKeptPokemonsAtStorageUsagePercentage.Margin = new System.Windows.Forms.Padding(4);
             this.tbEvolveKeptPokemonsAtStorageUsagePercentage.Name = "tbEvolveKeptPokemonsAtStorageUsagePercentage";
             this.tbEvolveKeptPokemonsAtStorageUsagePercentage.Size = new System.Drawing.Size(88, 31);
@@ -2445,7 +2442,7 @@
             // label53
             // 
             this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(30, 290);
+            this.label53.Location = new System.Drawing.Point(30, 296);
             this.label53.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(194, 75);
@@ -2454,7 +2451,7 @@
             // 
             // tbUseLuckyEggsMinPokemonAmount
             // 
-            this.tbUseLuckyEggsMinPokemonAmount.Location = new System.Drawing.Point(314, 312);
+            this.tbUseLuckyEggsMinPokemonAmount.Location = new System.Drawing.Point(314, 318);
             this.tbUseLuckyEggsMinPokemonAmount.Margin = new System.Windows.Forms.Padding(4);
             this.tbUseLuckyEggsMinPokemonAmount.Name = "tbUseLuckyEggsMinPokemonAmount";
             this.tbUseLuckyEggsMinPokemonAmount.Size = new System.Drawing.Size(88, 31);
@@ -2463,7 +2460,7 @@
             // cbUseLuckyEggsWhileEvolving
             // 
             this.cbUseLuckyEggsWhileEvolving.AutoSize = true;
-            this.cbUseLuckyEggsWhileEvolving.Location = new System.Drawing.Point(30, 252);
+            this.cbUseLuckyEggsWhileEvolving.Location = new System.Drawing.Point(30, 258);
             this.cbUseLuckyEggsWhileEvolving.Margin = new System.Windows.Forms.Padding(4);
             this.cbUseLuckyEggsWhileEvolving.Name = "cbUseLuckyEggsWhileEvolving";
             this.cbUseLuckyEggsWhileEvolving.Size = new System.Drawing.Size(281, 29);
@@ -2479,7 +2476,7 @@
             this.groupBox5.Controls.Add(this.tbEvoAboveIV);
             this.groupBox5.Controls.Add(this.cbEvoAllAboveIV);
             this.groupBox5.Controls.Add(this.cbEvolveAllPokemonWithEnoughCandy);
-            this.groupBox5.Location = new System.Drawing.Point(14, 2);
+            this.groupBox5.Location = new System.Drawing.Point(14, 8);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
@@ -2553,7 +2550,7 @@
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(30, 214);
+            this.label33.Location = new System.Drawing.Point(30, 220);
             this.label33.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(151, 25);
@@ -2563,7 +2560,7 @@
             // cbKeepPokemonsThatCanEvolve
             // 
             this.cbKeepPokemonsThatCanEvolve.AutoSize = true;
-            this.cbKeepPokemonsThatCanEvolve.Location = new System.Drawing.Point(30, 176);
+            this.cbKeepPokemonsThatCanEvolve.Location = new System.Drawing.Point(30, 182);
             this.cbKeepPokemonsThatCanEvolve.Margin = new System.Windows.Forms.Padding(4);
             this.cbKeepPokemonsThatCanEvolve.Name = "cbKeepPokemonsThatCanEvolve";
             this.cbKeepPokemonsThatCanEvolve.Size = new System.Drawing.Size(355, 29);
@@ -2581,7 +2578,7 @@
             this.gbEvolve.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.gbEvolve.Name = "gbEvolve";
             this.gbEvolve.Padding = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.gbEvolve.Size = new System.Drawing.Size(404, 561);
+            this.gbEvolve.Size = new System.Drawing.Size(404, 571);
             this.gbEvolve.TabIndex = 16;
             this.gbEvolve.TabStop = false;
             this.gbEvolve.Text = "Evolve";
@@ -2595,7 +2592,7 @@
             this.clbEvolve.Location = new System.Drawing.Point(4, 30);
             this.clbEvolve.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.clbEvolve.Name = "clbEvolve";
-            this.clbEvolve.Size = new System.Drawing.Size(396, 525);
+            this.clbEvolve.Size = new System.Drawing.Size(396, 535);
             this.clbEvolve.TabIndex = 0;
             // 
             // cbEvolveAll
@@ -2632,7 +2629,7 @@
             this.gbSnipe.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.gbSnipe.Name = "gbSnipe";
             this.gbSnipe.Padding = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.gbSnipe.Size = new System.Drawing.Size(404, 561);
+            this.gbSnipe.Size = new System.Drawing.Size(404, 571);
             this.gbSnipe.TabIndex = 17;
             this.gbSnipe.TabStop = false;
             this.gbSnipe.Text = "Snipe";
@@ -2646,7 +2643,7 @@
             this.clbSnipePokemonFilter.Location = new System.Drawing.Point(4, 30);
             this.clbSnipePokemonFilter.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.clbSnipePokemonFilter.Name = "clbSnipePokemonFilter";
-            this.clbSnipePokemonFilter.Size = new System.Drawing.Size(396, 525);
+            this.clbSnipePokemonFilter.Size = new System.Drawing.Size(396, 535);
             this.clbSnipePokemonFilter.TabIndex = 0;
             // 
             // cbSnipePokemonFilterAll
@@ -2900,7 +2897,7 @@
             // label78
             // 
             this.label78.AutoSize = true;
-            this.label78.Location = new System.Drawing.Point(12, 516);
+            this.label78.Location = new System.Drawing.Point(12, 513);
             this.label78.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label78.Name = "label78";
             this.label78.Size = new System.Drawing.Size(149, 25);
@@ -2941,7 +2938,7 @@
             // label77
             // 
             this.label77.AutoSize = true;
-            this.label77.Location = new System.Drawing.Point(12, 404);
+            this.label77.Location = new System.Drawing.Point(12, 401);
             this.label77.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label77.Name = "label77";
             this.label77.Size = new System.Drawing.Size(211, 25);
@@ -2962,7 +2959,7 @@
             // label73
             // 
             this.label73.AutoSize = true;
-            this.label73.Location = new System.Drawing.Point(12, 216);
+            this.label73.Location = new System.Drawing.Point(12, 213);
             this.label73.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label73.Name = "label73";
             this.label73.Size = new System.Drawing.Size(102, 25);
@@ -3010,7 +3007,7 @@
             // label76
             // 
             this.label76.AutoSize = true;
-            this.label76.Location = new System.Drawing.Point(12, 328);
+            this.label76.Location = new System.Drawing.Point(12, 325);
             this.label76.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label76.Name = "label76";
             this.label76.Size = new System.Drawing.Size(221, 25);
@@ -3020,7 +3017,7 @@
             // label72
             // 
             this.label72.AutoSize = true;
-            this.label72.Location = new System.Drawing.Point(12, 178);
+            this.label72.Location = new System.Drawing.Point(12, 175);
             this.label72.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label72.Name = "label72";
             this.label72.Size = new System.Drawing.Size(146, 25);
@@ -3050,7 +3047,7 @@
             // label69
             // 
             this.label69.AutoSize = true;
-            this.label69.Location = new System.Drawing.Point(10, 28);
+            this.label69.Location = new System.Drawing.Point(10, 25);
             this.label69.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label69.Name = "label69";
             this.label69.Size = new System.Drawing.Size(138, 25);
@@ -3069,7 +3066,7 @@
             // label70
             // 
             this.label70.AutoSize = true;
-            this.label70.Location = new System.Drawing.Point(10, 66);
+            this.label70.Location = new System.Drawing.Point(10, 63);
             this.label70.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label70.Name = "label70";
             this.label70.Size = new System.Drawing.Size(190, 25);
@@ -3088,7 +3085,7 @@
             // label71
             // 
             this.label71.AutoSize = true;
-            this.label71.Location = new System.Drawing.Point(10, 104);
+            this.label71.Location = new System.Drawing.Point(10, 101);
             this.label71.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label71.Name = "label71";
             this.label71.Size = new System.Drawing.Size(184, 25);
@@ -3107,7 +3104,7 @@
             // cbSwitchOnPokestopLimit
             // 
             this.cbSwitchOnPokestopLimit.AutoSize = true;
-            this.cbSwitchOnPokestopLimit.Location = new System.Drawing.Point(14, 250);
+            this.cbSwitchOnPokestopLimit.Location = new System.Drawing.Point(14, 249);
             this.cbSwitchOnPokestopLimit.Margin = new System.Windows.Forms.Padding(4);
             this.cbSwitchOnPokestopLimit.Name = "cbSwitchOnPokestopLimit";
             this.cbSwitchOnPokestopLimit.Size = new System.Drawing.Size(207, 29);
@@ -3119,7 +3116,7 @@
             // cbSwitchOnCatchLimit
             // 
             this.cbSwitchOnCatchLimit.AutoSize = true;
-            this.cbSwitchOnCatchLimit.Location = new System.Drawing.Point(14, 288);
+            this.cbSwitchOnCatchLimit.Location = new System.Drawing.Point(14, 285);
             this.cbSwitchOnCatchLimit.Margin = new System.Windows.Forms.Padding(4);
             this.cbSwitchOnCatchLimit.Name = "cbSwitchOnCatchLimit";
             this.cbSwitchOnCatchLimit.Size = new System.Drawing.Size(214, 29);
@@ -3145,7 +3142,7 @@
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(14, 66);
+            this.label32.Location = new System.Drawing.Point(14, 63);
             this.label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(141, 25);
@@ -3200,7 +3197,7 @@
             // label51
             // 
             this.label51.AutoSize = true;
-            this.label51.Location = new System.Drawing.Point(10, 66);
+            this.label51.Location = new System.Drawing.Point(10, 63);
             this.label51.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label51.Name = "label51";
             this.label51.Size = new System.Drawing.Size(193, 25);
@@ -3218,12 +3215,12 @@
             // 
             // groupBox16
             // 
+            this.groupBox16.Controls.Add(this.tbWalkingSpeedVariantInKilometerPerHour);
             this.groupBox16.Controls.Add(this.cbStartFromLastPosition);
             this.groupBox16.Controls.Add(this.cbShowWalkingSpeed);
             this.groupBox16.Controls.Add(this.cbUseWalkingSpeedVariant);
             this.groupBox16.Controls.Add(this.cbDisableHumanWalking);
             this.groupBox16.Controls.Add(this.label57);
-            this.groupBox16.Controls.Add(this.tbWalkingSpeedVariantInKilometerPerHour);
             this.groupBox16.Controls.Add(this.label58);
             this.groupBox16.Controls.Add(this.tbMaxSpawnLocationOffset);
             this.groupBox16.Controls.Add(this.label59);
@@ -3285,7 +3282,7 @@
             // label57
             // 
             this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(14, 104);
+            this.label57.Location = new System.Drawing.Point(14, 101);
             this.label57.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label57.Name = "label57";
             this.label57.Size = new System.Drawing.Size(254, 25);
@@ -3304,7 +3301,7 @@
             // label58
             // 
             this.label58.AutoSize = true;
-            this.label58.Location = new System.Drawing.Point(14, 178);
+            this.label58.Location = new System.Drawing.Point(14, 175);
             this.label58.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label58.Name = "label58";
             this.label58.Size = new System.Drawing.Size(233, 25);
@@ -3323,7 +3320,7 @@
             // label59
             // 
             this.label59.AutoSize = true;
-            this.label59.Location = new System.Drawing.Point(14, 216);
+            this.label59.Location = new System.Drawing.Point(14, 213);
             this.label59.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label59.Name = "label59";
             this.label59.Size = new System.Drawing.Size(239, 25);
@@ -3369,7 +3366,7 @@
             // label49
             // 
             this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(14, 28);
+            this.label49.Location = new System.Drawing.Point(14, 25);
             this.label49.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(234, 25);
@@ -3388,7 +3385,7 @@
             // label50
             // 
             this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(14, 66);
+            this.label50.Location = new System.Drawing.Point(14, 63);
             this.label50.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label50.Name = "label50";
             this.label50.Size = new System.Drawing.Size(244, 25);
@@ -3464,7 +3461,7 @@
             // label66
             // 
             this.label66.AutoSize = true;
-            this.label66.Location = new System.Drawing.Point(10, 328);
+            this.label66.Location = new System.Drawing.Point(10, 325);
             this.label66.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label66.Name = "label66";
             this.label66.Size = new System.Drawing.Size(254, 25);
@@ -3474,7 +3471,7 @@
             // label55
             // 
             this.label55.AutoSize = true;
-            this.label55.Location = new System.Drawing.Point(10, 290);
+            this.label55.Location = new System.Drawing.Point(10, 287);
             this.label55.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label55.Name = "label55";
             this.label55.Size = new System.Drawing.Size(229, 25);
@@ -3484,7 +3481,7 @@
             // label60
             // 
             this.label60.AutoSize = true;
-            this.label60.Location = new System.Drawing.Point(10, 66);
+            this.label60.Location = new System.Drawing.Point(10, 63);
             this.label60.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label60.Name = "label60";
             this.label60.Size = new System.Drawing.Size(186, 25);
@@ -3512,7 +3509,7 @@
             // label61
             // 
             this.label61.AutoSize = true;
-            this.label61.Location = new System.Drawing.Point(10, 254);
+            this.label61.Location = new System.Drawing.Point(10, 251);
             this.label61.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label61.Name = "label61";
             this.label61.Size = new System.Drawing.Size(269, 25);
@@ -3522,7 +3519,7 @@
             // label62
             // 
             this.label62.AutoSize = true;
-            this.label62.Location = new System.Drawing.Point(10, 104);
+            this.label62.Location = new System.Drawing.Point(10, 101);
             this.label62.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label62.Name = "label62";
             this.label62.Size = new System.Drawing.Size(194, 25);
@@ -3550,7 +3547,7 @@
             // label63
             // 
             this.label63.AutoSize = true;
-            this.label63.Location = new System.Drawing.Point(10, 216);
+            this.label63.Location = new System.Drawing.Point(10, 213);
             this.label63.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label63.Name = "label63";
             this.label63.Size = new System.Drawing.Size(244, 25);
@@ -3560,7 +3557,7 @@
             // label64
             // 
             this.label64.AutoSize = true;
-            this.label64.Location = new System.Drawing.Point(10, 140);
+            this.label64.Location = new System.Drawing.Point(10, 137);
             this.label64.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label64.Name = "label64";
             this.label64.Size = new System.Drawing.Size(219, 25);
@@ -3588,7 +3585,7 @@
             // label65
             // 
             this.label65.AutoSize = true;
-            this.label65.Location = new System.Drawing.Point(10, 178);
+            this.label65.Location = new System.Drawing.Point(10, 175);
             this.label65.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label65.Name = "label65";
             this.label65.Size = new System.Drawing.Size(197, 25);
