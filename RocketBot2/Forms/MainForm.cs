@@ -674,6 +674,11 @@ namespace RocketBot2.Forms
                 settings.Auth.CurrentAuthConfig.AccountLatitude = _currentLatLng.Lat;
                 settings.Auth.CurrentAuthConfig.AccountLongitude = _currentLatLng.Lng;
 
+                for (int i = 0; i < settings.Auth.Bots.Count(); i++)
+                {
+                    if (settings.Auth.Bots[i].Username == settings.Auth.CurrentAuthConfig.Username) BotID = i;
+                }
+
                 if (togglePrecalRoute.CheckState == CheckState.Checked || togglePrecalRoute.CheckState == CheckState.Indeterminate)
                 {
                     var step = new GMapRoute(_playerLocations, "step")
@@ -1898,7 +1903,7 @@ namespace RocketBot2.Forms
                         if (!Instance._botStarted)
                         {
                             //settings = GlobalSettings.Load(_subPath, false);
-                            //settings.Auth.Load(Path.Combine(_settings.ProfileConfigPath, "auth.json"), Path.Combine(_settings.ProfileConfigPath, "auth.schema.json"), _settings.UpdateConfig.SchemaVersion);
+                            //settings.Auth.Load(Path.Combine(settings.ProfileConfigPath, "auth.json"), Path.Combine(settings.ProfileConfigPath, "auth.schema.json"), settings.UpdateConfig.SchemaVersion);
                             _session.ReInitSessionWithNextBot(_bot);
 
                             _playerOverlay.Markers.Clear();
