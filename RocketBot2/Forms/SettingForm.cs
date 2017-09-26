@@ -36,12 +36,6 @@ namespace RocketBot2.Forms
         public static GlobalSettings _settings;
         public static MultiAccountManager accountManager;
         private readonly ISession _session;
-        private List<AuthConfig> accounts;
-
-        public List<AuthConfig> Accounts
-        {
-            get { return accounts; }
-        }
 
         public SettingsForm(ref GlobalSettings settings, ISession session, string[] _args)
         {
@@ -963,12 +957,12 @@ namespace RocketBot2.Forms
             _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
         }
 
-        private void cbSwitchOnCatchLimit_CheckedChanged(object sender, EventArgs e)
+        private void CbSwitchOnCatchLimit_CheckedChanged(object sender, EventArgs e)
         {
             tbPokemonSwitch.Enabled = cbSwitchOnCatchLimit.Checked;
         }
 
-        private void cbSwitchOnPokestopLimit_CheckedChanged(object sender, EventArgs e)
+        private void CbSwitchOnPokestopLimit_CheckedChanged(object sender, EventArgs e)
         {
             tbPokestopSwitch.Enabled = cbSwitchOnPokestopLimit.Checked;
         }
