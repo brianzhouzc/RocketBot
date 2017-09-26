@@ -2922,7 +2922,7 @@
             this.cbSwitchOnPokestopLimit.TabIndex = 38;
             this.cbSwitchOnPokestopLimit.Text = "Switch On Stop Limit:";
             this.cbSwitchOnPokestopLimit.UseVisualStyleBackColor = true;
-            this.cbSwitchOnPokestopLimit.CheckedChanged += new System.EventHandler(this.CbSwitchOnPokestopLimit_CheckedChanged);
+            this.cbSwitchOnPokestopLimit.CheckedChanged += new System.EventHandler(this.cbSwitchOnPokestopLimit_CheckedChanged);
             // 
             // cbSwitchOnCatchLimit
             // 
@@ -2933,7 +2933,7 @@
             this.cbSwitchOnCatchLimit.TabIndex = 37;
             this.cbSwitchOnCatchLimit.Text = "Switch On Catch Limit:";
             this.cbSwitchOnCatchLimit.UseVisualStyleBackColor = true;
-            this.cbSwitchOnCatchLimit.CheckedChanged += new System.EventHandler(this.CbSwitchOnCatchLimit_CheckedChanged);
+            this.cbSwitchOnCatchLimit.CheckedChanged += new System.EventHandler(this.cbSwitchOnCatchLimit_CheckedChanged);
             // 
             // groupBox19
             // 
