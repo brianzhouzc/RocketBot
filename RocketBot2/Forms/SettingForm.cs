@@ -51,11 +51,11 @@ namespace RocketBot2.Forms
 
             foreach (var pokemon in Pokemons)
             {
-                clbCatchIgnore.Items.Add(pokemon); 
-                clbTransfer.Items.Add(pokemon); 
-                clbPowerUp.Items.Add(pokemon); 
-                clbEvolve.Items.Add(pokemon); 
-                clbSnipePokemonFilter.Items.Add(pokemon); 
+                clbCatchIgnore.Items.Add(pokemon);
+                clbTransfer.Items.Add(pokemon);
+                clbPowerUp.Items.Add(pokemon);
+                clbEvolve.Items.Add(pokemon);
+                clbSnipePokemonFilter.Items.Add(pokemon);
             }
 
             var logicSettings = new LogicSettings(settings);
@@ -957,12 +957,12 @@ namespace RocketBot2.Forms
             _settings.NotificationConfig.EnablePushBulletNotification = cbEnablePushBulletNotification.Checked;
         }
 
-        private void CbSwitchOnCatchLimit_CheckedChanged(object sender, EventArgs e)
+        private void cbSwitchOnCatchLimit_CheckedChanged(object sender, EventArgs e)
         {
             tbPokemonSwitch.Enabled = cbSwitchOnCatchLimit.Checked;
         }
 
-        private void CbSwitchOnPokestopLimit_CheckedChanged(object sender, EventArgs e)
+        private void cbSwitchOnPokestopLimit_CheckedChanged(object sender, EventArgs e)
         {
             tbPokestopSwitch.Enabled = cbSwitchOnPokestopLimit.Checked;
         }
