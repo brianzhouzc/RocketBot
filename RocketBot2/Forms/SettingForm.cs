@@ -51,7 +51,7 @@ namespace RocketBot2.Forms
 
             foreach (var pokemon in Pokemons)
             {
-                clbIgnore.Items.Add(pokemon);
+                clbCatchIgnore.Items.Add(pokemon);
                 clbTransfer.Items.Add(pokemon);
                 clbPowerUp.Items.Add(pokemon);
                 clbEvolve.Items.Add(pokemon);
