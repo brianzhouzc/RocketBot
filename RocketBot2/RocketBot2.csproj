@@ -122,8 +122,8 @@
     <Reference Include="GeoCoordinate.NetStandard1, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\GeoCoordinate.NetStandard1.1.0.1\lib\netstandard1.1\GeoCoordinate.NetStandard1.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Protobuf, Version=3.4.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\Google.Protobuf.3.4.0\lib\net451\Google.Protobuf.dll</HintPath>
+    <Reference Include="Google.Protobuf, Version=3.4.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\Google.Protobuf.3.4.1\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>$(SolutionDir)\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
@@ -230,11 +230,11 @@
       <HintPath>$(SolutionDir)\packages\SuperSocket.1.6.6.1\lib\net45\SuperSocket.SocketBase.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="WebDriver, Version=3.5.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\Selenium.WebDriver.3.5.2\lib\net40\WebDriver.dll</HintPath>
+    <Reference Include="WebDriver, Version=3.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\Selenium.WebDriver.3.6.0\lib\net40\WebDriver.dll</HintPath>
     </Reference>
-    <Reference Include="WebDriver.Support, Version=3.5.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\Selenium.Support.3.5.2\lib\net40\WebDriver.Support.dll</HintPath>
+    <Reference Include="WebDriver.Support, Version=3.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\Selenium.Support.3.6.0\lib\net40\WebDriver.Support.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
