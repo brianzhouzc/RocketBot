@@ -394,7 +394,7 @@
     },
     {
       "Key": "currentPokeballInv",
-      "Value": "Pokeballs:    {0} | Superballs:   {1} | Hyperballs:       {2} | Masterballs: {3}"
+      "Value": "Pokeballs:    {0} | Superballs:   {1} | Hyperballs:      {2} | Masterballs: {3}"
     },
     {
       "Key": "currentPotionInv",
@@ -650,7 +650,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "Pokemons vus: {0}/251, Pokemons attrapés: {1}/251"
+      "Value": "Pokemons vus: {0}/{1}, Pokemons attrapés: {2}/{3}"
     },
     {
       "Key": "pkmPotentialEvolveCount",

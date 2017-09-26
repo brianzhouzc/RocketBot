@@ -602,7 +602,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "Jumlah Pokemon terlihat: {0}/251, Tertangkap: {1}/251"
+      "Value": "Jumlah Pokemon terlihat: {0}/{1}, Tertangkap: {2}/{3}"
     },
     {
       "Key": "pkmPotentialEvolveCount",

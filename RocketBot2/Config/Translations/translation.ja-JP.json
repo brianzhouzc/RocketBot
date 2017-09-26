@@ -594,7 +594,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "見つけたポケモン: {0}/251　 捕まえたポケモン: {1}/251"
+      "Value": "見つけたポケモン: {0}/{1}　 捕まえたポケモン: {2}/{3}"
     },
     {
       "Key": "pkmPotentialEvolveCount",

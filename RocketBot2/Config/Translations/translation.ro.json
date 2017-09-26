@@ -594,7 +594,7 @@
     },
     {
       "Key": "amountPkmSeenCaught",
-      "Value": "Cantitatea de pokemoni văzută: {0}/251, cantitatea de pokemoni prinsă: {1}/251"
+      "Value": "Cantitatea de pokemoni văzută: {0}/{1}, cantitatea de pokemoni prinsă: {2}/{3}"
     },
     {
       "Key": "pkmPotentialEvolveCount",
