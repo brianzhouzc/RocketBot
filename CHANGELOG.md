@@ -1,5 +1,23 @@
 # Change Log
 
+## [v2.16.0.0](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.16.0.0) (2017-09-26)
+
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.15.0.5...v2.16.0.0)
+
+**Merged pull requests:**
+
+- Update deps [\#44](https://github.com/TheUnnamedOrganisation/RocketBot/pull/44) ([Furtif](https://github.com/Furtif))
+- Update code. [\#43](https://github.com/TheUnnamedOrganisation/RocketBot/pull/43) ([Furtif](https://github.com/Furtif))
+- Develop [\#42](https://github.com/TheUnnamedOrganisation/RocketBot/pull/42) ([Furtif](https://github.com/Furtif))
+- Fixes more bugs [\#41](https://github.com/TheUnnamedOrganisation/RocketBot/pull/41) ([Furtif](https://github.com/Furtif))
+- change some modes [\#40](https://github.com/TheUnnamedOrganisation/RocketBot/pull/40) ([Furtif](https://github.com/Furtif))
+- add new item [\#39](https://github.com/TheUnnamedOrganisation/RocketBot/pull/39) ([Furtif](https://github.com/Furtif))
+- Fixe normal gyms attasks [\#38](https://github.com/TheUnnamedOrganisation/RocketBot/pull/38) ([Furtif](https://github.com/Furtif))
+- Add new features [\#37](https://github.com/TheUnnamedOrganisation/RocketBot/pull/37) ([Furtif](https://github.com/Furtif))
+- Rebase modules [\#36](https://github.com/TheUnnamedOrganisation/RocketBot/pull/36) ([Furtif](https://github.com/Furtif))
+- Add some features api clean up protos [\#35](https://github.com/TheUnnamedOrganisation/RocketBot/pull/35) ([Furtif](https://github.com/Furtif))
+- rename uselegacyapi to usecostumapi [\#34](https://github.com/TheUnnamedOrganisation/RocketBot/pull/34) ([Furtif](https://github.com/Furtif))
+
 ## [v2.15.0.5](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.15.0.5) (2017-09-16)
 
 [Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.15.0.3...v2.15.0.5)
