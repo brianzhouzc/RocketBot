@@ -1373,8 +1373,6 @@ namespace RocketBot2.Forms
                 {
                     var appliedItems =
                         _session.Inventory.GetAppliedItems().Result
-                        .Where(aItems => aItems?.Item != null)
-                        .SelectMany(aItems => aItems.Item)
                         .ToDictionary(item => item.ItemId, item => new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(item.ExpireMs));
 
                     await FlpItemsClean(items, appliedItems).ConfigureAwait(false);
