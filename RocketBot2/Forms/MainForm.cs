@@ -95,6 +95,7 @@ namespace RocketBot2.Forms
         public static int[] BotGreen;
         public static int[] BotBlue;
         public static int BotID;
+        public static bool BotBattle = true;
 
         public MainForm(string[] _args)
         {
