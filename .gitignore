@@ -258,3 +258,4 @@ paket-files/
 [Pp]oGo.NecroBot.GUI.Electron/platforms
 !packages/Google.Api*
 *.xml
+/POGOLib
