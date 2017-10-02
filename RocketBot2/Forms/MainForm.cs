@@ -1954,10 +1954,9 @@ namespace RocketBot2.Forms
                 StartStopBotToolStripMenuItem_Click(null, null);
 
             var trackFile = Path.GetTempPath() + "\\rocketbot2.io";
-
             if (!File.Exists(trackFile) || File.GetLastWriteTime(trackFile) < DateTime.Now.AddDays(-1))
             {
-                Thread.Sleep(10000);
+                //Thread.Sleep(10000);
                 Thread mThread = new Thread(delegate ()
                 {
                     var infoForm = new InfoForm();
@@ -1965,7 +1964,6 @@ namespace RocketBot2.Forms
                 });
                 File.WriteAllText(trackFile, DateTime.Now.Ticks.ToString());
                 mThread.SetApartmentState(ApartmentState.STA);
-
                 mThread.Start();
             }
         }
