@@ -40,5 +40,10 @@ namespace RocketBot2.Forms
         {
             Process.Start("https://github.com/TheUnnamedOrganisation/RocketBot/releases");
         }
+
+        private void PictureBox2_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SNATC29B4ZJD4");
+        }
     }
 }
