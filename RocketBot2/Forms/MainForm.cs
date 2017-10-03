@@ -1952,6 +1952,20 @@ namespace RocketBot2.Forms
 
             if (AutoStart)
                 StartStopBotToolStripMenuItem_Click(null, null);
+
+            var trackFile = Path.GetTempPath() + "\\rocketbot2.io";
+            if (!File.Exists(trackFile) || File.GetLastWriteTime(trackFile) < DateTime.Now.AddDays(-1))
+            {
+                //Thread.Sleep(10000);
+                Thread mThread = new Thread(delegate ()
+                {
+                    var infoForm = new InfoForm();
+                    infoForm.ShowDialog();
+                });
+                File.WriteAllText(trackFile, DateTime.Now.Ticks.ToString());
+                mThread.SetApartmentState(ApartmentState.STA);
+                mThread.Start();
+            }
         }
 
         private Task StartBot()
@@ -1999,22 +2013,6 @@ namespace RocketBot2.Forms
             _session.AnalyticsService.StartAsync(_session, _session.CancellationTokenSource.Token).ConfigureAwait(false);
 
             _session.EventDispatcher.EventReceived += evt => AnalyticsService.Listen(evt, _session);
-
-            /*var trackFile = Path.GetTempPath() + "\\rocketbot2.io";
-
-            if (!File.Exists(trackFile) || File.GetLastWriteTime(trackFile) < DateTime.Now.AddDays(-1))
-            {
-                Thread.Sleep(10000);
-                Thread mThread = new Thread(delegate ()
-                {
-                    var infoForm = new InfoForm();
-                    infoForm.ShowDialog();
-                });
-                File.WriteAllText(trackFile, DateTime.Now.Ticks.ToString());
-                mThread.SetApartmentState(ApartmentState.STA);
-
-                mThread.Start();
-            }*/
 
             QuitEvent.WaitOne();
             return Task.CompletedTask;
