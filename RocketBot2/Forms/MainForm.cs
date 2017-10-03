@@ -314,10 +314,8 @@ namespace RocketBot2.Forms
 
         private void InitializeMap()
         {
-            //var lat = _session.Client.Settings.DefaultLatitude;
-            //var lng = _session.Client.Settings.DefaultLongitude;
-            var lat = settings.Auth.CurrentAuthConfig.AccountLatitude;
-            var lng = settings.Auth.CurrentAuthConfig.AccountLongitude;
+            var lat = _session.Client.CurrentLatitude;
+            var lng = _session.Client.CurrentLongitude;
 
             if (GMAPSatellite.CheckState == CheckState.Checked)
                 GMapControl1.MapProvider = GoogleSatelliteMapProvider.Instance;
@@ -522,7 +520,7 @@ namespace RocketBot2.Forms
                             }
                             catch
                             {
-                                //return;
+                                fort = ResourceHelper.GetImage($"Pokestop", null, null, hg, wg);
                             }
 
                             string raid = isRaid ? "Raid" : null;
@@ -1373,8 +1371,6 @@ namespace RocketBot2.Forms
                 {
                     var appliedItems =
                         _session.Inventory.GetAppliedItems().Result
-                        .Where(aItems => aItems?.Item != null)
-                        .SelectMany(aItems => aItems.Item)
                         .ToDictionary(item => item.ItemId, item => new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(item.ExpireMs));
 
                     await FlpItemsClean(items, appliedItems).ConfigureAwait(false);
@@ -1954,6 +1950,20 @@ namespace RocketBot2.Forms
 
             if (AutoStart)
                 StartStopBotToolStripMenuItem_Click(null, null);
+
+            var trackFile = Path.GetTempPath() + "\\rocketbot2.io";
+            if (!File.Exists(trackFile) || File.GetLastWriteTime(trackFile) < DateTime.Now.AddDays(-1))
+            {
+                //Thread.Sleep(10000);
+                Thread mThread = new Thread(delegate ()
+                {
+                    var infoForm = new InfoForm();
+                    infoForm.ShowDialog();
+                });
+                File.WriteAllText(trackFile, DateTime.Now.Ticks.ToString());
+                mThread.SetApartmentState(ApartmentState.STA);
+                mThread.Start();
+            }
         }
 
         private Task StartBot()
@@ -2001,22 +2011,6 @@ namespace RocketBot2.Forms
             _session.AnalyticsService.StartAsync(_session, _session.CancellationTokenSource.Token).ConfigureAwait(false);
 
             _session.EventDispatcher.EventReceived += evt => AnalyticsService.Listen(evt, _session);
-
-            /*var trackFile = Path.GetTempPath() + "\\rocketbot2.io";
-
-            if (!File.Exists(trackFile) || File.GetLastWriteTime(trackFile) < DateTime.Now.AddDays(-1))
-            {
-                Thread.Sleep(10000);
-                Thread mThread = new Thread(delegate ()
-                {
-                    var infoForm = new InfoForm();
-                    infoForm.ShowDialog();
-                });
-                File.WriteAllText(trackFile, DateTime.Now.Ticks.ToString());
-                mThread.SetApartmentState(ApartmentState.STA);
-
-                mThread.Start();
-            }*/
 
             QuitEvent.WaitOne();
             return Task.CompletedTask;

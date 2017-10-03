@@ -114,7 +114,11 @@
     },
     {
       "Key": "waitingForMorePokemonToEvolve",
-      "Value": "Waiting to evolve {0} Pokemon once {1} more are caught! ({2}/{3} for {4,6:0.00}% inventory)"
+      "Value": "Waiting to evolve {0} Pokemons until {1} more are in storage! (In storage: {2} | Target: {3})"
+    },
+    {
+      "Key": "WaitingForMoreEvolutionsToEvolveWithEgg",
+      "Value": "Waiting for {0} more evolutions to evolve with lucky egg! (Possible: {1} | Needed: {2})"
     },
     {
       "Key": "useLuckyEggsMinPokemonAmountTooHigh",
