@@ -314,10 +314,8 @@ namespace RocketBot2.Forms
 
         private void InitializeMap()
         {
-            //var lat = _session.Client.Settings.DefaultLatitude;
-            //var lng = _session.Client.Settings.DefaultLongitude;
-            var lat = settings.Auth.CurrentAuthConfig.AccountLatitude;
-            var lng = settings.Auth.CurrentAuthConfig.AccountLongitude;
+            var lat = _session.Client.CurrentLatitude;
+            var lng = _session.Client.CurrentLongitude;
 
             if (GMAPSatellite.CheckState == CheckState.Checked)
                 GMapControl1.MapProvider = GoogleSatelliteMapProvider.Instance;
@@ -522,7 +520,7 @@ namespace RocketBot2.Forms
                             }
                             catch
                             {
-                                //return;
+                                fort = ResourceHelper.GetImage($"Pokestop", null, null, hg, wg);
                             }
 
                             string raid = isRaid ? "Raid" : null;
