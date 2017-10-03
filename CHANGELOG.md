@@ -1,5 +1,13 @@
 # Change Log
 
+## [v2.16.0.3](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.16.0.3) (2017-10-03)
+
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.16.0.2...v2.16.0.3)
+
+**Merged pull requests:**
+
+- Fixes some bugs gyms add defaults walk stratege if autowalk is disabled update deps [\#48](https://github.com/TheUnnamedOrganisation/RocketBot/pull/48) ([Furtif](https://github.com/Furtif))
+
 ## [v2.16.0.2](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.16.0.2) (2017-09-28)
 
 [Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.16.0.1...v2.16.0.2)
@@ -698,15 +706,15 @@
 
 ## [v2.7.0.29](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.7.0.29) (2017-03-13)
 
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.27...v2.7.0.29)
-
-## [v2.7.0.27](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.7.0.27) (2017-03-13)
-
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.28...v2.7.0.27)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.28...v2.7.0.29)
 
 ## [v2.7.0.28](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.7.0.28) (2017-03-13)
 
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.26...v2.7.0.28)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.27...v2.7.0.28)
+
+## [v2.7.0.27](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.7.0.27) (2017-03-13)
+
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.26...v2.7.0.27)
 
 ## [v2.7.0.26](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.7.0.26) (2017-03-12)
 
