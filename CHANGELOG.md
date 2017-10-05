@@ -1,5 +1,14 @@
 # Change Log
 
+## [v2.16.0.6](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.16.0.6) (2017-10-05)
+
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.16.0.5...v2.16.0.6)
+
+**Merged pull requests:**
+
+- fix switch pokemon in battle pt2 [\#53](https://github.com/TheUnnamedOrganisation/RocketBot/pull/53) ([Furtif](https://github.com/Furtif))
+- Minor fix [\#52](https://github.com/TheUnnamedOrganisation/RocketBot/pull/52) ([Furtif](https://github.com/Furtif))
+
 ## [v2.16.0.5](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.16.0.5) (2017-10-05)
 
 [Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.16.0.4...v2.16.0.5)
@@ -422,15 +431,15 @@
 
 ## [v2.10.1.4](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.10.1.4) (2017-05-22)
 
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.3...v2.10.1.4)
-
-## [v2.10.1.3](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.10.1.3) (2017-05-20)
-
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.2...v2.10.1.3)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.2...v2.10.1.4)
 
 ## [v2.10.1.2](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.10.1.2) (2017-05-20)
 
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.1...v2.10.1.2)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.3...v2.10.1.2)
+
+## [v2.10.1.3](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.10.1.3) (2017-05-20)
+
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.1...v2.10.1.3)
 
 ## [v2.10.1.1](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.10.1.1) (2017-05-18)
 
@@ -466,15 +475,15 @@
 
 ## [v2.9.2.0](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.9.2.0) (2017-05-07)
 
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.9.1.24...v2.9.2.0)
-
-## [v2.9.1.24](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.9.1.24) (2017-05-03)
-
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.9.1.23...v2.9.1.24)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.9.1.23...v2.9.2.0)
 
 ## [v2.9.1.23](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.9.1.23) (2017-05-03)
 
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.9.1.22...v2.9.1.23)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.9.1.24...v2.9.1.23)
+
+## [v2.9.1.24](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.9.1.24) (2017-05-03)
+
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.9.1.22...v2.9.1.24)
 
 ## [v2.9.1.22](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.9.1.22) (2017-05-02)
 
