@@ -140,6 +140,10 @@
       "Key": "waitingForMorePokemonToEvolve",
       "Value": "Varakozas a fejlesztesevel: {0} Meg {1} darabot kell elkapni a ({2}/{3} {4}%-os tarolokapacitashoz)"
     },
+	{
+      "Key": "WaitingForMoreEvolutionsToEvolve",
+      "Value": "Waiting for {0} more evolutions to start evolving! (Possible: {1} | Needed: {2})"
+    },
     {
       "Key": "useLuckyEggsMinPokemonAmountTooHigh",
       "Value": "LuckyEgg-ek soha nem lesznek haszalva, ha a UseLuckyEggsMinPokemonAmount {0}-ra van allitva, hasznalj helyette <= {1} "

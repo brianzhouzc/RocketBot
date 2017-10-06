@@ -116,6 +116,10 @@
       "Key": "waitingForMorePokemonToEvolve",
       "Value": "En attente d'évoluer {0} Pokémon une fois {1} plus sont capturés! ({2}/{3} pour {4}% inventory)"
     },
+	{
+      "Key": "WaitingForMoreEvolutionsToEvolve",
+      "Value": "Attente de {0} plus evolutions pour demarrer l'evolution! (Possible: {1} | Requis: {2})"
+    },
     {
       "Key": "useLuckyEggsMinPokemonAmountTooHigh",
       "Value": "Les oeufs chance ne seront jamais utilisés avec UseLuckyEggsMinPokemonAmount configuré pour {0}, utilise <= {1} !"

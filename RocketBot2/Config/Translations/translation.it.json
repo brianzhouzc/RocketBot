@@ -140,6 +140,10 @@
       "Key": "waitingForMorePokemonToEvolve",
       "Value": "In attesa di catturare ancora {1} Pokemon per evolverne {0}! ({2}/{3} per il {4}% dell'inventario)"
     },
+	{
+      "Key": "WaitingForMoreEvolutionsToEvolve",
+      "Value": "Waiting for {0} more evolutions to start evolving! (Possible: {1} | Needed: {2})"
+    },
     {
       "Key": "useLuckyEggsMinPokemonAmountTooHigh",
       "Value": "Fortunuovo non sarà mai usato con UseLuckyEggsMinPokemonAmount impostato a {0}, impostalo a <= {1}"

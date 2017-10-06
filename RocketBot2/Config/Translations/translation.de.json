@@ -542,7 +542,11 @@
     },
     {
       "Key": "waitingForMorePokemonToEvolve",
-      "Value": "Warte mit Entwicklungen von {0} Pokemon bis {1} weitere gefangen wurden! ({2}/{3} bis {4}% Inventar Auslastung)"
+      "Value": "Warte mit Entwicklungen von {0} Pokemons bis {1} weitere im Speicher sind! (Im Speicher: {2} | Ziel: {3})"
+    },
+    {
+      "Key": "WaitingForMoreEvolutionsToEvolve",
+      "Value": "Warte auf {0} weitere Entwicklungen um zu Entwicklen zu starten! ({1} von {2} erreicht)"
     },
     {
       "Key": "PokedexCatchedTelegram",

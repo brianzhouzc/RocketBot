@@ -140,6 +140,10 @@
       "Key": "waitingForMorePokemonToEvolve",
       "Value": "Pokemonów oczekujących na ewolucje: {0} | Możesz złapać ich jeszcze: {1} | {2}/{3} dla {4}% ekwipunku"
     },
+	{
+      "Key": "WaitingForMoreEvolutionsToEvolve",
+      "Value": "Waiting for {0} more evolutions to start evolving! (Possible: {1} | Needed: {2})"
+    },
     {
       "Key": "useLuckyEggsMinPokemonAmountTooHigh",
       "Value": "LuckyEgg nie zostanie użyty, gdy wartość 'UseLuckyEggsMinPokemonAmount' wynosi {0}, użyj <= {1}"
