@@ -532,6 +532,10 @@
       "Key": "waitingForMorePokemonToEvolve",
       "Value": "Čekání na vývin {0} pokemů najednou, zbývá {1} chytit! ({2}/{3} pro {4}% batohu)"
     },
+	{
+      "Key": "WaitingForMoreEvolutionsToEvolve",
+      "Value": "Waiting for {0} more evolutions to start evolving! (Possible: {1} | Needed: {2})"
+    },
     {
       "Key": "PokedexCatchedTelegram",
       "Value": "--- Pokedex catched --- \n"

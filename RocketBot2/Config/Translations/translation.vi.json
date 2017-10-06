@@ -140,6 +140,10 @@
       "Key": "waitingForMorePokemonToEvolve",
       "Value": "Đợi để tiến hoá {0} Pokemon lần {1} đã bắt! ({2}/{3} - {4}% túi)"
     },
+	{
+      "Key": "WaitingForMoreEvolutionsToEvolve",
+      "Value": "Waiting for {0} more evolutions to start evolving! (Possible: {1} | Needed: {2})"
+    },
     {
       "Key": "useLuckyEggsMinPokemonAmountTooHigh",
       "Value": "Lucky Eggs không được sử dụng vì UseLuckyEggsMinPokemonAmount được đặt thành {0}. Giá trị phải <= {1}."

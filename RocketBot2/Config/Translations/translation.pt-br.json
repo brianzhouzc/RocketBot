@@ -140,6 +140,10 @@
       "Key": "waitingForMorePokemonToEvolve",
       "Value": "Esperando evoluir {0} Pokemon(s) até que mais {1} sejam capturados! ({2}/{3} para {4}% do inventário)"
     },
+	{
+      "Key": "WaitingForMoreEvolutionsToEvolve",
+      "Value": "Waiting for {0} more evolutions to start evolving! (Possible: {1} | Needed: {2})"
+    },
     {
       "Key": "useLuckyEggsMinPokemonAmountTooHigh",
       "Value": "Ovos da sorte nunca serão utilizados com a propriedade UseLuckyEggsMinPokemonAmount definida como {0}, em vez disso use um valor <= {1}"
