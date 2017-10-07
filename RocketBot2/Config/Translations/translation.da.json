@@ -168,6 +168,10 @@
       "Key": "waitingForMorePokemonToEvolve",
       "Value": "Venter på at udvikle {0} Pokémon til at {1} mere er fanget! ({2}/{3} for {4}% inventar)"
     },
+	{
+      "Key": "WaitingForMoreEvolutionsToEvolve",
+      "Value": "Waiting for {0} more evolutions to start evolving! (Possible: {1} | Needed: {2})"
+    },
     {
       "Key": "useLuckyEggsMinPokemonAmountTooHigh",
       "Value": "Lucky eggs vil aldrig blive brugt med UseLuckyEggsMinPokemonAmount sat til {0}, brug <= {1} istedet"

@@ -1844,8 +1844,11 @@ namespace RocketBot2.Forms
             var listener = new ConsoleEventListener();
             ConsoleEventListener.HumanWalkEvent += (humanWalkingEvent) =>
             {
-                var speed = Math.Round(humanWalkingEvent.CurrentWalkingSpeed, 2);
-                MainForm.SetSpeedLable("Current Speed: " + speed + " km/h");
+                var speed = humanWalkingEvent.CurrentWalkingSpeed;
+                var MinSpeed = settings.LocationConfig.WalkingSpeedInKilometerPerHour - settings.LocationConfig.WalkingSpeedVariant;
+                var MaxSpeed = settings.LocationConfig.WalkingSpeedInKilometerPerHour + settings.LocationConfig.WalkingSpeedVariant;
+                MainForm.SetSpeedLable($"Current Speed: {speed:0.00} Km/h\n" +
+                                       $"Range: {MinSpeed:0.00} - {MaxSpeed:0.00} Km/h");
             };
             Resources.ProgressBar.Fill(60);
             var snipeEventListener = new SniperEventListener();
@@ -1923,6 +1926,11 @@ namespace RocketBot2.Forms
                         accountManager.SwitchAccountTo(_bot);
                     };
                     accountsToolStripMenuItem.DropDownItems.Add(_item);
+
+                    if (!_bot.AccountActive)
+                        accountsToolStripMenuItem.DropDownItems[accountsToolStripMenuItem.DropDownItems.Count - 1].ForeColor = Color.Red;
+                    else
+                        accountsToolStripMenuItem.DropDownItems[accountsToolStripMenuItem.DropDownItems.Count - 1].ForeColor = Color.Black;
 
                     //BotRed[_bot.Id - 1] = new Random().Next(0, 256);
                     //BotBlue[_bot.Id - 1] = new Random().Next(0, 256);

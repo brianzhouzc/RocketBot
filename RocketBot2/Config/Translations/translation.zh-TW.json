@@ -144,6 +144,10 @@
       "Key": "waitingForMorePokemonToEvolve",
       "Value": "目前有 {0} 隻神奇寶貝，再捕捉 {1} 隻神奇寶貝後將會進化！(目前有 {2}/{3} 占背包總量的 {4}% )\t\t"
     },
+	{
+      "Key": "WaitingForMoreEvolutionsToEvolve",
+      "Value": "Waiting for {0} more evolutions to start evolving! (Possible: {1} | Needed: {2})"
+    },
     {
       "Key": "useLuckyEggsMinPokemonAmountTooHigh",
       "Value": "當UseLuckyEggsMinPokemonAmount 設定為 {0} 將不會使用幸運蛋，請改為 <= {1}\t\t"

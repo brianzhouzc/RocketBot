@@ -233,6 +233,8 @@ namespace RocketBot2.Forms
 
             tbKeepMinDuplicatePokemon.Text = _settings.PokemonConfig.KeepMinDuplicatePokemon.ToString();
             cbUseKeepMinLvl.Checked = _settings.PokemonConfig.UseKeepMinLvl;
+            cbKeepPokemonsToBeEvolved.Checked = _settings.PokemonConfig.KeepPokemonsToBeEvolved;
+
             foreach (var poke in _settings.PokemonsNotToTransfer)
             {
                 clbTransfer.SetItemChecked(clbTransfer.FindStringExact(poke.ToString()), true);
@@ -277,20 +279,28 @@ namespace RocketBot2.Forms
 
             #region Evo
 
-            cbEvoAllAboveIV.Checked = _settings.PokemonConfig.EvolveAllPokemonAboveIv;
-            tbEvoAboveIV.Text = _settings.PokemonConfig.EvolveAboveIvValue.ToString(CultureInfo.InvariantCulture);
-            cbEvolveAllPokemonWithEnoughCandy.Checked = _settings.PokemonConfig.EvolveAllPokemonWithEnoughCandy;
-            cbKeepPokemonsThatCanEvolve.Checked = _settings.PokemonConfig.KeepPokemonsThatCanEvolve;
-            tbEvolveKeptPokemonsAtStorageUsagePercentage.Text =
-                _settings.PokemonConfig.EvolveKeptPokemonsAtStorageUsagePercentage.ToString(CultureInfo.InvariantCulture);
-            cbUseLuckyEggsWhileEvolving.Checked = _settings.PokemonConfig.UseLuckyEggsWhileEvolving;
-            tbUseLuckyEggsMinPokemonAmount.Text = _settings.PokemonConfig.UseLuckyEggsMinPokemonAmount.ToString();
+            cbEvolvePokemonsThatMatchFilter.Checked = _settings.PokemonConfig.EvolveConfig.EvolvePokemonsThatMatchFilter;
+            cbEvolveAnyPokemonAboveIv.Checked = _settings.PokemonConfig.EvolveConfig.EvolveAnyPokemonAboveIv;
+            tbEvolveAnyPokemonAboveIvValue.Text = _settings.PokemonConfig.EvolveConfig.EvolveAnyPokemonAboveIvValue.ToString(CultureInfo.InvariantCulture);
+
+            cbTriggerEvolveAsSoonAsFilterIsMatched.Checked = _settings.PokemonConfig.EvolveConfig.TriggerAsSoonAsFilterIsMatched;
+            cbTriggerEvolveOnEvolutionCount.Checked = _settings.PokemonConfig.EvolveConfig.TriggerOnEvolutionCount;
+            tbTriggerEvolveOnEvolutionCountValue.Text = _settings.PokemonConfig.EvolveConfig.TriggerOnEvolutionCountValue.ToString();
+            cbTriggerEvolveOnStorageUsagePercentage.Checked = _settings.PokemonConfig.EvolveConfig.TriggerOnStorageUsagePercentage;
+            tbTriggerEvolveOnStorageUsagePercentageValue.Text = _settings.PokemonConfig.EvolveConfig.TriggerOnStorageUsagePercentageValue.ToString(CultureInfo.InvariantCulture);
+            cbTriggerEvolveOnStorageUsageAbsolute.Checked = _settings.PokemonConfig.EvolveConfig.TriggerOnStorageUsageAbsolute;
+            tbTriggerEvolveOnStorageUsageAbsoluteValue.Text = _settings.PokemonConfig.EvolveConfig.TriggerOnStorageUsageAbsoluteValue.ToString();
+            cbTriggerEvolveIfLuckyEggIsActive.Checked = _settings.PokemonConfig.EvolveConfig.TriggerIfLuckyEggIsActive;
+
+            cbEvolvePreserveMinCandiesFromFilter.Checked = _settings.PokemonConfig.EvolveConfig.PreserveMinCandiesFromFilter;
+            cbEvolveApplyLuckyEggOnEvolutionCount.Checked = _settings.PokemonConfig.EvolveConfig.ApplyLuckyEggOnEvolutionCount;
+            tbEvolveApplyLuckyEggOnEvolutionCountValue.Text = _settings.PokemonConfig.EvolveConfig.ApplyLuckyEggOnEvolutionCountValue.ToString();
             
             foreach (var poke in _settings.PokemonEvolveFilter)
             {
                 clbEvolve.SetItemChecked(clbEvolve.FindStringExact(poke.Key.ToString()), true);
             }
-            gbEvolve.Text = $"Evolve({clbEvolve.CheckedItems.Count}/{clbEvolve.Items.Count})";
+            gbEvolve.Text = $"Evolve Filter List ({clbEvolve.CheckedItems.Count}/{clbEvolve.Items.Count})";
 
             #endregion
 
@@ -407,12 +417,17 @@ namespace RocketBot2.Forms
 
         private static Dictionary<PokemonId, EvolveFilter> EvolveFilterConvertClbDictionary(CheckedListBox input)
         {
+            var existingFilters = _settings.PokemonEvolveFilter;
             var x = input.CheckedItems.Cast<PokemonId>().ToList();
             var results = new Dictionary<PokemonId, EvolveFilter>();
             foreach (var i in x)
             {
-                var y = new EvolveFilter();
-                results.Add(i, y);
+                bool exists = existingFilters.TryGetValue(i, out var filter);
+                if(!exists)
+                {
+                    filter = new EvolveFilter();
+                }
+                results.Add(i, filter);
             }
             return results;
         }
@@ -682,6 +697,7 @@ namespace RocketBot2.Forms
 
                 _settings.PokemonConfig.KeepMinDuplicatePokemon = Convert.ToInt32(tbKeepMinDuplicatePokemon.Text);
                 _settings.PokemonConfig.UseKeepMinLvl = cbUseKeepMinLvl.Checked;
+                _settings.PokemonConfig.KeepPokemonsToBeEvolved = cbKeepPokemonsToBeEvolved.Checked;
                 _settings.PokemonsNotToTransfer = ConvertClbToList(clbTransfer);
 
                 #endregion
@@ -703,14 +719,23 @@ namespace RocketBot2.Forms
 
                 #region Evo
 
-                _settings.PokemonConfig.EvolveAllPokemonAboveIv = cbEvoAllAboveIV.Checked;
-                _settings.PokemonConfig.EvolveAboveIvValue = ConvertStringToFloat(tbEvoAboveIV.Text);
-                _settings.PokemonConfig.EvolveAllPokemonWithEnoughCandy = cbEvolveAllPokemonWithEnoughCandy.Checked;
-                _settings.PokemonConfig.KeepPokemonsThatCanEvolve = cbKeepPokemonsThatCanEvolve.Checked;
-                _settings.PokemonConfig.UseLuckyEggsWhileEvolving = cbUseLuckyEggsWhileEvolving.Checked;
-                _settings.PokemonConfig.EvolveKeptPokemonsAtStorageUsagePercentage =
-                    Convert.ToDouble(tbEvolveKeptPokemonsAtStorageUsagePercentage.Text);
-                _settings.PokemonConfig.UseLuckyEggsMinPokemonAmount = Convert.ToInt32(tbUseLuckyEggsMinPokemonAmount.Text);
+                _settings.PokemonConfig.EvolveConfig.EvolvePokemonsThatMatchFilter = cbEvolvePokemonsThatMatchFilter.Checked;
+                _settings.PokemonConfig.EvolveConfig.EvolveAnyPokemonAboveIv = cbEvolveAnyPokemonAboveIv.Checked;
+                _settings.PokemonConfig.EvolveConfig.EvolveAnyPokemonAboveIvValue= ConvertStringToFloat(tbEvolveAnyPokemonAboveIvValue.Text);
+
+                _settings.PokemonConfig.EvolveConfig.TriggerAsSoonAsFilterIsMatched = cbTriggerEvolveAsSoonAsFilterIsMatched.Checked;
+                _settings.PokemonConfig.EvolveConfig.TriggerOnEvolutionCount = cbTriggerEvolveOnEvolutionCount.Checked;
+                _settings.PokemonConfig.EvolveConfig.TriggerOnEvolutionCountValue = Convert.ToInt32(tbTriggerEvolveOnEvolutionCountValue.Text);
+                _settings.PokemonConfig.EvolveConfig.TriggerOnStorageUsagePercentage = cbTriggerEvolveOnStorageUsagePercentage.Checked;
+                _settings.PokemonConfig.EvolveConfig.TriggerOnStorageUsagePercentageValue = Convert.ToDouble(tbTriggerEvolveOnStorageUsagePercentageValue.Text);
+                _settings.PokemonConfig.EvolveConfig.TriggerOnStorageUsageAbsolute = cbTriggerEvolveOnStorageUsageAbsolute.Checked;
+                _settings.PokemonConfig.EvolveConfig.TriggerOnStorageUsageAbsoluteValue = Convert.ToInt32(tbTriggerEvolveOnStorageUsageAbsoluteValue.Text);
+                _settings.PokemonConfig.EvolveConfig.TriggerIfLuckyEggIsActive = cbTriggerEvolveIfLuckyEggIsActive.Checked;
+
+                _settings.PokemonConfig.EvolveConfig.PreserveMinCandiesFromFilter = cbEvolvePreserveMinCandiesFromFilter.Checked;
+                _settings.PokemonConfig.EvolveConfig.ApplyLuckyEggOnEvolutionCount = cbEvolveApplyLuckyEggOnEvolutionCount.Checked;
+                _settings.PokemonConfig.EvolveConfig.ApplyLuckyEggOnEvolutionCountValue = Convert.ToInt32(tbEvolveApplyLuckyEggOnEvolutionCountValue.Text);
+
                 _settings.PokemonEvolveFilter = EvolveFilterConvertClbDictionary(clbEvolve);
 
                 #endregion
