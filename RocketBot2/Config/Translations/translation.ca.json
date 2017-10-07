@@ -140,7 +140,7 @@
       "Key": "waitingForMorePokemonToEvolve",
       "Value": "Esperant a evolucionar {0} Pokemon un cope se n'hagin capturat {1} més! ({2}/{3} per {4}% inventari)"
     },
-	{
+    {
       "Key": "WaitingForMoreEvolutionsToEvolve",
       "Value": "Waiting for {0} more evolutions to start evolving! (Possible: {1} | Needed: {2})"
     },
