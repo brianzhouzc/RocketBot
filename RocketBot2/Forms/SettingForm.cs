@@ -6,6 +6,7 @@ using PoGo.NecroBot.Logic.Model.Settings;
 using PoGo.NecroBot.Logic.State;
 using POGOProtos.Enums;
 using PokemonGo.RocketAPI.Enums;
+using PokemonGo.RocketAPI.Helpers;
 using RocketBot2.Forms.advSettings;
 using RocketBot2.Helpers;
 using RocketBot2.Win32;
@@ -57,6 +58,14 @@ namespace RocketBot2.Forms
                 clbEvolve.Items.Add(pokemon);
                 clbSnipePokemonFilter.Items.Add(pokemon);
             }
+
+            var zones = new TimeZoneIds().GetTimeZoneIds();
+            foreach (var tz in zones)
+            {
+                cbTimeZone.Items.Add(tz.Key);
+            }
+
+            cbTimeZone.Text = settings.Auth.CurrentAuthConfig.TimeZone;
 
             var logicSettings = new LogicSettings(settings);
             accountManager = new MultiAccountManager(settings, logicSettings.Bots);
@@ -580,6 +589,14 @@ namespace RocketBot2.Forms
                 {
                     File.Delete(lastPosFile);
                 }
+
+                //TimeZones for current Player
+                var x = new TimeZoneIds().GetTimeZoneIds();
+                _settings.Auth.CurrentAuthConfig.TimeZone = cbTimeZone.Text;
+                _settings.Auth.CurrentAuthConfig.Country = x[cbTimeZone.Text].Item1;
+                _settings.Auth.CurrentAuthConfig.Language = x[cbTimeZone.Text].Item2;
+                _settings.Auth.CurrentAuthConfig.POSIX = x[cbTimeZone.Text].Item3;
+                //
                 _settings.Auth.CurrentAuthConfig.AuthType = authTypeCb.Text == @"Google" ? AuthType.Google : AuthType.Ptc;
                 _settings.Auth.CurrentAuthConfig.Username = UserLoginBox.Text;
                 _settings.Auth.CurrentAuthConfig.Password = UserPasswordBox.Text;
