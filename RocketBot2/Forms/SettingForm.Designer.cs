@@ -449,7 +449,7 @@
             // cbTimeZone
             // 
             this.cbTimeZone.FormattingEnabled = true;
-            this.cbTimeZone.Location = new System.Drawing.Point(125, 272);
+            this.cbTimeZone.Location = new System.Drawing.Point(125, 265);
             this.cbTimeZone.Name = "cbTimeZone";
             this.cbTimeZone.Size = new System.Drawing.Size(203, 28);
             this.cbTimeZone.TabIndex = 36;
@@ -457,7 +457,7 @@
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(8, 275);
+            this.label34.Location = new System.Drawing.Point(8, 269);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(79, 20);
             this.label34.TabIndex = 35;
@@ -1016,7 +1016,7 @@
             // 
             this.tbHashURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbHashURL.Location = new System.Drawing.Point(109, 113);
+            this.tbHashURL.Location = new System.Drawing.Point(109, 111);
             this.tbHashURL.Margin = new System.Windows.Forms.Padding(2);
             this.tbHashURL.Name = "tbHashURL";
             this.tbHashURL.Size = new System.Drawing.Size(186, 27);
@@ -1027,7 +1027,7 @@
             this.label74.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label74.AutoSize = true;
-            this.label74.Location = new System.Drawing.Point(2, 117);
+            this.label74.Location = new System.Drawing.Point(4, 114);
             this.label74.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label74.Name = "label74";
             this.label74.Size = new System.Drawing.Size(75, 20);
@@ -1038,7 +1038,7 @@
             // 
             this.tbPushBulletAPIKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbPushBulletAPIKey.Location = new System.Drawing.Point(109, 193);
+            this.tbPushBulletAPIKey.Location = new System.Drawing.Point(109, 173);
             this.tbPushBulletAPIKey.Margin = new System.Windows.Forms.Padding(2);
             this.tbPushBulletAPIKey.Name = "tbPushBulletAPIKey";
             this.tbPushBulletAPIKey.Size = new System.Drawing.Size(186, 27);
@@ -1049,7 +1049,7 @@
             this.label68.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(2, 198);
+            this.label68.Location = new System.Drawing.Point(4, 176);
             this.label68.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(83, 20);
@@ -1059,7 +1059,7 @@
             // cbEnablePushBulletNotification
             // 
             this.cbEnablePushBulletNotification.AutoSize = true;
-            this.cbEnablePushBulletNotification.Location = new System.Drawing.Point(8, 150);
+            this.cbEnablePushBulletNotification.Location = new System.Drawing.Point(8, 145);
             this.cbEnablePushBulletNotification.Margin = new System.Windows.Forms.Padding(2);
             this.cbEnablePushBulletNotification.Name = "cbEnablePushBulletNotification";
             this.cbEnablePushBulletNotification.Size = new System.Drawing.Size(231, 24);
@@ -1095,7 +1095,7 @@
             // 
             this.tbAuthAPIKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbAuthAPIKey.Location = new System.Drawing.Point(109, 231);
+            this.tbAuthAPIKey.Location = new System.Drawing.Point(109, 206);
             this.tbAuthAPIKey.Margin = new System.Windows.Forms.Padding(2);
             this.tbAuthAPIKey.Name = "tbAuthAPIKey";
             this.tbAuthAPIKey.Size = new System.Drawing.Size(186, 27);
@@ -1106,7 +1106,7 @@
             this.label67.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(2, 234);
+            this.label67.Location = new System.Drawing.Point(4, 209);
             this.label67.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label67.Name = "label67";
             this.label67.Size = new System.Drawing.Size(97, 20);
@@ -2141,7 +2141,7 @@
             this.gbExcludeTrans.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
             this.gbExcludeTrans.Name = "gbExcludeTrans";
             this.gbExcludeTrans.Padding = new System.Windows.Forms.Padding(2, 5, 2, 5);
-            this.gbExcludeTrans.Size = new System.Drawing.Size(338, 530);
+            this.gbExcludeTrans.Size = new System.Drawing.Size(338, 534);
             this.gbExcludeTrans.TabIndex = 20;
             this.gbExcludeTrans.TabStop = false;
             this.gbExcludeTrans.Text = "Exclude";
@@ -2155,7 +2155,7 @@
             this.clbTransfer.Location = new System.Drawing.Point(2, 25);
             this.clbTransfer.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
             this.clbTransfer.Name = "clbTransfer";
-            this.clbTransfer.Size = new System.Drawing.Size(334, 500);
+            this.clbTransfer.Size = new System.Drawing.Size(334, 504);
             this.clbTransfer.TabIndex = 0;
             // 
             // cbNotTransferAll
@@ -2400,7 +2400,7 @@
             this.gbPUP.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
             this.gbPUP.Name = "gbPUP";
             this.gbPUP.Padding = new System.Windows.Forms.Padding(2, 5, 2, 5);
-            this.gbPUP.Size = new System.Drawing.Size(338, 530);
+            this.gbPUP.Size = new System.Drawing.Size(338, 534);
             this.gbPUP.TabIndex = 5;
             this.gbPUP.TabStop = false;
             this.gbPUP.Text = "Power Up";
@@ -2414,7 +2414,7 @@
             this.clbPowerUp.Location = new System.Drawing.Point(2, 25);
             this.clbPowerUp.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
             this.clbPowerUp.Name = "clbPowerUp";
-            this.clbPowerUp.Size = new System.Drawing.Size(334, 500);
+            this.clbPowerUp.Size = new System.Drawing.Size(334, 504);
             this.clbPowerUp.TabIndex = 0;
             // 
             // cbPowerUpAll
@@ -2696,7 +2696,7 @@
             this.gbEvolve.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
             this.gbEvolve.Name = "gbEvolve";
             this.gbEvolve.Padding = new System.Windows.Forms.Padding(2, 5, 2, 5);
-            this.gbEvolve.Size = new System.Drawing.Size(338, 530);
+            this.gbEvolve.Size = new System.Drawing.Size(338, 534);
             this.gbEvolve.TabIndex = 90;
             this.gbEvolve.TabStop = false;
             this.gbEvolve.Text = "Evolve Filter List (00/000)";
@@ -2710,7 +2710,7 @@
             this.clbEvolve.Location = new System.Drawing.Point(2, 25);
             this.clbEvolve.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
             this.clbEvolve.Name = "clbEvolve";
-            this.clbEvolve.Size = new System.Drawing.Size(334, 500);
+            this.clbEvolve.Size = new System.Drawing.Size(334, 504);
             this.clbEvolve.TabIndex = 0;
             // 
             // tabSnipePokemonFilter
@@ -2735,7 +2735,7 @@
             this.gbSnipe.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
             this.gbSnipe.Name = "gbSnipe";
             this.gbSnipe.Padding = new System.Windows.Forms.Padding(2, 5, 2, 5);
-            this.gbSnipe.Size = new System.Drawing.Size(338, 530);
+            this.gbSnipe.Size = new System.Drawing.Size(338, 534);
             this.gbSnipe.TabIndex = 17;
             this.gbSnipe.TabStop = false;
             this.gbSnipe.Text = "Snipe";
@@ -2749,7 +2749,7 @@
             this.clbSnipePokemonFilter.Location = new System.Drawing.Point(2, 25);
             this.clbSnipePokemonFilter.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
             this.clbSnipePokemonFilter.Name = "clbSnipePokemonFilter";
-            this.clbSnipePokemonFilter.Size = new System.Drawing.Size(334, 500);
+            this.clbSnipePokemonFilter.Size = new System.Drawing.Size(334, 504);
             this.clbSnipePokemonFilter.TabIndex = 0;
             // 
             // cbSnipePokemonFilterAll
