@@ -288,9 +288,7 @@
     <Compile Include="Forms\StarterConfigForm.Designer.cs">
       <DependentUpon>StarterConfigForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\DeviceInfoHelper.cs" />
     <Compile Include="Helpers\Options.cs" />
-    <Compile Include="Helpers\DeviceHelper.cs" />
     <Compile Include="Forms\ItemBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1020,9 +1018,6 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Resources\device info.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\Miscs\question.png" />
