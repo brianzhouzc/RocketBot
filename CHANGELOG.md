@@ -1,5 +1,20 @@
 # Change Log
 
+## [v2.17.0.0](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.17.0.0) (2017-10-13)
+
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.16.0.7...v2.17.0.0)
+
+**Closed issues:**
+
+- cannot config multiple bots correctly [\#50](https://github.com/TheUnnamedOrganisation/RocketBot/issues/50)
+
+**Merged pull requests:**
+
+-  supports for new api [\#58](https://github.com/TheUnnamedOrganisation/RocketBot/pull/58) ([Furtif](https://github.com/Furtif))
+- Develop [\#57](https://github.com/TheUnnamedOrganisation/RocketBot/pull/57) ([Furtif](https://github.com/Furtif))
+-  update protos [\#56](https://github.com/TheUnnamedOrganisation/RocketBot/pull/56) ([Furtif](https://github.com/Furtif))
+- Add List of NSTimeZone Names\(iOS 9.3.1\) for player locale [\#55](https://github.com/TheUnnamedOrganisation/RocketBot/pull/55) ([Furtif](https://github.com/Furtif))
+
 ## [v2.16.0.7](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.16.0.7) (2017-10-07)
 
 [Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.16.0.6...v2.16.0.7)
