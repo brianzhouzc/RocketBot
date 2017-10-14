@@ -1,5 +1,14 @@
 # Change Log
 
+## [v2.17.0.1](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.17.0.1) (2017-10-14)
+
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.17.0.0...v2.17.0.1)
+
+**Merged pull requests:**
+
+- according good config device to emulated kernel [\#60](https://github.com/TheUnnamedOrganisation/RocketBot/pull/60) ([Furtif](https://github.com/Furtif))
+-  Only uses hardware compatible iOS 11 [\#59](https://github.com/TheUnnamedOrganisation/RocketBot/pull/59) ([Furtif](https://github.com/Furtif))
+
 ## [v2.17.0.0](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.17.0.0) (2017-10-13)
 
 [Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.16.0.7...v2.17.0.0)
@@ -498,15 +507,15 @@
 
 ## [v2.9.2.0](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.9.2.0) (2017-05-07)
 
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.9.1.23...v2.9.2.0)
-
-## [v2.9.1.23](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.9.1.23) (2017-05-03)
-
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.9.1.24...v2.9.1.23)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.9.1.24...v2.9.2.0)
 
 ## [v2.9.1.24](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.9.1.24) (2017-05-03)
 
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.9.1.22...v2.9.1.24)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.9.1.23...v2.9.1.24)
+
+## [v2.9.1.23](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.9.1.23) (2017-05-03)
+
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.9.1.22...v2.9.1.23)
 
 ## [v2.9.1.22](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.9.1.22) (2017-05-02)
 
