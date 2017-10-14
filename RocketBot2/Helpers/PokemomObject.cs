@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace RocketBot2.Helpers
 {
@@ -26,14 +27,18 @@ namespace RocketBot2.Helpers
     {
         private static ISession Session;
         private PokemonSettings setting;
+        private bool Allowevolve { get; set; }
+        private IEnumerable<PokemonSettings> PkmSettings { get; set; }
         public PokemonData PokemonData { get; set; }
         public List<EvolutionToPokemon> EvolutionBranchs { get; set; }
+
         public PokemonEvoleTo(ISession session, PokemonData pokemon)
         {
             Session = session;
             PokemonData = pokemon;
-            var pkmSettings = session.Inventory.GetPokemonSettings().Result;
-            setting = pkmSettings.FirstOrDefault(x => x.PokemonId == pokemon.PokemonId);
+            CanEvolvePokemon();
+            GetPokemonSettings();
+            setting = PkmSettings.FirstOrDefault(x => x.PokemonId == pokemon.PokemonId);
 
             EvolutionBranchs = new List<EvolutionToPokemon>();
 
@@ -45,10 +50,20 @@ namespace RocketBot2.Helpers
                     CandyNeed = item.CandyCost,
                     ItemNeed = item.EvolutionItemRequirement,
                     Pokemon = item.Evolution,
-                    AllowEvolve = session.Inventory.CanEvolvePokemon(pokemon).Result,
+                    AllowEvolve = Allowevolve,
                     OriginPokemonId = pokemon.Id
                 });
             }
+        }
+
+        private async void GetPokemonSettings()
+        {
+            PkmSettings = await Session.Inventory.GetPokemonSettings().ConfigureAwait(false);
+        }
+
+        private async void CanEvolvePokemon()
+        {
+            Allowevolve = await Session.Inventory.CanEvolvePokemon(PokemonData).ConfigureAwait(false);
         }
     }
 
@@ -57,6 +72,11 @@ namespace RocketBot2.Helpers
         private static ISession Session;
         private PokemonSettings settings;
         public PokemonData PokemonData { get; set; }
+        private IEnumerable<PokemonSettings> PkmSettings { get; set; }
+        private int GetCandy { get; set; }
+        private bool CanUpgradePokemon { get; set; }
+        private bool CanEvolvePokemon { get; set; }
+        private GeoLocation Geolocation { get; set; }
         public static bool _initialized { get; set; }
         public static Dictionary<PokemonId, int> CandyToEvolveDict = new Dictionary<PokemonId, int>();
 
@@ -64,8 +84,22 @@ namespace RocketBot2.Helpers
         {
             Session = session;
             PokemonData = pokemonData;
-            var pkmSettings = session.Inventory.GetPokemonSettings().Result;
-            settings = pkmSettings.FirstOrDefault(x => x.PokemonId == pokemonData.PokemonId);
+            GetPokemonSettings();
+            settings = PkmSettings.FirstOrDefault(x => x.PokemonId == pokemonData.PokemonId);
+        }
+
+        private async void GetPokemonSettings()
+        {
+            PkmSettings = await Session.Inventory.GetPokemonSettings().ConfigureAwait(false);
+            GetCandy = await Session.Inventory.GetCandyCount(PokemonData.PokemonId).ConfigureAwait(false);
+            CanUpgradePokemon = await Session.Inventory.CanUpgradePokemon(PokemonData).ConfigureAwait(false);
+            CanEvolvePokemon = await Session.Inventory.CanEvolvePokemon(PokemonData).ConfigureAwait(false);
+            Geolocation = await GeoLocation.FindOrUpdateInDatabase(PokemonData.CapturedCellId).ConfigureAwait(false);
+        }
+
+        public bool IsDeployed
+        {
+            get { return !string.IsNullOrEmpty(PokemonData.DeployedFortId); }
         }
 
         public ulong Id
@@ -137,7 +171,7 @@ namespace RocketBot2.Helpers
         {
             get
             {
-                return Session.Inventory.GetCandyCount(PokemonData.PokemonId).Result;
+                return GetCandy;
             }
         }
 
@@ -177,7 +211,7 @@ namespace RocketBot2.Helpers
         {
             get
             {
-                return Session.Inventory.CanUpgradePokemon(PokemonData).Result;
+                return CanUpgradePokemon;
             }
         }
 
@@ -185,7 +219,7 @@ namespace RocketBot2.Helpers
         {
             get
             {
-                return Session.Inventory.CanEvolvePokemon(PokemonData).Result;
+                return CanEvolvePokemon;
             }
         }
 
@@ -234,23 +268,21 @@ namespace RocketBot2.Helpers
         {
             get
             {
-                return Session.Inventory.GetPokemonSettings().Result.FirstOrDefault(x => x.PokemonId == PokemonId);
+                return settings;
             }
         }
 
         public DateTime CaughtTime => TimeUtil.GetDateTimeFromMilliseconds((long)PokemonData.CreationTimeMs).ToLocalTime();
-
-        private GeoLocation geoLocation;
+       
         public GeoLocation GeoLocation
         {
             get
             {
-                return GeoLocation.FindOrUpdateInDatabase(PokemonData.CapturedCellId).Result;
-                //return geoLocation;
+                return Geolocation;
             }
             set
             {
-                geoLocation = value;
+                Geolocation = value;
             }
         }
 
@@ -258,13 +290,13 @@ namespace RocketBot2.Helpers
         {
             get
             {
-                if (geoLocation == null)
+                if (Geolocation == null)
                 {
                     // Just return latitude, longitude string
                     return new GeoLocation(PokemonData.CapturedCellId).ToString();
                 }
 
-                return geoLocation.ToString();
+                return Geolocation.ToString();
             }
         }
 
