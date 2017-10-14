@@ -1,5 +1,13 @@
 # Change Log
 
+## [v2.17.0.2](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.17.0.2) (2017-10-14)
+
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.17.0.1...v2.17.0.2)
+
+**Merged pull requests:**
+
+-  fix AggregateException bug [\#61](https://github.com/TheUnnamedOrganisation/RocketBot/pull/61) ([Furtif](https://github.com/Furtif))
+
 ## [v2.17.0.1](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.17.0.1) (2017-10-14)
 
 [Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.17.0.0...v2.17.0.1)
