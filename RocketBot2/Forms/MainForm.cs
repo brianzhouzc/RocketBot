@@ -1044,7 +1044,7 @@ namespace RocketBot2.Forms
                 {
                     e.Item.BackColor = pok.Favorited ? Color.LightBlue : Color.LightGreen;
                 }
-                e.Item.BackColor = pok.IsDeployed ? Color.LightSlateGray : e.Item.BackColor;
+                e.Item.BackColor = pok.IsDeployed ? Color.LightPink : e.Item.BackColor;
 
                 var text = string.IsNullOrEmpty(pok.Nickname) ? _session.Translation.GetPokemonTranslation(pok.PokemonId) : pok.Nickname;
                 e.Item.Text = pok.Favorited ? $"★ {text}" : text;
