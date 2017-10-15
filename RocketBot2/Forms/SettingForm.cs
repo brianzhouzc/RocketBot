@@ -74,7 +74,7 @@ namespace RocketBot2.Forms
                     lvAccounts.Items.Add($"{acc.AuthType}");
                     lvAccounts.Items[i].SubItems.Add($"{acc.Username}");
                     lvAccounts.Items[i].SubItems.Add($"{acc.Nickname}");
-                    lvAccounts.Items[i].Checked = _settings.Auth.Bots[(int)acc.Id - 1].AccountActive;
+                    lvAccounts.Items[i].Checked = acc.AccountActive;
                     i += 1;
                 }
                 //lvAccounts.Items[0].Remove();
@@ -626,7 +626,7 @@ namespace RocketBot2.Forms
                         {
                             if (acc.AccountActive != lvAccounts.Items[i].Checked) Changed = true;
                             acc.AccountActive = lvAccounts.Items[i].Checked;
-                            _settings.Auth.Bots[(int)acc.Id - 1].AccountActive = lvAccounts.Items[i].Checked;
+                            _settings.Auth.Bots[i].AccountActive = lvAccounts.Items[i].Checked;
                         }
                     }
                     _context.SaveChanges();
