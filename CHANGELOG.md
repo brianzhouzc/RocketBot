@@ -1,5 +1,13 @@
 # Change Log
 
+## [v2.17.0.4](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.17.0.4) (2017-10-18)
+
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.17.0.3...v2.17.0.4)
+
+**Merged pull requests:**
+
+- update api [\#65](https://github.com/TheUnnamedOrganisation/RocketBot/pull/65) ([Furtif](https://github.com/Furtif))
+
 ## [v2.17.0.3](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.17.0.3) (2017-10-17)
 
 [Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.17.0.2...v2.17.0.3)
