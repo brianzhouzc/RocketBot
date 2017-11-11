@@ -59,21 +59,8 @@ namespace RocketBot2
             var finalMessage = Logger.GetFinalMessage(message.Replace("NecroBot", "RocketBot"), level, color);
             Console.WriteLine(finalMessage);
 
-
-
-
             // Fire log write event.
             OnLogWrite?.Invoke(this, new LogWriteEventArgs { Message = finalMessage, Level = level, Color = color });
-
-
-
-
-
-
-
-
-
-
 
             // ReSharper disable once SwitchStatementMissingSomeCases
             Color _color = new Color();
@@ -155,85 +142,3 @@ namespace RocketBot2
         private event LogWriteHandler OnLogWrite;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
