@@ -36,11 +36,13 @@ namespace RocketBot2.Forms
         public static MultiAccountManager accountManager;
         private readonly ISession _session;
 
+
         public SettingsForm(ref GlobalSettings settings, ISession session, string[] _args)
         {
             InitializeComponent();
             _settings = settings;
             _session = session;
+
 
             args = _args;
             var Pokemons = Enum.GetValues(typeof(PokemonId)).Cast<PokemonId>().Where(id => id != PokemonId.Missingno);
@@ -298,7 +300,7 @@ namespace RocketBot2.Forms
             cbEvolvePreserveMinCandiesFromFilter.Checked = _settings.PokemonConfig.EvolveConfig.PreserveMinCandiesFromFilter;
             cbEvolveApplyLuckyEggOnEvolutionCount.Checked = _settings.PokemonConfig.EvolveConfig.ApplyLuckyEggOnEvolutionCount;
             tbEvolveApplyLuckyEggOnEvolutionCountValue.Text = _settings.PokemonConfig.EvolveConfig.ApplyLuckyEggOnEvolutionCountValue.ToString();
-            
+
             foreach (var poke in _settings.PokemonEvolveFilter)
             {
                 clbEvolve.SetItemChecked(clbEvolve.FindStringExact(poke.Key.ToString()), true);
@@ -517,7 +519,7 @@ namespace RocketBot2.Forms
         }
 
         private void PopulateDevice()
-        { 
+        {
             var device = DeviceInfoHelper.GetRandomIosDevice();
             DeviceIdTb.Text = device.DeviceId;
             AndroidBoardNameTb.Text = device.AndroidBoardName;
@@ -625,8 +627,14 @@ namespace RocketBot2.Forms
                         if (acc.Username == lvAccounts.Items[i].SubItems[1].Text)
                         {
                             if (acc.AccountActive != lvAccounts.Items[i].Checked) Changed = true;
+
+
                             acc.AccountActive = lvAccounts.Items[i].Checked;
                             _settings.Auth.Bots[i].AccountActive = lvAccounts.Items[i].Checked;
+
+
+
+
                         }
                     }
                     _context.SaveChanges();
@@ -993,3 +1001,75 @@ namespace RocketBot2.Forms
         #endregion
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
