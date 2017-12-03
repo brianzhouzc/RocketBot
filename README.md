@@ -7,7 +7,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/o7ut9vodn3imty26/branch/master?svg=true)](https://ci.appveyor.com/project/RocketBot/rocketbot/branch/master)
 [![Github All Releases](https://img.shields.io/github/downloads/TheUnnamedOrganisation/RocketBot/total.svg?maxAge=250)](https://github.com/TheUnnamedOrganisation/RocketBot/releases) 
 [![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/TheUnnamedOrganisation/RocketBot/master/LICENSE.md) 
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.svg?columns=all)](https://waffle.io/TheUnnamedOrganisation/RocketBot) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SNATC29B4ZJD4)
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/TheUnnamedOrganisation/RocketBot.svg?columns=all)](https://waffle.io/TheUnnamedOrganisation/RocketBot) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SNATC29B4ZJD4) [![Discord](https://img.shields.io/badge/Discord-Online-blue.svg)](https://discord.gg/y6EU2qY)
 
 ![alt text][1.1] <strong><em>`The contents of this repo are a proof of concept and are for educational use only`</em></strong>![alt text][1.1]<br/>
 
