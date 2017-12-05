@@ -1,5 +1,13 @@
 # Change Log
 
+## [v2.19.0.2](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.19.0.2) (2017-12-05)
+
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.19.0.1...v2.19.0.2)
+
+**Merged pull requests:**
+
+-  update modul for new head [\#71](https://github.com/TheUnnamedOrganisation/RocketBot/pull/71) ([Furtif](https://github.com/Furtif))
+
 ## [v2.19.0.1](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.19.0.1) (2017-11-30)
 
 [Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.19.0.0...v2.19.0.1)
