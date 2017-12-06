@@ -1,5 +1,13 @@
 # Change Log
 
+## [v2.19.2.0](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.19.2.0) (2017-12-06)
+
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.19.0.2...v2.19.2.0)
+
+**Merged pull requests:**
+
+- update, common requests have changed: [\#72](https://github.com/TheUnnamedOrganisation/RocketBot/pull/72) ([Furtif](https://github.com/Furtif))
+
 ## [v2.19.0.2](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.19.0.2) (2017-12-05)
 
 [Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.19.0.1...v2.19.0.2)
@@ -821,15 +829,15 @@
 
 ## [v2.7.0.29](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.7.0.29) (2017-03-13)
 
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.28...v2.7.0.29)
-
-## [v2.7.0.28](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.7.0.28) (2017-03-13)
-
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.27...v2.7.0.28)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.27...v2.7.0.29)
 
 ## [v2.7.0.27](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.7.0.27) (2017-03-13)
 
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.26...v2.7.0.27)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.28...v2.7.0.27)
+
+## [v2.7.0.28](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.7.0.28) (2017-03-13)
+
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.7.0.26...v2.7.0.28)
 
 ## [v2.7.0.26](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.7.0.26) (2017-03-12)
 
