@@ -1,5 +1,14 @@
 # Change Log
 
+## [v2.20.0.0](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.20.0.0) (2017-12-08)
+
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.19.2.0...v2.20.0.0)
+
+**Merged pull requests:**
+
+- update module ferox [\#74](https://github.com/TheUnnamedOrganisation/RocketBot/pull/74) ([Furtif](https://github.com/Furtif))
+- new api support [\#73](https://github.com/TheUnnamedOrganisation/RocketBot/pull/73) ([Furtif](https://github.com/Furtif))
+
 ## [v2.19.2.0](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.19.2.0) (2017-12-06)
 
 [Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.19.0.2...v2.19.2.0)
@@ -529,15 +538,15 @@
 
 ## [v2.10.1.4](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.10.1.4) (2017-05-22)
 
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.3...v2.10.1.4)
-
-## [v2.10.1.3](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.10.1.3) (2017-05-20)
-
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.2...v2.10.1.3)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.2...v2.10.1.4)
 
 ## [v2.10.1.2](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.10.1.2) (2017-05-20)
 
-[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.1...v2.10.1.2)
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.3...v2.10.1.2)
+
+## [v2.10.1.3](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.10.1.3) (2017-05-20)
+
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.10.1.1...v2.10.1.3)
 
 ## [v2.10.1.1](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.10.1.1) (2017-05-18)
 
