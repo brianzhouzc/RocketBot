@@ -1,5 +1,6 @@
 @echo off
 echo Build preparation....
+echo.
 cd %CD%
 echo Select you platform (5 secs - default platform = Any CPU)
 echo.
@@ -10,6 +11,7 @@ CHOICE /C 123 /N /T 5 /D 1 /M "Select you build:"
 IF ERRORLEVEL 1 SET Platform=Any CPU
 IF ERRORLEVEL 2 SET Platform=x86
 IF ERRORLEVEL 3 SET Platform=x64
+echo.
 ECHO You chose %Platform%
 echo.
 echo Select you configuration (5 secs - default configuration = Release)
@@ -19,6 +21,7 @@ echo 2 = Debug
 CHOICE /C 12 /N /T 5 /D 1 /M "Select you build configuration:"
 IF ERRORLEVEL 1 SET Release=Release
 IF ERRORLEVEL 2 SET Release=Debug
+echo.
 ECHO You chose %Release%
 echo.
 echo Build initialised %Release% - %Platform%
