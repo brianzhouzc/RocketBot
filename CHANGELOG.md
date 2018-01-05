@@ -1,5 +1,14 @@
 # Change Log
 
+## [v2.21.1.0](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.21.1.0) (2018-01-05)
+
+[Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.21.0.0...v2.21.1.0)
+
+**Merged pull requests:**
+
+- missed... [\#76](https://github.com/TheUnnamedOrganisation/RocketBot/pull/76) ([Furtif](https://github.com/Furtif))
+- Autres features [\#75](https://github.com/TheUnnamedOrganisation/RocketBot/pull/75) ([Furtif](https://github.com/Furtif))
+
 ## [v2.21.0.0](https://github.com/TheUnnamedOrganisation/RocketBot/tree/v2.21.0.0) (2017-12-21)
 
 [Full Changelog](https://github.com/TheUnnamedOrganisation/RocketBot/compare/v2.20.0.0...v2.21.0.0)
