@@ -1,0 +1,272 @@
+#---------------------------------#
+#      general configuration      #
+#---------------------------------#
+
+# version format
+version: 0.0.0.{build}
+
+branches:
+  only:
+  - master
+  
+# Do not build on tags
+skip_tags: false
+
+# Start builds on tags only
+skip_non_tags: false
+
+# Skipping commits affecting specific files
+skip_commits:
+  files:
+  - '**\AssemblyInfo.*'
+  - 'CHANGELOG.md'
+  - 'README.md'
+
+# 
+pull_requests:
+  do_not_increment_build_number: true
+  
+#---------------------------------#
+#    environment configuration    #
+#---------------------------------#
+
+# Build worker image (VM template)
+image: Visual Studio 2017
+
+# scripts that are called at very beginning, before repo cloning
+init:
+- ps: >-
+    if ($env:APPVEYOR_REPO_TAG -eq "true")
+    {
+        $env:RocketBot2_Version = "$($env:APPVEYOR_REPO_TAG_NAME.Replace('v', ''))";
+    }
+    else
+    {
+        $env:RocketBot2_Version = "$($env:APPVEYOR_BUILD_VERSION)";
+    }
+
+# clone directory
+clone_folder: c:\projects\rocketbot2
+
+# fetch repository as zip archive
+shallow_clone: false
+
+# set clone depth
+# clone entire repository history if not defined
+#clone_depth:  5
+
+# environment variables
+environment:
+#  matrix:
+#    - ruby_version: "21" # Older version, but matches Travis-CI
+#    - ruby_version: "21-x64"
+  
+  CHANGELOG_GITHUB_TOKEN:
+    secure: yNRb78M1kncUfbzKLWl1igKg2piIARVYUpr0508PrTS7N/AwwnYozd+Ntr1gfUT+
+  auth_token:
+    secure: yNRb78M1kncUfbzKLWl1igKg2piIARVYUpr0508PrTS7N/AwwnYozd+Ntr1gfUT+
+  github_user:
+    secure: EHfj3CL5trOMzKP1sceM5A== 
+  github_email:
+    secure: G641hL9+GJDfG5+L1lw0guzFoZlPVu1Zp+P39/l7/rU=
+  priv_key:
+    secure: 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
+#cache:
+#  - packages -> **\packages.config  # preserve packages directory in the root of build folder but will reset it if packages.config is modified
+#  - '%LocalAppData%\NuGet\Cache'
+
+# scripts that run after cloning repository
+install:
+- git submodule update --init --recursive
+#- rmdir PokeEase/platform /S /Q
+#- Remove-Item item PokeEase\plugins -Recurse -Force
+#- cd PokeEase && npm install && cd ..
+
+# enable patching of AssemblyInfo.* files
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '$(RocketBot2_Version)'
+  assembly_file_version: "1.0.0.0"
+  assembly_informational_version: '$(APPVEYOR_REPO_TAG_NAME)'
+
+#---------------------------------#
+#       build configuration       #
+#---------------------------------#
+
+# build platform, i.e. x86, x64, Any CPU. This setting is optional.
+#platform: x86
+platform: Any CPU
+
+# to add several platforms to build matrix:
+#platform:
+#  - x86
+#  - Any CPU
+
+# build Configuration, i.e. Debug, Release, etc.
+configuration: Release
+
+# to add several configurations to build matrix:
+#configuration:
+#  - Debug
+#  - Release
+
+build:
+  # MSBuild verbosity level
+  verbosity: quiet
+
+# scripts to run before build
+before_build:
+  - nuget restore
+#  - cd PokeEase && npm run pack && cd ..
+
+# scripts to run *after* solution is built and *before* automatic packaging occurs (web apps, NuGet packages, Azure Cloud Services)
+before_package:
+
+# scripts to run after build
+after_build:
+- ps: >-
+    Remove-Item "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)" -Recurse -ErrorAction Ignore;
+    New-Item -ItemType Directory -Force -Path "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)";
+    New-Item -ItemType Directory -Force -Path "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)";
+    if ($env:PLATFORM -eq "x86")
+    {
+        Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2\bin\$($env:PLATFORM)\$($env:CONFIGURATION)" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\RocketBot2" -Force;
+    }  
+    elseif ($env:PLATFORM -eq "x64")
+    {
+        Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2\bin\$($env:PLATFORM)\$($env:CONFIGURATION)" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\RocketBot2" -Force;
+    }
+    elseif ($env:PLATFORM -eq "Any CPU")
+    {
+        Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\RocketBot2\bin\$($env:CONFIGURATION)" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\RocketBot2" -Force;
+    }
+#    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\PokeEase\build\android-debug.apk" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\android-debug.apk" -Force;
+#    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\PokeEase\build\android-debug-unaligned.apk" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\android-debug-unaligned.apk" -Force;
+#    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\PokeEase\build\android-release-unsigned.apk" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\android-release-unsigned.apk" -Force;
+#    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\PokeEase\dist\win-ia32-unpacked" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\PokeEase" -Force;
+        
+#    New-Item -ItemType Directory -Force -Path "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\RocketBot2\Android";
+#    New-Item -ItemType Directory -Force -Path "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\RocketBot2\PokeEase";
+#    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\PokeEase\build\android-debug.apk" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\RocketBot2\Android\android-debug.apk" -Force;
+#    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\PokeEase\build\android-debug-unaligned.apk" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\RocketBot2\Android\android-debug-unaligned.apk" -Force;
+#    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\PokeEase\build\android-release-unsigned.apk" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\RocketBot2\Android\android-release-unsigned.apk" -Force;
+#    Move-Item -Path "$($env:APPVEYOR_BUILD_FOLDER)\PokeEase\dist\win-ia32-unpacked\*" -Destination "$($env:APPVEYOR_BUILD_FOLDER)\$($env:PLATFORM)\$($env:CONFIGURATION)\RocketBot2\PokeEase" -Force;
+        
+
+# to run your custom scripts instead of automatic MSBuild
+build_script:
+
+#---------------------------------#
+#       tests configuration       #
+#---------------------------------#
+
+# to disable automatic tests
+test: off
+
+#---------------------------------#
+#      artifacts configuration    #
+#---------------------------------#
+
+artifacts:
+
+  - path: '\$(PLATFORM)\$(CONFIGURATION)\RocketBot2'
+    name: RocketBot2
+    
+#  - path: '\$(PLATFORM)\$(CONFIGURATION)\android-debug.apk'
+#    name: android-debug
+
+#  - path: '\$(PLATFORM)\$(CONFIGURATION)\android-debug-unaligned.apk'
+#    name: android-debug-unaligned
+    
+#  - path: '\$(PLATFORM)\$(CONFIGURATION)\android-release-unsigned.apk'
+#    name: android-release-unsigned
+    
+#  - path: '\$(PLATFORM)\$(CONFIGURATION)\PokeEase'
+#    name: PokeEase
+
+#---------------------------------#
+#     deployment configuration    #
+#---------------------------------#
+
+# providers: Local, FTP, WebDeploy, AzureCS, AzureBlob, S3, NuGet, Environment
+# provider names are case-sensitive!
+deploy:
+
+  # Deploy to GitHub Releases
+  - provider: GitHub
+    tag: $(APPVEYOR_REPO_TAG_NAME)
+    description: '[CHANGELOG.md](https://github.com/TheUnnamedOrganisation/RocketBot/blob/master/CHANGELOG.md)'
+    release: RocketBot2 $(APPVEYOR_REPO_TAG_NAME)
+    auth_token: $(auth_token)
+    artifact: RocketBot2 #;android-debug;android-debug-unaligned;android-release-unsigned;PokeEase
+    draft: false
+    prerelease: false
+    force_update: true
+    on:
+      appveyor_repo_tag: true
+
+# scripts to run before deployment
+before_deploy:
+- ps: >-
+    $fileContent = "-----BEGIN RSA PRIVATE KEY-----`n";
+    $fileContent += $env:priv_key.Replace(' ', "`n");
+    $fileContent += "`n-----END RSA PRIVATE KEY-----`n";
+    Set-Content "$env:USERPROFILE\.ssh\id_rsa" "$($fileContent)";
+    Set-Content "$env:USERPROFILE\.git-credentials" "https://$($env:auth_token):x-oauth-basic@github.com`n";
+
+- git config --global credential.helper store
+- git config --global user.email "%github_email%"
+- git config --global user.name "%github_user%"
+- git checkout master
+- git checkout -b Appveyor "%APPVEYOR_REPO_BRANCH%"
+- SET PATH=C:\Ruby23-x64\bin;%PATH%
+
+# Print version and location for pre-installed ruby
+- ruby --version
+- where ruby
+
+# Install latest version of RubyGems
+- gem update --system --no-document --no-post-install-message
+- gem --version
+- where gem
+
+# Print version and location for pre-installed bundler
+#- bundler --version
+#- where bundler
+
+# Install ruby dependencies
+- gem install bundler -f
+- bundle install
+#- bundle install --retry 3
+- bundle exec github_changelog_generator --max-issues 75
+- git add "CHANGELOG.md"
+- git add "RocketBot2/Properties/AssemblyInfo.cs"
+- git commit -m "%APPVEYOR_REPO_TAG_NAME%"
+- git checkout "%APPVEYOR_REPO_BRANCH%"
+- git merge Appveyor
+- git branch -d Appveyor
+- git pull "origin" "%APPVEYOR_REPO_BRANCH%"
+- git push "origin" "%APPVEYOR_REPO_BRANCH%"
+
+# scripts to run after deployment
+after_deploy:
+
+# to run your custom scripts instead of provider deployments
+deploy_script:
+
+# to disable deployment
+#deploy: off
+
+#---------------------------------#
+#        global handlers          #
+#---------------------------------#
+
+# on successful build
+on_success:
+
+# on build failure
+on_failure:
+
+# after build failure or success
+on_finish:

@@ -1,0 +1,13 @@
+﻿BotStatus=ENABLED;
+//============================================//
+               POKEMON GO 0.89.1
+//============================================//
+
+RocketBot2 is compatible with 0.89.1 API.
+Not 100% safe all this
+
+//============================================//
+               Updated: 01/23/2018
+
+For support/questions:
+OFFICIAL ROCKETBOT2 Discord: https://discord.gg/y6EU2qY
