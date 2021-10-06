@@ -6,7 +6,8 @@
 # RocketBot
 <p align="center">
   <!-- disclaimer -->
-  :warning:<strong><em> This repository is outdated and no longer work with the current version of Pokémon GO. It is no longer supported. </em></strong>:warning:
+  :warning:<strong><em> WARNING </em></strong>:warning:<br>
+  <strong><em>This repository is outdated and no longer work with the current version of Pokémon GO. It is no longer supported.</em></strong>
 </p>
 
 <p align="center">
