@@ -4,8 +4,10 @@
 
 <!-- title -->
 # RocketBot
-<!-- disclaimer -->
-![alt text][1.1] <strong><em> The contents of this repo are a proof of concept and are for educational use only </em></strong>![alt text][1.1]<br/>
+<p align="center">
+  <!-- disclaimer -->
+  :warning:<strong><em> This repository is outdated and no longer work with the current version of Pokémon GO. It is no longer supported. </em></strong>:warning:
+</p>
 
 <p align="center">
   <a href="https://discord.gg/y6EU2qY">
